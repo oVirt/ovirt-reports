@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/organizations/ovirtreports/Reports/Service_level</parent>
+    <name>VMs</name>
+    <label>Virtual Machines</label>
+    <creationDate>2011-10-18T16:57:59.000+02:00</creationDate>
+    <updateDate>2011-06-20T17:29:08.000+03:00</updateDate>
+    <resource>cluster_quality_of_service_vms_br13</resource>
+    <resource>virtual_servers_uptime_br14</resource>
+</folder>

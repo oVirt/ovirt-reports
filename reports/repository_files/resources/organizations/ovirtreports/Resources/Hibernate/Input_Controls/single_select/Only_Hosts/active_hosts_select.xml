@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/Only_Hosts</folder>
+    <name>active_hosts_select</name>
+    <version>3</version>
+    <label>Only Active Hosts?</label>
+    <description></description>
+    <creationDate>2011-10-18T16:58:23.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+    <type>3</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <listOfValues>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="listOfValues">
+            <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/Only_Hosts/active_hosts_select_files</folder>
+            <name>Active_Hosts</name>
+            <version>1</version>
+            <label>Active Hosts</label>
+            <description></description>
+            <creationDate>2011-10-18T17:50:19.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+            <item>
+                <itemLabel>Yes</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">AND o.deleteDate IS NULL</itemValue>
+            </item>
+            <item>
+                <itemLabel>No</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">/**/</itemValue>
+            </item>
+        </localResource>
+    </listOfValues>
+</inputControl>

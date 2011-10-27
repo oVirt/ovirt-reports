@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jdbcDataSource>
+    <folder>/organizations/ovirtreports/Resources/JDBC/data_sources</folder>
+    <name>ovirt</name>
+    <version>5</version>
+    <label>oVirt History</label>
+    <description></description>
+    <creationDate>2011-10-18T16:58:10.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:08.000+02:00</updateDate>
+    <driver>org.postgresql.Driver</driver>
+    <connectionUrl>jdbc:postgresql://10.35.64.13:5432/rhevm_history</connectionUrl>
+    <connectionUser>postgres</connectionUser>
+    <connectionPassword>qum5net</connectionPassword>
+    <timezone></timezone>
+</jdbcDataSource>

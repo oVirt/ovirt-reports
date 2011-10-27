@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/organizations/ovirtreports/Resources/embedded_reports</folder>
+    <name>horizontal_line_for_uptime</name>
+    <version>3</version>
+    <label>Horizontal Line for Uptime</label>
+    <creationDate>2011-10-18T16:58:14.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:13.000+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="horizontal_line_for_uptime_jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Resources/embedded_reports/horizontal_line_for_uptime_files</folder>
+            <name>horizontal_line_for_uptime_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-10-18T17:50:13.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:13.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <alwaysPromptControls>false</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

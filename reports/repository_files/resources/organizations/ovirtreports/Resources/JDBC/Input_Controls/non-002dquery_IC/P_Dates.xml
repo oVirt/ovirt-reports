@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC</folder>
+    <name>P_Dates</name>
+    <version>5</version>
+    <label>Select Month</label>
+    <creationDate>2011-10-18T16:58:11.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates_files</folder>
+            <name>Period_Dates</name>
+            <version>1</version>
+            <label>Period Dates</label>
+            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <language>sql</language>
+            <queryString>SELECT o.month_name as monthName
+FROM period as o
+WHERE extract(YEAR FROM o.month_startdate) &gt;= coalesce((SELECT extract(YEAR FROM a.var_datetime)
+          				                 FROM History_configuration as a
+          				                 WHERE a.var_name = 'firstSync'), extract(YEAR FROM cast('01/01/2019' as timestamp)))
+AND extract(YEAR FROM o.month_enddate) &lt;= (SELECT extract(YEAR FROM b.var_datetime)
+         			                FROM History_configuration as b
+                                                                                WHERE b.var_name = 'lastHourAggr')
+AND extract(MONTH FROM o.month_startdate) &gt;= coalesce((SELECT extract(MONTH FROM a.var_datetime)
+          				               FROM History_configuration as a
+          				               WHERE a.var_name = 'firstSync'),extract(MONTH FROM cast('01/01/2019' as timestamp)))
+AND extract(MONTH FROM o.month_enddate) &lt;= (SELECT extract(MONTH FROM b.var_datetime)
+         			                   FROM History_configuration as b
+         			                   WHERE b.var_name = 'lastHourAggr')</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>monthName</queryVisibleColumn>
+    <queryValueColumn>monthName</queryValueColumn>
+</inputControl>

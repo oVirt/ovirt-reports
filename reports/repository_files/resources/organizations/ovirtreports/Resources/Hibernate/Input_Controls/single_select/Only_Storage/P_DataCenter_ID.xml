@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/Only_Storage</folder>
+    <name>P_DataCenter_ID</name>
+    <version>3</version>
+    <label>Data Center</label>
+    <description></description>
+    <creationDate>2011-10-18T16:58:24.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:20.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/Only_Storage/P_DataCenter_ID_files</folder>
+            <name>Data_Centers</name>
+            <version>1</version>
+            <label>Data_Centers</label>
+            <description></description>
+            <creationDate>2011-10-18T17:50:20.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:20.000+02:00</updateDate>
+            <language>hql</language>
+            <queryString>SELECT DISTINCT o.historyId as historyId,
+	   o.datacenterId as datacenterId,
+	   CASE 
+		WHEN o.deleteDate IS NULL THEN datacenterName
+		ELSE (datacenterName || ' (Removed on ' || cast(deleteDate as string) || ')')
+	   END as datacenterNameIc,
+	   o.deleteDate as deleteDate
+FROM V23DatacenterConfigurationView as o
+WHERE o.historyId = (SELECT max(a.historyId)
+	         FROM V23DatacenterConfigurationView as a
+	         WHERE a.datacenterId = o.datacenterId)
+ 	  and o.datacenterId in (SELECT DISTINCT d.id.datacenterId
+				 FROM V23DatacenterStorageDomainMapView as d
+				 WHERE ((YEAR(d.detachDate) &lt;= YEAR($P{P_End_Date}) and MONTH(d.detachDate) &lt;= MONTH($P{P_End_Date}) and DAY(d.detachDate) &lt;= DAY($P{P_End_Date})) OR d.detachDate IS NULL)
+		      		 AND (YEAR(d.id.attachDate) &gt;= YEAR($P{P_Start_Date}) and MONTH(d.id.attachDate) &gt;= MONTH($P{P_Start_Date}) and DAY(d.id.attachDate) &gt;= DAY($P{P_Start_Date})))
+order by o.deleteDate DESC</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/Hibernate/data_sources/ovirt-hibernate</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>datacenterNameIc</queryVisibleColumn>
+    <queryValueColumn>datacenterId</queryValueColumn>
+</inputControl>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="body_bkgnd.png.data">
+    <folder>/themes/ovirt-reports-theme/images</folder>
+    <name>body_bkgnd.png</name>
+    <version>5</version>
+    <label>body_bkgnd.png</label>
+    <description>body_bkgnd.png</description>
+    <creationDate>2011-10-18T16:58:09.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:07.000+02:00</updateDate>
+    <fileType>img</fileType>
+</fileResource>

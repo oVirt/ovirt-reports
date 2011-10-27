@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+	  <groupId>ovirt_reports</groupId>
+	  <artifactId>reports</artifactId>
+	  <version>3.0.0</version>
+  </parent>
+
+  <artifactId>jars</artifactId>
+  <packaging>pom</packaging>
+
+  <name>Jars</name>
+  <description>The home of all jars deployed with the reports package</description>
+
+  <modules>
+    <module>ChartsCustomizers</module>
+    <module>ReportsPieChartTheme</module>
+    <module>ReportsLineBarChartTheme</module>
+  </modules>
+
+</project>

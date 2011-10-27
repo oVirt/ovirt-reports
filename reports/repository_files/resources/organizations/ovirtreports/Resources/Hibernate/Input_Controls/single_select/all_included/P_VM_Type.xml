@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/all_included</folder>
+    <name>P_VM_Type</name>
+    <version>3</version>
+    <label>VM Type</label>
+    <creationDate>2011-10-18T16:58:23.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/all_included/P_VM_Type_files</folder>
+            <name>VM_type</name>
+            <version>1</version>
+            <label>VM_type</label>
+            <creationDate>2011-10-18T17:50:19.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+            <language>sql</language>
+            <queryString>SELECT enum_translator_view_2_3.value, enum_translator_view_2_3.enum_key,  sort = 0
+FROM enum_translator_view_2_3, vm_configuration_view_2_3
+WHERE vm_configuration_view_2_3.vm_type = enum_translator_view_2_3.enum_key
+AND enum_translator_view_2_3.enum_type = 'VM_TYPE' 
+AND vm_configuration_view_2_3.cluster_id in (SELECT cluster_configuration_view_2_3.cluster_id 
+			            FROM cluster_configuration_view_2_3 
+			            WHERE cluster_configuration_view_2_3.datacenter_id = $P{P_DataCenter_ID})
+AND vm_configuration_view_2_3.cluster_id = CASE  $P{P_Cluster_ID}
+WHEN  '11111111-1111-1111-1111-111111111111' THEN vm_configuration_view_2_3.cluster_id 
+ELSE $P{P_Cluster_ID}
+END
+UNION 
+SELECT 'All', -1, 1
+FROM enum_translator_view_2_3
+ORDER BY sort DESC</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/Hibernate/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>value</queryVisibleColumn>
+    <queryValueColumn>enum_key</queryValueColumn>
+</inputControl>

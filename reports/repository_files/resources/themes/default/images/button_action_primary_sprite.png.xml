@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="button_action_primary_sprite.png.data">
+    <folder>/themes/default/images</folder>
+    <name>button_action_primary_sprite.png</name>
+    <version>6</version>
+    <label>button_action_primary_sprite.png</label>
+    <creationDate>2011-10-18T16:58:03.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:01.000+02:00</updateDate>
+    <fileType>img</fileType>
+</fileResource>

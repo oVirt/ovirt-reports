@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/organizations/ovirtreports/Reports/Inventory</folder>
+    <name>VM_Inventory</name>
+    <version>3</version>
+    <label>Virtual Machines Inventory (BR9)</label>
+    <description>This report displays a list of all virtual machines of the selected data center and cluster.</description>
+    <creationDate>2011-10-18T16:58:12.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="VM_Inventory_jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Inventory/VM_Inventory_files</folder>
+            <name>VM_Inventory_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-10-18T17:50:11.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/Active_VMs</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_VM_Type</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="header cluster name.jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Inventory/VM_Inventory_files</folder>
+            <name>header cluster name.jrxml</name>
+            <version>1</version>
+            <label>header cluster name.jrxml</label>
+            <creationDate>2011-10-18T17:50:11.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="full details.jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Inventory/VM_Inventory_files</folder>
+            <name>full details.jrxml</name>
+            <version>1</version>
+            <label>full details.jrxml</label>
+            <creationDate>2011-10-18T17:50:11.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Inventory/VM_Inventory_files</folder>
+            <name>ovirt-icon</name>
+            <version>1</version>
+            <label>ovirt-icon</label>
+            <creationDate>2011-10-18T17:50:11.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Inventory/VM_Inventory_files</folder>
+            <name>trash-icon</name>
+            <version>1</version>
+            <label>trash-icon</label>
+            <creationDate>2011-10-18T17:50:11.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

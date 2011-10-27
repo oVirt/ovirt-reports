@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines</folder>
+    <name>multiple_vms_resource_usage_over_time_br16</name>
+    <version>3</version>
+    <label>Multiple Virtual Machines Resource Usage (Over Time) (BR16)</label>
+    <description>This report contains charts displaying daily peak of CPU and Memory usage for up to 5 selected virtual machines within a requested period.</description>
+    <creationDate>2011-10-18T16:58:19.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="multiple_vms_resource_usage_over_time_br16_jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16_files</folder>
+            <name>multiple_vms_resource_usage_over_time_br16_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/Active_VMs</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_VM_Type</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_VM_ListID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="report3.jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16_files</folder>
+            <name>report3.jrxml</name>
+            <version>1</version>
+            <label>report3.jrxml</label>
+            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16_files</folder>
+            <name>ovirt-icon</name>
+            <version>1</version>
+            <label>ovirt-icon</label>
+            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16_files</folder>
+            <name>trash-icon</name>
+            <version>1</version>
+            <label>trash-icon</label>
+            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

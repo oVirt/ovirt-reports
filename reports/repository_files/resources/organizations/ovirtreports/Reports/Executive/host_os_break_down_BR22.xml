@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/organizations/ovirtreports/Reports/Executive</folder>
+    <name>host_os_break_down_BR22</name>
+    <version>3</version>
+    <label>Host OS Break Down (BR22)</label>
+    <description>This report contains a table and a chart displaying the number of hosts for each OS version for a selected cluster within a requested period.</description>
+    <creationDate>2011-10-18T16:58:11.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:10.000+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="host_os_break_down_BR22_jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Executive/host_os_break_down_BR22_files</folder>
+            <name>host_os_break_down_BR22_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-10-18T17:50:10.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:10.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Hosts/active_hosts_select</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="full details.jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Executive/host_os_break_down_BR22_files</folder>
+            <name>full details.jrxml</name>
+            <version>1</version>
+            <label>full details.jrxml</label>
+            <creationDate>2011-10-18T17:50:10.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:10.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Executive/host_os_break_down_BR22_files</folder>
+            <name>ovirt-icon</name>
+            <version>1</version>
+            <label>ovirt-icon</label>
+            <creationDate>2011-10-18T17:50:10.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:10.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Executive/host_os_break_down_BR22_files</folder>
+            <name>trash-icon</name>
+            <version>1</version>
+            <label>trash-icon</label>
+            <creationDate>2011-10-18T17:50:10.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:10.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

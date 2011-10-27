@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/organizations/ovirtreports/Resources/embedded_reports</folder>
+    <name>Host_OS_Break_Down_BR22B_for_inventory</name>
+    <version>3</version>
+    <label>Host OS Break Down (BR22B) for inventory</label>
+    <creationDate>2011-10-18T16:58:14.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:13.000+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="Host_OS_Break_Down_BR22B_for_inventory_jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Resources/embedded_reports/Host_OS_Break_Down_BR22B_for_inventory_files</folder>
+            <name>Host_OS_Break_Down_BR22B_for_inventory_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-10-18T17:50:13.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:13.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/Active_VMs</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/all_included/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/all_included/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+    </inputControl>
+    <alwaysPromptControls>false</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

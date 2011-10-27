@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC</parent>
+    <name>dashboard_ic</name>
+    <label>Dashboard Input Controls</label>
+    <creationDate>2011-10-18T16:58:00.000+02:00</creationDate>
+    <updateDate>2011-06-09T10:11:46.000+03:00</updateDate>
+    <resource>P_End_Date</resource>
+    <resource>P_Start_Date</resource>
+</folder>

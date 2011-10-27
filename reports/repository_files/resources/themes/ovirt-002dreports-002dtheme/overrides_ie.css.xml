@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="overrides_ie.css.data">
+    <folder>/themes/ovirt-reports-theme</folder>
+    <name>overrides_ie.css</name>
+    <version>5</version>
+    <label>overrides_ie.css</label>
+    <description>overrides_ie.css</description>
+    <creationDate>2011-10-18T16:58:02.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:00.000+02:00</updateDate>
+    <fileType>css</fileType>
+</fileResource>

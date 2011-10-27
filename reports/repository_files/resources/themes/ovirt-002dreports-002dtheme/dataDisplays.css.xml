@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="dataDisplays.css.data">
+    <folder>/themes/ovirt-reports-theme</folder>
+    <name>dataDisplays.css</name>
+    <version>5</version>
+    <label>dataDisplays.css</label>
+    <description>dataDisplays.css</description>
+    <creationDate>2011-10-18T16:58:02.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:49:59.000+02:00</updateDate>
+    <fileType>css</fileType>
+</fileResource>

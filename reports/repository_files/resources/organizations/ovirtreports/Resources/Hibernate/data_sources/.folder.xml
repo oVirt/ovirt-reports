@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/organizations/ovirtreports/Resources/Hibernate</parent>
+    <name>data_sources</name>
+    <label>Data Sources</label>
+    <description></description>
+    <creationDate>2011-10-18T16:57:59.000+02:00</creationDate>
+    <updateDate>2011-06-09T10:11:45.000+03:00</updateDate>
+    <resource>ovirt</resource>
+    <resource>ovirt-hibernate</resource>
+</folder>

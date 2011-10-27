@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="170" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.String">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+	</parameter>
+	<parameter name="P_Dates" class="java.lang.String">
+		<parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
+	</parameter>
+	<parameter name="P_VM_Type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_VM_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_End_Date" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 	vm_name,
+	cast(delete_date as date) as vm_delete_date,
+	cast(create_date as date) as vm_create_date,
+	(CASE
+	WHEN high_availability THEN 'Yes'
+	ELSE 'No'
+	END) as is_high_availability,
+	round(cast(memory_size_mb as float)::numeric/1024,1) as memory_size,
+	(cpu_per_socket*number_of_sockets)  as number_of_cpus,
+	(SELECT v3_0_enum_translator_view.value
+		           FROM v3_0_enum_translator_view
+		           WHERE v3_0_enum_translator_view.enum_key = v3_0_vm_configuration_view.operating_system
+			         AND v3_0_enum_translator_view.enum_type = 'OS_TYPE')  as operating_system,
+        coalesce((SELECT  ' ' || v3_0_cluster_configuration_view.cluster_name
+		  FROM v3_0_cluster_configuration_view
+	          WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
+		        and history_id in (select max(b.history_id)
+			    		   from v3_0_cluster_configuration_view as b
+			   		   where b.cluster_id = v3_0_cluster_configuration_view.cluster_id)), 's') AS cluster_name,
+        (SELECT cast(v3_0_cluster_configuration_view.delete_date as date)
+         FROM v3_0_cluster_configuration_view
+         WHERE 	v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
+		and history_id in (select max(c.history_id)
+		 		   from v3_0_cluster_configuration_view as c
+		   		   where c.cluster_id = v3_0_cluster_configuration_view.cluster_id)) as cluster_delete_date,
+        coalesce((SELECT v3_0_enum_translator_view.value
+	          FROM v3_0_enum_translator_view
+		  WHERE v3_0_enum_translator_view.enum_key = v3_0_vm_configuration_view.vm_type
+		  AND v3_0_enum_translator_view.enum_type = 'VM_TYPE'), 'All') as vm_type,
+       (SELECT v3_0_datacenter_configuration_view.datacenter_name
+        FROM v3_0_datacenter_configuration_view
+	WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+	      and history_id in (select max(d.history_id)
+			    	 from v3_0_datacenter_configuration_view as d
+			   	 where d.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)) as datacenter_name,
+       (SELECT CAST(v3_0_datacenter_configuration_view.delete_date as date)
+	FROM v3_0_datacenter_configuration_view
+	WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+	      and history_id in (select max(d.history_id)
+			    	 from v3_0_datacenter_configuration_view as d
+			   	 where d.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)) as datacenter_delete_date
+FROM v3_0_vm_configuration_view
+WHERE 	vm_id = cast($P{P_VM_ID} as uuid)
+	and history_id in (select max(a.history_id)
+			   from v3_0_vm_configuration_view as a
+			   where a.vm_id = v3_0_vm_configuration_view.vm_id)]]>
+	</queryString>
+	<field name="vm_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vm_delete_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vm_create_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="is_high_availability" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="memory_size" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="number_of_cpus" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="operating_system" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cluster_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cluster_delete_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vm_type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datacenter_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datacenter_delete_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="datacenter_star" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
+	</variable>
+	<variable name="cluster_star" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{cluster_delete_date} != null ? "*" : ""]]></variableExpression>
+	</variable>
+	<variable name="vm_star" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{vm_delete_date} != null ? "*" : ""]]></variableExpression>
+	</variable>
+	<title>
+		<band height="145" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="30" width="828" height="40"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textField>
+					<reportElement positionType="Float" x="83" y="20" width="338" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>Period: </b>" + $P{P_Period}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement x="83" y="0" width="338" height="20"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>Datacenter: </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="446" y="20" width="326" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>Date Range: </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$P{P_Start_Date} + " - " + $P{P_End_Date}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="446" y="0" width="326" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cluster_name} != "s" ? "<b>Cluster: </b>" + $F{cluster_name} + $V{cluster_star} : "<b>Cluster: </b>All"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "s" ? $F{cluster_name} + $V{cluster_star} : "All"]]></hyperlinkTooltipExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="2" y="2" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#F0F0F0"/>
+						<topPen lineWidth="1.0" lineColor="#F0F0F0"/>
+						<leftPen lineWidth="1.0" lineColor="#F0F0F0"/>
+						<bottomPen lineWidth="1.0" lineColor="#F0F0F0"/>
+						<rightPen lineWidth="1.0" lineColor="#F0F0F0"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ Criteria:]]></text>
+				</staticText>
+			</frame>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement x="0" y="0" width="830" height="25" forecolor="#666666"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Resource Usage of <b>Virtual Machine " + $F{vm_name} + $V{vm_star} + "</b> (Days of Week)"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="12" y="73" width="10" height="11">
+					<printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null || $F{vm_delete_date} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="5" y="71" width="5" height="14" forecolor="#666666">
+					<printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null || $F{vm_delete_date} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12"/>
+				</textElement>
+				<text><![CDATA[*]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="29" y="73" width="735" height="13" forecolor="#666666"/>
+				<textElement markup="html">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vm_delete_date} != null ? $F{cluster_delete_date} != null ?
+$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + ", the cluster was deleted on " + $F{cluster_delete_date}.toString() + " and the virtual machine was deleted on " + $F{vm_delete_date}.toString() + "." :
+"The cluster was deleted on " + $F{cluster_delete_date}.toString() + " and the virtual machine was deleted on " + $F{vm_delete_date}.toString() + "." :
+$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + " and the virtual machine was deleted on " + $F{vm_delete_date}.toString() + "." : "The virtual machine was deleted on " + $F{vm_delete_date}.toString() + "." :
+$F{cluster_delete_date} != null ?
+$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + " and the cluster was deleted on " + $F{cluster_delete_date}.toString() + "." :
+"The cluster was deleted on " + $F{cluster_delete_date}.toString() + "." :
+$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + "." : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="89" width="181" height="16" forecolor="#3A5E75"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<topPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Virtual Machine Details]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="105" width="828" height="40"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textField isBlankWhenNull="false">
+					<reportElement x="12" y="20" width="270" height="20"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>Operating System: </b>" + $F{operating_system}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{operating_system}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="695" y="0" width="110" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>#VCPU: </b>" + $F{number_of_cpus}.toString()]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{number_of_cpus}.toString()]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="502" y="0" width="162" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>Memory Size: </b>" + $F{memory_size}.toString() + " GB"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{memory_size}.toString() + " GB"]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="502" y="20" width="162" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>VM Type: </b>" + $F{vm_type}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{vm_type}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="12" y="0" width="201" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>Create Date: </b>" + $F{vm_create_date}.toString()]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{vm_create_date}.toString()]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="309" y="20" width="167" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>High Availability: </b>" + $F{is_high_availability}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{is_high_availability}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="309" y="0" width="162" height="20"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="DejaVu Sans" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vm_delete_date}!= null ? "<b>Delete Date: </b>" + $F{vm_delete_date}.toString() : "<b>Delete Date: </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{vm_delete_date}!= null ? $F{vm_delete_date}.toString() : ""]]></hyperlinkTooltipExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+</jasperReport>

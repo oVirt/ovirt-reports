@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/organizations/ovirtreports/Resources/embedded_reports</folder>
+    <name>datacenter_quality_of_service_hosts_br6b</name>
+    <version>4</version>
+    <label>Datacenter Quality of Service Hosts (BR6B)</label>
+    <creationDate>2011-10-18T16:58:13.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="datacenter_quality_of_service_hosts_br6b_jrxml.data" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Resources/embedded_reports/datacenter_quality_of_service_hosts_br6b_files</folder>
+            <name>datacenter_quality_of_service_hosts_br6b_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-10-18T17:50:12.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Hosts/active_hosts_select</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_MEM_Threshold</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_CPU_Threshold</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Resources/embedded_reports/datacenter_quality_of_service_hosts_br6b_files</folder>
+            <name>trash-icon</name>
+            <version>1</version>
+            <label>trash-icon</label>
+            <creationDate>2011-10-18T17:50:12.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <alwaysPromptControls>false</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

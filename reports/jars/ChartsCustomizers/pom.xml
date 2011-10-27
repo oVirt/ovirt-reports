@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
+	<modelVersion>4.0.0</modelVersion> 
+
+  <parent>
+	  <groupId>ovirt_reports</groupId>
+	  <artifactId>jars</artifactId>
+	  <version>3.0.0</version>
+  </parent>
+
+  <groupId>ovirt_reports</groupId> 
+  <artifactId>ChartsCustomizers</artifactId> 
+  <packaging>jar</packaging> 
+  <version>3.0.0</version> 
+  <name>Reports Chart Customizers</name> 
+  <description>The jar that contains the chart customizers classes</description> 
+
+  <properties>
+	<!-- dependency versions -->
+  	<version.jasperreports>4.0.1.1</version.jasperreports>
+  	<version.jfreechart>1.0.12</version.jfreechart>
+	<version.jcommon>1.0.15</version.jcommon>
+  </properties>
+
+  <dependencies>
+    <dependency>
+     <groupId>net.sf.jasperreports</groupId>
+     <artifactId>jasperreports</artifactId>
+     <version>4.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>${version.jfreechart}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jcommon</artifactId>
+      <version>${version.jcommon}</version>
+    </dependency>
+
+  </dependencies>
+  <build>
+		<pluginManagement>
+		    <plugins>
+		        <plugin>
+		            <artifactId>maven-compiler-plugin</artifactId> <configuration>
+		                <source>1.6</source> <target>1.6</target> <includes>
+		                    <include>**/*.txt</include> <include>**/*.java</include> <include>**/*.properties</include> 
+		                </includes> 
+		            </configuration> 
+		        </plugin> 
+		    </plugins> 
+		</pluginManagement> 
+  </build> 
+  <repositories>
+   <repository>
+      <id>gwt-local</id>
+      <name>gwt local</name>
+      <url>http://fivehole.eng.lab.tlv.redhat.com:8081/artifactory/libs-releases/</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+   </repository>
+   <repository>
+      <id>jasper-reports</id>
+      <name>jasper-reports</name>
+      <url>http://repo2.maven.org/maven2/net/sf/</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+   </repository>
+    <repository>
+      <id>mead-repository.redhat.com</id>
+      <name>JBoss Production Releases MEAD Repository</name>
+      <url>http://download.lab.bos.redhat.com/brewroot/repos/jb-eap-5-rhel-6-build/latest/maven</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+  </repositories>
+
+</project> 

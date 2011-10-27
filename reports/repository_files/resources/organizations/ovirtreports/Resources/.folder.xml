@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/organizations/ovirtreports</parent>
+    <name>Resources</name>
+    <label>Resources</label>
+    <description>Files required to run the reports.</description>
+    <creationDate>2011-10-18T16:57:58.000+02:00</creationDate>
+    <updateDate>2011-06-09T10:11:44.000+03:00</updateDate>
+    <folder>embedded_reports</folder>
+    <folder>Hibernate</folder>
+    <folder>JDBC</folder>
+    <resource>ovirt-icon</resource>
+    <resource>trash-icon</resource>
+</folder>

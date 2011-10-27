@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/all_included</folder>
+    <name>P_Storage_Type</name>
+    <version>3</version>
+    <label>Storage Type</label>
+    <creationDate>2011-10-18T16:58:22.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/all_included/P_Storage_Type_files</folder>
+            <name>Storage_type</name>
+            <version>1</version>
+            <label>Storage_type</label>
+            <creationDate>2011-10-18T17:50:19.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+            <language>sql</language>
+            <queryString>SELECT enum_translator_view_2_3.value, enum_translator_view_2_3.enum_key,  sort = 0
+FROM enum_translator_view_2_3, storage_domain_configuration_view_2_3, datacenter_storage_domain_map_view_2_3
+WHERE storage_domain_configuration_view_2_3.storage_domain_type = enum_translator_view_2_3.enum_key
+AND enum_translator_view_2_3.enum_type = 'STORAGE_DOMAIN_TYPE' 
+AND datacenter_storage_domain_map_view_2_3.storage_id = storage_domain_configuration_view_2_3.storage_domain_id
+AND datacenter_storage_domain_map_view_2_3.datacenter_id = $P{P_DataCenter_ID}
+UNION 
+SELECT 'All', -1, 1
+FROM enum_translator_view_2_3
+ORDER BY sort DESC</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/Hibernate/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>value</queryVisibleColumn>
+    <queryValueColumn>enum_key</queryValueColumn>
+</inputControl>

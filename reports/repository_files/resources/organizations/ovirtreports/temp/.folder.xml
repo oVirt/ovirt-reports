@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/organizations/ovirtreports</parent>
+    <name>temp</name>
+    <label>temp</label>
+    <creationDate>2011-10-18T16:57:58.000+02:00</creationDate>
+    <updateDate>2011-08-21T17:01:04.000+03:00</updateDate>
+    <permission>
+        <permissionMask>30</permissionMask>
+        <recipient recipientType="role">ROLE_USER</recipient>
+    </permission>
+</folder>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="tabs_horizontal_sprite.png.data">
+    <folder>/themes/ovirt-reports-theme/images</folder>
+    <name>tabs_horizontal_sprite.png</name>
+    <version>5</version>
+    <label>tabs_horizontal_sprite.png</label>
+    <description>tabs_horizontal_sprite.png</description>
+    <creationDate>2011-10-18T16:58:10.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:08.000+02:00</updateDate>
+    <fileType>img</fileType>
+</fileResource>

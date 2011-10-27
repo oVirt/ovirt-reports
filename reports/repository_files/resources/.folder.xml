@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <name>/</name>
+    <label>root</label>
+    <description>Root of the folder hierarchy</description>
+    <creationDate>2011-10-18T16:52:30.000+02:00</creationDate>
+    <updateDate>2011-06-03T23:46:44.000+03:00</updateDate>
+    <folder>organizations</folder>
+    <folder>themes</folder>
+    <permission>
+        <permissionMask>1</permissionMask>
+        <recipient recipientType="role">ROLE_ADMINISTRATOR</recipient>
+    </permission>
+    <permission>
+        <permissionMask>1</permissionMask>
+        <recipient recipientType="role">ROLE_SUPERUSER</recipient>
+    </permission>
+    <permission>
+        <permissionMask>2</permissionMask>
+        <recipient recipientType="role">ROLE_USER</recipient>
+    </permission>
+</folder>

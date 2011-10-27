@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/non-query_IC</folder>
+    <name>P_Dates</name>
+    <version>3</version>
+    <label>Dates</label>
+    <description></description>
+    <creationDate>2011-10-18T16:58:20.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:18.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/non-query_IC/P_Dates_files</folder>
+            <name>Period_Dates</name>
+            <version>1</version>
+            <label>Period Dates</label>
+            <description></description>
+            <creationDate>2011-10-18T17:50:18.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:18.000+02:00</updateDate>
+            <language>hql</language>
+            <queryString>SELECT o.monthName as monthName
+FROM Period as o
+WHERE o.monthStartdate &gt;= (SELECT a.varDatetime 
+		    FROM HistoryConfiguration as a
+		    WHERE a.varName = 'firstSync')
+AND o.monthEnddate &lt;= (SELECT b.varDatetime 
+		   FROM HistoryConfiguration as b
+		   WHERE b.varName = 'lastHourAggr')</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/Hibernate/data_sources/ovirt-hibernate</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>monthName</queryVisibleColumn>
+    <queryValueColumn>monthName</queryValueColumn>
+</inputControl>

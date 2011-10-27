@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<organization>
+    <id>ovirtreports</id>
+    <alias>oVirt Reports</alias>
+    <parentId>organizations</parentId>
+    <tenantName>oVirt Reports</tenantName>
+    <tenantDesc></tenantDesc>
+    <tenantUri>/ovirtreports</tenantUri>
+    <tenantFolderUri>/organizations/ovirtreports</tenantFolderUri>
+</organization>

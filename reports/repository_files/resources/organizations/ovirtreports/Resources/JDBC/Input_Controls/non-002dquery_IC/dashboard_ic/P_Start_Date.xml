@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/dashboard_ic</folder>
+    <name>P_Start_Date</name>
+    <version>3</version>
+    <label>Start Date</label>
+    <creationDate>2011-10-18T16:58:25.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>true</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/dashboard_ic/P_Start_Date_files</folder>
+            <name>startDate</name>
+            <version>1</version>
+            <label>startDate</label>
+            <creationDate>2011-10-18T17:50:21.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+            <language>sql</language>
+            <queryString>select distinct cast(o.month_startdate as date) as monthStartdate
+from period as o
+where o.month_name = $P{P_Dates}</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>monthStartdate</queryVisibleColumn>
+    <queryValueColumn>monthStartdate</queryValueColumn>
+</inputControl>

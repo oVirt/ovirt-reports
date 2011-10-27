@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/Only_Hosts</folder>
+    <name>P_DataCenter_ID</name>
+    <version>3</version>
+    <label>Data Center</label>
+    <description></description>
+    <creationDate>2011-10-18T16:58:23.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID_files</folder>
+            <name>Data_Centers</name>
+            <version>1</version>
+            <label>Data_Centers</label>
+            <description></description>
+            <creationDate>2011-10-18T17:50:19.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:19.000+02:00</updateDate>
+            <language>hql</language>
+            <queryString>SELECT DISTINCT o.historyId as historyId,
+	   o.datacenterId as datacenterId,
+	   CASE 
+		WHEN o.deleteDate IS NULL THEN datacenterName
+		ELSE (datacenterName || ' (Removed on ' || cast(deleteDate as string) || ')')
+	   END as datacenterNameIc,
+	   o.deleteDate as deleteDate
+FROM V23DatacenterConfigurationView as o
+WHERE o.historyId = (SELECT max(a.historyId)
+	         FROM V23DatacenterConfigurationView as a
+	         WHERE a.datacenterId = o.datacenterId)
+ 	  and o.datacenterId in (select distinct d.datacenterId
+	  	            from V23ClusterConfigurationView as d
+	  	            where d.clusterId in (select distinct c.clusterId
+			                   from V23HostConfigurationView as c))
+order by o.deleteDate DESC</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/Hibernate/data_sources/ovirt-hibernate</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>datacenterNameIc</queryVisibleColumn>
+    <queryValueColumn>datacenterId</queryValueColumn>
+</inputControl>

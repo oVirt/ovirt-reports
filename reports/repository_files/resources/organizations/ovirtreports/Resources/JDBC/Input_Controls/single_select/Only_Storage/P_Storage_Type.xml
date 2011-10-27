@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Storage</folder>
+    <name>P_Storage_Type</name>
+    <version>3</version>
+    <label>Storage Type</label>
+    <creationDate>2011-10-18T16:58:12.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/single_select/Only_Storage/P_Storage_Type_files</folder>
+            <name>Storage_type</name>
+            <version>1</version>
+            <label>Storage_type</label>
+            <creationDate>2011-10-18T17:50:11.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:11.000+02:00</updateDate>
+            <language>sql</language>
+            <queryString>SELECT DISTINCT v3_0_enum_translator_view.value, v3_0_enum_translator_view.enum_key,  0 as sort
+FROM v3_0_enum_translator_view, v3_0_storage_domain_configuration_view, v3_0_datacenter_storage_domain_map_view
+WHERE v3_0_storage_domain_configuration_view.storage_domain_type = v3_0_enum_translator_view.enum_key
+AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE' 
+AND v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
+AND v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+AND (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
+AND attach_date &gt;= cast($P{P_Start_Date} as timestamp)
+$P!{active_storage}
+UNION ALL
+SELECT DISTINCT 'All', -1, 1
+FROM v3_0_enum_translator_view
+ORDER BY sort DESC, value</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>value</queryVisibleColumn>
+    <queryValueColumn>enum_key</queryValueColumn>
+</inputControl>

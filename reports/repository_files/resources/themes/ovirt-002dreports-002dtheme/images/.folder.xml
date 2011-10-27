@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/themes/ovirt-reports-theme</parent>
+    <name>images</name>
+    <label>images</label>
+    <creationDate>2011-10-18T16:57:58.000+02:00</creationDate>
+    <updateDate>2011-10-16T17:19:28.000+02:00</updateDate>
+    <resource>body_bkgnd.png</resource>
+    <resource>button_action_jumbo_primary_sprite.png</resource>
+    <resource>button_action_jumbo_sprite.png</resource>
+    <resource>button_action_primary_sprite.png</resource>
+    <resource>button_capsule_sprite.png</resource>
+    <resource>logo_ovirt.png</resource>
+    <resource>menu_primaryNav_sprite.png</resource>
+    <resource>panel_confirm_bkgd.png</resource>
+    <resource>tabs_horizontal_sprite.png</resource>
+    <resource>tabs_vertical_sprite.png</resource>
+    <resource>Thumbs.db</resource>
+</folder>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="800" pageHeight="20" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="185"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT CASE
+		WHEN $P{P_Cluster_ID} != '11111111-1111-1111-1111-111111111111'  and $P{P_Cluster_ID} IS NOT NULL THEN
+		  (SELECT Distinct (CASE
+					WHEN delete_date IS NULL THEN cluster_name
+					ELSE '<b>' || cluster_name || '</b>' || ' (Removed on ' || cast(delete_date as varchar) || ')'
+				    END) AS cluster_name
+		  FROM v3_0_cluster_configuration_view
+		  WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
+			AND history_id = (SELECT max(a.history_id)
+					  FROM v3_0_cluster_configuration_view as a
+					  WHERE a.cluster_id = v3_0_cluster_configuration_view.cluster_id))
+		ELSE ''
+	END As cluster_name]]>
+	</queryString>
+	<field name="cluster_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="11" y="0" width="789" height="18" forecolor="#3A5E75">
+					<printWhenExpression><![CDATA[$F{cluster_name}.contains("Removed")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="DejaVu Sans" size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<b>Cluster: </b>" + $F{cluster_name}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="4" width="10" height="11">
+					<printWhenExpression><![CDATA[$F{cluster_name}.contains("Removed on")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression class="java.lang.String"><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
+			</image>
+			<textField evaluationTime="Report">
+				<reportElement x="0" y="0" width="800" height="18" forecolor="#3A5E75">
+					<printWhenExpression><![CDATA[!$F{cluster_name}.contains("Removed")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="DejaVu Sans" size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["<b>Cluster: </b>" + $F{cluster_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/dashboard_ic</folder>
+    <name>P_End_Date</name>
+    <version>3</version>
+    <label>End Date</label>
+    <creationDate>2011-10-18T16:58:25.000+02:00</creationDate>
+    <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>true</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/dashboard_ic/P_End_Date_files</folder>
+            <name>monthEnd</name>
+            <version>1</version>
+            <label>monthEnd</label>
+            <creationDate>2011-10-18T17:50:21.000+02:00</creationDate>
+            <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+            <language>sql</language>
+            <queryString>select distinct CASE
+		WHEN $P{P_Period} = 'Monthly' THEN cast(o.month_enddate as date)
+		WHEN $P{P_Period} = 'Quarterly' THEN cast(o.quarter_enddate  as date)
+	 END as Enddate
+from period as o
+where o.month_name = $P{P_Dates}</queryString>
+            <dataSource>
+                <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>Enddate</queryVisibleColumn>
+    <queryValueColumn>Enddate</queryValueColumn>
+</inputControl>

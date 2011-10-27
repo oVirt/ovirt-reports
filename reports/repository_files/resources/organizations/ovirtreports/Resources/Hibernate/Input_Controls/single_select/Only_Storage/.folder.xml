@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/organizations/ovirtreports/Resources/Hibernate/Input_Controls/single_select</parent>
+    <name>Only_Storage</name>
+    <label>Only Storage</label>
+    <creationDate>2011-10-18T16:58:00.000+02:00</creationDate>
+    <updateDate>2011-06-09T10:11:46.000+03:00</updateDate>
+    <resource>P_DataCenter_ID</resource>
+    <resource>P_Storage_Type</resource>
+    <resource>P_StorageDomain_ID</resource>
+</folder>
