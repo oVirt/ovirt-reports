@@ -5,8 +5,8 @@
     <version>3</version>
     <label>Storage Domain Name</label>
     <description>Storage Domain Name</description>
-    <creationDate>2011-10-18T16:58:25.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:13.880+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:36.697+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -19,8 +19,8 @@
             <version>1</version>
             <label>Storage_Domain_Name</label>
             <description>Storage Domain Query</description>
-            <creationDate>2011-10-18T17:50:21.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:36.697+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:36.697+02:00</updateDate>
             <language>sql</language>
             <queryString>Select distinct v3_0_storage_domain_configuration_view.storage_domain_id, detach_date, CASE 
 				WHEN detach_date IS NULL THEN storage_domain_name

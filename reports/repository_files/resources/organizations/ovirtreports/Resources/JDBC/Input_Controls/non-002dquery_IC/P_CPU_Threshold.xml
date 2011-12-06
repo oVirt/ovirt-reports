@@ -5,8 +5,8 @@
     <version>3</version>
     <label>CPU Threshold</label>
     <description>CPU Threshold</description>
-    <creationDate>2011-10-18T16:58:13.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:07.703+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:28.992+02:00</updateDate>
     <type>3</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -19,8 +19,8 @@
             <version>1</version>
             <label>CPU_Threshold</label>
             <description>CPU_Threshold</description>
-            <creationDate>2011-10-18T17:50:12.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:28.992+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:28.992+02:00</updateDate>
             <item>
                 <itemLabel>100%</itemLabel>
                 <itemValue xsi:type="java:java.lang.String">100</itemValue>

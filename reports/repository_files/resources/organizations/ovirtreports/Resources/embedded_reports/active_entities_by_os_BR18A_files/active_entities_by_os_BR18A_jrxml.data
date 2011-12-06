@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18A" language="groovy" pageWidth="540" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/active_entities_by_os_BR18A"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/ovirt-reports/services/repository"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18A" language="groovy" pageWidth="540" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Resources/embedded_reports/active_entities_by_os_BR18A"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -106,7 +106,7 @@ order by the_date]]>
 						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
 					</box>
 					<chartTitle>
-						<titleExpression><![CDATA["Active VM's OS Over Time"]]></titleExpression>
+						<titleExpression><![CDATA[$R{br18a.chart.active.vms.os}]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle/>
 					<chartLegend position="Bottom"/>
@@ -147,20 +147,8 @@ order by the_date]]>
 				</timeSeriesDataset>
 				<timeSeriesPlot isShowLines="true" isShowShapes="false">
 					<plot/>
-					<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
-					<timeAxisFormat>
-						<axisFormat>
-							<labelFont/>
-							<tickLabelFont/>
-						</axisFormat>
-					</timeAxisFormat>
-					<valueAxisLabelExpression><![CDATA["#VMs"]]></valueAxisLabelExpression>
-					<valueAxisFormat>
-						<axisFormat>
-							<labelFont/>
-							<tickLabelFont/>
-						</axisFormat>
-					</valueAxisFormat>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
 				</timeSeriesPlot>
 			</timeSeriesChart>
 		</band>
@@ -169,27 +157,27 @@ order by the_date]]>
 		<band height="20">
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="540" height="20" backcolor="#D8E2FF"/>
-				<staticText>
+				<textField>
 					<reportElement x="3" y="0" width="100" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<textElement verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Date]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br18a.table.date}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="109" y="0" width="299" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<textElement verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[OS Version]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br18a.table.os.version}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="463" y="0" width="69" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<textElement verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[#VMs]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br18a.table.number.of.vms}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</columnHeader>
@@ -211,7 +199,7 @@ order by the_date]]>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{os_name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{os_name}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement isPrintRepeatedValues="false" x="5" y="1" width="100" height="18">
@@ -220,14 +208,14 @@ order by the_date]]>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{the_date}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="409" y="1" width="82" height="18" isRemoveLineWhenBlank="true"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{vm_count}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{vm_count}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

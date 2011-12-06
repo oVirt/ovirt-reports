@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR7B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="834" leftMargin="4" rightMargin="4" topMargin="4" bottomMargin="4">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR7B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="834" leftMargin="4" rightMargin="4" topMargin="4" bottomMargin="4" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -107,6 +107,10 @@ LIMIT 10]]>
 	</field>
 	<sortField name="is_deleted"/>
 	<sortField name="uptime_mins"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<group name="Host">
 		<groupExpression><![CDATA[$F{host_id}.toString()]]></groupExpression>
 	</group>
@@ -149,7 +153,7 @@ LIMIT 10]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -157,48 +161,45 @@ LIMIT 10]]>
 			</image>
 		</band>
 	</title>
-	<pageHeader>
-		<band splitType="Prevent"/>
-	</pageHeader>
 	<columnHeader>
 		<band height="40" splitType="Stretch">
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="834" height="40" backcolor="#D8E2FF"/>
-				<staticText>
+				<textField>
 					<reportElement mode="Opaque" x="14" y="0" width="248" height="39" backcolor="#D8E2FF"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Host Name 			]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br7b.table.host.name}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement mode="Opaque" x="383" y="0" width="114" height="39" backcolor="#D8E2FF"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Planned Downtime]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br7b.table.planned.downtime}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement mode="Opaque" x="505" y="0" width="114" height="40" backcolor="#D8E2FF"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Unplanned Downtime]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br7b.table.unplanned.downtime}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement mode="Opaque" x="262" y="0" width="114" height="39" backcolor="#D8E2FF"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Uptime]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br7b.table.uptime}]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement mode="Opaque" x="619" y="0" width="70" height="40" backcolor="#D8E2FF"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Del. Date]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br7b.table.short.delete.date}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</columnHeader>
@@ -250,12 +251,12 @@ LIMIT 10]]>
 						<rangeAxisMaxValueExpression><![CDATA[$F{planned_downtime_mins}+$F{unplanned_downtime_mins}+$F{uptime_mins}+1]]></rangeAxisMaxValueExpression>
 					</barPlot>
 				</stackedBarChart>
-				<textField pattern="#,##0" isBlankWhenNull="true">
+				<textField pattern="" isBlankWhenNull="true">
 					<reportElement x="619" y="0" width="70" height="18"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{delete_date}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{delete_date})]]></textFieldExpression>
 				</textField>
 				<image>
 					<reportElement x="3" y="3" width="10" height="11">
@@ -371,6 +372,17 @@ LIMIT 10]]>
 			</frame>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="15">
+			<textField evaluationTime="Auto">
+				<reportElement x="292" y="0" width="250" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="14">
 			<subreport>

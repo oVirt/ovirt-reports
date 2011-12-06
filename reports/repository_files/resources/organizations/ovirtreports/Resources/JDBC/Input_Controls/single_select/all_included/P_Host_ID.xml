@@ -4,8 +4,8 @@
     <name>P_Host_ID</name>
     <version>3</version>
     <label>Host Name</label>
-    <creationDate>2011-10-18T16:58:25.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:13.629+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:36.307+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>Host</name>
             <version>1</version>
             <label>Host</label>
-            <creationDate>2011-10-18T17:50:21.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:21.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:36.307+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:36.307+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT distinct delete_date, CASE 
 WHEN delete_date IS NULL THEN RTrim(cast(host_name  as nvarchar))

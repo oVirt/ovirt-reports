@@ -2,10 +2,10 @@
 <fileResource dataFile="buttons.css.data">
     <folder>/themes/ovirt-reports-theme</folder>
     <name>buttons.css</name>
-    <version>5</version>
+    <version>3</version>
     <label>buttons.css</label>
     <description>buttons.css</description>
-    <creationDate>2011-10-18T16:58:01.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:49:59.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:51:57.923+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:14.875+02:00</updateDate>
     <fileType>css</fileType>
 </fileResource>

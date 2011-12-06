@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR14A" language="groovy" pageWidth="510" pageHeight="832" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/virtual_servers_uptime_by_cluster_br14a"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/ovirt-reports/services/repository"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR14A" language="groovy" pageWidth="510" pageHeight="832" whenNoDataType="AllSectionsNoDetail" columnWidth="510" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Resources/embedded_reports/virtual_servers_uptime_by_cluster_br14a"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -107,36 +107,36 @@ ORDER BY (CASE
 		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
 		<groupHeader>
 			<band height="46">
-				<staticText>
+				<textField>
 					<reportElement mode="Transparent" x="0" y="0" width="510" height="20" forecolor="#3A5E75"/>
-					<textElement>
+					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="13" isBold="true" isUnderline="false"/>
 					</textElement>
-					<text><![CDATA[Cluster High Availability Virtual Servers Uptime]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br14a.title}]]></textFieldExpression>
+				</textField>
 				<frame>
 					<reportElement mode="Opaque" x="0" y="20" width="510" height="26" backcolor="#D8E2FF"/>
-					<staticText>
-						<reportElement mode="Opaque" x="0" y="0" width="150" height="26" backcolor="#D8E2FF"/>
-						<textElement verticalAlignment="Middle">
+					<textField>
+						<reportElement mode="Opaque" x="10" y="0" width="140" height="26" backcolor="#D8E2FF"/>
+						<textElement verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<text><![CDATA[  Cluster Name 			]]></text>
-					</staticText>
-					<staticText>
+						<textFieldExpression><![CDATA[$R{br14a.table.cluster.name}]]></textFieldExpression>
+					</textField>
+					<textField>
 						<reportElement mode="Opaque" x="397" y="0" width="113" height="26" backcolor="#D8E2FF"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Unplanned Downtime]]></text>
-					</staticText>
-					<staticText>
+						<textFieldExpression><![CDATA[$R{br14a.table.unplanned.downtime}]]></textFieldExpression>
+					</textField>
+					<textField>
 						<reportElement mode="Opaque" x="257" y="0" width="102" height="26" backcolor="#D8E2FF"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<text><![CDATA[Uptime]]></text>
-					</staticText>
+						<textFieldExpression><![CDATA[$R{br14a.table.uptime}]]></textFieldExpression>
+					</textField>
 				</frame>
 			</band>
 		</groupHeader>
@@ -144,7 +144,7 @@ ORDER BY (CASE
 			<band height="16">
 				<subreport>
 					<reportElement x="240" y="0" width="185" height="16"/>
-					<subreportExpression class="java.lang.String"><![CDATA["repo:report5.jrxml"]]></subreportExpression>
+					<subreportExpression><![CDATA["repo:report5.jrxml"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>
@@ -183,18 +183,6 @@ ORDER BY (CASE
 							<seriesColor seriesOrder="1" color="#FF0000"/>
 						</plot>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
-						<categoryAxisFormat>
-							<axisFormat verticalTickLabels="false">
-								<labelFont/>
-								<tickLabelFont/>
-							</axisFormat>
-						</categoryAxisFormat>
-						<valueAxisFormat>
-							<axisFormat verticalTickLabels="false">
-								<labelFont/>
-								<tickLabelFont/>
-							</axisFormat>
-						</valueAxisFormat>
 						<rangeAxisMaxValueExpression><![CDATA[$F{unplanned_downtime_mins}+$F{uptime_mins}+1]]></rangeAxisMaxValueExpression>
 					</barPlot>
 				</stackedBarChart>
@@ -203,7 +191,7 @@ ORDER BY (CASE
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 					<hyperlinkParameter name="_report">
 						<hyperlinkParameterExpression><![CDATA["/Reports/Service_level/VMs/virtual_servers_uptime_br14"]]></hyperlinkParameterExpression>
 					</hyperlinkParameter>
@@ -236,7 +224,7 @@ ORDER BY (CASE
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="281" y="0" width="21" height="18">
@@ -245,21 +233,21 @@ ORDER BY (CASE
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="302" y="0" width="24" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="326" y="0" width="40" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA["(" + (100-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["(" + (100-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="397" y="0" width="28" height="18">
@@ -268,7 +256,7 @@ ORDER BY (CASE
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="425" y="0" width="21" height="18">
@@ -277,27 +265,27 @@ ORDER BY (CASE
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="446" y="0" width="24" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
 				</textField>
 				<textField pattern="">
 					<reportElement x="470" y="0" width="40" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans" isBold="false"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
 				</textField>
 				<image>
 					<reportElement x="0" y="12" width="10" height="11">
 						<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
 					</reportElement>
-					<imageExpression class="java.lang.String"><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
+					<imageExpression><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
 				</image>
 			</frame>
 		</band>

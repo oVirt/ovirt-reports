@@ -4,8 +4,8 @@
     <name>P_VM_ID</name>
     <version>3</version>
     <label>VM Name</label>
-    <creationDate>2011-10-18T16:58:19.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:11.085+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:35.250+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>VM_Name</name>
             <version>1</version>
             <label>VM Name</label>
-            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:35.250+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:35.250+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT distinct delete_date, CASE 
 			WHEN delete_date IS NULL then vm_name 

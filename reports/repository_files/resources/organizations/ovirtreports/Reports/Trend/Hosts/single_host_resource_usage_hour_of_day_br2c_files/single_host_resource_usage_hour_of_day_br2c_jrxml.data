@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR2C" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR2C" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Hosts/single_host_resource_usage_hour_of_day_br2c"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="42"/>
 	<subDataset name="Memory_1_1">
 		<parameter name="P_DataCenter_ID" class="java.lang.String">
 			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -296,19 +296,17 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 	<field name="cpu_peak" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="cpu_1" class="java.lang.Integer" resetType="Group" resetGroup="DataCenter" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="mem_1" class="java.lang.Integer" resetType="Group" resetGroup="DataCenter" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<group name="DataCenter">
 		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
 		<groupFooter>
-			<band height="375">
+			<band height="381">
 				<barChart>
 					<chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-						<reportElement x="417" y="0" width="408" height="183"/>
+						<reportElement x="424" y="1" width="408" height="185"/>
 						<box>
 							<pen lineWidth="1.0" lineColor="#3C617F"/>
 							<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -318,7 +316,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans" size="10"/>
-							<titleExpression><![CDATA["Memory Usage by Hour of Day"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br2c.chart.memory.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -335,19 +333,17 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 							</datasetRun>
 						</dataset>
 						<categorySeries>
-							<seriesExpression><![CDATA["Memory Usage"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br2.chart.series.memory.usage}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{mem_usage}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{mem_usage}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA["Memory Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br2.chart.series.memory.peak}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{mem_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{mem_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -358,7 +354,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Hour of Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat labelRotation="-45.0">
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -369,7 +365,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Memory Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -386,7 +382,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 				</barChart>
 				<barChart>
 					<chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-						<reportElement x="-1" y="192" width="408" height="183"/>
+						<reportElement x="1" y="194" width="408" height="185"/>
 						<box>
 							<pen lineWidth="1.0" lineColor="#3C617F"/>
 							<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -396,7 +392,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans" size="10"/>
-							<titleExpression><![CDATA["Number of Active Virtual Machines by Hour of Day"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br2c.chart.active.vms}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -413,19 +409,17 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 							</datasetRun>
 						</dataset>
 						<categorySeries>
-							<seriesExpression><![CDATA["# VMs"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br2.chart.series.number.of.vms}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{vms}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{vms}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA["# VMs Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br2.chart.series.peak.number.of.vms}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{vms_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{vms_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -436,7 +430,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Hour of Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat labelRotation="-45.0">
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -447,7 +441,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Number of VMs"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -463,7 +457,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 				</barChart>
 				<barChart>
 					<chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-						<reportElement x="417" y="192" width="408" height="183"/>
+						<reportElement x="423" y="194" width="408" height="185"/>
 						<box>
 							<pen lineWidth="1.0" lineColor="#3C617F"/>
 							<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -473,11 +467,11 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans" size="10"/>
-							<titleExpression><![CDATA["Top Three Busiest Network Interfaces Usage by Hour of Day"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br2c.chart.network.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
-							<subtitleExpression><![CDATA[$P{active_hosts_select}.contains("AND".subSequence(0,2)) ? null :  "Deleted interfaces are marked with asterisks"]]></subtitleExpression>
+							<subtitleExpression><![CDATA[$P{active_hosts_select}.contains("AND".subSequence(0,2)) ? null :  $R{br2.chart.network.subtitle.deleted}]]></subtitleExpression>
 						</chartSubtitle>
 						<chartLegend position="Bottom">
 							<font fontName="DejaVu Sans"/>
@@ -491,19 +485,19 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 							</datasetRun>
 						</dataset>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{interface_name}.concat("/Rx")]]></seriesExpression>
+							<seriesExpression><![CDATA[$F{interface_name} + $R{br2.chart.series.rx}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{rx_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{interface_name}.concat("/Rx") + ", " + $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br2.chart.series.tooltip.network}, $F{interface_name}, str("br2.chart.series.rx"), $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{interface_name}.concat("/Tx")]]></seriesExpression>
+							<seriesExpression><![CDATA[$F{interface_name} + $R{br2.chart.series.tx}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{tx_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{interface_name}.concat("/Tx") + ", " + $F{tx_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br2.chart.series.tooltip.network}, $F{interface_name}, str("br2.chart.series.tx"), $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 					</categoryDataset>
@@ -512,7 +506,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Hour of Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat labelRotation="-45.0">
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -523,7 +517,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Network Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.network.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -540,7 +534,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 				</barChart>
 				<barChart>
 					<chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-						<reportElement x="0" y="0" width="408" height="183"/>
+						<reportElement x="1" y="1" width="408" height="185"/>
 						<box>
 							<pen lineWidth="1.0" lineColor="#3C617F"/>
 							<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -550,7 +544,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans" size="10"/>
-							<titleExpression><![CDATA["CPU Usage by Hour of Day"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br2c.chart.cpu.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -561,19 +555,17 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 					</chart>
 					<categoryDataset>
 						<categorySeries>
-							<seriesExpression><![CDATA["CPU Usage"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br2.chart.series.cpu.usage}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{cpu_usage}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{cpu_usage}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA["CPU Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br2.chart.series.cpu.peak}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
 							<valueExpression><![CDATA[$F{cpu_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{cpu_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -584,7 +576,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Hour of Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat labelRotation="-45.0">
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -595,7 +587,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["CPU Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -652,7 +644,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -662,19 +654,12 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
 	</title>
 	<pageFooter>
 		<band height="13">
-			<textField>
-				<reportElement x="296" y="0" width="122" height="13"/>
-				<textElement textAlignment="Right">
+			<textField evaluationTime="Auto">
+				<reportElement x="286" y="0" width="260" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="418" y="0" width="114" height="13"/>
-				<textElement>
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

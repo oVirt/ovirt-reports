@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR3" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR3" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Hosts/multiple_hosts_resource_usage_br3"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -71,6 +71,10 @@ order by the_date]]>
 	<field name="host_name" class="java.lang.String"/>
 	<field name="cpu_peak" class="java.lang.Integer"/>
 	<field name="mem_peak" class="java.lang.Integer"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<group name="Cluster">
 		<groupExpression><![CDATA[$P{P_Cluster_ID}]]></groupExpression>
 		<groupFooter>
@@ -89,7 +93,7 @@ order by the_date]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["CPU Usage over Time"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br3.chart.cpu.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle/>
 						<chartLegend/>
@@ -106,7 +110,7 @@ order by the_date]]>
 					</timeSeriesDataset>
 					<timeSeriesPlot isShowShapes="false">
 						<plot labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -114,7 +118,7 @@ order by the_date]]>
 								</labelFont>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["CPU %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -141,7 +145,7 @@ order by the_date]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Memory Usage over Time"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br3.chart.memory.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle/>
 						<chartLegend/>
@@ -158,7 +162,7 @@ order by the_date]]>
 					</timeSeriesDataset>
 					<timeSeriesPlot isShowShapes="false">
 						<plot labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -166,7 +170,7 @@ order by the_date]]>
 								</labelFont>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Memory %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666">
 								<labelFont>
@@ -184,15 +188,15 @@ order by the_date]]>
 	</group>
 	<title>
 		<band height="177">
-			<staticText>
+			<textField>
 				<reportElement mode="Opaque" x="153" y="45" width="527" height="132">
 					<printWhenExpression><![CDATA[$P{P_Host_ListID}.size() > 5]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Sans" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[This Report Displays Data for Up to Five Hosts Please Press on 'Edit Parameters' and Select Five Hosts or Less.]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{br3.more.than.five.warning}]]></textFieldExpression>
+			</textField>
 			<subreport>
 				<reportElement x="1" y="45" width="830" height="132">
 					<printWhenExpression><![CDATA[$P{P_Host_ListID}.size() <= 5]]></printWhenExpression>
@@ -229,7 +233,7 @@ order by the_date]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="43" width="832" height="1"/>
@@ -242,19 +246,12 @@ order by the_date]]>
 	</title>
 	<pageFooter>
 		<band height="13" splitType="Stretch">
-			<textField>
-				<reportElement x="327" y="0" width="80" height="13"/>
-				<textElement textAlignment="Right">
+			<textField evaluationTime="Auto">
+				<reportElement x="286" y="0" width="260" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="407" y="0" width="120" height="13"/>
-				<textElement>
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

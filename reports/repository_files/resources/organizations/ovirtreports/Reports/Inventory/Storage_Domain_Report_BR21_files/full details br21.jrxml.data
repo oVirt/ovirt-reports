@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="116" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="116" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -48,32 +48,22 @@
         coalesce((SELECT v3_0_enum_translator_view.value
 	          FROM v3_0_enum_translator_view
 		  WHERE v3_0_enum_translator_view.enum_key = $P{P_Storage_Type}
-		  AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'), 'All') as storage_type
+		  AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'), 'all') as storage_type
 FROM v3_0_datacenter_configuration_view
 WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
 	and v3_0_datacenter_configuration_view.history_id = (SELECT max(a.history_id)
 							     FROM v3_0_datacenter_configuration_view as a
 							     WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)]]>
 	</queryString>
-	<field name="datacenter_name" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="datacenter_delete_date" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="storage_name" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="storage_delete_date" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="storage_type" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="datacenter_name" class="java.lang.String"/>
+	<field name="datacenter_delete_date" class="java.sql.Timestamp"/>
+	<field name="storage_name" class="java.lang.String"/>
+	<field name="storage_delete_date" class="java.sql.Timestamp"/>
+	<field name="storage_type" class="java.lang.String"/>
 	<variable name="datacenter_star" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
 	</variable>
-	<variable name="Storage_star" class="java.lang.String" resetType="None">
+	<variable name="storage_star" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA[$F{storage_delete_date} != null ? "*" : ""]]></variableExpression>
 	</variable>
 	<title>
@@ -92,7 +82,7 @@ WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_I
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Period: </b>" + $P{P_Period}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
 					<hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
@@ -100,7 +90,7 @@ WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_I
 					<textElement verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Datacenter: </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
 					<hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
@@ -108,7 +98,7 @@ WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_I
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Date Range: </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
 					<hyperlinkTooltipExpression><![CDATA[$P{P_Start_Date} + " - " + $P{P_End_Date}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
@@ -116,30 +106,23 @@ WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_I
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Storage Type: </b>" + $F{storage_type}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{storage_type}]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{storage_type} != "all" ? "<b>" + $R{full.details.storage.type} + ": </b>" + $F{storage_type} : "<b>" + $R{full.details.storage.type} + ": </b>" + $R{full.details.all}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{storage_type} != "all" ? $F{storage_type} : $R{full.details.all}]]></hyperlinkTooltipExpression>
 				</textField>
-				<staticText>
+				<textField>
 					<reportElement mode="Opaque" x="2" y="3" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
-					<box>
-						<pen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<topPen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<leftPen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<bottomPen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<rightPen lineWidth="1.0" lineColor="#F0F0F0"/>
-					</box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="13" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ Criteria:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField evaluationTime="Report" isBlankWhenNull="false">
 				<reportElement x="0" y="0" width="830" height="25" forecolor="#666666"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 					<font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Size Over Time of <b>" + "Storage Domain " + $F{storage_name} + $V{Storage_star} + "</b>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{br18.title}, $F{storage_name} + $V{storage_star})]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="12" y="73" width="10" height="11">
@@ -162,9 +145,9 @@ WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_I
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{storage_delete_date} != null ?
-$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + " and the storage domain was deleted on " + $F{storage_delete_date}.toString() + "." :
-"The storage domain was deleted on " + $F{storage_delete_date}.toString() + "." :
-$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + "." : ""]]></textFieldExpression>
+$F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.storage}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{storage_delete_date})) :
+msg($R{full.details.deleted.comment.storage}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{storage_delete_date})) :
+$F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date})) : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

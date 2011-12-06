@@ -4,8 +4,8 @@
     <name>P_Period</name>
     <version>5</version>
     <label>Period Range</label>
-    <creationDate>2011-10-18T16:58:10.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:05.611+02:00</creationDate>
+    <updateDate>2011-12-04T16:11:41.872+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,12 +17,12 @@
             <name>period</name>
             <version>1</version>
             <label>period</label>
-            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <creationDate>2011-12-04T16:11:41.872+02:00</creationDate>
+            <updateDate>2011-12-04T16:11:41.872+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT 'Quarterly' as period
-UNION ALL
-SELECT 'Monthly'</queryString>
+            <queryString>select value as period
+from v3_0_enum_translator_view
+where enum_type = 'REPORTS_PERIOD'</queryString>
             <dataSource>
                 <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
             </dataSource>

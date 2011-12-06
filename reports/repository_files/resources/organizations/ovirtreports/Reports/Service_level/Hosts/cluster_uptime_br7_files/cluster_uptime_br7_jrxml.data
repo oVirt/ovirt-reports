@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR7" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR7" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Service_level/Hosts/cluster_uptime_br7"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="83"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="P_DataCenter_ID" class="java.lang.String">
 		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -84,12 +84,16 @@ $P!{active_hosts_select}]]>
 	<variable name="Unplanned" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA[new Double($F{unplanned_downtime_mins}.doubleValue() / $F{total}.doubleValue())]]></variableExpression>
 	</variable>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<group name="Datacenter">
 		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
 		<groupFooter>
-			<band height="432" splitType="Stretch">
+			<band height="435" splitType="Stretch">
 				<subreport>
-					<reportElement stretchType="RelativeToBandHeight" x="246" y="0" width="584" height="432"/>
+					<reportElement stretchType="RelativeToBandHeight" x="246" y="0" width="584" height="435"/>
 					<subreportParameter name="P_Cluster_ID">
 						<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -117,13 +121,13 @@ $P!{active_hosts_select}]]>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["repo:br7_table.jrxml"]]></subreportExpression>
 				</subreport>
-				<staticText>
+				<textField>
 					<reportElement x="0" y="278" width="158" height="15"/>
 					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Unplanned Downtime:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br7.meter.unplanned.downtime} + ":"]]></textFieldExpression>
+				</textField>
 				<textField evaluationTime="Report" pattern="### %">
 					<reportElement x="120" y="236" width="103" height="17" forecolor="#3A5E75"/>
 					<textElement textAlignment="Right">
@@ -131,15 +135,15 @@ $P!{active_hosts_select}]]>
 					</textElement>
 					<textFieldExpression><![CDATA[new Double( $F{uptime_mins}.doubleValue() / $F{total}.doubleValue() )]]></textFieldExpression>
 				</textField>
-				<staticText>
+				<textField>
 					<reportElement x="0" y="236" width="105" height="17" forecolor="#3A5E75"/>
-					<textElement>
+					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Uptime:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br7.meter.uptime} + ":"]]></textFieldExpression>
+				</textField>
 				<line>
-					<reportElement x="233" y="0" width="1" height="432" forecolor="#3A5E75"/>
+					<reportElement x="233" y="0" width="1" height="435" forecolor="#3A5E75"/>
 					<graphicElement>
 						<pen lineWidth="1.0"/>
 					</graphicElement>
@@ -178,20 +182,20 @@ $P!{active_hosts_select}]]>
 						</meterInterval>
 					</meterPlot>
 				</meterChart>
-				<staticText>
+				<textField>
 					<reportElement x="0" y="258" width="155" height="15"/>
 					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Planned Downtime:]]></text>
-				</staticText>
-				<staticText>
+					<textFieldExpression><![CDATA[$R{br7.meter.planned.downtime}+ ":"]]></textFieldExpression>
+				</textField>
+				<textField>
 					<reportElement x="4" y="0" width="215" height="17" forecolor="#3A5E75"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="13" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total Cluster's Hosts Uptime]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br7.meter.title}]]></textFieldExpression>
+				</textField>
 				<textField evaluationTime="Report" pattern="### %" isBlankWhenNull="false">
 					<reportElement x="160" y="278" width="63" height="15"/>
 					<textElement textAlignment="Right">
@@ -248,7 +252,7 @@ $P!{active_hosts_select}]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -257,20 +261,13 @@ $P!{active_hosts_select}]]>
 		</band>
 	</title>
 	<pageFooter>
-		<band height="18" splitType="Stretch">
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="357" y="2" width="80" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Sans" size="10"/>
+		<band height="15" splitType="Stretch">
+			<textField evaluationTime="Auto">
+				<reportElement x="291" y="0" width="250" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement positionType="FixRelativeToBottom" x="437" y="2" width="40" height="15"/>
-				<textElement>
-					<font fontName="DejaVu Sans" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

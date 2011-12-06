@@ -2,11 +2,11 @@
 <reportUnit>
     <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines</folder>
     <name>single_vm_resources_days_week_BR10B</name>
-    <version>3</version>
+    <version>13</version>
     <label>Single Virtual Machine Resources (Days of Week) (BR10B)</label>
     <description>This report contains charts displaying resources usage measurements (CPU, Memory, Network Tx/Rx, Disk IO rates) for a selected virtual machine by days of week.</description>
-    <creationDate>2011-10-18T16:58:19.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:11.120+02:00</creationDate>
+    <updateDate>2011-12-04T16:29:01.363+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,8 +16,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:35.306+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:35.306+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -43,9 +43,6 @@
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
-    </inputControl>
-    <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
@@ -59,8 +56,8 @@
             <name>br2 full details.jrxml</name>
             <version>1</version>
             <label>br2 full details.jrxml</label>
-            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:35.306+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:35.306+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -71,8 +68,8 @@
             <name>ovirt-icon</name>
             <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:35.306+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:35.306+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -83,9 +80,21 @@
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-10-18T17:50:17.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:17.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:35.306+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:35.306+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-01T18:38:35.306+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:35.306+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
     <inputControlRenderingView></inputControlRenderingView>

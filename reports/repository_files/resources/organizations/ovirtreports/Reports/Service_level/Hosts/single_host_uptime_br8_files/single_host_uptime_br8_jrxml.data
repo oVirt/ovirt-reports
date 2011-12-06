@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR8" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR8" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Service_level/Hosts/single_host_uptime_br8"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -67,7 +67,10 @@ AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day']]>
 	<field name="total" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="variable1" class="java.lang.Float"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<group name="Datacenter">
 		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
 		<groupFooter>
@@ -77,22 +80,22 @@ AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day']]>
 					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Planned Downtime:"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{br8.meter.planned.downtime} + ":"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="254" y="282" width="183" height="15"/>
 					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Unplanned Downtime: "]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{br8.meter.unplanned.downtime} + ":"]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="362" y="10" width="114" height="17" forecolor="#3A5E75"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textField>
+					<reportElement x="305" y="10" width="222" height="17" forecolor="#3A5E75"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="13" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Cluster Uptime]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br8.meter.title}]]></textFieldExpression>
+				</textField>
 				<meterChart>
 					<chart evaluationTime="Report" renderType="draw" theme="default">
 						<reportElement mode="Transparent" x="319" y="34" width="200" height="200"/>
@@ -127,13 +130,13 @@ AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day']]>
 						</meterInterval>
 					</meterPlot>
 				</meterChart>
-				<staticText>
+				<textField>
 					<reportElement x="254" y="244" width="183" height="15" forecolor="#3A5E75"/>
-					<textElement>
+					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Uptime:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br8.meter.uptime} + ":"]]></textFieldExpression>
+				</textField>
 				<frame>
 					<reportElement x="444" y="244" width="150" height="15"/>
 					<textField>
@@ -278,7 +281,7 @@ AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day']]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="43" width="832" height="1"/>
@@ -290,20 +293,13 @@ AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day']]>
 		</band>
 	</pageHeader>
 	<pageFooter>
-		<band height="18" splitType="Stretch">
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="282" y="2" width="155" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Sans" size="10"/>
+		<band height="15" splitType="Stretch">
+			<textField evaluationTime="Auto">
+				<reportElement x="291" y="0" width="250" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement positionType="FixRelativeToBottom" x="437" y="2" width="147" height="15"/>
-				<textElement>
-					<font fontName="DejaVu Sans" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

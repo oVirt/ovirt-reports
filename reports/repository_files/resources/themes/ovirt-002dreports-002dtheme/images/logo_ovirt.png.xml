@@ -2,10 +2,10 @@
 <fileResource dataFile="logo_ovirt.png.data">
     <folder>/themes/ovirt-reports-theme/images</folder>
     <name>logo_ovirt.png</name>
-    <version>5</version>
+    <version>3</version>
     <label>logo_ovirt.png</label>
     <description>logo_ovirt.png</description>
-    <creationDate>2011-10-18T16:58:10.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:08.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:04.940+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:22.407+02:00</updateDate>
     <fileType>img</fileType>
 </fileResource>

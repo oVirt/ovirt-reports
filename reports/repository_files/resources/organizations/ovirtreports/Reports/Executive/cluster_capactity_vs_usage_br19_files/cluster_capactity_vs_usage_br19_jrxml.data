@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR19" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR19" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Executive/cluster_capactity_vs_usage_br19"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="197"/>
 	<subDataset name="dataset1">
 		<parameter name="P_DataCenter_ID" class="java.lang.String">
 			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -26,7 +26,7 @@
 		<queryString>
 			<![CDATA[-- vms CPU Cores Total and vms Physical Memory Total
 SELECT distinct the_date, cpu_cores, mem_total
-from	(SELECT history_datetime as time,
+from	(SELECT history_datetime,
 			  SUM(coalesce(v3_0_vm_configuration_view.cpu_per_socket,0)*coalesce(v3_0_vm_configuration_view.number_of_sockets,0)*minutes_in_status)/SUM(minutes_in_status) AS cpu_cores,
 			  (SUM(coalesce(v3_0_vm_configuration_view.memory_size_mb,0)*minutes_in_status)/SUM(minutes_in_status)) AS mem_total
 		FROM v3_0_vm_daily_history_view
@@ -52,28 +52,23 @@ from	(SELECT history_datetime as time,
 				ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
 			     END
 		GROUP BY history_datetime) as query_run RIGHT OUTER JOIN calendar
-				ON (query_run.time = calendar.the_date)
+				ON (query_run.history_datetime = calendar.the_date)
 where the_date >= cast($P{P_Start_Date} as date)
       AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
+GROUP BY the_date, cpu_cores, mem_total
 order by the_date]]>
 		</queryString>
-		<field name="the_date" class="java.sql.Date">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="cpu_cores" class="java.math.BigDecimal">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="mem_total" class="java.math.BigDecimal">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
+		<field name="the_date" class="java.sql.Date"/>
+		<field name="cpu_cores" class="java.math.BigDecimal"/>
+		<field name="mem_total" class="java.math.BigDecimal"/>
 	</subDataset>
 	<parameter name="P_DataCenter_ID" class="java.lang.String">
 		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["f2623846-26dc-4b00-8369-33adceb2a7ea"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="P_Cluster_ID" class="java.lang.String">
 		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["11111111-1111-1111-1111-111111111111"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="P_Period" class="java.lang.String">
 		<parameterDescription><![CDATA[Period]]></parameterDescription>
@@ -81,22 +76,22 @@ order by the_date]]>
 	</parameter>
 	<parameter name="P_Dates" class="java.lang.String">
 		<parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-		<defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["August 2011"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="P_Start_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["01/01/2011"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["2011-08-01"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="P_End_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["01/01/2011"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["2011-08-31"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="Active_VMs" class="java.lang.String">
-		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[-- Hosts CPU Cores Total and Hosts Physical Memory Total
 SELECT distinct the_date, cpu_cores, mem_total
-from	(SELECT history_datetime as time,
+from	(SELECT history_datetime,
 			  SUM(coalesce(v3_0_host_configuration_view.number_of_cores,0)*minutes_in_status)/SUM(minutes_in_status) AS cpu_cores,
 			  (SUM(coalesce(v3_0_host_configuration_view.memory_size_mb,0)*minutes_in_status)/SUM(minutes_in_status)) AS mem_total
 		FROM v3_0_host_daily_history_view
@@ -122,270 +117,19 @@ from	(SELECT history_datetime as time,
 				ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
 			     END
 		GROUP BY history_datetime) as query_run RIGHT OUTER JOIN calendar
-				ON (query_run.time = calendar.the_date)
+				ON (query_run.history_datetime = calendar.the_date)
 where the_date >= cast($P{P_Start_Date} as date)
       AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
-GROUP BY the_date, month_name, the_day, cpu_cores, mem_total
+GROUP BY the_date, cpu_cores, mem_total
 order by the_date]]>
 	</queryString>
-	<field name="the_date" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cpu_cores" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="mem_total" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<group name="Data Center">
-		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
-		<groupFooter>
-			<band height="434" splitType="Prevent">
-				<timeSeriesChart>
-					<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="image" theme="ReportsLineBarChartTheme">
-						<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="220" width="410" height="213"/>
-						<box>
-							<pen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
-						</box>
-						<chartTitle>
-							<font fontName="DejaVu Sans" size="11"/>
-							<titleExpression><![CDATA["Average Number of vCPU (Over Time)"]]></titleExpression>
-						</chartTitle>
-						<chartSubtitle>
-							<font fontName="DejaVu Sans"/>
-						</chartSubtitle>
-						<chartLegend position="Bottom">
-							<font fontName="DejaVu Sans"/>
-						</chartLegend>
-					</chart>
-					<timeSeriesDataset>
-						<dataset resetType="None">
-							<datasetRun subDataset="dataset1">
-								<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-								<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-							</datasetRun>
-						</dataset>
-						<timeSeries>
-							<seriesExpression><![CDATA["Average Number of vCPU"]]></seriesExpression>
-							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-							<valueExpression><![CDATA[$F{cpu_cores}]]></valueExpression>
-							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{cpu_cores}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
-							</itemHyperlink>
-						</timeSeries>
-					</timeSeriesDataset>
-					<timeSeriesPlot isShowLines="true" isShowShapes="false">
-						<plot orientation="Horizontal" labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
-						<timeAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans" isBold="true"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="SansSerif"/>
-								</tickLabelFont>
-							</axisFormat>
-						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["#vCPU"]]></valueAxisLabelExpression>
-						<valueAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="DejaVu Sans"/>
-								</tickLabelFont>
-							</axisFormat>
-						</valueAxisFormat>
-					</timeSeriesPlot>
-				</timeSeriesChart>
-				<timeSeriesChart>
-					<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="image" theme="ReportsLineBarChartTheme">
-						<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="422" y="220" width="410" height="213"/>
-						<box>
-							<pen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
-						</box>
-						<chartTitle>
-							<font fontName="DejaVu Sans" size="11"/>
-							<titleExpression><![CDATA["Average Virtual Machines Memory Size (Over Time)"]]></titleExpression>
-						</chartTitle>
-						<chartSubtitle>
-							<font fontName="DejaVu Sans"/>
-						</chartSubtitle>
-						<chartLegend position="Bottom">
-							<font fontName="DejaVu Sans"/>
-						</chartLegend>
-					</chart>
-					<timeSeriesDataset>
-						<dataset resetType="None">
-							<datasetRun subDataset="dataset1">
-								<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-								<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-							</datasetRun>
-						</dataset>
-						<timeSeries>
-							<seriesExpression><![CDATA["Average Virtual Machines Memory Size (GB)"]]></seriesExpression>
-							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-							<valueExpression><![CDATA[$F{mem_total}/1024]]></valueExpression>
-							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[($F{mem_total}/1024).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
-							</itemHyperlink>
-						</timeSeries>
-					</timeSeriesDataset>
-					<timeSeriesPlot isShowLines="true" isShowShapes="false">
-						<plot orientation="Horizontal" labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
-						<timeAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans" isBold="true"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="SansSerif"/>
-								</tickLabelFont>
-							</axisFormat>
-						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["VM Memory (GB)"]]></valueAxisLabelExpression>
-						<valueAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="DejaVu Sans"/>
-								</tickLabelFont>
-							</axisFormat>
-						</valueAxisFormat>
-					</timeSeriesPlot>
-				</timeSeriesChart>
-				<timeSeriesChart>
-					<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="image" theme="ReportsLineBarChartTheme">
-						<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="410" height="213"/>
-						<box>
-							<pen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
-						</box>
-						<chartTitle>
-							<font fontName="DejaVu Sans" size="11"/>
-							<titleExpression><![CDATA["Average Number of Hosts Cores (Over Time)"]]></titleExpression>
-						</chartTitle>
-						<chartSubtitle>
-							<font fontName="DejaVu Sans"/>
-						</chartSubtitle>
-						<chartLegend position="Bottom">
-							<font fontName="DejaVu Sans"/>
-						</chartLegend>
-					</chart>
-					<timeSeriesDataset>
-						<dataset resetType="None"/>
-						<timeSeries>
-							<seriesExpression><![CDATA["Average Number of Hosts Cores"]]></seriesExpression>
-							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-							<valueExpression><![CDATA[$F{cpu_cores}]]></valueExpression>
-							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{cpu_cores}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
-							</itemHyperlink>
-						</timeSeries>
-					</timeSeriesDataset>
-					<timeSeriesPlot isShowLines="true" isShowShapes="false">
-						<plot orientation="Horizontal" labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
-						<timeAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans" isBold="true"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="SansSerif"/>
-								</tickLabelFont>
-							</axisFormat>
-						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["#Hosts Cores"]]></valueAxisLabelExpression>
-						<valueAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="DejaVu Sans"/>
-								</tickLabelFont>
-							</axisFormat>
-						</valueAxisFormat>
-					</timeSeriesPlot>
-				</timeSeriesChart>
-				<timeSeriesChart>
-					<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="image" theme="ReportsLineBarChartTheme">
-						<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="422" y="0" width="410" height="213"/>
-						<box>
-							<pen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
-							<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
-						</box>
-						<chartTitle>
-							<font fontName="DejaVu Sans" size="11"/>
-							<titleExpression><![CDATA["Average Hosts Memory Size (Over Time)"]]></titleExpression>
-						</chartTitle>
-						<chartSubtitle>
-							<font fontName="DejaVu Sans"/>
-						</chartSubtitle>
-						<chartLegend position="Bottom">
-							<font fontName="DejaVu Sans"/>
-						</chartLegend>
-					</chart>
-					<timeSeriesDataset>
-						<dataset resetType="None"/>
-						<timeSeries>
-							<seriesExpression><![CDATA["Average Hosts Memory Size (GB)"]]></seriesExpression>
-							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-							<valueExpression><![CDATA[($F{mem_total}/1024)]]></valueExpression>
-							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[($F{mem_total}/1024).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
-							</itemHyperlink>
-						</timeSeries>
-					</timeSeriesDataset>
-					<timeSeriesPlot isShowLines="true" isShowShapes="false">
-						<plot orientation="Horizontal" labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
-						<timeAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans" isBold="true"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="SansSerif"/>
-								</tickLabelFont>
-							</axisFormat>
-						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Hosts Memory (GB)"]]></valueAxisLabelExpression>
-						<valueAxisFormat>
-							<axisFormat labelColor="#666666" verticalTickLabels="false">
-								<labelFont>
-									<font fontName="DejaVu Sans"/>
-								</labelFont>
-								<tickLabelFont>
-									<font fontName="DejaVu Sans"/>
-								</tickLabelFont>
-							</axisFormat>
-						</valueAxisFormat>
-					</timeSeriesPlot>
-				</timeSeriesChart>
-			</band>
-		</groupFooter>
-	</group>
+	<field name="the_date" class="java.sql.Date"/>
+	<field name="cpu_cores" class="java.math.BigDecimal"/>
+	<field name="mem_total" class="java.math.BigDecimal"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<title>
 		<band height="136" splitType="Stretch">
 			<subreport>
@@ -422,7 +166,7 @@ order by the_date]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -431,21 +175,262 @@ order by the_date]]>
 		</band>
 	</title>
 	<pageFooter>
-		<band height="13" splitType="Stretch">
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="0" width="80" height="13"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="9"/>
+		<band height="15" splitType="Stretch">
+			<textField evaluationTime="Auto">
+				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="284" y="0" width="264" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement positionType="FixRelativeToBottom" x="422" y="0" width="40" height="13"/>
-				<textElement>
-					<font fontName="Times New Roman" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="434">
+			<timeSeriesChart>
+				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="220" width="410" height="213"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
+					</box>
+					<chartTitle>
+						<font fontName="DejaVu Sans" size="11"/>
+						<titleExpression><![CDATA[$R{br19.chart.vms.vcores}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="DejaVu Sans"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="DejaVu Sans"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset>
+					<dataset>
+						<datasetRun subDataset="dataset1">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA["Average Number of vCores"]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{cpu_cores}]]></valueExpression>
+						<labelExpression><![CDATA["Average Number of vCores"]]></labelExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{cpu_cores}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowLines="true" isShowShapes="false">
+					<plot orientation="Horizontal" labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans" isBold="true"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vm.cores}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="DejaVu Sans"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="422" y="1" width="410" height="213"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
+					</box>
+					<chartTitle>
+						<font fontName="DejaVu Sans" size="11"/>
+						<titleExpression><![CDATA[$R{br19.chart.hosts.memory.size}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="DejaVu Sans"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="DejaVu Sans"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset>
+					<timeSeries>
+						<seriesExpression><![CDATA["Average Hosts Memory Size (GB)"]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[($F{mem_total}/1024)]]></valueExpression>
+						<labelExpression><![CDATA["Average Hosts Memory Size (GB)"]]></labelExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[($F{mem_total}/1024).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowLines="true" isShowShapes="false">
+					<plot orientation="Horizontal" labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans" isBold="true"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.memory.size.gb}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="DejaVu Sans"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="1" width="410" height="213"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
+					</box>
+					<chartTitle>
+						<font fontName="DejaVu Sans" size="11"/>
+						<titleExpression><![CDATA[$R{br19.chart.hosts.cores}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="DejaVu Sans"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="DejaVu Sans"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset>
+					<timeSeries>
+						<seriesExpression><![CDATA["Cores"]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{cpu_cores}]]></valueExpression>
+						<labelExpression><![CDATA["Cores"]]></labelExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{cpu_cores}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowLines="true" isShowShapes="false">
+					<plot orientation="Horizontal" labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans" isBold="true"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.host.cores}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="DejaVu Sans"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="422" y="220" width="410" height="213"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<topPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<leftPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<bottomPen lineWidth="1.0" lineColor="#3A5F7D"/>
+						<rightPen lineWidth="1.0" lineColor="#3A5F7D"/>
+					</box>
+					<chartTitle>
+						<font fontName="DejaVu Sans" size="11"/>
+						<titleExpression><![CDATA[$R{br19.chart.vms.memory.size}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="DejaVu Sans"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="DejaVu Sans"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset>
+					<dataset>
+						<datasetRun subDataset="dataset1">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA["Average Virtual Machines Memory Size (GB)"]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{mem_total}/1024]]></valueExpression>
+						<labelExpression><![CDATA["Average Virtual Machines Memory Size (GB)"]]></labelExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[($F{mem_total}/1024).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowLines="true" isShowShapes="false">
+					<plot orientation="Horizontal" labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans" isBold="true"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.memory.size.gb}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666" verticalTickLabels="false">
+							<labelFont>
+								<font fontName="DejaVu Sans"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="DejaVu Sans"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+		</band>
+	</summary>
 </jasperReport>

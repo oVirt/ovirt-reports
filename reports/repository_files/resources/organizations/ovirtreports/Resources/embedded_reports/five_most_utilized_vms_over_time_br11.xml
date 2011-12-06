@@ -2,11 +2,11 @@
 <reportUnit>
     <folder>/organizations/ovirtreports/Resources/embedded_reports</folder>
     <name>five_most_utilized_vms_over_time_br11</name>
-    <version>6</version>
+    <version>7</version>
     <label>Five Most Utilized Virtual Machines (Over Time) (BR11B)</label>
     <description>This report contains charts displaying weighted average daily peak of CPU and Memory usage for the top five busiest Virtual Machines of a selected cluster and within a given period month.</description>
-    <creationDate>2011-10-18T16:58:13.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:07.902+02:00</creationDate>
+    <updateDate>2011-12-04T16:30:34.950+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,8 +16,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-10-18T17:50:12.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:29.472+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:29.472+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -38,10 +38,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="inputControl">
             <folder>/organizations/ovirtreports/Resources/embedded_reports/five_most_utilized_vms_over_time_br11_files</folder>
             <name>P_VM_Type</name>
-            <version>1</version>
+            <version>2</version>
             <label>VM Type</label>
-            <creationDate>2011-10-18T17:50:12.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:29.472+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:29.472+02:00</updateDate>
             <type>4</type>
             <mandatory>true</mandatory>
             <readOnly>false</readOnly>
@@ -52,8 +52,8 @@
                     <name>type</name>
                     <version>0</version>
                     <label>type</label>
-                    <creationDate>2011-10-18T17:50:12.000+02:00</creationDate>
-                    <updateDate>2011-10-18T17:50:12.000+02:00</updateDate>
+                    <creationDate>2011-12-01T18:38:29.472+02:00</creationDate>
+                    <updateDate>2011-12-01T18:38:29.472+02:00</updateDate>
                     <language>sql</language>
                     <queryString>SELECT v3_0_enum_translator_view.value, v3_0_enum_translator_view.enum_key,  0 as sort 
 FROM v3_0_enum_translator_view, v3_0_vm_configuration_view
@@ -84,14 +84,23 @@ ORDER BY sort DESC</queryString>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
-    </inputControl>
-    <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
     </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Resources/embedded_reports/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-01T18:38:29.472+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:29.472+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
     <inputControlRenderingView></inputControlRenderingView>
     <alwaysPromptControls>false</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>

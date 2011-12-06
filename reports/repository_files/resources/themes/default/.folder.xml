@@ -3,16 +3,18 @@
     <parent>/themes</parent>
     <name>default</name>
     <label>default</label>
-    <creationDate>2011-10-18T16:52:32.000+02:00</creationDate>
-    <updateDate>2011-06-03T23:47:30.000+03:00</updateDate>
+    <creationDate>2011-11-20T13:48:13.480+02:00</creationDate>
+    <updateDate>2011-09-28T04:19:50.729+03:00</updateDate>
     <folder>images</folder>
     <resource>buttons.css</resource>
     <resource>containers.css</resource>
     <resource>controls.css</resource>
     <resource>dataDisplays.css</resource>
     <resource>dialogSpecific.css</resource>
+    <resource>forPrint.css</resource>
     <resource>lists.css</resource>
     <resource>overrides_custom.css</resource>
+    <resource>overrides_ie.css</resource>
     <resource>overrides_ie7.css</resource>
     <resource>overrides_ie8.css</resource>
     <resource>pages.css</resource>

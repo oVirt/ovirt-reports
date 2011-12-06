@@ -4,7 +4,7 @@
     <name>Inventory</name>
     <label>Inventory</label>
     <description>Folder for Inventory reports</description>
-    <creationDate>2011-10-18T16:57:58.000+02:00</creationDate>
+    <creationDate>2011-11-20T13:51:55.674+02:00</creationDate>
     <updateDate>2011-06-20T17:29:08.000+03:00</updateDate>
     <resource>Hosts_Inventory</resource>
     <resource>Storage_Domain_Report_BR21</resource>

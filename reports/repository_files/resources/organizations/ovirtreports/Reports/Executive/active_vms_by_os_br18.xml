@@ -2,11 +2,11 @@
 <reportUnit>
     <folder>/organizations/ovirtreports/Reports/Executive</folder>
     <name>active_vms_by_os_br18</name>
-    <version>22</version>
+    <version>36</version>
     <label>Active Virtual Machines by OS (BR18)</label>
     <description>The report contains comparative measurements number of running virtual machines and OS usage in for a selected cluster and a selected virtual machine's type within the requested period.</description>
-    <creationDate>2011-10-18T16:58:11.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:05.837+02:00</creationDate>
+    <updateDate>2011-12-05T16:46:54.020+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,8 +16,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:24.895+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:24.895+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -40,9 +40,6 @@
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
-    </inputControl>
-    <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
@@ -56,8 +53,8 @@
             <name>full details.jrxml</name>
             <version>1</version>
             <label>full details.jrxml</label>
-            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:24.895+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:24.895+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -68,8 +65,8 @@
             <name>ovirt-icon</name>
             <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:24.895+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:24.895+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -80,9 +77,21 @@
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:24.895+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:24.895+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Executive/active_vms_by_os_br18_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-01T18:38:24.895+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:24.895+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
     <inputControlRenderingView></inputControlRenderingView>

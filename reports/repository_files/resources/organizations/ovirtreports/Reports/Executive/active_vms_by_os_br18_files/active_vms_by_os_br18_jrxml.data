@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Executive/active_vms_by_os_br18"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -240,6 +240,10 @@ order by the_date]]>
 	<field name="vm_count" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<title>
 		<band height="139" splitType="Stretch">
 			<subreport>
@@ -276,7 +280,7 @@ order by the_date]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="43" width="832" height="1"/>
@@ -289,19 +293,12 @@ order by the_date]]>
 	</title>
 	<pageFooter>
 		<band height="15" splitType="Stretch">
-			<textField>
-				<reportElement x="292" y="0" width="116" height="15"/>
-				<textElement textAlignment="Right">
+			<textField evaluationTime="Auto">
+				<reportElement x="291" y="0" width="250" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="408" y="0" width="120" height="15"/>
-				<textElement>
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
@@ -319,7 +316,7 @@ order by the_date]]>
 					</box>
 					<chartTitle color="#3A5E7E">
 						<font fontName="DejaVu Sans"/>
-						<titleExpression><![CDATA["RHEL vs Other Linux OS"]]></titleExpression>
+						<titleExpression><![CDATA[$R{br18.chart.rhel.vs.other.linuxs}]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle>
 						<font fontName="DejaVu Sans"/>
@@ -347,7 +344,7 @@ order by the_date]]>
 				</timeSeriesDataset>
 				<timeSeriesPlot isShowShapes="false">
 					<plot labelRotation="-45.0"/>
-					<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 					<timeAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -358,7 +355,7 @@ order by the_date]]>
 							</tickLabelFont>
 						</axisFormat>
 					</timeAxisFormat>
-					<valueAxisLabelExpression><![CDATA["#VMs"]]></valueAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -383,7 +380,7 @@ order by the_date]]>
 					</box>
 					<chartTitle color="#3A5E7E">
 						<font fontName="DejaVu Sans"/>
-						<titleExpression><![CDATA["Distribution of Windows Versions"]]></titleExpression>
+						<titleExpression><![CDATA[$R{br18.chart.windows.distribution}]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle>
 						<font fontName="DejaVu Sans"/>
@@ -413,7 +410,7 @@ order by the_date]]>
 						<seriesColor seriesOrder="7" color="#990000"/>
 						<seriesColor seriesOrder="8" color="#0000FF"/>
 					</plot>
-					<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 					<timeAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -424,7 +421,7 @@ order by the_date]]>
 							</tickLabelFont>
 						</axisFormat>
 					</timeAxisFormat>
-					<valueAxisLabelExpression><![CDATA["#VMs"]]></valueAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -449,7 +446,7 @@ order by the_date]]>
 					</box>
 					<chartTitle color="#3A5E7E">
 						<font fontName="DejaVu Sans"/>
-						<titleExpression><![CDATA["Virtual Machines With Known OS vs Unknown OS"]]></titleExpression>
+						<titleExpression><![CDATA[$R{br18.chart.known.vs.unknown.os}]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle>
 						<font fontName="DejaVu Sans"/>
@@ -476,7 +473,7 @@ order by the_date]]>
 				</timeSeriesDataset>
 				<timeSeriesPlot isShowShapes="false">
 					<plot labelRotation="-45.0"/>
-					<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 					<timeAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -487,7 +484,7 @@ order by the_date]]>
 							</tickLabelFont>
 						</axisFormat>
 					</timeAxisFormat>
-					<valueAxisLabelExpression><![CDATA["#VMs"]]></valueAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -512,7 +509,7 @@ order by the_date]]>
 					</box>
 					<chartTitle color="#3A5E7E">
 						<font fontName="DejaVu Sans"/>
-						<titleExpression><![CDATA["RHEL vs Windows OS"]]></titleExpression>
+						<titleExpression><![CDATA[$R{br18.chart.rhel.vs.windows}]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle>
 						<font fontName="DejaVu Sans"/>
@@ -540,7 +537,7 @@ order by the_date]]>
 				</timeSeriesDataset>
 				<timeSeriesPlot isShowShapes="false">
 					<plot labelRotation="-45.0"/>
-					<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 					<timeAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -551,7 +548,7 @@ order by the_date]]>
 							</tickLabelFont>
 						</axisFormat>
 					</timeAxisFormat>
-					<valueAxisLabelExpression><![CDATA["#VMs"]]></valueAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>

@@ -2,10 +2,10 @@
 <fileResource dataFile="button_action_primary_sprite.png.data">
     <folder>/themes/ovirt-reports-theme/images</folder>
     <name>button_action_primary_sprite.png</name>
-    <version>5</version>
+    <version>3</version>
     <label>button_action_primary_sprite.png</label>
     <description>button_action_primary_sprite.png</description>
-    <creationDate>2011-10-18T16:58:09.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:07.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:04.840+02:00</creationDate>
+    <updateDate>2011-12-01T18:38:22.299+02:00</updateDate>
     <fileType>img</fileType>
 </fileResource>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR10B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
-	<property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/ovirt-reports/services/repository"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR10B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="92"/>
+	<property name="ireport.y" value="42"/>
 	<subDataset name="Memory">
 		<parameter name="P_DataCenter_ID" class="java.lang.String">
 			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -339,11 +339,9 @@ order by extract(DOW from the_date) ASC]]>
 	<field name="cpu_peak" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="cpu_1" class="java.lang.Integer" resetType="Group" resetGroup="VM" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="mem_1" class="java.lang.Integer" resetType="Group" resetGroup="VM" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<group name="VM">
 		<groupExpression><![CDATA[$P{P_VM_ID}]]></groupExpression>
@@ -361,7 +359,7 @@ order by extract(DOW from the_date) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Memory Usage by Day of Week"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10b.chart.memory.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -378,19 +376,17 @@ order by extract(DOW from the_date) ASC]]>
 							</datasetRun>
 						</dataset>
 						<categorySeries>
-							<seriesExpression><![CDATA["Memory Usage"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.memory.usage}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{mem_usage}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{mem_usage}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA["Memory Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.memory.peak}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{mem_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{mem_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -401,9 +397,9 @@ order by extract(DOW from the_date) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -412,9 +408,9 @@ order by extract(DOW from the_date) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Memory Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -439,11 +435,11 @@ order by extract(DOW from the_date) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Top Three Busiest Network Interfaces Usage by Day of Week"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10b.chart.network.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
-							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? null :  "Deleted interfaces are marked with asterisks"]]></subtitleExpression>
+							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.network.subtitle.deleted}]]></subtitleExpression>
 						</chartSubtitle>
 						<chartLegend>
 							<font fontName="DejaVu Sans"/>
@@ -457,19 +453,19 @@ order by extract(DOW from the_date) ASC]]>
 							</datasetRun>
 						</dataset>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{interface_name}.concat("/Rx")]]></seriesExpression>
+							<seriesExpression><![CDATA[$F{interface_name} + $R{br10.chart.series.rx}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{rx_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{interface_name}.concat("/Rx") + ", " + $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.network}, $F{interface_name}, str("br10.chart.series.rx"), $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{interface_name}.concat("/Tx")]]></seriesExpression>
+							<seriesExpression><![CDATA[$F{interface_name} + $R{br10.chart.series.tx}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{tx_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{interface_name}.concat("/Tx") + ", " + $F{tx_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.network}, $F{interface_name}, str("br10.chart.series.tx"), $F{tx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 					</categoryDataset>
@@ -478,9 +474,9 @@ order by extract(DOW from the_date) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -489,9 +485,9 @@ order by extract(DOW from the_date) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Network Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.network.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -516,11 +512,11 @@ order by extract(DOW from the_date) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Top Five Disks Usage by Day of Week"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10b.chart.disks.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
-							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? null :  "Deleted disks are marked with asterisks"]]></subtitleExpression>
+							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.disks.subtitle.deleted}]]></subtitleExpression>
 						</chartSubtitle>
 						<chartLegend>
 							<font fontName="DejaVu Sans"/>
@@ -534,19 +530,19 @@ order by extract(DOW from the_date) ASC]]>
 							</datasetRun>
 						</dataset>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{disk_name}.concat("/Read")]]></seriesExpression>
+							<seriesExpression><![CDATA[$F{disk_name} + $R{br10.chart.series.read}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{read_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{disk_name}.concat("/Read") + ", " + $F{read_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.disks}, $F{disk_name}, str("br10.chart.series.read"), $F{read_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{disk_name}.concat("/Write")]]></seriesExpression>
+							<seriesExpression><![CDATA[$F{disk_name} + $R{br10.chart.series.write}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{write_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{disk_name}.concat("/Write") + ", " + $F{write_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.disks}, $F{disk_name}, str("br10.chart.series.write"), $F{write_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 					</categoryDataset>
@@ -555,9 +551,9 @@ order by extract(DOW from the_date) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -566,9 +562,9 @@ order by extract(DOW from the_date) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Disk Usage MB/s"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.disks.usage.mb.pre.second}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -592,7 +588,7 @@ order by extract(DOW from the_date) ASC]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["CPU Usage by Day of Week"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10b.chart.cpu.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -603,19 +599,17 @@ order by extract(DOW from the_date) ASC]]>
 					</chart>
 					<categoryDataset>
 						<categorySeries>
-							<seriesExpression><![CDATA["CPU Usage"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.cpu.usage}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{cpu_usage}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{cpu_usage}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA["CPU Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.cpu.peak}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{day_name}.substring(0,3)]]></categoryExpression>
 							<valueExpression><![CDATA[$F{cpu_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{cpu_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -626,9 +620,9 @@ order by extract(DOW from the_date) ASC]]>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Day"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -637,9 +631,9 @@ order by extract(DOW from the_date) ASC]]>
 								</tickLabelFont>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["CPU Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -694,7 +688,7 @@ order by extract(DOW from the_date) ASC]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -704,19 +698,12 @@ order by extract(DOW from the_date) ASC]]>
 	</title>
 	<pageFooter>
 		<band height="15" splitType="Stretch">
-			<textField>
-				<reportElement x="292" y="0" width="126" height="15"/>
-				<textElement textAlignment="Right">
+			<textField evaluationTime="Auto">
+				<reportElement x="286" y="1" width="260" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="418" y="0" width="114" height="15"/>
-				<textElement>
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

@@ -2,11 +2,11 @@
 <reportUnit>
     <folder>/organizations/ovirtreports/Reports/Service_level/Hosts</folder>
     <name>cluster_quality_of_service_hosts_br6</name>
-    <version>3</version>
+    <version>26</version>
     <label>Cluster Quality of Service - Hosts (BR6)</label>
     <description>This report contains a chart displaying the time hosts have performed above a selected threshold (Host-hours) and a table of total time each host was performing above the CPU or the Memory threshold.</description>
-    <creationDate>2011-10-18T16:58:14.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:14.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:09.026+02:00</creationDate>
+    <updateDate>2011-12-06T17:18:15.369+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,8 +16,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-10-18T17:50:14.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:14.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:30.436+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.436+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -46,9 +46,6 @@
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
-    </inputControl>
-    <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
@@ -60,10 +57,10 @@
             dataFile="full details br13.jrxml.data" xsi:type="fileResource">
             <folder>/organizations/ovirtreports/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6_files</folder>
             <name>full details br13.jrxml</name>
-            <version>1</version>
+            <version>2</version>
             <label>full details br13.jrxml</label>
-            <creationDate>2011-10-18T17:50:14.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:14.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:30.436+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.436+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -73,10 +70,10 @@
             dataFile="header cluster name.jrxml.data" xsi:type="fileResource">
             <folder>/organizations/ovirtreports/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6_files</folder>
             <name>header cluster name.jrxml</name>
-            <version>1</version>
+            <version>2</version>
             <label>header cluster name.jrxml</label>
-            <creationDate>2011-10-18T17:50:14.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:14.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:30.436+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.436+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -87,8 +84,8 @@
             <name>ovirt-icon</name>
             <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2011-10-18T17:50:14.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:14.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:30.436+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.436+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -99,9 +96,21 @@
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-10-18T17:50:14.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:14.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:30.436+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.436+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-01T18:38:30.436+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.436+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
     <inputControlRenderingView></inputControlRenderingView>

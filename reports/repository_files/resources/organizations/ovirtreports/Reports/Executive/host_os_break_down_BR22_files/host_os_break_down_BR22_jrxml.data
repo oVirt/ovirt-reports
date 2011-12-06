@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR22" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR22" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Executive/host_os_break_down_BR22"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -88,6 +88,10 @@ order by the_date]]>
 	<field name="host_count" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<title>
 		<band height="368" splitType="Stretch">
 			<subreport>
@@ -118,7 +122,7 @@ order by the_date]]>
 			</subreport>
 			<timeSeriesChart>
 				<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-					<reportElement mode="Opaque" x="1" y="135" width="831" height="230"/>
+					<reportElement mode="Opaque" x="0" y="135" width="832" height="230"/>
 					<box>
 						<pen lineWidth="1.0" lineColor="#3C617F"/>
 						<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -128,7 +132,7 @@ order by the_date]]>
 					</box>
 					<chartTitle color="#3A5E7E">
 						<font fontName="DejaVu Sans"/>
-						<titleExpression><![CDATA["Operating System Break Down"]]></titleExpression>
+						<titleExpression><![CDATA[$R{br22.chart.title.os.break.down}]]></titleExpression>
 					</chartTitle>
 					<chartSubtitle>
 						<font fontName="DejaVu Sans"/>
@@ -149,7 +153,7 @@ order by the_date]]>
 				</timeSeriesDataset>
 				<timeSeriesPlot isShowShapes="false">
 					<plot labelRotation="-45.0"/>
-					<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 					<timeAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -160,7 +164,7 @@ order by the_date]]>
 							</tickLabelFont>
 						</axisFormat>
 					</timeAxisFormat>
-					<valueAxisLabelExpression><![CDATA["#Active Hosts"]]></valueAxisLabelExpression>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.running.hosts}]]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat labelColor="#666666">
 							<labelFont>
@@ -181,7 +185,7 @@ order by the_date]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -191,27 +195,27 @@ order by the_date]]>
 	</title>
 	<columnHeader>
 		<band height="20" splitType="Immediate">
-			<staticText>
+			<textField>
 				<reportElement mode="Opaque" x="115" y="0" width="617" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[  Host Type]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression><![CDATA["  " + $R{br22.table.host.os}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement mode="Opaque" x="732" y="0" width="100" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Host Count  ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="1" y="0" width="114" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textFieldExpression><![CDATA[$R{br22.host.count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="115" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Date]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{br22.table.date}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
@@ -221,7 +225,7 @@ order by the_date]]>
 					<printWhenExpression><![CDATA[$F{host_count} != null]]></printWhenExpression>
 				</reportElement>
 				<textField>
-					<reportElement x="731" y="0" width="62" height="18"/>
+					<reportElement x="731" y="0" width="60" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans" size="10"/>
 					</textElement>
@@ -239,26 +243,19 @@ order by the_date]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{the_date}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
 	</detail>
 	<pageFooter>
 		<band height="15">
-			<textField evaluationTime="Report">
-				<reportElement x="420" y="0" width="135" height="15"/>
-				<textElement>
-					<font fontName="DejaVu Sans" size="11"/>
+			<textField evaluationTime="Auto">
+				<reportElement x="252" y="0" width="329" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="257" y="0" width="163" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Sans" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

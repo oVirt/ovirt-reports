@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR23" language="groovy" pageWidth="800" pageHeight="420" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/storage_domain_by_Datacenter_BR23"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/ovirt-reports/services/repository"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR23" language="groovy" pageWidth="800" pageHeight="420" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Resources/embedded_reports/storage_domain_by_Datacenter_BR23"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -81,7 +81,7 @@ GROUP BY v3_0_storage_domain_daily_history_view.storage_domain_id,
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans" size="11"/>
-							<titleExpression><![CDATA["Average Storage Domain Disk Use"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br23.title}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -173,16 +173,15 @@ GROUP BY v3_0_storage_domain_daily_history_view.storage_domain_id,
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
 							<font fontName="DejaVu Sans"/>
 						</itemLabel>
-						<categoryAxisLabelExpression><![CDATA["Storage Domains"]]></categoryAxisLabelExpression>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.storage.domain.names}]]></categoryAxisLabelExpression>
 						<categoryAxisFormat labelRotation="-45.0">
 							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
-								<tickLabelFont/>
 							</axisFormat>
 						</categoryAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Disk Usage (GB)"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.storage.domain.size.gb}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>

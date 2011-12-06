@@ -2,11 +2,11 @@
 <reportUnit>
     <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines</folder>
     <name>five_most_utilized_vms_over_time_br11</name>
-    <version>3</version>
+    <version>10</version>
     <label>Five Most Utilized Virtual Machines (Over Time) (BR11)</label>
     <description>This report contains charts displaying weighted average daily peak of CPU and memory usage for the top five busiest virtual machines of a selected cluster and within a given period month.</description>
-    <creationDate>2011-10-18T16:58:19.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:16.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:10.793+02:00</creationDate>
+    <updateDate>2011-12-05T12:57:36.895+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,8 +16,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-10-18T17:50:16.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:16.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:34.576+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:34.576+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -40,9 +40,6 @@
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
-    </inputControl>
-    <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
@@ -54,10 +51,10 @@
             dataFile="full details.jrxml.data" xsi:type="fileResource">
             <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/five_most_utilized_vms_over_time_br11_files</folder>
             <name>full details.jrxml</name>
-            <version>1</version>
+            <version>2</version>
             <label>full details.jrxml</label>
-            <creationDate>2011-10-18T17:50:16.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:16.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:34.576+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:34.576+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -68,8 +65,8 @@
             <name>ovirt-icon</name>
             <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2011-10-18T17:50:16.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:16.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:34.576+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:34.576+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -80,9 +77,21 @@
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-10-18T17:50:16.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:16.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:34.576+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:34.576+02:00</updateDate>
             <referenceUri>/organizations/ovirtreports/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Reports/Trend/Virtual_machines/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-01T18:38:34.576+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:34.576+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
     <inputControlRenderingView></inputControlRenderingView>

@@ -3,9 +3,10 @@
     <parent>/themes/default</parent>
     <name>images</name>
     <label>images</label>
-    <creationDate>2011-10-18T16:52:33.000+02:00</creationDate>
-    <updateDate>2011-06-03T23:47:30.000+03:00</updateDate>
+    <creationDate>2011-11-20T13:48:13.582+02:00</creationDate>
+    <updateDate>2011-09-28T04:19:50.895+03:00</updateDate>
     <resource>adhoc_toolbar_buttons_sprite.png</resource>
+    <resource>ajax-loader.gif</resource>
     <resource>body_bkgnd.png</resource>
     <resource>button_action_jumbo_primary_sprite.png</resource>
     <resource>button_action_jumbo_sprite.png</resource>
@@ -41,8 +42,11 @@
     <resource>list_node_animation.gif</resource>
     <resource>list_pressed_bkgd.png</resource>
     <resource>lists_sprite.png</resource>
+    <resource>loadinfo.gif</resource>
+    <resource>login_welcome_bkgd_ipad.jpg</resource>
     <resource>login_welcome_bkgd.jpg</resource>
     <resource>login_welcome_ce_bkgd.jpg</resource>
+    <resource>logo_small.png</resource>
     <resource>logo.png</resource>
     <resource>menu_context_bkgd_corners.png</resource>
     <resource>menu_context_bkgd_edges_rl.png</resource>
@@ -67,6 +71,9 @@
     <resource>panel_info_system_bkgd_corners.png</resource>
     <resource>panel_info_system_bkgd_edges_rl.png</resource>
     <resource>panel_info_system_bkgd_edges_tb.png</resource>
+    <resource>panel_info_tooltip_bkgd_corners.png</resource>
+    <resource>panel_info_tooltip_bkgd_edges_rl.png</resource>
+    <resource>panel_info_tooltip_bkgd_edges_tb.png</resource>
     <resource>panel_inlay_bkgd_corners.png</resource>
     <resource>panel_inlay_bkgd_edges_rl.png</resource>
     <resource>panel_inlay_bkgd_edges_tb.png</resource>

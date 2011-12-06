@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="200" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="200" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Hosts/single_host_resource_usage_hour_of_day_br2c"/>
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Hosts/single_host_resource_br2a"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<parameter name="P_DataCenter_ID" class="java.lang.String">
 		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -44,7 +44,7 @@
 	          WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
 		        and history_id in (select max(b.history_id)
 			    		   from v3_0_cluster_configuration_view as b
-			   		   where b.cluster_id = v3_0_cluster_configuration_view.cluster_id)), 's') AS cluster_name,
+			   		   where b.cluster_id = v3_0_cluster_configuration_view.cluster_id)), 'all') AS cluster_name,
         (SELECT cast(v3_0_cluster_configuration_view.delete_date as date)
          FROM v3_0_cluster_configuration_view
          WHERE 	v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
@@ -73,42 +73,18 @@ WHERE 	host_id = cast($P{P_Host_ID} as uuid)
 			   from v3_0_host_configuration_view as a
 			   where a.host_id = v3_0_host_configuration_view.host_id)]]>
 	</queryString>
-	<field name="host_name" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="host_delete_date" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="host_create_date" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="fqn_or_ip" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="physical_memory" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="number_of_cores" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cpu_model" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cluster_name" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="cluster_delete_date" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="host_type" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="datacenter_name" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="datacenter_delete_date" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="host_name" class="java.lang.String"/>
+	<field name="host_delete_date" class="java.sql.Date"/>
+	<field name="host_create_date" class="java.sql.Date"/>
+	<field name="fqn_or_ip" class="java.lang.String"/>
+	<field name="physical_memory" class="java.math.BigDecimal"/>
+	<field name="number_of_cores" class="java.lang.Integer"/>
+	<field name="cpu_model" class="java.lang.String"/>
+	<field name="cluster_name" class="java.lang.String"/>
+	<field name="cluster_delete_date" class="java.sql.Date"/>
+	<field name="host_type" class="java.lang.String"/>
+	<field name="datacenter_name" class="java.lang.String"/>
+	<field name="datacenter_delete_date" class="java.sql.Date"/>
 	<variable name="datacenter_star" class="java.lang.String" resetType="None">
 		<variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
 	</variable>
@@ -134,7 +110,7 @@ WHERE 	host_id = cast($P{P_Host_ID} as uuid)
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Period: </b>" + $P{P_Period}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
 					<hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
@@ -142,7 +118,7 @@ WHERE 	host_id = cast($P{P_Host_ID} as uuid)
 					<textElement verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Datacenter: </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
 					<hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
@@ -150,7 +126,7 @@ WHERE 	host_id = cast($P{P_Host_ID} as uuid)
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Date Range: </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
 					<hyperlinkTooltipExpression><![CDATA[$P{P_Start_Date} + " - " + $P{P_End_Date}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
@@ -158,30 +134,23 @@ WHERE 	host_id = cast($P{P_Host_ID} as uuid)
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{cluster_name} != "s" ? "<b>Cluster: </b>" + $F{cluster_name} + $V{cluster_star} : "<b>Cluster: </b>All"]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "s" ? $F{cluster_name} + $V{cluster_star} : "All"]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{cluster_name} != "all" ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + $V{cluster_star} : "<b>" + $R{full.details.cluster} + ":</b> "+ $R{full.details.all}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "all" ? $F{cluster_name} + $V{cluster_star} : $R{full.details.all}]]></hyperlinkTooltipExpression>
 				</textField>
-				<staticText>
+				<textField>
 					<reportElement mode="Opaque" x="2" y="2" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
-					<box>
-						<pen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<topPen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<leftPen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<bottomPen lineWidth="1.0" lineColor="#F0F0F0"/>
-						<rightPen lineWidth="1.0" lineColor="#F0F0F0"/>
-					</box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="13" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ Criteria:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
+				</textField>
 			</frame>
 			<textField evaluationTime="Report" isBlankWhenNull="false">
 				<reportElement x="0" y="0" width="830" height="25" forecolor="#666666"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 					<font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Resource Usage of <b>Host " + $F{host_name} + $V{host_star} + "</b> (Hour of Day)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{br2c.title}, $F{host_name} + $V{host_star})]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="12" y="73" width="10" height="11">
@@ -204,28 +173,21 @@ WHERE 	host_id = cast($P{P_Host_ID} as uuid)
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{host_delete_date} != null ? $F{cluster_delete_date} != null ?
-$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + ", the cluster was deleted on " + $F{cluster_delete_date}.toString() + " and the host was deleted on " + $F{host_delete_date}.toString() + "." :
-"The cluster was deleted on " + $F{cluster_delete_date}.toString() + " and the host was deleted on " + $F{host_delete_date}.toString() + "." :
-$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + " and the host was deleted on " + $F{host_delete_date}.toString() + "." : "The host was deleted on " + $F{host_delete_date}.toString() + "." :
+$F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.cluster.and.host}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_date})) :
+msg($R{full.details.deleted.comment.cluster.and.host}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_date})) :
+$F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.host}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_date})) : msg($R{full.details.deleted.comment.host}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_date})) :
 $F{cluster_delete_date} != null ?
-$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + " and the cluster was deleted on " + $F{cluster_delete_date}.toString() + "." :
-"The cluster was deleted on " + $F{cluster_delete_date}.toString() + "." :
-$F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{datacenter_delete_date}.toString() + "." : ""]]></textFieldExpression>
+$F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :
+msg($R{full.details.deleted.comment.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :
+$F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date})) : ""]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="89" width="96" height="16" forecolor="#3A5E75"/>
-				<box>
-					<pen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<topPen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="89" width="256" height="16" forecolor="#3A5E75"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Sans" size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Host Details]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{full.details.host.details}]]></textFieldExpression>
+			</textField>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="105" width="828" height="40"/>
 				<box>
@@ -240,56 +202,56 @@ $F{datacenter_delete_date} != null ? "The data center was deleted on " + $F{data
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Host Type: </b>" + $F{host_type}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{host_type}]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{host_type} != "All" ? "<b>" + $R{full.details.host.type} + ":</b> " + $F{host_type} : "<b>" + $R{full.details.host.type} + ":</b> " + $R{full.details.all}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{host_type} != "All" ? $F{host_type} : $R{full.details.all}]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField isBlankWhenNull="false">
 					<reportElement x="7" y="0" width="408" height="20"/>
 					<textElement verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Host Address: </b>" + $F{fqn_or_ip}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{fqn_or_ip}]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{fqn_or_ip} != null ? "<b>" + $R{full.details.host.address} + ": </b>" + $F{fqn_or_ip} : "<b>" + $R{full.details.host.address} + ": </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{fqn_or_ip} != null ? $F{fqn_or_ip} : ""]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="666" y="20" width="122" height="20"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>#CPU Cores: </b>" + $F{number_of_cores}.toString()]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{number_of_cores}.toString()]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{number_of_cores} != null ? "<b>" + $R{full.details.number.of.cpu.cores} + ": </b>" + $F{number_of_cores}.toString() : "<b>" + $R{full.details.number.of.cpu.cores} + ": </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{number_of_cores} != null ? $F{number_of_cores}.toString() : ""]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="415" y="0" width="215" height="20"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Memory Size: </b>" + $F{physical_memory}.toString() + " GB"]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{physical_memory}.toString() + " GB"]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{physical_memory} != null ? "<b>" + $R{full.details.memory.size} + ": </b>" + $F{physical_memory}.toString() + " " + $R{full.details.gb} : "<b>" + $R{full.details.memory.size} + ": </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{physical_memory} != null ?  $F{physical_memory}.toString() + " " + $R{full.details.gb} : ""]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="7" y="20" width="162" height="20"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Create Date: </b>" + $F{host_create_date}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{host_create_date}]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{host_create_date} != null ? "<b>" + $R{full.details.create.date} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_create_date}) : "<b>" + $R{full.details.create.date} + ": </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{host_create_date} != null ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_create_date}) : ""]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField pattern="">
 					<reportElement positionType="Float" x="215" y="20" width="162" height="20"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{host_delete_date} != null ? "<b>Delete Date: </b>" + $F{host_delete_date} : "<b>Delete Date: </b>"]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{host_delete_date} != null ? $F{host_delete_date} : ""]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{host_delete_date} != null ? "<b>" + $R{full.details.delete.date} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_date}) : "<b>" + $R{full.details.delete.date} + ": </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{host_delete_date} != null ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_date}) : ""]]></hyperlinkTooltipExpression>
 				</textField>
 				<textField>
 					<reportElement positionType="Float" x="415" y="20" width="241" height="20"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
 						<font fontName="DejaVu Sans" size="11" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>CPU Model: </b>" + $F{cpu_model}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{cpu_model}]]></hyperlinkTooltipExpression>
+					<textFieldExpression><![CDATA[$F{cpu_model} != null ? "<b>" + $R{full.details.cpu.model} + ": </b>" + $F{cpu_model} : "<b>" + $R{full.details.cpu.model} + ": </b>"]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{cpu_model} != null ? $F{cpu_model} : ""]]></hyperlinkTooltipExpression>
 				</textField>
 			</frame>
 		</band>

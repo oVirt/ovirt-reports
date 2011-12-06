@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC</folder>
     <name>P_End_Date</name>
-    <version>5</version>
+    <version>4</version>
     <label>End Date</label>
-    <creationDate>2011-10-18T16:58:11.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:05.790+02:00</creationDate>
+    <updateDate>2011-12-04T15:55:27.186+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>true</readOnly>
@@ -17,20 +17,22 @@
             <name>monthEnd</name>
             <version>1</version>
             <label>monthEnd</label>
-            <creationDate>2011-10-18T17:50:09.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:09.000+02:00</updateDate>
+            <creationDate>2011-12-04T15:55:27.186+02:00</creationDate>
+            <updateDate>2011-12-04T15:55:27.186+02:00</updateDate>
             <language>sql</language>
-            <queryString>select distinct CASE
-	WHEN $P{P_Period} = 'Monthly' THEN cast(o.month_enddate as date)
-	WHEN $P{P_Period} = 'Quarterly' THEN cast(o.quarter_enddate  as date)
-           END as Enddate
-from period as o
-where o.month_name = $P{P_Dates}</queryString>
+            <queryString>SELECT DISTINCT CASE
+		WHEN $P{P_Period} = 'Monthly' THEN cast((cast($P{P_Start_Date} as date) + interval '1 month') - interval '1 day'  as date)
+		WHEN $P{P_Period} = 'Quarterly' THEN cast((cast($P{P_Start_Date} as date) + interval '3 month') - interval '1 day' as date)
+	   END as display_enddate,
+	   CASE
+		WHEN $P{P_Period} = 'Monthly' THEN cast((cast($P{P_Start_Date} as date) + interval '1 month')  as date)
+		WHEN $P{P_Period} = 'Quarterly' THEN cast((cast($P{P_Start_Date} as date) + interval '3 month') as date)
+	   END as enddate;</queryString>
             <dataSource>
                 <uri>/organizations/ovirtreports/Resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
         </localResource>
     </query>
-    <queryVisibleColumn>Enddate</queryVisibleColumn>
-    <queryValueColumn>Enddate</queryValueColumn>
+    <queryVisibleColumn>display_enddate</queryVisibleColumn>
+    <queryValueColumn>enddate</queryValueColumn>
 </inputControl>

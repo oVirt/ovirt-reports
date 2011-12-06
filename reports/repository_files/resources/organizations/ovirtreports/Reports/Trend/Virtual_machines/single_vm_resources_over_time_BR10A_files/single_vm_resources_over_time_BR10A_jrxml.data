@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR10A" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR10A" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Virtual_machines/single_vm_resources_over_time_BR10A"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="94"/>
+	<property name="ireport.y" value="41"/>
 	<subDataset name="Memory">
 		<parameter name="P_DataCenter_ID" class="java.lang.String">
 			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -326,11 +326,9 @@ order by the_date]]>
 	<field name="the_date" class="java.sql.Date"/>
 	<field name="cpu_usage" class="java.math.BigDecimal"/>
 	<field name="cpu_peak" class="java.math.BigDecimal"/>
-	<variable name="cpu_1" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="mem_1" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<group name="Cluster">
 		<groupExpression><![CDATA[$P{P_Cluster_ID}]]></groupExpression>
@@ -348,7 +346,7 @@ order by the_date]]>
 						</box>
 						<chartTitle color="#3A5E7E">
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Memory Usage Over Time"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10a.chart.memory.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -365,19 +363,17 @@ order by the_date]]>
 							</datasetRun>
 						</dataset>
 						<timeSeries>
-							<seriesExpression><![CDATA["Memory Usage"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.memory.usage}]]></seriesExpression>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{mem_usage}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{mem_usage}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</timeSeries>
 						<timeSeries>
-							<seriesExpression><![CDATA["Memory Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.memory.peak}]]></seriesExpression>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{mem_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{mem_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -385,9 +381,9 @@ order by the_date]]>
 					</timeSeriesDataset>
 					<timeSeriesPlot isShowShapes="false">
 						<plot labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -396,9 +392,9 @@ order by the_date]]>
 								</tickLabelFont>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Memory Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -421,7 +417,7 @@ order by the_date]]>
 						</box>
 						<chartTitle color="#3A5E7E">
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["CPU Usage Over Time"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10a.chart.cpu.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
@@ -432,19 +428,17 @@ order by the_date]]>
 					</chart>
 					<timeSeriesDataset>
 						<timeSeries>
-							<seriesExpression><![CDATA["CPU Usage"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.cpu.usage}]]></seriesExpression>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{cpu_usage}]]></valueExpression>
-							<labelExpression><![CDATA["Average"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{cpu_usage}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</timeSeries>
 						<timeSeries>
-							<seriesExpression><![CDATA["CPU Peak"]]></seriesExpression>
+							<seriesExpression><![CDATA[$R{br10.chart.series.cpu.peak}]]></seriesExpression>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{cpu_peak}]]></valueExpression>
-							<labelExpression><![CDATA["Peak"]]></labelExpression>
 							<itemHyperlink>
 								<hyperlinkTooltipExpression><![CDATA[$F{cpu_peak}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
@@ -452,9 +446,9 @@ order by the_date]]>
 					</timeSeriesDataset>
 					<timeSeriesPlot isShowShapes="false">
 						<plot labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -463,9 +457,9 @@ order by the_date]]>
 								</tickLabelFont>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["CPU Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -488,11 +482,12 @@ order by the_date]]>
 						</box>
 						<chartTitle color="#3A5E7E">
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Top Five Disks Usage Over Time"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10a.chart.disks.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
-							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? "Read Rate in Consecutive Line; Write Rate in Dashed Line" : "Read Rate in Consecutive Line; Write Rate in Dashed Line. Deleted disks are marked with asterisks."]]></subtitleExpression>
+							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? $R{br10a.chart.disks.subtitle.lines} :
+$R{br10a.chart.disks.subtitle.lines} + ". " + $R{br10.chart.disks.subtitle.deleted} + "."]]></subtitleExpression>
 						</chartSubtitle>
 						<chartLegend position="Bottom">
 							<font fontName="DejaVu Sans"/>
@@ -510,7 +505,7 @@ order by the_date]]>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{read_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{disk_name}.concat("/Read") + ", " + $F{read_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.disks}, $F{disk_name}, str("br10.chart.series.read"), $F{read_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</timeSeries>
 						<timeSeries>
@@ -518,7 +513,7 @@ order by the_date]]>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{write_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{disk_name}.concat("/Write") + ", " + $F{write_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.disks}, $F{disk_name}, str("br10.chart.series.write"), $F{write_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</timeSeries>
 					</timeSeriesDataset>
@@ -545,9 +540,9 @@ order by the_date]]>
 							<seriesColor seriesOrder="18" color="#CC0000"/>
 							<seriesColor seriesOrder="19" color="#CC0000"/>
 						</plot>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -556,7 +551,7 @@ order by the_date]]>
 								</tickLabelFont>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Disk Usage MB/s"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.disks.usage.mb.pre.second}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
@@ -581,11 +576,12 @@ order by the_date]]>
 						</box>
 						<chartTitle color="#3A5E7E">
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Top Five Busiest Network Interfaces Usage Over Time"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br10a.chart.network.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle>
 							<font fontName="DejaVu Sans"/>
-							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? "Receive Rate in Consecutive Line; Trasmit Rate in Dashed Line" :  "Receive Rate in Consecutive Line; Trasmit Rate in Dashed Line. Deleted interfaces are marked with asterisks."]]></subtitleExpression>
+							<subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? $R{br10a.chart.network.subtitle.lines} :
+$R{br10a.chart.network.subtitle.lines} + ". " + $R{br10.chart.network.subtitle.deleted} + "."]]></subtitleExpression>
 						</chartSubtitle>
 						<chartLegend position="Bottom">
 							<font fontName="DejaVu Sans"/>
@@ -603,7 +599,7 @@ order by the_date]]>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{rx_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{interface_name}.concat("/Rx") + ", " + $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.network}, $F{interface_name}, str("br10.chart.series.rx"), $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</timeSeries>
 						<timeSeries>
@@ -611,7 +607,7 @@ order by the_date]]>
 							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
 							<valueExpression><![CDATA[$F{tx_rate}]]></valueExpression>
 							<itemHyperlink>
-								<hyperlinkTooltipExpression><![CDATA[$F{interface_name}.concat("/Tx") + ", " + $F{tx_rate}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkTooltipExpression><![CDATA[msg($R{br10.chart.series.tooltip.network}, $F{interface_name}, str("br10.chart.series.tx"), $F{tx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
 							</itemHyperlink>
 						</timeSeries>
 					</timeSeriesDataset>
@@ -638,7 +634,7 @@ order by the_date]]>
 							<seriesColor seriesOrder="18" color="#CC0000"/>
 							<seriesColor seriesOrder="19" color="#CC0000"/>
 						</plot>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
 							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
@@ -649,7 +645,7 @@ order by the_date]]>
 								</tickLabelFont>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Network Usage %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.network.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
 							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
@@ -701,7 +697,7 @@ order by the_date]]>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="43" width="832" height="1"/>
@@ -714,19 +710,12 @@ order by the_date]]>
 	</title>
 	<pageFooter>
 		<band height="13" splitType="Stretch">
-			<textField evaluationTime="Report">
-				<reportElement x="418" y="0" width="40" height="13"/>
-				<textElement>
+			<textField evaluationTime="Auto">
+				<reportElement x="286" y="0" width="260" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="338" y="0" width="80" height="13"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

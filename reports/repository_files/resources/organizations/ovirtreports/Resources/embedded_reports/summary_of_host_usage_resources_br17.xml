@@ -2,10 +2,10 @@
 <reportUnit>
     <folder>/organizations/ovirtreports/Resources/embedded_reports</folder>
     <name>summary_of_host_usage_resources_br17</name>
-    <version>3</version>
+    <version>7</version>
     <label>Summary of Host Usage Resources (BR17B)</label>
-    <creationDate>2011-10-18T16:58:14.000+02:00</creationDate>
-    <updateDate>2011-10-18T17:50:13.000+02:00</updateDate>
+    <creationDate>2011-11-20T13:52:08.794+02:00</creationDate>
+    <updateDate>2011-12-04T16:31:03.400+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,8 +15,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-10-18T17:50:13.000+02:00</creationDate>
-            <updateDate>2011-10-18T17:50:13.000+02:00</updateDate>
+            <creationDate>2011-12-01T18:38:30.077+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.077+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -36,14 +36,23 @@
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Dates</uri>
-    </inputControl>
-    <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
         <uri>/organizations/ovirtreports/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
     </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/organizations/ovirtreports/Resources/embedded_reports/summary_of_host_usage_resources_br17_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-01T18:38:30.077+02:00</creationDate>
+            <updateDate>2011-12-01T18:38:30.077+02:00</updateDate>
+            <referenceUri>/organizations/ovirtreports/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
     <alwaysPromptControls>false</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>

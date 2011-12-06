@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR14" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR14" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
 	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Service_level/VMs/virtual_servers_uptime_br14"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -71,6 +71,10 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 	<field name="total" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<group name="Datacenter" keepTogether="true">
 		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
 		<groupFooter>
@@ -95,6 +99,9 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 					<subreportParameter name="P_End_Date">
 						<subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="Active_VMs">
+						<subreportParameterExpression><![CDATA[$P{Active_VMs}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["repo:br14_table.jrxml"]]></subreportExpression>
 				</subreport>
@@ -104,13 +111,13 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 						<pen lineWidth="1.0"/>
 					</graphicElement>
 				</line>
-				<staticText>
+				<textField>
 					<reportElement x="0" y="0" width="223" height="31" forecolor="#3A5E75"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 						<font fontName="DejaVu Sans" size="13" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total Cluster's Virtual Machines Uptime]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br14.meter.title}]]></textFieldExpression>
+				</textField>
 				<meterChart>
 					<chart evaluationTime="Report" renderType="draw" theme="default">
 						<reportElement mode="Transparent" x="11" y="33" width="200" height="200"/>
@@ -145,13 +152,13 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 						</meterInterval>
 					</meterPlot>
 				</meterChart>
-				<staticText>
+				<textField>
 					<reportElement x="0" y="262" width="158" height="15"/>
 					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Unplanned Downtime:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br14.meter.unplanned.downtime} + ":"]]></textFieldExpression>
+				</textField>
 				<textField evaluationTime="Report" pattern="### %">
 					<reportElement x="160" y="262" width="63" height="15">
 						<printWhenExpression><![CDATA[(new Double($F{unplanned_downtime_mins}.doubleValue() / $F{total}.doubleValue())).toString() != "null"]]></printWhenExpression>
@@ -170,13 +177,13 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 					</textElement>
 					<textFieldExpression><![CDATA[new Double( $F{uptime_mins}.doubleValue() / $F{total}.doubleValue() )]]></textFieldExpression>
 				</textField>
-				<staticText>
+				<textField>
 					<reportElement x="0" y="240" width="105" height="17" forecolor="#3A5E75"/>
-					<textElement>
+					<textElement markup="none">
 						<font fontName="DejaVu Sans" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Uptime:]]></text>
-				</staticText>
+					<textFieldExpression><![CDATA[$R{br14.meter.uptime} + ":"]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -216,7 +223,7 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="228" height="42"/>
@@ -226,19 +233,12 @@ HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0
 	</title>
 	<pageFooter>
 		<band height="18" splitType="Stretch">
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="357" y="2" width="80" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="9"/>
+			<textField evaluationTime="Auto">
+				<reportElement x="291" y="2" width="250" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement positionType="FixRelativeToBottom" x="437" y="2" width="40" height="15"/>
-				<textElement>
-					<font fontName="Times New Roman" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

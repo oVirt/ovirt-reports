@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR11B" language="groovy" pageWidth="832" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/five_most_utilized_vms_over_time_br11"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/ovirt-reports/services/repository"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR11B" language="groovy" pageWidth="832" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Resources/embedded_reports/five_most_utilized_vms_over_time_br11"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -120,7 +120,7 @@ order by the_date]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Virtual Machines CPU Usage"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br11b.chart.vms.cpu.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle/>
 						<chartLegend/>
@@ -164,18 +164,17 @@ order by the_date]]>
 					</timeSeriesDataset>
 					<timeSeriesPlot isShowShapes="false">
 						<plot labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font isBold="true"/>
 								</labelFont>
-								<tickLabelFont/>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["CPU %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -198,7 +197,7 @@ order by the_date]]>
 						</box>
 						<chartTitle>
 							<font fontName="DejaVu Sans"/>
-							<titleExpression><![CDATA["Virtual Machines Memory Usage"]]></titleExpression>
+							<titleExpression><![CDATA[$R{br11b.chart.vms.memory.usage}]]></titleExpression>
 						</chartTitle>
 						<chartSubtitle/>
 						<chartLegend/>
@@ -242,18 +241,17 @@ order by the_date]]>
 					</timeSeriesDataset>
 					<timeSeriesPlot isShowShapes="false">
 						<plot labelRotation="-45.0"/>
-						<timeAxisLabelExpression><![CDATA["Date"]]></timeAxisLabelExpression>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
 						<timeAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font isBold="true"/>
 								</labelFont>
-								<tickLabelFont/>
 							</axisFormat>
 						</timeAxisFormat>
-						<valueAxisLabelExpression><![CDATA["Memory %"]]></valueAxisLabelExpression>
+						<valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
 						<valueAxisFormat>
-							<axisFormat labelColor="#666666">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
 								<labelFont>
 									<font fontName="DejaVu Sans"/>
 								</labelFont>
@@ -269,13 +267,13 @@ order by the_date]]>
 	</group>
 	<title>
 		<band height="20">
-			<staticText>
+			<textField>
 				<reportElement x="1" y="0" width="831" height="20" forecolor="#3A5E75"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="DejaVu Sans" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Five Most Utilized Virtual Machines ]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$R{br11b.title}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 </jasperReport>
