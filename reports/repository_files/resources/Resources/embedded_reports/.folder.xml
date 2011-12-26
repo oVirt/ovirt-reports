@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources</parent>
+    <name>embedded_reports</name>
+    <label>Embedded Dashboards Reports</label>
+    <creationDate>2011-12-27T15:09:23.042+02:00</creationDate>
+    <updateDate>2011-06-20T17:29:08.000+03:00</updateDate>
+    <resource>active_entities_by_os_BR18A</resource>
+    <resource>cluster_uptime_by_datacenter_br7a</resource>
+    <resource>datacenter_quality_of_service_hosts_br6b</resource>
+    <resource>Five_most_utilized_hosts_over_time</resource>
+    <resource>five_most_utilized_vms_over_time_br11</resource>
+    <resource>Host_OS_Break_Down_BR22B_for_inventory</resource>
+    <resource>storage_domain_by_Datacenter_BR23</resource>
+    <resource>summary_of_host_usage_resources_br17</resource>
+    <resource>virtual_servers_uptime_by_cluster_br14a</resource>
+</folder>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources/JDBC</parent>
+    <name>data_sources</name>
+    <label>Data Sources</label>
+    <description></description>
+    <creationDate>2011-12-27T15:09:23.299+02:00</creationDate>
+    <updateDate>2011-06-09T10:11:45.000+03:00</updateDate>
+    <resource>ovirt</resource>
+</folder>

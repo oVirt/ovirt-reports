@@ -2,10 +2,10 @@
 <fileResource dataFile="body_bkgnd.png.data">
     <folder>/themes/ovirt-reports-theme/images</folder>
     <name>body_bkgnd.png</name>
-    <version>3</version>
+    <version>1</version>
     <label>body_bkgnd.png</label>
     <description>body_bkgnd.png</description>
-    <creationDate>2011-11-20T13:52:04.659+02:00</creationDate>
-    <updateDate>2011-12-01T18:38:22.010+02:00</updateDate>
+    <creationDate>2011-12-27T15:09:31.209+02:00</creationDate>
+    <updateDate>2011-12-27T15:05:27.761+02:00</updateDate>
     <fileType>img</fileType>
 </fileResource>

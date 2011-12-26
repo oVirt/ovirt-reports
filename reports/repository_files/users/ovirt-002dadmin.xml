@@ -8,5 +8,4 @@
     <enabled>true</enabled>
     <role>ROLE_USER</role>
     <role>ROLE_ADMINISTRATOR</role>
-    <role>ROLE_SUPERUSER</role>
 </user>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/Resources/JDBC/Input_Controls/single_select/all_included</folder>
+    <name>P_StorageDomain_ID</name>
+    <version>0</version>
+    <label>Storage Domain Name</label>
+    <description>Storage Domain Name</description>
+    <creationDate>2011-12-27T15:09:37.554+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:37.554+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/Resources/JDBC/Input_Controls/single_select/all_included/P_StorageDomain_ID_files</folder>
+            <name>Storage_Domain_Name</name>
+            <version>0</version>
+            <label>Storage_Domain_Name</label>
+            <description>Storage Domain Query</description>
+            <creationDate>2011-12-27T15:09:37.554+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:37.554+02:00</updateDate>
+            <language>sql</language>
+            <queryString>Select distinct v3_0_storage_domain_configuration_view.storage_domain_id, detach_date, CASE 
+				WHEN detach_date IS NULL THEN storage_domain_name
+				ELSE storage_domain_name || ' (Detached on ' || cast(detach_date as varchar) || ')'  
+			               END as combo_name
+from v3_0_storage_domain_configuration_view, v3_0_datacenter_storage_domain_map_view
+WHERE  v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
+	   AND v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+	   AND v3_0_storage_domain_configuration_view.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
+							WHEN NULL THEN  v3_0_storage_domain_configuration_view.storage_domain_type
+							WHEN -1 THEN v3_0_storage_domain_configuration_view.storage_domain_type
+							ELSE cast($P{P_Storage_Type} as int)
+						              END
+       AND v3_0_datacenter_storage_domain_map_view.history_id = (SELECT max(a.history_id)
+					     FROM v3_0_datacenter_storage_domain_map_view a
+					     WHERE a.storage_domain_id = v3_0_datacenter_storage_domain_map_view.storage_domain_id
+						   and a.datacenter_id = v3_0_datacenter_storage_domain_map_view.datacenter_id)
+       AND v3_0_storage_domain_configuration_view.history_id = (SELECT max(a.history_id)
+					FROM v3_0_storage_domain_configuration_view a
+					WHERE a.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)
+$P!{Active_VMs}
+order by detach_date DESC, combo_name</queryString>
+            <dataSource>
+                <uri>/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>combo_name</queryVisibleColumn>
+    <queryValueColumn>storage_id</queryValueColumn>
+</inputControl>

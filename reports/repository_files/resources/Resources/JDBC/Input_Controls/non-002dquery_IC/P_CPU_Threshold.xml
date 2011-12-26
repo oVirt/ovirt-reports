@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/Resources/JDBC/Input_Controls/non-query_IC</folder>
+    <name>P_CPU_Threshold</name>
+    <version>0</version>
+    <label>CPU Threshold</label>
+    <description>CPU Threshold</description>
+    <creationDate>2011-12-27T15:09:34.320+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:34.320+02:00</updateDate>
+    <type>3</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <listOfValues>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="listOfValues">
+            <folder>/Resources/JDBC/Input_Controls/non-query_IC/P_CPU_Threshold_files</folder>
+            <name>CPU_Threshold</name>
+            <version>0</version>
+            <label>CPU_Threshold</label>
+            <description>CPU_Threshold</description>
+            <creationDate>2011-12-27T15:09:34.320+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:34.320+02:00</updateDate>
+            <item>
+                <itemLabel>100%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">100</itemValue>
+            </item>
+            <item>
+                <itemLabel>95%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">95</itemValue>
+            </item>
+            <item>
+                <itemLabel>90%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">90</itemValue>
+            </item>
+            <item>
+                <itemLabel>85%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">85</itemValue>
+            </item>
+            <item>
+                <itemLabel>80%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">80</itemValue>
+            </item>
+            <item>
+                <itemLabel>75%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">75</itemValue>
+            </item>
+            <item>
+                <itemLabel>70%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">70</itemValue>
+            </item>
+            <item>
+                <itemLabel>65%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">65</itemValue>
+            </item>
+            <item>
+                <itemLabel>60%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">60</itemValue>
+            </item>
+            <item>
+                <itemLabel>55%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">55</itemValue>
+            </item>
+            <item>
+                <itemLabel>50%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">50</itemValue>
+            </item>
+            <item>
+                <itemLabel>45%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">45</itemValue>
+            </item>
+            <item>
+                <itemLabel>40%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">40</itemValue>
+            </item>
+            <item>
+                <itemLabel>35%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">35</itemValue>
+            </item>
+            <item>
+                <itemLabel>30%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">30</itemValue>
+            </item>
+            <item>
+                <itemLabel>25%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">25</itemValue>
+            </item>
+            <item>
+                <itemLabel>20%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">20</itemValue>
+            </item>
+            <item>
+                <itemLabel>15%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">15</itemValue>
+            </item>
+            <item>
+                <itemLabel>10%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">10</itemValue>
+            </item>
+            <item>
+                <itemLabel>5%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">5</itemValue>
+            </item>
+            <item>
+                <itemLabel>0%</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">0</itemValue>
+            </item>
+        </localResource>
+    </listOfValues>
+</inputControl>

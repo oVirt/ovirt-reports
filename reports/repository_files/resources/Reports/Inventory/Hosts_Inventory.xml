@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Reports/Inventory</folder>
+    <name>Hosts_Inventory</name>
+    <version>0</version>
+    <label>Hosts Inventory (BR1)</label>
+    <description>This report displays a list of all hosts of the selected data center and cluster.</description>
+    <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="Hosts_Inventory_jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Hosts_Inventory_files</folder>
+            <name>Hosts_Inventory_jrxml</name>
+            <version>0</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/active_hosts_select</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_Host_Type</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="full details br1.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Hosts_Inventory_files</folder>
+            <name>full details br1.jrxml</name>
+            <version>0</version>
+            <label>full details br1.jrxml</label>
+            <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="header cluster name.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Hosts_Inventory_files</folder>
+            <name>header cluster name.jrxml</name>
+            <version>0</version>
+            <label>header cluster name.jrxml</label>
+            <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Hosts_Inventory_files</folder>
+            <name>ovirt-icon</name>
+            <version>0</version>
+            <label>ovirt-icon</label>
+            <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+            <referenceUri>/Resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Hosts_Inventory_files</folder>
+            <name>trash-icon</name>
+            <version>0</version>
+            <label>trash-icon</label>
+            <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+            <referenceUri>/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Hosts_Inventory_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-27T15:09:33.283+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.283+02:00</updateDate>
+            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <reportRenderingView></reportRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

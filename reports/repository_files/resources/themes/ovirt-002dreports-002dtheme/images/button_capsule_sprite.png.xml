@@ -2,10 +2,10 @@
 <fileResource dataFile="button_capsule_sprite.png.data">
     <folder>/themes/ovirt-reports-theme/images</folder>
     <name>button_capsule_sprite.png</name>
-    <version>3</version>
+    <version>1</version>
     <label>button_capsule_sprite.png</label>
     <description>button_capsule_sprite.png</description>
-    <creationDate>2011-11-20T13:52:04.890+02:00</creationDate>
-    <updateDate>2011-12-01T18:38:22.354+02:00</updateDate>
+    <creationDate>2011-12-27T15:09:31.441+02:00</creationDate>
+    <updateDate>2011-12-27T15:05:27.975+02:00</updateDate>
     <fileType>img</fileType>
 </fileResource>

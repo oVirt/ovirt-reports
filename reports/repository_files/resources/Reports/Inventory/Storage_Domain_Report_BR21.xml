@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Reports/Inventory</folder>
+    <name>Storage_Domain_Report_BR21</name>
+    <version>0</version>
+    <label>Storage Domain Size Over Time (BR21)</label>
+    <description>This report displays daily used disk size versus available disk size data for the selected datacenter and storage domain within a requested period.</description>
+    <creationDate>2011-12-27T15:09:33.671+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:33.671+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="Storage_Domain_Report_BR21_jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Storage_Domain_Report_BR21_files</folder>
+            <name>Storage_Domain_Report_BR21_jrxml</name>
+            <version>0</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-12-27T15:09:33.671+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.671+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Storage/active_storage</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Storage/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Storage/P_Storage_Type</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Storage/P_StorageDomain_ID</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="full details br21.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Storage_Domain_Report_BR21_files</folder>
+            <name>full details br21.jrxml</name>
+            <version>0</version>
+            <label>full details br21.jrxml</label>
+            <creationDate>2011-12-27T15:09:33.671+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.671+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Storage_Domain_Report_BR21_files</folder>
+            <name>ovirt-icon</name>
+            <version>0</version>
+            <label>ovirt-icon</label>
+            <creationDate>2011-12-27T15:09:33.671+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.671+02:00</updateDate>
+            <referenceUri>/Resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Storage_Domain_Report_BR21_files</folder>
+            <name>trash-icon</name>
+            <version>0</version>
+            <label>trash-icon</label>
+            <creationDate>2011-12-27T15:09:33.671+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.671+02:00</updateDate>
+            <referenceUri>/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/Storage_Domain_Report_BR21_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-27T15:09:33.671+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:33.671+02:00</updateDate>
+            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

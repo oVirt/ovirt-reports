@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Reports/Service_level/Hosts</folder>
+    <name>top_10_downtime_hosts_br7b</name>
+    <version>0</version>
+    <label>Top 10 Downtime Hosts (BR7B)</label>
+    <description>This report contains a chart displaying the uptime, maintenance time and the down time for the bottom 10 hosts sorted by weighted uptime.</description>
+    <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="top_10_downtime_hosts_br7b_jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files</folder>
+            <name>top_10_downtime_hosts_br7b_jrxml</name>
+            <version>0</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/active_hosts_select</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_Host_Type</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="br7b full details.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files</folder>
+            <name>br7b full details.jrxml</name>
+            <version>0</version>
+            <label>br7b full details.jrxml</label>
+            <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="report5.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files</folder>
+            <name>report5.jrxml</name>
+            <version>0</version>
+            <label>report5.jrxml</label>
+            <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files</folder>
+            <name>ovirt-icon</name>
+            <version>0</version>
+            <label>ovirt-icon</label>
+            <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+            <referenceUri>/Resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files</folder>
+            <name>trash-icon</name>
+            <version>0</version>
+            <label>trash-icon</label>
+            <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+            <referenceUri>/Resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2011-12-27T15:09:35.427+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:35.427+02:00</updateDate>
+            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

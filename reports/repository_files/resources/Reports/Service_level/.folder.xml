@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Reports</parent>
+    <name>Service_level</name>
+    <label>Service Level</label>
+    <description>Folder for Service Level reports</description>
+    <creationDate>2011-12-27T15:09:22.959+02:00</creationDate>
+    <updateDate>2011-06-20T17:29:08.000+03:00</updateDate>
+    <folder>Hosts</folder>
+    <folder>VMs</folder>
+</folder>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/Resources/JDBC/Input_Controls/non-query_IC</folder>
+    <name>P_Period</name>
+    <version>0</version>
+    <label>Period Range</label>
+    <creationDate>2011-12-27T15:09:32.173+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:32.173+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/Resources/JDBC/Input_Controls/non-query_IC/P_Period_files</folder>
+            <name>period</name>
+            <version>0</version>
+            <label>period</label>
+            <creationDate>2011-12-27T15:09:32.173+02:00</creationDate>
+            <updateDate>2011-12-27T15:09:32.173+02:00</updateDate>
+            <language>sql</language>
+            <queryString>select value as period
+from v3_0_enum_translator_view
+where enum_type = 'REPORTS_PERIOD'</queryString>
+            <dataSource>
+                <uri>/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>period</queryVisibleColumn>
+    <queryValueColumn>period</queryValueColumn>
+</inputControl>
