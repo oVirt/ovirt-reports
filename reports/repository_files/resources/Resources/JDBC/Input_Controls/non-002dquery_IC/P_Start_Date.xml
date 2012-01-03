@@ -22,18 +22,12 @@
             <language>sql</language>
             <queryString>SELECT Distinct cast(date_trunc('month', o.the_date) as date) as active_months
   FROM calendar as o
-WHERE extract(YEAR FROM o.the_date) &gt;= coalesce((SELECT extract(YEAR FROM a.var_datetime)
-          				                 FROM History_configuration as a
-          				                 WHERE a.var_name = 'firstSync'), extract(YEAR FROM cast('01/01/2019' as timestamp)))
-AND extract(YEAR FROM o.the_date) &lt;= (SELECT extract(YEAR FROM b.var_datetime)
-         			                FROM History_configuration as b
-                                                                                WHERE b.var_name = 'lastHourAggr')
-AND extract(MONTH FROM o.the_date) &gt;= coalesce((SELECT extract(MONTH FROM a.var_datetime)
-          				               FROM History_configuration as a
-          				               WHERE a.var_name = 'firstSync'),extract(MONTH FROM cast('01/01/2019' as timestamp)))
-AND extract(MONTH FROM o.the_date) &lt;= (SELECT extract(MONTH FROM b.var_datetime)
-         			                   FROM History_configuration as b
-         			                   WHERE b.var_name = 'lastHourAggr')
+WHERE o.the_date &gt;= coalesce((SELECT date_trunc('month',a.var_datetime)
+                                 FROM History_configuration as a
+                                 WHERE a.var_name = 'firstSync'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
+AND o.the_date &lt;= coalesce((SELECT date_trunc('month',a.var_datetime)
+                               FROM History_configuration as a
+                               WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
 ORDER BY active_months</queryString>
             <dataSource>
                 <uri>/Resources/JDBC/data_sources/ovirt</uri>
