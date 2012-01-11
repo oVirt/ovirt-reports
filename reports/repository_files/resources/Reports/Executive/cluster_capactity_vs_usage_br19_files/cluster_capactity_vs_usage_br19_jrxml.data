@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR19" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Executive/cluster_capactity_vs_usage_br19"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Executive/cluster_capactity_vs_usage_br19"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="197"/>
+	<property name="ireport.y" value="0"/>
 	<subDataset name="dataset1">
 		<parameter name="P_DataCenter_ID" class="java.lang.String">
 			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
@@ -188,7 +188,7 @@ order by the_date]]>
 	<summary>
 		<band height="434">
 			<timeSeriesChart>
-				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ClusterCapactityVsUsageTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
 					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="220" width="410" height="213"/>
 					<box>
 						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
@@ -252,7 +252,7 @@ order by the_date]]>
 				</timeSeriesPlot>
 			</timeSeriesChart>
 			<timeSeriesChart>
-				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ClusterCapactityVsUsageTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
 					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="422" y="1" width="410" height="213"/>
 					<box>
 						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
@@ -310,7 +310,7 @@ order by the_date]]>
 				</timeSeriesPlot>
 			</timeSeriesChart>
 			<timeSeriesChart>
-				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ClusterCapactityVsUsageTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
 					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="1" width="410" height="213"/>
 					<box>
 						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
@@ -368,7 +368,7 @@ order by the_date]]>
 				</timeSeriesPlot>
 			</timeSeriesChart>
 			<timeSeriesChart>
-				<chart isShowLegend="true" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.FullNameTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ClusterCapactityVsUsageTimelineChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
 					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="422" y="220" width="410" height="213"/>
 					<box>
 						<pen lineWidth="1.0" lineColor="#3A5F7D"/>
