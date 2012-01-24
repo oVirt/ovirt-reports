@@ -51,9 +51,9 @@ FROM (SELECT v3_0_storage_domain_configuration_view.storage_domain_name,
 									 END
 		  AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 		  AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-		  AND v3_0_storage_domain_configuration_view.history_id = (SELECT max(a.history_id)
+		  AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
 									   FROM v3_0_storage_domain_configuration_view a
-									   WHERE a.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)
+									   GROUP BY a.storage_domain_id)
 	GROUP BY v3_0_storage_domain_configuration_view.storage_domain_name,
 		   history_datetime) a right outer join calendar b on (a.history_datetime = b.the_date)
 where the_date >= cast($P{P_Start_Date} as date)

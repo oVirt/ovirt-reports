@@ -56,9 +56,9 @@ AND v3_0_vm_configuration_view.vm_type = CASE $P{P_VM_Type}
 			WHEN -1 THEN v3_0_vm_configuration_view.vm_type
 			ELSE $P{P_VM_Type}
   		  END
-AND v3_0_vm_configuration_view.history_id = (SELECT max(a.history_id)
+AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 		    FROM v3_0_vm_configuration_view a
-		    WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+		    GROUP BY a.vm_id)
 $P!{Active_VMs}
 ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delete_date DESC]]>
 	</queryString>

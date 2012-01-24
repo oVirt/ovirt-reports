@@ -66,7 +66,7 @@ FROM (SELECT (CASE
 					     END
 	  AND a.history_id in (SELECT max(b.history_id)
 			   FROM v3_0_vm_configuration_view b
-			   WHERE b.vm_id = a.vm_id)
+			   GROUP BY b.vm_id)
   	  AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 	  AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 	  AND CASE

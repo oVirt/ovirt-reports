@@ -66,9 +66,9 @@ AND v3_0_host_configuration_view.host_type = CASE $P{P_Host_Type}
 					WHEN -1 THEN v3_0_host_configuration_view.host_type
 					ELSE $P{P_Host_Type}
 					END
-AND v3_0_host_configuration_view.history_id in (select max(a.history_id)
-						from v3_0_host_configuration_view a
-						where a.host_id = v3_0_host_configuration_view.host_id)
+AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
+						FROM v3_0_host_configuration_view a
+						GROUP BY a.host_id)
 AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 $P!{active_hosts_select}

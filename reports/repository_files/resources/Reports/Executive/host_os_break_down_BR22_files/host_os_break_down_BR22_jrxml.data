@@ -68,7 +68,7 @@ FROM   (SELECT   history_datetime,
 		AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 			AND a.history_id in (SELECT max(b.history_id)
 					     FROM v3_0_host_configuration_view b
-					     WHERE b.host_id = a.host_id)
+					     GROUP BY b.host_id)
 			AND CASE
 				WHEN $P{active_hosts_select} like 'AND%' THEN a.delete_date IS NULL
 				ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL

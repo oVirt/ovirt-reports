@@ -29,9 +29,9 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
 		FROM v3_0_datacenter_storage_domain_map_view
 		WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
 		             AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
-              AND history_id = (SELECT max(a.history_id)
+              AND history_id in (SELECT max(a.history_id)
 		 FROM v3_0_datacenter_configuration_view a
-		 WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)
+		 GROUP BY a.datacenter_id)
               $P!{active_storage}
 UNION ALL
 SELECT distinct cast('00000000-0000-0000-0000-000000000000' as uuid), cast(null as timestamp), 'Non Available'
@@ -41,9 +41,9 @@ WHERE NOT EXISTS 	(Select distinct datacenter_id
 				FROM v3_0_datacenter_storage_domain_map_view
 				WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
 				             AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
-		              AND history_id = (SELECT max(a.history_id)
+		              AND history_id in (SELECT max(a.history_id)
 				 FROM v3_0_datacenter_configuration_view a
-				 WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)
+				 GROUP BY a.datacenter_id)
              		 $P!{active_storage})
 order by delete_date DESC, combo_name</queryString>
             <dataSource>

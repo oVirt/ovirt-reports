@@ -34,26 +34,25 @@
       	(SELECT v3_0_storage_domain_configuration_view.storage_domain_name
 	  FROM v3_0_storage_domain_configuration_view
 	  WHERE v3_0_storage_domain_configuration_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-	        and v3_0_storage_domain_configuration_view.history_id = (SELECT max(a.history_id)
+	        and v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
 				 					 FROM v3_0_storage_domain_configuration_view as a
-							 		 WHERE a.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)) as storage_name,
+							 		 GROUP BY a.storage_domain_id)) as storage_name,
     	(SELECT detach_date
     	 FROM v3_0_datacenter_storage_domain_map_view
          WHERE v3_0_datacenter_storage_domain_map_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
 	      and v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	      and v3_0_datacenter_storage_domain_map_view.history_id = (SELECT max(a.history_id)
+	      and v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
 							                FROM v3_0_datacenter_storage_domain_map_view as a
-								        WHERE a.storage_domain_id = v3_0_datacenter_storage_domain_map_view.storage_domain_id
-	  								      and a.datacenter_id = v3_0_datacenter_storage_domain_map_view.datacenter_id)) as storage_delete_date,
+								        GROUP BY a.storage_domain_id, a.datacenter_id)) as storage_delete_date,
         coalesce((SELECT v3_0_enum_translator_view.value
 	          FROM v3_0_enum_translator_view
 		  WHERE v3_0_enum_translator_view.enum_key = $P{P_Storage_Type}
 		  AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'), 'all') as storage_type
 FROM v3_0_datacenter_configuration_view
 WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	and v3_0_datacenter_configuration_view.history_id = (SELECT max(a.history_id)
+	and v3_0_datacenter_configuration_view.history_id in (SELECT max(a.history_id)
 							     FROM v3_0_datacenter_configuration_view as a
-							     WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)]]>
+							     GROUP BY a.datacenter_id)]]>
 	</queryString>
 	<field name="datacenter_name" class="java.lang.String"/>
 	<field name="datacenter_delete_date" class="java.sql.Timestamp"/>

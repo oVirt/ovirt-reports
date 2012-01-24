@@ -30,20 +30,20 @@
       	coalesce((SELECT ' ' || RTrim(cast(v3_0_cluster_configuration_view.cluster_name as varchar))
 		  FROM v3_0_cluster_configuration_view
 	          WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
-		        and v3_0_cluster_configuration_view.history_id = (SELECT max(a.history_id)
+		        and v3_0_cluster_configuration_view.history_id in (SELECT max(a.history_id)
 				 					  FROM v3_0_cluster_configuration_view as a
-							 		  WHERE a.cluster_id = v3_0_cluster_configuration_view.cluster_id)), 'all') as cluster_name,
+							 		  GROUP BY a.cluster_id)), 'all') as cluster_name,
     	(SELECT v3_0_cluster_configuration_view.delete_date
     	 FROM v3_0_cluster_configuration_view
          WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
-	      and v3_0_cluster_configuration_view.history_id = (SELECT max(a.history_id)
+	      and v3_0_cluster_configuration_view.history_id in (SELECT max(a.history_id)
 							        FROM v3_0_cluster_configuration_view as a
-							        WHERE a.cluster_id = v3_0_cluster_configuration_view.cluster_id)) as cluster_delete_date
+							        GROUP BY a.cluster_id)) as cluster_delete_date
 FROM v3_0_datacenter_configuration_view
 WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	and v3_0_datacenter_configuration_view.history_id = (SELECT max(a.history_id)
+	and v3_0_datacenter_configuration_view.history_id in (SELECT max(a.history_id)
 							     FROM v3_0_datacenter_configuration_view as a
-							     WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)]]>
+							     GROUP BY a.datacenter_id)]]>
 	</queryString>
 	<field name="datacenter_name" class="java.lang.String"/>
 	<field name="datacenter_delete_date" class="java.sql.Timestamp"/>

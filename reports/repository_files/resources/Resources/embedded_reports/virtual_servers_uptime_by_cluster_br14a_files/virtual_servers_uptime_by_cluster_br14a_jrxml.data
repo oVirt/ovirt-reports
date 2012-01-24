@@ -62,12 +62,12 @@ FROM	(SELECT
 		AND high_availability = TRUE
 		AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 		AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-		AND v3_0_cluster_configuration_view.history_id = (SELECT max(a.history_id)
+		AND v3_0_cluster_configuration_view.history_id in (SELECT max(a.history_id)
 								  FROM v3_0_cluster_configuration_view a
-								  WHERE a.cluster_id = v3_0_cluster_configuration_view.cluster_id)
-		AND v3_0_vm_configuration_view.history_id = (SELECT max(b.history_id)
+								  GROUP BY a.cluster_id)
+		AND v3_0_vm_configuration_view.history_id in (SELECT max(b.history_id)
 								 FROM v3_0_vm_configuration_view b
-								 WHERE b.vm_id = v3_0_vm_configuration_view.vm_id)
+								 GROUP BY b.vm_id)
 		AND CASE
 			WHEN $P{active_hosts_select} like 'AND%' THEN v3_0_vm_configuration_view.delete_date IS NULL
 			ELSE v3_0_vm_configuration_view.delete_date IS NULL or v3_0_vm_configuration_view.delete_date IS NOT NULL

@@ -29,9 +29,9 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
 		FROM v3_0_cluster_configuration_view
 		WHERE cluster_id in (SELECT DISTINCT a.cluster_id
 			             FROM v3_0_host_configuration_view a))
-              AND history_id = (SELECT max(a.history_id)
+              AND history_id in (SELECT max(a.history_id)
 		 FROM v3_0_datacenter_configuration_view a
-		 WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)
+		 GROUP BY a.datacenter_id)
               $P!{active_hosts_select}
 UNION ALL
 SELECT distinct cast('00000000-0000-0000-0000-000000000000' as uuid), cast(null as timestamp), 'Non Available'
@@ -41,9 +41,9 @@ WHERE NOT EXISTS 	(Select distinct datacenter_id
 				  FROM v3_0_cluster_configuration_view
 		  		 WHERE cluster_id in (SELECT DISTINCT a.cluster_id
 				 	               FROM v3_0_host_configuration_view a))
-	                                    AND history_id = (SELECT max(a.history_id)
+	                                    AND history_id in (SELECT max(a.history_id)
 				  FROM v3_0_datacenter_configuration_view a
-				  WHERE a.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)
+				  GROUP BY a.datacenter_id)
 		  $P!{active_hosts_select})
 order by delete_date DESC, combo_name</queryString>
             <dataSource>

@@ -133,9 +133,9 @@ from   (-- VMs Disk Usage (I/O) Rates
 			AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 			AND attach_date >= cast($P{P_Start_Date} as timestamp)
 			AND (detach_date IS NULL or detach_date < cast($P{P_End_Date} as date) + interval '1 day')
-			AND v3_0_vm_disk_configuration_view.history_id in   (SELECT max(a.history_id)
+			AND v3_0_vm_disk_configuration_view.history_id in (SELECT max(a.history_id)
 								  FROM v3_0_vm_disk_configuration_view as a
-								  WHERE v3_0_vm_disk_configuration_view.vm_disk_id = a.vm_disk_id)
+								  GROUP BY a.vm_disk_id)
 			AND v3_0_vm_disk_configuration_view.vm_disk_id in    (SELECT c.vm_disk_id
 								     FROM v3_0_vm_disk_daily_history_view b
 									INNER JOIN v3_0_vm_disk_configuration_view c
@@ -154,7 +154,7 @@ from   (-- VMs Disk Usage (I/O) Rates
 									AND (h.detach_date IS NULL or h.detach_date < cast($P{P_End_Date} as date) + interval '1 day')
 									AND c.history_id in (SELECT max(d.history_id)
 											 FROM  v3_0_vm_disk_configuration_view as d
-											 WHERE c.vm_disk_id = d.vm_disk_id)
+											 GROUP BY d.vm_disk_id)
 									$P!{Active_VMs}
 								  Group BY c.vm_disk_id
 								  ORDER BY MAX(ROUND(CAST(coalesce(b.read_rate_bytes_per_second, 0) AS FLOAT)::numeric,1)) + MAX(ROUND(CAST(coalesce(b.write_rate_bytes_per_second, 0) AS FLOAT)::numeric,1)) DESC
@@ -233,7 +233,7 @@ from	(-- VMs Ethernet Interface Tx and Rx Rates
 		AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 		AND v3_0_vm_interface_configuration_view.history_id in (SELECT max(a.history_id)
 							       FROM v3_0_vm_interface_configuration_view as a
-							       WHERE v3_0_vm_interface_configuration_view.vm_interface_id = a.vm_interface_id)
+							       GROUP BY a.vm_interface_id)
 		AND v3_0_vm_interface_configuration_view.vm_interface_id in    (SELECT c.vm_interface_id
 							  	   FROM v3_0_vm_interface_daily_history_view b
 									INNER JOIN v3_0_vm_interface_configuration_view c
@@ -248,7 +248,7 @@ from	(-- VMs Ethernet Interface Tx and Rx Rates
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									AND c.history_id in (SELECT max(d.history_id)
 											 FROM v3_0_vm_interface_configuration_view as d
-											 WHERE c.vm_interface_id = d.vm_interface_id)
+											 GROUP BY d.vm_interface_id)
 									$P!{Active_VMs}
 								  Group BY c.vm_interface_id
 								  ORDER BY avg(coalesce(b.receive_rate_percent,0)) + avg(coalesce(b.transmit_rate_percent,0)) DESC

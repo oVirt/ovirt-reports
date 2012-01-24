@@ -53,9 +53,9 @@ from	(-- Hosts CPU and MEMory Usage Peaks
 			$X{IN, cast(v3_0_host_daily_history_view.host_id as varchar), P_Host_ListID}
 			AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 			AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-			AND v3_0_host_configuration_view.history_id in (select max(a.history_id)
-															From v3_0_host_configuration_view a
-															WHERE v3_0_host_configuration_view.host_id = a.host_id)
+			AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
+															FROM v3_0_host_configuration_view a
+															GROUP BY a.host_id)
 		GROUP BY	v3_0_host_daily_history_view.host_id,
 					CASE
 						WHEN delete_date IS NULL THEN host_name

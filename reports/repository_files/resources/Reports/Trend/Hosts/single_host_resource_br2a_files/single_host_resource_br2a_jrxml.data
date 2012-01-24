@@ -187,7 +187,7 @@ from	(-- Hosts Ethernet Interface Tx and Rx Rates
 		AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 		AND v3_0_host_interface_configuration_view.history_id in (SELECT max(a.history_id)
 							       FROM v3_0_host_interface_configuration_view as a
-							       WHERE v3_0_host_interface_configuration_view.host_interface_id = a.host_interface_id)
+							       GROUP BY a.host_interface_id)
 		AND v3_0_host_interface_configuration_view.host_interface_id in (SELECT c.host_interface_id
 							  	   FROM v3_0_host_interface_daily_history_view b
 									INNER JOIN v3_0_host_interface_configuration_view c
@@ -202,7 +202,7 @@ from	(-- Hosts Ethernet Interface Tx and Rx Rates
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									AND c.history_id in (SELECT max(d.history_id)
 											 FROM v3_0_host_interface_configuration_view as d
-											 WHERE c.host_interface_id = d.host_interface_id)
+											 GROUP BY d.host_interface_id)
 									$P!{active_hosts_select}
 								  Group BY c.host_interface_id
 								  ORDER BY avg(coalesce(b.receive_rate_percent,0)) + avg(coalesce(b.transmit_rate_percent,0)) DESC

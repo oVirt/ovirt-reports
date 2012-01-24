@@ -39,7 +39,7 @@ AND v3_0_host_configuration_view.host_type = CASE cast($P{P_Host_Type} as int)
  			          END
 AND history_id in (SELECT max(a.history_id)
 	         FROM v3_0_host_configuration_view as a
-	         WHERE a.host_id = v3_0_host_configuration_view.host_id)
+	         GROUP BY a.host_id)
 $P!{active_hosts_select}
 order by delete_date DESC, combo_name</queryString>
             <dataSource>

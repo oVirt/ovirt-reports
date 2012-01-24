@@ -58,7 +58,7 @@ AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 					      FROM v3_0_vm_configuration_view a
-					      WHERE v3_0_vm_configuration_view.vm_id = a.vm_id)
+					      GROUP BY a.vm_id)
 $P!{Active_VMs}
 HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0_vm_daily_history_view.minutes_in_status,0) ELSE 0 END) > 0]]>
 	</queryString>

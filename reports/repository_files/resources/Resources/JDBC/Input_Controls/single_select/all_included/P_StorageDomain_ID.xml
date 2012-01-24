@@ -34,13 +34,12 @@ WHERE  v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_
 							WHEN -1 THEN v3_0_storage_domain_configuration_view.storage_domain_type
 							ELSE cast($P{P_Storage_Type} as int)
 						              END
-       AND v3_0_datacenter_storage_domain_map_view.history_id = (SELECT max(a.history_id)
+       AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
 					     FROM v3_0_datacenter_storage_domain_map_view a
-					     WHERE a.storage_domain_id = v3_0_datacenter_storage_domain_map_view.storage_domain_id
-						   and a.datacenter_id = v3_0_datacenter_storage_domain_map_view.datacenter_id)
-       AND v3_0_storage_domain_configuration_view.history_id = (SELECT max(a.history_id)
+					     GROUP BY a.storage_domain_id, a.datacenter_id)
+       AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
 					FROM v3_0_storage_domain_configuration_view a
-					WHERE a.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)
+					GROUP BY a.storage_domain_id)
 $P!{Active_VMs}
 order by detach_date DESC, combo_name</queryString>
             <dataSource>

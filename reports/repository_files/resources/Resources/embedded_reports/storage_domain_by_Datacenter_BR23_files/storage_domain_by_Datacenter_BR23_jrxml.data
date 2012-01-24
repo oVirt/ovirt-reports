@@ -46,13 +46,12 @@ v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID}
 AND (v3_0_datacenter_storage_domain_map_view.detach_date IS NULL or v3_0_datacenter_storage_domain_map_view.detach_date <= cast($P{P_End_Date} as date) + interval '1 day')
 AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-AND v3_0_datacenter_storage_domain_map_view.history_id = (SELECT max(a.history_id)
+AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
 							  FROM v3_0_datacenter_storage_domain_map_view a
-							  WHERE a.storage_domain_id = v3_0_datacenter_storage_domain_map_view.storage_domain_id
-								and a.datacenter_id = v3_0_datacenter_storage_domain_map_view.datacenter_id)
-AND v3_0_storage_domain_configuration_view.history_id = (SELECT max(a.history_id)
+							  GROUP BY a.storage_domain_id, a.datacenter_id)
+AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
 							 FROM v3_0_storage_domain_configuration_view a
-							 WHERE a.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)
+							 GROUP BY a.storage_domain_id)
 $P!{Active_VMs}
 GROUP BY v3_0_storage_domain_daily_history_view.storage_domain_id,
 		 v3_0_storage_domain_configuration_view.storage_domain_name]]>

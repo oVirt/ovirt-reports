@@ -39,15 +39,15 @@
         coalesce((SELECT  ' ' || v3_0_cluster_configuration_view.cluster_name
 		  FROM v3_0_cluster_configuration_view
 	          WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
-		        and history_id in (select max(b.history_id)
-			    		   from v3_0_cluster_configuration_view as b
-			   		   where b.cluster_id = v3_0_cluster_configuration_view.cluster_id)), 'all') AS cluster_name,
+		        and history_id in (SELECT max(b.history_id)
+			    		   FROM v3_0_cluster_configuration_view as b
+			   		   GROUP BY b.cluster_id)), 'all') AS cluster_name,
         (SELECT cast(v3_0_cluster_configuration_view.delete_date as date)
          FROM v3_0_cluster_configuration_view
          WHERE 	v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
-		and history_id in (select max(c.history_id)
-		 		   from v3_0_cluster_configuration_view as c
-		   		   where c.cluster_id = v3_0_cluster_configuration_view.cluster_id)) as cluster_delete_date,
+		and history_id in (SELECT max(c.history_id)
+		 		   FROM v3_0_cluster_configuration_view as c
+		   		   GROUP BY c.cluster_id)) as cluster_delete_date,
         coalesce((SELECT v3_0_enum_translator_view.value
 	          FROM v3_0_enum_translator_view
 		  WHERE v3_0_enum_translator_view.enum_key = $P{P_VM_Type}
@@ -55,20 +55,20 @@
        (SELECT v3_0_datacenter_configuration_view.datacenter_name
         FROM v3_0_datacenter_configuration_view
 	WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	      and history_id in (select max(d.history_id)
-			    	 from v3_0_datacenter_configuration_view as d
-			   	 where d.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)) as datacenter_name,
+	      and history_id in (SELECT max(d.history_id)
+			    	 FROM v3_0_datacenter_configuration_view as d
+			   	 GROUP BY d.datacenter_id)) as datacenter_name,
        (SELECT CAST(v3_0_datacenter_configuration_view.delete_date as date)
 	FROM v3_0_datacenter_configuration_view
 	WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	      and history_id in (select max(d.history_id)
-			    	 from v3_0_datacenter_configuration_view as d
-			   	 where d.datacenter_id = v3_0_datacenter_configuration_view.datacenter_id)) as datacenter_delete_date
+	      and history_id in (SELECT max(d.history_id)
+			    	 FROM v3_0_datacenter_configuration_view as d
+			   	 GROUP BY d.datacenter_id)) as datacenter_delete_date
 FROM v3_0_vm_configuration_view
 WHERE 	$X{IN, cast(v3_0_vm_configuration_view.vm_id as varchar), P_VM_ID}
-	and history_id in (select max(a.history_id)
-			   from v3_0_vm_configuration_view as a
-			   where a.vm_id = v3_0_vm_configuration_view.vm_id)
+	and history_id in (SELECT max(a.history_id)
+			   FROM v3_0_vm_configuration_view as a
+			   GROUP BY a.vm_id)
 order by CASE
 			WHEN delete_date IS NULL then vm_name
 			ELSE vm_name ||  ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'

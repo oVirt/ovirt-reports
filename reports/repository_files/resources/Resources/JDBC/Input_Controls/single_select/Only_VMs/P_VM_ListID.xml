@@ -39,7 +39,7 @@ AND v3_0_vm_configuration_view.vm_type = CASE cast($P{P_VM_Type} as int)
  			          END
 AND history_id in (SELECT max(a.history_id)
 	         FROM v3_0_vm_configuration_view as a
-	         WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+	         GROUP BY a.vm_id)
 $P!{Active_VMs}
 order by delete_date DESC, combo_name</queryString>
             <dataSource>

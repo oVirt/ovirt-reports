@@ -75,7 +75,7 @@ select 'below' as data_source, coalesce((SELECT avg(host_hours)
 														 END
 									AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_host_configuration_view a
-								                                                        WHERE a.host_id = v3_0_host_configuration_view.host_id)
+								                                                        GROUP BY a.host_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{active_hosts_select}
@@ -106,7 +106,7 @@ select 'above' as data_source, coalesce((SELECT avg(host_hours)
 														 END
 									AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_host_configuration_view a
-								                                                        WHERE a.host_id = v3_0_host_configuration_view.host_id)
+								                                                        GROUP BY a.host_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{active_hosts_select}
@@ -182,7 +182,7 @@ select 'below' as data_source, coalesce((SELECT avg(host_hours)
 														 END
 									AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_host_configuration_view a
-								                                                        WHERE a.host_id = v3_0_host_configuration_view.host_id)
+								                                                        GROUP BY a.host_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{active_hosts_select}
@@ -213,7 +213,7 @@ select 'above' as data_source, coalesce((SELECT avg(host_hours)
 														 END
 									AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_host_configuration_view a
-								                                                        WHERE a.host_id = v3_0_host_configuration_view.host_id)
+								                                                        GROUP BY a.host_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{active_hosts_select}
@@ -300,7 +300,7 @@ FROM   (SELECT  v3_0_host_configuration_view.cluster_id,
                           END
       AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
 						    FROM v3_0_host_configuration_view a
-						    WHERE a.host_id = v3_0_host_configuration_view.host_id)
+						    GROUP BY a.host_id)
       AND v3_0_host_hourly_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
       AND v3_0_host_hourly_history_view.history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
       $P!{active_hosts_select}

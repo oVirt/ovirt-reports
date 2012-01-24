@@ -86,12 +86,12 @@ FROM   (SELECT 	cluster_id,
 									WHERE datacenter_id = cast($P{P_DataCenter_ID} as uuid))
 			AND v3_0_host_hourly_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
 			AND v3_0_host_hourly_history_view.history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-			AND v3_0_cluster_configuration_view.history_id = (SELECT max(a.history_id)
+			AND v3_0_cluster_configuration_view.history_id in (SELECT max(a.history_id)
 									  FROM v3_0_cluster_configuration_view a
-									  WHERE a.cluster_id = v3_0_cluster_configuration_view.cluster_id)
-			AND v3_0_host_configuration_view.history_id =  (SELECT max(b.history_id)
+									  GROUP BY a.cluster_id)
+			AND v3_0_host_configuration_view.history_id in (SELECT max(b.history_id)
 									FROM v3_0_host_configuration_view b
-									WHERE b.host_id = v3_0_host_configuration_view.host_id)
+									GROUP BY b.host_id)
 			AND CASE
 				WHEN $P{active_hosts_select} like 'AND%' THEN v3_0_host_configuration_view.delete_date IS NULL
 				ELSE v3_0_host_configuration_view.delete_date IS NULL or v3_0_host_configuration_view.delete_date IS NOT NULL

@@ -12,9 +12,9 @@
 		<![CDATA[SELECT Distinct cluster_name, delete_date
  FROM v3_0_cluster_configuration_view
 WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
-	AND history_id = (SELECT max(a.history_id)
+	AND history_id in (SELECT max(a.history_id)
 		       FROM v3_0_cluster_configuration_view as a
-		       WHERE a.cluster_id = v3_0_cluster_configuration_view.cluster_id)]]>
+		       GROUP BY a.cluster_id)]]>
 	</queryString>
 	<field name="cluster_name" class="java.lang.String"/>
 	<field name="delete_date" class="java.sql.Timestamp"/>

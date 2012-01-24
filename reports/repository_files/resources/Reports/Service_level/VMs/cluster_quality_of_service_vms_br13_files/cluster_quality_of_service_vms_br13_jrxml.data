@@ -75,7 +75,7 @@ select 'below' as data_source, coalesce((SELECT avg(vm_hours)
 														 END
 									AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_vm_configuration_view a
-								                                                        WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+								                                                        GROUP BY a.vm_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{Active_VMs}
@@ -106,7 +106,7 @@ select 'above' as data_source, coalesce((SELECT avg(vm_hours)
 														 END
 									AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_vm_configuration_view a
-								                                                        WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+								                                                        GROUP BY a.vm_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{Active_VMs}
@@ -182,7 +182,7 @@ select 'below' as data_source, coalesce((SELECT avg(vm_hours)
 														 END
 									AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_vm_configuration_view a
-								                                                        WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+								                                                        GROUP BY a.vm_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{Active_VMs}
@@ -213,7 +213,7 @@ select 'above' as data_source, coalesce((SELECT avg(vm_hours)
 														 END
 									AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 								                                                        FROM v3_0_vm_configuration_view a
-								                                                        WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+								                                                        GROUP BY a.vm_id)
 									AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 									AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
 									$P!{Active_VMs}
@@ -300,7 +300,7 @@ FROM   (SELECT  v3_0_vm_configuration_view.cluster_id,
                           END
       AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
 						    FROM v3_0_vm_configuration_view a
-						    WHERE a.vm_id = v3_0_vm_configuration_view.vm_id)
+						    GROUP BY a.vm_id)
       AND v3_0_vm_hourly_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
       AND v3_0_vm_hourly_history_view.history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
       $P!{Active_VMs}
