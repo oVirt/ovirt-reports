@@ -3,15 +3,15 @@
 	<modelVersion>4.0.0</modelVersion> 
 
   <parent>
-	  <groupId>ovirt_reports</groupId>
+	  <groupId>${reports.groupId}</groupId>
 	  <artifactId>jars</artifactId>
-	  <version>3.0.0</version>
+	  <version>${reports.version}</version>
   </parent>
 
-  <groupId>ovirt_reports</groupId> 
+  <groupId>${reports.groupId}</groupId> 
   <artifactId>ReportsLineBarChartTheme</artifactId> 
   <packaging>jar</packaging> 
-  <version>3.0.0</version> 
+  <version>${reports.version}</version> 
   <name>Reports Chart Theme for Line and Bar Charts</name> 
   <description>The jar that contains the chart theme line and bar charts</description> 
   <build>
