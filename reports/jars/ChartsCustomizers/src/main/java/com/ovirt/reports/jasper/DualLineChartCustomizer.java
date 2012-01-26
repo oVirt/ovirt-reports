@@ -30,7 +30,7 @@ public class DualLineChartCustomizer implements JRChartCustomizer {
 			CategoryAxis domainaxis = categoryPlot.getDomainAxis();
 	        domainaxis.setMaximumCategoryLabelWidthRatio(1.5f);
 	        domainaxis.setTickMarksVisible(true);
-	        
+	
 	        LegendItemCollection chartLegend = categoryPlot.getLegendItems();
 	        LegendItemCollection res = new LegendItemCollection();
 	        Shape square = new Rectangle2D.Double(0,0,2,2);
@@ -56,9 +56,9 @@ public class DualLineChartCustomizer implements JRChartCustomizer {
 	        		1.0f, new float[] {6.0f, 6.0f}, 0.0f
 	        		)
 	        		);}
-	        
+	
 			ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-			if (rangeAxis instanceof NumberAxis) { 
+			if (rangeAxis instanceof NumberAxis) {
 				NumberAxis axis = (NumberAxis) rangeAxis;
 				axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
 				axis.setUpperBound(axis.getUpperBound()+1);

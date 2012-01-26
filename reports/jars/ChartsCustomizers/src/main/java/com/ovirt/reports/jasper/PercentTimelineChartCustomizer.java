@@ -30,7 +30,7 @@ public class PercentTimelineChartCustomizer implements JRChartCustomizer {
 			categoryPlot.setNoDataMessage("No Data Available");
 			DateAxis domainaxis = (DateAxis) categoryPlot.getDomainAxis();
 	        domainaxis.setAutoTickUnitSelection(false);
-	        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds) 
+	        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds)
 	        {
 	        	domainaxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,5,new SimpleDateFormat("dd MMM")));
 	        }
@@ -72,15 +72,15 @@ public class PercentTimelineChartCustomizer implements JRChartCustomizer {
 	        }
 	        categoryPlot.setFixedLegendItems(res);	
 	        chart.getLegend().setFrame(BlockBorder.NONE);
-	        
+	
 	        renderer.setBaseStroke(
 
 	        		new BasicStroke(2.0f, BasicStroke.JOIN_ROUND, BasicStroke.JOIN_BEVEL)
 
 	        		);
-	        
+	
 			ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-			if (rangeAxis instanceof NumberAxis) { 
+			if (rangeAxis instanceof NumberAxis) {
 				NumberAxis axis = (NumberAxis) rangeAxis;
 				axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
 				double upperBound = axis.getUpperBound();
@@ -101,7 +101,7 @@ public class PercentTimelineChartCustomizer implements JRChartCustomizer {
 				{
 					axis.setLowerBound((double) 0);
 				}
-				else 
+				else
 				{
 					axis.setLowerBound(lowerBound);
 				}

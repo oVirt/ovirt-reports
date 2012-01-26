@@ -55,14 +55,14 @@ html {
 
 .header>.title {
 	display:inline;
-} 
+}
 
 .pane>.content>.header .icon,
 .pane>.content>.header .title,
 .pane>.content>.header .buttonSet {
 	float:left;
 	line-height: 20px;
-} 
+}
 
 .pane>.content {
 	float:none;
@@ -70,7 +70,7 @@ html {
 
 .column>.content {
 	position: static;
-} 
+}
 
 .panel.dialog .content {
 	min-width: 100px;
@@ -133,7 +133,7 @@ html {
 	width: 100%;
 }
 
-.calculatedField .argument, 
+.calculatedField .argument,
 .calculatedField .operator {
 	float:none;
 	top:-3px;
@@ -189,7 +189,7 @@ html {
 /* tweaks to buttons.css */
 
 .button.action>.wrap,
-.tabSet.vertical.buttons>.tab>.button>.wrap, 
+.tabSet.vertical.buttons>.tab>.button>.wrap,
 .tabSet.horizontal.buttons>.tab>.button>.wrap,
 .button.capsule>.wrap,
 .button.options>.wrap {
@@ -208,7 +208,7 @@ html {
 .button.action.jumbo>.wrap {
 	height:180px;
 	background-image: url(images/button_action_jumbo_sprite.png);
-	font-size: 22px; 
+	font-size: 22px;
 }
 
 
@@ -601,7 +601,7 @@ textarea {
 
 #designer #mainTableContainer .overlay.legend.over,
 #designer #mainTableContainer .overlay.legend.pressed,
-#designer #mainTableContainer .overlay.legend.selected,  
+#designer #mainTableContainer .overlay.legend.selected,
 #designer #mainTableContainer .overlay.over,
 #designer #mainTableContainer .overlay.pressed,
 #designer #mainTableContainer .overlay.selected {

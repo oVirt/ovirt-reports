@@ -6,7 +6,7 @@ intended scope:
 - styles for the decorator
 - utility styles
 - typography
-- colors 
+- colors
 
 pods skin
 tim sheiner & christie rixford
@@ -29,10 +29,10 @@ tim sheiner & christie rixford
 
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- TYPOGRAPHY 
-______________________________________________________________ 
+ TYPOGRAPHY
+______________________________________________________________
 
 */
 
@@ -45,7 +45,7 @@ textarea,
 .body,
 .title>.path,
 input,
-select { 
+select {
   font-size: 11px;
   line-height:1.182em; /* 11 x 1.182 = 13 */
   font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -80,7 +80,7 @@ ul.decorated {
 }
 
 .default,h4,body,
-.message.warning { 
+.message.warning {
   font-size: 11px;
   line-height:1.182em; /* 11 x 1.182 = 13 */
   font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -150,7 +150,7 @@ h5,h6 {margin-bottom: 0.5em;}
 p           { margin-bottom: 1em;}
 
 a           { color: inherit; text-decoration: none; cursor: pointer; }
-a:focus, 
+a:focus,
 a:hover,
 a:active 	{ text-decoration:underline;}
 
@@ -163,14 +163,14 @@ a.disabled.pressed {
 	text-decoration: none;
 }
 
-.selected a:focus, 
+.selected a:focus,
 .selected a:hover,
 .selected a.over,
 .selected a:active,
 .selected a.pressed 	{ color:inherit;}
 
 /*
-abbr, 
+abbr,
 acronym     { border-bottom: 1px dotted #666; }
 */
 address     { margin: 0 0 1.5em; font-style: italic; }
@@ -261,7 +261,7 @@ body {
 .disabled,
 .button.disabled,
 [disabled],
-.button[disabled], 
+.button[disabled],
 .button.primary[disabled] {
 	color:#aaa;
 }
@@ -353,12 +353,12 @@ body,
 .button.action.primary.jumbo.disabled,
 .button.action.primary[disabled],
 .button.action.primary.jumbo[disabled],
-.tabSet.buttons.vertical [disabled]  { 
-	color:#43B9F9; 
+.tabSet.buttons.vertical [disabled]  {
+	color:#43B9F9;
 }
 
-.palette08_bkgd { 
-	background-color:#43B9F9; 
+.palette08_bkgd {
+	background-color:#43B9F9;
 }
 
 
@@ -436,7 +436,7 @@ a:active,
 
 .palette13_bkgd,
 .menu.vertical li>.wrap.over {
-	background-color:#FC870E; 
+	background-color:#FC870E;
 }
 
 /* .orange2 */
@@ -447,7 +447,7 @@ a:active,
 
 .palette14_bkgd,
 .menu.vertical li>.wrap.pressed {
-	background-color:#FB5B0D; 
+	background-color:#FB5B0D;
 }
 
 /* .orange3 */
@@ -497,10 +497,10 @@ a:active,
 
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- DECORATOR STYLES 
-______________________________________________________________ 
+ DECORATOR STYLES
+______________________________________________________________
 
 Styles for objects that appear on every page in the application by virtue
 of being loaded in decorator.jsp
@@ -583,7 +583,7 @@ body.noDecoration {
 #metaLinks li.last {
 	border-right: none;
 }
- 
+
 #copyright {
 	margin:4px auto 0;
 	text-align: center;
@@ -698,55 +698,55 @@ body.noDecoration {
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- JIF SCRIPTING CLASSES 
-______________________________________________________________ 
+ JIF SCRIPTING CLASSES
+______________________________________________________________
 
 Scripting classes represent a kind of API for the JIF interactive and layout logic.
 
-Some of the selectors in this group are used as flags for the framework interactive logic to embue 
-objects with specific behavior or layout.  
+Some of the selectors in this group are used as flags for the framework interactive logic to embue
+objects with specific behavior or layout.
 
 Others are the selectors that are assigned to objects automatically.
 
 */
 
 .centered_horz {
-	/* note: any object assigned this class will 
+	/* note: any object assigned this class will
 	automatically be assigned margin-left: -(this.width/2)
 	*/
 	position: absolute;
 }
 
 .centered_vert {
-	/* note: any object assigned this class will 
+	/* note: any object assigned this class will
 	automatically be assigned margin-top: -(this.height/2)
 	*/
 	position: absolute;
 }
 
 .sizer {
-	/* an object with this class can be dragged to size its parent, if, 
+	/* an object with this class can be dragged to size its parent, if,
 	   and only if, the parent has class .sizeable
 	*/
 }
 
 .sizeable {
-	/* an object with this class can be resized, if, 
+	/* an object with this class can be resized, if,
 	   and only if, it contains a child with class .sizer
 	*/
 }
 
 .mover {
-	/* an object with this class can be dragged to move its parent, if, 
+	/* an object with this class can be dragged to move its parent, if,
 	   and only if, the parent has class .moveable
 	*/
 	cursor: move;
 }
 
 .moveable {
-	/* an object with this class can be dragged, if, 
+	/* an object with this class can be dragged, if,
 	   and only if, it has a child with class .moveable upon which a mouseMove event occurs
 	*/
 }
@@ -888,78 +888,78 @@ Others are the selectors that are assigned to objects automatically.
 
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- UTILITY STYLES 
-______________________________________________________________ 
+ UTILITY STYLES
+______________________________________________________________
 
 */
 
 	
 .rndCorners-all {
 	border-radius:8px;
-	-moz-border-radius:8px; 
-	-webkit-border-radius:8px; 
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
 }
 
 .rndCorners-top {
-	-moz-border-radius-topleft:8px; 
+	-moz-border-radius-topleft:8px;
 	-webkit-border-top-left-radius:8px;
 	border-top-left-radius:8px;
 	-moz-border-radius-topright:8px;
 	-webkit-border-top-right-radius:8px;
-	border-top-right-radius:8px; 
+	border-top-right-radius:8px;
 }
 
 .rndCorners-topLeft {
-	-moz-border-radius-topleft:8px;  
-	-webkit-border-top-left-radius:8px; 
-	border-top-left-radius:8px; 
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
 }
 
 .rndCorners-topRight {
-	-moz-border-radius-topRight:8px;  
-	-webkit-border-top-right-radius:8px; 
-	border-top-right-radius:8px; 
+	-moz-border-radius-topRight:8px;
+	-webkit-border-top-right-radius:8px;
+	border-top-right-radius:8px;
 }
 
 .rndCorners-right {
-	-moz-border-radius-topRight:8px;  
-	-webkit-border-top-right-radius:8px; 
+	-moz-border-radius-topRight:8px;
+	-webkit-border-top-right-radius:8px;
 	border-top-right-radius:8px;
 	-moz-border-radius-bottomright:8px;
-	-webkit-border-bottom-right-radius:8px; 
+	-webkit-border-bottom-right-radius:8px;
 	border-bottom-right-radius:8px;
 }
 
 .rndCorners-left {
-	-moz-border-radius-topleft:8px;  
-	-webkit-border-top-left-radius:8px; 
-	border-top-left-radius:8px; 
-	-moz-border-radius-bottomleft:8px; 
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
+	-moz-border-radius-bottomleft:8px;
 	-webkit-border-bottom-left-radius:8px;
 	border-bottom-left-radius:8px;
 }
 
 .rndCorners-bottom {
-	-moz-border-radius-bottomleft:8px; 
+	-moz-border-radius-bottomleft:8px;
 	-webkit-border-bottom-left-radius:8px;
 	border-bottom-left-radius:8px;
-	-moz-border-radius-bottomright:8px; 
+	-moz-border-radius-bottomright:8px;
 	-webkit-border-bottom-right-radius:8px;
-	border-bottom-right-radius:8px; 
+	border-bottom-right-radius:8px;
 }
 
 .rndCorners-bottomLeft {
-	-moz-border-radius-bottomleft:8px; 
+	-moz-border-radius-bottomleft:8px;
 	-webkit-border-bottom-left-radius:8px;
-	border-bottom-left-radius:8px; 
+	border-bottom-left-radius:8px;
 }
 
 .rndCorners-bottomRight {
-	-moz-border-radius-bottomright:8px; 
+	-moz-border-radius-bottomright:8px;
 	-webkit-border-bottom-right-radius:8px;
-	border-bottom-right-radius:8px; 
+	border-bottom-right-radius:8px;
 }
 
 .offLeft, .offLeft span,.wrap.offLeft,.wrap.header.offLeft {

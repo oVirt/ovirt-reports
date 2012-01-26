@@ -3,7 +3,7 @@ pageSpecific.css
 
 intended scope:
 - styles intended only for a specific page
-- styles that may are proposed for general use, but not yet tested 
+- styles that may are proposed for general use, but not yet tested
 
 pods skin
 tim sheiner & christie rixford
@@ -103,7 +103,7 @@ tim sheiner & christie rixford
 
 .column.home>.content>.body {
 	background: #c9c9c9 url("images/home_bkgd.png") left top no-repeat;
-} 
+}
 
 .home #viewReports>.icon {
 	background-position: left -938px;
@@ -415,7 +415,7 @@ tim sheiner & christie rixford
 }
 
 #designer td#chart.selected{
-    background-color: #FFFFFF !important;   
+    background-color: #FFFFFF !important;
 }
 
 
@@ -585,7 +585,7 @@ tim sheiner & christie rixford
 
 
 #designer #mainTableContainer #canvasTable thead#headerAxis th.columnGroupsEmptyCell{
-    background-color:#FFF;   
+    background-color:#FFF;
 }
 
 
@@ -771,14 +771,14 @@ tim sheiner & christie rixford
 	background-repeat: repeat-x;
 	overflow: hidden;
 	padding-top: 3px;
-	/* for wrapping 
+	/* for wrapping
 	height: 25px;
 	overflow: visible;*/
 }
 
 .displayManager .tokens {
     height: 20px;
-    /* for wrapping 
+    /* for wrapping
     display: inline;*/
 }
 
@@ -792,7 +792,7 @@ tim sheiner & christie rixford
     display: inline-block !important;
     margin-left: 2px;
     margin-bottom: 20px;
-    /* for wrapping 
+    /* for wrapping
     margin-bottom: 5px;*/
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -880,7 +880,7 @@ li.dragging.measure, li.dragging.dimension {
 .tokens .button>.wrap {
 	display: inline !important;
 	padding-left:12px;
-	background-image: url("images/lists_sprite.png"); 
+	background-image: url("images/lists_sprite.png");
 	background-repeat: no-repeat;
 	text-decoration: none;
 }
@@ -1160,7 +1160,7 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 #designerCache .list.tabular>.leaf.running {
-	font-style: italic; 
+	font-style: italic;
 }
 
 #designerCache .list.tabular>.leaf.running>.wrap>.column.one {
@@ -1218,7 +1218,7 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 #reportViewer #display.controlPage .list.inputControls {
-    width:300px; 
+    width:300px;
     margin-left:20px;
 }
 
@@ -1226,15 +1226,15 @@ li.dragging.measure, li.dragging.dimension {
 	/* margin-top: 10px; */
 }
 
-#reportContainer table, 
-#reportContainer tbody, 
-#reportContainer tfoot, 
-#reportContainer thead, 
-#reportContainer tr, 
-#reportContainer th, 
+#reportContainer table,
+#reportContainer tbody,
+#reportContainer tfoot,
+#reportContainer thead,
+#reportContainer tr,
+#reportContainer th,
 #reportContainer td {
 /* resets for rendered reports */
-	font-size: 1%; 
+	font-size: 1%;
 	vertical-align: top;
 	line-height: normal;
 	text-align: left;

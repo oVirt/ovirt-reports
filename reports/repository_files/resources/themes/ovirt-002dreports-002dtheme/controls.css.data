@@ -103,7 +103,7 @@ legend a {
 .control,
 .picker input {
 	margin-bottom: 12px;
-} 
+}
 
 
 .input input,
@@ -259,8 +259,8 @@ input + label {
 
 /* iPads (portrait and landscape) */
 
-@media only screen 
-and (min-device-width : 768px) 
+@media only screen
+and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 	
 	.checkBox input {
@@ -495,19 +495,19 @@ and (max-device-width : 1024px) {
 	margin-right: 20px;
 }
 
-.tabSet.vertical.buttons .tab {  
+.tabSet.vertical.buttons .tab {
 	margin: 0;
 }
 
-.tabSet.vertical.buttons .button { 
+.tabSet.vertical.buttons .button {
 	border-bottom:1px solid #ffffff;
-	padding: 0 15px 0 0;   
-	text-align: center; 
+	padding: 0 15px 0 0;
+	text-align: center;
 	width:100%;
 }
 
 .tabSet.vertical.buttons .button .wrap {
-	padding: 0 0 0 15px; 
+	padding: 0 0 0 15px;
 	line-height: 28px;
 	height: 28px;
 }
@@ -663,32 +663,32 @@ and (max-device-width : 1024px) {
 	float:none;
 }
 
-.tabSet.horizontal.buttons li {  
+.tabSet.horizontal.buttons li {
 	margin: 0;
 	border: none;
 	padding:0;
 	height:27px;
 }
 
-.tabSet.horizontal.buttons .button { 
-	padding: 0 15px 0 0;   
-	text-align: center; 
+.tabSet.horizontal.buttons .button {
+	padding: 0 15px 0 0;
+	text-align: center;
 	border-right:1px solid transparent;
  	border-bottom:1px solid transparent;
 	border-left:1px solid transparent;
 }
 
-.tabSet.horizontal.buttons .selected .button { 
+.tabSet.horizontal.buttons .selected .button {
   margin-top: 0;
 }
 
-.tabSet.horizontal.buttons .selected .button>.wrap { 
+.tabSet.horizontal.buttons .selected .button>.wrap {
   line-height: 27px;
   height: 27px;
 }
 
 .tabSet.horizontal.buttons .button .wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 26px;
   height: 26px;
 }
@@ -1004,10 +1004,10 @@ and (max-device-width : 1024px) {
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
  THIRD PARTY CONTROLS
-______________________________________________________________ 
+______________________________________________________________
 
 
 /* dynarch calendar
@@ -1267,7 +1267,7 @@ ______________________________________________________________
 /* the styles below target ONLY firefox. implemented in v4.2 due to FF 3.5 lack of gradient support */
 @-moz-document url-prefix() {
 
-	.tabSet.vertical.buttons .button { 
+	.tabSet.vertical.buttons .button {
 		background-image: url(images/tabs_vertical_sprite.png);
 		background-position: left -57px;
 		border-top:none;
@@ -1285,14 +1285,14 @@ ______________________________________________________________
 	.tabSet.vertical.buttons .selected.last .button.pressed,
 	.tabSet.vertical.buttons .first .button.over,
 	.tabSet.vertical.buttons .button.over,
-	.tabSet.vertical.buttons .last .button.over	 { 
+	.tabSet.vertical.buttons .last .button.over	 {
 		background-image: url(images/tabs_vertical_sprite.png);
 		background-position: left -406px;
 	}
 
 	.tabSet.vertical.buttons .first .button.pressed,
 	.tabSet.vertical.buttons .button.pressed,
-	.tabSet.vertical.buttons .last .button.pressed { 
+	.tabSet.vertical.buttons .last .button.pressed {
 		background-image: url(images/tabs_vertical_sprite.png);
 		background-position: left -753px;
 	}
@@ -1313,7 +1313,7 @@ ______________________________________________________________
 	.tabSet.vertical.buttons .first .button.pressed .wrap,
 	.tabSet.vertical.buttons .button.pressed .wrap,
 	.tabSet.vertical.buttons .last .button.pressed .wrap {
-		background:none; 
+		background:none;
 		border-top:none;
 	}
 	

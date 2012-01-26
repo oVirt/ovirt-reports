@@ -26,7 +26,7 @@ public class XYBarTimeChartCustomizer implements JRChartCustomizer {
 		categoryPlot.setNoDataMessage("No Data Available");
 		DateAxis domainaxis = (DateAxis) categoryPlot.getDomainAxis();
         domainaxis.setAutoTickUnitSelection(false);
-        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds) 
+        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds)
         {
         	domainaxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,5,new SimpleDateFormat("dd MMM")));
         }
@@ -39,8 +39,8 @@ public class XYBarTimeChartCustomizer implements JRChartCustomizer {
         domainaxis.setDateFormatOverride(new SimpleDateFormat("dd MMM"));
         domainaxis.setLabelAngle(Math.PI / 2);
         domainaxis.setLabelAngle(0);
-        
-        
+
+
         LegendItemCollection chartLegend = categoryPlot.getLegendItems();
         LegendItemCollection res = new LegendItemCollection();
         Shape square = new Rectangle2D.Double(0,0,5,5);
@@ -54,9 +54,9 @@ public class XYBarTimeChartCustomizer implements JRChartCustomizer {
         }
         categoryPlot.setFixedLegendItems(res);
         chart.getLegend().setFrame(BlockBorder.NONE);
-        
+
 		ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-		if (rangeAxis instanceof NumberAxis) { 
+		if (rangeAxis instanceof NumberAxis) {
 			NumberAxis axis = (NumberAxis) rangeAxis;
 			axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
 			axis.setUpperBound(axis.getUpperBound()+1);

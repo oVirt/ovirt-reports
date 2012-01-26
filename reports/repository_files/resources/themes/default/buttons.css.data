@@ -11,9 +11,9 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 /* SHARED .button STYLES: */
 		
-.button { 
+.button {
 	position: relative;
-	border: 0; 
+	border: 0;
 	padding: 0;
 	cursor: pointer;
 	overflow: visible; /* removes extra side padding in IE */
@@ -31,9 +31,9 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 	border: none; /* overrides extra padding in Firefox */
 }
 
-.button .wrap { 
+.button .wrap {
 	position: relative;
-	display: block !important; 
+	display: block !important;
 	white-space: nowrap;
 	background-image:inherit;
 	background-repeat: no-repeat;
@@ -99,26 +99,26 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 /* .button.action */
 
-.action { 
-  padding: 0 15px 0 0; 
-  margin-right:5px; 
-  text-align: center; 
+.action {
+  padding: 0 15px 0 0;
+  margin-right:5px;
+  text-align: center;
   background-image: url(images/button_action_sprite.png);
-  background-position: right -52px;  
+  background-position: right -52px;
   display: inline-block;
   text-decoration: none;
 }
 
 .action>.wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 32px;
   font-size: 11px;
   background-position: left 0;
   border:none;
 }
 
-.action.over {   
-	background-position: right -156px; 
+.action.over {
+	background-position: right -156px;
 }
 
 .action.over>.wrap {
@@ -126,7 +126,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .action.pressed {
-	background-position: right -260px; 
+	background-position: right -260px;
 }
 
 .action.pressed>.wrap {
@@ -135,7 +135,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 .action.disabled,
 .action[disabled] {
-	background-position: right -52px; 
+	background-position: right -52px;
 }
 
 .action.disabled>.wrap,
@@ -143,23 +143,23 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 	background-position: left 0px;
 }
 
-.action.primary { 
+.action.primary {
 	padding-right: 20px;
-	background-image: url(images/button_action_primary_sprite.png); 
+	background-image: url(images/button_action_primary_sprite.png);
 }
 
-.action.primary>.wrap { 
+.action.primary>.wrap {
 	padding-left: 20px;
 }
 
 /* action.jumbo */
 
-.action.jumbo { 
-  padding: 0 34px 0 0; 
-  margin-right:5px; 
-  text-align: center; 
+.action.jumbo {
+  padding: 0 34px 0 0;
+  margin-right:5px;
+  text-align: center;
   background-image: url(images/button_action_jumbo_sprite.png);
-  background-position: right -240px; 
+  background-position: right -240px;
   text-decoration:none;
 }
 
@@ -174,7 +174,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 	margin-top:0;
 }
 
-.action.jumbo>.icon { 
+.action.jumbo>.icon {
 	background-image: url(images/home_icons_sprite.png);
 	width:222px;
 	height:130px;
@@ -186,8 +186,8 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 
-.action.jumbo.over {   
-	background-position: right -711px; 
+.action.jumbo.over {
+	background-position: right -711px;
 }
 
 .action.jumbo.over>.wrap {
@@ -195,7 +195,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .action.jumbo.pressed {
-	background-position: right -1192px; 
+	background-position: right -1192px;
 }
 
 .action.jumbo.pressed>.wrap {
@@ -204,7 +204,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 .action.jumbo.disabled,
 .action.jumbo[disabled] {
-	background-position: right -240px; 
+	background-position: right -240px;
 }
 
 .action.jumbo.disabled>.wrap,
@@ -214,8 +214,8 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 /* .action.square.button */
 	
-.action.square { 
-  text-align: center; 
+.action.square {
+  text-align: center;
   background-position: right -52px;
   width:34px;
 }
@@ -236,8 +236,8 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 	background-repeat: no-repeat;
 }
 
-.action.square.over {   
-	background-position: right -156px; 
+.action.square.over {
+	background-position: right -156px;
 }
 
 .action.square.over>.wrap {
@@ -245,7 +245,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .action.square.pressed {
-	background-position: right -260px; 
+	background-position: right -260px;
 }
 
 .action.square.pressed>.wrap {
@@ -256,23 +256,23 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 /* .button.options */
 
-.button.options { 
-  padding: 0 15px 0 0; 
-  margin-right:5px; 
-  text-align: center; 
+.button.options {
+  padding: 0 15px 0 0;
+  margin-right:5px;
+  text-align: center;
   background-image: url(images/button_options_sprite.png);
-  background-position: right -41px; 
+  background-position: right -41px;
 }
 
 .button.options>.wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 21px;
   background-position: left top;
   border:none;
 }
 
-.button.options.over {   
-	background-position: right -123px; 
+.button.options.over {
+	background-position: right -123px;
 }
 
 .button.options.over>.wrap {
@@ -280,7 +280,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.options.pressed {
-	background-position: right -205px; 
+	background-position: right -205px;
 }
 
 .button.options.pressed>.wrap {
@@ -288,7 +288,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.options.disabled {
-	background-position: right -41px; 
+	background-position: right -41px;
 }
 
 .button.options.disabled>.wrap {
@@ -301,15 +301,15 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 	/* metrics */
 
-.button.capsule { 
-  padding: 0 15px 0 0; 
-  margin:4px 5px 4px auto;   
-  text-align: center; 
+.button.capsule {
+  padding: 0 15px 0 0;
+  margin:4px 5px 4px auto;
+  text-align: center;
   background-image: url(images/button_capsule_sprite.png);
 }
 
 .button.capsule .wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 26px;
   height: 26px;
   min-width: 20px;
@@ -383,16 +383,16 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 	background-position: 0px -78px;
 }
 
-.button.capsule.up { 
-  background-position: right -46px; 
+.button.capsule.up {
+  background-position: right -46px;
 }
 
 .button.capsule.up .wrap  {
   background-position: left top;
 }
 
-.button.capsule.up.over {   
-	background-position: right -184px; 
+.button.capsule.up.over {
+	background-position: right -184px;
 }
 
 .button.capsule.up.over .wrap {
@@ -400,7 +400,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.capsule.up.pressed {
-	background-position: right -322px; 
+	background-position: right -322px;
 }
 
 .button.capsule.up.pressed .wrap {
@@ -409,7 +409,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 .button.capsule.down,
 .button.capsule.down.over {
-	background-position: right -322px; 
+	background-position: right -322px;
 }
 
 .button.capsule.down .wrap,
@@ -418,7 +418,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.capsule.disabled {
-	background-position: right -46px; 
+	background-position: right -46px;
 }
 
 .button.capsule.disabled .wrap {
@@ -426,7 +426,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.capsule.down.pressed {
-	background-position: right -460px; 
+	background-position: right -460px;
 }
 
 .button.capsule.down.pressed .wrap {
@@ -436,24 +436,24 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 /* grouped capsule .buttons */
 
 .button.capsule.up.first {
-	background-position: right -674px; 
+	background-position: right -674px;
 }
 
 .button.capsule.up.first.over {
-	background-position: right -729px; 
+	background-position: right -729px;
 }
 
 .button.capsule.up.middle,
 .button.capsule.up.middle .wrap,
 .button.capsule.up.last .wrap {
-	background-position: left -92px; 
+	background-position: left -92px;
 	background-repeat: repeat-x;
 }
 
 .button.capsule.up.middle.over,
 .button.capsule.up.middle.over .wrap,
-.button.capsule.up.last.over .wrap {   
-	background-position: 0px -230px; 
+.button.capsule.up.last.over .wrap {
+	background-position: 0px -230px;
 }
 
 
@@ -462,8 +462,8 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 .button.capsule.down.middle .wrap,
 .button.capsule.down.last .wrap,
 .button.capsule.down.middle.over .wrap,
-.button.capsule.down.last.over .wrap {   
-	background-position: 0px -368px; 
+.button.capsule.down.last.over .wrap {
+	background-position: 0px -368px;
 }
 
 .button.capsule.up.first.pressed,
@@ -471,18 +471,18 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 .button.capsule.down.first,
 .button.capsule.down.first.over,
 .button.capsule.down.middle,
-.button.capsule.down.middle.over {   
-	background-position: right -567px; 
+.button.capsule.down.middle.over {
+	background-position: right -567px;
 }
 
 .button.capsule.down.middle.pressed .wrap,
-.button.capsule.down.last.pressed .wrap {   
-	background-position: 0px -506px; 
+.button.capsule.down.last.pressed .wrap {
+	background-position: 0px -506px;
 }
 
 .button.capsule.down.first.pressed,
-.button.capsule.down.middle.pressed {   
-	background-position: right -627px; 
+.button.capsule.down.middle.pressed {
+	background-position: right -627px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {

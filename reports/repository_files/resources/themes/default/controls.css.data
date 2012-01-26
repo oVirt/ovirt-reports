@@ -103,7 +103,7 @@ legend a {
 .control,
 .picker input {
 	margin-bottom: 12px;
-} 
+}
 
 
 .input input,
@@ -491,19 +491,19 @@ input + label {
 	margin-right: 20px;
 }
 
-.tabSet.vertical.buttons .tab {  
+.tabSet.vertical.buttons .tab {
 	margin: 0;
 }
 
-.tabSet.vertical.buttons .button { 
-  padding: 0 15px 0 0;   
-  text-align: center; 
+.tabSet.vertical.buttons .button {
+  padding: 0 15px 0 0;
+  text-align: center;
   background-image: url(images/tabs_vertical_sprite.png);
   width:100%;
 }
 
 .tabSet.vertical.buttons .button .wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 28px;
   height: 28px;
 }
@@ -640,24 +640,24 @@ input + label {
 	float:none;
 }
 
-.tabSet.horizontal.buttons li {  
+.tabSet.horizontal.buttons li {
 	margin: 0;
 	border: none;
 	padding:0;
 	height:31px;
 }
 
-.tabSet.horizontal.buttons .button { 
-  padding: 0 21px 0 0;   
-  text-align: center; 
+.tabSet.horizontal.buttons .button {
+  padding: 0 21px 0 0;
+  text-align: center;
   background-image: url(images/tabs_horizontal_sprite.png);
 }
 
-.tabSet.horizontal.buttons .selected .button { 
+.tabSet.horizontal.buttons .selected .button {
   margin-top: -1px;
 }
 
-.tabSet.horizontal.buttons .selected .button>.wrap { 
+.tabSet.horizontal.buttons .selected .button>.wrap {
   line-height: 30px;
   height: 33px;
 }
@@ -665,7 +665,7 @@ input + label {
 
 
 .tabSet.horizontal.buttons .button .wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 28px;
   height: 31px;
 }
@@ -977,10 +977,10 @@ input + label {
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
  THIRD PARTY CONTROLS
-______________________________________________________________ 
+______________________________________________________________
 
 
 /* dynarch calendar

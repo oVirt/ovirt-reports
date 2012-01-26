@@ -1,12 +1,12 @@
-/* lists 
+/* lists
 
 pods skin
 tim sheiner & christie rixford
 
-______________________________________________________________ 
+______________________________________________________________
 
  LISTS
-______________________________________________________________ 
+______________________________________________________________
 
 In most cases, list markup is defined in /jsp/templates/list.jsp
 
@@ -90,7 +90,7 @@ In most cases, list markup is defined in /jsp/templates/list.jsp
 }
 
 
-ul.decorated li { 
+ul.decorated li {
 	background:url("images/lists_sprite.png") no-repeat scroll -32px -4px transparent;
 	margin:1em;
 	padding-left:15px;
@@ -144,8 +144,8 @@ ul.decorated li {
 	border: none;
 	background: #e0e0e0;
 	border-radius:0;
-	-moz-border-radius:0; 
-	-webkit-border-radius:0; 
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
 	border-bottom: 1px solid #CCC;
 	cursor: default;
 	color:#999;
@@ -759,8 +759,8 @@ ul.decorated li {
 	margin:3px 2% 0 2px;
 	border:1px solid #ccc;
 	border-radius:4px;
-	-moz-border-radius:4px; 
-	-webkit-border-radius:4px; 
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
 }
 
 .list.fields>.leaf>.wrap,
@@ -1426,8 +1426,8 @@ ul.decorated li {
 	padding:5px;
 	line-height: normal;
 	border-radius:8px;
-	-moz-border-radius:8px; 
-	-webkit-border-radius:8px; 
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
 }
 
 .list.palette>.leaf.button.over {

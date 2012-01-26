@@ -11,7 +11,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 	  - only can be used on TH cells
 	- group
 	  - cell contains string that identifies a group
-	  - always occurs with 'label' 
+	  - always occurs with 'label'
 	  - can NEVER occur with 'member'
 	- member
 	  - cell contains string that identifies a group member
@@ -23,7 +23,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 	- value
 	  - cell contains data
 	  - can NEVER occur with 'group' || 'label' || 'member'
-	- numeric 
+	- numeric
 	  - modifies 'value'
 	  - indicates a cell with numeric, as opposed to string, values
 	- detail
@@ -47,8 +47,8 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 	  - cell contains a label or data that applies to the entire table
 	- columnSummaries
 	  - only used on tr elements
-	  - identifies a row that contains some columnSummary cells 
-	  
+	  - identifies a row that contains some columnSummary cells
+	
 2). Hierarchical Selectors: identify a cell's coordinates within the table's row and column axis
 	- rowCondition_[1,2,3]
 	  - indicates that a cell's position within the crosstab's row hierarchy
@@ -68,7 +68,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 	- outer
 	  - identifies all label cells, regardless of sub-type, that occupy boundary between labels and the visual edge of the table
 	  - NEVER occurs with 'value'
-	  
+	
 3). Interactive Selectors: identify the display state of a member and its children
 	- open
 	  - the member's children are visible
@@ -78,7 +78,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 	  - the member's children are NOT visible
 	  - ALWAYS occurs with 'label' && 'member'
 	  - NEVER occurs with 'inner'
-	  	  
+	  	
 4). Notes and Rules of Thumb for table construction
 	- The first cell in the column containing .measure.label cells has the additional selector .first
 	- EVERY cell in the row defined in the tfoot section has the selector 'grand' assigned as well as its logical and hierarchical selector
@@ -189,7 +189,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 }
 
 .label,
-.label.member, 
+.label.member,
 .label.measure,
 .label.rowCondition_1,
 .label.rowCondition_2,
@@ -335,8 +335,8 @@ tfoot .measure.label  {
 }
 
 
-.data.table .labels .group, 
-.data.table .labels .member, 
+.data.table .labels .group,
+.data.table .labels .member,
 .data.table .labels .rowSummary,
 .data.table.crosstab .memberSummaries .value,
 .label.member.inner.rowOrder_last {
@@ -438,7 +438,7 @@ tfoot .measure.label  {
 	background-color: #fff;
 	/*color02*/
 	border-color:#aaa;
-} 
+}
 
 .default .placeholder .label,
 .default .memberSummaries .value {
@@ -446,7 +446,7 @@ tfoot .measure.label  {
 	background-color: #fff;
 	/*color02*/
 	border-color:#aaa;
-} 
+}
 
 /* olive */
 
@@ -496,7 +496,7 @@ tfoot .measure.label  {
 	background-color: #B7C18B;
 	/*color01*/
 	border-color:#003300;
-} 
+}
 
 .olive .placeholder .label,
 .olive .memberSummaries .value {
@@ -504,7 +504,7 @@ tfoot .measure.label  {
 	background-color: #cecf9c;
 	/*color01*/
 	border-color:#003300;
-} 
+}
 
 
 /* corporate */
@@ -554,7 +554,7 @@ tfoot .measure.label  {
 	background-color: #b7cbd3;
 	/*color01*/
 	border-color:#3B5866;
-} 
+}
 
 .corporate .placeholder .label,
 .corporate .memberSummaries .value {
@@ -562,7 +562,7 @@ tfoot .measure.label  {
 	background-color: #e6e6c6;
 	/*color01*/
 	border-color:#3B5866;
-} 
+}
 
 
 /* pastel */
@@ -612,7 +612,7 @@ tfoot .measure.label  {
 	background-color: #fcfbdf;
 	/*color01*/
 	border-color:#4d7dde;
-} 
+}
 
 .pastel .placeholder .label,
 .pastel .memberSummaries .value {
@@ -620,7 +620,7 @@ tfoot .measure.label  {
 	background-color: #fcfbdf;
 	/*color01*/
 	border-color:#4d7dde;
-} 
+}
 	
 
 /* fall */
@@ -670,7 +670,7 @@ tfoot .measure.label  {
 	background-color: #ffcc66;
 	/*color01*/
 	border-color:#A6160F;
-} 
+}
 
 .fall .placeholder .label,
 .fall .memberSummaries .value {
@@ -678,7 +678,7 @@ tfoot .measure.label  {
 	background-color: #f3f1ba;
 	/*color01*/
 	border-color:#A6160F;
-} 
+}
 
 
 /* professional */
@@ -728,7 +728,7 @@ tfoot .measure.label  {
 	background-color: #ececfe;
 	/*color01*/
 	border-color:#000066;
-} 
+}
 
 .professional .placeholder .label,
 .professional .memberSummaries .value {
@@ -785,7 +785,7 @@ tfoot .measure.label  {
 	background-color: #b7c18b;
 	/*color01*/
 	border-color:#336666;
-} 
+}
 
 .forest .placeholder .label,
 .forest .memberSummaries .value {
@@ -793,7 +793,7 @@ tfoot .measure.label  {
 	background-color: #cecf9c;
 	/*color01*/
 	border-color:#336666;
-} 
+}
 
 	
 /* slate */
@@ -843,7 +843,7 @@ tfoot .measure.label  {
 	background-color: #C2CDE1;
 	/*color01*/
 	border-color:#000066;
-} 
+}
 
 .slate .placeholder .label,
 .slate .memberSummaries .value {
@@ -851,7 +851,7 @@ tfoot .measure.label  {
 	background-color: #e6e8ed;
 	/*color01*/
 	border-color:#000066;
-} 
+}
 	
 
 /* ocean */
@@ -901,7 +901,7 @@ tfoot .measure.label  {
 	background-color: #ceebf7;
 	/*color01*/
 	border-color:#003399;
-} 
+}
 
 .ocean .placeholder .label,
 .ocean .memberSummaries .value {
@@ -909,7 +909,7 @@ tfoot .measure.label  {
 	background-color: #ebeaea;
 	/*color01*/
 	border-color:#003399;
-} 
+}
 
 	
 /* wine */
@@ -959,7 +959,7 @@ tfoot .measure.label  {
 	background-color: #eadada;
 	/*color01*/
 	border-color:#663333;
-} 
+}
 
 .wine .placeholder .label,
 .wine .memberSummaries .value {
@@ -967,7 +967,7 @@ tfoot .measure.label  {
 	background-color: #eadada;
 	/*color01*/
 	border-color:#663333;
-} 
+}
 
 
 /* #analysisView */

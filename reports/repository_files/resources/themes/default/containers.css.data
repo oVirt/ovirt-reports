@@ -10,10 +10,10 @@ Containers are columns, rows, menus, panels and dialogs.  All these elements sha
 */
 	
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- SHARED CONTAINER STYLES 
-______________________________________________________________ 
+ SHARED CONTAINER STYLES
+______________________________________________________________
 
 */
 
@@ -238,10 +238,10 @@ ______________________________________________________________
 /* END shared container attributes */	
 			
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- COLUMNS 
-______________________________________________________________ 
+ COLUMNS
+______________________________________________________________
 
 Columns are the basis for all page layouts.  The fundamental characteristic of a column is that it is as tall as as its parent.
 
@@ -294,7 +294,7 @@ Columns are the basis for all page layouts.  The fundamental characteristic of a
 
 
 /* sizers
-   note: default positioning assumes left to right reading UI 
+   note: default positioning assumes left to right reading UI
 */
 
 .column>.sizer {
@@ -356,8 +356,8 @@ Columns are the basis for all page layouts.  The fundamental characteristic of a
 
 
 
-/* DECORATED COLUMN 
--------------------------------------------------------------- 
+/* DECORATED COLUMN
+--------------------------------------------------------------
    a decorated column has a visual presence in the UI with borders, headers, shadows, etc.
 */
 
@@ -541,10 +541,10 @@ Columns are the basis for all page layouts.  The fundamental characteristic of a
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- PANELS 
-______________________________________________________________ 
+ PANELS
+______________________________________________________________
 
 */
 
@@ -630,7 +630,7 @@ ______________________________________________________________
 
 
 /* Display Panels
--------------------------------------------------------------- 
+--------------------------------------------------------------
 Display panels are used to communicate information only; they do not
 contain forms or elements intended to collect user input
 
@@ -647,8 +647,8 @@ There are 3 types:
 	border:1px solid #fa631b;
 	background-color: #FEFFBB;
 	border-radius:4px;
-	-moz-border-radius:4px; 
-	-webkit-border-radius:4px; 
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
 	margin: 0;
 	float: left;
     z-index: 1000;
@@ -887,7 +887,7 @@ There are 3 types:
 }
 
 /* Dialog Panels
--------------------------------------------------------------- 
+--------------------------------------------------------------
 
 Dialog panels are contain forms or elements intended to collect user input.
 
@@ -924,8 +924,8 @@ In particular, .sizeable requires that .dialog>.content be position:absolute.
 	white-space: nowrap;
 }
 
-/* .panel.dialog.inlay 
-   a panel for fixed, non-resizable applications 
+/* .panel.dialog.inlay
+   a panel for fixed, non-resizable applications
 */
 
 .dialog.inlay {
@@ -1129,7 +1129,7 @@ In particular, .sizeable requires that .dialog>.content be position:absolute.
 	position:absolute;
 	right:20px;
 	top:5px;
-	z-index: 1;   
+	z-index: 1;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -1426,7 +1426,7 @@ In particular, .sizeable requires that .dialog>.content be position:absolute.
 }
 
 /* Panes
--------------------------------------------------------------- 
+--------------------------------------------------------------
 Panes are dialogs that visually share their left and right
 borders with their enclosing column
 
@@ -1567,10 +1567,10 @@ borders with their enclosing column
 
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
  MENUS
-______________________________________________________________ 
+______________________________________________________________
 
 Display panels are used to communicate information only; they do not
 contain forms or elements intended to collect user input

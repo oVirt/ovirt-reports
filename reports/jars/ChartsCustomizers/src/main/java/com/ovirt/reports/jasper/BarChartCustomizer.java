@@ -30,10 +30,10 @@ public class BarChartCustomizer implements JRChartCustomizer {
 		
 //		Widen the categories so those dots won't show up in the category.
 		CategoryAxis domainaxis = categoryPlot.getDomainAxis();
-        domainaxis.setMaximumCategoryLabelWidthRatio(1.5f); 
+        domainaxis.setMaximumCategoryLabelWidthRatio(1.5f);
         domainaxis.setTickMarksVisible(true);
-        
-        
+
+
         LegendItemCollection chartLegend = categoryPlot.getLegendItems();
         LegendItemCollection res = new LegendItemCollection();
         Shape square = new Rectangle2D.Double(0,0,5,5);
@@ -51,9 +51,9 @@ public class BarChartCustomizer implements JRChartCustomizer {
         }
         categoryPlot.setFixedLegendItems(res);
         chart.getLegend().setFrame(BlockBorder.NONE);
-        
+
 		ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-		if (rangeAxis instanceof NumberAxis) { 
+		if (rangeAxis instanceof NumberAxis) {
 			NumberAxis axis = (NumberAxis) rangeAxis;
 			axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
 			axis.setUpperBound(axis.getUpperBound()+1);

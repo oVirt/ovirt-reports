@@ -6,10 +6,10 @@ tim sheiner & christie rixford
 */
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
- DIALOGS 
-______________________________________________________________ 
+ DIALOGS
+______________________________________________________________
 
 The rules in this file provide detailed and custom layout instructions
 for particular dialogs used by the application.
@@ -20,7 +20,7 @@ Dialog markup is created via templates, /jsp/templates/#[name of dialog]
 
 */
 
-/* 
+/*
 
 FLOATING DIALOGS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -629,7 +629,7 @@ FLOATING DIALOGS
 	top:0px;
 }
 
-/* 
+/*
 
 PANES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -810,7 +810,7 @@ PANES
 }
 
 /*
-	Ajax Loader 
+	Ajax Loader
 */
 #animated_loading_bar {
 	width:220px;

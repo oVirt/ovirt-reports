@@ -1,10 +1,10 @@
 /*
-not for production, this file contains styles that are used 
+not for production, this file contains styles that are used
 for the sample pages
 */
-	
 
-			
+
+
 #sampleGrid {
 	margin:10px;
 }
@@ -76,10 +76,10 @@ td.example {
 }
 
 /* iPads (portrait and landscape) */
-@media only screen 
-and (min-device-width : 768px) 
+@media only screen
+and (min-device-width : 768px)
 and (max-device-width : 1024px) {
-	
+
 	#dialogs .dialog.overlay.addUser > .content > .footer>.action {
 		top:-34px;
 	}

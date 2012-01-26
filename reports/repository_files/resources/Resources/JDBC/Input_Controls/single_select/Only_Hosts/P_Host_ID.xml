@@ -20,13 +20,13 @@
             <creationDate>2011-12-27T15:09:35.268+02:00</creationDate>
             <updateDate>2011-12-27T15:09:35.268+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT distinct delete_date, CASE 
-			WHEN delete_date IS NULL then host_name 
-			ELSE host_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'  
+            <queryString>SELECT distinct delete_date, CASE
+			WHEN delete_date IS NULL then host_name
+			ELSE host_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'
 		      END as combo_name, host_id
 FROM v3_0_host_configuration_view
-Where v3_0_host_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id 
-			               FROM v3_0_cluster_configuration_view 
+Where v3_0_host_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
+			               FROM v3_0_cluster_configuration_view
 			               WHERE v3_0_cluster_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
 AND v3_0_host_configuration_view.cluster_id = CASE $P{P_Cluster_ID}
 WHEN '11111111-1111-1111-1111-111111111111' then v3_0_host_configuration_view.cluster_id

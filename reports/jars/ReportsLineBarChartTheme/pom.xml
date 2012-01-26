@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
-	<modelVersion>4.0.0</modelVersion> 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
   <parent>
 	  <groupId>${reports.groupId}</groupId>
@@ -8,23 +8,23 @@
 	  <version>${reports.version}</version>
   </parent>
 
-  <groupId>${reports.groupId}</groupId> 
-  <artifactId>ReportsLineBarChartTheme</artifactId> 
-  <packaging>jar</packaging> 
-  <version>${reports.version}</version> 
-  <name>Reports Chart Theme for Line and Bar Charts</name> 
-  <description>The jar that contains the chart theme line and bar charts</description> 
+  <groupId>${reports.groupId}</groupId>
+  <artifactId>ReportsLineBarChartTheme</artifactId>
+  <packaging>jar</packaging>
+  <version>${reports.version}</version>
+  <name>Reports Chart Theme for Line and Bar Charts</name>
+  <description>The jar that contains the chart theme line and bar charts</description>
   <build>
-		<pluginManagement>
-		    <plugins>
-		        <plugin>
-		            <artifactId>maven-compiler-plugin</artifactId> <configuration>
-		                <source>1.6</source> <target>1.6</target> <includes>
-		                    <include>**/*.txt</include> <include>**/*.java</include> <include>**/*.properties</include> 
-		                </includes> 
-		            </configuration> 
-		        </plugin> 
-		    </plugins> 
-		</pluginManagement> 
-  </build> 
-</project> 
+       <pluginManagement>
+           <plugins>
+               <plugin>
+                   <artifactId>maven-compiler-plugin</artifactId> <configuration>
+                       <source>1.6</source> <target>1.6</target> <includes>
+                            <include>**/*.txt</include> <include>**/*.java</include> <include>**/*.properties</include>
+                       </includes>
+                   </configuration>
+               </plugin>
+           </plugins>
+       </pluginManagement>
+  </build>
+</project>

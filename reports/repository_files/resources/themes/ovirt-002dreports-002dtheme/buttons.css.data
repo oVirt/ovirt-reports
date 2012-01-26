@@ -852,18 +852,18 @@ ______________________________________________________________
 	
 	.action.primary.over {
 		background-image: url(images/button_action_primary_sprite.png);
-		background-position: left -104px; 
+		background-position: left -104px;
 	}
 	
 	.action.primary.pressed {
 		background-image: url(images/button_action_primary_sprite.png);
-		background-position: left -208px; 
+		background-position: left -208px;
 	}
 	
 	/* action buttons*/
-	.action { 
+	.action {
 		background-image: url(images/button_action_sprite.png);
-		background-position: left 0px;  
+		background-position: left 0px;
 		display: inline-block;
 		text-decoration: none;
 	}
@@ -872,20 +872,20 @@ ______________________________________________________________
 		background:none;
 	}
 	
-	.action.over { 
-		background-image: url(images/button_action_sprite.png);  
-		background-position: left -104px; 
+	.action.over {
+		background-image: url(images/button_action_sprite.png);
+		background-position: left -104px;
 	}
 	
-	.action.pressed { 
+	.action.pressed {
 		background-image: url(images/button_action_sprite.png);
-		background-position: left -208px; 
+		background-position: left -208px;
 	}
 	
 	.action.disabled,
 	.action[disabled] {
 		background-image: url(images/button_action_sprite.png);
-		background-position: left 0px; 
+		background-position: left 0px;
 	}
 	
 	.action.disabled>.wrap,
@@ -895,7 +895,7 @@ ______________________________________________________________
 	
 	/* action.jumbo */
 
-	.action.jumbo { 
+	.action.jumbo {
 		background-image: none;
 	}
 	
@@ -912,8 +912,8 @@ ______________________________________________________________
 }
 
 /* iPads (portrait and landscape) */
-@media only screen 
-and (min-device-width : 768px) 
+@media only screen
+and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 
 	.action.jumbo {

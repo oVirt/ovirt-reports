@@ -20,9 +20,9 @@
             <creationDate>2011-12-27T15:09:33.503+02:00</creationDate>
             <updateDate>2011-12-27T15:09:33.503+02:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct datacenter_id, delete_date, CASE 
+            <queryString>Select distinct datacenter_id, delete_date, CASE
 				WHEN delete_date IS NULL THEN datacenter_name
-				ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'  
+				ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
 			      END as combo_name
 from v3_0_datacenter_configuration_view
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id

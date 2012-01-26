@@ -20,9 +20,9 @@
             <creationDate>2011-12-27T15:09:32.062+02:00</creationDate>
             <updateDate>2011-12-27T15:09:32.062+02:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct cluster_id, delete_date, CASE 
-WHEN delete_date IS NULL THEN cluster_name 
-ELSE cluster_name || ' (Removed on ' || cast(delete_date as varchar) || ')'  
+            <queryString>Select distinct cluster_id, delete_date, CASE
+WHEN delete_date IS NULL THEN cluster_name
+ELSE cluster_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
 END as combo_name, 0 as sort
 from v3_0_cluster_configuration_view
 WHERE cluster_id in (SELECT DISTINCT cluster_id

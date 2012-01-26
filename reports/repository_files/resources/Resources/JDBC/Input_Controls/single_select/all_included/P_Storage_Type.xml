@@ -23,7 +23,7 @@
             <queryString>SELECT DISTINCT v3_0_enum_translator_view.value, v3_0_enum_translator_view.enum_key,  0 as sort
 FROM v3_0_enum_translator_view, v3_0_storage_domain_configuration_view, v3_0_datacenter_storage_domain_map_view
 WHERE v3_0_storage_domain_configuration_view.storage_domain_type = v3_0_enum_translator_view.enum_key
-AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE' 
+AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'
 AND v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
 AND v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
 AND (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)

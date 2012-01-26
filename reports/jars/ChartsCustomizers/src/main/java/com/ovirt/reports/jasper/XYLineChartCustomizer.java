@@ -26,7 +26,7 @@ public class XYLineChartCustomizer implements JRChartCustomizer {
 			categoryPlot.setNoDataMessage("No Data Available");
 			
 //			Widen the categories so those dots won't show up in the category.
-	        
+	
 	        LegendItemCollection chartLegend = categoryPlot.getLegendItems();
 	        LegendItemCollection res = new LegendItemCollection();
 	        Shape square = new Rectangle2D.Double(0,0,5,5);
@@ -41,7 +41,7 @@ public class XYLineChartCustomizer implements JRChartCustomizer {
 	        categoryPlot.setFixedLegendItems(res);	
 	        chart.getLegend().setFrame(BlockBorder.NONE);
 			ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-			if (rangeAxis instanceof NumberAxis) { 
+			if (rangeAxis instanceof NumberAxis) {
 				NumberAxis axis = (NumberAxis) rangeAxis;
 				axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
 				axis.setUpperBound(axis.getUpperBound()+1);

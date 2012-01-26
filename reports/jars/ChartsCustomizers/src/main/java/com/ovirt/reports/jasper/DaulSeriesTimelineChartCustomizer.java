@@ -31,7 +31,7 @@ public class DaulSeriesTimelineChartCustomizer implements JRChartCustomizer {
 			categoryPlot.setNoDataMessage("No Data Available");
 			DateAxis domainaxis = (DateAxis) categoryPlot.getDomainAxis();
 	        domainaxis.setAutoTickUnitSelection(false);
-	        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds) 
+	        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds)
 	        {
 	        	domainaxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,5,new SimpleDateFormat("dd MMM")));
 	        }
@@ -44,7 +44,7 @@ public class DaulSeriesTimelineChartCustomizer implements JRChartCustomizer {
 	        domainaxis.setDateFormatOverride(new SimpleDateFormat("dd MMM"));
 	        domainaxis.setLabelAngle(Math.PI / 2);
 	        domainaxis.setLabelAngle(0);
-	        
+	
 	        LegendItemCollection chartLegend = categoryPlot.getLegendItems();
 	        LegendItemCollection res = new LegendItemCollection();
 	        Shape square = new Rectangle2D.Double(0,0,5,5);
@@ -63,7 +63,7 @@ public class DaulSeriesTimelineChartCustomizer implements JRChartCustomizer {
 	        }
 	        categoryPlot.setFixedLegendItems(res);	
 	        chart.getLegend().setFrame(BlockBorder.NONE);
-	        
+	
 	        for (int f = 1; f < chartLegend.getItemCount() + 1; f=f+2) {
 		        renderer.setSeriesStroke(
 		        		f, new BasicStroke(
@@ -71,9 +71,9 @@ public class DaulSeriesTimelineChartCustomizer implements JRChartCustomizer {
 		        		1.0f, new float[] {2.0f, 6.0f}, 0.0f
 		        		)
 		        		);}
-	        
+	
 			ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-			if (rangeAxis instanceof NumberAxis) { 
+			if (rangeAxis instanceof NumberAxis) {
 				NumberAxis axis = (NumberAxis) rangeAxis;
 				axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
 				double upperBound = axis.getUpperBound();
@@ -87,7 +87,7 @@ public class DaulSeriesTimelineChartCustomizer implements JRChartCustomizer {
 				{
 					axis.setLowerBound((double) 0);
 				}
-				else 
+				else
 				{
 					axis.setLowerBound(lowerBound);
 				}

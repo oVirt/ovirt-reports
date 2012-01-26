@@ -25,8 +25,8 @@ public class HorizontalStackedBarChart implements JRChartCustomizer {
 		
 		CategoryAxis domainaxis = categoryPlot.getDomainAxis();
         domainaxis.setVisible(false);
-        
-        
+
+
 		ValueAxis rangeAxis = categoryPlot.getRangeAxis();
 		rangeAxis.setVisible(false);
 	}

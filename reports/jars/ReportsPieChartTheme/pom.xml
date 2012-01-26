@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
-	<modelVersion>4.0.0</modelVersion> 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
   <parent>
         <groupId>${reports.groupId}</groupId>
@@ -8,23 +8,23 @@
         <version>${reports.version}</version>
   </parent>
 
-  <groupId>${reports.groupId}</groupId> 
-  <artifactId>ReportsPieChartTheme</artifactId> 
-  <packaging>jar</packaging> 
+  <groupId>${reports.groupId}</groupId>
+  <artifactId>ReportsPieChartTheme</artifactId>
+  <packaging>jar</packaging>
   <version>${reports.version}</version>
-  <name>Reports Chart Theme For Pie Charts</name> 
-  <description>The jar that contains the chart theme for pie charts</description> 
+  <name>Reports Chart Theme For Pie Charts</name>
+  <description>The jar that contains the chart theme for pie charts</description>
   <build>
-		<pluginManagement>
-		    <plugins>
-		        <plugin>
-		            <artifactId>maven-compiler-plugin</artifactId> <configuration>
-		                <source>1.6</source> <target>1.6</target> <includes>
-		                    <include>**/*.txt</include> <include>**/*.java</include> <include>**/*.properties</include> 
-		                </includes> 
-		            </configuration> 
-		        </plugin> 
-		    </plugins> 
-		</pluginManagement> 
-  </build> 
+	<pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId> <configuration>
+                        <source>1.6</source> <target>1.6</target> <includes>
+                            <include>**/*.txt</include> <include>**/*.java</include> <include>**/*.properties</include>
+                        </includes>
+                     </configuration>
+               </plugin>
+            </plugins>
+       </pluginManagement>
+  </build>
 </project> 

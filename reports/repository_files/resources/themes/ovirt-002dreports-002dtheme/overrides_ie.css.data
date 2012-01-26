@@ -8,10 +8,10 @@ tim sheiner & anna leeg
 
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
-  CONTAINERS.CSS 
-______________________________________________________________ 
+  CONTAINERS.CSS
+______________________________________________________________
 
 */
 
@@ -428,8 +428,8 @@ ______________________________________________________________
 }
 
 
-/* DECORATED COLUMN 
--------------------------------------------------------------- 
+/* DECORATED COLUMN
+--------------------------------------------------------------
    a decorated column has a visual presence in the UI with borders, headers, shadows, etc.
 */
 
@@ -678,8 +678,8 @@ ______________________________________________________________
 	background-position: bottom left;
 }
 
-/* .panel.dialog.inlay 
-   a panel for fixed, non-resizable applications 
+/* .panel.dialog.inlay
+   a panel for fixed, non-resizable applications
 */
 
 .dialog.inlay {
@@ -691,7 +691,7 @@ ______________________________________________________________
 /* set coordinates to visual (0,0,0,0) of .column.decorated background,
    as this object used as reference for positioning
    child objects */
-   
+
 	left:-1px;
 	margin-bottom:-5px;
 	margin-right:-7px;
@@ -801,10 +801,10 @@ ______________________________________________________________
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
-  SAMPLES.CSS 
-______________________________________________________________ 
+  SAMPLES.CSS
+______________________________________________________________
 
 */
 
@@ -816,10 +816,10 @@ ______________________________________________________________
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
-  CONTROLS.CSS 
-______________________________________________________________ 
+  CONTROLS.CSS
+______________________________________________________________
 
 */
 
@@ -1007,29 +1007,29 @@ ______________________________________________________________
 	margin-bottom: 0;
 }
 
-.tabSet.horizontal.buttons li {  
+.tabSet.horizontal.buttons li {
 	height:31px;
 }
 
-.tabSet.horizontal.buttons .button { 
-	padding: 0 21px 0 0;   
-	text-align: center; 
+.tabSet.horizontal.buttons .button {
+	padding: 0 21px 0 0;
+	text-align: center;
 	background-image: url(images/tabs_horizontal_sprite.png);
    	border:none;
 	background-color: transparent;
 }
 
-.tabSet.horizontal.buttons .selected .button { 
+.tabSet.horizontal.buttons .selected .button {
 	margin-top: -1px;
 }
 
-.tabSet.horizontal.buttons .selected .button>.wrap { 
+.tabSet.horizontal.buttons .selected .button>.wrap {
 	line-height: 30px;
 	height: 33px;
 }
 
 .tabSet.horizontal.buttons .button .wrap {
-	padding: 0 0 0 15px; 
+	padding: 0 0 0 15px;
 	line-height: 28px;
 	height: 31px;
 }
@@ -1108,10 +1108,10 @@ ______________________________________________________________
 
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
-  THEME.CSS 
-______________________________________________________________ 
+  THEME.CSS
+______________________________________________________________
 
 */
 
@@ -1205,9 +1205,9 @@ ______________________________________________________________
 
 /* .tabSet.vertical.buttons */
 
-.tabSet.vertical.buttons .button { 
-  padding: 0 15px 0 0;   
-  text-align: center; 
+.tabSet.vertical.buttons .button {
+  padding: 0 15px 0 0;
+  text-align: center;
   background-image: url(images/tabs_vertical_sprite.png);
   width:100%;
 }
@@ -1319,10 +1319,10 @@ ______________________________________________________________
 }
 
 /*
-______________________________________________________________ 
+______________________________________________________________
 
-  BUTTONS.CSS 
-______________________________________________________________ 
+  BUTTONS.CSS
+______________________________________________________________
 
 */
 
@@ -1331,31 +1331,31 @@ ______________________________________________________________
 	background-position: 0px -76px;
 }
 
-.button .wrap { 
+.button .wrap {
 	position: relative;
-	display: block !important; 
+	display: block !important;
 	white-space: nowrap;
 	background-image:inherit;
 	background-repeat: no-repeat;
 	background-color: inherit;
 }
 
-.action { 
-  padding: 0 15px 0 0; 
-  margin-right:5px; 
-  text-align: center; 
+.action {
+  padding: 0 15px 0 0;
+  margin-right:5px;
+  text-align: center;
   background-image: url(images/button_action_sprite.png);
-  background-position: right -52px;  
+  background-position: right -52px;
   display: inline-block;
   text-decoration: none;
 }
 
-.action.jumbo { 
-  padding: 0 34px 0 0; 
-  margin-right:5px; 
-  text-align: center; 
+.action.jumbo {
+  padding: 0 34px 0 0;
+  margin-right:5px;
+  text-align: center;
   background-image: url(images/button_action_jumbo_sprite.png);
-  background-position: right -240px; 
+  background-position: right -240px;
   text-decoration:none;
   background-color: transparent;
 }
@@ -1371,9 +1371,9 @@ ______________________________________________________________
 	margin-top:0;
 }
 
-.action.jumbo.over {   
+.action.jumbo.over {
 	background-color: transparent !important;
-	background-position: right -711px; 
+	background-position: right -711px;
 }
 
 .action.jumbo.over>.wrap {
@@ -1383,7 +1383,7 @@ ______________________________________________________________
 
 .action.jumbo.pressed {
 	background-color: transparent !important;
-	background-position: right -1192px; 
+	background-position: right -1192px;
 }
 
 .action.jumbo.pressed>.wrap {
@@ -1393,7 +1393,7 @@ ______________________________________________________________
 
 .action.jumbo.disabled,
 .action.jumbo[disabled] {
-	background-position: right -240px; 
+	background-position: right -240px;
 }
 
 .action.jumbo.disabled>.wrap,
@@ -1401,26 +1401,26 @@ ______________________________________________________________
 	background-position: left 0px;
 }
 
-.action.primary { 
+.action.primary {
 	padding-right: 20px;
-	background-image: url(images/button_action_primary_sprite.png); 
+	background-image: url(images/button_action_primary_sprite.png);
 }
 
 .action.disabled,
 .action[disabled] {
-	background-position: right -52px; 
+	background-position: right -52px;
 }
 
-.action { 
-	padding: 0 15px 0 0; 
-	margin-right:5px; 
-	text-align: center; 
+.action {
+	padding: 0 15px 0 0;
+	margin-right:5px;
+	text-align: center;
 	display: inline-block;
 	text-decoration: none;
 }
 
 .action>.wrap {
-	padding: 0 0 0 15px; 
+	padding: 0 0 0 15px;
 	line-height: 32px;
 	font-size: 11px;
 	background-position: left 0;
@@ -1432,19 +1432,19 @@ ______________________________________________________________
 }
 
 .action.pressed {
-	background-position: right -260px; 
+	background-position: right -260px;
 }
 
 .action.pressed>.wrap {
 	background-position: left -208px;
 }
 
-.action.primary>.wrap { 
+.action.primary>.wrap {
 	padding-left: 20px;
 }
 
-.action.over {   
-	background-position: right -156px; 
+.action.over {
+	background-position: right -156px;
 }
 
 .action.over>.wrap {
@@ -1452,21 +1452,21 @@ ______________________________________________________________
 }
 
 .action.pressed {
-	background-position: right -260px; 
+	background-position: right -260px;
 }
 
 .action.pressed>.wrap {
 	background-position: left -208px;
 }
 
-.action.square { 
-  text-align: center; 
+.action.square {
+  text-align: center;
   background-position: right -52px;
   width:34px;
 }
 
-.action.square.over {   
-	background-position: right -156px; 
+.action.square.over {
+	background-position: right -156px;
 }
 
 .action.square.over>.wrap {
@@ -1474,7 +1474,7 @@ ______________________________________________________________
 }
 
 .action.square.pressed {
-	background-position: right -260px; 
+	background-position: right -260px;
 }
 
 .action.square.pressed>.wrap {
@@ -1485,24 +1485,24 @@ ______________________________________________________________
 /* .button.options */
 
 
-.button.options { 
-  padding: 0 15px 0 0; 
-  margin-right:5px; 
-  text-align: center; 
+.button.options {
+  padding: 0 15px 0 0;
+  margin-right:5px;
+  text-align: center;
   background-image: url(images/button_options_sprite.png);
   background-color:transparent;
-  background-position: right -41px; 
+  background-position: right -41px;
 }
 
 .button.options>.wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 21px;
   background-position: left top;
   border:none;
 }
 
-.button.options.over {   
-  background-position: right -123px; 
+.button.options.over {
+  background-position: right -123px;
   background-color:transparent;
 }
 
@@ -1511,7 +1511,7 @@ ______________________________________________________________
 }
 
 .button.options.pressed {
-  background-position: right -205px; 
+  background-position: right -205px;
   background-color: transparent;
 }
 
@@ -1520,17 +1520,17 @@ ______________________________________________________________
 }
 
 .button.options.disabled {
-	background-position: right -41px; 
+	background-position: right -41px;
 }
 
 .button.options.disabled>.wrap {
 	background-position: left 0px;
 }
 
-.button.capsule { 
-  padding: 0 15px 0 0; 
-  margin:4px 5px 4px auto;   
-  text-align: center; 
+.button.capsule {
+  padding: 0 15px 0 0;
+  margin:4px 5px 4px auto;
+  text-align: center;
   background-image: url(images/button_capsule_sprite.png);
   border:none;
 }
@@ -1557,21 +1557,21 @@ ______________________________________________________________
 }
 
 .button.capsule .wrap {
-  padding: 0 0 0 15px; 
+  padding: 0 0 0 15px;
   line-height: 26px;
   height: 26px;
   min-width: 20px;
 }
-.button.capsule.up { 
-  background-position: right -46px; 
+.button.capsule.up {
+  background-position: right -46px;
 }
 
 .button.capsule.up .wrap  {
   background-position: left top;
 }
 
-.button.capsule.up.over {   
-	background-position: right -184px; 
+.button.capsule.up.over {
+	background-position: right -184px;
 }
 
 .button.capsule.up.over .wrap {
@@ -1579,7 +1579,7 @@ ______________________________________________________________
 }
 
 .button.capsule.up.pressed {
-	background-position: right -322px; 
+	background-position: right -322px;
 }
 
 .button.capsule.up.pressed .wrap {
@@ -1588,7 +1588,7 @@ ______________________________________________________________
 
 .button.capsule.down,
 .button.capsule.down.over {
-	background-position: right -322px; 
+	background-position: right -322px;
 	background-color:transparent;
 }
 
@@ -1598,7 +1598,7 @@ ______________________________________________________________
 }
 
 .button.capsule.disabled {
-	background-position: right -46px; 
+	background-position: right -46px;
 }
 
 .button.capsule.disabled .wrap {
@@ -1606,7 +1606,7 @@ ______________________________________________________________
 }
 
 .button.capsule.down.pressed {
-	background-position: right -460px; 
+	background-position: right -460px;
 }
 
 .button.capsule.down.pressed .wrap {
@@ -1614,24 +1614,24 @@ ______________________________________________________________
 }
 
 .button.capsule.up.first {
-	background-position: right -674px; 
+	background-position: right -674px;
 }
 
 .button.capsule.up.first.over {
-	background-position: right -729px; 
+	background-position: right -729px;
 }
 
-.button.capsule.up.middle, 
-.button.capsule.up.middle .wrap, 
+.button.capsule.up.middle,
+.button.capsule.up.middle .wrap,
 .button.capsule.up.last .wrap {
-	background-position: left -92px; 
+	background-position: left -92px;
 	background-repeat: repeat-x;
 }
 
 .button.capsule.up.middle.over,
 .button.capsule.up.middle.over .wrap,
-.button.capsule.up.last.over .wrap {   
-	background-position: 0px -230px; 
+.button.capsule.up.last.over .wrap {
+	background-position: 0px -230px;
 }
 
 .button.capsule.up.middle.pressed .wrap,
@@ -1639,8 +1639,8 @@ ______________________________________________________________
 .button.capsule.down.middle .wrap,
 .button.capsule.down.last .wrap,
 .button.capsule.down.middle.over .wrap,
-.button.capsule.down.last.over .wrap {   
-	background-position: 0px -368px; 
+.button.capsule.down.last.over .wrap {
+	background-position: 0px -368px;
 }
 
 .button.capsule.up.first.pressed,
@@ -1648,18 +1648,18 @@ ______________________________________________________________
 .button.capsule.down.first,
 .button.capsule.down.first.over,
 .button.capsule.down.middle,
-.button.capsule.down.middle.over {   
-	background-position: right -567px; 
+.button.capsule.down.middle.over {
+	background-position: right -567px;
 }
 
 .button.capsule.down.middle.pressed .wrap,
-.button.capsule.down.last.pressed .wrap {   
-	background-position: 0px -506px; 
+.button.capsule.down.last.pressed .wrap {
+	background-position: 0px -506px;
 }
 
 .button.capsule.down.first.pressed,
-.button.capsule.down.middle.pressed {   
-	background-position: right -627px; 
+.button.capsule.down.middle.pressed {
+	background-position: right -627px;
 }
 
 
