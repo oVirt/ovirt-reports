@@ -19,17 +19,17 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 
 public class BarChartCustomizer implements JRChartCustomizer {
-	public void customize(JFreeChart chart, JRChart jasperChart) {
-		BarRenderer renderer = (BarRenderer) chart.getCategoryPlot().getRenderer();
-		CategoryPlot categoryPlot = renderer.getPlot();
-		renderer.setBaseItemLabelsVisible(false);
-		
-		categoryPlot.setNoDataMessage("No Data Available");
-		categoryPlot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
-		
-		
-//		Widen the categories so those dots won't show up in the category.
-		CategoryAxis domainaxis = categoryPlot.getDomainAxis();
+    public void customize(JFreeChart chart, JRChart jasperChart) {
+        BarRenderer renderer = (BarRenderer) chart.getCategoryPlot().getRenderer();
+        CategoryPlot categoryPlot = renderer.getPlot();
+        renderer.setBaseItemLabelsVisible(false);
+
+        categoryPlot.setNoDataMessage("No Data Available");
+        categoryPlot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
+
+
+//        Widen the categories so those dots won't show up in the category.
+        CategoryAxis domainaxis = categoryPlot.getDomainAxis();
         domainaxis.setMaximumCategoryLabelWidthRatio(1.5f);
         domainaxis.setTickMarksVisible(true);
 
@@ -42,7 +42,7 @@ public class BarChartCustomizer implements JRChartCustomizer {
            String label = item.getLabel();
            if (label.length() > 18)
            {
-        	   label = label.substring(0,10).concat("...").concat(label.substring(label.length() - 5, label.length()));
+               label = label.substring(0,10).concat("...").concat(label.substring(label.length() - 5, label.length()));
            }
            if (label.trim() != "" && item.getDescription().trim() != "")
            {
@@ -52,12 +52,12 @@ public class BarChartCustomizer implements JRChartCustomizer {
         categoryPlot.setFixedLegendItems(res);
         chart.getLegend().setFrame(BlockBorder.NONE);
 
-		ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-		if (rangeAxis instanceof NumberAxis) {
-			NumberAxis axis = (NumberAxis) rangeAxis;
-			axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
-			axis.setUpperBound(axis.getUpperBound()+1);
-			axis.setAutoRangeMinimumSize(1.0);
-		}
-	}
+        ValueAxis rangeAxis = categoryPlot.getRangeAxis();
+        if (rangeAxis instanceof NumberAxis) {
+            NumberAxis axis = (NumberAxis) rangeAxis;
+            axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
+            axis.setUpperBound(axis.getUpperBound()+1);
+            axis.setAutoRangeMinimumSize(1.0);
+        }
+    }
 }

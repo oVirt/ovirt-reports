@@ -10,89 +10,89 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 */
 
 /* SHARED .button STYLES: */
-		
+
 .button {
-	position: relative;
-	border: 0;
-	padding: 0;
-	cursor: pointer;
-	overflow: visible; /* removes extra side padding in IE */
-	background-repeat: no-repeat;
-	background-color: transparent;
+    position: relative;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    overflow: visible; /* removes extra side padding in IE */
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
 .button.disabled,
 .button[disabled] {
-	cursor:default;
+    cursor:default;
 }
 
 .button::-moz-focus-inner {
-	padding:0;
-	border: none; /* overrides extra padding in Firefox */
+    padding:0;
+    border: none; /* overrides extra padding in Firefox */
 }
 
 .button .wrap {
-	position: relative;
-	display: block !important;
-	white-space: nowrap;
-	background-image:inherit;
-	background-repeat: no-repeat;
-	background-color: inherit;
+    position: relative;
+    display: block !important;
+    white-space: nowrap;
+    background-image:inherit;
+    background-repeat: no-repeat;
+    background-color: inherit;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 /* Safari and Google Chrome only */
-	
-	/*to address discrepancy in rendering between PC and Mac WebKit*/
-	
-	.button {
-		margin-top: -1px;
-		margin-bottom: -1px;
-	}
 
-	
-	.button>.wrap {
-  		margin-top:-1px;
-	}
+    /*to address discrepancy in rendering between PC and Mac WebKit*/
 
-	
-	.tabSet.horizontal .button>.wrap {
-		margin-top:0;
-	}	
+    .button {
+        margin-top: -1px;
+        margin-bottom: -1px;
+    }
+
+
+    .button>.wrap {
+          margin-top:-1px;
+    }
+
+
+    .tabSet.horizontal .button>.wrap {
+        margin-top:0;
+    }
 
 }
 
 .button .icon,
 .button .indicator {
-	display: inline-block;
-	background-repeat: no-repeat;
+    display: inline-block;
+    background-repeat: no-repeat;
 }
 
 .button .indicator {
-	background-image: url(images/disclosure_indicators_sprite.png);
-	width:9px;
-	height: 24px;
-	right:0;
-	top:0;
-	position: absolute;
+    background-image: url(images/disclosure_indicators_sprite.png);
+    width:9px;
+    height: 24px;
+    right:0;
+    top:0;
+    position: absolute;
 }
 
 .button .icon {
-	width:20px;
-	height:24px;
-	position: absolute;
-	top:0;
-	left:0;
+    width:20px;
+    height:24px;
+    position: absolute;
+    top:0;
+    left:0;
 }
 
 .button.capsule.first .icon {
-	left:12px;
+    left:12px;
 }
 
 
 .button.disabled .icon,
 .button[disabled] .icon {
-	opacity:.4;
+    opacity:.4;
 }
 
 /* END SHARED STYLES */
@@ -118,38 +118,38 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .action.over {
-	background-position: right -156px;
+    background-position: right -156px;
 }
 
 .action.over>.wrap {
-	background-position: left -104px;
+    background-position: left -104px;
 }
 
 .action.pressed {
-	background-position: right -260px;
+    background-position: right -260px;
 }
 
 .action.pressed>.wrap {
-	background-position: left -208px;
+    background-position: left -208px;
 }
 
 .action.disabled,
 .action[disabled] {
-	background-position: right -52px;
+    background-position: right -52px;
 }
 
 .action.disabled>.wrap,
 .action[disabled]>.wrap {
-	background-position: left 0px;
+    background-position: left 0px;
 }
 
 .action.primary {
-	padding-right: 20px;
-	background-image: url(images/button_action_primary_sprite.png);
+    padding-right: 20px;
+    background-image: url(images/button_action_primary_sprite.png);
 }
 
 .action.primary>.wrap {
-	padding-left: 20px;
+    padding-left: 20px;
 }
 
 /* action.jumbo */
@@ -164,56 +164,56 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .action.jumbo>.wrap {
-	font-size:22px;
-	height:180px;
-	left:2px;
-	line-height:40px;
-	padding:0 0 0 25px;
-	background-position: left top;
-	min-width: 222px;
-	margin-top:0;
+    font-size:22px;
+    height:180px;
+    left:2px;
+    line-height:40px;
+    padding:0 0 0 25px;
+    background-position: left top;
+    min-width: 222px;
+    margin-top:0;
 }
 
 .action.jumbo>.icon {
-	background-image: url(images/home_icons_sprite.png);
-	width:222px;
-	height:130px;
-	position: absolute;
-	top:50%;
-	left:50%;
-	margin-left:-111px;
-	margin-top:-50px;
+    background-image: url(images/home_icons_sprite.png);
+    width:222px;
+    height:130px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left:-111px;
+    margin-top:-50px;
 }
 
 
 .action.jumbo.over {
-	background-position: right -711px;
+    background-position: right -711px;
 }
 
 .action.jumbo.over>.wrap {
-	background-position: left -471px;
+    background-position: left -471px;
 }
 
 .action.jumbo.pressed {
-	background-position: right -1192px;
+    background-position: right -1192px;
 }
 
 .action.jumbo.pressed>.wrap {
-	background-position: left -952px;
+    background-position: left -952px;
 }
 
 .action.jumbo.disabled,
 .action.jumbo[disabled] {
-	background-position: right -240px;
+    background-position: right -240px;
 }
 
 .action.jumbo.disabled>.wrap,
 .action.jumbo[disabled]>.wrap {
-	background-position: left 0px;
+    background-position: left 0px;
 }
 
 /* .action.square.button */
-	
+
 .action.square {
   text-align: center;
   background-position: right -52px;
@@ -229,27 +229,27 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .action.square>.wrap>.icon {
-	display: block;
-	height: 32px;
-	width: 34px;
-	background-image: url(images/button_action_square_icons_sprite.png);
-	background-repeat: no-repeat;
+    display: block;
+    height: 32px;
+    width: 34px;
+    background-image: url(images/button_action_square_icons_sprite.png);
+    background-repeat: no-repeat;
 }
 
 .action.square.over {
-	background-position: right -156px;
+    background-position: right -156px;
 }
 
 .action.square.over>.wrap {
-	background-position: left -104px;
+    background-position: left -104px;
 }
 
 .action.square.pressed {
-	background-position: right -260px;
+    background-position: right -260px;
 }
 
 .action.square.pressed>.wrap {
-	background-position: left -208px;
+    background-position: left -208px;
 }
 
 /* END .button.action */
@@ -272,34 +272,34 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.options.over {
-	background-position: right -123px;
+    background-position: right -123px;
 }
 
 .button.options.over>.wrap {
-	background-position: left -82px;
+    background-position: left -82px;
 }
 
 .button.options.pressed {
-	background-position: right -205px;
+    background-position: right -205px;
 }
 
 .button.options.pressed>.wrap {
-	background-position: left -164px;
+    background-position: left -164px;
 }
 
 .button.options.disabled {
-	background-position: right -41px;
+    background-position: right -41px;
 }
 
 .button.options.disabled>.wrap {
-	background-position: left 0px;
+    background-position: left 0px;
 }
 
 /* END .button.options */
 
 /* .button.capsule */
 
-	/* metrics */
+    /* metrics */
 
 .button.capsule {
   padding: 0 15px 0 0;
@@ -316,7 +316,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.capsule .icon {
-	left:6px;
+    left:6px;
 }
 
 .button.capsule.mutton .wrap {
@@ -324,63 +324,63 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .buttonSet .button.capsule.first {
-	/* padding-right: 5px; */
-	padding-right: 0px;
-	margin-right:0;
+    /* padding-right: 5px; */
+    padding-right: 0px;
+    margin-right:0;
 }
 
 .buttonSet .button.capsule.middle {
-	margin-right:0;
-	padding-right:5px;
+    margin-right:0;
+    padding-right:5px;
 }
 
 .buttonSet .button.capsule.middle .wrap,
 .buttonSet .button.capsule.last .wrap {
-	padding-left:5px;
+    padding-left:5px;
 }
 
 .buttonSet .button.capsule.first .wrap {
-	border-left:none;
-	padding-left:15px;
-	padding-right:3px;
+    border-left:none;
+    padding-left:15px;
+    padding-right:3px;
 }
 
 .buttonSet .button.capsule.last {
-	border-right: none;
-	padding-right:12px;
+    border-right: none;
+    padding-right:12px;
 }
 
 .buttonSet {
-	/* margin:0 15px 0 0; */
-	margin:0;
-	display: inline-block;
-	position: relative;
+    /* margin:0 15px 0 0; */
+    margin:0;
+    display: inline-block;
+    position: relative;
 }
 
 .buttons .button.capsule {
-	padding-right:10px;
+    padding-right:10px;
 }
 
 .buttons .button.capsule .wrap {
-	padding-left:10px;
+    padding-left:10px;
 }
 
 .buttons .button.capsule .icon {
-	left:8px;
+    left:8px;
 }
 
 
 
-	/* sprite positions */
+    /* sprite positions */
 
 
 .button.capsule .indicator {
-	background-position: 0px -44px;
+    background-position: 0px -44px;
 }
 
 .button.capsule.over .indicator,
 .button.capsule.pressed .indicator {
-	background-position: 0px -78px;
+    background-position: 0px -78px;
 }
 
 .button.capsule.up {
@@ -392,68 +392,68 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 }
 
 .button.capsule.up.over {
-	background-position: right -184px;
+    background-position: right -184px;
 }
 
 .button.capsule.up.over .wrap {
-	background-position: left -138px;
+    background-position: left -138px;
 }
 
 .button.capsule.up.pressed {
-	background-position: right -322px;
+    background-position: right -322px;
 }
 
 .button.capsule.up.pressed .wrap {
-	background-position: left -276px;
+    background-position: left -276px;
 }
 
 .button.capsule.down,
 .button.capsule.down.over {
-	background-position: right -322px;
+    background-position: right -322px;
 }
 
 .button.capsule.down .wrap,
 .button.capsule.down.over .wrap {
-	background-position: left -276px;
+    background-position: left -276px;
 }
 
 .button.capsule.disabled {
-	background-position: right -46px;
+    background-position: right -46px;
 }
 
 .button.capsule.disabled .wrap {
-	background-position: left 0px;
+    background-position: left 0px;
 }
 
 .button.capsule.down.pressed {
-	background-position: right -460px;
+    background-position: right -460px;
 }
 
 .button.capsule.down.pressed .wrap {
-	background-position: left -414px;
+    background-position: left -414px;
 }
 
 /* grouped capsule .buttons */
 
 .button.capsule.up.first {
-	background-position: right -674px;
+    background-position: right -674px;
 }
 
 .button.capsule.up.first.over {
-	background-position: right -729px;
+    background-position: right -729px;
 }
 
 .button.capsule.up.middle,
 .button.capsule.up.middle .wrap,
 .button.capsule.up.last .wrap {
-	background-position: left -92px;
-	background-repeat: repeat-x;
+    background-position: left -92px;
+    background-repeat: repeat-x;
 }
 
 .button.capsule.up.middle.over,
 .button.capsule.up.middle.over .wrap,
 .button.capsule.up.last.over .wrap {
-	background-position: 0px -230px;
+    background-position: 0px -230px;
 }
 
 
@@ -463,7 +463,7 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 .button.capsule.down.last .wrap,
 .button.capsule.down.middle.over .wrap,
 .button.capsule.down.last.over .wrap {
-	background-position: 0px -368px;
+    background-position: 0px -368px;
 }
 
 .button.capsule.up.first.pressed,
@@ -472,30 +472,30 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 .button.capsule.down.first.over,
 .button.capsule.down.middle,
 .button.capsule.down.middle.over {
-	background-position: right -567px;
+    background-position: right -567px;
 }
 
 .button.capsule.down.middle.pressed .wrap,
 .button.capsule.down.last.pressed .wrap {
-	background-position: 0px -506px;
+    background-position: 0px -506px;
 }
 
 .button.capsule.down.first.pressed,
 .button.capsule.down.middle.pressed {
-	background-position: right -627px;
+    background-position: right -627px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 /* Safari and Google Chrome only */
-	
-	/*to address discrepancy in rendering between PC and Mac WebKit
-	  - not entitely satisfactory because does not preserve identical appearance to FF in Mac case
-	*/
-	.button.capsule.middle>.wrap,
-	.button.capsule.last>.wrap {
-		margin-left:-3px;
-		padding-left: 8px !important;
-	}
+
+    /*to address discrepancy in rendering between PC and Mac WebKit
+      - not entitely satisfactory because does not preserve identical appearance to FF in Mac case
+    */
+    .button.capsule.middle>.wrap,
+    .button.capsule.last>.wrap {
+        margin-left:-3px;
+        padding-left: 8px !important;
+    }
 }
 
 
@@ -505,28 +505,28 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 /* START .button.minimize */
 
 .button.minimize {
-	height: 16px;
-	width: 16px;
-	display: block;
-	background-image: url(images/disclosure_indicators_sprite.png);
-	background-repeat: no-repeat;
-	background-position: 0 -489px;
-	top:10px;
-	left: 0;
-	z-index: 10;
-	text-indent: -9999px;
+    height: 16px;
+    width: 16px;
+    display: block;
+    background-image: url(images/disclosure_indicators_sprite.png);
+    background-repeat: no-repeat;
+    background-position: 0 -489px;
+    top:10px;
+    left: 0;
+    z-index: 10;
+    text-indent: -9999px;
 }
 
 .button.minimize.over {
-	background-position: 0 -522px;
+    background-position: 0 -522px;
 }
 
 .button.minimize.pressed {
-	background-position: 0 -555px;
+    background-position: 0 -555px;
 }
 
 .minimized .button.minimize {
-	
+
 }
 
 /* END .button.minimize */
@@ -536,42 +536,42 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 /* START .button.disclosure */
 
 .button.disclosure {
-	height: 16px;
-	width: 16px;
-	display: inline-block;
-	background-image: url(images/disclosure_indicators_sprite.png);
-	background-repeat: no-repeat;
-	vertical-align: middle;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    background-image: url(images/disclosure_indicators_sprite.png);
+    background-repeat: no-repeat;
+    vertical-align: middle;
 }
 
 .closed .button.disclosure,
 .minimized .button.disclosure {
-	background-position: 0px -205px;
+    background-position: 0px -205px;
 }
 
 .closed .button.disclosure.over,
 .minimized .button.disclosure.over {
-	background-position: 0px -229px;
+    background-position: 0px -229px;
 }
 
 .closed .button.disclosure.pressed,
 .minimized .button.disclosure.pressed {
-	background-position: 0px -257px;
+    background-position: 0px -257px;
 }
 
 .button.disclosure,
 .button.disclosure.down {
-	background-position: 0px -286px;
+    background-position: 0px -286px;
 }
 
 .button.disclosure.over,
 .button.disclosure.down.over {
-	background-position: 0px -310px;
+    background-position: 0px -310px;
 }
 
 .button.disclosure.pressed,
 .button.disclosure.down.pressed {
-	background-position: 0px -336px;
+    background-position: 0px -336px;
 }
 
 /* END .button.disclosure */
@@ -579,22 +579,22 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 /* START .button.scheduled */
 
 .button.scheduled {
-	height: 16px;
-	width: 16px;
-	display: inline-block;
-	background-image: url(images/disclosure_indicators_sprite.png);
-	background-repeat: no-repeat;
-	background-position: 0 -406px;
-	z-index: 10;
-	position: relative;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    background-image: url(images/disclosure_indicators_sprite.png);
+    background-repeat: no-repeat;
+    background-position: 0 -406px;
+    z-index: 10;
+    position: relative;
 }
 
 .button.scheduled.over {
-	background-position: 0 -432px;
+    background-position: 0 -432px;
 }
 
 .button.scheduled.pressed {
-	background-position: 0 -458px;
+    background-position: 0 -458px;
 }
 
 
@@ -604,21 +604,21 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 /* START .button.picker */
 
 .button.picker {
-	height: 16px;
-	width: 16px;
-	display: inline;
-	background-image: url(images/disclosure_indicators_sprite.png);
-	background-repeat: no-repeat;
-	background-position: -1px -589px;
-	z-index: 10;
+    height: 16px;
+    width: 16px;
+    display: inline;
+    background-image: url(images/disclosure_indicators_sprite.png);
+    background-repeat: no-repeat;
+    background-position: -1px -589px;
+    z-index: 10;
 }
 
 .button.picker.over {
-	background-position: 0 -618px;
+    background-position: 0 -618px;
 }
 
 .button.picker.pressed {
-	background-position: 0 -653px;
+    background-position: 0 -653px;
 }
 
 
@@ -626,210 +626,210 @@ http://www.filamentgroup.com/lab/update_styling_the_button_element_with_css_slid
 
 
 /* .button.search */
-  	
+
 #globalSearch .button.search {
-	height:29px;
-	width: 41px;
-	margin-top:-2px;
-	margin-right:-3px;
+    height:29px;
+    width: 41px;
+    margin-top:-2px;
+    margin-right:-3px;
 }
 
 #globalSearch .button.search.up,
 #globalSearch .button.search.disabled {
-	background-position: 0px -76px;
+    background-position: 0px -76px;
 }
 
 #globalSearch .button.search.over {
-	background-position: -63px -76px;
+    background-position: -63px -76px;
 }
 
 #globalSearch .button.search.pressed {
-	background-position: -131px -76px;
+    background-position: -131px -76px;
 }
 
 
 .button.search {
-	height:24px;
-	width: 35px;
-	background-image: url(images/search_sprite.png);
-	background-repeat: no-repeat;
+    height:24px;
+    width: 35px;
+    background-image: url(images/search_sprite.png);
+    background-repeat: no-repeat;
 }
 
 .button.search.up,
 .button.search.disabled {
-	background-position: 0px -124px;
+    background-position: 0px -124px;
 }
 
 .button.search.over {
-	background-position: -64px -124px;
+    background-position: -64px -124px;
 }
 
 .button.search.pressed {
-	background-position: -132px -124px;
+    background-position: -132px -124px;
 }
 
 
 /* END .button.search */
-		
+
 
 /* .move.button */
-	
+
 .move.right .icon {
-	background-position: 8px 9px;
+    background-position: 8px 9px;
 }
 
 .move.left .icon {
-	background-position: 8px -44px;
+    background-position: 8px -44px;
 }
 
 .move.toRight .icon {
-	background-position: 9px -150px;
+    background-position: 9px -150px;
 }
 
 .move.toLeft .icon {
-	background-position: 8px -97px;
+    background-position: 8px -97px;
 }
 
 .move.upward .icon {
-	background-position: 8px -217px;
+    background-position: 8px -217px;
 }
 
 .move.downward .icon {
-	background-position: 8px -270px;
+    background-position: 8px -270px;
 }
 
 .move.toTop .icon {
-	background-position: 8px -336px;
+    background-position: 8px -336px;
 }
 
 .move.toBottom .icon {
-	background-position: 8px -387px;
+    background-position: 8px -387px;
 }
 
 
 .move.right.over .icon,
 .move.right.pressed .icon {
-	background-position: -46px 9px;
+    background-position: -46px 9px;
 }
 
 
 .move.left.over .icon,
 .move.left.pressed .icon {
-	background-position: -46px -44px;
+    background-position: -46px -44px;
 }
 
 
 .move.toRight.over .icon,
 .move.toRight.pressed .icon  {
-	background-position: -46px -150px;
+    background-position: -46px -150px;
 }
 
 
 .move.toLeft.over .icon,
 .move.toLeft.pressed .icon {
-	background-position: -46px -97px;
+    background-position: -46px -97px;
 }
 
 
 .move.upward.over .icon,
 .move.upward.pressed .icon {
-	background-position: -46px -217px;
+    background-position: -46px -217px;
 }
 
 
 .move.downward.over .icon,
 .move.downward.pressed .icon {
-	background-position: -46px -270px;
+    background-position: -46px -270px;
 }
 
 
 .move.toTop.over .icon,
 .move.toTop.pressed .icon {
-	background-position: -46px -336px;
+    background-position: -46px -336px;
 }
 
 
 .move.toBottom.over .icon,
 .move.toBottom.pressed .icon {
-	background-position: -46px -387px;
+    background-position: -46px -387px;
 }
 
 
 /* .action.join.button */
-	
+
 .action.join.left .icon {
-	background-position: 4px -693px;
+    background-position: 4px -693px;
 }
 
 .action.join.right .icon {
-	background-position: 4px -723px;
+    background-position: 4px -723px;
 }
 
 .action.join.inner .icon {
-	background-position: 4px -752px;
+    background-position: 4px -752px;
 }
 
 .action.join.full .icon {
-	background-position: 4px -780px;
+    background-position: 4px -780px;
 }
 
 .action.join.left.over .icon,
 .action.join.left.pressed .icon {
-	background-position: -32px -693px;
+    background-position: -32px -693px;
 }
 
 .action.join.right.over .icon,
 .action.join.right.pressed .icon {
-	background-position: -32px -723px;
+    background-position: -32px -723px;
 }
 
 .action.join.inner.over .icon,
 .action.join.inner.pressed .icon  {
-	background-position: -32px -752px;
+    background-position: -32px -752px;
 }
 
 .action.join.full.over .icon,
 .action.join.full.pressed .icon  {
-	background-position: -32px -780px;
+    background-position: -32px -780px;
 }
 
 /* domain designer buttons */
 #add.square>.wrap>.icon {
-	background-position: 6px -655px;
+    background-position: 6px -655px;
 }
 
 #add.square.over>.wrap>.icon,
 #add.square.pressed>.wrap>.icon {
-	background-position: -33px -655px;
+    background-position: -33px -655px;
 }
 
 #addToSet.square>.wrap>.icon {
-	background-position: 6px -615px;
+    background-position: 6px -615px;
 }
 
 #addToSet.square.over>.wrap>.icon,
 #addToSet.square.pressed>.wrap>.icon {
-	background-position: -33px -615px;
+    background-position: -33px -615px;
 }
 
 /* .button.action */
 
 .footer .action {
-	margin-bottom: 50px;
-	position:relative;
-	z-index:1;
+    margin-bottom: 50px;
+    position:relative;
+    z-index:1;
 }
 
 /* .button.options */
 
 .filter .button.options {
-	margin-left:20px;
-	margin-right: 10px;
-	border-width: 0;
+    margin-left:20px;
+    margin-right: 10px;
+    border-width: 0;
 }
 
 .filter .button.options>.wrap {
-	border-width: 0;
+    border-width: 0;
 }
 
 

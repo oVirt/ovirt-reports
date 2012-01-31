@@ -26,17 +26,17 @@ ELSE RTrim(cast(vm_name as nvarchar)) + ' (Removed on ' + convert(nvarchar, dele
 END as combo_name, vm_id, sort = 0
 FROM v3_0_vm_configuration_view
 Where v3_0_vm_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
-			               FROM v3_0_cluster_configuration_view
-			               WHERE v3_0_cluster_configuration_view.datacenter_id = $P{P_DataCenter_ID})
+                           FROM v3_0_cluster_configuration_view
+                           WHERE v3_0_cluster_configuration_view.datacenter_id = $P{P_DataCenter_ID})
 AND v3_0_vm_configuration_view.cluster_id = CASE $P{P_Cluster_ID}
 WHEN '11111111-1111-1111-1111-111111111111' then v3_0_vm_configuration_view.cluster_id
 ELSE $P{P_Cluster_ID}
 END
 AND v3_0_vm_configuration_view.vm_type = CASE $P{P_VM_Type}
-			          WHEN -1 THEN v3_0_vm_configuration_view.vm_type
-			          WHEN NULL THEN v3_0_vm_configuration_view.vm_type
-			          ELSE $P{P_VM_Type}
- 			          END
+                      WHEN -1 THEN v3_0_vm_configuration_view.vm_type
+                      WHEN NULL THEN v3_0_vm_configuration_view.vm_type
+                      ELSE $P{P_VM_Type}
+                       END
 $P!{Active_VMs}
 order by delete_date DESC, combo_name</queryString>
             <dataSource>

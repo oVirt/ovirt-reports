@@ -21,13 +21,13 @@
             <updateDate>2011-12-27T15:09:32.299+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT CASE
-		WHEN $P{P_Period} = 'Monthly' THEN cast((cast($P{P_Start_Date} as date) + interval '1 month') - interval '1 day'  as date)
-		WHEN $P{P_Period} = 'Quarterly' THEN cast((cast($P{P_Start_Date} as date) + interval '3 month') - interval '1 day' as date)
-	   END as display_enddate,
-	   CASE
-		WHEN $P{P_Period} = 'Monthly' THEN cast((cast($P{P_Start_Date} as date) + interval '1 month')  as date)
-		WHEN $P{P_Period} = 'Quarterly' THEN cast((cast($P{P_Start_Date} as date) + interval '3 month') as date)
-	   END as enddate;</queryString>
+        WHEN $P{P_Period} = 'Monthly' THEN cast((cast($P{P_Start_Date} as date) + interval '1 month') - interval '1 day'  as date)
+        WHEN $P{P_Period} = 'Quarterly' THEN cast((cast($P{P_Start_Date} as date) + interval '3 month') - interval '1 day' as date)
+       END as display_enddate,
+       CASE
+        WHEN $P{P_Period} = 'Monthly' THEN cast((cast($P{P_Start_Date} as date) + interval '1 month')  as date)
+        WHEN $P{P_Period} = 'Quarterly' THEN cast((cast($P{P_Start_Date} as date) + interval '3 month') as date)
+       END as enddate;</queryString>
             <dataSource>
                 <uri>/Resources/JDBC/data_sources/ovirt</uri>
             </dataSource>

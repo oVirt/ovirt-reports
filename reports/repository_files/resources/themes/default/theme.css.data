@@ -15,13 +15,13 @@ tim sheiner & christie rixford
 
 /* global page styles */
 
-	html, body {
-  		width:100%;
-  		height:100%;
+    html, body {
+          width:100%;
+          height:100%;
         margin: 0;
         padding:0;
-  	}
-  	
+      }
+
 /* END global page styles */
 
 
@@ -54,16 +54,16 @@ select {
 
 .jumbo,
 h1 {
-	font-size: 18px; /* 11 x 1.636 = 18 */
-	line-height:1.818em; /* 11 x 1.818 = 20 */
+    font-size: 18px; /* 11 x 1.636 = 18 */
+    line-height:1.818em; /* 11 x 1.818 = 20 */
 }
 
 .wrapper.table .caption,
 .data.table .caption,
 .larger,
 h2 {
-	font-size:16px; /* 11 x 1.454 = 16 */
-	line-height:1.636em;
+    font-size:16px; /* 11 x 1.454 = 16 */
+    line-height:1.636em;
 }
 
 .large,
@@ -75,8 +75,8 @@ h3,
 #calculatedField .operator,.resourceName,
 .fsection,
 ul.decorated {
-	font-size:12px;/* 11 x 1.091 = 12 */
-	line-height:1.272em;/* 11 x 1.272 = 14 */
+    font-size:12px;/* 11 x 1.091 = 12 */
+    line-height:1.272em;/* 11 x 1.272 = 14 */
 }
 
 .default,h4,body,
@@ -94,21 +94,21 @@ h5,
 .hint,
 .panel.tooltip .message.label,
 .pane.filter .message  {
-	font-size:10px;/* 11 x 0.909 = 10 */
-	line-height:1.091em;
+    font-size:10px;/* 11 x 0.909 = 10 */
+    line-height:1.091em;
 }
 
 .mini,
 h6,
 #about,
 #copyright {
-	font-size:9px;/* 11 x 0.818 = 9 */
-	line-height:0.909em;
+    font-size:9px;/* 11 x 0.818 = 9 */
+    line-height:0.909em;
 }
 
 .micro {
-	font-size:8px;/* 11 x 0.727 = 8 */
-	line-height:0.818em;
+    font-size:8px;/* 11 x 0.727 = 8 */
+    line-height:0.818em;
 }
 
 .emphasis,
@@ -131,7 +131,7 @@ button,
 .list.folders .node.activeTheme,
 .tabSet.text .selected.tab>.wrap,
 #reportContainer a  {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 /* Headings
@@ -152,22 +152,22 @@ p           { margin-bottom: 1em;}
 a           { color: inherit; text-decoration: none; cursor: pointer; }
 a:focus,
 a:hover,
-a:active 	{ text-decoration:underline;}
+a:active     { text-decoration:underline;}
 
 a.disabled,
 a.disabled:hover,
 a.disabled.over,
 a.disabled:active,
 a.disabled.pressed {
-	cursor: default;
-	text-decoration: none;
+    cursor: default;
+    text-decoration: none;
 }
 
 .selected a:focus,
 .selected a:hover,
 .selected a.over,
 .selected a:active,
-.selected a.pressed 	{ color:inherit;}
+.selected a.pressed     { color:inherit;}
 
 /*
 abbr,
@@ -176,7 +176,7 @@ acronym     { border-bottom: 1px dotted #666; }
 address     { margin: 0 0 1.5em; font-style: italic; }
 del         { color:#666; }
 
-pre 		{ margin: 1.5em 0; white-space: pre; }
+pre         { margin: 1.5em 0; white-space: pre; }
 pre,code,tt { font: 1em 'andale mono', 'lucida console', monospace; line-height: 1.5; }
 
 
@@ -226,33 +226,33 @@ a#about:active,
 .pressed .resourcePath,
 .list.collapsible>li>.wrap.pressed,
 .list.collapsible .selected>.wrap {
-	color:#fff;
+    color:#fff;
 }
 
 .palette01_bkgd,
 .pane .body,
 .panel,
 body {
-	background-color:#fff;
+    background-color:#fff;
 }
 
 #metaLinks li {
-	border-color: #fff;
+    border-color: #fff;
 }
 
 .list>li>.wrap.over {
-	background-color:#EfEfEf;
+    background-color:#EfEfEf;
 }
 
 /* .gray12 */
 .palette02 {
-	color:#E0E0E0;
+    color:#E0E0E0;
 }
 
 .palette02_bkgd,
 .list.tabular>.leaf>.header>.wrap,
 .list.tabular>.node>.header>.wrap {
-	background-color:#E0E0E0;
+    background-color:#E0E0E0;
 }
 
 
@@ -263,12 +263,12 @@ body {
 [disabled],
 .button[disabled],
 .button.primary[disabled] {
-	color:#aaa;
+    color:#aaa;
 }
 
 .palette03_bkgd
  {
-	background-color:#ccc;
+    background-color:#ccc;
 }
 
 /* .gray40 */
@@ -281,12 +281,12 @@ body {
 .hint,
 .filters .fieldName,
 .filters .condition {
-	color:#999;
+    color:#999;
 }
 
 .palette04_bkgd,
 .list.doesNotHaveFocus .selected>.wrap {
-	background-color:#999;
+    background-color:#999;
 }
 
 /* .gray60 */
@@ -313,12 +313,12 @@ legend.label>.wrap,
 .list.inputSet,
 #serverError h3,
 ul.decorated {
-	color:#666;
+    color:#666;
 }
 
 
 .palette05_bkgd {
-	background-color:#666;
+    background-color:#666;
 }
 
 /* .gray80 */
@@ -329,20 +329,20 @@ body,
 *[readonly=readonly],
 .group>legend,
 .resourceDescription {
-	color:#333;
+    color:#333;
 }
 
 .palette06_bkgd {
-	background-color:#333;
+    background-color:#333;
 }
 
 /* .black */
 .palette07 {
-	color:#000;
+    color:#000;
 }
 
 .palette07_bkgd {
-	background-color:#000;
+    background-color:#000;
 }
 
 
@@ -354,32 +354,32 @@ body,
 .button.action.primary[disabled],
 .button.action.primary.jumbo[disabled],
 .tabSet.buttons.vertical [disabled]  {
-	color:#43B9F9;
+    color:#43B9F9;
 }
 
 .palette08_bkgd {
-	background-color:#43B9F9;
+    background-color:#43B9F9;
 }
 
 
 /* .sky */
 .palette09,
 .launcher {
-	color:#4698be;
+    color:#4698be;
 }
 
 .palette09_bkgd {
-	background-color:#4698be;
+    background-color:#4698be;
 }
 
 .palette10,
 #metaLinks a:active,
 a#about:active {
-	color:#8CD9FE;
+    color:#8CD9FE;
 }
 
 .palette10_bkgd {
-	background-color:#8CD9FE;
+    background-color:#8CD9FE;
 }
 
 
@@ -397,7 +397,7 @@ a#about:active {
 .resourceName,
 .fsection,
 #reportContainer a  {
-	color:#217EB5;
+    color:#217EB5;
 }
 
 
@@ -405,7 +405,7 @@ a#about:active {
 .list>li>.wrap.pressed,
 .list>li.selected>.wrap,
 .list>li.selected>.wrap.over {
-	background-color:#217EB5;
+    background-color:#217EB5;
 }
 
 /* .cerulean */
@@ -414,13 +414,13 @@ a#about:active {
 .control.path .step .wrap.pressed,
 a:active,
 #reportContainer a:active {
-	color:#0061a2;
+    color:#0061a2;
 }
 
 .palette12_bkgd,
 .menu.vertical li>.wrap.pressed,
 .list.responsive>li>.wrap.pressed {
-	background-color:#0061a2;
+    background-color:#0061a2;
 }
 
 /* nav element colors */
@@ -431,33 +431,33 @@ a:active,
 #needHelp,
 .tabSet.horizontal.buttons .selected>.button>.wrap,
 .button.action.jumbo {
-	color:#FC870E;
+    color:#FC870E;
 }
 
 .palette13_bkgd,
 .menu.vertical li>.wrap.over {
-	background-color:#FC870E;
+    background-color:#FC870E;
 }
 
 /* .orange2 */
 .palette14,
 #needHelp:active {
-	color:#FB5B0D;
+    color:#FB5B0D;
 }
 
 .palette14_bkgd,
 .menu.vertical li>.wrap.pressed {
-	background-color:#FB5B0D;
+    background-color:#FB5B0D;
 }
 
 /* .orange3 */
 .palette15,
 .button.capsule.down {
-	color:#7A3E10;
+    color:#7A3E10;
 }
 
 .palette15_bkgd {
-	background-color:#7A3E10;
+    background-color:#7A3E10;
 }
 
 
@@ -466,11 +466,11 @@ a:active,
 .button.capsule.down.disabled,
 .button.capsule.down[disabled],
 .resourcePath {
-	color:#DC5717;
+    color:#DC5717;
 }
 
 .palette16_bkgd {
-	background-color:#DC5717;
+    background-color:#DC5717;
 }
 
 
@@ -480,15 +480,15 @@ a:active,
 .warning,
 .errorMessage,
 .invalid>.wrap {
-	color:#f00;
+    color:#f00;
 }
 
 .palette17_bkgd {
-	background-color:#f00;
+    background-color:#f00;
 }
 
 .transparent {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 
@@ -507,56 +507,56 @@ of being loaded in decorator.jsp
 
 */
 
-  	
+
 body {
-	background:#93C5E0 url(images/body_bkgnd.png) left top repeat-x;
-	position:relative;
+    background:#93C5E0 url(images/body_bkgnd.png) left top repeat-x;
+    position:relative;
 }
 
 body.noDecoration {
     background:none;
-	position:relative;
+    position:relative;
 }
 
 #systemConfirm {
-	position: absolute;
-	top:10px;
-	left: 500px;
-	right:220px;	
-	z-index: 5;
+    position: absolute;
+    top:10px;
+    left: 500px;
+    right:220px;
+    z-index: 5;
 }
 
 .dimmer {
-	position: absolute;
-	top:0;
-	left:0;
-	right:0;
-	bottom: 0;
-	background-color: #000;
-	opacity:.6;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background-color: #000;
+    opacity:.6;
 }
 
 #logo {
-	position: absolute;
-	top:12px;
-	left:28px;
-	width:141px;
-	height:28px;
-	background:url(images/logo.png) 0 0;
-	border:none;
+    position: absolute;
+    top:12px;
+    left:28px;
+    width:141px;
+    height:28px;
+    background:url(images/logo.png) 0 0;
+    border:none;
 }
 
 
 #globalSearch {
-	position: absolute;
-	top:18px;
-	left:195px;
-	height:28px;
-	z-index: 2;
+    position: absolute;
+    top:18px;
+    left:195px;
+    height:28px;
+    z-index: 2;
 }
 
 #globalSearch {
-	width:250px;
+    width:250px;
 }
 
 #loginPage .userCountExceeded {
@@ -564,100 +564,100 @@ body.noDecoration {
 }
 
 #userCountExceeded {
-	position: absolute;
-	top: 14px;
-	left: 470px;
+    position: absolute;
+    top: 14px;
+    left: 470px;
 }
 
 #metaLinks {
-	position:absolute;
-	right:10px;
-	top:20px;
-	z-index: 2;
+    position:absolute;
+    right:10px;
+    top:20px;
+    z-index: 2;
 }
 
 #metaLinks li {
-	border-right: 1px solid #fff;
+    border-right: 1px solid #fff;
 }
 
 #metaLinks li.last {
-	border-right: none;
+    border-right: none;
 }
 
 #copyright {
-	margin:4px auto 0;
-	text-align: center;
+    margin:4px auto 0;
+    text-align: center;
 }
 
 #about {
-	position:absolute;
-	left: 22px;
-	margin-top:4px;
+    position:absolute;
+    left: 22px;
+    margin-top:4px;
 }
 
 #userName {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 #frame {
-	background:#e7e7e7 url(images/frame_background_sprite.png) left bottom repeat-x;
-	margin-bottom:32px;
-	margin-top:64px;
-	margin-left:22px;
+    background:#e7e7e7 url(images/frame_background_sprite.png) left bottom repeat-x;
+    margin-bottom:32px;
+    margin-top:64px;
+    margin-left:22px;
 }
-					
+
 #frame>.corner {
-	height: 40px;
-	width: 40px;
-	background-image: url(images/frame_bkgd_corners.png);
-	background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+    background-image: url(images/frame_bkgd_corners.png);
+    background-repeat: no-repeat;
 }
 
 #frame>.edge.rl {
-	top:10px;
-	bottom: 10px;
-	width: 40px;
-	background-image: url(images/frame_bkgd_edges_rl.png);
+    top:10px;
+    bottom: 10px;
+    width: 40px;
+    background-image: url(images/frame_bkgd_edges_rl.png);
 }
 
 #frame>.edge.tb {
-	left:20px;
-	right: 20px;
-	height: 40px;
-	background-image: url(images/frame_bkgd_edges_tb.png);	
+    left:20px;
+    right: 20px;
+    height: 40px;
+    background-image: url(images/frame_bkgd_edges_tb.png);
 }
 
 #frame>.corner.top {
-	top:-25px;
+    top:-25px;
 }
 
 #frame>.corner.bottom {
-	bottom:-30px;
+    bottom:-30px;
 }
 
 #frame>.corner.left {
-	left:-18px;
+    left:-18px;
 }
 
 #frame>.corner.right {
-	right:-18px;
+    right:-18px;
 }
 
 
 #frame>.edge.rl.left {
-	left:-18px;
+    left:-18px;
 }
 
 #frame>.edge.rl.right {
-	right:-18px;
+    right:-18px;
 }
 
 #frame>.edge.tb.top {
-	top:-25px;
+    top:-25px;
 }
 
 #frame>.edge.tb.bottom {
-	bottom:-29px;
+    bottom:-29px;
 }
 
 
@@ -665,36 +665,36 @@ body.noDecoration {
 /* set coordinates to visual (0,0,0,0) of #frame background,
    as this object used as reference for positioning
    child objects */
-	bottom:-11px;
-	left:0px;
-	right:0px;
-	top:-9px;
+    bottom:-11px;
+    left:0px;
+    right:0px;
+    top:-9px;
 }
 
 #frame>.content>.header {
-	height:37px;
-	background-image: url(images/frame_header_sprite.png);
-	background-position: 100% -72px;
-	background-repeat: no-repeat;
-	border:none;
+    height:37px;
+    background-image: url(images/frame_header_sprite.png);
+    background-position: 100% -72px;
+    background-repeat: no-repeat;
+    border:none;
 }
 
 #frame>.content>.header>.cosmetic {
-	height:37px;
-	left:-1px;
-	right:18px;
+    height:37px;
+    left:-1px;
+    right:18px;
 }
 
 #frame>.content>.footer {
-	border:none;
+    border:none;
 }
 
 #display {
-	position:absolute;
-	left:0;
-	right:0;
-	bottom:0;
-	overflow: hidden;
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    overflow: hidden;
 }
 
 /*
@@ -713,47 +713,47 @@ Others are the selectors that are assigned to objects automatically.
 */
 
 .centered_horz {
-	/* note: any object assigned this class will
-	automatically be assigned margin-left: -(this.width/2)
-	*/
-	position: absolute;
+    /* note: any object assigned this class will
+    automatically be assigned margin-left: -(this.width/2)
+    */
+    position: absolute;
 }
 
 .centered_vert {
-	/* note: any object assigned this class will
-	automatically be assigned margin-top: -(this.height/2)
-	*/
-	position: absolute;
+    /* note: any object assigned this class will
+    automatically be assigned margin-top: -(this.height/2)
+    */
+    position: absolute;
 }
 
 .sizer {
-	/* an object with this class can be dragged to size its parent, if,
-	   and only if, the parent has class .sizeable
-	*/
+    /* an object with this class can be dragged to size its parent, if,
+       and only if, the parent has class .sizeable
+    */
 }
 
 .sizeable {
-	/* an object with this class can be resized, if,
-	   and only if, it contains a child with class .sizer
-	*/
+    /* an object with this class can be resized, if,
+       and only if, it contains a child with class .sizer
+    */
 }
 
 .mover {
-	/* an object with this class can be dragged to move its parent, if,
-	   and only if, the parent has class .moveable
-	*/
-	cursor: move;
+    /* an object with this class can be dragged to move its parent, if,
+       and only if, the parent has class .moveable
+    */
+    cursor: move;
 }
 
 .moveable {
-	/* an object with this class can be dragged, if,
-	   and only if, it has a child with class .moveable upon which a mouseMove event occurs
-	*/
+    /* an object with this class can be dragged, if,
+       and only if, it has a child with class .moveable upon which a mouseMove event occurs
+    */
 }
 
 .draggable {
-	/* an object with this class can be dragged directly
-	*/
+    /* an object with this class can be dragged directly
+    */
 }
 
 .wrap.dragging,
@@ -763,19 +763,19 @@ Others are the selectors that are assigned to objects automatically.
 .overlay.xtab.m.dragging,
 .overlay.legend.dragging,
 .dragMultiple.dragging .wrap {
-	/* an object being dragged gets the .dragging class applied
-	*/
-	-moz-border-radius:4px 4px 4px 4px;
-	background-color:#217EB5;
-	border:1px solid #CCCCCC;
-	color:white;
-	float:left;
-	line-height:2em;
-	height: 2em;
-	margin:3px 2% 0 2px;
-	opacity:0.7 !important;
-	padding:0 9px;
-	width:auto !important;
+    /* an object being dragged gets the .dragging class applied
+    */
+    -moz-border-radius:4px 4px 4px 4px;
+    background-color:#217EB5;
+    border:1px solid #CCCCCC;
+    color:white;
+    float:left;
+    line-height:2em;
+    height: 2em;
+    margin:3px 2% 0 2px;
+    opacity:0.7 !important;
+    padding:0 9px;
+    width:auto !important;
 }
 
 .copy {
@@ -788,100 +788,100 @@ Others are the selectors that are assigned to objects automatically.
 
 
 .dropTarget {
-	/* an object that is a valid drop target during a drag gets this class applied
-	   when the dragged object is on top of it
-	*/
-	background-color:#A9CADD !important;
+    /* an object that is a valid drop target during a drag gets this class applied
+       when the dragged object is on top of it
+    */
+    background-color:#A9CADD !important;
 }
 
 .button {
-	/* an object with this class will have get its class attribute modified by mouse events:
-		- onMouseOver, .over added
-		- onMouseDown, .over removed, .pressed added
-		- onMouseOut, .over || .pressed removed
-	   in addition, onMouseUp will trigger a generic event for the object caught by the buttonHandler
-	*/
+    /* an object with this class will have get its class attribute modified by mouse events:
+        - onMouseOver, .over added
+        - onMouseDown, .over removed, .pressed added
+        - onMouseOut, .over || .pressed removed
+       in addition, onMouseUp will trigger a generic event for the object caught by the buttonHandler
+    */
 }
 
 .over {
-	/* added to the class attribute of element.button onMouseOver
-	*/
+    /* added to the class attribute of element.button onMouseOver
+    */
 }
 
 .pressed {
-	/* added to the class attribute of element.button onMouseDown
-	*/
+    /* added to the class attribute of element.button onMouseDown
+    */
 }
 
 .noBubble {
-	/* an object with this class will get mouse events, but will not permit those events
-	   to bubble up the DOM
-	*/
+    /* an object with this class will get mouse events, but will not permit those events
+       to bubble up the DOM
+    */
 }
 
 .button.toggle {
-	/* this element will always have either class attribute .up or .down; value switched onMouseUp
-	*/
+    /* this element will always have either class attribute .up or .down; value switched onMouseUp
+    */
 }
 
 .up {
-	/* assigned automatically to .button.toggle
-	*/
+    /* assigned automatically to .button.toggle
+    */
 }
 
 .down {
-	/* assigned automatically to .button.toggle
-	*/
+    /* assigned automatically to .button.toggle
+    */
 }
 
 .button.minimize {
-	/* a special button understood to toggle the visible state of its parent container
-	   from a regular size to a .minimized state
-	*/
+    /* a special button understood to toggle the visible state of its parent container
+       from a regular size to a .minimized state
+    */
 }
 
 .minimized {
-	/* assigned or removed from a container by a mouseUp on the container's .button.minimize child
-	*/
+    /* assigned or removed from a container by a mouseUp on the container's .button.minimize child
+    */
 }
 
 .node {
-	/* a list element understood to be a parent of another list; always has either .open or .closed
-	   as part of its class attribute
-	*/
+    /* a list element understood to be a parent of another list; always has either .open or .closed
+       as part of its class attribute
+    */
 }
 
 .open {
-	/* assigned automatically to li.node
-	*/
+    /* assigned automatically to li.node
+    */
 }
 
 .closed {
-	/* assigned automatically to li.node
-	*/
+    /* assigned automatically to li.node
+    */
 }
 
 .leaf{
-	/* a list element that does not contain another list
-	*/
+    /* a list element that does not contain another list
+    */
 }
 
 .selected {
-	/* assigned to the currently selected list element
-	*/
+    /* assigned to the currently selected list element
+    */
 }
 
 .editMode {
-	/* assigned automatically to forms based on a user event, this flag is then
-	   used to conditionally hide or show form objects as appropriate
-	*/
+    /* assigned automatically to forms based on a user event, this flag is then
+       used to conditionally hide or show form objects as appropriate
+    */
 }
 
 .hidden {
-	/* rather than set the display value inline, scripts use this
-	   selector to hide or show objects based on user events
-	*/
-	display:none !important;
+    /* rather than set the display value inline, scripts use this
+       selector to hide or show objects based on user events
+    */
+    display:none !important;
 }
 
 
@@ -895,91 +895,91 @@ ______________________________________________________________
 
 */
 
-	
+
 .rndCorners-all {
-	border-radius:8px;
-	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
+    border-radius:8px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
 }
 
 .rndCorners-top {
-	-moz-border-radius-topleft:8px;
-	-webkit-border-top-left-radius:8px;
-	border-top-left-radius:8px;
-	-moz-border-radius-topright:8px;
-	-webkit-border-top-right-radius:8px;
-	border-top-right-radius:8px;
+    -moz-border-radius-topleft:8px;
+    -webkit-border-top-left-radius:8px;
+    border-top-left-radius:8px;
+    -moz-border-radius-topright:8px;
+    -webkit-border-top-right-radius:8px;
+    border-top-right-radius:8px;
 }
 
 .rndCorners-topLeft {
-	-moz-border-radius-topleft:8px;
-	-webkit-border-top-left-radius:8px;
-	border-top-left-radius:8px;
+    -moz-border-radius-topleft:8px;
+    -webkit-border-top-left-radius:8px;
+    border-top-left-radius:8px;
 }
 
 .rndCorners-topRight {
-	-moz-border-radius-topRight:8px;
-	-webkit-border-top-right-radius:8px;
-	border-top-right-radius:8px;
+    -moz-border-radius-topRight:8px;
+    -webkit-border-top-right-radius:8px;
+    border-top-right-radius:8px;
 }
 
 .rndCorners-right {
-	-moz-border-radius-topRight:8px;
-	-webkit-border-top-right-radius:8px;
-	border-top-right-radius:8px;
-	-moz-border-radius-bottomright:8px;
-	-webkit-border-bottom-right-radius:8px;
-	border-bottom-right-radius:8px;
+    -moz-border-radius-topRight:8px;
+    -webkit-border-top-right-radius:8px;
+    border-top-right-radius:8px;
+    -moz-border-radius-bottomright:8px;
+    -webkit-border-bottom-right-radius:8px;
+    border-bottom-right-radius:8px;
 }
 
 .rndCorners-left {
-	-moz-border-radius-topleft:8px;
-	-webkit-border-top-left-radius:8px;
-	border-top-left-radius:8px;
-	-moz-border-radius-bottomleft:8px;
-	-webkit-border-bottom-left-radius:8px;
-	border-bottom-left-radius:8px;
+    -moz-border-radius-topleft:8px;
+    -webkit-border-top-left-radius:8px;
+    border-top-left-radius:8px;
+    -moz-border-radius-bottomleft:8px;
+    -webkit-border-bottom-left-radius:8px;
+    border-bottom-left-radius:8px;
 }
 
 .rndCorners-bottom {
-	-moz-border-radius-bottomleft:8px;
-	-webkit-border-bottom-left-radius:8px;
-	border-bottom-left-radius:8px;
-	-moz-border-radius-bottomright:8px;
-	-webkit-border-bottom-right-radius:8px;
-	border-bottom-right-radius:8px;
+    -moz-border-radius-bottomleft:8px;
+    -webkit-border-bottom-left-radius:8px;
+    border-bottom-left-radius:8px;
+    -moz-border-radius-bottomright:8px;
+    -webkit-border-bottom-right-radius:8px;
+    border-bottom-right-radius:8px;
 }
 
 .rndCorners-bottomLeft {
-	-moz-border-radius-bottomleft:8px;
-	-webkit-border-bottom-left-radius:8px;
-	border-bottom-left-radius:8px;
+    -moz-border-radius-bottomleft:8px;
+    -webkit-border-bottom-left-radius:8px;
+    border-bottom-left-radius:8px;
 }
 
 .rndCorners-bottomRight {
-	-moz-border-radius-bottomright:8px;
-	-webkit-border-bottom-right-radius:8px;
-	border-bottom-right-radius:8px;
+    -moz-border-radius-bottomright:8px;
+    -webkit-border-bottom-right-radius:8px;
+    border-bottom-right-radius:8px;
 }
 
 .offLeft, .offLeft span,.wrap.offLeft,.wrap.header.offLeft {
 /* visually hide something but leave it available to screen reader */
-	position: absolute !important;
-	left: -9999px;
-	width:9999px;
-	z-index: -5;
+    position: absolute !important;
+    left: -9999px;
+    width:9999px;
+    z-index: -5;
 }
 
 .centering {
 /* only centers if object has explicit width */
-	margin:0 auto;
-	position:relative;
+    margin:0 auto;
+    position:relative;
 }
 
 #reportViewer.noDecoration .header div.title {
-	visibility:hidden;
+    visibility:hidden;
 }
 
 .noDecoration #metaLinks {
-	display:none;
+    display:none;
 }

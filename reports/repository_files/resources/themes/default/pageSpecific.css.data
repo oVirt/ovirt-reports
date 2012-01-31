@@ -26,63 +26,63 @@ tim sheiner & christie rixford
 }
 
 #loginPage #loginForm {
-	position: absolute;
-	left: 740px;
-	top: 0;	
+    position: absolute;
+    left: 740px;
+    top: 0;
 }
 
 #loginPage .login {
-	position: relative;
-	width: 250px;
+    position: relative;
+    width: 250px;
 }
 
 #loginPage #copy {
-	float: left;
-	clear: left;
-	width:700px;
-	margin-right: 40px;
+    float: left;
+    clear: left;
+    width:700px;
+    margin-right: 40px;
 }
 
 #loginPage #copy .row>.primary,
 #loginPage #copy .row>.secondary {
-	width:46%;
-	padding-left:25px;
-	display: inline-block;
-	position: relative;
+    width:46%;
+    padding-left:25px;
+    display: inline-block;
+    position: relative;
 }
 
 #loginPage #welcome {
-	height: 340px;
-	background-image: url("images/login_welcome_bkgd.jpg");
-	background-repeat: no-repeat;
-	background-position: center 50px;
-	margin-bottom: 15px;
+    height: 340px;
+    background-image: url("images/login_welcome_bkgd.jpg");
+    background-repeat: no-repeat;
+    background-position: center 50px;
+    margin-bottom: 15px;
 }
 
 #loginPage #welcome h1 {
-	font-size: 40px;
-	text-align: center;
-	font-weight: normal;
+    font-size: 40px;
+    text-align: center;
+    font-weight: normal;
 }
 
 #loginPage h2 {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 
 #loginPage #buttons {
-	padding-bottom: 20px;
-	border-bottom: 1px solid #e0e0e0;	
-	margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 25px;
 }
 
 #loginPage #rotating {
-	margin-bottom: 25px;	
+    margin-bottom: 25px;
 }
 
 #loginPage #rotating .primary,
 #loginPage #rotating .secondary {
-	float:left;	
+    float:left;
 }
 
 
@@ -102,87 +102,87 @@ tim sheiner & christie rixford
 /* HOME */
 
 .column.home>.content>.body {
-	background: #c9c9c9 url("images/home_bkgd.png") left top no-repeat;
+    background: #c9c9c9 url("images/home_bkgd.png") left top no-repeat;
 }
 
 .home #viewReports>.icon {
-	background-position: left -938px;
+    background-position: left -938px;
 }
 
 .home #manageServer>.icon {
-	background-position: left -1650px;
+    background-position: left -1650px;
 }
 
 .home #createReports>.icon {
-	background-position: left -1395px;
+    background-position: left -1395px;
 }
 
 .home #createDashboard>.icon {
-	background-position: left -1860px;
+    background-position: left -1860px;
 }
 
 .home #analyzeResults>.icon {
-	background-position: left -1160px;
+    background-position: left -1160px;
 }
 
 .home #manageUsers>.icon {
-	background-position: left top;
+    background-position: left top;
 }
 
 .home #manageRoles>.icon {
-	background-position: left -248px;
+    background-position: left -248px;
 }
 
 .home #manageOLAP>.icon {
-	background-position: left -716px;
+    background-position: left -716px;
 }
 
 .home #browseRepo>.icon {
-	background-position: left -490px;
+    background-position: left -490px;
 }
 
 .home .row {
-	margin-top:20px;
+    margin-top:20px;
 }
 
 
 .home .row.bottom {
-	padding-left:400px;
+    padding-left:400px;
 }
 
 .home .panel.info.button.pressed h2 {
-	color: #DC5717;
+    color: #DC5717;
 }
 
 #home_user #manageServer {
-	display: none;
+    display: none;
 }
 
 #home_user #browseRepo,
 #home_user #manageUsers,
 #home_user #manageRoles,
 #home_user #manageOLAP {
-	display: none;
+    display: none;
 }
 
 #home_admin #browseRepo,
 #home_admin #manageUsers,
 #home_admin #manageRoles,
 #home_admin #manageOLAP {
-	display: none;
+    display: none;
 }
 
 #home_manage #analyzeResults,
 #home_manage #viewReports,
 #home_manage #createReports,
 #home_manage #manageServer {
-	display: none;
+    display: none;
 }
 
 /* demo/demo home page */
 
 #home_user #outerFrame #dashboardViewer .body .body {
-	overflow:auto;
+    overflow:auto;
 }
 
 /* Data Chooser Flow */
@@ -202,27 +202,27 @@ tim sheiner & christie rixford
 }
 
 #dataChooserSource #sourceDialog .description {
-	background-color:#EEEEEE;
-	border-top:1px solid #E0E0E0;
-	border-bottom:1px solid #E0E0E0;
-	bottom:0;
-	height:43px;
-	left:0;
-	line-height:1.3em;
-	margin:0;
-	overflow:hidden;
-	padding:5px 25px;
-	position:absolute;
-	right:0;
+    background-color:#EEEEEE;
+    border-top:1px solid #E0E0E0;
+    border-bottom:1px solid #E0E0E0;
+    bottom:0;
+    height:43px;
+    left:0;
+    line-height:1.3em;
+    margin:0;
+    overflow:hidden;
+    padding:5px 25px;
+    position:absolute;
+    right:0;
 }
 
 #dataChooserSource #sourceDialog .groupBox {
-	bottom:60px;
+    bottom:60px;
 }
 
 #dataChooserSource #sourceDialog {
-	min-width: 450px;
-	min-height: 500px;
+    min-width: 450px;
+    min-height: 500px;
 }
 
 #dataChooserSource .list.resources .column.one,
@@ -254,8 +254,8 @@ tim sheiner & christie rixford
 #dataChooserDisplay #listMode {
     margin:10px 1% 0 auto;
     position:absolute;
-	right:0;
-	top:0;
+    right:0;
+    top:0;
 }
 
 #dataChooserDisplay .list.tabular.twoColumn.hideRoot {
@@ -274,7 +274,7 @@ tim sheiner & christie rixford
 }
 
 #dataChooserPreFilters .button.minimize {
-	display: none;
+    display: none;
 }
 
 
@@ -411,7 +411,7 @@ tim sheiner & christie rixford
 
 #designer td.selected,
 #designer th.selected {
-	background-color: #CDE1ED !important;
+    background-color: #CDE1ED !important;
 }
 
 #designer td#chart.selected{
@@ -452,14 +452,14 @@ tim sheiner & christie rixford
 
 #designer #mainTableContainer .sizer.over,
 #designer #mainTableContainer .sizer.pressed {
-	background-color: #217EB5;
+    background-color: #217EB5;
 }
 
 #designer #mainTableContainer .overlay {
-	position:absolute;
-	z-index:500;
+    position:absolute;
+    z-index:500;
     margin:0;
-	opacity:0.3;
+    opacity:0.3;
 }
 
 
@@ -468,7 +468,7 @@ tim sheiner & christie rixford
 #designer #mainTableContainer .overlay.pressed,
 #designer #mainTableContainer .overlay.selected {
     background-color:#75AECF;
-	border:1px solid #000050;
+    border:1px solid #000050;
     margin:-1px 0 0 -1px;
 }
 
@@ -632,7 +632,7 @@ tim sheiner & christie rixford
 
 
 #designer .panel.filter .select {
-	margin:5px 0;
+    margin:5px 0;
 }
 
 #designer .toolbar .button .icon {
@@ -755,25 +755,25 @@ tim sheiner & christie rixford
 .displayManager {
     border-collapse: separate;
     border-spacing: 10px 5px;
-    white-space: normal;	
+    white-space: normal;
 }
 
 .displayManager .axis>.title {
-	text-align: right;
-	vertical-align: middle;
+    text-align: right;
+    vertical-align: middle;
 }
 
 .displayManager .axis>.slot {
-	display: table-cell;
-	width: 100%;
-	background-image: url("images/input_bkgd.png");
-	border:1px solid #ccc;
-	background-repeat: repeat-x;
-	overflow: hidden;
-	padding-top: 3px;
-	/* for wrapping
-	height: 25px;
-	overflow: visible;*/
+    display: table-cell;
+    width: 100%;
+    background-image: url("images/input_bkgd.png");
+    border:1px solid #ccc;
+    background-repeat: repeat-x;
+    overflow: hidden;
+    padding-top: 3px;
+    /* for wrapping
+    height: 25px;
+    overflow: visible;*/
 }
 
 .displayManager .tokens {
@@ -801,25 +801,25 @@ tim sheiner & christie rixford
 }
 
 .tokens .level {
-	top:1px;
+    top:1px;
 }
 
 .tokens>.dimension,
 .tokens>.measure,
 .dimension>.levels,
 .measure>.members {
-	display:inline;
+    display:inline;
 }
 
 .tokens>.dimension>.title,
 .tokens>.measure>.title {
-	display:none;
+    display:none;
 }
 
 .tokens>.measure, .dragging.dimension {
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     background: #E9D9FE;
     margin-left: 2px;
     padding: 3px 3px 4px 2px;
@@ -829,10 +829,10 @@ tim sheiner & christie rixford
 
 .tokens>.measure>.handle {
     background: url("images/lists_sprite.png") no-repeat 4px -1038px;
-	width:12px;
-	display: inline-block;
-	position: relative;
-	cursor: pointer;
+    width:12px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
 }
 
 
@@ -840,37 +840,37 @@ tim sheiner & christie rixford
 
 .measure>.members>.member,
 #designer #availableFields .measure .header {
-	background-color: #C7B7E4; /* for non-css3 browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0C3E8', endColorstr='#C2B2E3'); /* for IE */
-	background:-webkit-gradient(linear, left top, left bottom, from(#D0C3E8), to(#C2B2E3)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #D0C3E8,  #C2B2E3); /* for firefox 3.6+ */
+    background-color: #C7B7E4; /* for non-css3 browsers */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0C3E8', endColorstr='#C2B2E3'); /* for IE */
+    background:-webkit-gradient(linear, left top, left bottom, from(#D0C3E8), to(#C2B2E3)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #D0C3E8,  #C2B2E3); /* for firefox 3.6+ */
 }
 
 .dimension>.levels>.level,
 #designer #availableFields .dimension .header {
     background-color: #C3DBBD; /* for non-css3 browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CFE0CB', endColorstr='#BCD7B6'); /* for IE */
-	background:-webkit-gradient(linear, left top, left bottom, from(#CFE0CB), to(#BCD7B6)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #CFE0CB,  #BCD7B6); /* for firefox 3.6+ */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CFE0CB', endColorstr='#BCD7B6'); /* for IE */
+    background:-webkit-gradient(linear, left top, left bottom, from(#CFE0CB), to(#BCD7B6)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #CFE0CB,  #BCD7B6); /* for firefox 3.6+ */
 }
 
 .dimension.odd>.levels>.level, .dragging.dimension {
     background-color: #DCEED8; /* for non-css3 browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DCEED8', endColorstr='#DBEDD6'); /* for IE */
-	background:-webkit-gradient(linear, left top, left bottom, from(#DCEED8), to(#DBEDD6)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #DCEED8,  #DBEDD6); /* for firefox 3.6+ */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DCEED8', endColorstr='#DBEDD6'); /* for IE */
+    background:-webkit-gradient(linear, left top, left bottom, from(#DCEED8), to(#DBEDD6)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #DCEED8,  #DBEDD6); /* for firefox 3.6+ */
 }
 
 .dimension>.levels>.level.notShown,
 .dimension.odd>.levels>.level.notShown {
     background-color: #ddd; /* for non-css3 browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee', endColorstr='#ccc'); /* for IE */
-	background:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #eee,  #ccc); /* for firefox 3.6+ */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee', endColorstr='#ccc'); /* for IE */
+    background:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #eee,  #ccc); /* for firefox 3.6+ */
 }
 
 li.dragging.measure, li.dragging.dimension {
@@ -878,60 +878,60 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 .tokens .button>.wrap {
-	display: inline !important;
-	padding-left:12px;
-	background-image: url("images/lists_sprite.png");
-	background-repeat: no-repeat;
-	text-decoration: none;
+    display: inline !important;
+    padding-left:12px;
+    background-image: url("images/lists_sprite.png");
+    background-repeat: no-repeat;
+    text-decoration: none;
 }
 
 .wrap.dragging.dimension,
 .tokens .button.level>.wrap {
-	background-position: 3px -1013px;
+    background-position: 3px -1013px;
 }
 
 .wrap.dragging.measure,
 .tokens .button.member>.wrap {
-	background-position: 3px -1038px;
+    background-position: 3px -1038px;
 }
 
 .wrap.dragging.measure,
 .wrap.dragging.dimension {
-	padding-left:16px;
-	color:inherit;
+    padding-left:16px;
+    color:inherit;
 }
 
 .wrap.dragging.dimension {
-	background-color: #C3DBBD; /* for non-css3 browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CFE0CB', endColorstr='#BCD7B6'); /* for IE */
-	background-image: url("images/lists_sprite.png");
-	background-position: 5px -1009px;
-	background-repeat: no-repeat;
-	
-	background:url("images/lists_sprite.png") 5px -1009px no-repeat, -webkit-gradient(linear, left top, left bottom, from(#CFE0CB), to(#BCD7B6)); /* for webkit browsers */
-	background:url("images/lists_sprite.png") 5px -1009px no-repeat, -moz-linear-gradient(top,  #CFE0CB,  #BCD7B6); /* for firefox 3.6+ */
+    background-color: #C3DBBD; /* for non-css3 browsers */
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CFE0CB', endColorstr='#BCD7B6'); /* for IE */
+    background-image: url("images/lists_sprite.png");
+    background-position: 5px -1009px;
+    background-repeat: no-repeat;
+
+    background:url("images/lists_sprite.png") 5px -1009px no-repeat, -webkit-gradient(linear, left top, left bottom, from(#CFE0CB), to(#BCD7B6)); /* for webkit browsers */
+    background:url("images/lists_sprite.png") 5px -1009px no-repeat, -moz-linear-gradient(top,  #CFE0CB,  #BCD7B6); /* for firefox 3.6+ */
 }
 
 .wrap.dragging.measure {
-	background-color: #C7B7E4; /* for non-css3 browsers */
-	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0C3E8', endColorstr='#C2B2E3'); /* for IE */
-	background-image: url("images/lists_sprite.png");
-	background-position: 5px -1034px;
-	background-repeat: no-repeat;
+    background-color: #C7B7E4; /* for non-css3 browsers */
 
-	background:url("images/lists_sprite.png") 5px -1034px no-repeat, -webkit-gradient(linear, left top, left bottom, from(#D0C3E8), to(#C2B2E3)); /* for webkit */	
-	background:url("images/lists_sprite.png") 5px -1034px no-repeat, -moz-linear-gradient(top,  #D0C3E8,  #C2B2E3); /* for firefox 3.6+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0C3E8', endColorstr='#C2B2E3'); /* for IE */
+    background-image: url("images/lists_sprite.png");
+    background-position: 5px -1034px;
+    background-repeat: no-repeat;
+
+    background:url("images/lists_sprite.png") 5px -1034px no-repeat, -webkit-gradient(linear, left top, left bottom, from(#D0C3E8), to(#C2B2E3)); /* for webkit */
+    background:url("images/lists_sprite.png") 5px -1034px no-repeat, -moz-linear-gradient(top,  #D0C3E8,  #C2B2E3); /* for firefox 3.6+ */
 }
 
 .tokens .button>.icon {
-	background: url("images/lists_sprite.png") 3px -1095px no-repeat;
-	left:auto;
-	right: 3px;
-	height: 18px;
-	width:10px;
-	z-index: inherit;
+    background: url("images/lists_sprite.png") 3px -1095px no-repeat;
+    left:auto;
+    right: 3px;
+    height: 18px;
+    width:10px;
+    z-index: inherit;
 }
 
 
@@ -989,22 +989,22 @@ li.dragging.measure, li.dragging.dimension {
 /* reportOptions_edit */
 
 #reportOptions_edit #stepDisplay .column.primary .header {
-	height:45px;
-	overflow: hidden;
+    height:45px;
+    overflow: hidden;
 }
 
 #reportOptions_edit #stepDisplay .column.primary .header>.title {
-	line-height: normal;
+    line-height: normal;
 }
 
 
 #reportOptions_edit #stepDisplay .column.primary .header>.title>.path {
-	display: block;
-	margin-top: 3px;
+    display: block;
+    margin-top: 3px;
 }
 
 #reportOptions_edit #stepDisplay .column.primary .body {
-	margin-top:10px;
+    margin-top:10px;
 }
 
 
@@ -1160,12 +1160,12 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 #designerCache .list.tabular>.leaf.running {
-	font-style: italic;
+    font-style: italic;
 }
 
 #designerCache .list.tabular>.leaf.running>.wrap>.column.one {
-	background-image: url(images/list_node_animation.gif);
-	background-repeat: no-repeat;
+    background-image: url(images/list_node_animation.gif);
+    background-repeat: no-repeat;
     height:16px;
 }
 
@@ -1223,7 +1223,7 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 #reportViewer #reportContainer {
-	/* margin-top: 10px; */
+    /* margin-top: 10px; */
 }
 
 #reportContainer table,
@@ -1234,22 +1234,22 @@ li.dragging.measure, li.dragging.dimension {
 #reportContainer th,
 #reportContainer td {
 /* resets for rendered reports */
-	font-size: 1%;
-	vertical-align: top;
-	line-height: normal;
-	text-align: left;
+    font-size: 1%;
+    vertical-align: top;
+    line-height: normal;
+    text-align: left;
 }
 
 #reportContainer #innerPagination td,
 #reportContainer #innerPagination input {
-	font-size: 11px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	vertical-align: middle;
+    font-size: 11px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    vertical-align: middle;
 }
 
 #reportContainer #innerPagination input {
-	text-align: right;
-	width:40px;
+    text-align: right;
+    width:40px;
 }
 
 /* inputControls - savedValues display case */
@@ -1409,14 +1409,14 @@ li.dragging.measure, li.dragging.dimension {
 #manage_users #assignedList  .icon.button,
 #manage_roles #availableList .icon.button,
 #manage_roles #assignedList  .icon.button {
-	display: none;
+    display: none;
 }
 
 #manage_users #availableList .wrap.button,
 #manage_users #assignedList  .wrap.button,
 #manage_roles #availableList .wrap.button,
 #manage_roles #assignedList  .wrap.button {
-	padding-left:10px;
+    padding-left:10px;
 }
 
 
@@ -1430,41 +1430,41 @@ li.dragging.measure, li.dragging.dimension {
 
 #domainDesigner_editDomain .list.linkedResources .wrap>.column.one,
 #domainDesigner_addDomain .list.linkedResources .wrap>.column.one {
-	width: 65%;
+    width: 65%;
 }
 
 /* #domainDesigner_joins */
 
 #domainDesigner_joins .primaryLeft>.primary {
-	margin-left:0;
-	right:650px;
+    margin-left:0;
+    right:650px;
 }
 
 #domainDesigner_joins .primaryLeft>.secondary {
-	width:650px;
+    width:650px;
 }
 
 #domainDesigner_joins .list.tabular.fourColumn {
-	min-width:300px;
+    min-width:300px;
 }
 
 #domainDesigner_joins .list.tabular.fourColumn>li>.wrap>.column.one {
-	width:30%;
+    width:30%;
 }
 
 #domainDesigner_joins .list.tabular.fourColumn>li>.wrap>.column.two {
-	width:29%;
-	margin-left:1%;
+    width:29%;
+    margin-left:1%;
 }
 
 
 #domainDesigner_joins .list.tabular.fourColumn>li>.wrap>.column.three {
-	width:15%;
+    width:15%;
 }
 
 #domainDesigner_joins .list.tabular.fourColumn>li>.wrap>.column.four {
-	width:14%;
-	margin-left:1%;
+    width:14%;
+    margin-left:1%;
 }
 
 
@@ -1602,13 +1602,13 @@ li.dragging.measure, li.dragging.dimension {
 /* #scheduler_jobSetUp */
 #scheduler_jobSetUp #simpleRecurrence .error > .message.warning,
 #scheduler_jobSetUp #jobCommon .error > .message.warning {
-	display: inline;
-	margin-top: 3px;
+    display: inline;
+    margin-top: 3px;
     position: absolute;
 }
 
 #scheduler_jobSetUp #simpleRecurrence .list.inputSet .leaf {
-	overflow: visible;
+    overflow: visible;
 }
 
 
@@ -1761,7 +1761,7 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 #dashboardDesigner .list.collapsible.folders .leaf>.wrap>.icon {
-	display: none;	
+    display: none;
 }
 
 
@@ -2098,12 +2098,12 @@ li.dragging.measure, li.dragging.dimension {
     right:3px;
     top:3px;
     padding: 3px;
-    background-color: #D4D4D4; /* for non-css3 browsers */	
-	background:-webkit-gradient(linear, left top, left bottom, from(#dedede), to(#D4D4D4)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #dedede,  #D4D4D4); /* for firefox 3.6+ */
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
+    background-color: #D4D4D4; /* for non-css3 browsers */
+    background:-webkit-gradient(linear, left top, left bottom, from(#dedede), to(#D4D4D4)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #dedede,  #D4D4D4); /* for firefox 3.6+ */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     display:none;
 }
 
@@ -2172,8 +2172,8 @@ li.dragging.measure, li.dragging.dimension {
 }
 
 #serverError #stepDisplay {
-	display: block;
-	margin-left: 160px;
+    display: block;
+    margin-left: 160px;
 }
 
 #serverError #frame {

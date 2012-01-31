@@ -1,153 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="116" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/Storage_Domain_Report_BR21"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-	<parameter name="P_DataCenter_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_StorageDomain_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Period" class="java.lang.String">
-		<parameterDescription><![CDATA[Period]]></parameterDescription>
-	</parameter>
-	<parameter name="P_Dates" class="java.lang.String">
-		<parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-	</parameter>
-	<parameter name="P_Storage_Type" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Start_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_End_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT	v3_0_datacenter_configuration_view.datacenter_name as datacenter_name,
-     	v3_0_datacenter_configuration_view.delete_date as datacenter_delete_date,
-      	(SELECT v3_0_storage_domain_configuration_view.storage_domain_name
-	  FROM v3_0_storage_domain_configuration_view
-	  WHERE v3_0_storage_domain_configuration_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-	        and v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
-				 					 FROM v3_0_storage_domain_configuration_view as a
-							 		 GROUP BY a.storage_domain_id)) as storage_name,
-    	(SELECT detach_date
-    	 FROM v3_0_datacenter_storage_domain_map_view
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/Storage_Domain_Report_BR21"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_StorageDomain_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+    </parameter>
+    <parameter name="P_Dates" class="java.lang.String">
+        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
+    </parameter>
+    <parameter name="P_Storage_Type" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_End_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT    v3_0_datacenter_configuration_view.datacenter_name as datacenter_name,
+         v3_0_datacenter_configuration_view.delete_date as datacenter_delete_date,
+          (SELECT v3_0_storage_domain_configuration_view.storage_domain_name
+      FROM v3_0_storage_domain_configuration_view
+      WHERE v3_0_storage_domain_configuration_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+            and v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
+                                      FROM v3_0_storage_domain_configuration_view as a
+                                      GROUP BY a.storage_domain_id)) as storage_name,
+        (SELECT detach_date
+         FROM v3_0_datacenter_storage_domain_map_view
          WHERE v3_0_datacenter_storage_domain_map_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-	      and v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	      and v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
-							                FROM v3_0_datacenter_storage_domain_map_view as a
-								        GROUP BY a.storage_domain_id, a.datacenter_id)) as storage_delete_date,
+          and v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+          and v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
+                                            FROM v3_0_datacenter_storage_domain_map_view as a
+                                        GROUP BY a.storage_domain_id, a.datacenter_id)) as storage_delete_date,
         coalesce((SELECT v3_0_enum_translator_view.value
-	          FROM v3_0_enum_translator_view
-		  WHERE v3_0_enum_translator_view.enum_key = $P{P_Storage_Type}
-		  AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'), 'all') as storage_type
+              FROM v3_0_enum_translator_view
+          WHERE v3_0_enum_translator_view.enum_key = $P{P_Storage_Type}
+          AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'), 'all') as storage_type
 FROM v3_0_datacenter_configuration_view
-WHERE 	v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-	and v3_0_datacenter_configuration_view.history_id in (SELECT max(a.history_id)
-							     FROM v3_0_datacenter_configuration_view as a
-							     GROUP BY a.datacenter_id)]]>
-	</queryString>
-	<field name="datacenter_name" class="java.lang.String"/>
-	<field name="datacenter_delete_date" class="java.sql.Timestamp"/>
-	<field name="storage_name" class="java.lang.String"/>
-	<field name="storage_delete_date" class="java.sql.Timestamp"/>
-	<field name="storage_type" class="java.lang.String"/>
-	<variable name="datacenter_star" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
-	</variable>
-	<variable name="storage_star" class="java.lang.String" resetType="None">
-		<variableExpression><![CDATA[$F{storage_delete_date} != null ? "*" : ""]]></variableExpression>
-	</variable>
-	<title>
-		<band height="89" splitType="Stretch">
-			<frame>
-				<reportElement mode="Opaque" x="0" y="30" width="828" height="40"/>
-				<box>
-					<pen lineWidth="1.0" lineColor="#CCCCCC"/>
-					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
-					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
-					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
-					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
-				</box>
-				<textField>
-					<reportElement positionType="Float" x="94" y="20" width="152" height="20"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-						<font fontName="DejaVu Sans" size="11" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField>
-					<reportElement x="94" y="0" width="438" height="20"/>
-					<textElement verticalAlignment="Middle" markup="html">
-						<font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="271" y="20" width="281" height="20"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-						<font fontName="DejaVu Sans" size="11" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$P{P_Start_Date} + " - " + $P{P_End_Date}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField>
-					<reportElement positionType="Float" x="552" y="20" width="171" height="20"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-						<font fontName="DejaVu Sans" size="11" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{storage_type} != "all" ? "<b>" + $R{full.details.storage.type} + ": </b>" + $F{storage_type} : "<b>" + $R{full.details.storage.type} + ": </b>" + $R{full.details.all}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{storage_type} != "all" ? $F{storage_type} : $R{full.details.all}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField>
-					<reportElement mode="Opaque" x="2" y="3" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-						<font fontName="DejaVu Sans" size="13" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
-				</textField>
-			</frame>
-			<textField evaluationTime="Report" isBlankWhenNull="false">
-				<reportElement x="0" y="0" width="830" height="25" forecolor="#666666"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-					<font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[msg($R{br18.title}, $F{storage_name} + $V{storage_star})]]></textFieldExpression>
-			</textField>
-			<image>
-				<reportElement x="12" y="73" width="10" height="11">
-					<printWhenExpression><![CDATA[$F{storage_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
-				</reportElement>
-				<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="5" y="73" width="5" height="16" forecolor="#666666">
-					<printWhenExpression><![CDATA[$F{storage_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="12"/>
-				</textElement>
-				<text><![CDATA[*]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="29" y="73" width="735" height="13" forecolor="#666666"/>
-				<textElement markup="html">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{storage_delete_date} != null ?
+WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+    and v3_0_datacenter_configuration_view.history_id in (SELECT max(a.history_id)
+                                 FROM v3_0_datacenter_configuration_view as a
+                                 GROUP BY a.datacenter_id)]]>
+    </queryString>
+    <field name="datacenter_name" class="java.lang.String"/>
+    <field name="datacenter_delete_date" class="java.sql.Timestamp"/>
+    <field name="storage_name" class="java.lang.String"/>
+    <field name="storage_delete_date" class="java.sql.Timestamp"/>
+    <field name="storage_type" class="java.lang.String"/>
+    <variable name="datacenter_star" class="java.lang.String" resetType="None">
+        <variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
+    </variable>
+    <variable name="storage_star" class="java.lang.String" resetType="None">
+        <variableExpression><![CDATA[$F{storage_delete_date} != null ? "*" : ""]]></variableExpression>
+    </variable>
+    <title>
+        <band height="89" splitType="Stretch">
+            <frame>
+                <reportElement mode="Opaque" x="0" y="30" width="828" height="40"/>
+                <box>
+                    <pen lineWidth="1.0" lineColor="#CCCCCC"/>
+                    <topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+                    <leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+                    <bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+                    <rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+                </box>
+                <textField>
+                    <reportElement positionType="Float" x="94" y="20" width="152" height="20"/>
+                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField>
+                    <reportElement x="94" y="0" width="438" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="html">
+                        <font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField>
+                    <reportElement positionType="Float" x="271" y="20" width="281" height="20"/>
+                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$P{P_Start_Date} + " - " + $P{P_End_Date}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField>
+                    <reportElement positionType="Float" x="552" y="20" width="171" height="20"/>
+                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{storage_type} != "all" ? "<b>" + $R{full.details.storage.type} + ": </b>" + $F{storage_type} : "<b>" + $R{full.details.storage.type} + ": </b>" + $R{full.details.all}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{storage_type} != "all" ? $F{storage_type} : $R{full.details.all}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField>
+                    <reportElement mode="Opaque" x="2" y="3" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                        <font fontName="DejaVu Sans" size="13" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
+                </textField>
+            </frame>
+            <textField evaluationTime="Report" isBlankWhenNull="false">
+                <reportElement x="0" y="0" width="830" height="25" forecolor="#666666"/>
+                <textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+                    <font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[msg($R{br18.title}, $F{storage_name} + $V{storage_star})]]></textFieldExpression>
+            </textField>
+            <image>
+                <reportElement x="12" y="73" width="10" height="11">
+                    <printWhenExpression><![CDATA[$F{storage_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
+                </reportElement>
+                <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="5" y="73" width="5" height="16" forecolor="#666666">
+                    <printWhenExpression><![CDATA[$F{storage_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
+                </reportElement>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="12"/>
+                </textElement>
+                <text><![CDATA[*]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="29" y="73" width="735" height="13" forecolor="#666666"/>
+                <textElement markup="html">
+                    <font fontName="DejaVu Sans"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{storage_delete_date} != null ?
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.storage}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{storage_delete_date})) :
 msg($R{full.details.deleted.comment.storage}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{storage_delete_date})) :
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date})) : ""]]></textFieldExpression>
-			</textField>
-		</band>
-	</title>
+            </textField>
+        </band>
+    </title>
 </jasperReport>

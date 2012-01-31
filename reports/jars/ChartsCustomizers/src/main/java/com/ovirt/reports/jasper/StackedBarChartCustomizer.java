@@ -21,15 +21,15 @@ import java.text.DecimalFormat;
 
 public class StackedBarChartCustomizer implements JRChartCustomizer {
 
-	public void customize(JFreeChart chart, JRChart jasperChart) {
-		StackedBarRenderer renderer = (StackedBarRenderer) chart.getCategoryPlot().getRenderer();
-		CategoryPlot categoryPlot = renderer.getPlot();
-		
-		categoryPlot.setNoDataMessage("No Data Available");
-		categoryPlot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
-		
-//		Widen the categories so those dots won't show up in the category.
-		CategoryAxis domainaxis = categoryPlot.getDomainAxis();
+    public void customize(JFreeChart chart, JRChart jasperChart) {
+        StackedBarRenderer renderer = (StackedBarRenderer) chart.getCategoryPlot().getRenderer();
+        CategoryPlot categoryPlot = renderer.getPlot();
+
+        categoryPlot.setNoDataMessage("No Data Available");
+        categoryPlot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
+
+//        Widen the categories so those dots won't show up in the category.
+        CategoryAxis domainaxis = categoryPlot.getDomainAxis();
         domainaxis.setMaximumCategoryLabelWidthRatio(1.5f);
         domainaxis.setTickMarksVisible(true);
 
@@ -42,7 +42,7 @@ public class StackedBarChartCustomizer implements JRChartCustomizer {
            String label = item.getLabel();
            if (label.length() > 18)
            {
-        	   label = label.substring(0,10).concat("...").concat(label.substring(label.length() - 5, label.length()));
+               label = label.substring(0,10).concat("...").concat(label.substring(label.length() - 5, label.length()));
            }
            if (label != "" && label != "/Rx Rate" && label != "/Tx Rate")
            {
@@ -52,12 +52,12 @@ public class StackedBarChartCustomizer implements JRChartCustomizer {
         categoryPlot.setFixedLegendItems(res);
         chart.getLegend().setFrame(BlockBorder.NONE);
 
-		ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-		if (rangeAxis instanceof NumberAxis) {
-			NumberAxis axis = (NumberAxis) rangeAxis;
-			axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));	
-			axis.setUpperBound(axis.getUpperBound()+1);
-			axis.setAutoRangeMinimumSize(1.0);
-		}
-	}
+        ValueAxis rangeAxis = categoryPlot.getRangeAxis();
+        if (rangeAxis instanceof NumberAxis) {
+            NumberAxis axis = (NumberAxis) rangeAxis;
+            axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
+            axis.setUpperBound(axis.getUpperBound()+1);
+            axis.setAutoRangeMinimumSize(1.0);
+        }
+    }
 }

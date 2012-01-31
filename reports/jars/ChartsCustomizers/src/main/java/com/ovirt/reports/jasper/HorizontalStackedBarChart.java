@@ -14,20 +14,20 @@ import org.jfree.chart.renderer.category.StackedBarRenderer;
 
 public class HorizontalStackedBarChart implements JRChartCustomizer {
 
-	public void customize(JFreeChart chart, JRChart jasperChart) {
-		StackedBarRenderer renderer = (StackedBarRenderer) chart.getCategoryPlot().getRenderer();
-		CategoryPlot categoryPlot = renderer.getPlot();
-		renderer.setDrawBarOutline(true);
-		renderer.setSeriesOutlinePaint(0, Color.black);
-		renderer.setSeriesOutlinePaint(1, Color.black);
-		renderer.setSeriesOutlinePaint(2, Color.black);
-		renderer.setSeriesOutlinePaint(3, Color.black);
-		
-		CategoryAxis domainaxis = categoryPlot.getDomainAxis();
+    public void customize(JFreeChart chart, JRChart jasperChart) {
+        StackedBarRenderer renderer = (StackedBarRenderer) chart.getCategoryPlot().getRenderer();
+        CategoryPlot categoryPlot = renderer.getPlot();
+        renderer.setDrawBarOutline(true);
+        renderer.setSeriesOutlinePaint(0, Color.black);
+        renderer.setSeriesOutlinePaint(1, Color.black);
+        renderer.setSeriesOutlinePaint(2, Color.black);
+        renderer.setSeriesOutlinePaint(3, Color.black);
+
+        CategoryAxis domainaxis = categoryPlot.getDomainAxis();
         domainaxis.setVisible(false);
 
 
-		ValueAxis rangeAxis = categoryPlot.getRangeAxis();
-		rangeAxis.setVisible(false);
-	}
+        ValueAxis rangeAxis = categoryPlot.getRangeAxis();
+        rangeAxis.setVisible(false);
+    }
 }

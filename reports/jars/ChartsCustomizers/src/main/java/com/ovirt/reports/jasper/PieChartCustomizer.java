@@ -16,22 +16,22 @@ import org.jfree.chart.plot.PiePlot;
 
 public class PieChartCustomizer implements JRChartCustomizer {
 
-	public PieChartCustomizer() {
-	}
+    public PieChartCustomizer() {
+    }
 
-	public void customize(JFreeChart chart, JRChart jasperChart) {
-		Plot plot = chart.getPlot();
-		
-		plot.setNoDataMessage("No Data Available");
-		chart.removeLegend();
-		
-		//Shape square = new Rectangle2D.Double(0,0,5,5);
-		PiePlot piePlot = (PiePlot) plot;
-		piePlot.setSimpleLabels(true);
-		piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1} ({2})"));
-		//piePlot.setLabelGenerator(null);
-		//piePlot.setLegendLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1} ({2})"));
-		//piePlot.setLegendItemShape(square);
-		//chart.getLegend().setFrame(BlockBorder.NONE);
-	}
+    public void customize(JFreeChart chart, JRChart jasperChart) {
+        Plot plot = chart.getPlot();
+
+        plot.setNoDataMessage("No Data Available");
+        chart.removeLegend();
+
+        //Shape square = new Rectangle2D.Double(0,0,5,5);
+        PiePlot piePlot = (PiePlot) plot;
+        piePlot.setSimpleLabels(true);
+        piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1} ({2})"));
+        //piePlot.setLabelGenerator(null);
+        //piePlot.setLegendLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1} ({2})"));
+        //piePlot.setLegendItemShape(square);
+        //chart.getLegend().setFrame(BlockBorder.NONE);
+    }
 }

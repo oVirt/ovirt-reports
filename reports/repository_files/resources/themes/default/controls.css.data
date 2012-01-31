@@ -6,31 +6,31 @@ tim sheiner & christie rixford
 */
 
 .control {
-	display: block;
-	position: relative;
+    display: block;
+    position: relative;
 }
 
 legend.title {
-	position: absolute;
-	left: 20px;
+    position: absolute;
+    left: 20px;
 }
 
 legend a {
-	cursor:pointer;
+    cursor:pointer;
 }
 
 .group {
-	margin:10px 10px 0;
-	padding-left: 10px;
+    margin:10px 10px 0;
+    padding-left: 10px;
 }
 
 .group legend {
-	padding-bottom:10px;
-	margin-left: -10px;
+    padding-bottom:10px;
+    margin-left: -10px;
 }
 
 .group legend.label {
-	margin-left:0;
+    margin-left:0;
 }
 
 .error>input[type=text],
@@ -38,58 +38,58 @@ legend a {
 .error>input[type=file],
 .error>textArea,
 .error>select {
-	margin-bottom: 0;
-	background: #E65C56;
-	color:white;
+    margin-bottom: 0;
+    background: #E65C56;
+    color:white;
 }
 
 .message.warning {
-	display: none;
+    display: none;
 }
 
 .error>.message.warning {
-	display: block;
-	padding-left: 20px;
-	background-image: url(images/message_icons_sprite.png);
-	background-repeat: no-repeat;
-	background-position: 2px 1px;
-	clear: left;
+    display: block;
+    padding-left: 20px;
+    background-image: url(images/message_icons_sprite.png);
+    background-repeat: no-repeat;
+    background-position: 2px 1px;
+    clear: left;
 }
 
 .error.body>.message.warning {
-	margin:10px;
+    margin:10px;
 }
 
 .panel.inlay.filter .error > .message.warning {
-	max-width:200px;
-	white-space:normal;
+    max-width:200px;
+    white-space:normal;
 }
 
 .control.inline {
-	width: auto;
-	display:inline-block;
-	white-space:nowrap;
-	margin-bottom: 0;
+    width: auto;
+    display:inline-block;
+    white-space:nowrap;
+    margin-bottom: 0;
 }
 
 .control.inline>input,
 .control.inline>select {
-	width: auto;
-	margin-left: 5px;
-	margin-top: 0;
+    width: auto;
+    margin-left: 5px;
+    margin-top: 0;
 }
 
 .control.inline .launcher,
 .launcher.inline {
-	display:inline;
+    display:inline;
 }
 
 
 .control.radio.complex,
 .control.checkBox.complex {
 /* used to display a .groupBox within .control */
-	display: block;
-	height: 100%;
+    display: block;
+    height: 100%;
 }
 
 .input,
@@ -97,12 +97,12 @@ legend a {
 .textArea,
 .picker input,
 .browser {
-	width:97%
+    width:97%
 }
 
 .control,
 .picker input {
-	margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 
@@ -112,24 +112,24 @@ legend a {
 select,
 .textArea textarea,
 .control.browser input {
-	display: inherit;
-	margin-top:6px;
-	width:99%;
+    display: inherit;
+    margin-top:6px;
+    width:99%;
 }
 
 
 select  {
-	width:100%;
+    width:100%;
 }
 
 
 .input input,
 .picker input {
-	padding:2px 3px;
+    padding:2px 3px;
 }
 
 .textArea textarea {
-	padding-left:3px;
+    padding-left:3px;
 }
 
 
@@ -142,34 +142,34 @@ select  {
 
 
 .control.picker {
-	padding-right:16px;
-	white-space:nowrap;
+    padding-right:16px;
+    white-space:nowrap;
 }
 
 .picker .wrap {
-	display: block;
+    display: block;
 }
 
 
 .picker input {
-	display: inline;
-	width: 90% !important;
+    display: inline;
+    width: 90% !important;
 }
 
 .panel .picker .wrap {
-	background-color: transparent;
-	border: none;
+    background-color: transparent;
+    border: none;
 }
 
 .textArea textarea  {
-	min-height:70px;
-	resize:none;
+    min-height:70px;
+    resize:none;
 }
 
 
 .textArea.taller textarea,
 .select.taller select {
-	height:7.5em;
+    height:7.5em;
 }
 
 
@@ -178,178 +178,178 @@ input[type="password"],
 textarea,
 .control.select.multiple>select,
 .control.combo>select.button {
-	border-style: solid;
-	border-width: 1px;
-	border-top-color: #848484;
-	border-left-color: #c1c1c1;
-	border-right-color: #c1c1c1;
-	border-bottom-color: #e1e1e1;
-	background-image: url(images/input_bkgd.png);
-	background-repeat: repeat-x;
-	background-position: top left;
+    border-style: solid;
+    border-width: 1px;
+    border-top-color: #848484;
+    border-left-color: #c1c1c1;
+    border-right-color: #c1c1c1;
+    border-bottom-color: #e1e1e1;
+    background-image: url(images/input_bkgd.png);
+    background-repeat: repeat-x;
+    background-position: top left;
 }
 
 .label {
-	margin-bottom: .5em;
+    margin-bottom: .5em;
 }
 
 input[readonly],
 textarea[readonly] {
-	border:none;
-	display: inline;
-	background-image: none;
-	background-color: transparent;
+    border:none;
+    display: inline;
+    background-image: none;
+    background-color: transparent;
 }
 
 .hint {
-	margin:5px 0;
-	display: block;
+    margin:5px 0;
+    display: block;
 }
 
 
 input + label {
-	display:inline;
+    display:inline;
 }
 
 .checkBox,
 .radio {
-	margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 
 .control.browser>.wrap {
-	display: block;
+    display: block;
 }
 
 .control.browser input {
-	/* makes browse button appear inline with input */
-	/* width: 60%; */
+    /* makes browse button appear inline with input */
+    /* width: 60%; */
 }
 
 .control.browser .button.action {
-	display: inline;
-	float: right;
-	margin-top: 8px;
+    display: inline;
+    float: right;
+    margin-top: 8px;
 }
 
 .control.inline.browser input {
-	width: 100%;
+    width: 100%;
 }
 
 .list.locations .control.browser {
-	margin: 0 10px 0 20px;
-	width: auto;
+    margin: 0 10px 0 20px;
+    width: auto;
 }
 
 
 .control.checkBox,
 .control.radio {
-	white-space: normal;
+    white-space: normal;
 }
 
 .checkBox .wrap,
 .radio .wrap {
-	margin-left:20px;
-	display: inline;
+    margin-left:20px;
+    display: inline;
 }
 
 .control [type="checkbox"],
 .control [type="radio"] {
-	left:0;
-	top:0;
-	margin: 1px 0;
-	position: absolute;
+    left:0;
+    top:0;
+    margin: 1px 0;
+    position: absolute;
 }
 
 
 .checkBox input,
 .radio input {
-	width:auto !important;
+    width:auto !important;
 }
 
 .inputSet {
-	margin:0;
+    margin:0;
 }
 
 .inputSet .leaf {
-	overflow: hidden;
-	padding: 2px 0;
+    overflow: hidden;
+    padding: 2px 0;
 }
 
 .inputSet input[type="file"] {
-	display: block;
+    display: block;
 }
 
 .list .launcher {
-	display: inline;
-	margin:0;
+    display: inline;
+    margin:0;
 }
 
 .pane .multi-select {
-	position:absolute;
-	bottom:30px;
-	top:0;
+    position:absolute;
+    bottom:30px;
+    top:0;
 }
 
 .launcher {
-	display: block;
-	margin-top: 5px;
-	margin-left: 5px;
+    display: block;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
 .launcher[disabled],
 .launcher[disabled]:hover,
 .launcher[disabled]:active {
-	cursor: default;
-	color:#999;
-	text-decoration: none;
+    cursor: default;
+    color:#999;
+    text-decoration: none;
 }
 
 .radio input[type="file"] {
-	margin:5px 20px 10px;
+    margin:5px 20px 10px;
 }
 
 /* .control.pickWells */
 
 .control.pickWells {
-	height: 120px;
-	min-width: 400px !important;
+    height: 120px;
+    min-width: 400px !important;
 }
 
 .control.select.error>select,
 .control.pickWells>.control.select.error>select {
-	top:30px;
+    top:30px;
 }
 
 .control.pickWells>.control.select,
 .control.pickWells>.control.combo {
-	position: absolute;
-	top:0;
-	bottom: 0;
-	width: auto;
-	margin: 0;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    width: auto;
+    margin: 0;
 }
 
 .control.pickWells>.control.select>select {
-	position: absolute;
-	top:15px;
-	bottom: 0;
+    position: absolute;
+    top:15px;
+    bottom: 0;
 }
 
 
 .control.pickWells>.availableValues {
-	left:0;
-	right: 50%;
+    left:0;
+    right: 50%;
 }
 
 .control.pickWells>.availableValues>select {
-	bottom:0;
-	position:absolute;
-	top:40px;
+    bottom:0;
+    position:absolute;
+    top:40px;
 }
 
 .control.pickWells>.control.select.selectedValues {
-	left:51%;
-	right: 0;
+    left:51%;
+    right: 0;
 }
 
 .control.pickWells>.control.select.selectedValues>select {
@@ -360,139 +360,139 @@ input + label {
 
 
 .control.combo {
-	padding-right: 2px;
+    padding-right: 2px;
 }
 
 .control.combo>.wrap {
-	display:block;
-	margin-bottom: 5px;
+    display:block;
+    margin-bottom: 5px;
 }
 
 
 .control.combo>.control.searchLockup,
 .control.combo>select {
-	width:100%;
+    width:100%;
 }
 
 /* .path */
 
 .control.path .step,
 .control.path .label {
-	margin:0 0.4em 0 0;
-	float:left;
+    margin:0 0.4em 0 0;
+    float:left;
 }
 
 .control.path .step {
-	background: url(images/lists_sprite.png) -14px -347px no-repeat;
-	cursor: pointer;
-	padding-left:10px;
+    background: url(images/lists_sprite.png) -14px -347px no-repeat;
+    cursor: pointer;
+    padding-left:10px;
 }
 
 .control.path .step .wrap {
-	padding:0 5px;
-	line-height:normal;
+    padding:0 5px;
+    line-height:normal;
 }
 
 .control.path .step .wrap.over,
 .control.path .step .wrap.pressed {
-	text-decoration:underline;
-	background-color: transparent;
+    text-decoration:underline;
+    background-color: transparent;
 }
 
 
 .control.path .step.first {
-	background: none;
-	padding-left: none;
+    background: none;
+    padding-left: none;
 }
 
 .control.path .label,
 .control.path .step.last,
 .control.path .step.last .wrap.over,
 .control.path .step.last .wrap.pressed {
-	text-decoration: none;
-	cursor: default;
+    text-decoration: none;
+    cursor: default;
 }
 
-	
-			
+
+
 /* .tabSet */
 
 .control.tabSet .label {
-	border: none;
+    border: none;
 }
 
 .tabSet .button {
-	float: left;
-	margin-bottom: 0;
+    float: left;
+    margin-bottom: 0;
 }
 
 .tabSet.buttons .button {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 
 .tabSet.horizontal .label {
-	float: left;
-	top:0;
-	margin-right: 0;
-	padding-right: 0;
-	border-right:none;
+    float: left;
+    top:0;
+    margin-right: 0;
+    padding-right: 0;
+    border-right:none;
 }
 
 .tabSet.horizontal.text {
-	margin-bottom:20px;
+    margin-bottom:20px;
 }
 
 .tabSet.horizontal.text>.tab {
-	border-right: 1px solid #999;
+    border-right: 1px solid #999;
 }
 
 .tabSet.horizontal.text>.tab.last {
-	border-right: none;
+    border-right: none;
 }
 
 
 .tabSet.horizontal.text>.tab>.wrap {
-	background: none;
-	margin-bottom:0;
+    background: none;
+    margin-bottom:0;
 }
 
 .tabSet.horizontal.text>.tab>.wrap.over,
 .tabSet.horizontal.text>.tab>.wrap.pressed {
-	background-color: transparent;
-	text-decoration: underline;
+    background-color: transparent;
+    text-decoration: underline;
 }
 
 .tabSet.horizontal.text>.tab.selected>.wrap.over,
 .tabSet.horizontal.text>.tab.selected>.wrap.pressed {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 
 
 .tabSet.text>.label>.wrap {
-	padding:0 5px 0 0;
+    padding:0 5px 0 0;
 }
 
 .toolbar .tab.mode,
 .toolbar .tabSet.text {
-	margin: 6px 1em 0 1em;
+    margin: 6px 1em 0 1em;
 }
 
 .tabSet .selected .button.wrap {
-	cursor: default;
+    cursor: default;
 }
 
 /* .tabSet.vertical.buttons */
 
 .tabSet.vertical.buttons {
-	float:left;
-	min-width: 125px;
-	margin-right: 20px;
+    float:left;
+    min-width: 125px;
+    margin-right: 20px;
 }
 
 .tabSet.vertical.buttons .tab {
-	margin: 0;
+    margin: 0;
 }
 
 .tabSet.vertical.buttons .button {
@@ -511,28 +511,28 @@ input + label {
 /* sprite positions */
 
 .tabSet.vertical.buttons .first .button {
-	background-position: right -174px;
+    background-position: right -174px;
 }
 
 .tabSet.vertical.buttons .first .button .wrap {
-	background-position: left top;
+    background-position: left top;
 }
 
 .tabSet.vertical.buttons .button {
-	background-position: right -232px;
+    background-position: right -232px;
 }
 
 .tabSet.vertical.buttons .button .wrap {
-	background-position: left -58px;
+    background-position: left -58px;
 }
 
 
 .tabSet.vertical.buttons .last .button {
-	background-position: right -290px;
+    background-position: right -290px;
 }
 
 .tabSet.vertical.buttons .last .button .wrap {
-	background-position: left -116px;
+    background-position: left -116px;
 }
 
 /* sprite positions .tabSet.vertical.buttons.over */
@@ -541,28 +541,28 @@ input + label {
 .tabSet.vertical.buttons .selected.first .button.over,
 .tabSet.vertical.buttons .selected.first .button.pressed,
 .tabSet.vertical.buttons .first .button.over {
-	background-position: right -522px;
+    background-position: right -522px;
 }
 
 .tabSet.vertical.buttons .selected.first .button .wrap,
 .tabSet.vertical.buttons .selected.first .button.over .wrap,
 .tabSet.vertical.buttons .selected.first .button.pressed .wrap,
 .tabSet.vertical.buttons .first .button.over .wrap {
-	background-position: left -348px;
+    background-position: left -348px;
 }
 
 .tabSet.vertical.buttons .selected .button,
 .tabSet.vertical.buttons .selected .button.over,
 .tabSet.vertical.buttons .selected .button.pressed,
 .tabSet.vertical.buttons .button.over {
-	background-position: right -580px;
+    background-position: right -580px;
 }
 
 .tabSet.vertical.buttons .selected .button .wrap,
 .tabSet.vertical.buttons .selected .button.over .wrap,
 .tabSet.vertical.buttons .selected .button.pressed .wrap,
 .tabSet.vertical.buttons .button.over .wrap{
-	background-position: left -406px;
+    background-position: left -406px;
 }
 
 
@@ -570,48 +570,48 @@ input + label {
 .tabSet.vertical.buttons .selected.last .button.over,
 .tabSet.vertical.buttons .selected.last .button.pressed,
 .tabSet.vertical.buttons .last .button.over {
-	background-position: right -638px;
+    background-position: right -638px;
 }
 
 .tabSet.vertical.buttons .selected.last .button .wrap,
 .tabSet.vertical.buttons .selected.last .button.over .wrap,
 .tabSet.vertical.buttons .selected.last .button.pressed .wrap,
 .tabSet.vertical.buttons .last .button.over .wrap {
-	background-position: left -464px;
+    background-position: left -464px;
 }
 
 /* sprite positions .tabSet.vertical.buttons.pressed */
 
 .tabSet.vertical.buttons .first .button.pressed {
-	background-position: right -870px;
+    background-position: right -870px;
 }
 
 .tabSet.vertical.buttons .first .button.pressed .wrap {
-	background-position: left -694px;
+    background-position: left -694px;
 }
 
 /* .tabSet.vertical.buttons .button.up.pressed, */
 .tabSet.vertical.buttons .button.pressed  {
-	background-position: right -927px;
+    background-position: right -927px;
 }
 
 /* .tabSet.vertical.buttons .button.up.pressed .wrap */
 .tabSet.vertical.buttons .button.pressed .wrap {
-	background-position: left -753px;
+    background-position: left -753px;
 }
 
 
 .tabSet.vertical.buttons .last .button.pressed {
-	background-position: right -984px;
+    background-position: right -984px;
 }
 
 .tabSet.vertical.buttons .last .button.pressed .wrap {
-	background-position: left -812px;
+    background-position: left -812px;
 }
 
 .tabSet.vertical.buttons .button {
-	display: block;
-	float:none;
+    display: block;
+    float:none;
 }
 
 
@@ -619,32 +619,32 @@ input + label {
 /* .tabSet.horizontal.buttons */
 
 .tabSet.horizontal.buttons li {
-	border-right: none;
+    border-right: none;
 }
 
 .tabSet.horizontal.buttons {
-	float:left;
-	z-index: 10;
-	position: relative;
-	background-color:#eee;
-	background-image: url("images/tabs_horizontal_buttons_bkgd.png");
-	background-repeat: repeat-x;
-	background-position: left top;
-	border-top:1px solid #b5b5b5;
-	height:25px;
-	padding:0px 20px 7px;
-	margin-bottom: 0;
+    float:left;
+    z-index: 10;
+    position: relative;
+    background-color:#eee;
+    background-image: url("images/tabs_horizontal_buttons_bkgd.png");
+    background-repeat: repeat-x;
+    background-position: left top;
+    border-top:1px solid #b5b5b5;
+    height:25px;
+    padding:0px 20px 7px;
+    margin-bottom: 0;
 }
 
 .tabs>.tabSet.horizontal.buttons {
-	float:none;
+    float:none;
 }
 
 .tabSet.horizontal.buttons li {
-	margin: 0;
-	border: none;
-	padding:0;
-	height:31px;
+    margin: 0;
+    border: none;
+    padding:0;
+    height:31px;
 }
 
 .tabSet.horizontal.buttons .button {
@@ -674,11 +674,11 @@ input + label {
 
 
 .tabSet.horizontal.buttons .button {
-	background-position: left 100px;
+    background-position: left 100px;
 }
 
 .tabSet.horizontal.buttons .button .wrap {
-	background-position: left 100px;
+    background-position: left 100px;
 }
 
 
@@ -688,129 +688,129 @@ input + label {
 .tabSet.horizontal.buttons .selected .button .wrap,
 .tabSet.horizontal.buttons .selected .button.over .wrap,
 .tabSet.horizontal.buttons .selected .button.pressed .wrap {
-	background-position: left top;
+    background-position: left top;
 }
 
 .tabSet.horizontal.buttons .selected .button,
 .tabSet.horizontal.buttons .selected .button.over,
 .tabSet.horizontal.buttons .selected .button.pressed {
-	background-position: right -41px;
+    background-position: right -41px;
 }
 
 
 /* sprite positions .tabSet.horizontal.buttons .over */
 
 .tabSet.horizontal.buttons .button.over {
-	background-position: right -123px;
+    background-position: right -123px;
 }
 
 .tabSet.horizontal.buttons .button.over .wrap{
-	background-position: left -82px;
+    background-position: left -82px;
 }
 
 
 /* sprite positions .tabSet.horizontal.buttons .pressed */
 
 .tabSet.horizontal.buttons .button.pressed {
-	background-position: right -205px;
+    background-position: right -205px;
 }
 
 .tabSet.horizontal.buttons .button.pressed .wrap{
-	background-position: left -164px;
+    background-position: left -164px;
 }
 
 /* search lockups */
 
 .searchLockup {
-	position:relative;
-	height: auto;
-	display: inline-block;
-	white-space: nowrap;
-	min-height:22px;
-	min-width: 130px;
-	margin-bottom: 0
+    position:relative;
+    height: auto;
+    display: inline-block;
+    white-space: nowrap;
+    min-height:22px;
+    min-width: 130px;
+    margin-bottom: 0
 }
 
 .searchLockup>label {
-	display:block;
-	margin-bottom:5px;
+    display:block;
+    margin-bottom:5px;
 }
 
 .control.searchLockup>.wrap {
-	left:0 !important;
-	padding-right:79px;
-	position:absolute;
-	right:0;
+    left:0 !important;
+    padding-right:79px;
+    position:absolute;
+    right:0;
 }
 
 
 .control.searchLockup>.wrap>input[type=text] {
-	width:100%;
-	background:transparent url(images/search_sprite.png) no-repeat scroll 0 0;
-	border: none;
-	padding:4px 5px 5px 12px;
-	display: inline-block;
+    width:100%;
+    background:transparent url(images/search_sprite.png) no-repeat scroll 0 0;
+    border: none;
+    padding:4px 5px 5px 12px;
+    display: inline-block;
 }
 
 .control.searchLockup>.right {
-	position:absolute;
-	right:40px;
-	background:transparent url(images/search_sprite.png) no-repeat scroll right -43px;
-	display:inline-block;
-	height: 22px;
-	width: 22px;
-	top:0;
+    position:absolute;
+    right:40px;
+    background:transparent url(images/search_sprite.png) no-repeat scroll right -43px;
+    display:inline-block;
+    height: 22px;
+    width: 22px;
+    top:0;
 }
 
 .control.searchLockup>.button.search {
-	position:absolute;
-	right:0;
-	top:0;
-	margin: 0;
-	text-indent: -9999px;
+    position:absolute;
+    right:0;
+    top:0;
+    margin: 0;
+    text-indent: -9999px;
 }
 
 .button.searchClear {
-	height:15px;
-	width:15px;
-	top:4px;
-	background-image: url(images/search_sprite.png);
-	background-repeat: no-repeat;
-	background-position: -185px -165px;
-	display: none;
-	position: absolute;
-	margin:0;
-	text-indent: -9999px;
+    height:15px;
+    width:15px;
+    top:4px;
+    background-image: url(images/search_sprite.png);
+    background-repeat: no-repeat;
+    background-position: -185px -165px;
+    display: none;
+    position: absolute;
+    margin:0;
+    text-indent: -9999px;
 }
 
 .button.searchClear.up {
-	background-position: 0px -165px;
-	display: block;
+    background-position: 0px -165px;
+    display: block;
 }
 
 .button.searchClear.over{
-	background-position: -64px -165px;
+    background-position: -64px -165px;
 }
 
 .button.searchClear.pressed {
-	background-position: -132px -165px;
+    background-position: -132px -165px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 /* Safari and Google Chrome only */
-	.searchLockup>.wrap {
-		top:-2px;
-	}	
+    .searchLockup>.wrap {
+        top:-2px;
+    }
 }
 
 .header>.searchLockup {
-	left:20px;
-	position:relative;
-	top:7px;
+    left:20px;
+    position:relative;
+    top:7px;
 }
 
 .header>.searchLockup {
-	width:250px;
+    width:250px;
 }
 
 
@@ -823,129 +823,129 @@ input + label {
 /* .groupBox */
 
 .groupBox.scrollable {
-	bottom:15px;
-	left:15px;
-	position:absolute;
-	right:16px;
-	top:18px;
+    bottom:15px;
+    left:15px;
+    position:absolute;
+    right:16px;
+    top:18px;
 }
 
 .groupBox.scrollable > .content {
-	bottom:0;
-	left:0;
-	position:absolute;
-	right:0;
-	top:-13px;
+    bottom:0;
+    left:0;
+    position:absolute;
+    right:0;
+    top:-13px;
 }
 
 .groupBox.scrollable > .content > .body {
-	border-bottom:1px solid #F0F0F0;
-	border-top:1px solid #F0F0F0;
-	bottom:10px;
-	padding:0;
-	position:absolute;
-	top:25px;
+    border-bottom:1px solid #F0F0F0;
+    border-top:1px solid #F0F0F0;
+    bottom:10px;
+    padding:0;
+    position:absolute;
+    top:25px;
 }
 
 .groupBox {
-	float: left;
-	margin:2px 8px 8px 2px; /* moves visual top and left to actual */
-	position: relative;
+    float: left;
+    margin:2px 8px 8px 2px; /* moves visual top and left to actual */
+    position: relative;
 }
 
 .groupBox .groupBox {
-	background-image: url(images/panel_inset_inset_bkgd.png);
-	width: 100%;
-	margin-bottom:15px;
+    background-image: url(images/panel_inset_inset_bkgd.png);
+    width: 100%;
+    margin-bottom:15px;
 }
 
 .groupBox>.corner {
-	height: 15px;
-	width: 15px;
-	background-image: url(images/panel_inset_bkgd_corners.png);
-	background-repeat: no-repeat;
+    height: 15px;
+    width: 15px;
+    background-image: url(images/panel_inset_bkgd_corners.png);
+    background-repeat: no-repeat;
 }
 
 .groupBox>.edge.rl {
-	top:12px;
-	bottom: 5px;
-	width: 15px;
-	background-image: url(images/panel_inset_bkgd_edges_rl.png);
-	background-repeat: repeat-y;
+    top:12px;
+    bottom: 5px;
+    width: 15px;
+    background-image: url(images/panel_inset_bkgd_edges_rl.png);
+    background-repeat: repeat-y;
 }
 
 .groupBox>.edge.tb {
-	left:12px;
-	right: 6px;
-	height: 15px;
-	background-image: url(images/panel_inset_bkgd_edges_tb.png);
-	background-repeat: repeat-x;	
+    left:12px;
+    right: 6px;
+    height: 15px;
+    background-image: url(images/panel_inset_bkgd_edges_tb.png);
+    background-repeat: repeat-x;
 }
 
 .groupBox>.corner.top {
-	top:-3px;
+    top:-3px;
 }
 
 .groupBox>.corner.bottom {
-	bottom:-10px;
+    bottom:-10px;
 }
 
 .groupBox>.corner.left {
-	left:-3px;
+    left:-3px;
 }
 
 .groupBox>.corner.right {
-	right:-9px;
+    right:-9px;
 }
 
 .groupBox>.edge.rl.left {
-	left:-3px;
-	right: auto;
-	background-position: top left;
+    left:-3px;
+    right: auto;
+    background-position: top left;
 }
 
 .groupBox>.edge.rl.right {
-	right:-9px;
-	left: auto;
-	background-position: top right;
+    right:-9px;
+    left: auto;
+    background-position: top right;
 }
 
 .groupBox>.edge.tb.top {
-	top:-3px;
-	bottom: auto;
-	background-position: top left;
+    top:-3px;
+    bottom: auto;
+    background-position: top left;
 }
 
 .groupBox>.edge.tb.bottom {
-	bottom:-10px;
-	top: auto;
-	background-position: bottom left;
+    bottom:-10px;
+    top: auto;
+    background-position: bottom left;
 }
 
 .groupBox>.content {
 /* set coordinates to visual (0,0,0,0) of .column.decorated background,
    as this object used as reference for positioning
    child objects */
-	left:-1px;
-	margin-right:-10px;
-	position:relative;
-	top:-2px;
+    left:-1px;
+    margin-right:-10px;
+    position:relative;
+    top:-2px;
 }
 
 .groupBox .body {
-	position: relative;
-	overflow:auto;
-	padding:10px 10px 0;
-	margin:auto 2px auto 1px;
+    position: relative;
+    overflow:auto;
+    padding:10px 10px 0;
+    margin:auto 2px auto 1px;
 }
 
 .groupBox>.content>.header,
 .groupBox>.content>.footer {
-	display: none;
+    display: none;
 }
 
 .groupBox.fillParent {
-	float:none;
+    float:none;
 }
 
 /* #sortMode */
@@ -961,19 +961,19 @@ input + label {
 /* .control.paging */
 
 .control.paging {
-	float: left;
+    float: left;
 }
 
 .control.paging .input {
-	top:-10px;
+    top:-10px;
 }
 
 .control.paging input {
-	width: 30px;
+    width: 30px;
 }
 
 .control.paging .button {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 /*
@@ -1015,7 +1015,7 @@ http://www.dynarch.com/projects/calendar/old/
 
 .calendar td,
 .calendar th {
-	border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 /* Header part -- contains navigation buttons and day names. */
@@ -1036,38 +1036,38 @@ http://www.dynarch.com/projects/calendar/old/
 }
 
 .calendar td {
-	 padding: 3px;
-	 /* border: 2px solid transparent; */
+     padding: 3px;
+     /* border: 2px solid transparent; */
 }
 
 .calendar .ttip,
 .calendar thead .title,
 .calendar thead .button {
-	background-color: #217EB5;
-	color:#fff;
+    background-color: #217EB5;
+    color:#fff;
 }
 
 .calendar thead .headrow td,
 .calendar tr.time td {
-	background-color: #4698BE;
-	color:#fff;
+    background-color: #4698BE;
+    color:#fff;
 }
 
 .calendar thead .daynames td,
 .calendar td.day.wn {
-	color:#333;
-	border-color: #ccc;
-	border-width: 0;
-	border-bottom-style: solid;
+    color:#333;
+    border-color: #ccc;
+    border-width: 0;
+    border-bottom-style: solid;
 }
 
 .calendar thead .daynames td {
-	border-bottom-width:1px;
+    border-bottom-width:1px;
 }
 
 .calendar td.day.wn,
 .calendar td.name.wn {
-	border-right-width: 1px;
+    border-right-width: 1px;
 }
 
 
@@ -1121,13 +1121,13 @@ http://www.dynarch.com/projects/calendar/old/
 
 .calendar tbody td.hilite,
 .calendar .combo .hilite { /* Hovered cells <TD> */
-	background-color: #efefef;
+    background-color: #efefef;
 }
 
 .calendar tbody td.active,
 .calendar .combo .active { /* Active (pressed) cells <TD> */
-	background-color: #999;
-	color:#fff;
+    background-color: #999;
+    color:#fff;
 }
 
 .calendar tbody td.selected { /* Cell showing selected date */

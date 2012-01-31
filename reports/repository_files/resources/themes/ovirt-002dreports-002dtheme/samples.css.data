@@ -6,73 +6,73 @@ for the sample pages
 
 
 #sampleGrid {
-	margin:10px;
+    margin:10px;
 }
 
 #sampleGrid td,
 #sampleGrid th {
-	padding:15px;
-	border:1px solid #e0e0e0;
-	width: 200px;
+    padding:15px;
+    border:1px solid #e0e0e0;
+    width: 200px;
 }
 
 
 #sampleGrid #calendarSample td,
 #sampleGrid #calendarSample td{
-	padding: 3px;
-	border: inherit;
+    padding: 3px;
+    border: inherit;
 }
 
 
 .rowHeader {
-	width:100px;
-	text-align: right;
-	background: none;
+    width:100px;
+    text-align: right;
+    background: none;
 }
 
 tr#frame {
-	position: static;
-	background: none;
+    position: static;
+    background: none;
 }
 
 td.example {
-	vertical-align: top;
-	position: relative;
+    vertical-align: top;
+    position: relative;
 }
 
 .positioningContext {
-	position: relative;
+    position: relative;
 }
 
 #sampleGrid td.noPadding {
-	padding: 0;
+    padding: 0;
 }
 
 .toolbar td {
-	vertical-align: middle;
-	padding:0;
+    vertical-align: middle;
+    padding:0;
 }
 
 .footer.container td {
-	background-color: #E6E6E6;
+    background-color: #E6E6E6;
 }
 
 @-moz-document url-prefix() {
-	.toolbar.container td {
-    	height:38px;
-	}
+    .toolbar.container td {
+        height:38px;
+    }
 }
 
 #panels .panel {
-	position: relative;
+    position: relative;
 }
 
 #dialogs .dialog {
-	position: relative;
-	left:0 !important;
-	top:0 !important;
-	margin-left: 0 !important;
-	margin-top: 0 !important;
+    position: relative;
+    left:0 !important;
+    top:0 !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
 }
 
 /* iPads (portrait and landscape) */
@@ -80,68 +80,68 @@ td.example {
 and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 
-	#dialogs .dialog.overlay.addUser > .content > .footer>.action {
-		top:-34px;
-	}
+    #dialogs .dialog.overlay.addUser > .content > .footer>.action {
+        top:-34px;
+    }
 }
 
 #chooseSource {
-	position: relative;
-	top:auto;
+    position: relative;
+    top:auto;
 }
 
 #addResource .dialog {
-	position: relative;
+    position: relative;
 }
 
 .toolbar.container.labelsAndIcons td{
-	height:50px;
+    height:50px;
 }
 
 #sample {
-	background-image: url(themes/pods/images/sampleIcon_20x20.png);
+    background-image: url(themes/pods/images/sampleIcon_20x20.png);
 }
 
 button #inputs {
-	background-image: url(images/icons/button_filter.png);
+    background-image: url(images/icons/button_filter.png);
 }
 
 #sampleGrid .menu.vertical {
-	position:relative;
+    position:relative;
 }
 
 #sampleGrid .sub.menu {
-	position:absolute;
+    position:absolute;
 }
 
 #sampleGrid .toolbar>button {
-	/* top:0; */
+    /* top:0; */
 }
 
 .horizontalNav .header {
-	position: relative;
-	height:35px;
-	line-height: 35px;
-	-moz-border-top-left-radius: 10px;
-	-webkit-border-top-left-radius: 10px;
-	border-top-left-radius: 10px;
-	background: -webkit-gradient(linear, left top, left bottom, from(#3fb8fa), to(#2881bb));
-	background: -moz-linear-gradient(top,#3fb8fa,#2881bb);
+    position: relative;
+    height:35px;
+    line-height: 35px;
+    -moz-border-top-left-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3fb8fa), to(#2881bb));
+    background: -moz-linear-gradient(top,#3fb8fa,#2881bb);
 }
 
 .horizontalNav .header *{
-	height:35px;
-	line-height: 35px;	
+    height:35px;
+    line-height: 35px;
 }
 
 .menu.horizontal {
-	top:0;
-	left:0;
+    top:0;
+    left:0;
 }
 
 #panels .pane {
-	/* height:200px; */
-	margin:0;
+    /* height:200px; */
+    margin:0;
 }
 
 

@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR6" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isTitleNewPage="true" resourceBundle="ovirt_reports_bundle">
-	<property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<style name="Line Style">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
-			<style mode="Opaque" backcolor="#EFF3FF"/>
-		</conditionalStyle>
-	</style>
-	<subDataset name="pies">
-		<parameter name="P_MEM_Threshold" class="java.lang.Integer">
-			<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Cluster_ID" class="java.lang.String">
-			<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Dates" class="java.lang.String">
-			<parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-			<defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Period" class="java.lang.String">
-			<parameterDescription><![CDATA[Period]]></parameterDescription>
-		</parameter>
-		<parameter name="P_Host_Type" class="java.lang.Integer">
-			<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_CPU_Threshold" class="java.lang.Integer">
-			<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_DataCenter_ID" class="java.lang.String">
-			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Start_Date" class="java.lang.String">
-			<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_End_Date" class="java.lang.String">
-			<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="active_hosts_select" class="java.lang.String">
-			<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-		</parameter>
-		<queryString>
-			<![CDATA[-- Cluster aggregation level
+    <property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <style name="Line Style">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
+            <style mode="Opaque" backcolor="#EFF3FF"/>
+        </conditionalStyle>
+    </style>
+    <subDataset name="pies">
+        <parameter name="P_MEM_Threshold" class="java.lang.Integer">
+            <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Cluster_ID" class="java.lang.String">
+            <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Dates" class="java.lang.String">
+            <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
+            <defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Period" class="java.lang.String">
+            <parameterDescription><![CDATA[Period]]></parameterDescription>
+        </parameter>
+        <parameter name="P_Host_Type" class="java.lang.Integer">
+            <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_CPU_Threshold" class="java.lang.Integer">
+            <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_DataCenter_ID" class="java.lang.String">
+            <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Start_Date" class="java.lang.String">
+            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_End_Date" class="java.lang.String">
+            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="active_hosts_select" class="java.lang.String">
+            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        </parameter>
+        <queryString>
+            <![CDATA[-- Cluster aggregation level
 --------
 -- BR6 - Hosts performance above thresholds
 SELECT COALESCE(avg(cpu_below),0) as cpu_below, COALESCE(avg(cpu_above),0) as cpu_above, COALESCE(avg(mem_below),0) as mem_below, COALESCE(avg(mem_above),0) as mem_above
@@ -93,54 +93,54 @@ FROM (SELECT sum(CASE
                     AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
                     $P!{active_hosts_select}) a
       GROUP BY host_id) as t]]>
-		</queryString>
-		<field name="cpu_below" class="java.math.BigDecimal"/>
-		<field name="cpu_above" class="java.math.BigDecimal"/>
-		<field name="mem_below" class="java.math.BigDecimal"/>
-		<field name="mem_above" class="java.math.BigDecimal"/>
-	</subDataset>
-	<parameter name="P_DataCenter_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Cluster_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Period" class="java.lang.String">
-		<parameterDescription><![CDATA[Period]]></parameterDescription>
-		<defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Dates" class="java.lang.String">
-		<parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-	</parameter>
-	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Host_Type" class="java.lang.Integer">
-		<parameterDescription><![CDATA[Select Host Type]]></parameterDescription>
-		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_CPU_Threshold" class="java.lang.Integer">
-		<parameterDescription><![CDATA[Set a CPU Threshold]]></parameterDescription>
-		<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_MEM_Threshold" class="java.lang.Integer">
-		<parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
-		<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_End_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Start_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="active_hosts_select" class="java.lang.String">
-		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT *
+        </queryString>
+        <field name="cpu_below" class="java.math.BigDecimal"/>
+        <field name="cpu_above" class="java.math.BigDecimal"/>
+        <field name="mem_below" class="java.math.BigDecimal"/>
+        <field name="mem_above" class="java.math.BigDecimal"/>
+    </subDataset>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Cluster_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Dates" class="java.lang.String">
+        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
+    </parameter>
+    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Host_Type" class="java.lang.Integer">
+        <parameterDescription><![CDATA[Select Host Type]]></parameterDescription>
+        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_CPU_Threshold" class="java.lang.Integer">
+        <parameterDescription><![CDATA[Set a CPU Threshold]]></parameterDescription>
+        <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_MEM_Threshold" class="java.lang.Integer">
+        <parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
+        <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_End_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="active_hosts_select" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT *
 FROM   (SELECT cluster_id,
                host_id,
                host_name,
@@ -166,7 +166,7 @@ FROM   (SELECT cluster_id,
                                minutes_in_status
                FROM v3_0_host_hourly_history_view
                         INNER JOIN v3_0_host_configuration_view
-		       ON (v3_0_host_hourly_history_view.host_id = v3_0_host_configuration_view.host_id)
+               ON (v3_0_host_hourly_history_view.host_id = v3_0_host_configuration_view.host_id)
                WHERE v3_0_host_hourly_history_view.host_status = 1
                      AND v3_0_host_configuration_view.cluster_id in (SELECT cluster_id
                                                                    FROM v3_0_cluster_configuration_view
@@ -192,474 +192,474 @@ FROM   (SELECT cluster_id,
                   is_delete,
                   host_delete_only_date) as t
 ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 0 THEN 1 ELSE 0 END) ASC, t.is_delete ASC, (cast(t.time_above_cpu_threshold as float)/cast(t.overall_host_time as float))*100 + (cast(t.time_above_mem_threshold as float)/cast(t.overall_host_time as float))*100 DESC]]>
-	</queryString>
-	<field name="cluster_id" class="java.lang.Object"/>
-	<field name="host_id" class="java.lang.Object"/>
-	<field name="host_name" class="java.lang.String"/>
-	<field name="is_delete" class="java.lang.Boolean"/>
-	<field name="host_delete_only_date" class="java.sql.Date"/>
-	<field name="time_above_cpu_threshold" class="java.math.BigDecimal"/>
-	<field name="time_above_mem_threshold" class="java.math.BigDecimal"/>
-	<field name="overall_host_time" class="java.math.BigDecimal"/>
-	<variable name="total_CPU" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
-		<variableExpression><![CDATA[$F{time_above_cpu_threshold}]]></variableExpression>
-	</variable>
-	<variable name="total_MEM" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
-		<variableExpression><![CDATA[$F{time_above_mem_threshold}]]></variableExpression>
-	</variable>
-	<variable name="presentage_avg_cpu" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
-		<variableExpression><![CDATA[(($F{time_above_cpu_threshold}/$F{overall_host_time})*100).intValue()]]></variableExpression>
-	</variable>
-	<variable name="presentage_avg_mem" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
-		<variableExpression><![CDATA[(($F{time_above_mem_threshold}/$F{overall_host_time})*100).intValue()]]></variableExpression>
-	</variable>
-	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
-	</variable>
-	<group name="Cluster">
-		<groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
-		<groupHeader>
-			<band height="20">
-				<subreport>
-					<reportElement x="0" y="0" width="832" height="18"/>
-					<subreportParameter name="P_Cluster_ID">
-						<subreportParameterExpression><![CDATA[$F{cluster_id} == null ? $P{P_Cluster_ID} : $F{cluster_id}.toString()]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA["repo:header cluster name.jrxml"]]></subreportExpression>
-				</subreport>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="20">
-				<printWhenExpression><![CDATA[($V{total_CPU} != 0 && $V{total_CPU} != null) || ($V{total_MEM} != 0 && $V{total_MEM} != null)]]></printWhenExpression>
-				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="832" height="20" backcolor="#B5C5D5"/>
-					<box>
-						<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
-					</box>
-					<textField>
-						<reportElement x="12" y="0" width="410" height="20" forecolor="#000000"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{b6.table.cluster.average}]]></textFieldExpression>
-					</textField>
-					<frame>
-						<reportElement x="449" y="0" width="118" height="20"/>
-						<textField>
-							<reportElement x="0" y="0" width="25" height="20">
-								<printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="26" y="0" width="25" height="20">
-								<printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0 || (($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[(($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="52" y="0" width="25" height="20">
-								<printWhenExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="78" y="0" width="40" height="20">
-								<printWhenExpression><![CDATA[$V{presentage_avg_cpu} != null]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA["(" + $V{presentage_avg_cpu}.intValue().toString() + "%)"]]></textFieldExpression>
-						</textField>
-					</frame>
-					<frame>
-						<reportElement x="600" y="0" width="118" height="20"/>
-						<textField>
-							<reportElement x="0" y="0" width="25" height="20">
-								<printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="26" y="0" width="25" height="20">
-								<printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0 || (($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[(($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="52" y="0" width="25" height="20">
-								<printWhenExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="78" y="0" width="40" height="20">
-								<printWhenExpression><![CDATA[$V{presentage_avg_mem} != null]]></printWhenExpression>
-							</reportElement>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="DejaVu Sans" size="10" isBold="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA["(" + $V{presentage_avg_mem}.intValue().toString() + "%)"]]></textFieldExpression>
-						</textField>
-					</frame>
-				</frame>
-			</band>
-		</groupFooter>
-	</group>
-	<group name="Datacenter" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
-		<groupHeader>
-			<band height="40">
-				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="832" height="40" backcolor="#D8E2FF"/>
-					<box>
-						<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
-					</box>
-					<textField>
-						<reportElement x="12" y="0" width="410" height="40" forecolor="#000000"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br6.table.host.name}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="743" y="0" width="81" height="40" forecolor="#000000"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true" isPdfEmbedded="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br6.table.delete.date}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="600" y="0" width="118" height="40" forecolor="#000000"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br6.table.time.above.memory.threshold}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="462" y="0" width="94" height="40" forecolor="#000000"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br6.table.time.above.cpu.threshold}]]></textFieldExpression>
-					</textField>
-				</frame>
-			</band>
-		</groupHeader>
-	</group>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="496" splitType="Stretch">
-			<subreport>
-				<reportElement x="0" y="45" width="832" height="89" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="active_hosts_select">
-					<subreportParameterExpression><![CDATA[$P{active_hosts_select}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_Cluster_ID">
-					<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_Period">
-					<subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_DataCenter_ID">
-					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_CPU_Threshold">
-					<subreportParameterExpression><![CDATA[$P{P_CPU_Threshold}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_MEM_Threshold">
-					<subreportParameterExpression><![CDATA[$P{P_MEM_Threshold}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_Start_Date">
-					<subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_Dates">
-					<subreportParameterExpression><![CDATA[$P{P_Dates}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_Host_Type">
-					<subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_End_Date">
-					<subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["repo:full details br13.jrxml"]]></subreportExpression>
-			</subreport>
-			<pieChart>
-				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
-					<reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="137" width="410" height="355" forecolor="#000000"/>
-					<box>
-						<pen lineWidth="1.0" lineColor="#3C617F"/>
-						<topPen lineWidth="1.0" lineColor="#3C617F"/>
-						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
-						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
-					</box>
-					<chartTitle color="#3A5E75">
-						<font fontName="DejaVu Sans" size="13"/>
-						<titleExpression><![CDATA[$R{br6.chart.cpu}]]></titleExpression>
-					</chartTitle>
-					<chartSubtitle>
-						<font fontName="Arial" size="8"/>
-					</chartSubtitle>
-					<chartLegend position="Bottom">
-						<font fontName="DejaVu Sans"/>
-					</chartLegend>
-				</chart>
-				<pieDataset>
-					<dataset>
-						<datasetRun subDataset="pies">
-							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-						</datasetRun>
-					</dataset>
-					<pieSeries>
-						<keyExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+    </queryString>
+    <field name="cluster_id" class="java.lang.Object"/>
+    <field name="host_id" class="java.lang.Object"/>
+    <field name="host_name" class="java.lang.String"/>
+    <field name="is_delete" class="java.lang.Boolean"/>
+    <field name="host_delete_only_date" class="java.sql.Date"/>
+    <field name="time_above_cpu_threshold" class="java.math.BigDecimal"/>
+    <field name="time_above_mem_threshold" class="java.math.BigDecimal"/>
+    <field name="overall_host_time" class="java.math.BigDecimal"/>
+    <variable name="total_CPU" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
+        <variableExpression><![CDATA[$F{time_above_cpu_threshold}]]></variableExpression>
+    </variable>
+    <variable name="total_MEM" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
+        <variableExpression><![CDATA[$F{time_above_mem_threshold}]]></variableExpression>
+    </variable>
+    <variable name="presentage_avg_cpu" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
+        <variableExpression><![CDATA[(($F{time_above_cpu_threshold}/$F{overall_host_time})*100).intValue()]]></variableExpression>
+    </variable>
+    <variable name="presentage_avg_mem" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
+        <variableExpression><![CDATA[(($F{time_above_mem_threshold}/$F{overall_host_time})*100).intValue()]]></variableExpression>
+    </variable>
+    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+        <initialValueExpression><![CDATA[]]></initialValueExpression>
+    </variable>
+    <group name="Cluster">
+        <groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
+        <groupHeader>
+            <band height="20">
+                <subreport>
+                    <reportElement x="0" y="0" width="832" height="18"/>
+                    <subreportParameter name="P_Cluster_ID">
+                        <subreportParameterExpression><![CDATA[$F{cluster_id} == null ? $P{P_Cluster_ID} : $F{cluster_id}.toString()]]></subreportParameterExpression>
+                    </subreportParameter>
+                    <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    <subreportExpression><![CDATA["repo:header cluster name.jrxml"]]></subreportExpression>
+                </subreport>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="20">
+                <printWhenExpression><![CDATA[($V{total_CPU} != 0 && $V{total_CPU} != null) || ($V{total_MEM} != 0 && $V{total_MEM} != null)]]></printWhenExpression>
+                <frame>
+                    <reportElement mode="Opaque" x="0" y="0" width="832" height="20" backcolor="#B5C5D5"/>
+                    <box>
+                        <rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+                    </box>
+                    <textField>
+                        <reportElement x="12" y="0" width="410" height="20" forecolor="#000000"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{b6.table.cluster.average}]]></textFieldExpression>
+                    </textField>
+                    <frame>
+                        <reportElement x="449" y="0" width="118" height="20"/>
+                        <textField>
+                            <reportElement x="0" y="0" width="25" height="20">
+                                <printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="26" y="0" width="25" height="20">
+                                <printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0 || (($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[(($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="52" y="0" width="25" height="20">
+                                <printWhenExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="78" y="0" width="40" height="20">
+                                <printWhenExpression><![CDATA[$V{presentage_avg_cpu} != null]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA["(" + $V{presentage_avg_cpu}.intValue().toString() + "%)"]]></textFieldExpression>
+                        </textField>
+                    </frame>
+                    <frame>
+                        <reportElement x="600" y="0" width="118" height="20"/>
+                        <textField>
+                            <reportElement x="0" y="0" width="25" height="20">
+                                <printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="26" y="0" width="25" height="20">
+                                <printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0 || (($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[(($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="52" y="0" width="25" height="20">
+                                <printWhenExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement x="78" y="0" width="40" height="20">
+                                <printWhenExpression><![CDATA[$V{presentage_avg_mem} != null]]></printWhenExpression>
+                            </reportElement>
+                            <textElement textAlignment="Right" verticalAlignment="Middle">
+                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA["(" + $V{presentage_avg_mem}.intValue().toString() + "%)"]]></textFieldExpression>
+                        </textField>
+                    </frame>
+                </frame>
+            </band>
+        </groupFooter>
+    </group>
+    <group name="Datacenter" isReprintHeaderOnEachPage="true">
+        <groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
+        <groupHeader>
+            <band height="40">
+                <frame>
+                    <reportElement mode="Opaque" x="0" y="0" width="832" height="40" backcolor="#D8E2FF"/>
+                    <box>
+                        <rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+                    </box>
+                    <textField>
+                        <reportElement x="12" y="0" width="410" height="40" forecolor="#000000"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br6.table.host.name}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="743" y="0" width="81" height="40" forecolor="#000000"/>
+                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true" isPdfEmbedded="false"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br6.table.delete.date}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="600" y="0" width="118" height="40" forecolor="#000000"/>
+                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br6.table.time.above.memory.threshold}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="462" y="0" width="94" height="40" forecolor="#000000"/>
+                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br6.table.time.above.cpu.threshold}]]></textFieldExpression>
+                    </textField>
+                </frame>
+            </band>
+        </groupHeader>
+    </group>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="496" splitType="Stretch">
+            <subreport>
+                <reportElement x="0" y="45" width="832" height="89" isPrintWhenDetailOverflows="true"/>
+                <subreportParameter name="active_hosts_select">
+                    <subreportParameterExpression><![CDATA[$P{active_hosts_select}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_Period">
+                    <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_DataCenter_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_CPU_Threshold">
+                    <subreportParameterExpression><![CDATA[$P{P_CPU_Threshold}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_MEM_Threshold">
+                    <subreportParameterExpression><![CDATA[$P{P_MEM_Threshold}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_Start_Date">
+                    <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_Dates">
+                    <subreportParameterExpression><![CDATA[$P{P_Dates}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_Host_Type">
+                    <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_End_Date">
+                    <subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression><![CDATA["repo:full details br13.jrxml"]]></subreportExpression>
+            </subreport>
+            <pieChart>
+                <chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
+                    <reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="137" width="410" height="355" forecolor="#000000"/>
+                    <box>
+                        <pen lineWidth="1.0" lineColor="#3C617F"/>
+                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
+                    </box>
+                    <chartTitle color="#3A5E75">
+                        <font fontName="DejaVu Sans" size="13"/>
+                        <titleExpression><![CDATA[$R{br6.chart.cpu}]]></titleExpression>
+                    </chartTitle>
+                    <chartSubtitle>
+                        <font fontName="Arial" size="8"/>
+                    </chartSubtitle>
+                    <chartLegend position="Bottom">
+                        <font fontName="DejaVu Sans"/>
+                    </chartLegend>
+                </chart>
+                <pieDataset>
+                    <dataset>
+                        <datasetRun subDataset="pies">
+                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                        </datasetRun>
+                    </dataset>
+                    <pieSeries>
+                        <keyExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.above.threshold} + ": " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-						<valueExpression><![CDATA[$F{cpu_above}]]></valueExpression>
-						<sectionHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        <valueExpression><![CDATA[$F{cpu_above}]]></valueExpression>
+                        <sectionHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.above.threshold} + ": " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-						</sectionHyperlink>
-					</pieSeries>
-					<pieSeries>
-						<keyExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        </sectionHyperlink>
+                    </pieSeries>
+                    <pieSeries>
+                        <keyExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.below.threshold} + ": " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-						<valueExpression><![CDATA[$F{cpu_below}]]></valueExpression>
-						<sectionHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        <valueExpression><![CDATA[$F{cpu_below}]]></valueExpression>
+                        <sectionHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.below.threshold} + ": " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-						</sectionHyperlink>
-					</pieSeries>
-				</pieDataset>
-				<piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
-					<plot>
-						<seriesColor seriesOrder="0" color="#6EC000"/>
-						<seriesColor seriesOrder="1" color="#FF0000"/>
-					</plot>
-					<itemLabel color="#000000" backgroundColor="#FFFFFF">
-						<font fontName="DejaVu Sans"/>
-					</itemLabel>
-				</piePlot>
-			</pieChart>
-			<pieChart>
-				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
-					<reportElement isPrintRepeatedValues="false" mode="Opaque" x="422" y="137" width="410" height="355"/>
-					<box>
-						<pen lineWidth="1.0" lineColor="#3C617F"/>
-						<topPen lineWidth="1.0" lineColor="#3C617F"/>
-						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
-						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
-					</box>
-					<chartTitle color="#3A5E75">
-						<font fontName="DejaVu Sans" size="13"/>
-						<titleExpression><![CDATA[$R{br6.chart.memory}]]></titleExpression>
-					</chartTitle>
-					<chartSubtitle>
-						<font fontName="Arial" size="8"/>
-					</chartSubtitle>
-					<chartLegend position="Bottom">
-						<font fontName="DejaVu Sans"/>
-					</chartLegend>
-				</chart>
-				<pieDataset>
-					<dataset>
-						<datasetRun subDataset="pies">
-							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-						</datasetRun>
-					</dataset>
-					<pieSeries>
-						<keyExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        </sectionHyperlink>
+                    </pieSeries>
+                </pieDataset>
+                <piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
+                    <plot>
+                        <seriesColor seriesOrder="0" color="#6EC000"/>
+                        <seriesColor seriesOrder="1" color="#FF0000"/>
+                    </plot>
+                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
+                        <font fontName="DejaVu Sans"/>
+                    </itemLabel>
+                </piePlot>
+            </pieChart>
+            <pieChart>
+                <chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
+                    <reportElement isPrintRepeatedValues="false" mode="Opaque" x="422" y="137" width="410" height="355"/>
+                    <box>
+                        <pen lineWidth="1.0" lineColor="#3C617F"/>
+                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
+                    </box>
+                    <chartTitle color="#3A5E75">
+                        <font fontName="DejaVu Sans" size="13"/>
+                        <titleExpression><![CDATA[$R{br6.chart.memory}]]></titleExpression>
+                    </chartTitle>
+                    <chartSubtitle>
+                        <font fontName="Arial" size="8"/>
+                    </chartSubtitle>
+                    <chartLegend position="Bottom">
+                        <font fontName="DejaVu Sans"/>
+                    </chartLegend>
+                </chart>
+                <pieDataset>
+                    <dataset>
+                        <datasetRun subDataset="pies">
+                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                        </datasetRun>
+                    </dataset>
+                    <pieSeries>
+                        <keyExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.above.threshold} + ": " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-						<valueExpression><![CDATA[$F{mem_above}]]></valueExpression>
-						<sectionHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        <valueExpression><![CDATA[$F{mem_above}]]></valueExpression>
+                        <sectionHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.above.threshold} + ": " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.above.threshold} + ": " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-						</sectionHyperlink>
-					</pieSeries>
-					<pieSeries>
-						<keyExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        </sectionHyperlink>
+                    </pieSeries>
+                    <pieSeries>
+                        <keyExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-						<valueExpression><![CDATA[$F{mem_below}]]></valueExpression>
-						<sectionHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+                        <valueExpression><![CDATA[$F{mem_below}]]></valueExpression>
+                        <sectionHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)) != 0 ? $R{br6.pie.average.time.below.threshold} + ": " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-						</sectionHyperlink>
-					</pieSeries>
-				</pieDataset>
-				<piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
-					<plot>
-						<seriesColor seriesOrder="0" color="#6EC000"/>
-						<seriesColor seriesOrder="1" color="#FF0000"/>
-					</plot>
-					<itemLabel color="#000000" backgroundColor="#FFFFFF">
-						<font fontName="DejaVu Sans"/>
-					</itemLabel>
-				</piePlot>
-			</pieChart>
-			<line>
-				<reportElement x="0" y="43" width="832" height="1"/>
-			</line>
-			<textField pattern="">
-				<reportElement x="577" y="27" width="255" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Sans" size="11" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-			</textField>
-			<image>
-				<reportElement x="0" y="0" width="228" height="42"/>
-				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
-			</image>
-		</band>
-	</title>
-	<detail>
-		<band height="18" splitType="Immediate">
-			<printWhenExpression><![CDATA[$F{time_above_cpu_threshold} != 0 || $F{time_above_mem_threshold} != 0]]></printWhenExpression>
-			<frame>
-				<reportElement style="Line Style" x="0" y="0" width="832" height="18"/>
-				<textField>
-					<reportElement x="12" y="0" width="410" height="18"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{host_name}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="743" y="0" width="81" height="18"/>
-					<box>
-						<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_only_date})]]></textFieldExpression>
-				</textField>
-				<image>
-					<reportElement x="0" y="3" width="10" height="11">
-						<printWhenExpression><![CDATA[$F{is_delete}]]></printWhenExpression>
-					</reportElement>
-					<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-				</image>
-				<frame>
-					<reportElement x="433" y="0" width="134" height="18"/>
-					<textField>
-						<reportElement x="0" y="0" width="40" height="18">
-							<printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
-						</reportElement>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="41" y="0" width="25" height="18">
-							<printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0 || (($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-						</reportElement>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="67" y="0" width="25" height="18"/>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-					</textField>
-					<textField pattern="">
-						<reportElement x="93" y="0" width="40" height="18"/>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA["(" + (($F{time_above_cpu_threshold}/$F{overall_host_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
-					</textField>
-				</frame>
-				<frame>
-					<reportElement x="589" y="0" width="134" height="18"/>
-					<textField>
-						<reportElement x="0" y="0" width="40" height="18">
-							<printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
-						</reportElement>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="41" y="0" width="25" height="18">
-							<printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0 || (($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-						</reportElement>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="67" y="0" width="25" height="18"/>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-					</textField>
-					<textField pattern="">
-						<reportElement x="93" y="0" width="40" height="18"/>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="DejaVu Sans"/>
-						</textElement>
-						<textFieldExpression><![CDATA["(" + (($F{time_above_mem_threshold}/$F{overall_host_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
-					</textField>
-				</frame>
-			</frame>
-		</band>
-	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="15">
-			<textField evaluationTime="Auto">
-				<reportElement x="291" y="0" width="250" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
+                        </sectionHyperlink>
+                    </pieSeries>
+                </pieDataset>
+                <piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
+                    <plot>
+                        <seriesColor seriesOrder="0" color="#6EC000"/>
+                        <seriesColor seriesOrder="1" color="#FF0000"/>
+                    </plot>
+                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
+                        <font fontName="DejaVu Sans"/>
+                    </itemLabel>
+                </piePlot>
+            </pieChart>
+            <line>
+                <reportElement x="0" y="43" width="832" height="1"/>
+            </line>
+            <textField pattern="">
+                <reportElement x="577" y="27" width="255" height="15"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+            </textField>
+            <image>
+                <reportElement x="0" y="0" width="228" height="42"/>
+                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+            </image>
+        </band>
+    </title>
+    <detail>
+        <band height="18" splitType="Immediate">
+            <printWhenExpression><![CDATA[$F{time_above_cpu_threshold} != 0 || $F{time_above_mem_threshold} != 0]]></printWhenExpression>
+            <frame>
+                <reportElement style="Line Style" x="0" y="0" width="832" height="18"/>
+                <textField>
+                    <reportElement x="12" y="0" width="410" height="18"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{host_name}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="743" y="0" width="81" height="18"/>
+                    <box>
+                        <rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+                    </box>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_only_date})]]></textFieldExpression>
+                </textField>
+                <image>
+                    <reportElement x="0" y="3" width="10" height="11">
+                        <printWhenExpression><![CDATA[$F{is_delete}]]></printWhenExpression>
+                    </reportElement>
+                    <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+                </image>
+                <frame>
+                    <reportElement x="433" y="0" width="134" height="18"/>
+                    <textField>
+                        <reportElement x="0" y="0" width="40" height="18">
+                            <printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
+                        </reportElement>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="41" y="0" width="25" height="18">
+                            <printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0 || (($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+                        </reportElement>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="67" y="0" width="25" height="18"/>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                    </textField>
+                    <textField pattern="">
+                        <reportElement x="93" y="0" width="40" height="18"/>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA["(" + (($F{time_above_cpu_threshold}/$F{overall_host_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
+                    </textField>
+                </frame>
+                <frame>
+                    <reportElement x="589" y="0" width="134" height="18"/>
+                    <textField>
+                        <reportElement x="0" y="0" width="40" height="18">
+                            <printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
+                        </reportElement>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="41" y="0" width="25" height="18">
+                            <printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0 || (($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+                        </reportElement>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="67" y="0" width="25" height="18"/>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                    </textField>
+                    <textField pattern="">
+                        <reportElement x="93" y="0" width="40" height="18"/>
+                        <textElement textAlignment="Right" verticalAlignment="Middle">
+                            <font fontName="DejaVu Sans"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA["(" + (($F{time_above_mem_threshold}/$F{overall_host_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
+                    </textField>
+                </frame>
+            </frame>
+        </band>
+    </detail>
+    <columnFooter>
+        <band splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="15">
+            <textField evaluationTime="Auto">
+                <reportElement x="291" y="0" width="250" height="15"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans"/>
+                </textElement>
+                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
 </jasperReport>

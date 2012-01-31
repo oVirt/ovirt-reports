@@ -26,29 +26,29 @@ ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
 END as combo_name
 from v3_0_datacenter_configuration_view
 WHERE (datacenter_id in (SELECT DISTINCT datacenter_id
-		FROM v3_0_cluster_configuration_view
-		WHERE cluster_id in (SELECT DISTINCT cluster_id
-			             FROM v3_0_host_configuration_view))
+        FROM v3_0_cluster_configuration_view
+        WHERE cluster_id in (SELECT DISTINCT cluster_id
+                         FROM v3_0_host_configuration_view))
               OR datacenter_id in (SELECT DISTINCT datacenter_id
-		FROM v3_0_datacenter_storage_domain_map_view))
+        FROM v3_0_datacenter_storage_domain_map_view))
               AND history_id in (SELECT max(a.history_id)
-		 FROM v3_0_datacenter_configuration_view a
-		 GROUP BY a.datacenter_id)
+         FROM v3_0_datacenter_configuration_view a
+         GROUP BY a.datacenter_id)
               $P!{Active_VMs}
 UNION ALL
 SELECT distinct cast('00000000-0000-0000-0000-000000000000' as uuid), cast(null as timestamp), 'Non Available'
-WHERE NOT EXISTS	 (Select distinct datacenter_id
-		from v3_0_datacenter_configuration_view
-		WHERE (datacenter_id in (SELECT DISTINCT datacenter_id
-				FROM v3_0_cluster_configuration_view
-				WHERE cluster_id in (SELECT DISTINCT cluster_id
-					             FROM v3_0_host_configuration_view))
-		              OR datacenter_id in (SELECT DISTINCT datacenter_id
-				     FROM v3_0_datacenter_storage_domain_map_view))
-		              AND history_id in (SELECT max(a.history_id)
-				 FROM v3_0_datacenter_configuration_view a
-				 GROUP BY a.datacenter_id)
-		              $P!{Active_VMs})
+WHERE NOT EXISTS     (Select distinct datacenter_id
+        from v3_0_datacenter_configuration_view
+        WHERE (datacenter_id in (SELECT DISTINCT datacenter_id
+                FROM v3_0_cluster_configuration_view
+                WHERE cluster_id in (SELECT DISTINCT cluster_id
+                                 FROM v3_0_host_configuration_view))
+                      OR datacenter_id in (SELECT DISTINCT datacenter_id
+                     FROM v3_0_datacenter_storage_domain_map_view))
+                      AND history_id in (SELECT max(a.history_id)
+                 FROM v3_0_datacenter_configuration_view a
+                 GROUP BY a.datacenter_id)
+                      $P!{Active_VMs})
 order by delete_date DESC, combo_name</queryString>
             <dataSource>
                 <uri>/Resources/JDBC/data_sources/ovirt</uri>

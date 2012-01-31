@@ -21,16 +21,16 @@
             <updateDate>2011-12-27T15:09:33.992+02:00</updateDate>
             <language>sql</language>
             <queryString>Select distinct cluster_id, delete_date, CASE
-			WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))
-			ELSE cluster_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
-		                   END as combo_name, 0 as sort
+            WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))
+            ELSE cluster_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
+                           END as combo_name, 0 as sort
 from v3_0_cluster_configuration_view
 WHERE cluster_id in (SELECT DISTINCT cluster_id
- 	             FROM v3_0_host_configuration_view)
+                  FROM v3_0_host_configuration_view)
               AND datacenter_id = cast($P{P_DataCenter_ID} as uuid)
               AND history_id in (SELECT max(a.history_id)
-		 FROM v3_0_cluster_configuration_view a
-		 GROUP BY a.cluster_id)
+         FROM v3_0_cluster_configuration_view a
+         GROUP BY a.cluster_id)
 $P!{Active_VMs}
 UNION ALL
 SELECT distinct cast('11111111-1111-1111-1111-111111111111' as uuid), cast(null as timestamp), value, 1

@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="800" pageHeight="20" columnWidth="800" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/Hosts_Inventory"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-	<parameter name="P_Cluster_ID" class="java.lang.String">
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT Distinct cluster_name, delete_date
+    <property name="ireport.zoom" value="1.5"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/Hosts_Inventory"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <parameter name="P_Cluster_ID" class="java.lang.String">
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT Distinct cluster_name, delete_date
  FROM v3_0_cluster_configuration_view
 WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
-	AND history_id in (SELECT max(a.history_id)
-		       FROM v3_0_cluster_configuration_view as a
-		       GROUP BY a.cluster_id)]]>
-	</queryString>
-	<field name="cluster_name" class="java.lang.String"/>
-	<field name="delete_date" class="java.sql.Timestamp"/>
-	<detail>
-		<band height="18" splitType="Stretch">
-			<textField evaluationTime="Report">
-				<reportElement x="11" y="0" width="789" height="18" forecolor="#3A5E75">
-					<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
-				</reportElement>
-				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="DejaVu Sans" size="13" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cluster_name} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + " (" + msg($R{full.details.removed.on.message}, DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})) + ")" : ""]]></textFieldExpression>
-			</textField>
-			<image>
-				<reportElement x="0" y="4" width="10" height="11">
-					<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
-				</reportElement>
-				<imageExpression><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
-			</image>
-			<textField evaluationTime="Report">
-				<reportElement x="0" y="0" width="800" height="18" forecolor="#3A5E75">
-					<printWhenExpression><![CDATA[$F{delete_date} == null]]></printWhenExpression>
-				</reportElement>
-				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="DejaVu Sans" size="13" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cluster_name} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} : ""]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
+    AND history_id in (SELECT max(a.history_id)
+               FROM v3_0_cluster_configuration_view as a
+               GROUP BY a.cluster_id)]]>
+    </queryString>
+    <field name="cluster_name" class="java.lang.String"/>
+    <field name="delete_date" class="java.sql.Timestamp"/>
+    <detail>
+        <band height="18" splitType="Stretch">
+            <textField evaluationTime="Report">
+                <reportElement x="11" y="0" width="789" height="18" forecolor="#3A5E75">
+                    <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
+                </reportElement>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font fontName="DejaVu Sans" size="13" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cluster_name} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + " (" + msg($R{full.details.removed.on.message}, DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})) + ")" : ""]]></textFieldExpression>
+            </textField>
+            <image>
+                <reportElement x="0" y="4" width="10" height="11">
+                    <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
+                </reportElement>
+                <imageExpression><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
+            </image>
+            <textField evaluationTime="Report">
+                <reportElement x="0" y="0" width="800" height="18" forecolor="#3A5E75">
+                    <printWhenExpression><![CDATA[$F{delete_date} == null]]></printWhenExpression>
+                </reportElement>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font fontName="DejaVu Sans" size="13" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cluster_name} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} : ""]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
 </jasperReport>

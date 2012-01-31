@@ -6,107 +6,107 @@
 UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 
 1). Type Selectors: identify the kind of information displayed in a cell or row.
-	- label
-	  - cell contains a string that identifies other cells
-	  - only can be used on TH cells
-	- group
-	  - cell contains string that identifies a group
-	  - always occurs with 'label'
-	  - can NEVER occur with 'member'
-	- member
-	  - cell contains string that identifies a group member
-	  - always occurs with 'label'	
-	  - can NEVER occur with 'group'
-	- measure
-	  - cell contains string that identifies table values
-	  - always occurs with 'label'
-	- value
-	  - cell contains data
-	  - can NEVER occur with 'group' || 'label' || 'member'
-	- numeric
-	  - modifies 'value'
-	  - indicates a cell with numeric, as opposed to string, values
-	- detail
-	  - cell contains data for a single specific record instance
-	  - ALWAYS occurs with 'value'
-	  - currently, not used in crosstab implementation, only in table, here for completeness
-	- summary
-	  - cell contains data representing a statistic summarizing a set of detail values
-	  - ALWAYS occurs with 'value'
-	- rowSummary
-	  - can occur with both 'label' and 'value'
-	    - when appears with 'value' indicates that cell contains data that is an aggregation of the cells to its left within its group
-	    - when appears with 'label' indicates that cell indentifies the cells in the column below it
-	  - can occur with 'columnSummary' to indicate a third summary case
-	- columnSummary
-	  - can occur with both 'label' and 'value'
-	    - when appears with 'value' indicates that cell contains data that is an aggregation of the cells above it within its group
-	    - when appears with 'label' indicates that cell indentifies the cells in it row
-	  - can occur with 'rowSummary' to indicate a third summary case
-	- grand
-	  - cell contains a label or data that applies to the entire table
-	- columnSummaries
-	  - only used on tr elements
-	  - identifies a row that contains some columnSummary cells
-	
+    - label
+      - cell contains a string that identifies other cells
+      - only can be used on TH cells
+    - group
+      - cell contains string that identifies a group
+      - always occurs with 'label'
+      - can NEVER occur with 'member'
+    - member
+      - cell contains string that identifies a group member
+      - always occurs with 'label'
+      - can NEVER occur with 'group'
+    - measure
+      - cell contains string that identifies table values
+      - always occurs with 'label'
+    - value
+      - cell contains data
+      - can NEVER occur with 'group' || 'label' || 'member'
+    - numeric
+      - modifies 'value'
+      - indicates a cell with numeric, as opposed to string, values
+    - detail
+      - cell contains data for a single specific record instance
+      - ALWAYS occurs with 'value'
+      - currently, not used in crosstab implementation, only in table, here for completeness
+    - summary
+      - cell contains data representing a statistic summarizing a set of detail values
+      - ALWAYS occurs with 'value'
+    - rowSummary
+      - can occur with both 'label' and 'value'
+        - when appears with 'value' indicates that cell contains data that is an aggregation of the cells to its left within its group
+        - when appears with 'label' indicates that cell indentifies the cells in the column below it
+      - can occur with 'columnSummary' to indicate a third summary case
+    - columnSummary
+      - can occur with both 'label' and 'value'
+        - when appears with 'value' indicates that cell contains data that is an aggregation of the cells above it within its group
+        - when appears with 'label' indicates that cell indentifies the cells in it row
+      - can occur with 'rowSummary' to indicate a third summary case
+    - grand
+      - cell contains a label or data that applies to the entire table
+    - columnSummaries
+      - only used on tr elements
+      - identifies a row that contains some columnSummary cells
+
 2). Hierarchical Selectors: identify a cell's coordinates within the table's row and column axis
-	- rowCondition_[1,2,3]
-	  - indicates that a cell's position within the crosstab's row hierarchy
-	  - said hierarchy created/defined by the groups assigned to the crosstab's row axis
-	  - iterator suffix repeats every fourth instance
-	- columnCondition_[1,2,3]
-	  - indicates that a cell's position within the crosstab's column hierarchy
-	  - said hierarchy created/defined by the groups assigned to the crosstab's column axis
-	  - iterator suffix repeats every fourth instance
-	- rowOrder_[first,last]
-	  - identifies cells associated with the first and last members, in terms of sort order, for a given row group
-	- columnOrder_[first,last]
-	  - identifies cells associated with the first and last members, in terms of sort order, for a given column group
-	- inner
-	  - identifies all label cells, regardless of sub-type, that occupy the visual boundary between labels and value cells
-	  - NEVER occurs with 'value'
-	- outer
-	  - identifies all label cells, regardless of sub-type, that occupy boundary between labels and the visual edge of the table
-	  - NEVER occurs with 'value'
-	
+    - rowCondition_[1,2,3]
+      - indicates that a cell's position within the crosstab's row hierarchy
+      - said hierarchy created/defined by the groups assigned to the crosstab's row axis
+      - iterator suffix repeats every fourth instance
+    - columnCondition_[1,2,3]
+      - indicates that a cell's position within the crosstab's column hierarchy
+      - said hierarchy created/defined by the groups assigned to the crosstab's column axis
+      - iterator suffix repeats every fourth instance
+    - rowOrder_[first,last]
+      - identifies cells associated with the first and last members, in terms of sort order, for a given row group
+    - columnOrder_[first,last]
+      - identifies cells associated with the first and last members, in terms of sort order, for a given column group
+    - inner
+      - identifies all label cells, regardless of sub-type, that occupy the visual boundary between labels and value cells
+      - NEVER occurs with 'value'
+    - outer
+      - identifies all label cells, regardless of sub-type, that occupy boundary between labels and the visual edge of the table
+      - NEVER occurs with 'value'
+
 3). Interactive Selectors: identify the display state of a member and its children
-	- open
-	  - the member's children are visible
-	  - ALWAYS occurs with 'label' && 'member'
-	  - NEVER occurs with 'inner'
-	- closed
-	  - the member's children are NOT visible
-	  - ALWAYS occurs with 'label' && 'member'
-	  - NEVER occurs with 'inner'
-	  	
+    - open
+      - the member's children are visible
+      - ALWAYS occurs with 'label' && 'member'
+      - NEVER occurs with 'inner'
+    - closed
+      - the member's children are NOT visible
+      - ALWAYS occurs with 'label' && 'member'
+      - NEVER occurs with 'inner'
+
 4). Notes and Rules of Thumb for table construction
-	- The first cell in the column containing .measure.label cells has the additional selector .first
-	- EVERY cell in the row defined in the tfoot section has the selector 'grand' assigned as well as its logical and hierarchical selector
+    - The first cell in the column containing .measure.label cells has the additional selector .first
+    - EVERY cell in the row defined in the tfoot section has the selector 'grand' assigned as well as its logical and hierarchical selector
 
 */
 
 /* GENERAL TABLE METRICS */
 
 .data.table {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .data.table .column,
 .data.table .row {
-	position:static;
+    position:static;
 }
 
 .data.table .wrap {
-	display: block;
+    display: block;
 }
 
 .data.table a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .data.table a:hover,
 .data.table a:active {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .data.table .label,
@@ -116,20 +116,20 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 .grand.columnSummaries .value,
 .memberSummaries .value,
 .group.member.label {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .data.table .label.member.inner {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .label.group.row,
 .label.grand.rowSummary {
-	vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 .data.table .label.member  {
-	vertical-align: top;
+    vertical-align: top;
     /*added so that browser doesn't add selection border'*/
     -moz-user-select:none;
 }
@@ -137,42 +137,42 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 .data.table td,
 #designer #mainTableContainer span.labelOverlay,
 .label.measure {
-	height:25px;
-	vertical-align: middle;
+    height:25px;
+    vertical-align: middle;
 }
 
 #designer #mainTableContainer span.labelOverlay {
-	line-height:25px; /*set to same value as object height */
+    line-height:25px; /*set to same value as object height */
 }
 
 .data.table .value,
 .data.table .label {
-	padding:0.5em 0;
+    padding:0.5em 0;
 }
 
 .data.table.crosstab .value,
 .data.table.crosstab .label {
-	padding:0.5em 1em;
+    padding:0.5em 1em;
 }
 
 .group .label,
 .value.column,
 .value.row,
 .label.column {
-	border: none;
-	height: auto;
-	right: auto;
-	overflow: auto;
-	left: auto;
-	top:auto;
-	bottom: auto;
-	position:relative;
+    border: none;
+    height: auto;
+    right: auto;
+    overflow: auto;
+    left: auto;
+    top:auto;
+    bottom: auto;
+    position:relative;
 }
 
 .column.labels .label.spacer {
-	background-image: url(../../adhoc/images/spacer.gif);
-	background-position: center center;
-	background-repeat: no-repeat;
+    background-image: url(../../adhoc/images/spacer.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .data.table.crosstab .value,
@@ -185,7 +185,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 .label.grand,
 .label.columnSummary,
 .label.rowSummary {
-	text-align: right;
+    text-align: right;
 }
 
 .label,
@@ -194,25 +194,25 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 .label.rowCondition_1,
 .label.rowCondition_2,
 .label.rowCondition_3 {
-	text-align:left;
+    text-align:left;
 }
 
 
 .measure.table {
-	width:100%;
+    width:100%;
 }
 
 .overlay {
-	left:0px;
+    left:0px;
 }
 
 .overlay.header {
-	border:none;
+    border:none;
 }
 
 .overlay .member.labels .label,
 .overlay .member.footers .label {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 /* SHARED COSMETIC ATTRIBUTES */
@@ -221,7 +221,7 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 .data.table .label.measure .wrap,
 .data.table .label.group abbr,
 .data.table .label.measure abbr  {
-	color:#217EB5;
+    color:#217EB5;
 }
 
 .data.table .label.group,
@@ -234,37 +234,37 @@ UNDERSTANDING THE CLASS ATTRIBUTES FOR DATA TABLES
 .data.table .stripe .label.rowSummary,
 tfoot .grand.columnSummary,
 tfoot .measure.label  {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 
 .label.member,
 .label.group {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 .label.member .wrap {
-	display: inline-block;
-	position: relative;
-	top:2px;
+    display: inline-block;
+    position: relative;
+    top:2px;
 }
 
 .label.member .wrap.inner {
-	top:0;
+    top:0;
 }
 
 .wrapper.table .caption .placeholder {
-	text-align:center;
-	vertical-align: middle;
+    text-align:center;
+    vertical-align: middle;
 }
 
 .data.table thead th {
-	vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 .data.table {
-	border-width: 1px;
-	border-style: solid;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .data.table .labels .label,
@@ -277,8 +277,8 @@ tfoot .measure.label  {
 .label.grand.rowSummary,
 .label.member.rowCondition_2,
 .label.member.rowCondition_3 {
-	border-bottom-width:1px;
-	border-bottom-style: solid;
+    border-bottom-width:1px;
+    border-bottom-style: solid;
 }
 
 
@@ -286,8 +286,8 @@ tfoot .measure.label  {
 .record.first .label,
 .memberSummaries .value,
 .columnSummary {
-	border-top-width:1px;
-	border-top-style:solid;
+    border-top-width:1px;
+    border-top-style:solid;
 }
 
 .label.member.outer.rowCondition_1,
@@ -297,10 +297,10 @@ tfoot .measure.label  {
 .rowOrder_last,
 .rowOrder_last.columnOrder_last,
 .grand.columnSummary.rowSummary {
-	border-bottom-width:1px;
-	border-bottom-style: solid;
-	border-top-width:1px;
-	border-top-style:solid;
+    border-bottom-width:1px;
+    border-bottom-style: solid;
+    border-top-width:1px;
+    border-top-style:solid;
 
 }
 
@@ -318,8 +318,8 @@ tfoot .measure.label  {
 .grand.columnSummary.rowSummary.rowOrder_last.columnOrder_last.bottom,
 .inner.columnSummary,
 .label.grand {
-	border-right-width:1px;
-	border-right-style: solid;
+    border-right-width:1px;
+    border-right-style: solid;
 }
 
 
@@ -330,8 +330,8 @@ tfoot .measure.label  {
 .grand.columnSummary.label,
 .grand .measure.label,
 .grand.columnSummaries .value {
-	border-top-style: double;
-	border-top-width: 4px;
+    border-top-style: double;
+    border-top-width: 4px;
 }
 
 
@@ -340,12 +340,12 @@ tfoot .measure.label  {
 .data.table .labels .rowSummary,
 .data.table.crosstab .memberSummaries .value,
 .label.member.inner.rowOrder_last {
-	border-top:none;
+    border-top:none;
 }
 
 .label.grand.columnSummary,
 .grand.columnSummary.bottom {
-	border-bottom:none;
+    border-bottom:none;
 }
 
 
@@ -357,24 +357,24 @@ tfoot .measure.label  {
 .columnSummaries .label.outer,
 .grand.columnSummary.rowSummary.rowOrder_last.columnOrder_last,
 .grand.columnSummary.columnOrder_last {
-	border-right: none;
+    border-right: none;
 }
 
 
 .colOverflow,
 .rowOverflow {
-	border:1px dotted #ccc;
-	background-color: transparent !important;
+    border:1px dotted #ccc;
+    background-color: transparent !important;
 }
 
 .colOverflow {
-	border-top-width: 0;
-	border-bottom-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }
 
 .rowOverflow {
-	border-left-width: 0;
-	border-right-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
 }
 
 
@@ -384,19 +384,19 @@ tfoot .measure.label  {
 /* default */
 
 .default>.color01 {
-	background-color: #666;
+    background-color: #666;
 }
 
 .default>.color02 {
-	background-color: #aaa;
-}		                                	
+    background-color: #aaa;
+}
 
 .default>.color03 {
-	background-color: #E0E0E0;
-}		                                	
+    background-color: #E0E0E0;
+}
 
 .default>.color04 {
-	background-color: #FFF;
+    background-color: #FFF;
 }
 
 
@@ -404,16 +404,16 @@ tfoot .measure.label  {
 .default table td .wrap,
 .default table th,
 .default .group.member.label {
-	/*color01*/
-	color:#666;
-	/*color02*/
-	border-color:#aaa;
+    /*color01*/
+    color:#666;
+    /*color02*/
+    border-color:#aaa;
 }
 
 .default #canvasTable,
 .default .grand.columnSummary.rowSummary.bottom {
-	/*color02*/
-	border-color:#aaa;
+    /*color02*/
+    border-color:#aaa;
 }
 
 
@@ -421,49 +421,49 @@ tfoot .measure.label  {
 .default .data.table td,
 .default .data.table th,
 .default .data.table .label.member.rowCondition_1 {
-	/*color03*/
-	background-color: #e0e0e0;
+    /*color03*/
+    background-color: #e0e0e0;
 }
 
 .default .data.table .stripe td,
 .default .data.table .stripe th,
 .default .data.table .stripe .label.member.rowCondition_1 {
-	/*color04*/
-	background-color:#fff;
+    /*color04*/
+    background-color:#fff;
 }
 
 .default .column.labels .label,
 .default .grand.columnSummaries .value {
-	/*color03*/
-	background-color: #fff;
-	/*color02*/
-	border-color:#aaa;
+    /*color03*/
+    background-color: #fff;
+    /*color02*/
+    border-color:#aaa;
 }
 
 .default .placeholder .label,
 .default .memberSummaries .value {
-	/*color03*/
-	background-color: #fff;
-	/*color02*/
-	border-color:#aaa;
+    /*color03*/
+    background-color: #fff;
+    /*color02*/
+    border-color:#aaa;
 }
 
 /* olive */
 
 .olive>.color01 {
-	background-color: #003300;
+    background-color: #003300;
 }
 
 .olive>.color02 {
-	background-color: #b7c18b;
-}		                                	
+    background-color: #b7c18b;
+}
 
 .olive>.color03 {
-	background-color: #cecf9c;
-}		                                	
+    background-color: #cecf9c;
+}
 
 .olive>.color04 {
-	background-color: #cecf9c;
+    background-color: #cecf9c;
 }
 
 .olive #canvasTable,
@@ -471,58 +471,58 @@ tfoot .measure.label  {
 .olive  table td .wrap,
 .olive table th,
 .olive .group.member.label {
-	/*color01*/
-	color:#003300;
-	/*color01*/
-	border-color:#003300;
+    /*color01*/
+    color:#003300;
+    /*color01*/
+    border-color:#003300;
 }
 
 .olive .data.table td,
 .olive .data.table th,
 .olive .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #b7c18b;
+    /*color02*/
+    background-color: #b7c18b;
 }
 
 .olive .data.table .stripe td,
 .olive .data.table .stripe th,
 .olive .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .olive .column.labels .label,
 .olive .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #B7C18B;
-	/*color01*/
-	border-color:#003300;
+    /*color02*/
+    background-color: #B7C18B;
+    /*color01*/
+    border-color:#003300;
 }
 
 .olive .placeholder .label,
 .olive .memberSummaries .value {
-	/*color03*/
-	background-color: #cecf9c;
-	/*color01*/
-	border-color:#003300;
+    /*color03*/
+    background-color: #cecf9c;
+    /*color01*/
+    border-color:#003300;
 }
 
 
 /* corporate */
 
 .corporate>.color01 {
-	background-color: #3B5866;
+    background-color: #3B5866;
 }
 
 .corporate>.color02 {
-	background-color: #b7cbd3;
-}		                                	
+    background-color: #b7cbd3;
+}
 
 .corporate>.color03 {
-	background-color: #e6e6c6;
-}		                                	
+    background-color: #e6e6c6;
+}
 
 .corporate>.color04 {
-	background-color: #e6e6c6;
+    background-color: #e6e6c6;
 }
 
 .corporate #canvasTable,
@@ -530,57 +530,57 @@ tfoot .measure.label  {
 .corporate  table td .wrap,
 .corporate table th,
 .corporate .group.member.label {
-	/*color01*/
-	color:#3B5866;
-	border-color:#3B5866;
+    /*color01*/
+    color:#3B5866;
+    border-color:#3B5866;
 }
 
 .corporate .data.table td,
 .corporate .data.table th,
 .corporate .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #b7cbd3;
+    /*color02*/
+    background-color: #b7cbd3;
 }
 
 .corporate .data.table .stripe td,
 .corporate .data.table .stripe th,
 .corporate .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .corporate .column.labels .label,
 .corporate .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #b7cbd3;
-	/*color01*/
-	border-color:#3B5866;
+    /*color02*/
+    background-color: #b7cbd3;
+    /*color01*/
+    border-color:#3B5866;
 }
 
 .corporate .placeholder .label,
 .corporate .memberSummaries .value {
-	/*color03*/
-	background-color: #e6e6c6;
-	/*color01*/
-	border-color:#3B5866;
+    /*color03*/
+    background-color: #e6e6c6;
+    /*color01*/
+    border-color:#3B5866;
 }
 
 
 /* pastel */
 
 .pastel>.color01 {
-	background-color: #4d7dde;
+    background-color: #4d7dde;
 }
 
 .pastel>.color02 {
-	background-color: #fcfbdf;
-}		                                	
+    background-color: #fcfbdf;
+}
 
 .pastel>.color03 {
-	background-color: #fcfbdf;
-}		                                	
+    background-color: #fcfbdf;
+}
 
 .pastel>.color04 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .pastel #canvasTable,
@@ -588,57 +588,57 @@ tfoot .measure.label  {
 .pastel  table td .wrap,
 .pastel table th,
 .pastel .group.member.label {
-	/*color01*/
-	color:#4d7dde;
-	border-color:#4d7dde;
+    /*color01*/
+    color:#4d7dde;
+    border-color:#4d7dde;
 }
 
 .pastel .data.table td,
 .pastel .data.table th,
 .pastel .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #fcfbdf;
+    /*color02*/
+    background-color: #fcfbdf;
 }
 
 .pastel .data.table .stripe td,
 .pastel .data.table .stripe th,
 .pastel .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .pastel .column.labels .label,
 .pastel .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #fcfbdf;
-	/*color01*/
-	border-color:#4d7dde;
+    /*color02*/
+    background-color: #fcfbdf;
+    /*color01*/
+    border-color:#4d7dde;
 }
 
 .pastel .placeholder .label,
 .pastel .memberSummaries .value {
-	/*color03*/
-	background-color: #fcfbdf;
-	/*color01*/
-	border-color:#4d7dde;
+    /*color03*/
+    background-color: #fcfbdf;
+    /*color01*/
+    border-color:#4d7dde;
 }
 
 
 /* fall */
 
 .fall>.color01 {
-	background-color: #A6160F;
+    background-color: #A6160F;
 }
 
 .fall>.color02 {
-	background-color: #ffcc66;
-}		                                	
+    background-color: #ffcc66;
+}
 
 .fall>.color03 {
-	background-color: #f3f1ba;
-}		                                	
+    background-color: #f3f1ba;
+}
 
 .fall>.color04 {
-	background-color: #f3f1ba;
+    background-color: #f3f1ba;
 }
 
 .fall #canvasTable,
@@ -646,57 +646,57 @@ tfoot .measure.label  {
 .fall  table td .wrap,
 .fall table th,
 .fall .group.member.label {
-	/*color01*/
-	color:#A6160F;
-	border-color:#A6160F;
+    /*color01*/
+    color:#A6160F;
+    border-color:#A6160F;
 }
 
 .fall .data.table td,
 .fall .data.table th,
 .fall .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #ffcc66;
+    /*color02*/
+    background-color: #ffcc66;
 }
 
 .fall .data.table .stripe td,
 .fall .data.table .stripe th,
 .fall .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .fall .column.labels .label,
 .fall .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #ffcc66;
-	/*color01*/
-	border-color:#A6160F;
+    /*color02*/
+    background-color: #ffcc66;
+    /*color01*/
+    border-color:#A6160F;
 }
 
 .fall .placeholder .label,
 .fall .memberSummaries .value {
-	/*color03*/
-	background-color: #f3f1ba;
-	/*color01*/
-	border-color:#A6160F;
+    /*color03*/
+    background-color: #f3f1ba;
+    /*color01*/
+    border-color:#A6160F;
 }
 
 
 /* professional */
 
 .professional>.color01 {
-	background-color: #000066;
+    background-color: #000066;
 }
 
 .professional>.color02 {
-	background-color: #ececfe;
-}		                                	
+    background-color: #ececfe;
+}
 
 .professional>.color03 {
-	background-color: #e6e6c6;
-}		                                	
+    background-color: #e6e6c6;
+}
 
 .professional>.color04 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .professional #canvasTable,
@@ -704,56 +704,56 @@ tfoot .measure.label  {
 .professional  table td .wrap,
 .professional table th,
 .professional .group.member.label {
-	/*color01*/
-	color:#000066;
-	border-color:#000066;
+    /*color01*/
+    color:#000066;
+    border-color:#000066;
 }
 
 .professional .data.table td,
 .professional .data.table th,
 .professional .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #ececfe;
+    /*color02*/
+    background-color: #ececfe;
 }
 
 .professional .data.table .stripe td,
 .professional .data.table .stripe th,
 .professional .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .professional .column.labels .label,
 .professional .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #ececfe;
-	/*color01*/
-	border-color:#000066;
+    /*color02*/
+    background-color: #ececfe;
+    /*color01*/
+    border-color:#000066;
 }
 
 .professional .placeholder .label,
 .professional .memberSummaries .value {
-	/*color03*/
-	background-color: #e6e6c6;
-	/*color01*/
-	border-color:#000066;
-} 	
+    /*color03*/
+    background-color: #e6e6c6;
+    /*color01*/
+    border-color:#000066;
+}
 
 /* forest */
 
 .forest>.color01 {
-	background-color: #336666;
+    background-color: #336666;
 }
 
 .forest>.color02 {
-	background-color: #b7c18b;
-}		                                	
+    background-color: #b7c18b;
+}
 
 .forest>.color03 {
-	background-color: #cecf9c;
-}		                                	
+    background-color: #cecf9c;
+}
 
 .forest>.color04 {
-	background-color: #cecf9c;
+    background-color: #cecf9c;
 }
 
 .forest #canvasTable,
@@ -761,57 +761,57 @@ tfoot .measure.label  {
 .forest  table td .wrap,
 .forest table th,
 .forest .group.member.label {
-	/*color01*/
-	color:#336666;
-	border-color:#336666;
+    /*color01*/
+    color:#336666;
+    border-color:#336666;
 }
 
 .forest .data.table td,
 .forest .data.table th,
 .forest .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #b7c18b;
+    /*color02*/
+    background-color: #b7c18b;
 }
 
 .forest .data.table .stripe td,
 .forest .data.table .stripe th,
 .forest .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .forest .column.labels .label,
 .forest .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #b7c18b;
-	/*color01*/
-	border-color:#336666;
+    /*color02*/
+    background-color: #b7c18b;
+    /*color01*/
+    border-color:#336666;
 }
 
 .forest .placeholder .label,
 .forest .memberSummaries .value {
-	/*color03*/
-	background-color: #cecf9c;
-	/*color01*/
-	border-color:#336666;
+    /*color03*/
+    background-color: #cecf9c;
+    /*color01*/
+    border-color:#336666;
 }
 
-	
+
 /* slate */
 
 .slate>.color01 {
-	background-color: #000066;
+    background-color: #000066;
 }
 
 .slate>.color02 {
-	background-color: #C2CDE1;
-}		                                	
+    background-color: #C2CDE1;
+}
 
 .slate>.color03 {
-	background-color: #e6e8ed;
-}		                                	
+    background-color: #e6e8ed;
+}
 
 .slate>.color04 {
-	background-color: #e6e8ed;
+    background-color: #e6e8ed;
 }
 
 .slate #canvasTable,
@@ -819,57 +819,57 @@ tfoot .measure.label  {
 .slate  table td .wrap,
 .slate table th,
 .slate .group.member.label {
-	/*color01*/
-	color:#000066;
-	border-color:#000066;
+    /*color01*/
+    color:#000066;
+    border-color:#000066;
 }
 
 .slate .data.table td,
 .slate .data.table th,
 .slate .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #C2CDE1;
+    /*color02*/
+    background-color: #C2CDE1;
 }
 
 .slate .data.table .stripe td,
 .slate .data.table .stripe th,
 .slate .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .slate .column.labels .label,
 .slate .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #C2CDE1;
-	/*color01*/
-	border-color:#000066;
+    /*color02*/
+    background-color: #C2CDE1;
+    /*color01*/
+    border-color:#000066;
 }
 
 .slate .placeholder .label,
 .slate .memberSummaries .value {
-	/*color03*/
-	background-color: #e6e8ed;
-	/*color01*/
-	border-color:#000066;
+    /*color03*/
+    background-color: #e6e8ed;
+    /*color01*/
+    border-color:#000066;
 }
-	
+
 
 /* ocean */
 
 .ocean>.color01 {
-	background-color: #003399;
+    background-color: #003399;
 }
 
 .ocean>.color02 {
-	background-color: #ceebf7;
-}		                                	
+    background-color: #ceebf7;
+}
 
 .ocean>.color03 {
-	background-color: #ebeaea;
-}		                                	
+    background-color: #ebeaea;
+}
 
 .ocean>.color04 {
-	background-color: #ebeaea;
+    background-color: #ebeaea;
 }
 
 .ocean #canvasTable,
@@ -877,133 +877,133 @@ tfoot .measure.label  {
 .ocean  table td .wrap,
 .ocean table th,
 .ocean .group.member.label {
-	/*color01*/
-	color:#003399;
-	border-color:#003399;
+    /*color01*/
+    color:#003399;
+    border-color:#003399;
 }
 
 .ocean .data.table td,
 .ocean .data.table th,
 .ocean .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #ceebf7;
+    /*color02*/
+    background-color: #ceebf7;
 }
 
 .ocean .data.table .stripe td,
 .ocean .data.table .stripe th,
 .ocean .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .ocean .column.labels .label,
 .ocean .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #ceebf7;
-	/*color01*/
-	border-color:#003399;
+    /*color02*/
+    background-color: #ceebf7;
+    /*color01*/
+    border-color:#003399;
 }
 
 .ocean .placeholder .label,
 .ocean .memberSummaries .value {
-	/*color03*/
-	background-color: #ebeaea;
-	/*color01*/
-	border-color:#003399;
+    /*color03*/
+    background-color: #ebeaea;
+    /*color01*/
+    border-color:#003399;
 }
 
 
 /* wine */
 
 .wine>.color01 {
-	background-color: #663333;
+    background-color: #663333;
 }
 
 .wine>.color02 {
-	background-color: #eadada;
-}		                                	
+    background-color: #eadada;
+}
 
 .wine>.color03 {
-	background-color: #eadada;
-}		                                	
+    background-color: #eadada;
+}
 
 .wine>.color04 {
-	background-color: #fff;
-}	
+    background-color: #fff;
+}
 
 .wine #canvasTable,
 .wine table td,
 .wine  table td .wrap,
 .wine table th,
 .wine .group.member.label {
-	/*color01*/
-	color:#663333;
-	border-color:#663333;
+    /*color01*/
+    color:#663333;
+    border-color:#663333;
 }
 
 .wine .data.table td,
 .wine .data.table th,
 .wine .data.table .label.member.rowCondition_1 {
-	/*color02*/
-	background-color: #eadada;
+    /*color02*/
+    background-color: #eadada;
 }
 
 .wine .data.table .stripe td,
 .wine .data.table .stripe th,
 .wine .data.table .stripe .label.member.rowCondition_1 {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .wine .column.labels .label,
 .wine .grand.columnSummaries .value {
-	/*color02*/
-	background-color: #eadada;
-	/*color01*/
-	border-color:#663333;
+    /*color02*/
+    background-color: #eadada;
+    /*color01*/
+    border-color:#663333;
 }
 
 .wine .placeholder .label,
 .wine .memberSummaries .value {
-	/*color03*/
-	background-color: #eadada;
-	/*color01*/
-	border-color:#663333;
+    /*color03*/
+    background-color: #eadada;
+    /*color01*/
+    border-color:#663333;
 }
 
 
 /* #analysisView */
 
 #analysisView #display>.primary>.content>.body>form {
-	margin:20px;
+    margin:20px;
 }
 
 #analysisView table {
-	border-collapse: separate;
-	border-spacing: 2px;
+    border-collapse: separate;
+    border-spacing: 2px;
 }
 
 #analysisView th,
 #analysisView td {
-	padding: 6px;
-	font-size: 13px;
+    padding: 6px;
+    font-size: 13px;
 }
 
 #analysisView th p,
 #analysisView td p {
-	margin-top: 6px;
-	font-size: 11px;
+    margin-top: 6px;
+    font-size: 11px;
 }
 
 #analysisView table .corner {
-	position: relative;
+    position: relative;
 }
 
 #analysisView th table {
-	border-spacing: 0;
+    border-spacing: 0;
 }
 
 #analysisView th table td,
 #analysisView th table th {
-	padding: 0;
+    padding: 0;
 }
 
 /* iPads (portrait and landscape) */
@@ -1011,11 +1011,11 @@ tfoot .measure.label  {
 and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 
-	#analysisView input.nav[type="image"],
-	#analysisView input.corner[type="image"] {
-		-webkit-border-radius:0;
-		-moz-border-radius:0;
-	}
+    #analysisView input.nav[type="image"],
+    #analysisView input.corner[type="image"] {
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+    }
 }
 
 th.column-heading-even, th.column-heading-odd, th.column-heading-span, th.corner-heading, th.corner-heading-right, th.row-heading-even, th.row-heading-span, th.column-heading-even-right, th.row-heading-even-right, th.column-heading-span-right, th.row-heading-span-right, th.property-heading {
@@ -1073,71 +1073,71 @@ text-align:left;
 and (min-device-width : 768px)
 and (max-device-width : 1024px) {
 
-	#analysisView input.nav[type="image"],
-	#analysisView input.corner[type="image"] {
-		-webkit-border-radius:0;
-		-moz-border-radius:0;
-	}
-	/* fixes expand and contract icon border clipping on iPad */
+    #analysisView input.nav[type="image"],
+    #analysisView input.corner[type="image"] {
+        -webkit-border-radius:0;
+        -moz-border-radius:0;
+    }
+    /* fixes expand and contract icon border clipping on iPad */
 }
 
 #analysisView #displayFormTable,
 #analysisView #chartFormTable,
 #analysisView #printFormTable,
 #analysisView #saveasTable {
-	border:2px solid #666;
-	background-color: white;
+    border:2px solid #666;
+    background-color: white;
 }
 
 #analysisView .xform-title,
 #analysisView .xform-close-button {
-	background-color: #ccc;
+    background-color: #ccc;
 }
 
 #analysisView .xform-input {
-	padding:4px 2px;
-	vertical-align:middle;
+    padding:4px 2px;
+    vertical-align:middle;
 }
 
 #analysisView .xform-both {
-	padding:4px 2px;
+    padding:4px 2px;
 }
 
 #analysisView .xform-both .xform-both {
-	padding:0;
+    padding:0;
 }
 
 
 #analysisView .xform-both select {
-	width:auto;
-	margin-right:3px;
+    width:auto;
+    margin-right:3px;
 }
 
 
 #analysisView.drill table {
-	border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 
 #analysisView.drill .xtable-data,
 #analysisView.drill .xtable-heading {
-	border:1px solid #ccc;
+    border:1px solid #ccc;
 }
 
 /* OLAP Crosstab */
 
 #designer #OLAP #mainTableContainer {
-	left:0;
-	padding: 0;
+    left:0;
+    padding: 0;
 }
 
 #designer #OLAP #canvasTable {
-	top:0;
+    top:0;
 }
 
 #OLAP .data.table {
-	border: none;
-	border-collapse: separate;
+    border: none;
+    border-collapse: separate;
 }
 
 #OLAP .data.table td,
@@ -1160,46 +1160,46 @@ and (max-device-width : 1024px) {
 
 #OLAP .olap .level {
     background-color: #C3DBBD; /* for non-css3 browsers */
-	
-	background:-webkit-gradient(linear, left top, left bottom, from(#CFE0CB), to(#BCD7B6)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #CFE0CB,  #BCD7B6); /* for firefox 3.6+ */
+
+    background:-webkit-gradient(linear, left top, left bottom, from(#CFE0CB), to(#BCD7B6)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #CFE0CB,  #BCD7B6); /* for firefox 3.6+ */
 }
 
 #OLAP .olap .level.odd {
     background-color: #DCEED8; /* for non-css3 browsers */
-	
-	background:-webkit-gradient(linear, left top, left bottom, from(#DCEED8), to(#DBEDD6)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #DCEED8,  #DBEDD6); /* for firefox 3.6+ */
+
+    background:-webkit-gradient(linear, left top, left bottom, from(#DCEED8), to(#DBEDD6)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #DCEED8,  #DBEDD6); /* for firefox 3.6+ */
 }
 
 #OLAP .olap .measure {
-	background-color: #C7B7E4; /* for non-css3 browsers */
-	
-	background:-webkit-gradient(linear, left top, left bottom, from(#D0C3E8), to(#C2B2E3)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #D0C3E8,  #C2B2E3); /* for firefox 3.6+ */
+    background-color: #C7B7E4; /* for non-css3 browsers */
+
+    background:-webkit-gradient(linear, left top, left bottom, from(#D0C3E8), to(#C2B2E3)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #D0C3E8,  #C2B2E3); /* for firefox 3.6+ */
 }
 
 #OLAP .olap .member {
-	background-color: #d9e2ed; /* for non-css3 browsers */
-	
-	background:-webkit-gradient(linear, left top, left bottom, from(#e0e7f2), to(#d4dee9)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #e0e7f2,  #d4dee9); /* for firefox 3.6+ */
+    background-color: #d9e2ed; /* for non-css3 browsers */
+
+    background:-webkit-gradient(linear, left top, left bottom, from(#e0e7f2), to(#d4dee9)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #e0e7f2,  #d4dee9); /* for firefox 3.6+ */
 }
 
 #designer #OLAP td.selected,
 #designer #OLAP th.selected {
-	background-color: #E7E9D0 !important; /* for non-css3 browsers */
-	
-	background:-webkit-gradient(linear, left top, left bottom, from(#EDEED7), to(#E3E4CB)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #EDEED7,  #E3E4CB); /* for firefox 3.6+ */
+    background-color: #E7E9D0 !important; /* for non-css3 browsers */
+
+    background:-webkit-gradient(linear, left top, left bottom, from(#EDEED7), to(#E3E4CB)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #EDEED7,  #E3E4CB); /* for firefox 3.6+ */
 }
 
 
 .olap .empty {
     background-color: #D4D4D4; /* for non-css3 browsers */
-	
-	background:-webkit-gradient(linear, left top, left bottom, from(#dedede), to(#D4D4D4)); /* for webkit browsers */
-	background:-moz-linear-gradient(top,  #dedede,  #D4D4D4); /* for firefox 3.6+ */
+
+    background:-webkit-gradient(linear, left top, left bottom, from(#dedede), to(#D4D4D4)); /* for webkit browsers */
+    background:-moz-linear-gradient(top,  #dedede,  #D4D4D4); /* for firefox 3.6+ */
 }
 
 .olap .level.column {
@@ -1213,17 +1213,17 @@ and (max-device-width : 1024px) {
 .olap .member,
 .olap .total,
 .olap .empty {
-	border-width: 1px;
-	border-style: solid;
-	border-top-color: #fff;
-	border-left-color: #fff;
-	border-right-color: #b1b6bb;
-	border-bottom-color: #b1b6bb;
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-right-color: #b1b6bb;
+    border-bottom-color: #b1b6bb;
 }
 
 .olap .level.dummy {
-	border-right-width: 0;
-	border-left-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
 }
 
 .olap .level.column {
@@ -1237,8 +1237,8 @@ and (max-device-width : 1024px) {
 
 
 .data.table.olap td.value {
-	border: 1px solid #e3e9ef;
-	background-color: transparent;
+    border: 1px solid #e3e9ef;
+    background-color: transparent;
 }
 
 .data.table.olap td.value.total {
@@ -1247,18 +1247,18 @@ and (max-device-width : 1024px) {
 }
 
 .olap .icon.disclosure {
-	background-image: url("images/disclosure_indicators_sprite.png");
+    background-image: url("images/disclosure_indicators_sprite.png");
     height: 16px;
     width: 15px;
     left:-3px;
 }
 
 .olap .icon.disclosure.closed {
-	 background-position: 0 -678px;
+     background-position: 0 -678px;
 }
 
 .olap .icon.disclosure.open {
-	 background-position: 0 -702px;
+     background-position: 0 -702px;
 }
 
 

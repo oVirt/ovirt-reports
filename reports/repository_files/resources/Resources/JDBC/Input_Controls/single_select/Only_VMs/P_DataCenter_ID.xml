@@ -21,30 +21,30 @@
             <updateDate>2011-12-27T15:09:31.994+02:00</updateDate>
             <language>sql</language>
             <queryString>Select distinct datacenter_id, delete_date, CASE
-				WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
-				ELSE RTrim(cast(datacenter_name as varchar)) || ' (Removed on ' || cast(delete_date as varchar) || ')'
-			      END as combo_name
+                WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
+                ELSE RTrim(cast(datacenter_name as varchar)) || ' (Removed on ' || cast(delete_date as varchar) || ')'
+                  END as combo_name
 from v3_0_datacenter_configuration_view
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-		FROM v3_0_cluster_configuration_view
-		WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-			             FROM v3_0_vm_configuration_view a))
+        FROM v3_0_cluster_configuration_view
+        WHERE cluster_id in (SELECT DISTINCT a.cluster_id
+                         FROM v3_0_vm_configuration_view a))
               AND history_id in (SELECT max(a.history_id)
-		 FROM v3_0_datacenter_configuration_view a
-		 GROUP BY a.datacenter_id)
+         FROM v3_0_datacenter_configuration_view a
+         GROUP BY a.datacenter_id)
               $P!{Active_VMs}
 UNION ALL
 SELECT distinct cast('00000000-0000-0000-0000-000000000000' as uuid), cast(null as timestamp), 'Non Available'
-WHERE NOT EXISTS 	(Select distinct datacenter_id
-		  from v3_0_datacenter_configuration_view
-		  WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-				  FROM v3_0_cluster_configuration_view
-		  WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-		 	               FROM v3_0_vm_configuration_view a))
-	                                    AND history_id in (SELECT max(a.history_id)
-				  FROM v3_0_datacenter_configuration_view a
-				  GROUP BY a.datacenter_id)
-		  $P!{Active_VMs})
+WHERE NOT EXISTS     (Select distinct datacenter_id
+          from v3_0_datacenter_configuration_view
+          WHERE datacenter_id in (SELECT DISTINCT datacenter_id
+                  FROM v3_0_cluster_configuration_view
+          WHERE cluster_id in (SELECT DISTINCT a.cluster_id
+                            FROM v3_0_vm_configuration_view a))
+                                        AND history_id in (SELECT max(a.history_id)
+                  FROM v3_0_datacenter_configuration_view a
+                  GROUP BY a.datacenter_id)
+          $P!{Active_VMs})
 order by delete_date DESC, combo_name</queryString>
             <dataSource>
                 <uri>/Resources/JDBC/data_sources/ovirt</uri>

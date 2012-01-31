@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR9" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-	<property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/VM_Inventory"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<style name="Crosstab Data Text" hAlign="Center"/>
-	<style name="Line Style">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{ClusterID_COUNT} % 2) == 0]]></conditionExpression>
-			<style mode="Opaque" backcolor="#EFF3FF"/>
-		</conditionalStyle>
-	</style>
-	<parameter name="P_DataCenter_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Cluster_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="P_VM_Type" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-	</parameter>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Documents and Settings\\Administrator\\Local Settings\\Temp\\jstmp\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="Active_VMs" class="java.lang.String">
-		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT
+    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/VM_Inventory"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <style name="Crosstab Data Text" hAlign="Center"/>
+    <style name="Line Style">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[($V{ClusterID_COUNT} % 2) == 0]]></conditionExpression>
+            <style mode="Opaque" backcolor="#EFF3FF"/>
+        </conditionalStyle>
+    </style>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Cluster_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="P_VM_Type" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+    </parameter>
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Documents and Settings\\Administrator\\Local Settings\\Temp\\jstmp\\"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="Active_VMs" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT
        v3_0_vm_configuration_view.vm_name
       ,v3_0_vm_configuration_view.template_name
       ,cast(v3_0_vm_configuration_view.create_date as date) as create_date
@@ -45,258 +45,258 @@ FROM v3_0_vm_configuration_view, v3_0_enum_translator_view as a, v3_0_enum_trans
 WHERE v3_0_vm_configuration_view.vm_type = a.enum_key AND a.enum_type = 'VM_TYPE'
 AND v3_0_vm_configuration_view.operating_system = b.enum_key AND b.enum_type = 'OS_TYPE'
 AND v3_0_vm_configuration_view.cluster_id in (SELECT cluster_id
- 		     FROM v3_0_cluster_configuration_view
-		     Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
+              FROM v3_0_cluster_configuration_view
+             Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
 AND v3_0_vm_configuration_view.cluster_id = CASE cast($P{P_Cluster_ID} as uuid)
-			WHEN NULL THEN v3_0_vm_configuration_view.cluster_id
-			WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_0_vm_configuration_view.cluster_id
-			ELSE cast($P{P_Cluster_ID} as uuid)
-		   END
+            WHEN NULL THEN v3_0_vm_configuration_view.cluster_id
+            WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_0_vm_configuration_view.cluster_id
+            ELSE cast($P{P_Cluster_ID} as uuid)
+           END
 AND v3_0_vm_configuration_view.vm_type = CASE $P{P_VM_Type}
-			WHEN -1 THEN v3_0_vm_configuration_view.vm_type
-			ELSE $P{P_VM_Type}
-  		  END
+            WHEN -1 THEN v3_0_vm_configuration_view.vm_type
+            ELSE $P{P_VM_Type}
+            END
 AND v3_0_vm_configuration_view.history_id in (SELECT max(a.history_id)
-		    FROM v3_0_vm_configuration_view a
-		    GROUP BY a.vm_id)
+            FROM v3_0_vm_configuration_view a
+            GROUP BY a.vm_id)
 $P!{Active_VMs}
 ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delete_date DESC]]>
-	</queryString>
-	<field name="vm_name" class="java.lang.String"/>
-	<field name="template_name" class="java.lang.String"/>
-	<field name="create_date" class="java.sql.Date"/>
-	<field name="delete_date" class="java.sql.Date"/>
-	<field name="os_version" class="java.lang.String"/>
-	<field name="vm_memsize" class="java.math.BigDecimal"/>
-	<field name="vm_cpucores" class="java.math.BigDecimal"/>
-	<field name="cluster_id" class="java.lang.Object"/>
-	<field name="vm_type" class="java.lang.String"/>
-	<variable name="cpu_1" class="java.lang.Integer" resetType="Group" resetGroup="ClusterID" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="mem_1" class="java.lang.Integer" resetType="Group" resetGroup="ClusterID" calculation="Sum">
-		<variableExpression><![CDATA[]]></variableExpression>
-	</variable>
-	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
-	</variable>
-	<group name="ClusterID">
-		<groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
-		<groupHeader>
-			<band height="20">
-				<subreport>
-					<reportElement x="0" y="0" width="832" height="18"/>
-					<subreportParameter name="P_Cluster_ID">
-						<subreportParameterExpression><![CDATA[$F{cluster_id} == null ? $P{P_Cluster_ID} : $F{cluster_id}.toString()]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA["repo:header cluster name.jrxml"]]></subreportExpression>
-				</subreport>
-			</band>
-		</groupHeader>
-	</group>
-	<group name="Fake group" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
-		<groupHeader>
-			<band height="20">
-				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="832" height="20" backcolor="#D8E2FF"/>
-					<textField>
-						<reportElement x="239" y="0" width="98" height="20"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.template.name}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="53" y="0" width="100" height="20"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.vm.name}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="587" y="0" width="50" height="20"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.number.of.cores}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="383" y="0" width="45" height="20"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.vm.type}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="435" y="0" width="58" height="20"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.os}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="517" y="0" width="65" height="20"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.short.memory.size}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="731" y="0" width="80" height="20"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.delete.date}]]></textFieldExpression>
-					</textField>
-					<textField>
-						<reportElement x="640" y="0" width="84" height="20"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-							<font fontName="DejaVu Sans" size="11" isBold="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$R{br9.table.create.date}]]></textFieldExpression>
-					</textField>
-				</frame>
-			</band>
-		</groupHeader>
-	</group>
-	<title>
-		<band height="136">
-			<subreport>
-				<reportElement x="0" y="45" width="832" height="89"/>
-				<subreportParameter name="P_Cluster_ID">
-					<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_DataCenter_ID">
-					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="P_VM_Type">
-					<subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Active_VMs">
-					<subreportParameterExpression><![CDATA[$P{Active_VMs}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
-			</subreport>
-			<textField pattern="">
-				<reportElement x="504" y="27" width="328" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Sans" size="11" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="43" width="832" height="1"/>
-			</line>
-			<image>
-				<reportElement x="0" y="0" width="228" height="42"/>
-				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
-			</image>
-		</band>
-	</title>
-	<detail>
-		<band height="18" splitType="Stretch">
-			<frame>
-				<reportElement style="Line Style" x="0" y="0" width="832" height="18"/>
-				<textField isBlankWhenNull="true">
-					<reportElement x="383" y="0" width="45" height="18"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vm_type}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{vm_type}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="239" y="0" width="139" height="18"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{template_name}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{template_name}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField>
-					<reportElement x="547" y="0" width="15" height="18">
-						<printWhenExpression><![CDATA[$F{vm_memsize} != 0 && $F{vm_memsize} != null]]></printWhenExpression>
-					</reportElement>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{br9.table.gb}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="53" y="0" width="180" height="18"/>
-					<textElement verticalAlignment="Middle" markup="html">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vm_name}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{vm_name}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField pattern="###0.0" isBlankWhenNull="true">
-					<reportElement x="517" y="0" width="25" height="18">
-						<printWhenExpression><![CDATA[$F{vm_memsize} != 0]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vm_memsize}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="435" y="0" width="78" height="18"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
-					<hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="592" y="0" width="27" height="18">
-						<printWhenExpression><![CDATA[$F{vm_cpucores} != 0]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="10"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vm_cpucores}]]></textFieldExpression>
-				</textField>
-				<image>
-					<reportElement x="42" y="3" width="10" height="11">
-						<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
-					</reportElement>
-					<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-				</image>
-				<textField isBlankWhenNull="true">
-					<reportElement x="640" y="0" width="84" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{create_date})]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="731" y="0" width="80" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{delete_date})]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="0" y="0" width="39" height="18"/>
-					<textElement verticalAlignment="Middle" markup="html"/>
-					<textFieldExpression><![CDATA["<b><FONT COLOR='#3A5F7D'>" + $V{ClusterID_COUNT}.toString() + ". </b></FONT>"]]></textFieldExpression>
-				</textField>
-			</frame>
-		</band>
-	</detail>
-	<pageFooter>
-		<band height="15" splitType="Stretch">
-			<textField evaluationTime="Auto">
-				<reportElement x="221" y="0" width="391" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
+    </queryString>
+    <field name="vm_name" class="java.lang.String"/>
+    <field name="template_name" class="java.lang.String"/>
+    <field name="create_date" class="java.sql.Date"/>
+    <field name="delete_date" class="java.sql.Date"/>
+    <field name="os_version" class="java.lang.String"/>
+    <field name="vm_memsize" class="java.math.BigDecimal"/>
+    <field name="vm_cpucores" class="java.math.BigDecimal"/>
+    <field name="cluster_id" class="java.lang.Object"/>
+    <field name="vm_type" class="java.lang.String"/>
+    <variable name="cpu_1" class="java.lang.Integer" resetType="Group" resetGroup="ClusterID" calculation="Sum">
+        <variableExpression><![CDATA[]]></variableExpression>
+    </variable>
+    <variable name="mem_1" class="java.lang.Integer" resetType="Group" resetGroup="ClusterID" calculation="Sum">
+        <variableExpression><![CDATA[]]></variableExpression>
+    </variable>
+    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+        <initialValueExpression><![CDATA[]]></initialValueExpression>
+    </variable>
+    <group name="ClusterID">
+        <groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
+        <groupHeader>
+            <band height="20">
+                <subreport>
+                    <reportElement x="0" y="0" width="832" height="18"/>
+                    <subreportParameter name="P_Cluster_ID">
+                        <subreportParameterExpression><![CDATA[$F{cluster_id} == null ? $P{P_Cluster_ID} : $F{cluster_id}.toString()]]></subreportParameterExpression>
+                    </subreportParameter>
+                    <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    <subreportExpression><![CDATA["repo:header cluster name.jrxml"]]></subreportExpression>
+                </subreport>
+            </band>
+        </groupHeader>
+    </group>
+    <group name="Fake group" isReprintHeaderOnEachPage="true">
+        <groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
+        <groupHeader>
+            <band height="20">
+                <frame>
+                    <reportElement mode="Opaque" x="0" y="0" width="832" height="20" backcolor="#D8E2FF"/>
+                    <textField>
+                        <reportElement x="239" y="0" width="98" height="20"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.template.name}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="53" y="0" width="100" height="20"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.vm.name}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="587" y="0" width="50" height="20"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.number.of.cores}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="383" y="0" width="45" height="20"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.vm.type}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="435" y="0" width="58" height="20"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.os}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="517" y="0" width="65" height="20"/>
+                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.short.memory.size}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="731" y="0" width="80" height="20"/>
+                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.delete.date}]]></textFieldExpression>
+                    </textField>
+                    <textField>
+                        <reportElement x="640" y="0" width="84" height="20"/>
+                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                        </textElement>
+                        <textFieldExpression><![CDATA[$R{br9.table.create.date}]]></textFieldExpression>
+                    </textField>
+                </frame>
+            </band>
+        </groupHeader>
+    </group>
+    <title>
+        <band height="136">
+            <subreport>
+                <reportElement x="0" y="45" width="832" height="89"/>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_DataCenter_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="P_VM_Type">
+                    <subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="Active_VMs">
+                    <subreportParameterExpression><![CDATA[$P{Active_VMs}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
+            </subreport>
+            <textField pattern="">
+                <reportElement x="504" y="27" width="328" height="15"/>
+                <textElement textAlignment="Right">
+                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="0" y="43" width="832" height="1"/>
+            </line>
+            <image>
+                <reportElement x="0" y="0" width="228" height="42"/>
+                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+            </image>
+        </band>
+    </title>
+    <detail>
+        <band height="18" splitType="Stretch">
+            <frame>
+                <reportElement style="Line Style" x="0" y="0" width="832" height="18"/>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="383" y="0" width="45" height="18"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{vm_type}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{vm_type}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="239" y="0" width="139" height="18"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{template_name}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{template_name}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField>
+                    <reportElement x="547" y="0" width="15" height="18">
+                        <printWhenExpression><![CDATA[$F{vm_memsize} != 0 && $F{vm_memsize} != null]]></printWhenExpression>
+                    </reportElement>
+                    <textElement verticalAlignment="Middle" markup="none">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$R{br9.table.gb}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="53" y="0" width="180" height="18"/>
+                    <textElement verticalAlignment="Middle" markup="html">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{vm_name}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{vm_name}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField pattern="###0.0" isBlankWhenNull="true">
+                    <reportElement x="517" y="0" width="25" height="18">
+                        <printWhenExpression><![CDATA[$F{vm_memsize} != 0]]></printWhenExpression>
+                    </reportElement>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{vm_memsize}]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="435" y="0" width="78" height="18"/>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="592" y="0" width="27" height="18">
+                        <printWhenExpression><![CDATA[$F{vm_cpucores} != 0]]></printWhenExpression>
+                    </reportElement>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="10"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{vm_cpucores}]]></textFieldExpression>
+                </textField>
+                <image>
+                    <reportElement x="42" y="3" width="10" height="11">
+                        <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
+                    </reportElement>
+                    <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+                </image>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="640" y="0" width="84" height="18"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{create_date})]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="731" y="0" width="80" height="18"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{delete_date})]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="0" y="0" width="39" height="18"/>
+                    <textElement verticalAlignment="Middle" markup="html"/>
+                    <textFieldExpression><![CDATA["<b><FONT COLOR='#3A5F7D'>" + $V{ClusterID_COUNT}.toString() + ". </b></FONT>"]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="15" splitType="Stretch">
+            <textField evaluationTime="Auto">
+                <reportElement x="221" y="0" width="391" height="15"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans"/>
+                </textElement>
+                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
 </jasperReport>

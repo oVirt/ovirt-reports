@@ -7,163 +7,163 @@ intended scope:
 
 pods skin
 tim sheiner & christie rixford
-*/		
+*/
 
 html {
-	overflow:auto; /* hides disabled vertical scrollbar */
+    overflow:auto; /* hides disabled vertical scrollbar */
 }
 
 .dimmer {
-	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-	filter: alpha(opacity=60);
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    filter: alpha(opacity=60);
 }
 
 
 /* tweaks to theme.css */
 
 #frame>.content {
- 	background: none;
+     background: none;
 }
 
 #frame>.content>.header {
-	overflow:visible;
+    overflow:visible;
 }
 
 
 #frame>.content>.header>.cosmetic {
-	background-image: url(images/frame_header_sprite.png);
+    background-image: url(images/frame_header_sprite.png);
 }
 
 .toolbar {
-	clear: left;
+    clear: left;
 }
 
 /* tweaks to containers.css */
 
 .primaryNav.menu .wrap {
-	height:35px;
+    height:35px;
 }
 
 .menu.vertical .leaf.separator {
-	height: auto;
-	margin-bottom: -10px;
+    height: auto;
+    margin-bottom: -10px;
 }
 
 .menu.vertical .wrap {
-	height: 2em;
+    height: 2em;
 }
 
 .header>.title {
-	display:inline;
+    display:inline;
 }
 
 .pane>.content>.header .icon,
 .pane>.content>.header .title,
 .pane>.content>.header .buttonSet {
-	float:left;
-	line-height: 20px;
+    float:left;
+    line-height: 20px;
 }
 
 .pane>.content {
-	float:none;
+    float:none;
 }
 
 .column>.content {
-	position: static;
+    position: static;
 }
 
 .panel.dialog .content {
-	min-width: 100px;
+    min-width: 100px;
 }
 
 .system.info .message {
-	margin: 0 10px;
+    margin: 0 10px;
 }
 
 .panel.dialog>.content>.header>.cosmetic {
-	background-image: url(images/panel_dialog_header_sprite.png);
+    background-image: url(images/panel_dialog_header_sprite.png);
 }
 
 .panel.widget>.content>.header>.cosmetic {
-	background-image: url(images/panel_widget_header_sprite.png);
+    background-image: url(images/panel_widget_header_sprite.png);
 }
 
 /* tweaks to dialogSpecific.css */
 
 .login {
-	width:250px;
+    width:250px;
 }
 
 .selectFile #fromLocal #fileUpload {
-	width:auto;
-	margin-bottom: 0;
+    width:auto;
+    margin-bottom: 0;
 }
 
 .selectFile #fromRepo {
-	top:75px;
+    top:75px;
 }
 
 .selectFile #fromRepo label {
-	position: absolute;
-	top:0;
-	bottom:0;
-	left:20px;
-	right: 0;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:20px;
+    right: 0;
 }
 
 .selectFile>.content>.body {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .addOrganization,
 .addUser,
 .addRole {
-	width: 350px;
+    width: 350px;
 }
 
 .dialog.customURL.noParams>.content>.body {
-	bottom:auto;
+    bottom:auto;
 }
 
 #calculatedField .list.inputSet {
-	width: 100%;
+    width: 100%;
 }
 
 #calculatedField.swap .list.inputSet .leaf {
-	width: 100%;
+    width: 100%;
 }
 
 .calculatedField .argument,
 .calculatedField .operator {
-	float:none;
-	top:-3px;
+    float:none;
+    top:-3px;
 }
 
 .calculatedField.swap .argument.one {
-	margin-left:0;
+    margin-left:0;
 }
 
 .calculatedField.swap .operator {
-	margin-left:0;
+    margin-left:0;
 }
 
 #calculatedField #calculatedFieldOptions .leaf .control {
-	white-space: nowrap;
-	
+    white-space: nowrap;
+
 }
 
 .pane.inputControls .inputControls.list {
-	width: auto;
+    width: auto;
 }
 
 .pane.inputControls .inputControls.list input,
 .pane.inputControls .inputControls.list select {
-	width: auto !important;
+    width: auto !important;
 }
 
 .pane.inputControls .inputControls.list .text .wrap,
 .pane.inputControls .inputControls.list .select .wrap {
-	display: block;
+    display: block;
 }
 
 
@@ -171,18 +171,18 @@ html {
 /* tweaks to layout.css */
 
 .twoColumn>.column.primary {
-	right:20px;
+    right:20px;
 }
 
 
 .threeColumns_equal .column.tertiary {
-	right:20px; /*width of scrollbar */
-	left:67%;
-	width:auto;
+    right:20px; /*width of scrollbar */
+    left:67%;
+    width:auto;
 }
 
 #stepDisplay {
-	max-width: 900px;
+    max-width: 900px;
 }
 
 
@@ -197,113 +197,113 @@ html {
 }
 
 .button.action>.wrap {
-	height:32px;
-	background-image: url(images/button_action_sprite.png);
+    height:32px;
+    background-image: url(images/button_action_sprite.png);
 }
 
 .button.action.primary>.wrap {
-	background-image: url(images/button_action_primary_sprite.png);
+    background-image: url(images/button_action_primary_sprite.png);
 }
 
 .button.action.jumbo>.wrap {
-	height:180px;
-	background-image: url(images/button_action_jumbo_sprite.png);
-	font-size: 22px;
+    height:180px;
+    background-image: url(images/button_action_jumbo_sprite.png);
+    font-size: 22px;
 }
 
 
 .button.options>.wrap {
-	height:21px;
-	background-image: url(images/button_options_sprite.png);
+    height:21px;
+    background-image: url(images/button_options_sprite.png);
 }
 
 .filter .button.options {
-	left:30px;
-	top:5px;
+    left:30px;
+    top:5px;
 }
 
 .button.capsule>.wrap {
-	height:26px;
-	background-image: url(images/button_capsule_sprite.png);
+    height:26px;
+    background-image: url(images/button_capsule_sprite.png);
 }
 
 .button.move>.wrap {
-	background-image: url(images/button_action_sprite.png);
+    background-image: url(images/button_action_sprite.png);
 }
 
 .list.buttonSet .node, .list.buttonSet .leaf {
-	clear:none;
-	float:left;
+    clear:none;
+    float:left;
 }
 
 .move.right[disabled] .icon,
 .move.right.disabled .icon {
-	background-position: -86px 9px;
+    background-position: -86px 9px;
 }
 
 .move.left[disabled] .icon,
 .move.left.disabled .icon {
-	background-position: -86px -44px;
+    background-position: -86px -44px;
 }
 
 .move.toRight[disabled] .icon,
 .move.toRight.disabled .icon  {
-	background-position: -86px -150px;
+    background-position: -86px -150px;
 }
 
 .move.toLeft[disabled] .icon,
 .move.toLeft.disabled .icon {
-	background-position: -86px -97px;
+    background-position: -86px -97px;
 }
 
 .move.upward[disabled] .icon,
 .move.upward.disabled .icon {
-	background-position: -86px -217px;
+    background-position: -86px -217px;
 }
 
 .move.downward[disabled] .icon,
 .move.downward.disabled .icon {
-	background-position: -86px -270px;
+    background-position: -86px -270px;
 }
 
 .move.toTop[disabled] .icon,
 .move.toTop.disabled .icon {
-	background-position: -86px -336px;
+    background-position: -86px -336px;
 }
 
 .move.toBottom[disabled] .icon,
 .move.toBottom.disabled .icon {
-	background-position: -86px -387px;
+    background-position: -86px -387px;
 }
 
 .action.join.left[disabled] .icon,
 .action.join.left.disabled .icon {
-	background-position: -91px -693px;
+    background-position: -91px -693px;
 }
 
 .action.join.right[disabled] .icon,
 .action.join.right.disabled .icon {
-	background-position: -91px -723px;
+    background-position: -91px -723px;
 }
 
 .action.join.inner[disabled] .icon,
 .action.join.inner.disabled .icon {
-	background-position: -91px -752px;
+    background-position: -91px -752px;
 }
 
 .action.join.full[disabled] .icon,
 .action.join.full.disabled .icon {
-	background-position: -91px -780px;
+    background-position: -91px -780px;
 }
 
 #add.square[disabled]>.wrap>.icon,
 #add.square.disabled>.wrap>.icon {
-	background-position: -88px -655px;
+    background-position: -88px -655px;
 }
 
 #addToSet.square[disabled]>.wrap>.icon,
 #addToSet.square.disabled>.wrap>.icon  {
-	background-position: -88px -615px;
+    background-position: -88px -615px;
 }
 
 #designer .toolbar #presentation.button[disabled] .icon {
@@ -361,9 +361,9 @@ html {
 
 .checkBox input[type="checkbox"],
 .radio input[type="radio"] {
-	position: absolute;
-	left:0;
-	top:-4px !important;
+    position: absolute;
+    left:0;
+    top:-4px !important;
 }
 
 .tabSet.horizontal.buttons>.tab>.button>.wrap {
@@ -390,59 +390,59 @@ html {
 }
 
 .tabSet.vertical .tab {
-	zoom: 1;
+    zoom: 1;
 }
 
 .tabSet.vertical .tab .wrap {
-	height:28px;	
+    height:28px;
 }
 
 .header>.searchLockup {
-	position:absolute;
-	margin-left:20px;
-	left:auto;
+    position:absolute;
+    margin-left:20px;
+    left:auto;
 }
 
 .control.searchLockup>.right {
-	z-index: 2;
+    z-index: 2;
 }
 
 .button.picker {
-	left:2px;
+    left:2px;
 }
 
 .control.picker {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .control.combo>select {
-	display: block;
+    display: block;
 }
 
 .control.pickWells > .control.combo.availableValues > select,
 .control.pickWells > .control.select.selectedValues > select {
-	left:0;
-	right:0;
-	
+    left:0;
+    right:0;
+
 }
 
 .control.pickWells > .control.select.selectedValues > select {
-	top:0;
-	height: 105px;
-	margin-top: 20px;
+    top:0;
+    height: 105px;
+    margin-top: 20px;
 }
 
 .leaf.editMode .control.input.text,
 .leaf.editMode .control.picker {
-	width:150px;
+    width:150px;
 }
 
 .leaf.editMode .control.combo {
-	width:185px;
+    width:185px;
 }
 
 textarea {
-	overflow: auto;
+    overflow: auto;
 }
 
 
@@ -450,8 +450,8 @@ textarea {
 
 .list.responsive.filters .leaf>.wrap,
 .list.responsive.filters .node>.wrap {
-	line-height: 1.5em;
-	height: 2.5em;
+    line-height: 1.5em;
+    height: 2.5em;
 }
 
 .list.tabular.filters.twoColumn>.leaf>.wrap {
@@ -459,40 +459,40 @@ textarea {
 }
 
 .list.tabular.threeColumn .column {
-	line-height: normal;
+    line-height: normal;
 }
 
 
 .list.tabular.threeColumn .column.two>p,
 .list.tabular.threeColumn .column.three>p  {
-	padding-top:3px;
+    padding-top:3px;
 }
 
 .list.tabular.threeColumn .column>.wrap {
-	line-height: 1.5em;
-	height: 2.5em;
+    line-height: 1.5em;
+    height: 2.5em;
 }
 
 
 
 #repoBrowse .resourceDescription {
-	position: absolute;
-	top:0;
-	left:60%;
+    position: absolute;
+    top:0;
+    left:60%;
 }
 
 #repoBrowse .node .twoColumn .resourceDescription {
-	position: relative;
+    position: relative;
 }
 
 
 #repoBrowse .resourcePath {
-	word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 
 .list.locations {
-	position: static;
+    position: static;
 }
 
 .list.tabular.filters>.leaf>.wrap>.condition>.operation {
@@ -501,101 +501,101 @@ textarea {
 
 .list.tabular.twoColumn.filters .wrap>.column.two>.actions,
 .list.tabular.twoColumn.filters .wrap>.column.two>.lock {
-	height: 2.5em;
-	display: inline-block;
+    height: 2.5em;
+    display: inline-block;
 }
 
 
 .list.palette>.leaf.chip {
-	float:left;
-	clear: none;
+    float:left;
+    clear: none;
 }
 
 .list.palette>.leaf>.list.palette {
-	min-width:60px;
+    min-width:60px;
 }
 
 .list.palette>.leaf.button {
-	min-width: 60px;
+    min-width: 60px;
 }
 
 .collapsible>li {
-	line-height: 2em;
+    line-height: 2em;
 }
 
 #entitiesList .wrap.button {
-	height: 2em;
-	padding-top: .5em;
-	padding-bottom: 0;
-	margin-bottom: 0;
-	vertical-align: middle;
+    height: 2em;
+    padding-top: .5em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
 }
 
 .list.collapsible .wrap {
-	padding-bottom: 3px;
+    padding-bottom: 3px;
 }
 
 
 .list.collapsible.type_tables .node>.wrap>.icon,
 .list.collapsible.type_sets .node>.wrap>.icon {
-	top:2px;
+    top:2px;
 }
 
 .list.collapsible.folders .wrap {
-	padding-bottom: 6px;
+    padding-bottom: 6px;
 }
 
 .list.collapsible.folders .wrap>.icon {
-	top:4px;
+    top:4px;
 }
 
 
 
 .list.inputControls {
-	width:250px;
+    width:250px;
 }
 
 .list.filters>li>.wrap>.icon {
-	top:4px;
+    top:4px;
 }
 
 .list.filters .leaf>.wrap {
-	height:2.5em;
-	line-height:normal;
+    height:2.5em;
+    line-height:normal;
 }
 
 .list.filters .wrap>.more.launcher,
 .list.filters .wrap>.fewer.launcher, {
-	position:relative;
-	top:-3px;
+    position:relative;
+    top:-3px;
 }
 
 
 .list.filters>.leaf.editMode {
-	padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .fields>.node>.wrap>.icon,
 .fields.node>.wrap>.icon,
 .fields .node>.wrap>.icon {
-	top:1px;
+    top:1px;
 }
 
 
 /* tweaks to pageSpecific.css */
 /* adhoc */
 #designer #mainTableContainer .overlay {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 #designer #mainTableContainer .overlay.legend {
-	background-color: white;
-	 -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
-	filter: alpha(opacity=10);
+    background-color: white;
+     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    filter: alpha(opacity=10);
 }
 
 #designer #mainTableContainer .overlay.legend.over {
-	background-color: blue;
+    background-color: blue;
 }
 
 
@@ -605,23 +605,23 @@ textarea {
 #designer #mainTableContainer .overlay.over,
 #designer #mainTableContainer .overlay.pressed,
 #designer #mainTableContainer .overlay.selected {
-	background-color: #217EB5;
-	 -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-	filter: alpha(opacity=30);
+    background-color: #217EB5;
+     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    filter: alpha(opacity=30);
 }
 
 .overlay.col.dragging {
-	 -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)" !important;
-	filter: alpha(opacity=70) !important;
+     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)" !important;
+    filter: alpha(opacity=70) !important;
 }
 
 
 #locateJRXML .list.locations {
-	position: absolute;
-	top:0;
-	bottom:0;
-	left:0;
-	right: 0;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
 }
 
 /* dashboard designer */
@@ -635,41 +635,41 @@ textarea {
 .componentContainer>.overlay.pressed,
 .componentContainer.selected>.overlay {
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-	filter: alpha(opacity=70);
-	background-color: #eee;
-	border:2px dashed #217EB5;
+    filter: alpha(opacity=70);
+    background-color: #eee;
+    border:2px dashed #217EB5;
 }
 
 .componentContainer.control.picker {
-	width:150px !important;
+    width:150px !important;
 }
 
 /* login page */
 #loginPage #buttons .primary {
-	float: left;
+    float: left;
 }
 
 .pane.settings .control.checkBox .wrap {
-	left:20px;
-	position: relative;
+    left:20px;
+    position: relative;
 }
 
 .pane.settings .control.input.text .wrap {
-	left:110px;
-	position: relative;
+    left:110px;
+    position: relative;
 }
 
 .pane.settings .control.input.text>input,
 .pane.settings .control>select {
-	top:0;
-	left:0;
-	position: absolute;
-	width:100px;
+    top:0;
+    left:0;
+    position: absolute;
+    width:100px;
 }
 
 /* scheduler */
 #scheduler_jobSetUp #calendarRecurrence .list > .leaf {
-	width:200px;
+    width:200px;
 }
 
 #scheduler_jobSetUp #fixedRepeat {
@@ -678,32 +678,32 @@ textarea {
 
 
 .row.inputs.oneColumn .primary.column {
-	max-width: 590px;
+    max-width: 590px;
 }
 
 .row.inputs.twoColumn_equal .column {
-	max-width: 440px;
+    max-width: 440px;
 }
 
 /* messges */
 
 #messages #messageFilter {
-	position: relative;
-	top:3px;
-	left:5px;
+    position: relative;
+    top:3px;
+    left:5px;
 }
 
 /* logSettings */
 
 #logSettings .column.three select {
-	width: 100px;
-	margin-left:10px;
+    width: 100px;
+    margin-left:10px;
 }
 
 /* OLAP crosstab */
 
-.olap .level {	
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CFE0CB', endColorstr='#BCD7B6'); /* for IE */
+.olap .level {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CFE0CB', endColorstr='#BCD7B6'); /* for IE */
 }
 
 .olap .level.odd {
@@ -711,16 +711,16 @@ textarea {
 }
 
 .olap .measure {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0C3E8', endColorstr='#C2B2E3'); /* for IE */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0C3E8', endColorstr='#C2B2E3'); /* for IE */
 }
 
 .olap .member {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e7f2', endColorstr='#d4dee9'); /* for IE */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e7f2', endColorstr='#d4dee9'); /* for IE */
 }
 
 #designer #OLAP td.selected,
 #designer #OLAP th.selected {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EDEED7', endColorstr='#E3E4CB') !important; /* for IE */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EDEED7', endColorstr='#E3E4CB') !important; /* for IE */
 }
 
 .olap .empty {
@@ -729,27 +729,27 @@ textarea {
 
 .levels .level a,
 .members .member a {
-	color: #666 !important;
+    color: #666 !important;
 }
 
 .olap .displayManager {
-	margin:5px;
+    margin:5px;
 }
 
 .tokens .button {
-	display: inline !important;
+    display: inline !important;
 }
 
 .displayManager .tokens {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .measure.draggable {
-	padding-left:15px;
+    padding-left:15px;
 }
 
 .tokens>.measure>.handle {
-	position:absolute;
-	left:5px;
-	top:5px;
+    position:absolute;
+    left:5px;
+    top:5px;
 }

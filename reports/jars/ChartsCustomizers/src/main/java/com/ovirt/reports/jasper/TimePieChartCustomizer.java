@@ -19,37 +19,37 @@ import org.jfree.chart.plot.PiePlot;
 
 public class TimePieChartCustomizer implements JRChartCustomizer {
 
-	public TimePieChartCustomizer() {
-	}
+    public TimePieChartCustomizer() {
+    }
 
-	public void customize(JFreeChart chart, JRChart jasperChart) {
-		Plot plot = chart.getPlot();
-		
-		plot.setNoDataMessage("No Data Available");
-		chart.removeLegend();
-		
-		//Shape square = new Rectangle2D.Double(0,0,5,5);
-		PiePlot piePlot = (PiePlot) plot;
-		piePlot.setSimpleLabels(true);
-		piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
-		float[] green = new float[3];
-		float[] red = new float[3];
-		Color.RGBtoHSB(255, 0, 0, red);
-		Color.RGBtoHSB(111, 191, 0, green);
-		for (int i = 1; i <= piePlot.getDataset().getItemCount(); i++)
-		{
-				if (piePlot.getDataset().getKey(i-1).toString().contains("Above".subSequence(0, 4)))
-				{
-					piePlot.setSectionPaint(piePlot.getDataset().getKey(i-1), Color.getHSBColor(red[0], red[1], red[2]));
-				}
-				if  (piePlot.getDataset().getKey(i-1).toString().contains("Below".subSequence(0, 4)))
-				{
-					piePlot.setSectionPaint(piePlot.getDataset().getKey(i-1), Color.getHSBColor(green[0], green[1], green[2]));
-				}
-		}
-		//piePlot.setLabelGenerator(null);
-		//piePlot.setLegendLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
-		//piePlot.setLegendItemShape(square);
-		//chart.getLegend().setFrame(BlockBorder.NONE);
-	}
+    public void customize(JFreeChart chart, JRChart jasperChart) {
+        Plot plot = chart.getPlot();
+
+        plot.setNoDataMessage("No Data Available");
+        chart.removeLegend();
+
+        //Shape square = new Rectangle2D.Double(0,0,5,5);
+        PiePlot piePlot = (PiePlot) plot;
+        piePlot.setSimpleLabels(true);
+        piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
+        float[] green = new float[3];
+        float[] red = new float[3];
+        Color.RGBtoHSB(255, 0, 0, red);
+        Color.RGBtoHSB(111, 191, 0, green);
+        for (int i = 1; i <= piePlot.getDataset().getItemCount(); i++)
+        {
+                if (piePlot.getDataset().getKey(i-1).toString().contains("Above".subSequence(0, 4)))
+                {
+                    piePlot.setSectionPaint(piePlot.getDataset().getKey(i-1), Color.getHSBColor(red[0], red[1], red[2]));
+                }
+                if  (piePlot.getDataset().getKey(i-1).toString().contains("Below".subSequence(0, 4)))
+                {
+                    piePlot.setSectionPaint(piePlot.getDataset().getKey(i-1), Color.getHSBColor(green[0], green[1], green[2]));
+                }
+        }
+        //piePlot.setLabelGenerator(null);
+        //piePlot.setLegendLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
+        //piePlot.setLegendItemShape(square);
+        //chart.getLegend().setFrame(BlockBorder.NONE);
+    }
 }
