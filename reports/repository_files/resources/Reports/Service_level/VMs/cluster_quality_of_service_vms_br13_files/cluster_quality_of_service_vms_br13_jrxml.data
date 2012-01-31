@@ -244,7 +244,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
 						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Cluster Average"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$R{b13.table.cluster.average}]]></textFieldExpression>
 					</textField>
 					<frame>
 						<reportElement x="449" y="0" width="118" height="20"/>
@@ -342,28 +342,28 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
 						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Virtual Machine Name"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$R{br13.table.vm.name}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="743" y="0" width="81" height="40" forecolor="#000000"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true" isPdfEmbedded="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Delete Date"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$R{br13.table.delete.date}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="600" y="0" width="118" height="40" forecolor="#000000"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Time Above Memory Threshold"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$R{br13.table.time.above.memory.threshold}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="462" y="0" width="94" height="40" forecolor="#000000"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 							<font fontName="DejaVu Sans" size="11" isBold="true"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Time Above CPU Threshold"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$R{br13.table.time.above.cpu.threshold}]]></textFieldExpression>
 					</textField>
 				</frame>
 			</band>
