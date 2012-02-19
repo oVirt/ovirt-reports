@@ -394,7 +394,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                                 </labelFont>
                             </axisFormat>
                         </categoryAxisFormat>
-                        <valueAxisLabelExpression><![CDATA["Memory Usage %"]]></valueAxisLabelExpression>
+                        <valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
@@ -468,7 +468,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                                 </labelFont>
                             </axisFormat>
                         </categoryAxisFormat>
-                        <valueAxisLabelExpression><![CDATA["Disk Usage MB/s"]]></valueAxisLabelExpression>
+                        <valueAxisLabelExpression><![CDATA[$R{axis.disks.usage.mb.pre.second}]]></valueAxisLabelExpression>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
@@ -535,7 +535,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                                 </labelFont>
                             </axisFormat>
                         </categoryAxisFormat>
-                        <valueAxisLabelExpression><![CDATA["CPU Usage %"]]></valueAxisLabelExpression>
+                        <valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
@@ -609,7 +609,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                                 </labelFont>
                             </axisFormat>
                         </categoryAxisFormat>
-                        <valueAxisLabelExpression><![CDATA["Network Usage %"]]></valueAxisLabelExpression>
+                        <valueAxisLabelExpression><![CDATA[$R{axis.network.usage.percent}]]></valueAxisLabelExpression>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
