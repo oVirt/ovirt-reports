@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<reports>
+    <resource type="DataCenter">
+        <category name="Executive">
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Active Virtual Machines by OS (BR18)" description="The report contains comparative measurements number of running virtual machines and OS usage in for a selected cluster and a selected virtual machine's type within the requested period.">/Reports/Executive/active_vms_by_os_br18</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Cluster Capactity Vs Usage (BR19)" description="This report contains charts displaying host&apos;s resources usage measurements (CPU core; physical Memory) and charts displaying virtual machine&apos;s resources usage measurements (virtual machine's total vCPU; Virtual Memory size) for a selected cluster.">/Reports/Executive/cluster_capactity_vs_usage_br19</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Host OS Break Down (BR22)" description="This report contains a table and a chart displaying the number of hosts for each OS version for a selected cluster within a requested period.">/Reports/Executive/host_os_break_down_BR22</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Summary of Host Usage Resources (BR17)" description="The report contains a scattered chart of CPU and memory usage data within a requested period and for a selected cluster.">/Reports/Executive/summary_of_host_usage_resources_br17</uri>
+        </category>
+        <category name="Inventory">
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Hosts Inventory (BR1)" description="This report displays a list of all hosts of the selected data center and cluster.">/Reports/Inventory/Hosts_Inventory</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Virtual Machines Inventory (BR9)" description="This report displays a list of all virtual machines of the selected data center and cluster.">/Reports/Inventory/VM_Inventory</uri>
+        </category>
+        <category name="Service Level">
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Cluster Host Uptime (BR7)" description="This report contains chart displaying the weighted average uptime of hosts within a selected cluster for a requested period and a table of history data displaying the down time and the maintenance time each time of each host.">/Reports/Service_level/Hosts/cluster_uptime_br7</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="High Availability Virtual Servers Uptime (BR14)" description="This report contains one gauge displaying the weighted average uptime of high availability virtual servers within a selected cluster for a requested period and a table of history data displaying the total down time (in hours) of each virtual machine.">/Reports/Service_level/VMs/virtual_servers_uptime_br14</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Cluster Quality of Service - Hosts (BR6)" description="This report contains a chart displaying the time hosts have performed above a selected threshold (Host-hours) and a table of total time each host was performing above the CPU or the Memory threshold.">/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Cluster Quality of Service - Virtual Machines (BR13)" description="This report contains a chart displaying the time virtual machines have performed above a selected threshold and a table of total time each virtual machine was performing above the CPU or the memory threshold.">/Reports/Service_level/VMs/cluster_quality_of_service_vms_br13</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Top 10 Downtime Hosts (BR7B)" description="This report contains a chart displaying the uptime, maintenance time and the down time for the bottom 10 hosts sorted by weighted uptime.">/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b</uri>
+        </category>
+        <category name="Trend">
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Five Most Utilized Hosts (Over Time) (BR4)" description="This report contains two charts displaying weighted average daily peak of CPU and memory usage for the top five busiest hosts of a selected cluster and within a given period.">/Reports/Trend/Hosts/Five_most_utilized_hosts_over_time</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Five Most Utilized Virtual Machines (Over Time) (BR11)" description="This report contains charts displaying weighted average daily peak of CPU and memory usage for the top five busiest virtual machines of a selected cluster and within a given period month.">/Reports/Trend/Virtual_machines/five_most_utilized_vms_over_time_br11</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Five Least Utilized Hosts (Over Time) (BR5)" description="This report contains two charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest hosts of a selected cluster and within a given period.">/Reports/Trend/Hosts/five_least_utilized_hosts_br5</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Five Least Utilized Virtual Machines (Over Time) (BR12)" description="This report contains charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest virtual machines of a selected cluster and within a given period month.">/Reports/Trend/Virtual_machines/five_least_utilized_vms_Over_Time_BR12</uri>
+        </category>
+    </resource>
+
+    <resource type="Storage">
+        <category name="Inventory">
+            <uri idParamName="P_StorageDomain_ID" multiple="false"
+                name="Storage Domain Size Over Time (BR21)"
+                description="This report displays daily used disk size versus available disk size data for the selected datacenter and storage domain within a requested period.">/Reports/Inventory/Storage_Domain_Report_BR21</uri>
+        </category>
+    </resource>
+
+    <resource type="Cluster">
+        <category name="Executive">
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Active Virtual Machines by OS (BR18)" description="The report contains comparative measurements number of running virtual machines and OS usage in for a selected cluster and a selected virtual machine's type within the requested period.">/Reports/Executive/active_vms_by_os_br18</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Cluster Capactity Vs Usage (BR19)" description="This report contains charts displaying host&apos;s resources usage measurements (CPU core; physical Memory) and charts displaying virtual machine&apos;s resources usage measurements (virtual machine's total vCPU; Virtual Memory size) for a selected cluster.">/Reports/Executive/cluster_capactity_vs_usage_br19</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Host OS Break Down (BR22)" description="This report contains a table and a chart displaying the number of hosts for each OS version for a selected cluster within a requested period.">/Reports/Executive/host_os_break_down_BR22</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Summary of Host Usage Resources (BR17)" description="The report contains a scattered chart of CPU and memory usage data within a requested period and for a selected cluster.">/Reports/Executive/summary_of_host_usage_resources_br17</uri>
+        </category>
+        <category name="Inventory">
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Hosts Inventory (BR1)" description="This report displays a list of all hosts of the selected data center and cluster.">/Reports/Inventory/Hosts_Inventory</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Virtual Machines Inventory (BR9)" description="This report displays a list of all virtual machines of the selected data center and cluster.">/Reports/Inventory/VM_Inventory</uri>
+        </category>
+        <category name="Service Level">
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Cluster Host Uptime (BR7)" description="This report contains chart displaying the weighted average uptime of hosts within a selected cluster for a requested period and a table of history data displaying the down time and the maintenance time each time of each host.">/Reports/Service_level/Hosts/cluster_uptime_br7</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="High Availability Virtual Servers Uptime (BR14)" description="This report contains one gauge displaying the weighted average uptime of high availability virtual servers within a selected cluster for a requested period and a table of history data displaying the total down time (in hours) of each virtual machine.">/Reports/Service_level/VMs/virtual_servers_uptime_br14</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Cluster Quality of Service - Hosts (BR6)" description="This report contains a chart displaying the time hosts have performed above a selected threshold (Host-hours) and a table of total time each host was performing above the CPU or the Memory threshold.">/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Cluster Quality of Service - Virtual Machines (BR13)" description="This report contains a chart displaying the time virtual machines have performed above a selected threshold and a table of total time each virtual machine was performing above the CPU or the memory threshold.">/Reports/Service_level/VMs/cluster_quality_of_service_vms_br13</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Top 10 Downtime Hosts (BR7B)" description="This report contains a chart displaying the uptime, maintenance time and the down time for the bottom 10 hosts sorted by weighted uptime.">/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b</uri>
+        </category>
+        <category name="Trend">
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Five Most Utilized Hosts (Over Time) (BR4)" description="This report contains two charts displaying weighted average daily peak of CPU and memory usage for the top five busiest hosts of a selected cluster and within a given period.">/Reports/Trend/Hosts/Five_most_utilized_hosts_over_time</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Five Most Utilized Virtual Machines (Over Time) (BR11)" description="This report contains charts displaying weighted average daily peak of CPU and memory usage for the top five busiest virtual machines of a selected cluster and within a given period month.">/Reports/Trend/Virtual_machines/five_most_utilized_vms_over_time_br11</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Five Least Utilized Hosts (Over Time) (BR5)" description="This report contains two charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest hosts of a selected cluster and within a given period.">/Reports/Trend/Hosts/five_least_utilized_hosts_br5</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Five Least Utilized Virtual Machines (Over Time) (BR12)" description="This report contains charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest virtual machines of a selected cluster and within a given period month.">/Reports/Trend/Virtual_machines/five_least_utilized_vms_Over_Time_BR12</uri>
+        </category>
+    </resource>
+
+    <resource type="Host" idParamName="P_Host_ID" multiple="false">
+        <category name="Service Level">
+            <uri idParamName="P_Host_ID" multiple="false" name="Single Host Uptime (BR8)"
+                description="This report contains one gauge displaying the weighted average uptime of a single selected host for a requested period.">/Reports/Service_level/Hosts/single_host_uptime_br8</uri>
+        </category>
+        <category name="Trend">
+            <uri idParamName="P_Host_ID" multiple="false"
+                name="Single Host Resource Usage (Over Time) (BR2A)"
+                description="This report contains charts displaying resources usage measurements (Number of Virtual Machines, CPU, Memory, Network Tx/Rx) for a selected host over the selected period.">/Reports/Trend/Hosts/single_host_resource_br2a</uri>
+            <uri idParamName="P_Host_ID" multiple="false"
+                name="Single Host Resource Usage (Days of Week) (BR2B)"
+                description="This report contains charts displaying resources usage measurements (Number of Virtual Machines, CPU, Memory, Network Tx/Rx) for a selected host by the days of the week.">/Reports/Trend/Hosts/single_host_resource_usage_dow_br2b</uri>
+            <uri idParamName="P_Host_ID" multiple="false"
+                name="Single Host Resource Usage (Hour of Day) (BR2C)"
+                description="This report contains charts displaying resources usage measurements (Number of Virtual Machines, CPU, Memory, Network Tx/Rx) for a selected host by hours of day.">/Reports/Trend/Hosts/single_host_resource_usage_hour_of_day_br2c</uri>
+            <uri idParamName="P_Host_ListID" multiple="true"
+                name="Multiple Hosts Resource Usage (Over Time) (BR3)"
+                description="This report contains charts displaying daily peak of CPU and memory usage for up to 5 selected hosts within a requested period.">/Reports/Trend/Hosts/multiple_hosts_resource_usage_br3</uri>
+        </category>
+    </resource>
+
+    <resource type="VM">
+        <category name="Trend">
+            <uri idParamName="P_VM_ID" multiple="false"
+                name="Single Virtual Machine Resources (Over Time) (BR10A)"
+                description="This report contains charts displaying resources usage measurements (CPU, Memory, Network Tx/Rx, Disk IO rates) for a selected virtual machine over the selected time.">/Reports/Trend/Virtual_machines/single_vm_resources_over_time_BR10A</uri>
+            <uri idParamName="P_VM_ID" multiple="false"
+                name="Single Virtual Machine Resources (Days of Week) (BR10B)"
+                description="This report contains charts displaying resources usage measurements (CPU, Memory, Network Tx/Rx, Disk IO rates) for a selected virtual machine by days of week.">/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B</uri>
+            <uri idParamName="P_VM_ID" multiple="false"
+                name="Single Virtual Machine Resources (Hour of Day) (BR10C)"
+                description="This report contains charts displaying resources usage measurements (CPU, Memory, Network Tx/Rx, Disk IO rates) for a selected virtual machine by hours of day.">/Reports/Trend/Virtual_machines/single_vm_resources_hour_of_day_BR10c</uri>
+            <uri idParamName="P_VM_ListID" multiple="true"
+                name="Multiple Virtual Machines Resource Usage (Over Time) (BR16)"
+                description="This report contains charts displaying daily peak of CPU and Memory usage for up to 5 selected virtual machines within a requested period.">/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16</uri>
+        </category>
+    </resource>
+
+</reports>
