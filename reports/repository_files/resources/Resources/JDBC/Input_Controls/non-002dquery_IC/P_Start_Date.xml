@@ -28,7 +28,7 @@ WHERE o.the_date &gt;= coalesce((SELECT date_trunc('month',a.var_datetime)
 AND o.the_date &lt;= coalesce((SELECT date_trunc('month',a.var_datetime)
                                FROM History_configuration as a
                                WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
-ORDER BY active_months</queryString>
+ORDER BY active_months DESC</queryString>
             <dataSource>
                 <uri>/Resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
