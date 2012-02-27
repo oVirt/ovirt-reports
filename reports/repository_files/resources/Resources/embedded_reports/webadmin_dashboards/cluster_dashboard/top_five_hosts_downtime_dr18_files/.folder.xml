@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
+    <name>top_five_hosts_downtime_dr18_files</name>
+    <label>Top Five Hosts Downtime (DR18)</label>
+    <creationDate>2012-01-30T13:26:06.440+02:00</creationDate>
+    <updateDate>2012-01-30T13:26:06.440+02:00</updateDate>
+</folder>

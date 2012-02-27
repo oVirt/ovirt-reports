@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<reports>
+<reports is_ce="true">
     <resource type="DataCenter">
         <category name="Executive">
             <uri idParamName="P_DataCenter_ID" multiple="false"

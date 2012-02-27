@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_storage_space_status_dr7" language="groovy" pageWidth="534" pageHeight="35" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/webadmin_dashboards/system_dashboard/system_storage_space_status_dr7"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <queryString>
+        <![CDATA[SELECT (SUM(cast(available_disk_size_gb as float)) / SUM(cast(used_disk_size_gb as float) + cast(available_disk_size_gb as float))) * 100 as free_disk_size_gb_percent
+FROM storage_domain_samples_history
+WHERE history_id in (SELECT max(a.history_id)
+                     FROM storage_domain_samples_history AS a
+                     GROUP BY a.storage_domain_id)]]>
+    </queryString>
+    <field name="free_disk_size_gb_percent" class="java.lang.Double"/>
+    <summary>
+        <band height="35" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="370" height="35" forecolor="#333333"/>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font fontName="DejaVu Sans" size="16"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA["<b>Storage Domains</b> Space Status:"]]></textFieldExpression>
+            </textField>
+            <image>
+                <reportElement x="370" y="10" width="17" height="15">
+                    <printWhenExpression><![CDATA[$F{free_disk_size_gb_percent} == null || $F{free_disk_size_gb_percent} >= 60]]></printWhenExpression>
+                </reportElement>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/check-mark.jpg"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="370" y="10" width="17" height="15">
+                    <printWhenExpression><![CDATA[$F{free_disk_size_gb_percent} != null && $F{free_disk_size_gb_percent} < 60]]></printWhenExpression>
+                </reportElement>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/x-mark.jpg"]]></imageExpression>
+            </image>
+        </band>
+    </summary>
+</jasperReport>

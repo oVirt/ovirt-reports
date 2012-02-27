@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard</parent>
+    <name>dc_vm_over_commit_dr25_files</name>
+    <label>Datacenter Virtual Machine Over Commit (DR25)</label>
+    <creationDate>2012-02-01T17:25:00.722+02:00</creationDate>
+    <updateDate>2012-02-01T17:25:00.722+02:00</updateDate>
+</folder>

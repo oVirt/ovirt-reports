@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard</parent>
+    <name>dc_host_uptime_status_dr5_files</name>
+    <label>Datacenter Host Uptime Status (DR5)</label>
+    <creationDate>2012-01-19T18:14:49.634+02:00</creationDate>
+    <updateDate>2012-01-19T18:14:49.634+02:00</updateDate>
+</folder>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
+    <name>cluster_summary_of_hosts_resources_usage_dr28</name>
+    <version>9</version>
+    <label>Cluster Summary of Hosts Resources Usage (DR28)</label>
+    <creationDate>2012-02-05T14:17:10.172+02:00</creationDate>
+    <updateDate>2012-02-28T17:22:36.387+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_summary_of_hosts_resources_usage_dr28_jrxml.data" xsi:type="fileResource">
+            <folder>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_summary_of_hosts_resources_usage_dr28_files</folder>
+            <name>cluster_summary_of_hosts_resources_usage_dr28_jrxml</name>
+            <version>7</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-02-05T14:17:10.172+02:00</creationDate>
+            <updateDate>2012-02-05T14:17:10.172+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_summary_of_hosts_resources_usage_dr28_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-02-05T14:38:15.106+02:00</creationDate>
+            <updateDate>2012-02-05T14:38:15.106+02:00</updateDate>
+            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

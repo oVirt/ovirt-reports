@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
+    <name>cluster_top_five_busiest_hosts_dr23_files</name>
+    <label>Cluster Top Five Busiest Hosts (DR23)</label>
+    <creationDate>2012-02-01T16:47:25.175+02:00</creationDate>
+    <updateDate>2012-02-01T16:47:25.175+02:00</updateDate>
+</folder>

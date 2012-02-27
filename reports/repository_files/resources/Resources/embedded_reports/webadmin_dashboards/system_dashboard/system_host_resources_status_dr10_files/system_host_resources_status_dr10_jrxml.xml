@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="system_host_resources_status_dr10_jrxml.data">
+    <folder>/Resources/embedded_reports/webadmin_dashboards/system_dashboard/system_host_resources_status_dr10_files</folder>
+    <name>system_host_resources_status_dr10_jrxml</name>
+    <version>8</version>
+    <label>Main jrxml</label>
+    <description>Main jrxml</description>
+    <creationDate>2012-01-23T12:04:23.207+02:00</creationDate>
+    <updateDate>2012-01-23T12:04:23.207+02:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

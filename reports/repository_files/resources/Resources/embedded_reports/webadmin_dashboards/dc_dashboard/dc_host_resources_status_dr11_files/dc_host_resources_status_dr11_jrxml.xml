@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="dc_host_resources_status_dr11_jrxml.data">
+    <folder>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_host_resources_status_dr11_files</folder>
+    <name>dc_host_resources_status_dr11_jrxml</name>
+    <version>16</version>
+    <label>Main jrxml</label>
+    <description>Main jrxml</description>
+    <creationDate>2012-01-23T12:06:07.869+02:00</creationDate>
+    <updateDate>2012-01-23T12:06:07.869+02:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dc_entities_counts_list_dr2" language="groovy" pageWidth="360" pageHeight="160" whenNoDataType="AllSectionsNoDetail" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_entities_counts_list_dr2"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT count(DISTINCT v3_0_latest_cluster_configuration_view.cluster_id) AS cluster_count,
+       count(DISTINCT v3_0_latest_host_configuration_view.host_id) AS host_count,
+       count(DISTINCT v3_0_latest_vm_configuration_view.vm_id) AS vm_count
+FROM v3_0_latest_cluster_configuration_view
+     LEFT OUTER JOIN v3_0_latest_host_configuration_view ON (v3_0_latest_cluster_configuration_view.cluster_id = v3_0_latest_host_configuration_view.cluster_id)
+     LEFT OUTER JOIN v3_0_latest_vm_configuration_view ON (v3_0_latest_cluster_configuration_view.cluster_id = v3_0_latest_vm_configuration_view.cluster_id)
+WHERE v3_0_latest_cluster_configuration_view.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
+    </queryString>
+    <field name="cluster_count" class="java.lang.Long"/>
+    <field name="host_count" class="java.lang.Long"/>
+    <field name="vm_count" class="java.lang.Long"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <summary>
+        <band height="160" splitType="Stretch">
+            <textField>
+                <reportElement x="53" y="36" width="185" height="29" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA["Clusters:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="53" y="65" width="185" height="29" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA["Hosts:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="53" y="94" width="185" height="29" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA["Virtual Machines:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="238" y="36" width="103" height="29" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{cluster_count}.toString()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="238" y="65" width="103" height="29" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{host_count}.toString()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="238" y="94" width="103" height="29" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{vm_count}.toString()]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>

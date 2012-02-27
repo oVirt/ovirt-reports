@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Resources/webadmin_dashboards/ce</folder>
+    <name>datacenter_dashboard</name>
+    <version>39</version>
+    <label>Datacenter Dashboard</label>
+    <creationDate>2012-02-27T13:58:19.455+02:00</creationDate>
+    <updateDate>2012-02-29T13:33:02.202+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="datacenter_dashboard_jrxml.data" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>datacenter_dashboard_jrxml</name>
+            <version>26</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-02-27T13:58:19.455+02:00</creationDate>
+            <updateDate>2012-02-27T13:58:19.455+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_DataCenter_ID</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_entities_counts_list_dr2_jrxml</name>
+            <version>0</version>
+            <label>dc_entities_counts_list_dr2_jrxml</label>
+            <creationDate>2012-02-27T14:05:17.072+02:00</creationDate>
+            <updateDate>2012-02-27T14:05:17.072+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_entities_counts_list_dr2_files/dc_entities_counts_list_dr2_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_host_resources_status_dr11_jrxml</name>
+            <version>0</version>
+            <label>dc_host_resources_status_dr11_jrxml</label>
+            <creationDate>2012-02-27T14:36:09.629+02:00</creationDate>
+            <updateDate>2012-02-27T14:36:09.629+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_host_resources_status_dr11_files/dc_host_resources_status_dr11_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_host_uptime_status_dr5_jrxml</name>
+            <version>0</version>
+            <label>dc_host_uptime_status_dr5_jrxml</label>
+            <creationDate>2012-02-27T14:40:21.711+02:00</creationDate>
+            <updateDate>2012-02-27T14:40:21.711+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_host_uptime_status_dr5_files/dc_host_uptime_status_dr5_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_storage_space_status_dr8_jrxml</name>
+            <version>0</version>
+            <label>dc_storage_space_status_dr8_jrxml</label>
+            <creationDate>2012-02-27T14:43:21.296+02:00</creationDate>
+            <updateDate>2012-02-27T14:43:21.296+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_storage_space_status_dr8_files/dc_storage_space_status_dr8_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>datacenter_top_five_busiest_clusters_dr21_jrxml</name>
+            <version>0</version>
+            <label>datacenter_top_five_busiest_clusters_dr21_jrxml</label>
+            <creationDate>2012-02-27T14:55:31.320+02:00</creationDate>
+            <updateDate>2012-02-27T14:55:31.320+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/datacenter_top_five_busiest_clusters_dr21_files/datacenter_top_five_busiest_clusters_dr21_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>datacenter_top_five_least_busy_clusters_dr22_jrxml</name>
+            <version>0</version>
+            <label>datacenter_top_five_least_busy_clusters_dr22_jrxml</label>
+            <creationDate>2012-02-27T14:56:33.397+02:00</creationDate>
+            <updateDate>2012-02-27T14:56:33.397+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/datacenter_top_five_least_busy_clusters_dr22_files/datacenter_top_five_least_busy_clusters_dr22_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>top_five_clusters_host_downtime_dr16_jrxml</name>
+            <version>0</version>
+            <label>top_five_clusters_host_downtime_dr16_jrxml</label>
+            <creationDate>2012-02-27T15:01:02.794+02:00</creationDate>
+            <updateDate>2012-02-27T15:01:02.794+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/top_five_clusters_host_downtime_dr16_files/top_five_clusters_host_downtime_dr16_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>top_five_clusters_host_uptime_dr15_jrxml</name>
+            <version>0</version>
+            <label>top_five_clusters_host_uptime_dr15_jrxml</label>
+            <creationDate>2012-02-27T15:01:44.036+02:00</creationDate>
+            <updateDate>2012-02-27T15:01:44.036+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/top_five_clusters_host_uptime_dr15_files/top_five_clusters_host_uptime_dr15_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_summary_of_cluster_hosts_resources_usage_dr27_jrxml</name>
+            <version>0</version>
+            <label>dc_summary_of_cluster_hosts_resources_usage_dr27_jrxml</label>
+            <creationDate>2012-02-27T15:36:36.768+02:00</creationDate>
+            <updateDate>2012-02-27T15:36:36.768+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_summary_of_cluster_hosts_resources_usage_dr27_files/dc_summary_of_cluster_hosts_resources_usage_dr27_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_top_five_used_storage_domain_dr26_jrxml</name>
+            <version>0</version>
+            <label>dc_top_five_used_storage_domain_dr26_jrxml</label>
+            <creationDate>2012-02-27T15:37:55.426+02:00</creationDate>
+            <updateDate>2012-02-27T15:37:55.426+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_top_five_used_storage_domain_dr26_files/dc_top_five_used_storage_domain_dr26_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_vm_over_commit_dr25_jrxml</name>
+            <version>0</version>
+            <label>dc_vm_over_commit_dr25_jrxml</label>
+            <creationDate>2012-02-27T15:39:51.832+02:00</creationDate>
+            <updateDate>2012-02-27T15:39:51.832+02:00</updateDate>
+            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_vm_over_commit_dr25_files/dc_vm_over_commit_dr25_jrxml</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-02-27T15:43:58.964+02:00</creationDate>
+            <updateDate>2012-02-27T15:43:58.964+02:00</updateDate>
+            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

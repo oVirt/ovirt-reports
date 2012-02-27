@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/Resources/JDBC/Input_Controls/webadmin_dashboards_ic</folder>
+    <name>P_DataCenter_ID</name>
+    <version>2</version>
+    <label>Data Center</label>
+    <creationDate>2012-02-01T16:02:59.347+02:00</creationDate>
+    <updateDate>2012-02-01T18:47:19.156+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/Resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_DataCenter_ID_files</folder>
+            <name>Data_Centers</name>
+            <version>1</version>
+            <label>Data_Centers</label>
+            <creationDate>2012-02-01T18:47:19.156+02:00</creationDate>
+            <updateDate>2012-02-01T18:47:19.156+02:00</updateDate>
+            <language>sql</language>
+            <queryString>SELECT distinct datacenter_id, datacenter_name
+FROM v3_0_latest_datacenter_configuration_view
+ORDER BY datacenter_name</queryString>
+            <dataSource>
+                <uri>/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>datacenter_name</queryVisibleColumn>
+    <queryValueColumn>datacenter_id</queryValueColumn>
+</inputControl>

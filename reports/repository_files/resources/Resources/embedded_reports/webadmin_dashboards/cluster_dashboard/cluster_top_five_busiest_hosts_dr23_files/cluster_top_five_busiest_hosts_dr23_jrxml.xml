@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="cluster_top_five_busiest_hosts_dr23_jrxml.data">
+    <folder>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_top_five_busiest_hosts_dr23_files</folder>
+    <name>cluster_top_five_busiest_hosts_dr23_jrxml</name>
+    <version>9</version>
+    <label>Main jrxml</label>
+    <description>Main jrxml</description>
+    <creationDate>2012-02-01T16:47:25.175+02:00</creationDate>
+    <updateDate>2012-02-01T16:47:25.175+02:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="945" pageHeight="1210" whenNoDataType="AllSectionsNoDetail" columnWidth="945" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+    <property name="ireport.zoom" value="0.9090909090909093"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Resources/webadmin_dashboards/ce/cluster_dashboard"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <parameter name="P_Cluster_ID" class="java.lang.String"/>
+    <background>
+        <band height="1210">
+            <image scaleImage="FillFrame">
+                <reportElement x="0" y="0" width="944" height="1210"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/mainBackground.png"]]></imageExpression>
+            </image>
+        </band>
+    </background>
+    <summary>
+        <band height="1210" splitType="Stretch">
+            <image>
+                <reportElement x="273" y="1010" width="438" height="177"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/graphBackground.png"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="28" y="210" width="891" height="177"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/graphBackgroundx2.png"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="28" y="410" width="891" height="177"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/graphBackgroundx2.png"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="562" y="20" width="360" height="160"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/statisticBackground.png"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="29" y="610" width="891" height="177"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/graphBackgroundx2.png"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="29" y="810" width="891" height="177"/>
+                <imageExpression class="java.lang.String"><![CDATA["repo:/Resources/images/graphBackgroundx2.png"]]></imageExpression>
+            </image>
+            <line>
+                <reportElement x="473" y="215" width="1" height="167" forecolor="#676767"/>
+            </line>
+            <line>
+                <reportElement x="474" y="415" width="1" height="167" forecolor="#676767"/>
+            </line>
+            <line>
+                <reportElement x="475" y="615" width="1" height="167" forecolor="#676767"/>
+            </line>
+            <line>
+                <reportElement x="475" y="815" width="1" height="167" forecolor="#676767"/>
+            </line>
+            <subreport>
+                <reportElement x="562" y="20" width="360" height="160"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_entities_counts_list_dr3_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="28" y="31" width="534" height="35"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_ha_vm_uptime_status_dr13_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="28" y="66" width="534" height="35"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_host_resources_status_dr12_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="28" y="101" width="534" height="35"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_host_uptime_status_dr6_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="491" y="215" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_top_five_least_busy_hosts_dr24_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="38" y="215" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_top_five_busiest_hosts_dr23_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="38" y="415" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_capactity_vs_usage_cores_dr29_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="491" y="415" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_capactity_vs_usage_cores_dr30_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="283" y="1015" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_summary_of_hosts_resources_usage_dr28_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="28" y="136" width="534" height="35"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_vm_over_commit_status_dr14_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="38" y="615" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:top_five_hosts_uptime_dr17_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="492" y="615" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:top_five_hosts_downtime_dr18_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="38" y="815" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:top_five_ha_virtual_servers_uptime_dr19_jrxml"]]></subreportExpression>
+            </subreport>
+            <subreport>
+                <reportElement x="492" y="815" width="418" height="167"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <subreportParameter name="P_Cluster_ID">
+                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:top_five_ha_virtual_servers_downtime_dr20_jrxml"]]></subreportExpression>
+            </subreport>
+        </band>
+    </summary>
+</jasperReport>

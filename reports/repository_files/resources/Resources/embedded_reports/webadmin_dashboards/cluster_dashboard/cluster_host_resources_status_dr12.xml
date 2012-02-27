@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
+    <name>cluster_host_resources_status_dr12</name>
+    <version>7</version>
+    <label>Cluster Host Resources Status (DR12)</label>
+    <creationDate>2012-01-23T12:03:13.051+02:00</creationDate>
+    <updateDate>2012-02-29T14:01:05.481+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_host_resources_status_dr12_jrxml.data" xsi:type="fileResource">
+            <folder>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_host_resources_status_dr12_files</folder>
+            <name>cluster_host_resources_status_dr12_jrxml</name>
+            <version>6</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-01-23T12:03:13.051+02:00</creationDate>
+            <updateDate>2012-01-23T12:03:13.051+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/Resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
+    </inputControl>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

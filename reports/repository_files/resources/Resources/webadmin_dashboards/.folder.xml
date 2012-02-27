@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources</parent>
+    <name>webadmin_dashboards</name>
+    <label>Webadmin Dashboards</label>
+    <creationDate>2012-02-27T13:56:44.238+02:00</creationDate>
+    <updateDate>2012-02-27T13:56:44.238+02:00</updateDate>
+    <folder>ce</folder>
+</folder>
