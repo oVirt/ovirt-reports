@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<folder>
-    <parent>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
-    <name>cluster_summary_of_hosts_resources_usage_dr28_files</name>
-    <label>Cluster Summary of Hosts Resources Usage (DR28)</label>
-    <creationDate>2012-02-05T14:17:10.172+02:00</creationDate>
-    <updateDate>2012-02-05T14:17:10.172+02:00</updateDate>
-</folder>

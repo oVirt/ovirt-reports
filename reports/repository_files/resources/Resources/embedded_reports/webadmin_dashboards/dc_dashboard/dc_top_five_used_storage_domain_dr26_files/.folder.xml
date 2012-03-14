@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<folder>
-    <parent>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard</parent>
-    <name>dc_top_five_used_storage_domain_dr26_files</name>
-    <label>Datacenter Top Five Used Storage Domain (DR26)</label>
-    <creationDate>2012-02-02T14:53:09.885+02:00</creationDate>
-    <updateDate>2012-02-02T14:53:09.885+02:00</updateDate>
-</folder>

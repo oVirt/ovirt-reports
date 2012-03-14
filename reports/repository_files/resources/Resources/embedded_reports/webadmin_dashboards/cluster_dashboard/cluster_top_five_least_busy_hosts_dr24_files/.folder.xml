@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<folder>
-    <parent>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
-    <name>cluster_top_five_least_busy_hosts_dr24_files</name>
-    <label>Cluster Top Five Least Busy Hosts (DR24)</label>
-    <creationDate>2012-02-01T16:52:35.937+02:00</creationDate>
-    <updateDate>2012-02-01T16:52:35.937+02:00</updateDate>
-</folder>

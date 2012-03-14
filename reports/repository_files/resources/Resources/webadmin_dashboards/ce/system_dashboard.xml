@@ -2,21 +2,21 @@
 <reportUnit>
     <folder>/Resources/webadmin_dashboards/ce</folder>
     <name>system_dashboard</name>
-    <version>7</version>
+    <version>30</version>
     <label>System Dashboard</label>
     <creationDate>2012-02-29T13:36:13.302+02:00</creationDate>
-    <updateDate>2012-02-29T14:08:54.447+02:00</updateDate>
+    <updateDate>2012-03-14T18:14:19.599+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="system_dashboard_jrxml.data" xsi:type="fileResource">
             <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
             <name>system_dashboard_jrxml</name>
-            <version>2</version>
+            <version>4</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-02-29T13:36:13.302+02:00</creationDate>
-            <updateDate>2012-02-29T13:36:13.302+02:00</updateDate>
+            <creationDate>2012-03-11T13:35:32.034+02:00</creationDate>
+            <updateDate>2012-03-11T13:35:32.034+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -27,60 +27,64 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
-            <name>system_entities_counts_list_dr1_jrxml</name>
-            <version>0</version>
-            <label>system_entities_counts_list_dr1_jrxml</label>
-            <creationDate>2012-02-29T13:40:37.383+02:00</creationDate>
-            <updateDate>2012-02-29T13:40:37.383+02:00</updateDate>
-            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files/system_entities_counts_list_dr1_jrxml</referenceUri>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-03-11T13:35:32.034+02:00</creationDate>
+            <updateDate>2012-03-11T13:35:32.034+02:00</updateDate>
+            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
     <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
-            <name>system_host_resources_status_dr10_jrxml</name>
-            <version>0</version>
-            <label>system_host_resources_status_dr10_jrxml</label>
-            <creationDate>2012-02-29T13:41:49.813+02:00</creationDate>
-            <updateDate>2012-02-29T13:41:49.813+02:00</updateDate>
-            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/system_dashboard/system_host_resources_status_dr10_files/system_host_resources_status_dr10_jrxml</referenceUri>
-        </localResource>
-    </resource>
-    <resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
-            <name>system_host_uptime_status_dr4_jrxml</name>
-            <version>0</version>
-            <label>system_host_uptime_status_dr4_jrxml</label>
-            <creationDate>2012-02-29T13:42:26.266+02:00</creationDate>
-            <updateDate>2012-02-29T13:42:26.266+02:00</updateDate>
-            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/system_dashboard/system_host_uptime_status_dr4_files/system_host_uptime_status_dr4_jrxml</referenceUri>
-        </localResource>
-    </resource>
-    <resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="system_storage_space_status_dr7_jrxml.data" xsi:type="fileResource">
             <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
             <name>system_storage_space_status_dr7_jrxml</name>
             <version>0</version>
             <label>system_storage_space_status_dr7_jrxml</label>
-            <creationDate>2012-02-29T13:43:06.480+02:00</creationDate>
-            <updateDate>2012-02-29T13:43:06.480+02:00</updateDate>
-            <referenceUri>/Resources/embedded_reports/webadmin_dashboards/system_dashboard/system_storage_space_status_dr7_files/system_storage_space_status_dr7_jrxml</referenceUri>
+            <creationDate>2012-03-14T18:10:31.569+02:00</creationDate>
+            <updateDate>2012-03-14T18:10:31.569+02:00</updateDate>
+            <fileType>jrxml</fileType>
         </localResource>
     </resource>
     <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="system_entities_counts_list_dr1_jrxml.data" xsi:type="fileResource">
             <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
-            <name>ovirt_reports_bundle_en_US.properties</name>
+            <name>system_entities_counts_list_dr1_jrxml</name>
             <version>0</version>
-            <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-02-29T14:08:54.447+02:00</creationDate>
-            <updateDate>2012-02-29T14:08:54.447+02:00</updateDate>
-            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+            <label>system_entities_counts_list_dr1_jrxml</label>
+            <creationDate>2012-03-14T18:11:59.984+02:00</creationDate>
+            <updateDate>2012-03-14T18:11:59.984+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="system_host_resources_status_dr10_jrxml.data" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
+            <name>system_host_resources_status_dr10_jrxml</name>
+            <version>0</version>
+            <label>system_host_resources_status_dr10_jrxml</label>
+            <creationDate>2012-03-14T18:12:38.937+02:00</creationDate>
+            <updateDate>2012-03-14T18:12:38.937+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="system_host_uptime_status_dr4_jrxml.data" xsi:type="fileResource">
+            <folder>/Resources/webadmin_dashboards/ce/system_dashboard_files</folder>
+            <name>system_host_uptime_status_dr4_jrxml</name>
+            <version>0</version>
+            <label>system_host_uptime_status_dr4_jrxml</label>
+            <creationDate>2012-03-14T18:13:15.471+02:00</creationDate>
+            <updateDate>2012-03-14T18:13:15.471+02:00</updateDate>
+            <fileType>jrxml</fileType>
         </localResource>
     </resource>
     <alwaysPromptControls>true</alwaysPromptControls>

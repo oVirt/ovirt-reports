@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<folder>
-    <parent>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
-    <name>cluster_entities_counts_list_dr3_files</name>
-    <label>Cluster Entities Counts List (DR3)</label>
-    <creationDate>2012-01-19T15:43:32.188+02:00</creationDate>
-    <updateDate>2012-01-19T15:43:32.188+02:00</updateDate>
-</folder>

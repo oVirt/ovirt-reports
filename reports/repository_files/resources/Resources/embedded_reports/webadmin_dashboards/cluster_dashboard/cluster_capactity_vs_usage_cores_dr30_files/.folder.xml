@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<folder>
-    <parent>/Resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
-    <name>cluster_capactity_vs_usage_cores_dr30_files</name>
-    <label>Cluster Capactity vs Usage Memory (DR30)</label>
-    <creationDate>2012-02-05T15:44:37.911+02:00</creationDate>
-    <updateDate>2012-02-05T15:44:37.911+02:00</updateDate>
-</folder>

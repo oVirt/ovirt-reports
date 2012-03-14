@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<folder>
-    <parent>/Resources/embedded_reports/webadmin_dashboards/dc_dashboard</parent>
-    <name>dc_storage_space_status_dr8_files</name>
-    <label>Datacenter Storage Space Status (DR8)</label>
-    <creationDate>2012-01-22T14:50:47.756+02:00</creationDate>
-    <updateDate>2012-01-22T14:50:47.756+02:00</updateDate>
-</folder>
