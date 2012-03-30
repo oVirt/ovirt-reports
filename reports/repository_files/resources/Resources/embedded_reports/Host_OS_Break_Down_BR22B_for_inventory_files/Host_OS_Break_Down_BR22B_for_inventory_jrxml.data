@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR22B_inventory" language="groovy" pageWidth="515" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="515" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Resources/embedded_reports/Host_OS_Break_Down_BR22B_for_inventory"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/Host_OS_Break_Down_BR22B_for_inventory"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
@@ -11,6 +11,16 @@
             <style mode="Opaque" backcolor="#F2F3F9"/>
         </conditionalStyle>
     </style>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -19,26 +29,9 @@
         <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Dates" class="java.lang.String">
-        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        <defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
-    </parameter>
     <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_End_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="Active_VMs" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[-- Datacenter aggregation level
@@ -66,11 +59,21 @@ FROM   (SELECT   history_datetime,
                                  ELSE cast($P{P_Cluster_ID} as uuid)
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-        $P!{Active_VMs}
+        AND history_datetime < CASE
+                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                               END
+        $P!{is_deleted}
         GROUP BY history_datetime, coalesce(v3_0_host_configuration_view.host_os, 'Unknown')) a right outer join calendar b on (a.history_datetime = b.the_date)
 where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
+      AND the_date < CASE
+                         WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                         WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                         WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                         WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                     END
 group by the_date, os_type, host_count
 order by the_date]]>
     </queryString>
@@ -102,8 +105,8 @@ order by the_date]]>
                     <hyperlinkParameter name="_report">
                         <hyperlinkParameterExpression><![CDATA["/Reports/Executive/host_os_break_down_BR22"]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
-                    <hyperlinkParameter name="active_hosts_select">
-                        <hyperlinkParameterExpression><![CDATA[$P{Active_VMs}]]></hyperlinkParameterExpression>
+                    <hyperlinkParameter name="is_deleted">
+                        <hyperlinkParameterExpression><![CDATA[$P{is_deleted}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
                     <hyperlinkParameter name="P_DataCenter_ID">
                         <hyperlinkParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></hyperlinkParameterExpression>
@@ -114,14 +117,8 @@ order by the_date]]>
                     <hyperlinkParameter name="P_Period">
                         <hyperlinkParameterExpression><![CDATA[$P{P_Period}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
-                    <hyperlinkParameter name="P_Dates">
-                        <hyperlinkParameterExpression><![CDATA[$P{P_Dates}]]></hyperlinkParameterExpression>
-                    </hyperlinkParameter>
                     <hyperlinkParameter name="P_Start_Date">
                         <hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
-                    </hyperlinkParameter>
-                    <hyperlinkParameter name="P_End_Date">
-                        <hyperlinkParameterExpression><![CDATA[$P{P_End_Date}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
                 </chart>
                 <timeSeriesDataset>

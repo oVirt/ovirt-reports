@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR6B" language="groovy" pageWidth="946" pageHeight="832" whenNoDataType="AllSectionsNoDetail" columnWidth="946" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Resources/embedded_reports/datacenter_quality_of_service_hosts_br6b"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Resources/embedded_reports/datacenter_quality_of_service_hosts_br6b"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
@@ -11,21 +11,19 @@
             <style mode="Opaque" backcolor="#F2F3F9"/>
         </conditionalStyle>
     </style>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Period" class="java.lang.String">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
         <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Dates" class="java.lang.String">
-        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        <defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
     </parameter>
-    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_MEM_Threshold" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
@@ -33,14 +31,9 @@
     <parameter name="P_CPU_Threshold" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_End_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="active_hosts_select" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[SELECT *
@@ -85,7 +78,12 @@ FROM   (SELECT     cluster_id,
                                         FROM v3_0_cluster_configuration_view
                                     WHERE datacenter_id = cast($P{P_DataCenter_ID} as uuid))
             AND v3_0_host_hourly_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND v3_0_host_hourly_history_view.history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+            AND v3_0_host_hourly_history_view.history_datetime < CASE
+                                                                     WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                                     WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                                     WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                                     WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                                 END
             AND v3_0_cluster_configuration_view.history_id in (SELECT max(a.history_id)
                                       FROM v3_0_cluster_configuration_view a
                                       GROUP BY a.cluster_id)
@@ -93,7 +91,7 @@ FROM   (SELECT     cluster_id,
                                     FROM v3_0_host_configuration_view b
                                     GROUP BY b.host_id)
             AND CASE
-                WHEN $P{active_hosts_select} like 'AND%' THEN v3_0_host_configuration_view.delete_date IS NULL
+                WHEN $P{is_deleted} like 'AND%' THEN v3_0_host_configuration_view.delete_date IS NULL
                 ELSE v3_0_host_configuration_view.delete_date IS NULL or v3_0_host_configuration_view.delete_date IS NOT NULL
                 END
         GROUP BY    v3_0_host_configuration_view.cluster_id,
@@ -126,7 +124,7 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                 <textElement verticalAlignment="Middle" markup="none">
                     <font fontName="DejaVu Sans" size="13" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$R{br6b.title}]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.title}]]></textFieldExpression>
             </textField>
         </band>
     </title>
@@ -139,42 +137,42 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="11" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br6b.table.sample.time.below.memory.threshold}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.table.sample.time.below.memory.threshold}]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement mode="Opaque" x="710" y="0" width="133" height="26" backcolor="#D8E2FF"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="11" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br6b.table.sample.time.above.memory.threshold}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.table.sample.time.above.memory.threshold}]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement mode="Opaque" x="860" y="0" width="78" height="26" backcolor="#D8E2FF"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="11" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br6b.table.delete.date}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.table.delete.date}]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement mode="Opaque" x="12" y="0" width="274" height="26" backcolor="#D8E2FF"/>
                     <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="11" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br6b.table.cluster.name}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.table.cluster.name}]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement mode="Opaque" x="437" y="0" width="124" height="26" backcolor="#D8E2FF"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="11" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br6b.table.sample.time.above.cpu.threshold}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.table.sample.time.above.cpu.threshold}]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement mode="Opaque" x="301" y="0" width="124" height="26" backcolor="#D8E2FF"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="11" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br6b.table.sample.time.below.cpu.threshold}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.table.sample.time.below.cpu.threshold}]]></textFieldExpression>
                 </textField>
             </frame>
         </band>
@@ -188,12 +186,12 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                     <textElement verticalAlignment="Middle">
                         <font fontName="DejaVu Sans"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$F{cluster_name}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$F{cluster_name}]]></textFieldExpression>
                     <hyperlinkParameter name="_report">
                         <hyperlinkParameterExpression><![CDATA["/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6"]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
-                    <hyperlinkParameter name="active_hosts_select">
-                        <hyperlinkParameterExpression><![CDATA[$P{active_hosts_select}]]></hyperlinkParameterExpression>
+                    <hyperlinkParameter name="is_deleted">
+                        <hyperlinkParameterExpression><![CDATA[$P{is_deleted}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
                     <hyperlinkParameter name="P_DataCenter_ID">
                         <hyperlinkParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></hyperlinkParameterExpression>
@@ -207,9 +205,6 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                     <hyperlinkParameter name="P_Period">
                         <hyperlinkParameterExpression><![CDATA[$P{P_Period}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
-                    <hyperlinkParameter name="P_Dates">
-                        <hyperlinkParameterExpression><![CDATA[$P{P_Dates}]]></hyperlinkParameterExpression>
-                    </hyperlinkParameter>
                     <hyperlinkParameter name="P_MEM_Threshold">
                         <hyperlinkParameterExpression><![CDATA[$P{P_MEM_Threshold}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
@@ -219,16 +214,13 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                     <hyperlinkParameter name="P_Start_Date">
                         <hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
-                    <hyperlinkParameter name="P_End_Date">
-                        <hyperlinkParameterExpression><![CDATA[$P{P_End_Date}]]></hyperlinkParameterExpression>
-                    </hyperlinkParameter>
                 </textField>
                 <textField isBlankWhenNull="true">
                     <reportElement x="860" y="0" width="78" height="36"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
                         <font fontName="DejaVu Sans"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_only_date})]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_only_date})]]></textFieldExpression>
                 </textField>
                 <stackedBarChart>
                     <chart isShowLegend="false" customizerClass="com.ovirt.reports.jasper.HorizontalStackedBarChart">
@@ -257,6 +249,18 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                             <seriesColor seriesOrder="1" color="#FF0000"/>
                         </plot>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+                        <categoryAxisFormat>
+                            <axisFormat>
+                                <labelFont/>
+                                <tickLabelFont/>
+                            </axisFormat>
+                        </categoryAxisFormat>
+                        <valueAxisFormat>
+                            <axisFormat>
+                                <labelFont/>
+                                <tickLabelFont/>
+                            </axisFormat>
+                        </valueAxisFormat>
                         <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
                         <rangeAxisMaxValueExpression><![CDATA[$F{time_below_mem_threshold}+$F{time_above_mem_threshold}+1]]></rangeAxisMaxValueExpression>
                     </barPlot>
@@ -270,7 +274,7 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[((($F{time_below_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_below_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="26" y="0" width="20" height="18">
@@ -279,21 +283,21 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[(($F{time_below_mem_threshold}/60).intValue()-(((($F{time_below_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_below_mem_threshold}/60).intValue()-(((($F{time_below_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="48" y="0" width="24" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[($F{time_below_mem_threshold} - ((($F{time_below_mem_threshold}/60).intValue()-(((($F{time_below_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_below_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[($F{time_below_mem_threshold} - ((($F{time_below_mem_threshold}/60).intValue()-(((($F{time_below_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_below_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="74" y="0" width="40" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA["(" + (100-(($F{time_above_mem_threshold}/($F{time_below_mem_threshold}+$F{time_above_mem_threshold}))*100).intValue()).toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (100-(($F{time_above_mem_threshold}/($F{time_below_mem_threshold}+$F{time_above_mem_threshold}))*100).intValue()).toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
                 <frame>
@@ -305,7 +309,7 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="26" y="0" width="20" height="18">
@@ -314,28 +318,28 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="48" y="0" width="24" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="74" y="0" width="40" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA["(" + (($F{time_above_mem_threshold}/($F{time_below_mem_threshold}+$F{time_above_mem_threshold}))*100).intValue().toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{time_above_mem_threshold}/($F{time_below_mem_threshold}+$F{time_above_mem_threshold}))*100).intValue().toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
                 <image>
                     <reportElement x="0" y="12" width="10" height="11">
                         <printWhenExpression><![CDATA[$F{is_delete}]]></printWhenExpression>
                     </reportElement>
-                    <imageExpression><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
+                    <imageExpression class="java.lang.String"><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
                 </image>
                 <frame>
                     <reportElement x="305" y="0" width="114" height="18"/>
@@ -346,7 +350,7 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[((($F{time_below_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_below_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="26" y="0" width="20" height="18">
@@ -355,21 +359,21 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[(($F{time_below_cpu_threshold}/60).intValue()-(((($F{time_below_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_below_cpu_threshold}/60).intValue()-(((($F{time_below_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="49" y="0" width="24" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[($F{time_below_cpu_threshold} - ((($F{time_below_cpu_threshold}/60).intValue()-(((($F{time_below_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_below_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[($F{time_below_cpu_threshold} - ((($F{time_below_cpu_threshold}/60).intValue()-(((($F{time_below_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_below_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="73" y="0" width="40" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA["(" + (100-(($F{time_above_cpu_threshold}/($F{time_below_cpu_threshold}+$F{time_above_cpu_threshold}))*100).intValue()).toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (100-(($F{time_above_cpu_threshold}/($F{time_below_cpu_threshold}+$F{time_above_cpu_threshold}))*100).intValue()).toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
                 <frame>
@@ -381,7 +385,7 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="26" y="0" width="20" height="18">
@@ -390,21 +394,21 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="48" y="0" width="24" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="74" y="0" width="40" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="DejaVu Sans"/>
                         </textElement>
-                        <textFieldExpression><![CDATA["(" + (($F{time_above_cpu_threshold}/($F{time_below_cpu_threshold}+$F{time_above_cpu_threshold}))*100).intValue().toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{time_above_cpu_threshold}/($F{time_below_cpu_threshold}+$F{time_above_cpu_threshold}))*100).intValue().toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
                 <stackedBarChart>
@@ -434,6 +438,18 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                             <seriesColor seriesOrder="1" color="#FF0000"/>
                         </plot>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+                        <categoryAxisFormat>
+                            <axisFormat>
+                                <labelFont/>
+                                <tickLabelFont/>
+                            </axisFormat>
+                        </categoryAxisFormat>
+                        <valueAxisFormat>
+                            <axisFormat>
+                                <labelFont/>
+                                <tickLabelFont/>
+                            </axisFormat>
+                        </valueAxisFormat>
                         <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
                         <rangeAxisMaxValueExpression><![CDATA[$F{time_below_cpu_threshold}+$F{time_above_cpu_threshold}+1]]></rangeAxisMaxValueExpression>
                     </barPlot>
@@ -448,14 +464,14 @@ ORDER BY (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 
                 <textElement verticalAlignment="Middle" markup="none">
                     <font fontName="DejaVu Sans" size="9"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$R{br6b.legend.below.threshold}]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.legend.below.threshold}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="591" y="0" width="76" height="14"/>
                 <textElement verticalAlignment="Middle" markup="none">
                     <font fontName="DejaVu Sans" size="9"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$R{br6b.legend.above.threshold}]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[$R{br6b.legend.above.threshold}]]></textFieldExpression>
             </textField>
             <rectangle>
                 <reportElement x="490" y="2" width="8" height="8" backcolor="#6EC000"/>

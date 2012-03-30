@@ -2,22 +2,22 @@
 <reportUnit>
     <folder>/Resources/embedded_reports</folder>
     <name>five_most_utilized_vms_over_time_br11</name>
-    <version>0</version>
+    <version>35</version>
     <label>Five Most Utilized Virtual Machines (Over Time) (BR11B)</label>
     <description>This report contains charts displaying weighted average daily peak of CPU and Memory usage for the top five busiest Virtual Machines of a selected cluster and within a given period month.</description>
-    <creationDate>2011-12-27T15:09:34.523+02:00</creationDate>
-    <updateDate>2011-12-27T15:09:34.523+02:00</updateDate>
+    <creationDate>2011-12-27T15:25:53.301+02:00</creationDate>
+    <updateDate>2012-03-30T09:53:46.279+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="five_most_utilized_vms_over_time_br11_jrxml.data" xsi:type="fileResource">
             <folder>/Resources/embedded_reports/five_most_utilized_vms_over_time_br11_files</folder>
             <name>five_most_utilized_vms_over_time_br11_jrxml</name>
-            <version>0</version>
+            <version>5</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-12-27T15:09:34.523+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.523+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:09.059+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:09.059+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -25,79 +25,29 @@
         <uri>/Resources/JDBC/data_sources/ovirt</uri>
     </dataSource>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/active_hosts_select</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_Cluster_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="inputControl">
-            <folder>/Resources/embedded_reports/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>P_VM_Type</name>
-            <version>0</version>
-            <label>VM Type</label>
-            <creationDate>2011-12-27T15:09:34.523+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.523+02:00</updateDate>
-            <type>4</type>
-            <mandatory>true</mandatory>
-            <readOnly>false</readOnly>
-            <visible>true</visible>
-            <query>
-                <localResource xsi:type="query">
-                    <folder>/Resources/embedded_reports/five_most_utilized_vms_over_time_br11_files/P_VM_Type_files</folder>
-                    <name>type</name>
-                    <version>0</version>
-                    <label>type</label>
-                    <creationDate>2011-12-27T15:09:34.523+02:00</creationDate>
-                    <updateDate>2011-12-27T15:09:34.523+02:00</updateDate>
-                    <language>sql</language>
-                    <queryString>SELECT v3_0_enum_translator_view.value, v3_0_enum_translator_view.enum_key,  0 as sort
-FROM v3_0_enum_translator_view, v3_0_vm_configuration_view
-WHERE v3_0_vm_configuration_view.vm_type = v3_0_enum_translator_view.enum_key
-AND v3_0_enum_translator_view.enum_type = 'VM_TYPE'
-AND v3_0_vm_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
-                        FROM v3_0_cluster_configuration_view
-                        WHERE v3_0_cluster_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-AND v3_0_vm_configuration_view.cluster_id = CASE  $P{P_Cluster_ID}
-                WHEN  '11111111-1111-1111-1111-111111111111' THEN v3_0_vm_configuration_view.cluster_id
-                ELSE cast($P{P_Cluster_ID} as uuid)
-                         END
-$P!{active_hosts_select}
-UNION ALL
-SELECT 'All', -1, 1
-FROM v3_0_enum_translator_view
-ORDER BY sort DESC</queryString>
-                    <dataSource>
-                        <uri>/Resources/JDBC/data_sources/ovirt</uri>
-                    </dataSource>
-                </localResource>
-            </query>
-            <queryVisibleColumn>value</queryVisibleColumn>
-            <queryValueColumn>enum_key</queryValueColumn>
-        </localResource>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_hosts/P_DataCenter_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
-    </inputControl>
-    <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
-    </inputControl>
-    <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_clusters_with_hosts/P_Cluster_ID</uri>
     </inputControl>
     <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Resources/embedded_reports/five_most_utilized_vms_over_time_br11_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2011-12-27T15:09:34.523+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.523+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:09.059+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:09.059+03:00</updateDate>
             <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>

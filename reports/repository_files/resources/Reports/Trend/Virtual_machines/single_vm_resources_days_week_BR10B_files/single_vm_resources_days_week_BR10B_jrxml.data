@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR10B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="42"/>
     <subDataset name="Memory">
+        <parameter name="is_deleted" class="java.lang.String">
+            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Period" class="java.lang.String">
+            <parameterDescription><![CDATA[Period]]></parameterDescription>
+        </parameter>
+        <parameter name="P_Start_Date" class="java.lang.String">
+            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
             <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -14,25 +23,11 @@
             <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_VM_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select an VM]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Period" class="java.lang.String">
-            <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-        </parameter>
         <parameter name="P_VM_Type" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Select a VM Type]]></parameterDescription>
+            <defaultValueExpression><![CDATA[]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Dates" class="java.lang.String">
-            <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        </parameter>
-        <parameter name="P_Start_Date" class="java.lang.String">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_End_Date" class="java.lang.String">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        <parameter name="P_VM_ID" class="java.lang.String">
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[select distinct extract(DOW from the_date)as day_num, day_name, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
@@ -52,28 +47,39 @@ from    (-- VMs Max and Average MEMory Usage Peaks
                 ELSE cast($P{P_VM_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as date)
-        AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+        AND history_datetime < CASE
+                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                               END
     GROUP BY
         history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
 where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
+    AND the_date < CASE
+                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                       WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                       WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                       WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                   END
 group by extract(DOW from the_date), day_name
 order by extract(DOW from the_date) ASC]]>
         </queryString>
-        <field name="day_num" class="java.lang.Double">
-            <fieldDescription><![CDATA[]]></fieldDescription>
-        </field>
-        <field name="day_name" class="java.lang.String">
-            <fieldDescription><![CDATA[]]></fieldDescription>
-        </field>
-        <field name="mem_usage" class="java.math.BigDecimal">
-            <fieldDescription><![CDATA[]]></fieldDescription>
-        </field>
-        <field name="mem_peak" class="java.math.BigDecimal">
-            <fieldDescription><![CDATA[]]></fieldDescription>
-        </field>
+        <field name="day_num" class="java.lang.Double"/>
+        <field name="day_name" class="java.lang.String"/>
+        <field name="mem_usage" class="java.math.BigDecimal"/>
+        <field name="mem_peak" class="java.math.BigDecimal"/>
     </subDataset>
     <subDataset name="Disk_usage">
+        <parameter name="is_deleted" class="java.lang.String">
+            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Period" class="java.lang.String">
+            <parameterDescription><![CDATA[Period]]></parameterDescription>
+        </parameter>
+        <parameter name="P_Start_Date" class="java.lang.String">
+            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
             <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -82,28 +88,11 @@ order by extract(DOW from the_date) ASC]]>
             <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_VM_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select an VM]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Period" class="java.lang.String">
-            <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-        </parameter>
         <parameter name="P_VM_Type" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Select a VM Type]]></parameterDescription>
+            <defaultValueExpression><![CDATA[]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Dates" class="java.lang.String">
-            <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        </parameter>
-        <parameter name="P_Start_Date" class="java.lang.String">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_End_Date" class="java.lang.String">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="Active_VMs" class="java.lang.String">
-            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        <parameter name="P_VM_ID" class="java.lang.String">
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[select distinct extract(DOW from the_date) as day_num, day_name, coalesce(disk_name, max(disk_name) over (partition by 1), '') as disk_name, avg(Read_Rate) as Read_Rate, avg(Write_Rate) as Write_Rate
@@ -130,9 +119,19 @@ from   (-- VMs Disk Usage (I/O) Rates
                                             ELSE $P{P_VM_ID}
                                             END
             AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+            AND history_datetime < CASE
+                                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                       WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                       WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                       WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   END
             AND attach_date >= cast($P{P_Start_Date} as timestamp)
-            AND (detach_date IS NULL or detach_date < cast($P{P_End_Date} as date) + interval '1 day')
+            AND (detach_date IS NULL or detach_date < CASE
+                                                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                      END)
             AND v3_0_vm_disk_configuration_view.history_id in (SELECT max(a.history_id)
                                   FROM v3_0_vm_disk_configuration_view as a
                                   GROUP BY a.vm_disk_id)
@@ -149,22 +148,37 @@ from   (-- VMs Disk Usage (I/O) Rates
                                             ELSE cast($P{P_VM_ID} as uuid)
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                    AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+                                    AND history_datetime < CASE
+                                                               WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                               WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                               WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                               WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                           END
                                     AND h.attach_date >= cast($P{P_Start_Date} as timestamp)
-                                    AND (h.detach_date IS NULL or h.detach_date < cast($P{P_End_Date} as date) + interval '1 day')
+                                    AND (h.detach_date IS NULL or h.detach_date < CASE
+                                                                                      WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                                                      WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                                                      WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                                                      WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                                                  END)
                                     AND c.history_id in (SELECT max(d.history_id)
                                              FROM  v3_0_vm_disk_configuration_view as d
                                              GROUP BY d.vm_disk_id)
-                                    $P!{Active_VMs}
+                                    $P!{is_deleted}
                                   Group BY c.vm_disk_id
                                   ORDER BY MAX(ROUND(CAST(coalesce(b.read_rate_bytes_per_second, 0) AS FLOAT)::numeric,1)) + MAX(ROUND(CAST(coalesce(b.write_rate_bytes_per_second, 0) AS FLOAT)::numeric,1)) DESC
                                   LIMIT 5)
-            $P!{Active_VMs}
+            $P!{is_deleted}
         GROUP BY
             disk_name,
             history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
 where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
+    AND the_date < CASE
+                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                       WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                       WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                       WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                   END
 group by extract(DOW from the_date), day_name, disk_name
 order by extract(DOW from the_date), coalesce(disk_name, max(disk_name) over (partition by 1), '')]]>
         </queryString>
@@ -175,6 +189,15 @@ order by extract(DOW from the_date), coalesce(disk_name, max(disk_name) over (pa
         <field name="write_rate" class="java.math.BigDecimal"/>
     </subDataset>
     <subDataset name="Interfaces">
+        <parameter name="is_deleted" class="java.lang.String">
+            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Period" class="java.lang.String">
+            <parameterDescription><![CDATA[Period]]></parameterDescription>
+        </parameter>
+        <parameter name="P_Start_Date" class="java.lang.String">
+            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
             <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -183,28 +206,11 @@ order by extract(DOW from the_date), coalesce(disk_name, max(disk_name) over (pa
             <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_VM_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select an VM]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Period" class="java.lang.String">
-            <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-        </parameter>
         <parameter name="P_VM_Type" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Select a VM Type]]></parameterDescription>
+            <defaultValueExpression><![CDATA[]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Dates" class="java.lang.String">
-            <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        </parameter>
-        <parameter name="P_Start_Date" class="java.lang.String">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_End_Date" class="java.lang.String">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="Active_VMs" class="java.lang.String">
-            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        <parameter name="P_VM_ID" class="java.lang.String">
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[select distinct extract(DOW from the_date) as day_num, day_name, coalesce(interface_name,max(interface_name) over (partition by 1), '') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
@@ -230,7 +236,12 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                 ELSE cast($P{P_VM_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+        AND history_datetime < CASE
+                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                               END
         AND v3_0_vm_interface_configuration_view.history_id in (SELECT max(a.history_id)
                                    FROM v3_0_vm_interface_configuration_view as a
                                    GROUP BY a.vm_interface_id)
@@ -245,20 +256,30 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                                             ELSE cast($P{P_VM_ID} as uuid)
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                    AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+                                    AND history_datetime < CASE
+                                                               WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                               WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                               WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                               WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                           END
                                     AND c.history_id in (SELECT max(d.history_id)
                                              FROM v3_0_vm_interface_configuration_view as d
                                              GROUP BY d.vm_interface_id)
-                                    $P!{Active_VMs}
+                                    $P!{is_deleted}
                                   Group BY c.vm_interface_id
                                   ORDER BY avg(coalesce(b.receive_rate_percent,0)) + avg(coalesce(b.transmit_rate_percent,0)) DESC
                                   LIMIT 3)
-        $P!{Active_VMs}
+        $P!{is_deleted}
     Group BY
         v3_0_vm_interface_configuration_view.vm_interface_id, interface_name,
         v3_0_vm_interface_daily_history_view.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.the_date)
 where b.the_date >= cast($P{P_Start_Date} as timestamp)
-      AND b.the_date < cast($P{P_End_Date} as date) + interval '1 day'
+      AND b.the_date < CASE
+                           WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                           WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                           WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                           WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                       END
 group by extract(DOW from the_date), day_name, interface_name
 order by extract(DOW from the_date) ASC]]>
         </queryString>
@@ -268,6 +289,19 @@ order by extract(DOW from the_date) ASC]]>
         <field name="rx_rate" class="java.math.BigDecimal"/>
         <field name="tx_rate" class="java.math.BigDecimal"/>
     </subDataset>
+    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -276,31 +310,11 @@ order by extract(DOW from the_date) ASC]]>
         <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
+    <parameter name="P_VM_Type" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+    </parameter>
     <parameter name="P_VM_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a Virtual Machine]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Period" class="java.lang.String">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Dates" class="java.lang.String">
-        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        <defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_VM_Type" class="java.lang.Integer"/>
-    <parameter name="P_End_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="Active_VMs" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[select distinct extract(DOW from the_date) as day_num, day_name, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
@@ -319,26 +333,28 @@ from    (-- VMs Max and Average CPU Usage Peaks
                 ELSE cast($P{P_VM_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+        AND history_datetime < CASE
+                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                               END
     GROUP By
         history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
 where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
+    AND the_date < CASE
+                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                       WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                       WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                       WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                   END
 group by extract(DOW from the_date), day_name
 order by extract(DOW from the_date) ASC]]>
     </queryString>
-    <field name="day_num" class="java.lang.Double">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="day_name" class="java.lang.String">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="cpu_usage" class="java.math.BigDecimal">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="cpu_peak" class="java.math.BigDecimal">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
+    <field name="day_num" class="java.lang.Double"/>
+    <field name="day_name" class="java.lang.String"/>
+    <field name="cpu_usage" class="java.math.BigDecimal"/>
+    <field name="cpu_peak" class="java.math.BigDecimal"/>
     <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
         <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
         <initialValueExpression><![CDATA[]]></initialValueExpression>
@@ -401,10 +417,10 @@ order by extract(DOW from the_date) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="SansSerif"/>
+                                	<font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -412,10 +428,10 @@ order by extract(DOW from the_date) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -439,7 +455,7 @@ order by extract(DOW from the_date) ASC]]>
                         </chartTitle>
                         <chartSubtitle>
                             <font fontName="DejaVu Sans"/>
-                            <subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.network.subtitle.deleted}]]></subtitleExpression>
+                            <subtitleExpression><![CDATA[$P{is_deleted}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.network.subtitle.deleted}]]></subtitleExpression>
                         </chartSubtitle>
                         <chartLegend>
                             <font fontName="DejaVu Sans"/>
@@ -478,10 +494,10 @@ order by extract(DOW from the_date) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="SansSerif"/>
+                                	<font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -489,10 +505,10 @@ order by extract(DOW from the_date) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -516,7 +532,7 @@ order by extract(DOW from the_date) ASC]]>
                         </chartTitle>
                         <chartSubtitle>
                             <font fontName="DejaVu Sans"/>
-                            <subtitleExpression><![CDATA[$P{Active_VMs}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.disks.subtitle.deleted}]]></subtitleExpression>
+                            <subtitleExpression><![CDATA[$P{is_deleted}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.disks.subtitle.deleted}]]></subtitleExpression>
                         </chartSubtitle>
                         <chartLegend>
                             <font fontName="DejaVu Sans"/>
@@ -555,10 +571,10 @@ order by extract(DOW from the_date) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="SansSerif"/>
+                                	<font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -566,10 +582,10 @@ order by extract(DOW from the_date) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -624,10 +640,10 @@ order by extract(DOW from the_date) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="SansSerif"/>
+                                	<font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -635,10 +651,10 @@ order by extract(DOW from the_date) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -656,6 +672,9 @@ order by extract(DOW from the_date) ASC]]>
                 <subreportParameter name="P_Cluster_ID">
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                 </subreportParameter>
+                <subreportParameter name="is_deleted">
+                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+                </subreportParameter>
                 <subreportParameter name="P_Period">
                     <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -668,17 +687,11 @@ order by extract(DOW from the_date) ASC]]>
                 <subreportParameter name="P_VM_ID">
                     <subreportParameterExpression><![CDATA[$P{P_VM_ID}]]></subreportParameterExpression>
                 </subreportParameter>
-                <subreportParameter name="P_Dates">
-                    <subreportParameterExpression><![CDATA[$P{P_Dates}]]></subreportParameterExpression>
-                </subreportParameter>
                 <subreportParameter name="P_VM_Type">
                     <subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
                 </subreportParameter>
-                <subreportParameter name="P_End_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
-                </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression><![CDATA["repo:br2 full details.jrxml"]]></subreportExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:br2 full details.jrxml"]]></subreportExpression>
             </subreport>
             <line>
                 <reportElement x="0" y="43" width="832" height="1"/>
@@ -688,11 +701,11 @@ order by extract(DOW from the_date) ASC]]>
                 <textElement textAlignment="Right">
                     <font fontName="DejaVu Sans" size="11" isBold="false"/>
                 </textElement>
-                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
             <image>
                 <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
             </image>
         </band>
     </title>
@@ -703,7 +716,7 @@ order by extract(DOW from the_date) ASC]]>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="DejaVu Sans"/>
                 </textElement>
-                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>
         </band>
     </pageFooter>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Resources/JDBC/Input_Controls/Period_Affected/single_select</parent>
+    <name>storage_ic</name>
+    <label>Stroage Domains Input Controls</label>
+    <creationDate>2012-03-20T15:35:28.695+02:00</creationDate>
+    <updateDate>2012-03-20T15:35:28.695+02:00</updateDate>
+    <resource>P_Storage_Type</resource>
+    <resource>P_StorageDomain_ID</resource>
+</folder>

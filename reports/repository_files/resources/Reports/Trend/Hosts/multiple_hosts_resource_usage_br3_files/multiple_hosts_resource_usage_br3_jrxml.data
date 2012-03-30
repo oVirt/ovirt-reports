@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR3" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Hosts/multiple_hosts_resource_usage_br3"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Hosts/multiple_hosts_resource_usage_br3"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
     </parameter>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Dates" class="java.lang.String">
-        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-        <defaultValueExpression><![CDATA["April 2019"]]></defaultValueExpression>
-    </parameter>
+    <parameter name="P_Host_Type" class="java.lang.Integer"/>
+    <parameter name="P_Host_ListID" class="java.util.Collection"/>
     <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Host_Type" class="java.lang.Integer"/>
-    <parameter name="P_Host_ListID" class="java.util.Collection"/>
-    <parameter name="P_Start_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_End_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="active_hosts_select" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[select  the_date, host_id, coalesce(host_name,max(host_name) over (partition by 1),'') as host_name, CPU_Peak, MEM_Peak
@@ -52,7 +45,12 @@ from    (-- Hosts CPU and MEMory Usage Peaks
         WHERE
             $X{IN, cast(v3_0_host_daily_history_view.host_id as varchar), P_Host_ListID}
             AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
+            AND history_datetime < CASE
+                                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                       WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                       WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                       WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   END
             AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
                                                             FROM v3_0_host_configuration_view a
                                                             GROUP BY a.host_id)
@@ -63,7 +61,12 @@ from    (-- Hosts CPU and MEMory Usage Peaks
                     END,
                     v3_0_host_daily_history_view.history_datetime) a RIGHT OUTER JOIN calendar b on (time = the_date)
 where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < cast($P{P_End_Date} as date) + interval '1 day'
+      AND the_date < CASE
+                         WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                         WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                         WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                         WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                     END
 order by the_date]]>
     </queryString>
     <field name="the_date" class="java.sql.Date"/>
@@ -114,18 +117,19 @@ order by the_date]]>
                         <timeAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font isBold="true"/>
+                                	<font isBold="true"/>
                                 </labelFont>
+                                <tickLabelFont/>
                             </axisFormat>
                         </timeAxisFormat>
                         <valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -166,18 +170,19 @@ order by the_date]]>
                         <timeAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font isBold="true"/>
+                                	<font isBold="true"/>
                                 </labelFont>
+                                <tickLabelFont/>
                             </axisFormat>
                         </timeAxisFormat>
                         <valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                	<font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -195,7 +200,7 @@ order by the_date]]>
                 <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$R{br3.more.than.five.warning}]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[$R{br3.more.than.five.warning}]]></textFieldExpression>
             </textField>
             <subreport>
                 <reportElement x="1" y="45" width="830" height="132">
@@ -203,6 +208,9 @@ order by the_date]]>
                 </reportElement>
                 <subreportParameter name="P_Cluster_ID">
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+                </subreportParameter>
+                <subreportParameter name="is_deleted">
+                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="P_Period">
                     <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
@@ -213,34 +221,28 @@ order by the_date]]>
                 <subreportParameter name="P_Start_Date">
                     <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
                 </subreportParameter>
-                <subreportParameter name="P_Dates">
-                    <subreportParameterExpression><![CDATA[$P{P_Dates}]]></subreportParameterExpression>
+                <subreportParameter name="P_Host_ListID">
+                    <subreportParameterExpression><![CDATA[$P{P_Host_ListID}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="P_Host_Type">
                     <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
                 </subreportParameter>
-                <subreportParameter name="P_End_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Host_ListID">
-                    <subreportParameterExpression><![CDATA[$P{P_Host_ListID}]]></subreportParameterExpression>
-                </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression><![CDATA["repo:br3 full details.jrxml"]]></subreportExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:br3 full details.jrxml"]]></subreportExpression>
             </subreport>
             <textField pattern="">
                 <reportElement x="514" y="27" width="318" height="15"/>
                 <textElement textAlignment="Right">
                     <font fontName="DejaVu Sans" size="11" isBold="false"/>
                 </textElement>
-                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
             <line>
                 <reportElement x="0" y="43" width="832" height="1"/>
             </line>
             <image>
                 <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
             </image>
         </band>
     </title>
@@ -251,7 +253,7 @@ order by the_date]]>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="DejaVu Sans"/>
                 </textElement>
-                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>
         </band>
     </pageFooter>

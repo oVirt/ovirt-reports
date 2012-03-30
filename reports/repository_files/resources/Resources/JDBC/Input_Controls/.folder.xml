@@ -6,7 +6,7 @@
     <description>Input Controls for oVirt</description>
     <creationDate>2011-12-27T15:25:50.246+02:00</creationDate>
     <updateDate>2011-06-09T10:11:45.000+03:00</updateDate>
-    <folder>non-query_IC</folder>
-    <folder>single_select</folder>
+    <folder>Period_Affected</folder>
+    <folder>Regular_Input_Controls</folder>
     <folder>webadmin_dashboards_ic</folder>
 </folder>

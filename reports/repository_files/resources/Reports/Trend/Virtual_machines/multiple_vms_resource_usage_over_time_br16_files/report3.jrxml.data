@@ -3,34 +3,26 @@
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16"/>
+    <property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Cluster_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Period" class="java.lang.String">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
-    </parameter>
-    <parameter name="P_Dates" class="java.lang.String">
-        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
-    </parameter>
-    <parameter name="P_VM_Type" class="java.lang.Integer">
-        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_VM_ID" class="java.util.Collection">
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_End_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Start_Date" class="java.lang.String">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
     </parameter>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+    </parameter>
+    <parameter name="P_Cluster_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+    </parameter>
+    <parameter name="P_VM_Type" class="java.lang.Integer"/>
+    <parameter name="P_VM_ListID" class="java.util.Collection"/>
     <queryString>
         <![CDATA[SELECT distinct    CASE
             WHEN delete_date IS NULL then vm_name
@@ -63,9 +55,15 @@
     WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
           and history_id in (SELECT max(d.history_id)
                      FROM v3_0_datacenter_configuration_view as d
-                    GROUP BY d.datacenter_id)) as datacenter_delete_date
+                    GROUP BY d.datacenter_id)) as datacenter_delete_date,
+        CASE
+            WHEN $P{P_Period} = 'Daily' THEN $P{P_Start_Date}
+            WHEN $P{P_Period} = 'Monthly' THEN $P{P_Start_Date} || ' - ' || CAST(CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date) as varchar)
+            WHEN $P{P_Period} = 'Quarterly' THEN $P{P_Start_Date} || ' - ' || CAST(CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date) as varchar)
+            WHEN $P{P_Period} = 'Yearly' THEN $P{P_Start_Date} || ' - ' || CAST(CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date) as varchar)
+        END as display_dates
 FROM v3_0_vm_configuration_view
-WHERE     $X{IN, cast(v3_0_vm_configuration_view.vm_id as varchar), P_VM_ID}
+WHERE     $X{IN, cast(v3_0_vm_configuration_view.vm_id as varchar), P_VM_ListID}
     and history_id in (SELECT max(a.history_id)
                FROM v3_0_vm_configuration_view as a
                GROUP BY a.vm_id)
@@ -80,6 +78,7 @@ order by CASE
     <field name="vm_type" class="java.lang.String"/>
     <field name="datacenter_name" class="java.lang.String"/>
     <field name="datacenter_delete_date" class="java.sql.Date"/>
+    <field name="display_dates" class="java.lang.String"/>
     <variable name="datacenter_star" class="java.lang.String" resetType="None">
         <variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
     </variable>
@@ -109,7 +108,7 @@ order by CASE
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
@@ -117,7 +116,7 @@ order by CASE
                     <textElement verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
@@ -125,15 +124,15 @@ order by CASE
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $P{P_Start_Date} + " - " + $P{P_End_Date}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$P{P_Start_Date} + " - " + $P{P_End_Date}]]></hyperlinkTooltipExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $F{display_dates}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{display_dates}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
                     <reportElement positionType="Float" x="328" y="0" width="253" height="20"/>
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$F{cluster_name} != "all" ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + $V{cluster_star} : "<b>" + $R{full.details.cluster} + ":</b> "+ $R{full.details.all}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$F{cluster_name} != "all" ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + $V{cluster_star} : "<b>" + $R{full.details.cluster} + ":</b> "+ $R{full.details.all}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "all" ? $F{cluster_name} + $V{cluster_star} : $R{full.details.all}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
@@ -141,7 +140,7 @@ order by CASE
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$F{vm_type} != "All" ? "<b>" + $R{full.details.vm.type} + ":</b> " + $F{vm_type} : "<b>" + $R{full.details.vm.type} + ":</b> " + $R{full.details.all}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$F{vm_type} != "All" ? "<b>" + $R{full.details.vm.type} + ":</b> " + $F{vm_type} : "<b>" + $R{full.details.vm.type} + ":</b> " + $R{full.details.all}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{vm_type} != "All" ? $F{vm_type} : $R{full.details.all}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
@@ -149,7 +148,7 @@ order by CASE
                     <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="13" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
                 </textField>
             </frame>
             <textField evaluationTime="Report" isBlankWhenNull="false">
@@ -157,14 +156,14 @@ order by CASE
                 <textElement textAlignment="Left" verticalAlignment="Top" markup="html">
                     <font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$R{br16.title}]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[$R{br16.title}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement mode="Opaque" x="0" y="89" width="272" height="16" forecolor="#3A5E75"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
                     <font fontName="DejaVu Sans" size="13" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$R{full.details.vms.names}]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[$R{full.details.vms.names}]]></textFieldExpression>
             </textField>
             <frame>
                 <reportElement mode="Opaque" x="0" y="106" width="828" height="27"/>
@@ -180,7 +179,7 @@ order by CASE
                     <textElement verticalAlignment="Middle">
                         <font fontName="DejaVu Sans" size="11"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$V{var_vmlist}.substring(0,$V{var_vmlist}.length() - 2)]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$V{var_vmlist}.substring(0,$V{var_vmlist}.length() - 2)]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$V{var_vmlist}.substring(0,$V{var_vmlist}.length() - 2)]]></hyperlinkTooltipExpression>
                 </textField>
             </frame>
@@ -198,7 +197,7 @@ order by CASE
                 <textElement markup="html">
                     <font fontName="DejaVu Sans"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{cluster_delete_date} != null ?
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{cluster_delete_date} != null ?
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :
 msg($R{full.details.deleted.comment.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date})) : ""]]></textFieldExpression>
@@ -207,7 +206,7 @@ $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacen
                 <reportElement x="10" y="72" width="10" height="11">
                     <printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
                 </reportElement>
-                <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+                <imageExpression class="java.lang.String"><![CDATA["repo:trash-icon"]]></imageExpression>
             </image>
         </band>
     </title>

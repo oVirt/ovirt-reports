@@ -2,22 +2,22 @@
 <reportUnit>
     <folder>/Reports/Trend/Virtual_machines</folder>
     <name>single_vm_resources_days_week_BR10B</name>
-    <version>0</version>
+    <version>42</version>
     <label>Single Virtual Machine Resources (Days of Week) (BR10B)</label>
     <description>This report contains charts displaying resources usage measurements (CPU, Memory, Network Tx/Rx, Disk IO rates) for a selected virtual machine by days of week.</description>
-    <creationDate>2011-12-27T15:09:36.959+02:00</creationDate>
-    <updateDate>2011-12-27T15:09:36.959+02:00</updateDate>
+    <creationDate>2012-03-15T21:03:55.792+02:00</creationDate>
+    <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="single_vm_resources_days_week_BR10B_jrxml.data" xsi:type="fileResource">
             <folder>/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B_files</folder>
             <name>single_vm_resources_days_week_BR10B_jrxml</name>
-            <version>0</version>
+            <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-12-27T15:09:36.959+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:36.959+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -25,28 +25,25 @@
         <uri>/Resources/JDBC/data_sources/ovirt</uri>
     </dataSource>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/Active_VMs</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_DataCenter_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_Cluster_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_VM_Type</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_vms/P_DataCenter_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_VM_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_cluster_with_vms/P_Cluster_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/vm_ic/P_VM_Type</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
-    </inputControl>
-    <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/vm_ic/P_VM_ID</uri>
     </inputControl>
     <resource>
         <localResource
@@ -54,10 +51,10 @@
             dataFile="br2 full details.jrxml.data" xsi:type="fileResource">
             <folder>/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B_files</folder>
             <name>br2 full details.jrxml</name>
-            <version>0</version>
+            <version>1</version>
             <label>br2 full details.jrxml</label>
-            <creationDate>2011-12-27T15:09:36.959+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:36.959+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -66,10 +63,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B_files</folder>
             <name>ovirt-icon</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2011-12-27T15:09:36.959+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:36.959+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
             <referenceUri>/Resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -78,10 +75,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B_files</folder>
             <name>trash-icon</name>
-            <version>0</version>
+            <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-12-27T15:09:36.959+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:36.959+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
             <referenceUri>/Resources/trash-icon</referenceUri>
         </localResource>
     </resource>
@@ -90,10 +87,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Reports/Trend/Virtual_machines/single_vm_resources_days_week_BR10B_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2011-12-27T15:09:36.959+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:36.959+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
             <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>

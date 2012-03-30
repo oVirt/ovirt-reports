@@ -2,21 +2,21 @@
 <reportUnit>
     <folder>/Resources/embedded_reports</folder>
     <name>virtual_servers_uptime_by_cluster_br14a</name>
-    <version>0</version>
+    <version>31</version>
     <label>Virtual Servers Uptime by Cluster (BR14A)</label>
-    <creationDate>2011-12-27T15:09:34.896+02:00</creationDate>
-    <updateDate>2011-12-27T15:09:34.896+02:00</updateDate>
+    <creationDate>2011-12-27T15:25:53.647+02:00</creationDate>
+    <updateDate>2012-03-30T10:36:10.356+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="virtual_servers_uptime_by_cluster_br14a_jrxml.data" xsi:type="fileResource">
             <folder>/Resources/embedded_reports/virtual_servers_uptime_by_cluster_br14a_files</folder>
             <name>virtual_servers_uptime_by_cluster_br14a_jrxml</name>
-            <version>0</version>
+            <version>4</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-12-27T15:09:34.896+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.896+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:09.858+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:09.858+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -24,19 +24,16 @@
         <uri>/Resources/JDBC/data_sources/ovirt</uri>
     </dataSource>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/active_hosts_select</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_Hosts/P_DataCenter_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
-    </inputControl>
-    <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_hosts/P_DataCenter_ID</uri>
     </inputControl>
     <resource>
         <localResource
@@ -44,10 +41,10 @@
             dataFile="report5.jrxml.data" xsi:type="fileResource">
             <folder>/Resources/embedded_reports/virtual_servers_uptime_by_cluster_br14a_files</folder>
             <name>report5.jrxml</name>
-            <version>0</version>
+            <version>1</version>
             <label>report5.jrxml</label>
-            <creationDate>2011-12-27T15:09:34.896+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.896+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:09.858+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:09.858+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -56,10 +53,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Resources/embedded_reports/virtual_servers_uptime_by_cluster_br14a_files</folder>
             <name>trash-icon</name>
-            <version>0</version>
+            <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-12-27T15:09:34.896+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.896+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:09.858+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:09.858+03:00</updateDate>
             <referenceUri>/Resources/trash-icon</referenceUri>
         </localResource>
     </resource>
@@ -68,10 +65,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Resources/embedded_reports/virtual_servers_uptime_by_cluster_br14a_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2011-12-27T15:09:34.896+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:34.896+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:09.858+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:09.858+03:00</updateDate>
             <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>

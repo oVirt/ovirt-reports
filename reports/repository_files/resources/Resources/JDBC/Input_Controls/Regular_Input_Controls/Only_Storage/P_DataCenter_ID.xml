@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/Resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
+    <name>P_DataCenter_ID</name>
+    <version>19</version>
+    <label>Data Center</label>
+    <creationDate>2011-12-27T15:25:52.385+02:00</creationDate>
+    <updateDate>2012-03-30T08:51:35.737+03:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/Resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage/P_DataCenter_ID_files</folder>
+            <name>Data_Centers</name>
+            <version>1</version>
+            <label>Data_Centers</label>
+            <creationDate>2012-03-30T08:51:35.737+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:35.737+03:00</updateDate>
+            <language>sql</language>
+            <queryString>Select distinct datacenter_id, delete_date, CASE
+                WHEN delete_date IS NULL THEN datacenter_name
+                ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
+                  END as combo_name
+from v3_0_datacenter_configuration_view
+WHERE datacenter_id in (SELECT DISTINCT datacenter_id
+        FROM v3_0_datacenter_storage_domain_map_view
+        WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
+                     AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
+              AND history_id in (SELECT max(a.history_id)
+         FROM v3_0_datacenter_configuration_view a
+         GROUP BY a.datacenter_id)
+              $P!{active_storage}
+UNION ALL
+SELECT distinct cast('00000000-0000-0000-0000-000000000000' as uuid), cast(null as timestamp), 'Non Available'
+WHERE NOT EXISTS     (Select distinct datacenter_id
+        from v3_0_datacenter_configuration_view
+        WHERE datacenter_id in (SELECT DISTINCT datacenter_id
+                FROM v3_0_datacenter_storage_domain_map_view
+                WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
+                             AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
+                      AND history_id in (SELECT max(a.history_id)
+                 FROM v3_0_datacenter_configuration_view a
+                 GROUP BY a.datacenter_id)
+                      $P!{active_storage})
+order by delete_date DESC, combo_name</queryString>
+            <dataSource>
+                <uri>/Resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>combo_name</queryVisibleColumn>
+    <queryValueColumn>datacenter_id</queryValueColumn>
+</inputControl>

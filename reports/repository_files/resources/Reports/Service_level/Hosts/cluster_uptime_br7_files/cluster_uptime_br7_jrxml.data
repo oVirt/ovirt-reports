@@ -6,6 +6,16 @@
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <style name="Crosstab Data Text" hAlign="Center"/>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -14,28 +24,12 @@
         <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Dates" class="java.lang.String">
-        <parameterDescription><![CDATA[Enter Period Month]]></parameterDescription>
+    <parameter name="P_Host_Type" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
     </parameter>
     <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Clients\\BO Client Folders\\oVirt\\iReports\\"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Host_Type" class="java.lang.Integer">
-        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_End_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="active_hosts_select" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[SELECT SUM(CASE WHEN v3_0_host_daily_history_view.host_status = 2 THEN coalesce(v3_0_host_daily_history_view.minutes_in_status,0) ELSE 0 END)AS Planned_Downtime_Mins
@@ -63,21 +57,18 @@ AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
                         FROM v3_0_host_configuration_view a
                         GROUP BY a.host_id)
 AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-AND history_datetime < cast($P{P_End_Date} as date) + interval '1 day'
-$P!{active_hosts_select}]]>
+AND history_datetime < CASE
+                           WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                           WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                           WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                           WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                       END
+$P!{is_deleted}]]>
     </queryString>
-    <field name="planned_downtime_mins" class="java.math.BigDecimal">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="unplanned_downtime_mins" class="java.math.BigDecimal">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="uptime_mins" class="java.math.BigDecimal">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="total" class="java.math.BigDecimal">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
+    <field name="planned_downtime_mins" class="java.math.BigDecimal"/>
+    <field name="unplanned_downtime_mins" class="java.math.BigDecimal"/>
+    <field name="uptime_mins" class="java.math.BigDecimal"/>
+    <field name="total" class="java.math.BigDecimal"/>
     <variable name="Planned" class="java.lang.Double" resetType="None">
         <variableExpression><![CDATA[]]></variableExpression>
     </variable>
@@ -97,50 +88,44 @@ $P!{active_hosts_select}]]>
                     <subreportParameter name="P_Cluster_ID">
                         <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                     </subreportParameter>
+                    <subreportParameter name="is_deleted">
+                        <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+                    </subreportParameter>
                     <subreportParameter name="P_Period">
                         <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
                     </subreportParameter>
                     <subreportParameter name="P_DataCenter_ID">
                         <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
                     </subreportParameter>
-                    <subreportParameter name="active_hosts_select">
-                        <subreportParameterExpression><![CDATA[$P{active_hosts_select}]]></subreportParameterExpression>
-                    </subreportParameter>
                     <subreportParameter name="P_Start_Date">
                         <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-                    </subreportParameter>
-                    <subreportParameter name="P_Dates">
-                        <subreportParameterExpression><![CDATA[$P{P_Dates}]]></subreportParameterExpression>
                     </subreportParameter>
                     <subreportParameter name="P_Host_Type">
                         <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
                     </subreportParameter>
-                    <subreportParameter name="P_End_Date">
-                        <subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
-                    </subreportParameter>
                     <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                    <subreportExpression><![CDATA["repo:br7_table.jrxml"]]></subreportExpression>
+                    <subreportExpression class="java.lang.String"><![CDATA["repo:br7_table.jrxml"]]></subreportExpression>
                 </subreport>
                 <textField>
                     <reportElement x="0" y="278" width="158" height="15"/>
                     <textElement markup="none">
                         <font fontName="DejaVu Sans" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br7.meter.unplanned.downtime} + ":"]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7.meter.unplanned.downtime} + ":"]]></textFieldExpression>
                 </textField>
                 <textField evaluationTime="Report" pattern="### %">
                     <reportElement x="120" y="236" width="103" height="17" forecolor="#3A5E75"/>
                     <textElement textAlignment="Right">
                         <font fontName="DejaVu Sans" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[new Double( $F{uptime_mins}.doubleValue() / $F{total}.doubleValue() )]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[new Double( $F{uptime_mins}.doubleValue() / $F{total}.doubleValue() )]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="0" y="236" width="105" height="17" forecolor="#3A5E75"/>
                     <textElement markup="none">
                         <font fontName="DejaVu Sans" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br7.meter.uptime} + ":"]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7.meter.uptime} + ":"]]></textFieldExpression>
                 </textField>
                 <line>
                     <reportElement x="233" y="0" width="1" height="435" forecolor="#3A5E75"/>
@@ -169,6 +154,7 @@ $P!{active_hosts_select}]]>
                     </valueDataset>
                     <meterPlot shape="dial" tickInterval="5.0" needleColor="#000000" tickColor="#000000">
                         <plot/>
+                        <tickLabelFont/>
                         <valueDisplay mask="0"/>
                         <dataRange>
                             <lowExpression><![CDATA[0]]></lowExpression>
@@ -187,28 +173,28 @@ $P!{active_hosts_select}]]>
                     <textElement markup="none">
                         <font fontName="DejaVu Sans" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br7.meter.planned.downtime}+ ":"]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7.meter.planned.downtime}+ ":"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="4" y="0" width="215" height="17" forecolor="#3A5E75"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="DejaVu Sans" size="13" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br7.meter.title}]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7.meter.title}]]></textFieldExpression>
                 </textField>
                 <textField evaluationTime="Report" pattern="### %" isBlankWhenNull="false">
                     <reportElement x="160" y="278" width="63" height="15"/>
                     <textElement textAlignment="Right">
                         <font fontName="DejaVu Sans" size="12" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[new Double($F{unplanned_downtime_mins}.doubleValue() / $F{total}.doubleValue())]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[new Double($F{unplanned_downtime_mins}.doubleValue() / $F{total}.doubleValue())]]></textFieldExpression>
                 </textField>
                 <textField evaluationTime="Report" pattern="### %">
                     <reportElement x="160" y="258" width="63" height="17"/>
                     <textElement textAlignment="Right">
                         <font fontName="DejaVu Sans" size="12" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[new Double($F{planned_downtime_mins}.doubleValue() / $F{total}.doubleValue())]]></textFieldExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[new Double($F{planned_downtime_mins}.doubleValue() / $F{total}.doubleValue())]]></textFieldExpression>
                 </textField>
             </band>
         </groupFooter>
@@ -217,6 +203,9 @@ $P!{active_hosts_select}]]>
         <band height="135">
             <subreport>
                 <reportElement x="0" y="45" width="830" height="89"/>
+                <subreportParameter name="is_deleted">
+                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+                </subreportParameter>
                 <subreportParameter name="P_Cluster_ID">
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -226,23 +215,14 @@ $P!{active_hosts_select}]]>
                 <subreportParameter name="P_DataCenter_ID">
                     <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
                 </subreportParameter>
-                <subreportParameter name="active_hosts_select">
-                    <subreportParameterExpression><![CDATA[$P{active_hosts_select}]]></subreportParameterExpression>
-                </subreportParameter>
                 <subreportParameter name="P_Start_Date">
                     <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Dates">
-                    <subreportParameterExpression><![CDATA[$P{P_Dates}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_End_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_End_Date}]]></subreportParameterExpression>
                 </subreportParameter>
                 <subreportParameter name="P_Host_Type">
                     <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
                 </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression><![CDATA["repo:br7 full details.jrxml"]]></subreportExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:br7 full details.jrxml"]]></subreportExpression>
             </subreport>
             <line>
                 <reportElement x="0" y="43" width="832" height="1"/>
@@ -252,11 +232,11 @@ $P!{active_hosts_select}]]>
                 <textElement textAlignment="Right">
                     <font fontName="DejaVu Sans" size="11" isBold="false"/>
                 </textElement>
-                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
             <image>
                 <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
             </image>
         </band>
     </title>
@@ -267,7 +247,7 @@ $P!{active_hosts_select}]]>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="DejaVu Sans"/>
                 </textElement>
-                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>
         </band>
     </pageFooter>

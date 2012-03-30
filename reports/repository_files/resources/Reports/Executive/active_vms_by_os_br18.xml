@@ -2,22 +2,22 @@
 <reportUnit>
     <folder>/Reports/Executive</folder>
     <name>active_vms_by_os_br18</name>
-    <version>0</version>
+    <version>52</version>
     <label>Active Virtual Machines by OS (BR18)</label>
     <description>The report contains comparative measurements number of running virtual machines and OS usage in for a selected cluster and a selected virtual machine's type within the requested period.</description>
-    <creationDate>2011-12-27T15:09:32.372+02:00</creationDate>
-    <updateDate>2011-12-27T15:09:32.372+02:00</updateDate>
+    <creationDate>2012-03-15T21:03:44.934+02:00</creationDate>
+    <updateDate>2012-03-30T08:51:11.061+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="active_vms_by_os_br18_jrxml.data" xsi:type="fileResource">
             <folder>/Reports/Executive/active_vms_by_os_br18_files</folder>
             <name>active_vms_by_os_br18_jrxml</name>
-            <version>0</version>
+            <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2011-12-27T15:09:32.372+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:32.372+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:11.061+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:11.061+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -25,25 +25,22 @@
         <uri>/Resources/JDBC/data_sources/ovirt</uri>
     </dataSource>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/Active_VMs</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_DataCenter_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_Cluster_ID</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/single_select/Only_VMs/P_VM_Type</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_vms/P_DataCenter_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Period</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_cluster_with_vms/P_Cluster_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_Start_Date</uri>
-    </inputControl>
-    <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/non-query_IC/P_End_Date</uri>
+        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/vm_ic/P_VM_Type</uri>
     </inputControl>
     <resource>
         <localResource
@@ -51,10 +48,10 @@
             dataFile="full details.jrxml.data" xsi:type="fileResource">
             <folder>/Reports/Executive/active_vms_by_os_br18_files</folder>
             <name>full details.jrxml</name>
-            <version>0</version>
+            <version>1</version>
             <label>full details.jrxml</label>
-            <creationDate>2011-12-27T15:09:32.372+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:32.372+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:11.061+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:11.061+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -63,10 +60,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Reports/Executive/active_vms_by_os_br18_files</folder>
             <name>ovirt-icon</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2011-12-27T15:09:32.372+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:32.372+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:11.061+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:11.061+03:00</updateDate>
             <referenceUri>/Resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -75,10 +72,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Reports/Executive/active_vms_by_os_br18_files</folder>
             <name>trash-icon</name>
-            <version>0</version>
+            <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2011-12-27T15:09:32.372+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:32.372+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:11.061+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:11.061+03:00</updateDate>
             <referenceUri>/Resources/trash-icon</referenceUri>
         </localResource>
     </resource>
@@ -87,10 +84,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/Reports/Executive/active_vms_by_os_br18_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2011-12-27T15:09:32.372+02:00</creationDate>
-            <updateDate>2011-12-27T15:09:32.372+02:00</updateDate>
+            <creationDate>2012-03-30T08:51:11.061+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:11.061+03:00</updateDate>
             <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
