@@ -19,6 +19,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 
 public class BarChartCustomizer implements JRChartCustomizer {
+    @Override
     public void customize(JFreeChart chart, JRChart jasperChart) {
         BarRenderer renderer = (BarRenderer) chart.getCategoryPlot().getRenderer();
         CategoryPlot categoryPlot = renderer.getPlot();

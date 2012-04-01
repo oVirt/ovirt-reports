@@ -4,8 +4,10 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+
 import net.sf.jasperreports.engine.JRChart;
 import net.sf.jasperreports.engine.JRChartCustomizer;
+
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
@@ -18,27 +20,36 @@ import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.XYPlot;
 
 public class XYBarTimeChartCustomizer implements JRChartCustomizer {
+    @Override
     public void customize(JFreeChart chart, JRChart jasperChart) {
         long longerThanMonthInMiliseconds = 3064800000L;
+        long longerThanDayInMiliseconds = 86500000L * 2;
         XYPlot categoryPlot = chart.getXYPlot();
         chart.getXYPlot().getRenderer().setBaseItemLabelsVisible(false);
 
         categoryPlot.setNoDataMessage("No Data Available");
         DateAxis domainaxis = (DateAxis) categoryPlot.getDomainAxis();
-        domainaxis.setAutoTickUnitSelection(false);
-        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds)
+        if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() > longerThanDayInMiliseconds)
         {
-            domainaxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,5,new SimpleDateFormat("dd MMM")));
-        }
-        else
-        {
+            if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds)
+            {
+                domainaxis.setAutoTickUnitSelection(false);
+                domainaxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,5,new SimpleDateFormat("dd MMM")));
+                domainaxis.setDateFormatOverride(new SimpleDateFormat("dd MMM"));
+                domainaxis.setLabelAngle(Math.PI / 2);
+                domainaxis.setLabelAngle(0);
+            }
+            else if (domainaxis.getMaximumDate().getTime() - domainaxis.getMinimumDate().getTime() < longerThanMonthInMiliseconds * 3)
+            {
+            domainaxis.setAutoTickUnitSelection(false);
             domainaxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY,14,new SimpleDateFormat("dd MMM")));
+            domainaxis.setDateFormatOverride(new SimpleDateFormat("dd MMM"));
+            domainaxis.setLabelAngle(Math.PI / 2);
+            domainaxis.setLabelAngle(0);
+            }
         }
         domainaxis.setTickMarkPosition(DateTickMarkPosition.START);
         domainaxis.setTickMarksVisible(true);
-        domainaxis.setDateFormatOverride(new SimpleDateFormat("dd MMM"));
-        domainaxis.setLabelAngle(Math.PI / 2);
-        domainaxis.setLabelAngle(0);
 
 
         LegendItemCollection chartLegend = categoryPlot.getLegendItems();

@@ -5,23 +5,24 @@ import java.awt.BasicStroke;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+
+import net.sf.jasperreports.engine.JRChart;
+import net.sf.jasperreports.engine.JRChartCustomizer;
+
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickMarkPosition;
-import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import net.sf.jasperreports.engine.JRChart;
-import net.sf.jasperreports.engine.JRChartCustomizer;
 
 public class DrPercentTimelineChartCustomizer implements JRChartCustomizer {
 
+    @Override
     public void customize(JFreeChart chart, JRChart jasperChart) {
             XYPlot categoryPlot = chart.getXYPlot();
             XYItemRenderer renderer = chart.getXYPlot().getRenderer();
@@ -58,21 +59,21 @@ public class DrPercentTimelineChartCustomizer implements JRChartCustomizer {
                 axis.setNumberFormatOverride(new DecimalFormat("###,###,###.#"));
                 double upperBound = axis.getUpperBound();
                 int a = (((int) upperBound / 10) * 10) + 10;
-                upperBound = (double) a;
+                upperBound = a;
                 if (upperBound <= 100)
                 {
-                axis.setUpperBound((double) upperBound);
+                axis.setUpperBound(upperBound);
                 }
                 else
                 {
-                axis.setUpperBound((double) 100);
+                axis.setUpperBound(100);
                 }
                 double lowerBound = axis.getLowerBound();
                 int a2 = (((int) lowerBound / 10) * 10) - 10;
-                lowerBound = (double) a2;
-                if (lowerBound < (double) 0)
+                lowerBound = a2;
+                if (lowerBound < 0)
                 {
-                    axis.setLowerBound((double) 0);
+                    axis.setLowerBound(0);
                 }
                 else
                 {
