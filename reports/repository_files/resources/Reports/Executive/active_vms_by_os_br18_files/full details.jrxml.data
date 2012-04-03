@@ -10,7 +10,7 @@
     </parameter>
     <parameter name="P_Period" class="java.lang.String">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Quarterly"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
