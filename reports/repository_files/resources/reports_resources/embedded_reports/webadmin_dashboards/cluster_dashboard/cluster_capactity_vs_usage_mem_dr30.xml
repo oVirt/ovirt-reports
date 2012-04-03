@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
+    <name>cluster_capactity_vs_usage_mem_dr30</name>
+    <version>19</version>
+    <label>Cluster Capactity vs Usage Memory (DR30)</label>
+    <creationDate>2012-02-05T15:44:37.911+02:00</creationDate>
+    <updateDate>2012-03-14T15:18:42.798+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_capactity_vs_usage_mem_dr30_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_capactity_vs_usage_mem_dr30_files</folder>
+            <name>cluster_capactity_vs_usage_mem_dr30_jrxml</name>
+            <version>24</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-02-05T15:44:37.911+02:00</creationDate>
+            <updateDate>2012-03-11T13:35:30.341+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
+    </inputControl>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

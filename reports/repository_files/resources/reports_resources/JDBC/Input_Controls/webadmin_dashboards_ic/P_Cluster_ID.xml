@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic</folder>
+    <name>P_Cluster_ID</name>
+    <version>1</version>
+    <label>Cluster</label>
+    <creationDate>2012-02-01T16:02:58.906+02:00</creationDate>
+    <updateDate>2012-02-01T16:04:16.558+02:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID_files</folder>
+            <name>Cluster</name>
+            <version>1</version>
+            <label>Cluster</label>
+            <creationDate>2012-02-01T16:04:16.558+02:00</creationDate>
+            <updateDate>2012-02-01T16:04:16.558+02:00</updateDate>
+            <language>sql</language>
+            <queryString>SELECT distinct cluster_id, cluster_name
+FROM v3_0_latest_cluster_configuration_view
+ORDER BY cluster_name</queryString>
+            <dataSource>
+                <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>cluster_name</queryVisibleColumn>
+    <queryValueColumn>cluster_id</queryValueColumn>
+</inputControl>

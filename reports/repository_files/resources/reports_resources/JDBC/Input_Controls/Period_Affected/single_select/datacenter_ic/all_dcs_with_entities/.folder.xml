@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic</parent>
+    <name>all_dcs_with_entities</name>
+    <label>All Datacenters with any Subentities</label>
+    <creationDate>2012-03-20T15:20:01.313+02:00</creationDate>
+    <updateDate>2012-03-20T15:20:01.313+02:00</updateDate>
+    <resource>P_DataCenter_ID</resource>
+</folder>

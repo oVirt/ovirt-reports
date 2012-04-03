@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports/webadmin_dashboards</parent>
+    <name>cluster_dashboard</name>
+    <label>Cluster Dashboard</label>
+    <creationDate>2012-01-22T13:49:07.149+02:00</creationDate>
+    <updateDate>2012-01-22T13:49:07.149+02:00</updateDate>
+    <resource>cluster_capactity_vs_usage_cores_dr29</resource>
+    <resource>cluster_capactity_vs_usage_mem_dr30</resource>
+    <resource>cluster_entities_counts_list_dr3</resource>
+    <resource>cluster_ha_vm_uptime_status_dr13</resource>
+    <resource>cluster_host_resources_status_dr12</resource>
+    <resource>cluster_host_uptime_status_dr6</resource>
+    <resource>cluster_summary_of_hosts_resources_usage_dr28</resource>
+    <resource>cluster_top_five_busiest_hosts_dr23</resource>
+    <resource>cluster_top_five_least_busy_hosts_dr24</resource>
+    <resource>cluster_vm_over_commit_status_dr14</resource>
+    <resource>top_five_ha_virtual_servers_downtime_dr20</resource>
+    <resource>top_five_ha_virtual_servers_uptime_dr19</resource>
+    <resource>top_five_hosts_downtime_dr18</resource>
+    <resource>top_five_hosts_uptime_dr17</resource>
+</folder>

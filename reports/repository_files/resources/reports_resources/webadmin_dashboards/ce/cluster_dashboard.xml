@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/reports_resources/webadmin_dashboards/ce</folder>
+    <name>cluster_dashboard</name>
+    <version>65</version>
+    <label>Cluster Dashboard</label>
+    <creationDate>2012-02-27T13:57:25.231+02:00</creationDate>
+    <updateDate>2012-03-14T15:52:09.234+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_dashboard_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_dashboard_jrxml</name>
+            <version>3</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-03-11T13:35:30.589+02:00</creationDate>
+            <updateDate>2012-03-11T13:35:30.589+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-03-11T13:35:30.589+02:00</creationDate>
+            <updateDate>2012-03-11T13:35:30.589+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_capactity_vs_usage_cores_dr29_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_capactity_vs_usage_cores_dr29_jrxml</name>
+            <version>0</version>
+            <label>cluster_capactity_vs_usage_cores_dr29_jrxml</label>
+            <creationDate>2012-03-14T15:25:45.552+02:00</creationDate>
+            <updateDate>2012-03-14T15:25:45.552+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_capactity_vs_usage_mem_dr30_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_capactity_vs_usage_mem_dr30_jrxml</name>
+            <version>0</version>
+            <label>cluster_capactity_vs_usage_mem_dr30_jrxml</label>
+            <creationDate>2012-03-14T15:26:11.621+02:00</creationDate>
+            <updateDate>2012-03-14T15:26:11.621+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_entities_counts_list_dr3_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_entities_counts_list_dr3_jrxml</name>
+            <version>0</version>
+            <label>cluster_entities_counts_list_dr3_jrxml</label>
+            <creationDate>2012-03-14T15:26:54.883+02:00</creationDate>
+            <updateDate>2012-03-14T15:26:54.883+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_ha_vm_uptime_status_dr13_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_ha_vm_uptime_status_dr13_jrxml</name>
+            <version>0</version>
+            <label>cluster_ha_vm_uptime_status_dr13_jrxml</label>
+            <creationDate>2012-03-14T15:27:25.632+02:00</creationDate>
+            <updateDate>2012-03-14T15:27:25.632+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_host_resources_status_dr12_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_host_resources_status_dr12_jrxml</name>
+            <version>0</version>
+            <label>cluster_host_resources_status_dr12_jrxml</label>
+            <creationDate>2012-03-14T15:28:11.245+02:00</creationDate>
+            <updateDate>2012-03-14T15:28:11.245+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_host_uptime_status_dr6_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_host_uptime_status_dr6_jrxml</name>
+            <version>0</version>
+            <label>cluster_host_uptime_status_dr6_jrxml</label>
+            <creationDate>2012-03-14T15:28:43.584+02:00</creationDate>
+            <updateDate>2012-03-14T15:28:43.584+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_summary_of_hosts_resources_usage_dr28_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_summary_of_hosts_resources_usage_dr28_jrxml</name>
+            <version>0</version>
+            <label>cluster_summary_of_hosts_resources_usage_dr28_jrxml</label>
+            <creationDate>2012-03-14T15:30:56.109+02:00</creationDate>
+            <updateDate>2012-03-14T15:30:56.109+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_top_five_busiest_hosts_dr23_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_top_five_busiest_hosts_dr23_jrxml</name>
+            <version>0</version>
+            <label>cluster_top_five_busiest_hosts_dr23_jrxml</label>
+            <creationDate>2012-03-14T15:31:20.428+02:00</creationDate>
+            <updateDate>2012-03-14T15:31:20.428+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_top_five_least_busy_hosts_dr24_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_top_five_least_busy_hosts_dr24_jrxml</name>
+            <version>0</version>
+            <label>cluster_top_five_least_busy_hosts_dr24_jrxml</label>
+            <creationDate>2012-03-14T15:31:46.407+02:00</creationDate>
+            <updateDate>2012-03-14T15:31:46.407+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_vm_over_commit_status_dr14_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>cluster_vm_over_commit_status_dr14_jrxml</name>
+            <version>0</version>
+            <label>cluster_vm_over_commit_status_dr14_jrxml</label>
+            <creationDate>2012-03-14T15:32:14.211+02:00</creationDate>
+            <updateDate>2012-03-14T15:32:14.211+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="top_five_ha_virtual_servers_downtime_dr20_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>top_five_ha_virtual_servers_downtime_dr20_jrxml</name>
+            <version>0</version>
+            <label>top_five_ha_virtual_servers_downtime_dr20_jrxml</label>
+            <creationDate>2012-03-14T15:32:44.453+02:00</creationDate>
+            <updateDate>2012-03-14T15:32:44.453+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="top_five_ha_virtual_servers_uptime_dr19_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>top_five_ha_virtual_servers_uptime_dr19_jrxml</name>
+            <version>0</version>
+            <label>top_five_ha_virtual_servers_uptime_dr19_jrxml</label>
+            <creationDate>2012-03-14T15:33:10.902+02:00</creationDate>
+            <updateDate>2012-03-14T15:33:10.902+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="top_five_hosts_downtime_dr18_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>top_five_hosts_downtime_dr18_jrxml</name>
+            <version>0</version>
+            <label>top_five_hosts_downtime_dr18_jrxml</label>
+            <creationDate>2012-03-14T15:33:52.642+02:00</creationDate>
+            <updateDate>2012-03-14T15:33:52.642+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="top_five_hosts_uptime_dr17_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
+            <name>top_five_hosts_uptime_dr17_jrxml</name>
+            <version>0</version>
+            <label>top_five_hosts_uptime_dr17_jrxml</label>
+            <creationDate>2012-03-14T15:34:17.701+02:00</creationDate>
+            <updateDate>2012-03-14T15:34:17.701+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

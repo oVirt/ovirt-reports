@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls/Period_Affected</parent>
+    <name>single_select</name>
+    <label>Entities Input Controls</label>
+    <creationDate>2012-03-08T15:37:22.473+02:00</creationDate>
+    <updateDate>2012-03-08T15:37:22.473+02:00</updateDate>
+    <folder>cluster_ic</folder>
+    <folder>datacenter_ic</folder>
+    <folder>host_ic</folder>
+    <folder>storage_ic</folder>
+    <folder>vm_ic</folder>
+</folder>

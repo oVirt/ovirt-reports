@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select</parent>
+    <name>datacenter_ic</name>
+    <label>Datacenter Input Controls</label>
+    <creationDate>2012-03-20T15:18:54.089+02:00</creationDate>
+    <updateDate>2012-03-20T15:18:54.089+02:00</updateDate>
+    <folder>all_dcs_with_entities</folder>
+    <folder>all_dcs_with_hosts</folder>
+    <folder>all_dcs_with_storage</folder>
+    <folder>all_dcs_with_vms</folder>
+</folder>

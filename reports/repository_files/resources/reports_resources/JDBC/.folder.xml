@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources</parent>
+    <name>JDBC</name>
+    <label>JDBC</label>
+    <description></description>
+    <creationDate>2011-12-27T15:09:23.077+02:00</creationDate>
+    <updateDate>2011-06-09T10:11:45.000+03:00</updateDate>
+    <folder>data_sources</folder>
+    <folder>Input_Controls</folder>
+</folder>

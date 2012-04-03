@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_clusters_host_downtime_dr16" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/top_five_clusters_host_downtime_dr16"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT v3_0_latest_host_configuration_view.cluster_id, v3_0_latest_cluster_configuration_view.cluster_name,
+       (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 1 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 as uptime_percent,
+       (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 2 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 AS planned_downtime_percent,
+       (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 3 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 AS unplanned_downtime_percent
+FROM v3_0_host_samples_history_view
+     INNER JOIN v3_0_latest_host_configuration_view ON (v3_0_latest_host_configuration_view.host_id = v3_0_host_samples_history_view.host_id)
+         INNER JOIN v3_0_latest_cluster_configuration_view ON (v3_0_latest_host_configuration_view.cluster_id = v3_0_latest_cluster_configuration_view.cluster_id)
+WHERE v3_0_latest_cluster_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as UUID)
+GROUP BY v3_0_latest_host_configuration_view.cluster_id, v3_0_latest_cluster_configuration_view.cluster_name
+HAVING (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 1 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 != 100
+ORDER BY unplanned_downtime_percent DESC, planned_downtime_percent DESC
+LIMIT (SELECT CASE
+                  WHEN count(distinct a.cluster_id) <= 5 THEN 0
+                  WHEN count(distinct a.cluster_id) <= 10 THEN count(distinct a.cluster_id) - 5
+                  ELSE 5
+              END
+       FROM v3_0_latest_cluster_configuration_view as a
+       WHERE a.datacenter_id = cast($P{P_DataCenter_ID} as UUID))]]>
+    </queryString>
+    <field name="cluster_id" class="java.lang.Object"/>
+    <field name="cluster_name" class="java.lang.String"/>
+    <field name="uptime_percent" class="java.math.BigDecimal"/>
+    <field name="planned_downtime_percent" class="java.math.BigDecimal"/>
+    <field name="unplanned_downtime_percent" class="java.math.BigDecimal"/>
+    <summary>
+        <band height="167" splitType="Stretch">
+            <barChart>
+                <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
+                    <reportElement x="0" y="0" width="418" height="167"/>
+                    <chartTitle>
+                        <font fontName="DejaVu Sans" size="10"/>
+                        <titleExpression><![CDATA["Top Five Clusters Host Downtime"]]></titleExpression>
+                    </chartTitle>
+                    <chartSubtitle>
+                        <font fontName="DejaVu Sans" size="9"/>
+                    </chartSubtitle>
+                    <chartLegend>
+                        <font fontName="DejaVu Sans" size="9"/>
+                    </chartLegend>
+                </chart>
+                <categoryDataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["Uptime"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{uptime_percent}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{uptime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["Planned Downtime"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{planned_downtime_percent}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{planned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["Unplanned Downtime"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{unplanned_downtime_percent}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{unplanned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
+                        <font fontName="DejaVu Sans" size="9"/>
+                    </itemLabel>
+                    <categoryAxisFormat>
+                        <axisFormat>
+                            <labelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </labelFont>
+                            <tickLabelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </tickLabelFont>
+                        </axisFormat>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat>
+                            <labelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </labelFont>
+                            <tickLabelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </tickLabelFont>
+                        </axisFormat>
+                    </valueAxisFormat>
+                    <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+                    <rangeAxisMaxValueExpression><![CDATA[100]]></rangeAxisMaxValueExpression>
+                </barPlot>
+            </barChart>
+        </band>
+    </summary>
+</jasperReport>

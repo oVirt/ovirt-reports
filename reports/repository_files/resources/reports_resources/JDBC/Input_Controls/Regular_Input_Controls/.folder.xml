@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls</parent>
+    <name>Regular_Input_Controls</name>
+    <label>Regular Input Controls</label>
+    <description></description>
+    <creationDate>2012-03-30T08:54:34.510+03:00</creationDate>
+    <updateDate>2012-03-30T08:54:34.510+03:00</updateDate>
+    <folder>Only_Hosts</folder>
+    <folder>Only_Storage</folder>
+    <folder>Only_VMs</folder>
+</folder>

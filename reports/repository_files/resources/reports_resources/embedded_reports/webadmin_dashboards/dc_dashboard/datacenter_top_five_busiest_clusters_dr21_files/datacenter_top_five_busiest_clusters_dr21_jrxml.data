@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datacenter_top_five_busiest_clusters_dr21" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/datacenter_top_five_busiest_clusters_dr21"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="net.sf.jasperreports.chart.theme" value="ReportsLineBarChartTheme"/>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[SELECT v3_0_latest_cluster_configuration_view.cluster_id, v3_0_latest_cluster_configuration_view.cluster_name, AVG(cpu_usage_percent) AS cpu_usage_percent_avg, MAX(cpu_usage_percent) AS cpu_usage_percent_max, AVG(memory_usage_percent) AS memory_usage_percent_avg, MAX(memory_usage_percent) AS memory_usage_percent_max
+FROM v3_0_host_samples_history_view
+    INNER JOIN v3_0_latest_host_configuration_view ON (v3_0_latest_host_configuration_view.host_id = v3_0_host_samples_history_view.host_id)
+         INNER JOIN v3_0_latest_cluster_configuration_view ON (v3_0_latest_cluster_configuration_view.cluster_id = v3_0_latest_host_configuration_view.cluster_id)
+WHERE v3_0_host_samples_history_view.host_status = 1
+      AND v3_0_latest_cluster_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as UUID)
+GROUP BY v3_0_latest_cluster_configuration_view.cluster_id, v3_0_latest_cluster_configuration_view.cluster_name
+ORDER BY AVG(cpu_usage_percent) + MAX(cpu_usage_percent) + AVG(memory_usage_percent) + MAX(memory_usage_percent) DESC
+LIMIT 5]]>
+    </queryString>
+    <field name="cluster_id" class="java.lang.Object"/>
+    <field name="cluster_name" class="java.lang.String"/>
+    <field name="cpu_usage_percent_avg" class="java.math.BigDecimal"/>
+    <field name="cpu_usage_percent_max" class="java.lang.Integer"/>
+    <field name="memory_usage_percent_avg" class="java.math.BigDecimal"/>
+    <field name="memory_usage_percent_max" class="java.lang.Integer"/>
+    <summary>
+        <band height="167" splitType="Stretch">
+            <barChart>
+                <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
+                    <reportElement x="0" y="0" width="418" height="167"/>
+                    <chartTitle>
+                        <font fontName="DejaVu Sans" size="10"/>
+                        <titleExpression><![CDATA["Top Five Busiest Clusters"]]></titleExpression>
+                    </chartTitle>
+                    <chartSubtitle>
+                        <font fontName="DejaVu Sans" size="9"/>
+                    </chartSubtitle>
+                    <chartLegend>
+                        <font fontName="DejaVu Sans" size="9"/>
+                    </chartLegend>
+                </chart>
+                <categoryDataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["CPU Usage"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{cpu_usage_percent_avg}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{cpu_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["CPU Peak"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{cpu_usage_percent_max}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{cpu_usage_percent_max}.toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["Memory Usage"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{memory_usage_percent_avg}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{memory_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                    <categorySeries>
+                        <seriesExpression><![CDATA["Memory Peak"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{memory_usage_percent_max}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{memory_usage_percent_max}.toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot isShowTickMarks="true">
+                    <plot/>
+                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
+                        <font fontName="DejaVu Sans" size="9"/>
+                    </itemLabel>
+                    <categoryAxisFormat>
+                        <axisFormat>
+                            <labelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </labelFont>
+                            <tickLabelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </tickLabelFont>
+                        </axisFormat>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat>
+                            <labelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </labelFont>
+                            <tickLabelFont>
+                                <font fontName="DejaVu Sans" size="9"/>
+                            </tickLabelFont>
+                        </axisFormat>
+                    </valueAxisFormat>
+                    <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+                    <rangeAxisMaxValueExpression><![CDATA[100]]></rangeAxisMaxValueExpression>
+                </barPlot>
+            </barChart>
+        </band>
+    </summary>
+</jasperReport>

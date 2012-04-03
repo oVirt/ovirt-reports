@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
+    <name>cluster_top_five_least_busy_hosts_dr24</name>
+    <version>13</version>
+    <label>Cluster Top Five Least Busy Hosts (DR24)</label>
+    <creationDate>2012-02-01T16:52:35.937+02:00</creationDate>
+    <updateDate>2012-02-28T17:46:43.547+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="cluster_top_five_least_busy_hosts_dr24_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_top_five_least_busy_hosts_dr24_files</folder>
+            <name>cluster_top_five_least_busy_hosts_dr24_jrxml</name>
+            <version>12</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-02-01T16:52:35.937+02:00</creationDate>
+            <updateDate>2012-02-01T16:52:35.937+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
+    </inputControl>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

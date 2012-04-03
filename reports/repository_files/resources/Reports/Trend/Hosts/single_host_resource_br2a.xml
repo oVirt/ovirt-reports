@@ -22,28 +22,28 @@
         </localResource>
     </mainReport>
     <dataSource>
-        <uri>/Resources/JDBC/data_sources/ovirt</uri>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
     </dataSource>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_hosts/P_DataCenter_ID</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_hosts/P_DataCenter_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_clusters_with_hosts/P_Cluster_ID</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_clusters_with_hosts/P_Cluster_ID</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic/P_Host_Type</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic/P_Host_Type</uri>
     </inputControl>
     <inputControl>
-        <uri>/Resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic/P_Host_ID</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic/P_Host_ID</uri>
     </inputControl>
     <resource>
         <localResource
@@ -67,7 +67,7 @@
             <label>ovirt-icon</label>
             <creationDate>2012-03-30T08:51:21.337+03:00</creationDate>
             <updateDate>2012-03-30T08:51:21.337+03:00</updateDate>
-            <referenceUri>/Resources/ovirt-icon</referenceUri>
+            <referenceUri>/reports_resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
     <resource>
@@ -79,7 +79,7 @@
             <label>trash-icon</label>
             <creationDate>2012-03-30T08:51:21.337+03:00</creationDate>
             <updateDate>2012-03-30T08:51:21.337+03:00</updateDate>
-            <referenceUri>/Resources/trash-icon</referenceUri>
+            <referenceUri>/reports_resources/trash-icon</referenceUri>
         </localResource>
     </resource>
     <resource>
@@ -91,7 +91,7 @@
             <label>ovirt_reports_bundle_en_US.properties</label>
             <creationDate>2012-03-30T08:51:21.337+03:00</creationDate>
             <updateDate>2012-03-30T08:51:21.337+03:00</updateDate>
-            <referenceUri>/Resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
     <inputControlRenderingView></inputControlRenderingView>

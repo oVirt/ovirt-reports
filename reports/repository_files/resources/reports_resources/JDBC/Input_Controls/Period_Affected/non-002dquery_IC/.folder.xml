@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls/Period_Affected</parent>
+    <name>non-query_IC</name>
+    <label>Non-Query Input Controls</label>
+    <creationDate>2012-03-08T15:37:22.473+02:00</creationDate>
+    <updateDate>2012-03-08T15:37:22.473+02:00</updateDate>
+    <resource>is_deleted</resource>
+    <resource>P_CPU_Threshold</resource>
+    <resource>P_MEM_Threshold</resource>
+    <resource>P_Period</resource>
+    <resource>P_Start_Date</resource>
+</folder>

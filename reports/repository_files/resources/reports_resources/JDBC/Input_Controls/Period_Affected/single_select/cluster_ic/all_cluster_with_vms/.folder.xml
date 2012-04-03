@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic</parent>
+    <name>all_cluster_with_vms</name>
+    <label>All Clusters with VMs</label>
+    <creationDate>2012-03-20T15:33:07.242+02:00</creationDate>
+    <updateDate>2012-03-20T15:33:07.242+02:00</updateDate>
+    <resource>P_Cluster_ID</resource>
+</folder>

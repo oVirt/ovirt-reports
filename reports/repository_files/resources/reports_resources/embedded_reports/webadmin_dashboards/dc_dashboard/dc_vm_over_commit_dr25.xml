@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard</folder>
+    <name>dc_vm_over_commit_dr25</name>
+    <version>29</version>
+    <label>Datacenter Top Five Clusters Virtual Machine Over Commit (DR25)</label>
+    <creationDate>2012-02-01T17:25:00.722+02:00</creationDate>
+    <updateDate>2012-02-28T17:57:21.694+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="dc_vm_over_commit_dr25_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_vm_over_commit_dr25_files</folder>
+            <name>dc_vm_over_commit_dr25_jrxml</name>
+            <version>26</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-02-01T17:25:00.722+02:00</creationDate>
+            <updateDate>2012-02-01T17:25:00.722+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_DataCenter_ID</uri>
+    </inputControl>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

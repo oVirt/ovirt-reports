@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls</parent>
+    <name>webadmin_dashboards_ic</name>
+    <label>Webadmin Dashboards Input Controls</label>
+    <creationDate>2012-02-01T16:02:18.273+02:00</creationDate>
+    <updateDate>2012-02-01T16:02:18.273+02:00</updateDate>
+    <resource>P_Cluster_ID</resource>
+    <resource>P_DataCenter_ID</resource>
+</folder>

@@ -33,7 +33,7 @@ WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
                 <reportElement x="0" y="4" width="10" height="11">
                     <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
                 </reportElement>
-                <imageExpression><![CDATA["repo:/organizations/ovirtreports/Resources/trash-icon"]]></imageExpression>
+                <imageExpression><![CDATA["repo:/organizations/ovirtreports/reports_resources/trash-icon"]]></imageExpression>
             </image>
             <textField evaluationTime="Report">
                 <reportElement x="0" y="0" width="800" height="18" forecolor="#3A5E75">

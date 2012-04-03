@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls</parent>
+    <name>Period_Affected</name>
+    <label>Period_Affected</label>
+    <description></description>
+    <creationDate>2012-03-30T08:52:54.741+03:00</creationDate>
+    <updateDate>2012-03-30T08:52:54.741+03:00</updateDate>
+    <folder>non-query_IC</folder>
+    <folder>single_select</folder>
+</folder>

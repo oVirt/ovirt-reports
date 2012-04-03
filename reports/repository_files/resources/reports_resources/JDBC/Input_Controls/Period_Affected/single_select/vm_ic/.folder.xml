@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select</parent>
+    <name>vm_ic</name>
+    <label>VMs Input Controls</label>
+    <creationDate>2012-03-20T15:34:42.034+02:00</creationDate>
+    <updateDate>2012-03-20T15:34:42.034+02:00</updateDate>
+    <resource>P_VM_ID</resource>
+    <resource>P_VM_ListID</resource>
+    <resource>P_VM_Type</resource>
+    <resource>VM_List</resource>
+</folder>

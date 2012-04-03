@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/storage_ic</folder>
+    <name>P_StorageDomain_ID</name>
+    <version>5</version>
+    <label>Storage Domain Name</label>
+    <description>Storage Domain Name</description>
+    <creationDate>2012-03-20T15:16:22.716+02:00</creationDate>
+    <updateDate>2012-03-30T08:51:13.138+03:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/storage_ic/P_StorageDomain_ID_files</folder>
+            <name>Storage_Domain_Name</name>
+            <version>1</version>
+            <label>Storage_Domain_Name</label>
+            <description>Storage Domain Query</description>
+            <creationDate>2012-03-30T08:51:13.138+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:13.138+03:00</updateDate>
+            <language>sql</language>
+            <queryString>Select distinct v3_0_storage_domain_configuration_view.storage_domain_id, detach_date, CASE
+                                                                                                                                       WHEN detach_date IS NULL THEN storage_domain_name
+                                                                                                                                       ELSE storage_domain_name || ' (Detached on ' || cast(detach_date as varchar) || ')'
+                                                                                                                                   END as combo_name
+from v3_0_storage_domain_configuration_view, v3_0_datacenter_storage_domain_map_view
+WHERE  v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
+            AND v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+            AND v3_0_storage_domain_configuration_view.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
+                                                                                                                        WHEN NULL THEN  v3_0_storage_domain_configuration_view.storage_domain_type
+                                                                                                                        WHEN -1 THEN v3_0_storage_domain_configuration_view.storage_domain_type
+                                                                                                                        ELSE cast($P{P_Storage_Type} as int)
+                                                                                                                    END
+            AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
+                                                                                                        FROM v3_0_datacenter_storage_domain_map_view a
+                                                                                                        GROUP BY a.storage_domain_id, a.datacenter_id)
+            AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(b.history_id)
+                                                                                                    FROM v3_0_storage_domain_configuration_view b
+                                                                                                    GROUP BY b.storage_domain_id)
+           AND create_date &lt;= CASE
+                                                 WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                 WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                 WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                 WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                           END
+           AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
+                                                                                                                                                                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                                                                                                                                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                                                                                                                                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                                                                                                                                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                                                                                                                                   END))
+           AND attach_date &lt;= CASE
+                                                 WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                 WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                 WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                 WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                           END
+           AND (detach_date IS NULL OR (detach_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND detach_date &lt;= CASE
+                                                                                                                                                                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                                                                                                                                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                                                                                                                                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                                                                                                                                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                                                                                                                                   END))
+            $P!{is_deleted}
+ORDER BY detach_date DESC, combo_name
+</queryString>
+            <dataSource>
+                <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+            </dataSource>
+        </localResource>
+    </query>
+    <queryVisibleColumn>combo_name</queryVisibleColumn>
+    <queryValueColumn>storage_domain_id</queryValueColumn>
+</inputControl>

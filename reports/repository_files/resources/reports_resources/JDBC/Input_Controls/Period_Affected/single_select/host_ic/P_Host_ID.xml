@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl>
+    <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic</folder>
+    <name>P_Host_ID</name>
+    <version>8</version>
+    <label>Host Name</label>
+    <creationDate>2012-03-20T15:10:44.832+02:00</creationDate>
+    <updateDate>2012-03-30T08:51:18.971+03:00</updateDate>
+    <type>4</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic/Hosts_List</uri>
+    </query>
+    <queryVisibleColumn>combo_name</queryVisibleColumn>
+    <queryValueColumn>host_id</queryValueColumn>
+</inputControl>
