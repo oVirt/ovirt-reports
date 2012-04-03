@@ -32,17 +32,23 @@
             <parameterDescription><![CDATA[Select an Host]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <queryString>
-            <![CDATA[select the_date, MEM_Usage, MEM_Peak
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+            <![CDATA[select $P!{calendar_column} as the_date, MEM_Usage, MEM_Peak
 from    (-- Hosts Max and Average MEMory Usage Peaks
     SELECT
         history_datetime AS time,
             SUM(coalesce(memory_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Usage,
             SUM(coalesce(max_memory_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Peak
-    FROM v3_0_host_daily_history_view
+    FROM v3_0_host_$P!{table_name}_history_view
 
     WHERE
-        v3_0_host_daily_history_view.host_id =
+        v3_0_host_$P!{table_name}_history_view.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -50,25 +56,25 @@ from    (-- Hosts Max and Average MEMory Usage Peaks
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as date)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP BY
-        history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
-where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < CASE
+        history_datetime) a RIGHT OUTER JOIN calendar ON ($P!{calendar_column} = time)
+where     $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+    AND $P!{calendar_column} <= CASE
                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                        WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                    END
-GROUP BY the_date, MEM_Usage, MEM_Peak
-ORDER BY the_date]]>
+GROUP BY $P!{calendar_column}, MEM_Usage, MEM_Peak
+ORDER BY $P!{calendar_column}]]>
         </queryString>
-        <field name="the_date" class="java.sql.Date"/>
+        <field name="the_date" class="java.sql.Timestamp"/>
         <field name="mem_usage" class="java.math.BigDecimal"/>
         <field name="mem_peak" class="java.math.BigDecimal"/>
     </subDataset>
@@ -99,16 +105,22 @@ ORDER BY the_date]]>
             <parameterDescription><![CDATA[Select an Host]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <queryString>
-            <![CDATA[select the_date, cast(VMS as int), cast(VMS_Peak as int)
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+            <![CDATA[select $P!{calendar_column} as the_date, cast(VMS as int), cast(VMS_Peak as int)
 from    (-- Hosts Max and Average Active VMs Counts
     SELECT
         history_datetime AS time,
         SUM(coalesce(active_vms,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS VMS,
         SUM(coalesce(max_active_vms,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS VMS_Peak
-    FROM v3_0_host_daily_history_view
+    FROM v3_0_host_$P!{table_name}_history_view
     WHERE
-        v3_0_host_daily_history_view.host_id =
+        v3_0_host_$P!{table_name}_history_view.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -116,25 +128,25 @@ from    (-- Hosts Max and Average Active VMs Counts
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP BY
-        history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
-where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < CASE
+        history_datetime) a RIGHT OUTER JOIN calendar ON ($P!{calendar_column} = time)
+where     $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+    AND $P!{calendar_column} <= CASE
                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                        WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                    END
-group by the_date, VMS, VMS_Peak
-order by the_date]]>
+group by $P!{calendar_column}, VMS, VMS_Peak
+order by $P!{calendar_column}]]>
         </queryString>
-        <field name="the_date" class="java.sql.Date"/>
+        <field name="the_date" class="java.sql.Timestamp"/>
         <field name="vms" class="java.lang.Integer"/>
         <field name="vms_peak" class="java.lang.Integer"/>
     </subDataset>
@@ -165,8 +177,14 @@ order by the_date]]>
             <parameterDescription><![CDATA[Select an Host]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <queryString>
-            <![CDATA[select the_date, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, Rx_rate, Tx_rate
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+            <![CDATA[select $P!{calendar_column} as the_date, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, Rx_rate, Tx_rate
 from    (-- Hosts Ethernet Interface Tx and Rx Rates
     SELECT
         v3_0_host_interface_configuration_view.host_interface_id,
@@ -174,12 +192,12 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
             WHEN delete_date IS NULL THEN v3_0_host_interface_configuration_view.host_interface_name
             ELSE v3_0_host_interface_configuration_view.host_interface_name || '*'
         END as interface_name,
-        v3_0_host_interface_daily_history_view.history_datetime AS time,
+        v3_0_host_interface_$P!{table_name}_history_view.history_datetime AS time,
         avg(coalesce(receive_rate_percent,0)) AS Rx_rate,
         avg(coalesce(transmit_rate_percent,0)) AS Tx_rate
-    FROM v3_0_host_interface_daily_history_view
+    FROM v3_0_host_interface_$P!{table_name}_history_view
         INNER JOIN v3_0_host_interface_configuration_view
-            ON (v3_0_host_interface_configuration_view.host_interface_id = v3_0_host_interface_daily_history_view.host_interface_id)
+            ON (v3_0_host_interface_configuration_view.host_interface_id = v3_0_host_interface_$P!{table_name}_history_view.host_interface_id)
     WHERE
         v3_0_host_interface_configuration_view.host_id =
             CASE $P{P_Host_ID}
@@ -189,7 +207,7 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -199,7 +217,7 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                    FROM v3_0_host_interface_configuration_view as a
                                    GROUP BY a.host_interface_id)
         AND v3_0_host_interface_configuration_view.host_interface_id in (SELECT c.host_interface_id
-                                     FROM v3_0_host_interface_daily_history_view b
+                                     FROM v3_0_host_interface_$P!{table_name}_history_view b
                                     INNER JOIN v3_0_host_interface_configuration_view c
                                         ON (c.host_interface_id = b.host_interface_id)
                                    WHERE     c.host_id = CASE $P{P_Host_ID}
@@ -209,7 +227,7 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                             ELSE cast($P{P_Host_ID} as uuid)
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                    AND history_datetime < CASE
+                                    AND history_datetime <= CASE
                                                                WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -225,18 +243,18 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
         $P!{is_deleted}
     Group BY
         v3_0_host_interface_configuration_view.host_interface_id, interface_name,
-        v3_0_host_interface_daily_history_view.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.the_date)
-where b.the_date >= cast($P{P_Start_Date} as timestamp)
-      AND b.the_date < CASE
+        v3_0_host_interface_$P!{table_name}_history_view.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.$P!{calendar_column})
+where b.$P!{calendar_column} >= cast($P{P_Start_Date} as timestamp)
+      AND b.$P!{calendar_column} <= CASE
                            WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                            WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                            WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                        END
-GROUP BY  the_date, interface_name, Rx_rate, Tx_rate
-ORDER BY the_date]]>
+GROUP BY  $P!{calendar_column}, interface_name, Rx_rate, Tx_rate
+ORDER BY $P!{calendar_column}]]>
         </queryString>
-        <field name="the_date" class="java.sql.Date"/>
+        <field name="the_date" class="java.sql.Timestamp"/>
         <field name="interface_name" class="java.lang.String"/>
         <field name="rx_rate" class="java.math.BigDecimal"/>
         <field name="tx_rate" class="java.math.BigDecimal"/>
@@ -271,16 +289,22 @@ ORDER BY the_date]]>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
-        <![CDATA[select the_date, CPU_Usage, CPU_Peak
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+        <![CDATA[select $P!{calendar_column} as the_date, CPU_Usage, CPU_Peak
 from    (-- Hosts Max and Average CPU Usage Peaks
     SELECT
         history_datetime AS time,
               SUM(coalesce(cpu_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Usage,
         SUM(coalesce(max_cpu_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Peak
-    FROM v3_0_host_daily_history_view
+    FROM v3_0_host_$P!{table_name}_history_view
     WHERE
-        v3_0_host_daily_history_view.host_id =
+        v3_0_host_$P!{table_name}_history_view.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -288,25 +312,25 @@ from    (-- Hosts Max and Average CPU Usage Peaks
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP By
-        history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
-where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < CASE
+        history_datetime) a RIGHT OUTER JOIN calendar ON ($P!{calendar_column} = time)
+where     $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+    AND $P!{calendar_column} <= CASE
                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                        WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                    END
-GROUP BY the_date, CPU_Usage, CPU_Peak
-ORDER BY the_date]]>
+GROUP BY $P!{calendar_column}, CPU_Usage, CPU_Peak
+ORDER BY $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="cpu_usage" class="java.math.BigDecimal"/>
     <field name="cpu_peak" class="java.math.BigDecimal"/>
     <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
@@ -338,7 +362,7 @@ ORDER BY the_date]]>
                             <font fontName="DejaVu Sans"/>
                         </chartLegend>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <dataset>
                             <datasetRun subDataset="Memory">
                                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
@@ -409,7 +433,7 @@ ORDER BY the_date]]>
                             <font fontName="DejaVu Sans"/>
                         </chartLegend>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <timeSeries>
                             <seriesExpression><![CDATA[$R{br2.chart.series.cpu.usage}]]></seriesExpression>
                             <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
@@ -474,7 +498,7 @@ ORDER BY the_date]]>
                             <font fontName="DejaVu Sans"/>
                         </chartLegend>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <dataset>
                             <datasetRun subDataset="Active_vms">
                                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
@@ -547,7 +571,7 @@ $R{br2a.chart.network.subtitle.lines} + ". " + $R{br2.chart.network.subtitle.del
                             <font fontName="DejaVu Sans"/>
                         </chartLegend>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <dataset>
                             <datasetRun subDataset="Interfaces">
                                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>

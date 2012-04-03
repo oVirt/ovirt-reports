@@ -28,10 +28,16 @@
             <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
             <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
         </parameter>
-        <queryString>
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
             <![CDATA[-- BR18 - Datacenter aggregation level
 -- VMs Count by OS (Windows vs Windows)
-select distinct the_date, coalesce(os_type,'RHEL','') as os_type, vm_count
+select distinct $P!{calendar_column} as the_date, coalesce(os_type,'RHEL','') as os_type, vm_count
 from          (SELECT distinct CASE
                            WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
                            WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'WIND%' THEN 'Windows'
@@ -41,14 +47,14 @@ from          (SELECT distinct CASE
                     END AS os_type,
                    history_datetime AS time,
                    COUNT(DISTINCT v3_0_vm_configuration_view.vm_id) AS vm_count
-        FROM    v3_0_vm_daily_history_view
+        FROM    v3_0_vm_$P!{table_name}_history_view
                   INNER JOIN v3_0_vm_configuration_view
-                   ON (v3_0_vm_configuration_view.history_id = v3_0_vm_daily_history_view.vm_configuration_version)
+                   ON (v3_0_vm_configuration_view.history_id = v3_0_vm_$P!{table_name}_history_view.vm_configuration_version)
                        INNER JOIN v3_0_enum_translator_view enum_os_type
                        ON (enum_os_type.enum_key = v3_0_vm_configuration_view.operating_system AND enum_os_type.enum_type = 'OS_TYPE')
                   INNER JOIN v3_0_vm_configuration_view a
-                   ON (a.vm_id = v3_0_vm_daily_history_view.vm_id)
-        WHERE    v3_0_vm_daily_history_view.vm_status = 1
+                   ON (a.vm_id = v3_0_vm_$P!{table_name}_history_view.vm_id)
+        WHERE    v3_0_vm_$P!{table_name}_history_view.vm_status = 1
                  AND v3_0_vm_configuration_view.cluster_id in (SELECT cluster_id
                                      FROM v3_0_cluster_configuration_view
                                      Where datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
@@ -65,7 +71,7 @@ from          (SELECT distinct CASE
                              FROM v3_0_vm_configuration_view b
                              GROUP BY b.vm_id)
                 AND history_datetime >= cast($P{P_Start_Date} as date)
-                AND history_datetime < CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                AND history_datetime <= CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                            WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                            WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
@@ -81,16 +87,16 @@ from          (SELECT distinct CASE
                            WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'OTHER L%' THEN 'Other Linux'
                            ELSE 'Other OS'
                     END, history_datetime) as all_query RIGHT OUTER JOIN calendar
-                ON (all_query.time = calendar.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                ON (all_query.time = calendar.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-order by the_date, os_type]]>
+order by $P!{calendar_column}, os_type]]>
         </queryString>
-        <field name="the_date" class="java.sql.Date"/>
+        <field name="the_date" class="java.sql.Timestamp"/>
         <field name="os_type" class="java.lang.String"/>
         <field name="vm_count" class="java.lang.Long"/>
     </subDataset>
@@ -117,23 +123,29 @@ order by the_date, os_type]]>
             <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
             <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
         </parameter>
-        <queryString>
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
             <![CDATA[-- BR18 - Datacenter aggregation level
 -- VMs Count by OS (Windows vs Windows)
-select distinct the_date, coalesce(os_type, max(os_type) over (partition by 1),'') as os_type, vm_count
+select distinct $P!{calendar_column} as the_date, coalesce(os_type, max(os_type) over (partition by 1),'') as os_type, vm_count
 from          (SELECT distinct CASE
                            WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
                            ELSE 'Known OS'
                     END AS os_type,
                    history_datetime AS time,
                    COUNT(DISTINCT v3_0_vm_configuration_view.vm_id) AS vm_count
-        FROM    v3_0_vm_daily_history_view
+        FROM    v3_0_vm_$P!{table_name}_history_view
                   INNER JOIN v3_0_vm_configuration_view
-                   ON (v3_0_vm_configuration_view.history_id = v3_0_vm_daily_history_view.vm_configuration_version)
+                   ON (v3_0_vm_configuration_view.history_id = v3_0_vm_$P!{table_name}_history_view.vm_configuration_version)
                        INNER JOIN v3_0_enum_translator_view enum_os_type
                        ON (enum_os_type.enum_key = v3_0_vm_configuration_view.operating_system AND enum_os_type.enum_type = 'OS_TYPE')
                   INNER JOIN v3_0_vm_configuration_view a
-                   ON (a.vm_id = v3_0_vm_daily_history_view.vm_id)
+                   ON (a.vm_id = v3_0_vm_$P!{table_name}_history_view.vm_id)
         WHERE     v3_0_vm_configuration_view.cluster_id in (SELECT cluster_id
                                      FROM v3_0_cluster_configuration_view
                                      Where datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
@@ -150,7 +162,7 @@ from          (SELECT distinct CASE
                              FROM v3_0_vm_configuration_view b
                              GROUP BY b.vm_id)
                 AND history_datetime >= cast($P{P_Start_Date} as date)
-                AND history_datetime < CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                AND history_datetime <= CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                            WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                            WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
@@ -160,16 +172,16 @@ from          (SELECT distinct CASE
                     ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
                     END
         GROUP BY os_type, history_datetime) as windows_query RIGHT OUTER JOIN calendar
-                ON (windows_query.time = calendar.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                ON (windows_query.time = calendar.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE                                                                                                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-order by the_date, os_type]]>
+order by $P!{calendar_column}, os_type]]>
         </queryString>
-        <field name="the_date" class="java.sql.Date"/>
+        <field name="the_date" class="java.sql.Timestamp"/>
         <field name="os_type" class="java.lang.String"/>
         <field name="vm_count" class="java.lang.Long"/>
     </subDataset>
@@ -199,21 +211,27 @@ order by the_date, os_type]]>
     <parameter name="P_Start_Date" class="java.lang.String">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[-- BR18 - Datacenter aggregation level
 -- VMs Count by OS (Windows vs Windows)
-select distinct the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
+select distinct $P!{calendar_column} as the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
 from          (SELECT distinct  enum_os_type.value as os_name,
                    history_datetime AS time,
                    COUNT(DISTINCT v3_0_vm_configuration_view.vm_id) AS vm_count
-        FROM    v3_0_vm_daily_history_view
+        FROM    v3_0_vm_$P!{table_name}_history_view
                   INNER JOIN v3_0_vm_configuration_view
-                   ON (v3_0_vm_configuration_view.history_id = v3_0_vm_daily_history_view.vm_configuration_version)
+                   ON (v3_0_vm_configuration_view.history_id = v3_0_vm_$P!{table_name}_history_view.vm_configuration_version)
                        INNER JOIN v3_0_enum_translator_view enum_os_type
                        ON (enum_os_type.enum_key = v3_0_vm_configuration_view.operating_system AND enum_os_type.enum_type = 'OS_TYPE')
                   INNER JOIN v3_0_vm_configuration_view a
-                   ON (a.vm_id = v3_0_vm_daily_history_view.vm_id)
-        WHERE    v3_0_vm_daily_history_view.vm_status = 1
+                   ON (a.vm_id = v3_0_vm_$P!{table_name}_history_view.vm_id)
+        WHERE    v3_0_vm_$P!{table_name}_history_view.vm_status = 1
                  AND UPPER(enum_os_type.value) like 'WIND%'
                  AND v3_0_vm_configuration_view.cluster_id in (SELECT cluster_id
                                      FROM v3_0_cluster_configuration_view
@@ -242,17 +260,17 @@ from          (SELECT distinct  enum_os_type.value as os_name,
                     ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
                     END
         GROUP BY enum_os_type.value, history_datetime) as windows_query RIGHT OUTER JOIN calendar
-                ON (windows_query.time = calendar.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE
+                ON (windows_query.time = calendar.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-order by the_date]]>
+order by $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="os_name" class="java.lang.String"/>
     <field name="vm_count" class="java.lang.Long"/>
     <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
@@ -334,7 +352,7 @@ order by the_date]]>
                         <font fontName="DejaVu Sans"/>
                     </chartLegend>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <dataset>
                         <incrementWhenExpression><![CDATA[$F{os_type} == "RHEL" || $F{os_type} == "Other Linux" || $F{os_type} == ""]]></incrementWhenExpression>
                         <datasetRun subDataset="dataset1">
@@ -398,7 +416,7 @@ order by the_date]]>
                         <font fontName="DejaVu Sans"/>
                     </chartLegend>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <timeSeries>
                         <seriesExpression><![CDATA[$F{os_name}]]></seriesExpression>
                         <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
@@ -464,7 +482,7 @@ order by the_date]]>
                         <font fontName="DejaVu Sans"/>
                     </chartLegend>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <dataset>
                         <datasetRun subDataset="dataset2">
                             <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
@@ -527,7 +545,7 @@ order by the_date]]>
                         <font fontName="DejaVu Sans"/>
                     </chartLegend>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <dataset>
                         <incrementWhenExpression><![CDATA[$F{os_type} == "RHEL" || $F{os_type} == "Windows" || $F{os_type} == ""]]></incrementWhenExpression>
                         <datasetRun subDataset="dataset1">

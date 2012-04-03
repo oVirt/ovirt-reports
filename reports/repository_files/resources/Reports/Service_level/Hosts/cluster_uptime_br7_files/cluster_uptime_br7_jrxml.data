@@ -31,15 +31,21 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Clients\\BO Client Folders\\oVirt\\iReports\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
-        <![CDATA[SELECT SUM(CASE WHEN v3_0_host_daily_history_view.host_status = 2 THEN coalesce(v3_0_host_daily_history_view.minutes_in_status,0) ELSE 0 END)AS Planned_Downtime_Mins
-      ,SUM(CASE WHEN v3_0_host_daily_history_view.host_status = 3 THEN coalesce(v3_0_host_daily_history_view.minutes_in_status,0) ELSE 0 END)AS Unplanned_Downtime_Mins
-      ,SUM(CASE WHEN v3_0_host_daily_history_view.host_status = 1 THEN coalesce(v3_0_host_daily_history_view.minutes_in_status,0) ELSE 0 END)AS Uptime_Mins
-      ,Sum(v3_0_host_daily_history_view.minutes_in_status) as Total
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+        <![CDATA[SELECT SUM(CASE WHEN v3_0_host_$P!{table_name}_history_view.host_status = 2 THEN coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS Planned_Downtime_Mins
+      ,SUM(CASE WHEN v3_0_host_$P!{table_name}_history_view.host_status = 3 THEN coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS Unplanned_Downtime_Mins
+      ,SUM(CASE WHEN v3_0_host_$P!{table_name}_history_view.host_status = 1 THEN coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS Uptime_Mins
+      ,Sum(v3_0_host_$P!{table_name}_history_view.minutes_in_status) as Total
 
-FROM v3_0_host_daily_history_view
+FROM v3_0_host_$P!{table_name}_history_view
 INNER JOIN v3_0_host_configuration_view
-     ON (v3_0_host_configuration_view.host_id = v3_0_host_daily_history_view.host_id)
+     ON (v3_0_host_configuration_view.host_id = v3_0_host_$P!{table_name}_history_view.host_id)
 WHERE
 v3_0_host_configuration_view.cluster_id in (SELECT cluster_id
                          FROM v3_0_cluster_configuration_view
@@ -57,7 +63,7 @@ AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
                         FROM v3_0_host_configuration_view a
                         GROUP BY a.host_id)
 AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-AND history_datetime < CASE
+AND history_datetime <= CASE
                            WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                            WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'

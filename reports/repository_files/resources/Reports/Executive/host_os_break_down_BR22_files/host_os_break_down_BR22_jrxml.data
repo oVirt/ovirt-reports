@@ -33,21 +33,27 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[-- Datacenter aggregation level
 --------
 -- BR22 - Hosts Count by OS Type versus OS Version
 
-select distinct the_date, coalesce(os_type,max(os_type) over (partition by 1),'') as os_type, host_count
+select distinct $P!{calendar_column} as the_date, coalesce(os_type,max(os_type) over (partition by 1),'') as os_type, host_count
 FROM   (SELECT   history_datetime,
                  coalesce(v3_0_host_configuration_view.host_os, 'Unknown') as os_type,
                  COUNT(DISTINCT v3_0_host_configuration_view.host_id) AS host_count
 
-        FROM    v3_0_host_daily_history_view
+        FROM    v3_0_host_$P!{table_name}_history_view
                 INNER JOIN v3_0_host_configuration_view
-                  ON (v3_0_host_configuration_view.history_id = v3_0_host_daily_history_view.host_configuration_version)
+                  ON (v3_0_host_configuration_view.history_id = v3_0_host_$P!{table_name}_history_view.host_configuration_version)
                 INNER JOIN v3_0_host_configuration_view a
-                  ON (a.host_id = v3_0_host_daily_history_view.host_id)
+                  ON (a.host_id = v3_0_host_$P!{table_name}_history_view.host_id)
 
         WHERE
         v3_0_host_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
@@ -58,7 +64,7 @@ FROM   (SELECT   history_datetime,
                                  ELSE cast($P{P_Cluster_ID} as uuid)
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -71,18 +77,18 @@ FROM   (SELECT   history_datetime,
                 WHEN $P{is_deleted} like 'AND%' THEN a.delete_date IS NULL
                 ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
                  END
-        GROUP BY history_datetime, coalesce(v3_0_host_configuration_view.host_os, 'Unknown')) a right outer join calendar b on (a.history_datetime = b.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE
+        GROUP BY history_datetime, coalesce(v3_0_host_configuration_view.host_os, 'Unknown')) a right outer join calendar b on (a.history_datetime = b.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-group by the_date, os_type, host_count
-order by the_date]]>
+group by $P!{calendar_column}, os_type, host_count
+order by $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="os_type" class="java.lang.String"/>
     <field name="host_count" class="java.lang.Long"/>
     <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
@@ -132,7 +138,7 @@ order by the_date]]>
                         <font fontName="DejaVu Sans"/>
                     </chartLegend>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <timeSeries>
                         <seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
                         <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>

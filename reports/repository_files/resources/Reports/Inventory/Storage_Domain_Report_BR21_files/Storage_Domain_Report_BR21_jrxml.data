@@ -29,21 +29,27 @@
     <parameter name="P_StorageDomain_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    <queryString>
-        <![CDATA[select distinct the_date, coalesce(storage_domain_name,max(storage_domain_name) over (partition by 1),'') as storage_domain_name, available_disk_size, used_disk_size
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+        <![CDATA[select distinct $P!{calendar_column} as the_date, coalesce(storage_domain_name,max(storage_domain_name) over (partition by 1),'') as storage_domain_name, available_disk_size, used_disk_size
 FROM (SELECT v3_0_storage_domain_configuration_view.storage_domain_name,
            history_datetime,
            AVG(available_disk_size_gb) AS available_disk_size,
            AVG(used_disk_size_gb) AS used_disk_size
-    FROM v3_0_storage_domain_daily_history_view, v3_0_storage_domain_configuration_view
-    WHERE v3_0_storage_domain_configuration_view.storage_domain_id = v3_0_storage_domain_daily_history_view.storage_domain_id
-          AND v3_0_storage_domain_daily_history_view.storage_domain_id = CASE $P{P_StorageDomain_ID}
+    FROM v3_0_storage_domain_$P!{table_name}_history_view, v3_0_storage_domain_configuration_view
+    WHERE v3_0_storage_domain_configuration_view.storage_domain_id = v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id
+          AND v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id = CASE $P{P_StorageDomain_ID}
                                         WHEN NULL THEN null
                                         WHEN '11111111-1111-1111-1111-111111111111' then null
                                         ELSE cast($P{P_StorageDomain_ID} as uuid)
                                      END
           AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-          AND history_datetime < CASE
+          AND history_datetime <= CASE
                                      WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                      WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                      WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -53,17 +59,17 @@ FROM (SELECT v3_0_storage_domain_configuration_view.storage_domain_name,
                                        FROM v3_0_storage_domain_configuration_view a
                                        GROUP BY a.storage_domain_id)
     GROUP BY v3_0_storage_domain_configuration_view.storage_domain_name,
-           history_datetime) a right outer join calendar b on (a.history_datetime = b.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE
+           history_datetime) a right outer join calendar b on (a.history_datetime = b.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-order by the_date]]>
+order by $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="storage_domain_name" class="java.lang.String"/>
     <field name="available_disk_size" class="java.math.BigDecimal"/>
     <field name="used_disk_size" class="java.math.BigDecimal"/>
@@ -131,7 +137,7 @@ order by the_date]]>
                     <chartSubtitle/>
                     <chartLegend/>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <timeSeries>
                         <seriesExpression><![CDATA[$R{br21.chart.available.size}]]></seriesExpression>
                         <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>

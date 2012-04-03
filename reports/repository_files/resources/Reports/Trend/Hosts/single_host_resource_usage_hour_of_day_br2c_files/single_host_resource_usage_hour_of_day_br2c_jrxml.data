@@ -31,7 +31,13 @@
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-        <queryString>
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int)as hour_num, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
 from    (-- Hosts Max and Average MEMory Usage Peaks
     SELECT
@@ -49,7 +55,7 @@ from    (-- Hosts Max and Average MEMory Usage Peaks
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as date)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -97,7 +103,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-        <queryString>
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(VMS) as VMS, avg(VMS_Peak) as VMS_Peak
 from    (-- Hosts Max and Average Active VMs Counts
     SELECT
@@ -114,7 +126,7 @@ from    (-- Hosts Max and Average Active VMs Counts
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -162,7 +174,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-        <queryString>
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
 from    (-- Hosts Ethernet Interface Tx and Rx Rates
     SELECT
@@ -186,7 +204,7 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -206,7 +224,7 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                             ELSE cast($P{P_Host_ID} as uuid)
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                    AND history_datetime < CASE
+                                    AND history_datetime <= CASE
                                                                WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -267,7 +285,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
 from    (-- Hosts Max and Average CPU Usage Peaks
     SELECT
@@ -284,7 +308,7 @@ from    (-- Hosts Max and Average CPU Usage Peaks
                 ELSE cast($P{P_Host_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'

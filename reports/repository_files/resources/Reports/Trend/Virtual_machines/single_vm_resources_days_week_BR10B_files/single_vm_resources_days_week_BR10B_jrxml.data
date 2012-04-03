@@ -29,17 +29,23 @@
         <parameter name="P_VM_ID" class="java.lang.String">
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <queryString>
-            <![CDATA[select distinct extract(DOW from the_date)as day_num, day_name, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+            <![CDATA[select distinct extract(DOW from $P!{calendar_column})as day_num, day_name, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
 from    (-- VMs Max and Average MEMory Usage Peaks
     SELECT
         history_datetime AS time,
             SUM(coalesce(memory_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Usage,
             SUM(coalesce(max_memory_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Peak
-    FROM v3_0_vm_daily_history_view
+    FROM v3_0_vm_$P!{table_name}_history_view
 
     WHERE
-        v3_0_vm_daily_history_view.vm_id =
+        v3_0_vm_$P!{table_name}_history_view.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -47,23 +53,23 @@ from    (-- VMs Max and Average MEMory Usage Peaks
                 ELSE cast($P{P_VM_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as date)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP BY
-        history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
-where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < CASE
+        history_datetime) a RIGHT OUTER JOIN calendar ON ($P!{calendar_column} = time)
+where     $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+    AND $P!{calendar_column} <= CASE
                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                        WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                    END
-group by extract(DOW from the_date), day_name
-order by extract(DOW from the_date) ASC]]>
+group by extract(DOW from $P!{calendar_column}), day_name
+order by extract(DOW from $P!{calendar_column}) ASC]]>
         </queryString>
         <field name="day_num" class="java.lang.Double"/>
         <field name="day_name" class="java.lang.String"/>
@@ -94,8 +100,14 @@ order by extract(DOW from the_date) ASC]]>
         <parameter name="P_VM_ID" class="java.lang.String">
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <queryString>
-            <![CDATA[select distinct extract(DOW from the_date) as day_num, day_name, coalesce(disk_name, max(disk_name) over (partition by 1), '') as disk_name, avg(Read_Rate) as Read_Rate, avg(Write_Rate) as Write_Rate
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+            <![CDATA[select distinct extract(DOW from $P!{calendar_column}) as day_num, day_name, coalesce(disk_name, max(disk_name) over (partition by 1), '') as disk_name, avg(Read_Rate) as Read_Rate, avg(Write_Rate) as Write_Rate
 from   (-- VMs Disk Usage (I/O) Rates
         SELECT
             CASE
@@ -105,9 +117,9 @@ from   (-- VMs Disk Usage (I/O) Rates
             history_datetime AS Time,
             MAX(ROUND(CAST(coalesce(read_rate_bytes_per_second, 0) AS FLOAT)::numeric /(1024*1024),1)) AS Read_Rate,
             MAX(ROUND(CAST(coalesce(write_rate_bytes_per_second, 0) AS FLOAT)::numeric /(1024*1024),1)) AS Write_Rate
-        FROM v3_0_vm_disk_daily_history_view
+        FROM v3_0_vm_disk_$P!{table_name}_history_view
             INNER JOIN v3_0_vm_disk_configuration_view
-                    ON (v3_0_vm_disk_configuration_view.vm_disk_id = v3_0_vm_disk_daily_history_view.vm_disk_id)
+                    ON (v3_0_vm_disk_configuration_view.vm_disk_id = v3_0_vm_disk_$P!{table_name}_history_view.vm_disk_id)
                         INNER JOIN v3_0_disks_vm_map_view
                             ON (v3_0_vm_disk_configuration_view.vm_disk_id = v3_0_disks_vm_map_view.vm_disk_id)
 
@@ -119,7 +131,7 @@ from   (-- VMs Disk Usage (I/O) Rates
                                             ELSE $P{P_VM_ID}
                                             END
             AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND history_datetime < CASE
+            AND history_datetime <= CASE
                                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -136,7 +148,7 @@ from   (-- VMs Disk Usage (I/O) Rates
                                   FROM v3_0_vm_disk_configuration_view as a
                                   GROUP BY a.vm_disk_id)
             AND v3_0_vm_disk_configuration_view.vm_disk_id in    (SELECT c.vm_disk_id
-                                     FROM v3_0_vm_disk_daily_history_view b
+                                     FROM v3_0_vm_disk_$P!{table_name}_history_view b
                                     INNER JOIN v3_0_vm_disk_configuration_view c
                                         ON (c.vm_disk_id = b.vm_disk_id)
                                     INNER JOIN v3_0_disks_vm_map_view h
@@ -148,7 +160,7 @@ from   (-- VMs Disk Usage (I/O) Rates
                                             ELSE cast($P{P_VM_ID} as uuid)
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                    AND history_datetime < CASE
+                                    AND history_datetime <= CASE
                                                                WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -171,16 +183,16 @@ from   (-- VMs Disk Usage (I/O) Rates
             $P!{is_deleted}
         GROUP BY
             disk_name,
-            history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
-where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < CASE
+            history_datetime) a RIGHT OUTER JOIN calendar ON ($P!{calendar_column} = time)
+where     $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+    AND $P!{calendar_column} <= CASE
                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                        WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                    END
-group by extract(DOW from the_date), day_name, disk_name
-order by extract(DOW from the_date), coalesce(disk_name, max(disk_name) over (partition by 1), '')]]>
+group by extract(DOW from $P!{calendar_column}), day_name, disk_name
+order by extract(DOW from $P!{calendar_column}), coalesce(disk_name, max(disk_name) over (partition by 1), '')]]>
         </queryString>
         <field name="day_num" class="java.lang.Double"/>
         <field name="day_name" class="java.lang.String"/>
@@ -212,8 +224,14 @@ order by extract(DOW from the_date), coalesce(disk_name, max(disk_name) over (pa
         <parameter name="P_VM_ID" class="java.lang.String">
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        <queryString>
-            <![CDATA[select distinct extract(DOW from the_date) as day_num, day_name, coalesce(interface_name,max(interface_name) over (partition by 1), '') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+            <![CDATA[select distinct extract(DOW from $P!{calendar_column}) as day_num, day_name, coalesce(interface_name,max(interface_name) over (partition by 1), '') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
 from    (-- VMs Ethernet Interface Tx and Rx Rates
     SELECT
         v3_0_vm_interface_configuration_view.vm_interface_id,
@@ -221,12 +239,12 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
             WHEN delete_date IS NULL THEN v3_0_vm_interface_configuration_view.vm_interface_name
             ELSE v3_0_vm_interface_configuration_view.vm_interface_name || '*'
         END as interface_name,
-        v3_0_vm_interface_daily_history_view.history_datetime AS time,
+        v3_0_vm_interface_$P!{table_name}_history_view.history_datetime AS time,
         avg(coalesce(receive_rate_percent,0)) AS Rx_rate,
         avg(coalesce(transmit_rate_percent,0)) AS Tx_rate
-    FROM v3_0_vm_interface_daily_history_view
+    FROM v3_0_vm_interface_$P!{table_name}_history_view
         INNER JOIN v3_0_vm_interface_configuration_view
-            ON (v3_0_vm_interface_configuration_view.vm_interface_id = v3_0_vm_interface_daily_history_view.vm_interface_id)
+            ON (v3_0_vm_interface_configuration_view.vm_interface_id = v3_0_vm_interface_$P!{table_name}_history_view.vm_interface_id)
     WHERE
         v3_0_vm_interface_configuration_view.vm_id =
             CASE $P{P_VM_ID}
@@ -236,7 +254,7 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                 ELSE cast($P{P_VM_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -246,7 +264,7 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                                    FROM v3_0_vm_interface_configuration_view as a
                                    GROUP BY a.vm_interface_id)
         AND v3_0_vm_interface_configuration_view.vm_interface_id in    (SELECT c.vm_interface_id
-                                     FROM v3_0_vm_interface_daily_history_view b
+                                     FROM v3_0_vm_interface_$P!{table_name}_history_view b
                                     INNER JOIN v3_0_vm_interface_configuration_view c
                                         ON (c.vm_interface_id = b.vm_interface_id)
                                    WHERE     c.vm_id = CASE $P{P_VM_ID}
@@ -256,7 +274,7 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                                             ELSE cast($P{P_VM_ID} as uuid)
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                    AND history_datetime < CASE
+                                    AND history_datetime <= CASE
                                                                WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -272,16 +290,16 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
         $P!{is_deleted}
     Group BY
         v3_0_vm_interface_configuration_view.vm_interface_id, interface_name,
-        v3_0_vm_interface_daily_history_view.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.the_date)
-where b.the_date >= cast($P{P_Start_Date} as timestamp)
-      AND b.the_date < CASE
+        v3_0_vm_interface_$P!{table_name}_history_view.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.$P!{calendar_column})
+where b.$P!{calendar_column} >= cast($P{P_Start_Date} as timestamp)
+      AND b.$P!{calendar_column} <= CASE
                            WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                            WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                            WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                        END
-group by extract(DOW from the_date), day_name, interface_name
-order by extract(DOW from the_date) ASC]]>
+group by extract(DOW from $P!{calendar_column}), day_name, interface_name
+order by extract(DOW from $P!{calendar_column}) ASC]]>
         </queryString>
         <field name="day_num" class="java.lang.Double"/>
         <field name="day_name" class="java.lang.String"/>
@@ -316,16 +334,22 @@ order by extract(DOW from the_date) ASC]]>
     <parameter name="P_VM_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    <queryString>
-        <![CDATA[select distinct extract(DOW from the_date) as day_num, day_name, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+        <![CDATA[select distinct extract(DOW from $P!{calendar_column}) as day_num, day_name, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
 from    (-- VMs Max and Average CPU Usage Peaks
     SELECT
         history_datetime AS time,
               SUM(coalesce(cpu_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Usage,
         SUM(coalesce(max_cpu_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Peak
-    FROM v3_0_vm_daily_history_view
+    FROM v3_0_vm_$P!{table_name}_history_view
     WHERE
-        v3_0_vm_daily_history_view.vm_id =
+        v3_0_vm_$P!{table_name}_history_view.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -333,23 +357,23 @@ from    (-- VMs Max and Average CPU Usage Peaks
                 ELSE cast($P{P_VM_ID} as uuid)
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP By
-        history_datetime) a RIGHT OUTER JOIN calendar ON (the_date = time)
-where     the_date >= cast($P{P_Start_Date} as date)
-    AND the_date < CASE
+        history_datetime) a RIGHT OUTER JOIN calendar ON ($P!{calendar_column} = time)
+where     $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+    AND $P!{calendar_column} <= CASE
                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                        WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                    END
-group by extract(DOW from the_date), day_name
-order by extract(DOW from the_date) ASC]]>
+group by extract(DOW from $P!{calendar_column}), day_name
+order by extract(DOW from $P!{calendar_column}) ASC]]>
     </queryString>
     <field name="day_num" class="java.lang.Double"/>
     <field name="day_name" class="java.lang.String"/>

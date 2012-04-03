@@ -31,7 +31,13 @@
         <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[SELECT
       v3_0_vm_configuration_view.cluster_id
        ,v3_0_vm_configuration_view.vm_id
@@ -40,13 +46,13 @@
         WHEN v3_0_vm_configuration_view.delete_date IS NULL THEN 0
         ELSE 1
     END as is_deleted
-       ,SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status in (3,0) THEN coalesce(v3_0_vm_daily_history_view.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
-       ,SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0_vm_daily_history_view.minutes_in_status,0) ELSE 0 END)AS uptime_mins
-       ,Sum(v3_0_vm_daily_history_view.minutes_in_status) as total
+       ,SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status in (3,0) THEN coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
+       ,SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS uptime_mins
+       ,Sum(v3_0_vm_$P!{table_name}_history_view.minutes_in_status) as total
 
-FROM v3_0_vm_daily_history_view
+FROM v3_0_vm_$P!{table_name}_history_view
 INNER JOIN v3_0_vm_configuration_view
-     ON (v3_0_vm_configuration_view.vm_id = v3_0_vm_daily_history_view.vm_id)
+     ON (v3_0_vm_configuration_view.vm_id = v3_0_vm_$P!{table_name}_history_view.vm_id)
 WHERE
  v3_0_vm_configuration_view.cluster_id in (SELECT cluster_id
                          FROM v3_0_cluster_configuration_view
@@ -59,7 +65,7 @@ AND v3_0_vm_configuration_view.cluster_id = CASE $P{P_Cluster_ID}
 AND v3_0_vm_configuration_view.vm_type = 1
 AND high_availability = TRUE
 AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-AND history_datetime < CASE
+AND history_datetime <= CASE
                            WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                            WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -76,8 +82,8 @@ GROUP BY  v3_0_vm_configuration_view.cluster_id
         WHEN v3_0_vm_configuration_view.delete_date IS NULL THEN 0
         ELSE 1
       END
-HAVING SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status = 1 THEN coalesce(v3_0_vm_daily_history_view.minutes_in_status,0) ELSE 0 END) > 0
-ORDER BY is_deleted ASC, cast(SUM(CASE WHEN v3_0_vm_daily_history_view.vm_status in (3,0) THEN coalesce(v3_0_vm_daily_history_view.minutes_in_status,0) ELSE 0 END) as float)/cast(SUM(coalesce(v3_0_vm_daily_history_view.minutes_in_status,0)) as float) DESC]]>
+HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END) > 0
+ORDER BY is_deleted ASC, cast(SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status in (3,0) THEN coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END) as float)/cast(SUM(coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0)) as float) DESC]]>
     </queryString>
     <field name="cluster_id" class="java.lang.Object"/>
     <field name="vm_id" class="java.lang.Object"/>

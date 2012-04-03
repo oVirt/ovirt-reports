@@ -87,7 +87,7 @@ FROM (SELECT sum(CASE
                                                                   FROM v3_0_host_configuration_view a
                                                                   GROUP BY a.host_id)
                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                    AND history_datetime < CASE
+                    AND history_datetime <= CASE
                                                WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -180,7 +180,7 @@ FROM   (SELECT cluster_id,
                                                                    FROM v3_0_host_configuration_view a
                                                                    GROUP BY a.host_id)
                      AND v3_0_host_hourly_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
-                     AND v3_0_host_hourly_history_view.history_datetime < CASE
+                     AND v3_0_host_hourly_history_view.history_datetime <= CASE
                                                                               WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                               WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                               WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'

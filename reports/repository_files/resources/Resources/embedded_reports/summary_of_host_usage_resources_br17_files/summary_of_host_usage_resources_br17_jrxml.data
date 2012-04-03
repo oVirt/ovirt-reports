@@ -20,25 +20,31 @@
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[-- Hosts Average Usage Peaks
 SELECT
-      TBL_DAILY_PEAKS.host_id
+      TBL_$P!{table_name}_PEAKS.host_id
       ,host_name
       ,delete_date
-      ,cast(AVG(TBL_DAILY_PEAKS.cpu_peak) as int) AS avg_cpu_peak
-      ,cast(AVG(TBL_DAILY_PEAKS.mem_peak) as int) AS avg_mem_peak
+      ,cast(AVG(TBL_$P!{table_name}_PEAKS.cpu_peak) as int) AS avg_cpu_peak
+      ,cast(AVG(TBL_$P!{table_name}_PEAKS.mem_peak) as int) AS avg_mem_peak
 FROM     (
     -- Calculation of daily cpu and memory usage peaks
-    SELECT    v3_0_host_daily_history_view.host_id,
+    SELECT    v3_0_host_$P!{table_name}_history_view.host_id,
             host_name,
             history_datetime,
             delete_date,
             MAX(coalesce(max_cpu_usage,0)) as cpu_peak,
             MAX(coalesce(max_memory_usage,0)) as mem_peak
-    FROM v3_0_host_daily_history_view
+    FROM v3_0_host_$P!{table_name}_history_view
             INNER JOIN v3_0_host_configuration_view
-                      ON (v3_0_host_configuration_view.host_id = v3_0_host_daily_history_view.host_id)
+                      ON (v3_0_host_configuration_view.host_id = v3_0_host_$P!{table_name}_history_view.host_id)
     WHERE
         v3_0_host_configuration_view.cluster_id in (SELECT cluster_id
                                 FROM v3_0_cluster_configuration_view
@@ -49,7 +55,7 @@ FROM     (
                                 ELSE cast($P{P_Cluster_ID} as uuid)
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as date)
-        AND history_datetime < CASE
+        AND history_datetime <= CASE
                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -59,10 +65,10 @@ FROM     (
                                 FROM v3_0_host_configuration_view a
                                 GROUP BY a.host_id)
         $P!{is_deleted}
-    GROUP BY v3_0_host_daily_history_view.host_id, host_name, delete_date, history_datetime
-    ) AS TBL_DAILY_PEAKS
+    GROUP BY v3_0_host_$P!{table_name}_history_view.host_id, host_name, delete_date, history_datetime
+    ) AS TBL_$P!{table_name}_PEAKS
 GROUP BY
-      TBL_DAILY_PEAKS.host_id, host_name, delete_date
+      TBL_$P!{table_name}_PEAKS.host_id, host_name, delete_date
 Order by delete_date DESC, host_id]]>
     </queryString>
     <field name="host_id" class="java.lang.Object"/>

@@ -33,22 +33,28 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
-        <![CDATA[select distinct the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+        <![CDATA[select distinct $P!{calendar_column} as the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
 FROM (SELECT (CASE
         WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
         ELSE coalesce(enum_os_type.value,'Unknown OS')
          END) as os_name,
        history_datetime,
              COUNT(DISTINCT v3_0_vm_configuration_view.vm_id) AS vm_count
-      FROM v3_0_vm_daily_history_view
+      FROM v3_0_vm_$P!{table_name}_history_view
     INNER JOIN v3_0_vm_configuration_view
-      ON (v3_0_vm_configuration_view.history_id = v3_0_vm_daily_history_view.vm_configuration_version)
+      ON (v3_0_vm_configuration_view.history_id = v3_0_vm_$P!{table_name}_history_view.vm_configuration_version)
         INNER JOIN v3_0_enum_translator_view enum_os_type
         ON (enum_os_type.enum_key = v3_0_vm_configuration_view.operating_system AND enum_os_type.enum_type = 'OS_TYPE')
     INNER JOIN v3_0_vm_configuration_view a
-      ON (a.vm_id = v3_0_vm_daily_history_view.vm_id)
-      WHERE v3_0_vm_daily_history_view.vm_status = 1
+      ON (a.vm_id = v3_0_vm_$P!{table_name}_history_view.vm_id)
+      WHERE v3_0_vm_$P!{table_name}_history_view.vm_status = 1
       AND v3_0_vm_configuration_view.cluster_id in (SELECT cluster_id
                            FROM v3_0_cluster_configuration_view
                            Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
@@ -61,7 +67,7 @@ FROM (SELECT (CASE
                FROM v3_0_vm_configuration_view b
                GROUP BY b.vm_id)
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-      AND history_datetime < CASE
+      AND history_datetime <= CASE
                                  WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                  WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                  WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -74,17 +80,17 @@ FROM (SELECT (CASE
       GROUP BY (CASE
         WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
         ELSE coalesce(enum_os_type.value,'Unknown OS')
-         END),     history_datetime) a right outer join calendar b on (history_datetime = b.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE
+         END),     history_datetime) a right outer join calendar b on (history_datetime = b.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-order by the_date]]>
+order by $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="os_name" class="java.lang.String"/>
     <field name="vm_count" class="java.lang.Long"/>
     <variable name="Date_group" class="java.lang.Integer" incrementType="Group" incrementGroup="Date" calculation="DistinctCount">
@@ -132,7 +138,7 @@ order by the_date]]>
                         <hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
                     </hyperlinkParameter>
                 </chart>
-                <timeSeriesDataset>
+                <timeSeriesDataset timePeriod="Hour">
                     <timeSeries>
                         <seriesExpression><![CDATA[$F{os_name}]]></seriesExpression>
                         <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>

@@ -42,7 +42,13 @@
             <parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
             <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
         </parameter>
-        <queryString>
+        	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
             <![CDATA[-- Cluster aggregation level
 --------
 -- BR13 - VMs performance above thresholds
@@ -87,7 +93,7 @@ FROM (SELECT sum(CASE
                                                                                                                       FROM v3_0_vm_configuration_view a
                                                                                                                       GROUP BY a.vm_id)
                                                                         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                                                        AND history_datetime < CASE
+                                                                        AND history_datetime <= CASE
                                                                                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                                                    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -135,7 +141,13 @@ FROM (SELECT sum(CASE
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[SELECT *
 FROM   (SELECT cluster_id,
                vm_id,
@@ -180,7 +192,7 @@ FROM   (SELECT cluster_id,
                                                                    FROM v3_0_vm_configuration_view a
                                                                    GROUP BY a.vm_id)
                      AND v3_0_vm_hourly_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
-                     AND v3_0_vm_hourly_history_view.history_datetime < CASE
+                     AND v3_0_vm_hourly_history_view.history_datetime <= CASE
                                                                             WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                             WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                             WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'

@@ -27,25 +27,31 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
-        <![CDATA[select  the_date, vm_id, coalesce(vm_name,max(vm_name) over (partition by 1),'') as vm_name, CPU_Peak, MEM_Peak
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+        <![CDATA[select  $P!{calendar_column} as the_date, vm_id, coalesce(vm_name,max(vm_name) over (partition by 1),'') as vm_name, CPU_Peak, MEM_Peak
 from    (-- VMs CPU and MEMory Usage Peaks
         SELECT
-            v3_0_vm_daily_history_view.vm_id,
+            v3_0_vm_$P!{table_name}_history_view.vm_id,
             CASE
                 WHEN delete_date IS NULL THEN vm_name
                 ELSE vm_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
             END as vm_name,
-            v3_0_vm_daily_history_view.history_datetime AS time,
+            v3_0_vm_$P!{table_name}_history_view.history_datetime AS time,
             MAX(coalesce(max_cpu_usage,0)) AS CPU_Peak,
             MAX(coalesce(max_memory_usage,0)) AS MEM_Peak
-        FROM v3_0_vm_daily_history_view
+        FROM v3_0_vm_$P!{table_name}_history_view
             INNER JOIN v3_0_vm_configuration_view
-                  ON (v3_0_vm_configuration_view.vm_id = v3_0_vm_daily_history_view.vm_id)
+                  ON (v3_0_vm_configuration_view.vm_id = v3_0_vm_$P!{table_name}_history_view.vm_id)
         WHERE
-            $X{IN, cast(v3_0_vm_daily_history_view.vm_id as varchar), P_VM_ListID}
+            $X{IN, cast(v3_0_vm_configuration_view.vm_id as varchar), P_VM_ListID}
             AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND history_datetime < CASE
+            AND history_datetime <= CASE
                                        WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                        WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                        WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -55,22 +61,22 @@ from    (-- VMs CPU and MEMory Usage Peaks
                                     FROM v3_0_vm_configuration_view a
                                     GROUP BY a.vm_id)
             $P!{is_deleted}
-        GROUP BY    v3_0_vm_daily_history_view.vm_id,
+        GROUP BY    v3_0_vm_$P!{table_name}_history_view.vm_id,
                     CASE
                         WHEN delete_date IS NULL THEN vm_name
                         ELSE vm_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
                     END,
-                    v3_0_vm_daily_history_view.history_datetime) a RIGHT OUTER JOIN calendar b on (time = the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE
+                    v3_0_vm_$P!{table_name}_history_view.history_datetime) a RIGHT OUTER JOIN calendar b on (time = $P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                       END
-order by the_date]]>
+order by $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="vm_id" class="java.lang.Object"/>
     <field name="vm_name" class="java.lang.String"/>
     <field name="cpu_peak" class="java.lang.Integer"/>
@@ -102,7 +108,7 @@ order by the_date]]>
                         <chartSubtitle/>
                         <chartLegend/>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <timeSeries>
                             <seriesExpression><![CDATA[$F{vm_name}]]></seriesExpression>
                             <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
@@ -155,7 +161,7 @@ order by the_date]]>
                         <chartSubtitle/>
                         <chartLegend/>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <timeSeries>
                             <seriesExpression><![CDATA[$F{vm_name}]]></seriesExpression>
                             <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>

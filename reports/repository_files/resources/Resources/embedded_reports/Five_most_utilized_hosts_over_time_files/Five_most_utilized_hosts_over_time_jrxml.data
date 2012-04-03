@@ -31,22 +31,28 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    <queryString>
+    	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
         <![CDATA[-- CPU Usage weighted peak of the top 5 busiest hosts
-select distinct the_date, coalesce(host_name,max(host_name) over (partition by 1),'') as host_name, CPU_Usage, MEM_Usage
-from (SELECT v3_0_host_daily_history_view.host_id,
+select distinct $P!{calendar_column} as the_date, coalesce(host_name,max(host_name) over (partition by 1),'') as host_name, CPU_Usage, MEM_Usage
+from (SELECT v3_0_host_$P!{table_name}_history_view.host_id,
             CASE
                 WHEN delete_date IS NULL THEN host_name
                 ELSE host_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
             END as host_name,
-            v3_0_host_daily_history_view.history_datetime AS time,
-            SUM(coalesce(v3_0_host_daily_history_view.max_cpu_usage, 0)*coalesce(v3_0_host_daily_history_view.minutes_in_status,0))/SUM(coalesce(v3_0_host_daily_history_view.minutes_in_status,0)) AS CPU_Usage,
-            SUM(coalesce(v3_0_host_daily_history_view.max_memory_usage,0)*coalesce(v3_0_host_daily_history_view.minutes_in_status,0))/SUM(coalesce(v3_0_host_daily_history_view.minutes_in_status,0)) AS MEM_Usage
-    FROM v3_0_host_daily_history_view
+            v3_0_host_$P!{table_name}_history_view.history_datetime AS time,
+            SUM(coalesce(v3_0_host_$P!{table_name}_history_view.max_cpu_usage, 0)*coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0))/SUM(coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0)) AS CPU_Usage,
+            SUM(coalesce(v3_0_host_$P!{table_name}_history_view.max_memory_usage,0)*coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0))/SUM(coalesce(v3_0_host_$P!{table_name}_history_view.minutes_in_status,0)) AS MEM_Usage
+    FROM v3_0_host_$P!{table_name}_history_view
             INNER JOIN v3_0_host_configuration_view
-                ON (v3_0_host_configuration_view.host_id = v3_0_host_daily_history_view.host_id)
-    WHERE    v3_0_host_daily_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND v3_0_host_daily_history_view.history_datetime < CASE
+                ON (v3_0_host_configuration_view.host_id = v3_0_host_$P!{table_name}_history_view.host_id)
+    WHERE    v3_0_host_$P!{table_name}_history_view.history_datetime >= cast($P{P_Start_Date} as timestamp)
+            AND v3_0_host_$P!{table_name}_history_view.history_datetime <= CASE
                                                                     WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                                     WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                                     WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -55,10 +61,10 @@ from (SELECT v3_0_host_daily_history_view.host_id,
             AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
                                     FROM v3_0_host_configuration_view as a
                                     GROUP BY a.host_id)
-            AND v3_0_host_daily_history_view.host_id IN
+            AND v3_0_host_$P!{table_name}_history_view.host_id IN
                 ( -- Calculation of Top 5 Hosts
                  SELECT a.host_id
-                 FROM v3_0_host_daily_history_view a
+                 FROM v3_0_host_$P!{table_name}_history_view a
                         INNER JOIN v3_0_host_configuration_view b
                             ON (a.host_id = b.host_id)
                  WHERE    b.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
@@ -74,7 +80,7 @@ from (SELECT v3_0_host_daily_history_view.host_id,
                                           ELSE $P{P_Host_Type}
                                           END
                         AND a.history_datetime >= cast($P{P_Start_Date} as timestamp)
-                        AND a.history_datetime < CASE
+                        AND a.history_datetime <= CASE
                                                      WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                                                      WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                                                      WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -88,17 +94,17 @@ from (SELECT v3_0_host_daily_history_view.host_id,
                 ORDER BY SUM(coalesce(a.max_memory_usage*a.minutes_in_status,0))/SUM(coalesce(a.minutes_in_status,0)) +
                           SUM(coalesce(a.max_cpu_usage*a.minutes_in_status,0))/SUM(coalesce(a.minutes_in_status,0)) DESC
                 LIMIT 5)
-    GROUP BY v3_0_host_daily_history_view.host_id, host_name, delete_date, history_datetime) a right outer join calendar b on (a.time = b.the_date)
-where the_date >= cast($P{P_Start_Date} as date)
-      AND the_date < CASE
+    GROUP BY v3_0_host_$P!{table_name}_history_view.host_id, host_name, delete_date, history_datetime) a right outer join calendar b on (a.time = b.$P!{calendar_column})
+where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
+      AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
                          WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
                          WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
-order by the_date]]>
+order by $P!{calendar_column}]]>
     </queryString>
-    <field name="the_date" class="java.sql.Date"/>
+    <field name="the_date" class="java.sql.Timestamp"/>
     <field name="host_name" class="java.lang.String"/>
     <field name="cpu_usage" class="java.math.BigDecimal"/>
     <field name="mem_usage" class="java.math.BigDecimal"/>
@@ -144,7 +150,7 @@ order by the_date]]>
                             <hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
                         </hyperlinkParameter>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <timeSeries>
                             <seriesExpression><![CDATA[$F{host_name}]]></seriesExpression>
                             <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
@@ -216,7 +222,7 @@ order by the_date]]>
                             <hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
                         </hyperlinkParameter>
                     </chart>
-                    <timeSeriesDataset>
+                    <timeSeriesDataset timePeriod="Hour">
                         <timeSeries>
                             <seriesExpression><![CDATA[$F{host_name}]]></seriesExpression>
                             <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
