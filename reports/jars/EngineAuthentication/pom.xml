@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>${reports.groupId}</groupId>
+    <artifactId>jars</artifactId>
+    <version>${reports.version}</version>
+  </parent>
+
+  <groupId>${reports.groupId}</groupId>
+  <artifactId>EngineAuthentication</artifactId>
+  <packaging>jar</packaging>
+  <version>${reports.version}</version>
+  <name>EngineAuthentication jar to support webadmin-reports integration</name>
+  <description>EngineAuthentication jar to support webadmin-reports integration</description>
+
+  <properties>
+    <spring.version>2.0.7.RELEASE</spring.version>
+    <jasper.version>4.5.0</jasper.version>
+    <javax.servlet.api.version>2.3</javax.servlet.api.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${javax.servlet.api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jaspersoft.jasperserver.api.metadata.impl</groupId>
+      <artifactId>jasperserver-api-metadata-impl</artifactId>
+      <version>${jasper.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+              <includes>
+                <include>**/*.java</include>
+              </includes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <repositories>
+    <repository>
+      <id>jaspersoft</id>
+      <url>http://www.jasperforge.org/maven2</url>
+    </repository>
+  </repositories>
+
+</project>
