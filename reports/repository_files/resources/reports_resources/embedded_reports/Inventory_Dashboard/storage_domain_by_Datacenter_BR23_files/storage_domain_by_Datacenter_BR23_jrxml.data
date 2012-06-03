@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR23" language="groovy" pageWidth="490" pageHeight="305" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="490" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/storage_domain_by_Datacenter_BR23"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="is_deleted" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.String">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  ceiling(row_number() over (partition by 1)/20) as group_number, v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id,
+    v3_0_storage_domain_configuration_view.storage_domain_name,
+        SUM(coalesce(available_disk_size_gb,0)) / COUNT(distinct v3_0_storage_domain_$P!{table_name}_history_view.history_datetime) AS avail_size,
+        SUM(coalesce(used_disk_size_gb,0)) / COUNT(distinct v3_0_storage_domain_$P!{table_name}_history_view.history_datetime) AS used_size
+
+FROM v3_0_storage_domain_$P!{table_name}_history_view
+        INNER JOIN v3_0_storage_domain_configuration_view
+            ON (v3_0_storage_domain_configuration_view.storage_domain_id = v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id)
+                INNER JOIN v3_0_datacenter_storage_domain_map_view
+                    ON (v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)
+WHERE
+v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+AND (v3_0_datacenter_storage_domain_map_view.detach_date IS NULL or v3_0_datacenter_storage_domain_map_view.detach_date <= CASE
+    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+    WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+END)
+AND history_datetime >= cast($P{P_Start_Date} as timestamp)
+AND history_datetime <= CASE
+                           WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                           WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                           WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                           WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                       END
+AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
+                              FROM v3_0_datacenter_storage_domain_map_view a
+                              GROUP BY a.storage_domain_id, a.datacenter_id)
+AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
+                             FROM v3_0_storage_domain_configuration_view a
+                             GROUP BY a.storage_domain_id)
+$P!{is_deleted}
+GROUP BY v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id,
+         v3_0_storage_domain_configuration_view.storage_domain_name]]>
+	</queryString>
+	<field name="group_number" class="java.lang.Double"/>
+	<field name="storage_domain_id" class="java.lang.Object"/>
+	<field name="storage_domain_name" class="java.lang.String"/>
+	<field name="avail_size" class="java.lang.Long"/>
+	<field name="used_size" class="java.lang.Long"/>
+	<variable name="max_val" class="java.lang.Integer" calculation="Highest">
+		<variableExpression><![CDATA[$F{avail_size}+$F{used_size}]]></variableExpression>
+	</variable>
+	<group name="twenty_sd" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{group_number}]]></groupExpression>
+		<groupFooter>
+			<band height="305">
+				<stackedBarChart>
+					<chart evaluationTime="Group" evaluationGroup="twenty_sd" customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
+						<reportElement mode="Opaque" x="0" y="0" width="490" height="305" printWhenGroupChanges="twenty_sd"/>
+						<box>
+							<pen lineWidth="1.0" lineColor="#3C617F"/>
+							<topPen lineWidth="1.0" lineColor="#3C617F"/>
+							<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+							<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+							<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+						</box>
+						<chartTitle>
+							<font fontName="DejaVu Sans" size="11"/>
+							<titleExpression><![CDATA[$R{br23.title}]]></titleExpression>
+						</chartTitle>
+						<chartSubtitle>
+							<font fontName="DejaVu Sans"/>
+						</chartSubtitle>
+						<chartLegend>
+							<font fontName="DejaVu Sans"/>
+						</chartLegend>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="twenty_sd"/>
+						<categorySeries>
+							<seriesExpression><![CDATA["Available"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{avail_size}]]></valueExpression>
+							<itemHyperlink hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+								<hyperlinkTooltipExpression><![CDATA[$F{avail_size}.toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkParameter name="_report">
+									<hyperlinkParameterExpression><![CDATA["/Reports/Inventory/Storage_Domain_Report_BR21"]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="is_deleted">
+									<hyperlinkParameterExpression><![CDATA[$P{is_deleted}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_DataCenter_ID">
+									<hyperlinkParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_Period">
+									<hyperlinkParameterExpression><![CDATA[$P{P_Period}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_Start_Date">
+									<hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_StorageDomain_ID">
+									<hyperlinkParameterExpression><![CDATA[$F{storage_domain_id}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+							</itemHyperlink>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["Used"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{used_size}]]></valueExpression>
+							<itemHyperlink hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+								<hyperlinkTooltipExpression><![CDATA[$F{used_size}.toString()]]></hyperlinkTooltipExpression>
+								<hyperlinkParameter name="_report">
+									<hyperlinkParameterExpression><![CDATA["/Reports/Inventory/Storage_Domain_Report_BR21"]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="is_deleted">
+									<hyperlinkParameterExpression><![CDATA[$P{is_deleted}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_DataCenter_ID">
+									<hyperlinkParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_Period">
+									<hyperlinkParameterExpression><![CDATA[$P{P_Period}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_Start_Date">
+									<hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+								<hyperlinkParameter name="P_StorageDomain_ID">
+									<hyperlinkParameterExpression><![CDATA[$F{storage_domain_id}]]></hyperlinkParameterExpression>
+								</hyperlinkParameter>
+							</itemHyperlink>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot isShowLabels="false" isShowTickLabels="true" isShowTickMarks="false">
+						<plot orientation="Horizontal" labelRotation="-45.0">
+							<seriesColor seriesOrder="0" color="#0000FF"/>
+							<seriesColor seriesOrder="1" color="#FFA500"/>
+							<seriesColor seriesOrder="2" color="#008000"/>
+							<seriesColor seriesOrder="3" color="#FF0000"/>
+							<seriesColor seriesOrder="4" color="#800000"/>
+							<seriesColor seriesOrder="5" color="#004AAB"/>
+							<seriesColor seriesOrder="6" color="#EE5C00"/>
+							<seriesColor seriesOrder="7" color="#6EC000"/>
+							<seriesColor seriesOrder="8" color="#7300A5"/>
+							<seriesColor seriesOrder="9" color="#CC0000"/>
+						</plot>
+						<itemLabel color="#000000" backgroundColor="#FFFFFF">
+							<font fontName="DejaVu Sans"/>
+						</itemLabel>
+						<categoryAxisLabelExpression><![CDATA[$R{axis.storage.domain.names}]]></categoryAxisLabelExpression>
+						<categoryAxisFormat labelRotation="-45.0">
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
+								<labelFont>
+									<font fontName="DejaVu Sans"/>
+								</labelFont>
+							</axisFormat>
+						</categoryAxisFormat>
+						<valueAxisLabelExpression><![CDATA[$R{axis.storage.domain.size.gb}]]></valueAxisLabelExpression>
+						<valueAxisFormat>
+							<axisFormat labelColor="#666666" verticalTickLabels="false">
+								<labelFont>
+									<font fontName="DejaVu Sans"/>
+								</labelFont>
+								<tickLabelFont>
+									<font fontName="DejaVu Sans"/>
+								</tickLabelFont>
+							</axisFormat>
+						</valueAxisFormat>
+						<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+						<rangeAxisMaxValueExpression><![CDATA[$V{max_val} +15]]></rangeAxisMaxValueExpression>
+					</barPlot>
+				</stackedBarChart>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+</jasperReport>

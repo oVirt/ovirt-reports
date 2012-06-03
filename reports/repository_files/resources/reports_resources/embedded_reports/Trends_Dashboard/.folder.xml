@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports</parent>
+    <name>Trends_Dashboard</name>
+    <label>Trends Dashboard</label>
+    <description></description>
+    <creationDate>2012-05-22T13:08:37.206+03:00</creationDate>
+    <updateDate>2012-05-22T13:08:37.206+03:00</updateDate>
+    <resource>Five_most_utilized_hosts_over_time</resource>
+    <resource>five_most_utilized_vms_over_time_br11</resource>
+</folder>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports</parent>
+    <name>System_Overview_Dashboard</name>
+    <label>System Overview Dashboard</label>
+    <description></description>
+    <creationDate>2012-05-22T13:10:30.595+03:00</creationDate>
+    <updateDate>2012-05-22T13:10:30.595+03:00</updateDate>
+    <resource>datacenter_quality_of_service_hosts_br6b</resource>
+    <resource>summary_of_host_usage_resources_br17</resource>
+</folder>

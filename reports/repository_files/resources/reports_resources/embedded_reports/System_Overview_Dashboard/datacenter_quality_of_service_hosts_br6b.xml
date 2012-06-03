@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <reportUnit>
-    <folder>/reports_resources/embedded_reports</folder>
+    <folder>/reports_resources/embedded_reports/System_Overview_Dashboard</folder>
     <name>datacenter_quality_of_service_hosts_br6b</name>
-    <version>35</version>
+    <version>2</version>
     <label>Datacenter Quality of Service Hosts (BR6B)</label>
-    <creationDate>2011-12-27T15:25:53.131+02:00</creationDate>
-    <updateDate>2012-03-30T09:32:40.048+03:00</updateDate>
+    <creationDate>2012-05-13T17:07:25.710+03:00</creationDate>
+    <updateDate>2012-05-13T17:11:44.491+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="datacenter_quality_of_service_hosts_br6b_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/datacenter_quality_of_service_hosts_br6b_files</folder>
+            <folder>/reports_resources/embedded_reports/System_Overview_Dashboard/datacenter_quality_of_service_hosts_br6b_files</folder>
             <name>datacenter_quality_of_service_hosts_br6b_jrxml</name>
-            <version>4</version>
+            <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-03-30T08:51:08.370+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:08.370+03:00</updateDate>
+            <creationDate>2012-05-13T17:11:44.491+03:00</creationDate>
+            <updateDate>2012-05-13T17:11:44.491+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -44,24 +44,24 @@
     <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/datacenter_quality_of_service_hosts_br6b_files</folder>
+            <folder>/reports_resources/embedded_reports/System_Overview_Dashboard/datacenter_quality_of_service_hosts_br6b_files</folder>
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2012-03-30T08:51:08.370+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:08.370+03:00</updateDate>
+            <creationDate>2012-05-13T17:11:44.491+03:00</creationDate>
+            <updateDate>2012-05-13T17:11:44.491+03:00</updateDate>
             <referenceUri>/reports_resources/trash-icon</referenceUri>
         </localResource>
     </resource>
     <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/datacenter_quality_of_service_hosts_br6b_files</folder>
+            <folder>/reports_resources/embedded_reports/System_Overview_Dashboard/datacenter_quality_of_service_hosts_br6b_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-03-30T08:51:08.370+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:08.370+03:00</updateDate>
+            <creationDate>2012-05-13T17:11:44.491+03:00</creationDate>
+            <updateDate>2012-05-13T17:11:44.491+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>

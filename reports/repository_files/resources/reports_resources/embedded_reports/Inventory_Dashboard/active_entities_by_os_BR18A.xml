@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <reportUnit>
-    <folder>/reports_resources/embedded_reports</folder>
-    <name>storage_domain_by_Datacenter_BR23</name>
-    <version>32</version>
-    <label>Storage Domain by Datacenter (BR23)</label>
-    <creationDate>2011-12-27T15:25:53.476+02:00</creationDate>
-    <updateDate>2012-03-30T10:23:32.427+03:00</updateDate>
+    <folder>/reports_resources/embedded_reports/Inventory_Dashboard</folder>
+    <name>active_entities_by_os_BR18A</name>
+    <version>3</version>
+    <label>Active Entities by OS (BR18A)</label>
+    <creationDate>2012-05-13T17:07:24.247+03:00</creationDate>
+    <updateDate>2012-05-20T11:49:46.515+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="storage_domain_by_Datacenter_BR23_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/storage_domain_by_Datacenter_BR23_files</folder>
-            <name>storage_domain_by_Datacenter_BR23_jrxml</name>
-            <version>5</version>
+            dataFile="active_entities_by_os_BR18A_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Inventory_Dashboard/active_entities_by_os_BR18A_files</folder>
+            <name>active_entities_by_os_BR18A_jrxml</name>
+            <version>2</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-03-30T08:51:09.501+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:09.501+03:00</updateDate>
+            <creationDate>2012-05-13T17:11:42.168+03:00</creationDate>
+            <updateDate>2012-05-13T17:11:42.168+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -35,15 +35,18 @@
     <inputControl>
         <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_entities/P_DataCenter_ID</uri>
     </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_clusters_with_hosts/P_Cluster_ID</uri>
+    </inputControl>
     <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/storage_domain_by_Datacenter_BR23_files</folder>
+            <folder>/reports_resources/embedded_reports/Inventory_Dashboard/active_entities_by_os_BR18A_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-03-30T08:51:09.501+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:09.501+03:00</updateDate>
+            <creationDate>2012-05-13T17:11:42.168+03:00</creationDate>
+            <updateDate>2012-05-13T17:11:42.168+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>

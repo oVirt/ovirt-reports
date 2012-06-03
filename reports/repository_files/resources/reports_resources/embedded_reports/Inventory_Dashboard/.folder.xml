@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports</parent>
+    <name>Inventory_Dashboard</name>
+    <label>Inventory Dashboard</label>
+    <description></description>
+    <creationDate>2012-05-22T13:09:56.783+03:00</creationDate>
+    <updateDate>2012-05-22T13:09:56.783+03:00</updateDate>
+    <resource>active_entities_by_os_BR18A</resource>
+    <resource>Host_OS_Break_Down_BR22B_for_inventory</resource>
+    <resource>storage_domain_by_Datacenter_BR23</resource>
+</folder>

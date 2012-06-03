@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports</parent>
+    <name>Uptime_Dashboard</name>
+    <label>Uptime Dashboard</label>
+    <description></description>
+    <creationDate>2012-05-22T13:07:57.067+03:00</creationDate>
+    <updateDate>2012-05-22T13:07:57.067+03:00</updateDate>
+    <resource>cluster_uptime_by_datacenter_br7a</resource>
+    <resource>virtual_servers_uptime_by_cluster_br14a</resource>
+</folder>
