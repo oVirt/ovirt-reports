@@ -8,7 +8,7 @@
     <creationDate>2011-12-27T15:09:31.863+02:00</creationDate>
     <updateDate>2011-12-27T15:09:31.863+02:00</updateDate>
     <driver>org.postgresql.Driver</driver>
-    <connectionUrl>jdbc:postgresql://10.35.64.13:5432/rhevm_history</connectionUrl>
+    <connectionUrl>jdbc:postgresql://localhost:5432/ovirt_engine_history</connectionUrl>
     <connectionUser>postgres</connectionUser>
     <connectionPassword>qum5net</connectionPassword>
     <timezone></timezone>
