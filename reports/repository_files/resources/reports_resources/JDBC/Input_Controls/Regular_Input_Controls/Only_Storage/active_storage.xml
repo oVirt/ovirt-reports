@@ -25,7 +25,7 @@ from v3_0_enum_translator_view
 where enum_type = 'REPORTS_SHOW_DELETED'
           and enum_key = 0
 UNION ALL
-select value, '/**/'
+select value, '--'
 from v3_0_enum_translator_view
 where enum_type = 'REPORTS_SHOW_DELETED'
           and enum_key = 1</queryString>
