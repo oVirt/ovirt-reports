@@ -23,13 +23,13 @@
         <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[-- Hosts Average Usage Peaks
 SELECT
       TBL_$P!{table_name}_PEAKS.host_id

@@ -42,13 +42,13 @@
             <parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
             <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[-- Cluster aggregation level
 --------
 -- BR13 - VMs performance above thresholds
@@ -141,13 +141,13 @@ FROM (SELECT sum(CASE
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[SELECT *
 FROM   (SELECT cluster_id,
                vm_id,

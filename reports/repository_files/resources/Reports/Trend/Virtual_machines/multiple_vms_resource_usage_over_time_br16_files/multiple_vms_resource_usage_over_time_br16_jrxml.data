@@ -27,13 +27,13 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[select  $P!{calendar_column} as the_date, vm_id, coalesce(vm_name,max(vm_name) over (partition by 1),'') as vm_name, CPU_Peak, MEM_Peak
 from    (-- VMs CPU and MEMory Usage Peaks
         SELECT
@@ -124,7 +124,7 @@ order by $P!{calendar_column}]]>
                         <timeAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans" isBold="true"/>
+                                    <font fontName="DejaVu Sans" isBold="true"/>
                                 </labelFont>
                                 <tickLabelFont/>
                             </axisFormat>
@@ -133,10 +133,10 @@ order by $P!{calendar_column}]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -177,7 +177,7 @@ order by $P!{calendar_column}]]>
                         <timeAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans" isBold="true"/>
+                                    <font fontName="DejaVu Sans" isBold="true"/>
                                 </labelFont>
                                 <tickLabelFont/>
                             </axisFormat>
@@ -186,10 +186,10 @@ order by $P!{calendar_column}]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>

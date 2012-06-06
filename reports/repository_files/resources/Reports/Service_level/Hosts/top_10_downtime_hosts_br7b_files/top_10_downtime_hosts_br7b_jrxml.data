@@ -34,13 +34,13 @@
         <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
     </parameter>
     <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[SELECT v3_0_host_configuration_view.host_id
           ,v3_0_host_configuration_view.host_name
           ,CAST(v3_0_host_configuration_view.delete_date as date) as delete_date

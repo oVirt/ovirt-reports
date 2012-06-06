@@ -31,13 +31,13 @@
             <parameterDescription><![CDATA[Select an Host]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[select distinct extract(DOW from $P!{calendar_column})as day_num, day_name, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
 from    (-- Hosts Max and Average MEMory Usage Peaks
     SELECT
@@ -104,13 +104,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
             <parameterDescription><![CDATA[Select an Host]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[select distinct extract(DOW from $P!{calendar_column}) as day_num, day_name, avg(VMS) as VMS, avg(VMS_Peak) as VMS_Peak
 from    (-- Hosts Max and Average Active VMs Counts
     SELECT
@@ -176,13 +176,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
             <parameterDescription><![CDATA[Select an Host]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[select distinct extract(DOW from $P!{calendar_column}) as day_num, day_name, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
 from    (-- Hosts Ethernet Interface Tx and Rx Rates
     SELECT
@@ -288,13 +288,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[select distinct extract(DOW from $P!{calendar_column}) as day_num, day_name, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
 from    (-- Hosts Max and Average CPU Usage Peaks
     SELECT
@@ -389,7 +389,7 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont/>
                             </axisFormat>
@@ -398,10 +398,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -463,7 +463,7 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont/>
                             </axisFormat>
@@ -472,10 +472,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -538,7 +538,7 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont/>
                             </axisFormat>
@@ -547,10 +547,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -612,7 +612,7 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont/>
                             </axisFormat>
@@ -621,10 +621,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>

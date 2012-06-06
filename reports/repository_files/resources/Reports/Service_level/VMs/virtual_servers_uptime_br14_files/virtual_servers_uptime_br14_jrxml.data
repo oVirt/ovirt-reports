@@ -28,13 +28,13 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Clients\\BO Client Folders\\oVirt\\iReports\\"]]></defaultValueExpression>
     </parameter>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[SELECT SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status in (3,0) THEN coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
       ,SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coalesce(v3_0_vm_$P!{table_name}_history_view.minutes_in_status,0) ELSE 0 END)AS uptime_mins
       ,Sum(v3_0_vm_$P!{table_name}_history_view.minutes_in_status) as total

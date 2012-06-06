@@ -24,13 +24,13 @@
         <defaultValueExpression><![CDATA["11111111-1111-1111-1111-111111111111"]]></defaultValueExpression>
     </parameter>
     <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[-- Hosts CPU Cores Total and Hosts Physical Memory Total
 SELECT DISTINCT $P!{calendar_column} as the_date, host_cpu_cores, host_mem_avg, vm_cpu_cores_total, vm_mem_total
 FROM (SELECT t.history_datetime,

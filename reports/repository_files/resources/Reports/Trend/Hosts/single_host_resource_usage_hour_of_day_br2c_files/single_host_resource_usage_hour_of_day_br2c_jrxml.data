@@ -31,13 +31,13 @@
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int)as hour_num, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
 from    (-- Hosts Max and Average MEMory Usage Peaks
     SELECT
@@ -103,13 +103,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(VMS) as VMS, avg(VMS_Peak) as VMS_Peak
 from    (-- Hosts Max and Average Active VMs Counts
     SELECT
@@ -174,13 +174,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-        	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+            <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
 from    (-- Hosts Ethernet Interface Tx and Rx Rates
     SELECT
@@ -285,13 +285,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
     </parameter>
-    	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-		<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
+        <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+        <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
         <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
 from    (-- Hosts Max and Average CPU Usage Peaks
     SELECT
@@ -391,10 +391,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="SansSerif"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -402,10 +402,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -467,10 +467,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="SansSerif"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -478,10 +478,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -543,10 +543,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="SansSerif"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -554,10 +554,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -613,10 +613,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="SansSerif"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </categoryAxisFormat>
@@ -624,10 +624,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                	<font fontName="DejaVu Sans"/>
+                                    <font fontName="DejaVu Sans"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>

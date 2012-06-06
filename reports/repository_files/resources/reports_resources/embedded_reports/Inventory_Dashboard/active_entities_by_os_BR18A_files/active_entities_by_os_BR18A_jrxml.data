@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18A" language="groovy" pageWidth="540" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/active_entities_by_os_BR18A"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<style name="style1">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{Date_group} % 2) == 0]]></conditionExpression>
-			<style mode="Opaque" backcolor="#F2F3F9"/>
-		</conditionalStyle>
-	</style>
-	<parameter name="is_deleted" class="java.lang.String">
-		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Period" class="java.lang.String">
-		<parameterDescription><![CDATA[Period]]></parameterDescription>
-		<defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Start_Date" class="java.lang.String">
-		<defaultValueExpression><![CDATA["2000-01-01"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_DataCenter_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Cluster_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="calendar_column" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[select distinct $P!{calendar_column} as the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/active_entities_by_os_BR18A"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <style name="style1">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[($V{Date_group} % 2) == 0]]></conditionExpression>
+            <style mode="Opaque" backcolor="#F2F3F9"/>
+        </conditionalStyle>
+    </style>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.lang.String">
+        <defaultValueExpression><![CDATA["2000-01-01"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Cluster_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="calendar_column" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[select distinct $P!{calendar_column} as the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
 FROM (SELECT (CASE
         WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
         ELSE coalesce(enum_os_type.value,'Unknown OS')
@@ -89,138 +89,138 @@ where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
                          WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
 order by $P!{calendar_column}]]>
-	</queryString>
-	<field name="the_date" class="java.sql.Timestamp"/>
-	<field name="os_name" class="java.lang.String"/>
-	<field name="vm_count" class="java.lang.Long"/>
-	<variable name="Date_group" class="java.lang.Integer" incrementType="Group" incrementGroup="Date" calculation="DistinctCount">
-		<variableExpression><![CDATA[$F{the_date}]]></variableExpression>
-	</variable>
-	<group name="Date" keepTogether="true">
-		<groupExpression><![CDATA[$F{the_date}]]></groupExpression>
-	</group>
-	<group name="count_change">
-		<groupExpression><![CDATA[$F{vm_count}]]></groupExpression>
-	</group>
-	<title>
-		<band height="240" splitType="Stretch">
-			<timeSeriesChart>
-				<chart evaluationTime="Report" hyperlinkType="ReportExecution" hyperlinkTarget="Blank" customizerClass="com.ovirt.reports.jasper.TimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-					<reportElement mode="Opaque" x="0" y="0" width="540" height="235"/>
-					<box>
-						<pen lineWidth="1.0" lineColor="#3C617F"/>
-						<topPen lineWidth="1.0" lineColor="#3C617F"/>
-						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
-						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
-					</box>
-					<chartTitle>
-						<titleExpression><![CDATA[$R{br18a.chart.active.vms.os}]]></titleExpression>
-					</chartTitle>
-					<chartSubtitle/>
-					<chartLegend position="Bottom"/>
-					<hyperlinkParameter name="_report">
-						<hyperlinkParameterExpression><![CDATA["/Reports/Executive/active_vms_by_os_br18"]]></hyperlinkParameterExpression>
-					</hyperlinkParameter>
-					<hyperlinkParameter name="is_deleted">
-						<hyperlinkParameterExpression><![CDATA[$P{is_deleted}]]></hyperlinkParameterExpression>
-					</hyperlinkParameter>
-					<hyperlinkParameter name="P_DataCenter_ID">
-						<hyperlinkParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></hyperlinkParameterExpression>
-					</hyperlinkParameter>
-					<hyperlinkParameter name="P_Cluster_ID">
-						<hyperlinkParameterExpression><![CDATA[$P{P_Cluster_ID}]]></hyperlinkParameterExpression>
-					</hyperlinkParameter>
-					<hyperlinkParameter name="P_Period">
-						<hyperlinkParameterExpression><![CDATA[$P{P_Period}]]></hyperlinkParameterExpression>
-					</hyperlinkParameter>
-					<hyperlinkParameter name="P_Start_Date">
-						<hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
-					</hyperlinkParameter>
-				</chart>
-				<timeSeriesDataset timePeriod="Hour">
-					<timeSeries>
-						<seriesExpression><![CDATA[$F{os_name}]]></seriesExpression>
-						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-						<valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
-						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{os_name} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
-						</itemHyperlink>
-					</timeSeries>
-				</timeSeriesDataset>
-				<timeSeriesPlot isShowLines="true" isShowShapes="false">
-					<plot/>
-					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
-				</timeSeriesPlot>
-			</timeSeriesChart>
-		</band>
-	</title>
-	<columnHeader>
-		<band height="20">
-			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="540" height="20" backcolor="#D8E2FF"/>
-				<textField>
-					<reportElement x="3" y="0" width="100" height="20"/>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font fontName="DejaVu Sans" size="11" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{br18a.table.date}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="109" y="0" width="299" height="20"/>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font fontName="DejaVu Sans" size="11" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{br18a.table.os.version}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="463" y="0" width="69" height="20"/>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font fontName="DejaVu Sans" size="11" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$R{br18a.table.number.of.vms}]]></textFieldExpression>
-				</textField>
-			</frame>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="19">
-			<frame>
-				<reportElement style="style1" x="0" y="0" width="540" height="19" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{vm_count} != null]]></printWhenExpression>
-				</reportElement>
-				<line>
-					<reportElement x="0" y="0" width="540" height="1" forecolor="#D0DAE6">
-						<printWhenExpression><![CDATA[$V{Date_COUNT} == 1]]></printWhenExpression>
-					</reportElement>
-				</line>
-				<textField>
-					<reportElement x="105" y="1" width="289" height="18">
-						<printWhenExpression><![CDATA[$F{vm_count} != null]]></printWhenExpression>
-					</reportElement>
-					<textElement verticalAlignment="Middle">
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{os_name}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement isPrintRepeatedValues="false" x="5" y="1" width="100" height="18">
-						<printWhenExpression><![CDATA[$F{vm_count} != null]]></printWhenExpression>
-					</reportElement>
-					<textElement verticalAlignment="Middle">
-						<font fontName="DejaVu Sans" size="11" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="409" y="1" width="82" height="18" isRemoveLineWhenBlank="true"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="DejaVu Sans"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{vm_count}]]></textFieldExpression>
-				</textField>
-			</frame>
-		</band>
-	</detail>
+    </queryString>
+    <field name="the_date" class="java.sql.Timestamp"/>
+    <field name="os_name" class="java.lang.String"/>
+    <field name="vm_count" class="java.lang.Long"/>
+    <variable name="Date_group" class="java.lang.Integer" incrementType="Group" incrementGroup="Date" calculation="DistinctCount">
+        <variableExpression><![CDATA[$F{the_date}]]></variableExpression>
+    </variable>
+    <group name="Date" keepTogether="true">
+        <groupExpression><![CDATA[$F{the_date}]]></groupExpression>
+    </group>
+    <group name="count_change">
+        <groupExpression><![CDATA[$F{vm_count}]]></groupExpression>
+    </group>
+    <title>
+        <band height="240" splitType="Stretch">
+            <timeSeriesChart>
+                <chart evaluationTime="Report" hyperlinkType="ReportExecution" hyperlinkTarget="Blank" customizerClass="com.ovirt.reports.jasper.TimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+                    <reportElement mode="Opaque" x="0" y="0" width="540" height="235"/>
+                    <box>
+                        <pen lineWidth="1.0" lineColor="#3C617F"/>
+                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
+                    </box>
+                    <chartTitle>
+                        <titleExpression><![CDATA[$R{br18a.chart.active.vms.os}]]></titleExpression>
+                    </chartTitle>
+                    <chartSubtitle/>
+                    <chartLegend position="Bottom"/>
+                    <hyperlinkParameter name="_report">
+                        <hyperlinkParameterExpression><![CDATA["/Reports/Executive/active_vms_by_os_br18"]]></hyperlinkParameterExpression>
+                    </hyperlinkParameter>
+                    <hyperlinkParameter name="is_deleted">
+                        <hyperlinkParameterExpression><![CDATA[$P{is_deleted}]]></hyperlinkParameterExpression>
+                    </hyperlinkParameter>
+                    <hyperlinkParameter name="P_DataCenter_ID">
+                        <hyperlinkParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></hyperlinkParameterExpression>
+                    </hyperlinkParameter>
+                    <hyperlinkParameter name="P_Cluster_ID">
+                        <hyperlinkParameterExpression><![CDATA[$P{P_Cluster_ID}]]></hyperlinkParameterExpression>
+                    </hyperlinkParameter>
+                    <hyperlinkParameter name="P_Period">
+                        <hyperlinkParameterExpression><![CDATA[$P{P_Period}]]></hyperlinkParameterExpression>
+                    </hyperlinkParameter>
+                    <hyperlinkParameter name="P_Start_Date">
+                        <hyperlinkParameterExpression><![CDATA[$P{P_Start_Date}]]></hyperlinkParameterExpression>
+                    </hyperlinkParameter>
+                </chart>
+                <timeSeriesDataset timePeriod="Hour">
+                    <timeSeries>
+                        <seriesExpression><![CDATA[$F{os_name}]]></seriesExpression>
+                        <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+                        <valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
+                        <itemHyperlink>
+                            <hyperlinkTooltipExpression><![CDATA[$F{os_name} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
+                        </itemHyperlink>
+                    </timeSeries>
+                </timeSeriesDataset>
+                <timeSeriesPlot isShowLines="true" isShowShapes="false">
+                    <plot/>
+                    <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+                    <valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
+                </timeSeriesPlot>
+            </timeSeriesChart>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="20">
+            <frame>
+                <reportElement mode="Opaque" x="0" y="0" width="540" height="20" backcolor="#D8E2FF"/>
+                <textField>
+                    <reportElement x="3" y="0" width="100" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
+                        <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$R{br18a.table.date}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="109" y="0" width="299" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
+                        <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$R{br18a.table.os.version}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="463" y="0" width="69" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
+                        <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$R{br18a.table.number.of.vms}]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="19">
+            <frame>
+                <reportElement style="style1" x="0" y="0" width="540" height="19" isRemoveLineWhenBlank="true">
+                    <printWhenExpression><![CDATA[$F{vm_count} != null]]></printWhenExpression>
+                </reportElement>
+                <line>
+                    <reportElement x="0" y="0" width="540" height="1" forecolor="#D0DAE6">
+                        <printWhenExpression><![CDATA[$V{Date_COUNT} == 1]]></printWhenExpression>
+                    </reportElement>
+                </line>
+                <textField>
+                    <reportElement x="105" y="1" width="289" height="18">
+                        <printWhenExpression><![CDATA[$F{vm_count} != null]]></printWhenExpression>
+                    </reportElement>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{os_name}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement isPrintRepeatedValues="false" x="5" y="1" width="100" height="18">
+                        <printWhenExpression><![CDATA[$F{vm_count} != null]]></printWhenExpression>
+                    </reportElement>
+                    <textElement verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
+                </textField>
+                <textField isBlankWhenNull="true">
+                    <reportElement x="409" y="1" width="82" height="18" isRemoveLineWhenBlank="true"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font fontName="DejaVu Sans"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{vm_count}]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </detail>
 </jasperReport>
