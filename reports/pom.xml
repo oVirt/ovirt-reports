@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-       <groupId>${reports.groupId}</groupId>
+       <groupId>ovirt_engine_reports</groupId>
        <artifactId>root</artifactId>
-       <version>${reports.version}</version>
+       <version>3.1.0</version>
   </parent>
 
   <artifactId>reports</artifactId>

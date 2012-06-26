@@ -2,15 +2,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>${reports.groupId}</groupId>
+    <groupId>ovirt_engine_reports</groupId>
     <artifactId>jars</artifactId>
-    <version>${reports.version}</version>
+    <version>3.1.0</version>
   </parent>
 
-  <groupId>${reports.groupId}</groupId>
+  <groupId>ovirt_engine_reports</groupId>
   <artifactId>EngineAuthentication</artifactId>
   <packaging>jar</packaging>
-  <version>${reports.version}</version>
+  <version>3.1.0</version>
   <name>EngineAuthentication jar to support webadmin-reports integration</name>
   <description>EngineAuthentication jar to support webadmin-reports integration</description>
 
