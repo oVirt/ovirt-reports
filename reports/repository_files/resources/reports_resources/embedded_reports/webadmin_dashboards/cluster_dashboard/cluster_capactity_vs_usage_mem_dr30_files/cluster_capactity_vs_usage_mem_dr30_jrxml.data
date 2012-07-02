@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_capactity_vs_usage_mem_dr30" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_capactity_vs_usage_mem_dr30" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -43,7 +43,7 @@ GROUP BY history_datetime) as avg_host INNER JOIN
                     <reportElement x="0" y="0" width="418" height="167"/>
                     <chartTitle>
                         <font fontName="DejaVu Sans" size="10"/>
-                        <titleExpression><![CDATA["Cluster Capactity vs Usage - Memory"]]></titleExpression>
+                        <titleExpression><![CDATA[$R{dr30.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="DejaVu Sans" size="9"/>
@@ -82,7 +82,7 @@ GROUP BY history_datetime) as avg_host INNER JOIN
                             </tickLabelFont>
                         </axisFormat>
                     </timeAxisFormat>
-                    <valueAxisLabelExpression><![CDATA["Memory (GB)"]]></valueAxisLabelExpression>
+                    <valueAxisLabelExpression><![CDATA[$R{axis.memory.size.gb}]]></valueAxisLabelExpression>
                     <valueAxisFormat>
                         <axisFormat>
                             <labelFont>

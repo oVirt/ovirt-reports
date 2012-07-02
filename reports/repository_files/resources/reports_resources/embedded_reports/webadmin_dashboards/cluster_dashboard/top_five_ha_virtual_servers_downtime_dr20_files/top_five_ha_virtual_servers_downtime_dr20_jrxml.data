@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_ha_virtual_servers_downtime_dr20" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_ha_virtual_servers_downtime_dr20" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/top_five_ha_virtual_servers_uptime_dr19"/>
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/top_five_ha_virtual_servers_downtime_dr20"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -11,12 +11,11 @@
     <queryString>
         <![CDATA[SELECT v3_0_latest_vm_configuration_view.vm_id, v3_0_latest_vm_configuration_view.vm_name,
        (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status = 1 THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 as uptime_percent,
-       (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status in (0,2) THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 AS planned_downtime_percent,
-       (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status = 3 THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 AS unplanned_downtime_percent
+       (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status in (0,2) THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 AS planned_downtime_percent
 FROM v3_0_vm_samples_history_view
      INNER JOIN v3_0_latest_vm_configuration_view ON (v3_0_latest_vm_configuration_view.vm_id = v3_0_vm_samples_history_view.vm_id)
 WHERE v3_0_latest_vm_configuration_view.cluster_id = cast($P{P_Cluster_ID} as UUID)
-      AND v3_0_latest_vm_configuration_view.high_availability = TRUE
+      --AND v3_0_latest_vm_configuration_view.high_availability = TRUE
 GROUP BY v3_0_latest_vm_configuration_view.vm_id, v3_0_latest_vm_configuration_view.vm_name
 ORDER BY uptime_percent ASC
 LIMIT (SELECT CASE
@@ -31,15 +30,14 @@ LIMIT (SELECT CASE
     <field name="vm_name" class="java.lang.String"/>
     <field name="uptime_percent" class="java.math.BigDecimal"/>
     <field name="planned_downtime_percent" class="java.math.BigDecimal"/>
-    <field name="unplanned_downtime_percent" class="java.math.BigDecimal"/>
     <summary>
         <band height="167" splitType="Stretch">
-            <barChart>
-                <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
-                    <reportElement x="0" y="0" width="418" height="167"/>
+            <stackedBarChart>
+                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.StackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
+                    <reportElement mode="Transparent" x="0" y="0" width="418" height="167"/>
                     <chartTitle>
-                        <font fontName="DejaVu Sans" size="10"/>
-                        <titleExpression><![CDATA["Top Five High Availability Virtual Servers Downtime"]]></titleExpression>
+                        <font fontName="DejaVu Sans"/>
+                        <titleExpression><![CDATA[$R{dr20.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="DejaVu Sans" size="9"/>
@@ -68,18 +66,17 @@ LIMIT (SELECT CASE
                     <categorySeries>
                         <seriesExpression><![CDATA["Unplanned Downtime"]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{vm_name}]]></categoryExpression>
-                        <valueExpression><![CDATA[$F{unplanned_downtime_percent}]]></valueExpression>
+                        <valueExpression><![CDATA[100 - $F{uptime_percent} - $F{planned_downtime_percent}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{unplanned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[(100 - $F{uptime_percent} - $F{planned_downtime_percent}).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                 </categoryDataset>
                 <barPlot>
-                    <plot/>
-                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="DejaVu Sans" size="9"/>
-                    </itemLabel>
-                    <categoryAxisFormat>
+                    <plot labelRotation="-15.0"/>
+                    <itemLabel/>
+                    <categoryAxisLabelExpression><![CDATA[$R{axis.vms.names}]]></categoryAxisLabelExpression>
+                    <categoryAxisFormat labelRotation="-15.0">
                         <axisFormat>
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>
@@ -89,6 +86,7 @@ LIMIT (SELECT CASE
                             </tickLabelFont>
                         </axisFormat>
                     </categoryAxisFormat>
+                    <valueAxisLabelExpression><![CDATA[$R{axis.time.percent}]]></valueAxisLabelExpression>
                     <valueAxisFormat>
                         <axisFormat>
                             <labelFont>
@@ -99,10 +97,8 @@ LIMIT (SELECT CASE
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>
-                    <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
-                    <rangeAxisMaxValueExpression><![CDATA[100]]></rangeAxisMaxValueExpression>
                 </barPlot>
-            </barChart>
+            </stackedBarChart>
         </band>
     </summary>
 </jasperReport>

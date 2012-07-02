@@ -2,21 +2,21 @@
 <reportUnit>
     <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
     <name>cluster_host_resources_status_dr12</name>
-    <version>7</version>
+    <version>5</version>
     <label>Cluster Host Resources Status (DR12)</label>
-    <creationDate>2012-01-23T12:03:13.051+02:00</creationDate>
-    <updateDate>2012-02-29T14:01:05.481+02:00</updateDate>
+    <creationDate>2012-06-24T15:48:23.661+03:00</creationDate>
+    <updateDate>2012-06-27T15:03:48.682+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="cluster_host_resources_status_dr12_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_host_resources_status_dr12_files</folder>
             <name>cluster_host_resources_status_dr12_jrxml</name>
-            <version>6</version>
+            <version>4</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-01-23T12:03:13.051+02:00</creationDate>
-            <updateDate>2012-01-23T12:03:13.051+02:00</updateDate>
+            <creationDate>2012-06-27T12:07:42.840+03:00</creationDate>
+            <updateDate>2012-06-27T12:07:42.840+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>

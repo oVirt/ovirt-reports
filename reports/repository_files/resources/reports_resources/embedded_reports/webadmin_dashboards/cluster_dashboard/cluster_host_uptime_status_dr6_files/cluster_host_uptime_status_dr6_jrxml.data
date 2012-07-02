@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_host_uptime_status_dr6" language="groovy" pageWidth="534" pageHeight="35" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_host_uptime_status_dr6" language="groovy" pageWidth="534" pageHeight="35" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -22,19 +22,19 @@ WHERE v3_0_latest_host_configuration_view.cluster_id = CAST($P{P_Cluster_ID} as 
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="DejaVu Sans" size="16"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA["<b>Hosts</b> Uptime Status:"]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$R{dr6.text} + ":"]]></textFieldExpression>
             </textField>
             <image>
                 <reportElement x="387" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{uptime_mins_percent} == null || $F{uptime_mins_percent} >= 60]]></printWhenExpression>
                 </reportElement>
-                <imageExpression class="java.lang.String"><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
+                <imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
             </image>
             <image>
                 <reportElement x="387" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{uptime_mins_percent} != null && $F{uptime_mins_percent} < 60]]></printWhenExpression>
                 </reportElement>
-                <imageExpression class="java.lang.String"><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
+                <imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
             </image>
         </band>
     </summary>

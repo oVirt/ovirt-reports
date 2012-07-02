@@ -2,21 +2,21 @@
 <reportUnit>
     <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard</folder>
     <name>top_five_clusters_host_uptime_dr15</name>
-    <version>19</version>
+    <version>5</version>
     <label>Datacenter Top Five Clusters Host Uptime (DR15)</label>
-    <creationDate>2012-01-29T17:53:46.710+02:00</creationDate>
-    <updateDate>2012-02-28T17:56:26.756+02:00</updateDate>
+    <creationDate>2012-06-24T15:48:25.365+03:00</creationDate>
+    <updateDate>2012-07-02T15:02:04.633+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="top_five_clusters_host_uptime_dr15_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/top_five_clusters_host_uptime_dr15_files</folder>
             <name>top_five_clusters_host_uptime_dr15_jrxml</name>
-            <version>9</version>
+            <version>2</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-01-29T17:53:46.710+02:00</creationDate>
-            <updateDate>2012-01-29T17:53:46.710+02:00</updateDate>
+            <creationDate>2012-06-27T12:07:45.830+03:00</creationDate>
+            <updateDate>2012-06-27T12:07:45.830+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -26,6 +26,18 @@
     <inputControl>
         <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_DataCenter_ID</uri>
     </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/top_five_clusters_host_uptime_dr15_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-07-02T15:02:04.633+03:00</creationDate>
+            <updateDate>2012-07-02T15:02:04.633+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
     <alwaysPromptControls>true</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>

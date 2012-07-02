@@ -2,21 +2,21 @@
 <reportUnit>
     <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
     <name>cluster_host_uptime_status_dr6</name>
-    <version>6</version>
+    <version>5</version>
     <label>Cluster Host Uptime Status (DR6)</label>
-    <creationDate>2012-01-23T12:12:06.475+02:00</creationDate>
-    <updateDate>2012-02-29T14:01:41.646+02:00</updateDate>
+    <creationDate>2012-06-24T15:48:23.751+03:00</creationDate>
+    <updateDate>2012-06-27T15:04:19.954+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="cluster_host_uptime_status_dr6_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_host_uptime_status_dr6_files</folder>
             <name>cluster_host_uptime_status_dr6_jrxml</name>
-            <version>5</version>
+            <version>4</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-01-23T12:12:06.475+02:00</creationDate>
-            <updateDate>2012-01-23T12:12:06.475+02:00</updateDate>
+            <creationDate>2012-06-27T12:07:42.958+03:00</creationDate>
+            <updateDate>2012-06-27T12:07:42.958+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>

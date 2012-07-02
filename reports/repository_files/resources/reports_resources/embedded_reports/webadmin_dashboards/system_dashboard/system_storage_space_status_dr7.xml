@@ -2,27 +2,39 @@
 <reportUnit>
     <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard</folder>
     <name>system_storage_space_status_dr7</name>
-    <version>11</version>
+    <version>5</version>
     <label>System Storage Space Status (DR7)</label>
-    <creationDate>2012-01-19T16:22:04.699+02:00</creationDate>
-    <updateDate>2012-02-29T13:58:39.740+02:00</updateDate>
+    <creationDate>2012-06-24T15:48:25.753+03:00</creationDate>
+    <updateDate>2012-07-02T17:33:40.044+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="system_storage_space_status_dr7_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_storage_space_status_dr7_files</folder>
             <name>system_storage_space_status_dr7_jrxml</name>
-            <version>9</version>
+            <version>3</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-01-19T16:22:04.699+02:00</creationDate>
-            <updateDate>2012-01-19T16:22:04.699+02:00</updateDate>
+            <creationDate>2012-06-27T12:07:46.426+03:00</creationDate>
+            <updateDate>2012-06-27T12:07:46.426+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
     </dataSource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_storage_space_status_dr7_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-07-02T17:33:40.044+03:00</creationDate>
+            <updateDate>2012-07-02T17:33:40.044+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
     <alwaysPromptControls>true</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>

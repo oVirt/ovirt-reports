@@ -2,21 +2,21 @@
 <reportUnit>
     <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</folder>
     <name>cluster_capactity_vs_usage_cores_dr29</name>
-    <version>15</version>
+    <version>6</version>
     <label>Cluster Capactity vs Usage Cores (DR29)</label>
-    <creationDate>2012-02-05T15:30:32.889+02:00</creationDate>
-    <updateDate>2012-02-28T17:33:39.872+02:00</updateDate>
+    <creationDate>2012-06-24T15:48:23.321+03:00</creationDate>
+    <updateDate>2012-06-27T15:01:15.617+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="cluster_capactity_vs_usage_cores_dr29_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_capactity_vs_usage_cores_dr29_files</folder>
             <name>cluster_capactity_vs_usage_cores_dr29_jrxml</name>
-            <version>13</version>
+            <version>4</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-02-05T15:30:32.889+02:00</creationDate>
-            <updateDate>2012-02-05T15:30:32.889+02:00</updateDate>
+            <creationDate>2012-06-27T12:07:42.213+03:00</creationDate>
+            <updateDate>2012-06-27T12:07:42.213+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -26,6 +26,18 @@
     <inputControl>
         <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
     </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_capactity_vs_usage_cores_dr29_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-06-27T12:19:50.169+03:00</creationDate>
+            <updateDate>2012-06-27T12:19:50.169+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
     <alwaysPromptControls>true</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>

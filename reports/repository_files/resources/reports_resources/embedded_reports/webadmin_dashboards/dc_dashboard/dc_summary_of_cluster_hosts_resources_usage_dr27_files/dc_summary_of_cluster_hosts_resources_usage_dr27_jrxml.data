@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dc_summary_of_cluster_hosts_resources_usage_dr27" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_summary_of_cluster_hosts_resources_usage_dr27"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -65,7 +65,7 @@ GROUP BY cluster_id, cluster_name]]>
                     </box>
                     <chartTitle color="#3A5E75">
                         <font fontName="DejaVu Sans" size="10" isBold="true"/>
-                        <titleExpression><![CDATA["Summary of Cluster Hosts Resources Usage"]]></titleExpression>
+                        <titleExpression><![CDATA[$R{dr27.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="DejaVu Sans" size="9"/>
