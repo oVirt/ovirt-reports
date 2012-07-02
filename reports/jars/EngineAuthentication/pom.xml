@@ -18,6 +18,7 @@
     <spring.version>2.0.7.RELEASE</spring.version>
     <jasper.version>4.5.0</jasper.version>
     <javax.servlet.api.version>2.3</javax.servlet.api.version>
+    <commons-logging.version>1.1</commons-logging.version>
   </properties>
   <dependencies>
     <dependency>
@@ -36,6 +37,12 @@
       <groupId>com.jaspersoft.jasperserver.api.metadata.impl</groupId>
       <artifactId>jasperserver-api-metadata-impl</artifactId>
       <version>${jasper.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>${commons-logging.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -57,9 +64,41 @@
   </build>
   <repositories>
     <repository>
+      <id>central</id>
+      <name>maven repo1</name>
+      <layout>default</layout>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>maven.search.repo</id>
+      <name>maven search repo</name>
+      <layout>default</layout>
+      <url>http://mvnsearch.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
       <id>jaspersoft</id>
       <url>http://www.jasperforge.org/maven2</url>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
