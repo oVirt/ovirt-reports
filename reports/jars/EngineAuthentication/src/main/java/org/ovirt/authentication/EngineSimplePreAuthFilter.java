@@ -50,7 +50,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     private String servletURL;
     private int pollingTimeout;
     private String SESSION_DATA_FORMAT = "sessionID=%1$s";
-    private int DEFAULT_SESSION_TIMEOUT = 20;
+    private int DEFAULT_POLLING_TIMEOUT = 30; // in seconds
     private String trustStorePath;
     private String trustStorePassword;
     private String sslProtocol = "TLS";
@@ -211,7 +211,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
 
             Calendar recheckOn = Calendar.getInstance();
             recheckOn.setTime(new Date());
-            recheckOn.add(Calendar.MINUTE, pollingTimeout);
+            recheckOn.add(Calendar.SECOND, pollingTimeout);
 
             EngineUserDetails userDetails = new EngineUserDetails(userName, password, grantedAuthorities, sessionID, recheckOn, true, true, true, true);
             authRequest = new UsernamePasswordAuthenticationToken(userDetails, password, grantedAuthorities);
@@ -241,8 +241,8 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
         if (pollingTimeout >= 0) {
             this.pollingTimeout = pollingTimeout;
         } else {
-            logger.debug("Input session timeout was a negative value. Setting it to the default timeout, " + DEFAULT_SESSION_TIMEOUT);
-            this.pollingTimeout = DEFAULT_SESSION_TIMEOUT;
+            logger.debug("Input polling timeout was a negative value. Setting it to the default timeout, " + DEFAULT_POLLING_TIMEOUT);
+            this.pollingTimeout = DEFAULT_POLLING_TIMEOUT;
         }
     }
 
