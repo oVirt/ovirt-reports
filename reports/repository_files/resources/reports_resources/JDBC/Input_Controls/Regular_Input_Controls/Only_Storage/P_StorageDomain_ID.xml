@@ -22,7 +22,7 @@
             <creationDate>2012-03-30T08:51:35.958+03:00</creationDate>
             <updateDate>2012-03-30T08:51:35.958+03:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct v3_0_storage_domain_configuration_view.storage_domain_id, detach_date, CASE
+            <queryString>Select distinct cast(v3_0_storage_domain_configuration_view.storage_domain_id as varchar), detach_date, CASE
                 WHEN detach_date IS NULL THEN storage_domain_name
                 ELSE storage_domain_name || ' (Detached on ' || cast(detach_date as varchar) || ')'
                            END as combo_name

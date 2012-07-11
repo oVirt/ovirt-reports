@@ -10,7 +10,7 @@
     <queryString>SELECT distinct delete_date, CASE
                                                 WHEN delete_date IS NULL then vm_name
                                                 ELSE vm_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'
-                                          END as combo_name, vm_id
+                                          END as combo_name, cast(vm_id as varchar)
 FROM v3_0_vm_configuration_view
 WHERE v3_0_vm_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
                                                                         FROM v3_0_cluster_configuration_view

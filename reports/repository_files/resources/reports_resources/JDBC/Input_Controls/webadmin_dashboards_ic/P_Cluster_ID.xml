@@ -20,7 +20,7 @@
             <creationDate>2012-02-01T16:04:16.558+02:00</creationDate>
             <updateDate>2012-02-01T16:04:16.558+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT distinct cluster_id, cluster_name
+            <queryString>SELECT distinct cast(cluster_id as varchar), cluster_name
 FROM v3_0_latest_cluster_configuration_view
 ORDER BY cluster_name</queryString>
             <dataSource>

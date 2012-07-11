@@ -23,7 +23,7 @@
             <queryString>SELECT distinct delete_date, CASE
             WHEN delete_date IS NULL then host_name
             ELSE host_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'
-              END as combo_name, host_id
+              END as combo_name, cast(host_id as varchar)
 FROM v3_0_host_configuration_view
 Where v3_0_host_configuration_view.cluster_id in (SELECT v3_0_cluster_configuration_view.cluster_id
                            FROM v3_0_cluster_configuration_view

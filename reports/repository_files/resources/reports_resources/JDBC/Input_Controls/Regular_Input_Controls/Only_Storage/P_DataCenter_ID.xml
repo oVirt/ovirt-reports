@@ -20,7 +20,7 @@
             <creationDate>2012-03-30T08:51:35.737+03:00</creationDate>
             <updateDate>2012-03-30T08:51:35.737+03:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct datacenter_id, delete_date, CASE
+            <queryString>Select distinct cast(datacenter_id as varchar), delete_date, CASE
                 WHEN delete_date IS NULL THEN datacenter_name
                 ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
                   END as combo_name
@@ -34,7 +34,7 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
          GROUP BY a.datacenter_id)
               $P!{active_storage}
 UNION ALL
-SELECT distinct cast('00000000-0000-0000-0000-000000000000' as uuid), cast(null as timestamp), 'Non Available'
+SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), 'Non Available'
 WHERE NOT EXISTS     (Select distinct datacenter_id
         from v3_0_datacenter_configuration_view
         WHERE datacenter_id in (SELECT DISTINCT datacenter_id
