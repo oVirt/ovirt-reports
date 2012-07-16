@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_hosts_downtime_dr18" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_hosts_downtime_dr18" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -34,12 +34,12 @@ LIMIT (SELECT CASE
     <field name="unplanned_downtime_percent" class="java.math.BigDecimal"/>
     <summary>
         <band height="167" splitType="Stretch">
-            <barChart>
-                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
-                    <reportElement x="0" y="0" width="418" height="167"/>
+            <stackedBarChart>
+                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.StackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
+                    <reportElement mode="Transparent" x="0" y="0" width="418" height="167"/>
                     <chartTitle>
-                        <font fontName="DejaVu Sans" size="10"/>
-                        <titleExpression><![CDATA["Top Five Hosts Downtime"]]></titleExpression>
+                        <font fontName="DejaVu Sans"/>
+                        <titleExpression><![CDATA[$R{dr18.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="DejaVu Sans" size="9"/>
@@ -68,18 +68,17 @@ LIMIT (SELECT CASE
                     <categorySeries>
                         <seriesExpression><![CDATA["Unplanned Downtime"]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
-                        <valueExpression><![CDATA[$F{unplanned_downtime_percent}]]></valueExpression>
+                        <valueExpression><![CDATA[100 - $F{uptime_percent} - $F{planned_downtime_percent}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{unplanned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[(100 - $F{uptime_percent} - $F{planned_downtime_percent}).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                 </categoryDataset>
                 <barPlot>
-                    <plot/>
-                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="DejaVu Sans" size="9"/>
-                    </itemLabel>
-                    <categoryAxisFormat>
+                    <plot labelRotation="-15.0"/>
+                    <itemLabel/>
+                    <categoryAxisLabelExpression><![CDATA[$R{axis.hosts.names}]]></categoryAxisLabelExpression>
+                    <categoryAxisFormat labelRotation="-15.0">
                         <axisFormat>
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>
@@ -89,6 +88,7 @@ LIMIT (SELECT CASE
                             </tickLabelFont>
                         </axisFormat>
                     </categoryAxisFormat>
+                    <valueAxisLabelExpression><![CDATA[$R{axis.time.percent}]]></valueAxisLabelExpression>
                     <valueAxisFormat>
                         <axisFormat>
                             <labelFont>
@@ -100,7 +100,7 @@ LIMIT (SELECT CASE
                         </axisFormat>
                     </valueAxisFormat>
                 </barPlot>
-            </barChart>
+            </stackedBarChart>
         </band>
     </summary>
 </jasperReport>

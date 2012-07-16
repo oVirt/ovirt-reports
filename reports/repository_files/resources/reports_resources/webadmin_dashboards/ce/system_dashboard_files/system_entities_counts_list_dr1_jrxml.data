@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_entities_counts_list_dr1" language="groovy" pageWidth="360" pageHeight="160" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_entities_counts_list_dr1" language="groovy" pageWidth="360" pageHeight="160" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -29,56 +29,56 @@
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA["Virtual Machines:"]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$R{dr.count.list.vms} + ":"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="72" y="50" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA["Clusters:"]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$R{dr.count.list.clusters} + ":"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="72" y="79" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA["Hosts:"]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$R{dr.count.list.hosts} + ":"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="72" y="21" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA["Data Centers:"]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$R{dr.count.list.dcs} + ":"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="257" y="108" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{vm_count}.toString()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{vm_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="257" y="79" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{host_count}.toString()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{host_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="257" y="50" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{cluster_count}.toString()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{cluster_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="257" y="21" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[$F{datacenter_count}.toString()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{datacenter_count}.toString()]]></textFieldExpression>
             </textField>
         </band>
     </summary>

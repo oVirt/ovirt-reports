@@ -181,6 +181,32 @@
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="dc_host_uptime_status_dr5_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_host_uptime_status_dr5_jrxml</name>
+            <version>0</version>
+            <label>dc_host_uptime_status_dr5_jrxml</label>
+            <creationDate>2012-03-14T17:50:06.051+02:00</creationDate>
+            <updateDate>2012-03-14T17:50:06.051+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="dc_storage_space_status_dr8_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/webadmin_dashboards/ce/datacenter_dashboard_files</folder>
+            <name>dc_storage_space_status_dr8_jrxml</name>
+            <version>0</version>
+            <label>dc_storage_space_status_dr8_jrxml</label>
+            <creationDate>2012-03-14T17:50:06.051+02:00</creationDate>
+            <updateDate>2012-03-14T17:50:06.051+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
     <alwaysPromptControls>true</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>
