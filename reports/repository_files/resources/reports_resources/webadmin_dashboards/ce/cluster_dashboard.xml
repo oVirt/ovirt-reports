@@ -41,11 +41,11 @@
     <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="cluster_capactity_vs_usage_cores_dr29_jrxml.data" xsi:type="fileResource">
+            dataFile="cluster_capacity_vs_usage_cores_dr29_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
-            <name>cluster_capactity_vs_usage_cores_dr29_jrxml</name>
+            <name>cluster_capacity_vs_usage_cores_dr29_jrxml</name>
             <version>0</version>
-            <label>cluster_capactity_vs_usage_cores_dr29_jrxml</label>
+            <label>cluster_capacity_vs_usage_cores_dr29_jrxml</label>
             <creationDate>2012-03-14T15:25:45.552+02:00</creationDate>
             <updateDate>2012-03-14T15:25:45.552+02:00</updateDate>
             <fileType>jrxml</fileType>
@@ -54,11 +54,11 @@
     <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="cluster_capactity_vs_usage_mem_dr30_jrxml.data" xsi:type="fileResource">
+            dataFile="cluster_capacity_vs_usage_mem_dr30_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/webadmin_dashboards/ce/cluster_dashboard_files</folder>
-            <name>cluster_capactity_vs_usage_mem_dr30_jrxml</name>
+            <name>cluster_capacity_vs_usage_mem_dr30_jrxml</name>
             <version>0</version>
-            <label>cluster_capactity_vs_usage_mem_dr30_jrxml</label>
+            <label>cluster_capacity_vs_usage_mem_dr30_jrxml</label>
             <creationDate>2012-03-14T15:26:11.621+02:00</creationDate>
             <updateDate>2012-03-14T15:26:11.621+02:00</updateDate>
             <fileType>jrxml</fileType>

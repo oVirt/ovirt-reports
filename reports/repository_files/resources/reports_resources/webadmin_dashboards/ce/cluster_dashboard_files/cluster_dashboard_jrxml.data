@@ -113,7 +113,7 @@
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                 </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_capactity_vs_usage_cores_dr29_jrxml"]]></subreportExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_capacity_vs_usage_cores_dr29_jrxml"]]></subreportExpression>
             </subreport>
             <subreport>
                 <reportElement x="491" y="415" width="418" height="167"/>
@@ -122,7 +122,7 @@
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                 </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_capactity_vs_usage_mem_dr30_jrxml"]]></subreportExpression>
+                <subreportExpression class="java.lang.String"><![CDATA["repo:cluster_capacity_vs_usage_mem_dr30_jrxml"]]></subreportExpression>
             </subreport>
             <subreport>
                 <reportElement x="283" y="1015" width="418" height="167"/>

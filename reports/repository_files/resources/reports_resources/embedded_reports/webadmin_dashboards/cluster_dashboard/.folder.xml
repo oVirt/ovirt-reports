@@ -5,8 +5,8 @@
     <label>Cluster Dashboard</label>
     <creationDate>2012-01-22T13:49:07.149+02:00</creationDate>
     <updateDate>2012-01-22T13:49:07.149+02:00</updateDate>
-    <resource>cluster_capactity_vs_usage_cores_dr29</resource>
-    <resource>cluster_capactity_vs_usage_mem_dr30</resource>
+    <resource>cluster_capacity_vs_usage_cores_dr29</resource>
+    <resource>cluster_capacity_vs_usage_mem_dr30</resource>
     <resource>cluster_entities_counts_list_dr3</resource>
     <resource>cluster_ha_vm_uptime_status_dr13</resource>
     <resource>cluster_host_resources_status_dr12</resource>

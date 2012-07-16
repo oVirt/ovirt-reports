@@ -11,7 +11,7 @@
             <uri idParamName="P_DataCenter_ID" multiple="false"
                 name="Active Virtual Machines by OS (BR18)" description="The report contains comparative measurements number of running virtual machines and OS usage in for a selected cluster and a selected virtual machine's type within the requested period.">/Reports/Executive/active_vms_by_os_br18</uri>
             <uri idParamName="P_DataCenter_ID" multiple="false"
-                name="Cluster Capactity Vs Usage (BR19)" description="This report contains charts displaying host&apos;s resources usage measurements (CPU core; physical Memory) and charts displaying virtual machine&apos;s resources usage measurements (virtual machine's total vCPU; Virtual Memory size) for a selected cluster.">/Reports/Executive/cluster_capactity_vs_usage_br19</uri>
+                name="Cluster Capacity Vs Usage (BR19)" description="This report contains charts displaying host&apos;s resources usage measurements (CPU core; physical Memory) and charts displaying virtual machine&apos;s resources usage measurements (virtual machine's total vCPU; Virtual Memory size) for a selected cluster.">/Reports/Executive/cluster_capacity_vs_usage_br19</uri>
             <uri idParamName="P_DataCenter_ID" multiple="false"
                 name="Host OS Break Down (BR22)" description="This report contains a table and a chart displaying the number of hosts for each OS version for a selected cluster within a requested period.">/Reports/Executive/host_os_break_down_BR22</uri>
             <uri idParamName="P_DataCenter_ID" multiple="false"
@@ -60,7 +60,7 @@
             <uri idParamName="P_Cluster_ID" multiple="false"
                 name="Active Virtual Machines by OS (BR18)" description="The report contains comparative measurements number of running virtual machines and OS usage in for a selected cluster and a selected virtual machine's type within the requested period.">/Reports/Executive/active_vms_by_os_br18</uri>
             <uri idParamName="P_Cluster_ID" multiple="false"
-                name="Cluster Capactity Vs Usage (BR19)" description="This report contains charts displaying host&apos;s resources usage measurements (CPU core; physical Memory) and charts displaying virtual machine&apos;s resources usage measurements (virtual machine's total vCPU; Virtual Memory size) for a selected cluster.">/Reports/Executive/cluster_capactity_vs_usage_br19</uri>
+                name="Cluster Capacity Vs Usage (BR19)" description="This report contains charts displaying host&apos;s resources usage measurements (CPU core; physical Memory) and charts displaying virtual machine&apos;s resources usage measurements (virtual machine's total vCPU; Virtual Memory size) for a selected cluster.">/Reports/Executive/cluster_capacity_vs_usage_br19</uri>
             <uri idParamName="P_Cluster_ID" multiple="false"
                 name="Host OS Break Down (BR22)" description="This report contains a table and a chart displaying the number of hosts for each OS version for a selected cluster within a requested period.">/Reports/Executive/host_os_break_down_BR22</uri>
             <uri idParamName="P_Cluster_ID" multiple="false"
