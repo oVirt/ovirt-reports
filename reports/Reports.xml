@@ -4,7 +4,7 @@
     <dashboard is_ce="true">
         <resource type="System">/reports_resources/webadmin_dashboards/ce/system_dashboard</resource>
         <resource type="DataCenter">/reports_resources/webadmin_dashboards/ce/datacenter_dashboard</resource>
-        <resource type="Clusters">/reports_resources/webadmin_dashboards/ce/cluster_dashboard</resource>
+        <resource type="Cluster">/reports_resources/webadmin_dashboards/ce/cluster_dashboard</resource>
     </dashboard>
     <resource type="DataCenter">
         <category name="Executive">
