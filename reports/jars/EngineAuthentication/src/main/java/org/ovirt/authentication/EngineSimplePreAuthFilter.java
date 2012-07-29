@@ -14,12 +14,17 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +61,13 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     private String sslProtocol = "TLS";
     private String trustStoreType = "JKS";
     private final Log logger = LogFactory.getLog(EngineSimplePreAuthFilter.class);
+    private boolean sslIgnoreCertErrors = false;
+    private boolean sslIgnoreHostVerification = false;
+    private static final HostnameVerifier IgnoredHostnameVerifier = new HostnameVerifier() {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    };
 
     @Override
     protected Object getPreAuthenticatedCredentials(HttpServletRequest arg0) {
@@ -118,8 +130,12 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init(trustStore);
             SSLContext ctx = SSLContext.getInstance(sslProtocol);
-            ctx.init(null, trustManagerFactory.getTrustManagers(), null);
+            initSslcontext(ctx, trustManagerFactory);
             securedConnection.setSSLSocketFactory(ctx.getSocketFactory());
+            if (sslIgnoreHostVerification) {
+                logger.debug("sslIgnoreHostVerification mode");
+                securedConnection.setHostnameVerifier(IgnoredHostnameVerifier);
+            }
             servletConnection = securedConnection;
         } else {
             servletConnection = (HttpURLConnection) url.openConnection();
@@ -132,6 +148,30 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
         servletConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
 
         return servletConnection;
+    }
+
+    private void initSslcontext(SSLContext ctx, TrustManagerFactory trustManagerFactory) throws KeyManagementException {
+        if (sslIgnoreCertErrors) {
+            logger.debug("sslIgnoreCertErrors mode");
+            ctx.init(null, new TrustManager[] { new X509TrustManager() {
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                }
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+
+            } }, null);
+        } else {
+            ctx.init(null, trustManagerFactory.getTrustManagers(), null);
+        }
     }
 
     /*
@@ -256,5 +296,21 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
 
     public void setSslProtocol(String sslProtocol) {
         this.sslProtocol = sslProtocol;
+    }
+
+    public boolean getSslIgnoreCertErrors() {
+        return sslIgnoreCertErrors;
+    }
+
+    public void setSslIgnoreCertErrors(boolean sslIgnoreCertErrors) {
+        this.sslIgnoreCertErrors = sslIgnoreCertErrors;
+    }
+
+    public boolean getSslIgnoreHostVerification() {
+        return sslIgnoreHostVerification;
+    }
+
+    public void setSslIgnoreHostVerification(boolean sslIgnoreHostVerification) {
+        this.sslIgnoreHostVerification = sslIgnoreHostVerification;
     }
 }
