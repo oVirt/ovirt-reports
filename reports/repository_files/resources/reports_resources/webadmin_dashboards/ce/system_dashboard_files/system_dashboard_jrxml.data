@@ -1,47 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="945" pageHeight="1200" whenNoDataType="AllSectionsNoDetail" columnWidth="945" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="945" pageHeight="1200" whenNoDataType="AllSectionsNoDetail" columnWidth="945" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="92d7d577-3e49-4e8b-80f9-159f66dce086">
     <property name="ireport.zoom" value="0.9090909090909091"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/webadmin_dashboards/ce/system_dashboard"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <background>
-        <band height="200">
-            <image scaleImage="FillFrame">
-                <reportElement x="0" y="0" width="945" height="200"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:/reports_resources/images/mainBackground.png"]]></imageExpression>
-            </image>
-        </band>
-    </background>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <summary>
         <band height="200" splitType="Stretch">
-            <image>
-                <reportElement x="562" y="20" width="360" height="160"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:/reports_resources/images/statisticBackground.png"]]></imageExpression>
-            </image>
             <subreport>
-                <reportElement x="562" y="20" width="360" height="160"/>
+                <reportElement uuid="96997e1b-aed8-48b8-84ab-ea09ec1f7e6e" x="562" y="20" width="360" height="160"/>
                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:system_entities_counts_list_dr1_jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:system_entities_counts_list_dr1_jrxml"]]></subreportExpression>
             </subreport>
             <subreport>
-                <reportElement x="28" y="46" width="534" height="35"/>
+                <reportElement uuid="031d6f65-6bdc-4749-89a4-6981a04f077e" x="28" y="46" width="534" height="35"/>
                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:system_host_resources_status_dr10_jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:system_host_resources_status_dr10_jrxml"]]></subreportExpression>
             </subreport>
             <subreport>
-                <reportElement x="28" y="81" width="534" height="35"/>
+                <reportElement uuid="57d8bc39-f0de-44d7-b8f0-1ac862bdc7fc" x="28" y="81" width="534" height="35"/>
                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:system_host_uptime_status_dr4_jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:system_host_uptime_status_dr4_jrxml"]]></subreportExpression>
             </subreport>
             <subreport>
-                <reportElement x="28" y="116" width="534" height="35"/>
+                <reportElement uuid="b1df758b-a1fc-494e-a0b2-14cc3a05a56d" x="28" y="116" width="534" height="35"/>
                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:system_storage_space_status_dr7_jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:system_storage_space_status_dr7_jrxml"]]></subreportExpression>
             </subreport>
         </band>
     </summary>

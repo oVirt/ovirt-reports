@@ -38,6 +38,18 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_entities_counts_list_dr3_files</folder>
+            <name>statisticBackground.png</name>
+            <version>0</version>
+            <label>statisticBackground.png</label>
+            <creationDate>2012-08-08T16:57:23.905+03:00</creationDate>
+            <updateDate>2012-08-08T16:57:23.905+03:00</updateDate>
+            <referenceUri>/reports_resources/images/statisticBackground.png</referenceUri>
+        </localResource>
+    </resource>
     <alwaysPromptControls>true</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>

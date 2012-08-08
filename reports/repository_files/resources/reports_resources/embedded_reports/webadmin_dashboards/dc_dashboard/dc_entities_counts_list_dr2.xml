@@ -2,10 +2,10 @@
 <reportUnit>
     <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard</folder>
     <name>dc_entities_counts_list_dr2</name>
-    <version>4</version>
+    <version>5</version>
     <label>Datacenter Entities Counts List (DR2)</label>
-    <creationDate>2012-06-24T15:48:24.595+03:00</creationDate>
-    <updateDate>2012-07-02T14:29:00.737+03:00</updateDate>
+    <creationDate>2012-08-08T17:29:01.357+03:00</creationDate>
+    <updateDate>2012-08-08T18:24:19.668+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +15,7 @@
             <version>2</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:44.601+03:00</creationDate>
+            <creationDate>2012-08-08T17:29:01.357+03:00</creationDate>
             <updateDate>2012-06-27T12:07:44.601+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
@@ -31,11 +31,23 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_entities_counts_list_dr2_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-07-02T14:29:00.737+03:00</creationDate>
+            <creationDate>2012-08-08T17:29:01.357+03:00</creationDate>
             <updateDate>2012-07-02T14:29:00.737+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_entities_counts_list_dr2_files</folder>
+            <name>statisticBackground.png</name>
+            <version>0</version>
+            <label>statisticBackground.png</label>
+            <creationDate>2012-08-08T18:24:19.668+03:00</creationDate>
+            <updateDate>2012-08-08T18:24:19.668+03:00</updateDate>
+            <referenceUri>/reports_resources/images/statisticBackground.png</referenceUri>
         </localResource>
     </resource>
     <alwaysPromptControls>true</alwaysPromptControls>

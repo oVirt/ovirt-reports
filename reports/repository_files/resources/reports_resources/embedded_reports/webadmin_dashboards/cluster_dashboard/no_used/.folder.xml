@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
+    <name>no_used</name>
+    <label>No Used</label>
+    <creationDate>2012-08-08T18:22:25.478+03:00</creationDate>
+    <updateDate>2012-08-08T18:22:25.478+03:00</updateDate>
+    <resource>cluster_capacity_vs_usage_cores_dr29</resource>
+    <resource>cluster_capacity_vs_usage_mem_dr30</resource>
+    <resource>cluster_top_five_least_busy_hosts_dr24</resource>
+    <resource>top_five_ha_virtual_servers_uptime_dr19</resource>
+    <resource>top_five_hosts_uptime_dr17</resource>
+</folder>

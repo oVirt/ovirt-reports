@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard</parent>
+    <name>not_used</name>
+    <label>Not Used</label>
+    <creationDate>2012-08-08T18:18:54.868+03:00</creationDate>
+    <updateDate>2012-08-08T18:18:54.868+03:00</updateDate>
+    <resource>datacenter_top_five_least_busy_clusters_dr22</resource>
+    <resource>dc_vm_over_commit_dr25</resource>
+    <resource>top_five_clusters_host_uptime_dr15</resource>
+</folder>

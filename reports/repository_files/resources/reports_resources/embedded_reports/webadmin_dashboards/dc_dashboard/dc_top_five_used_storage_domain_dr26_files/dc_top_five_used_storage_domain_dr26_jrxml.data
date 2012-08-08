@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dc_top_five_used_storage_domain_dr26" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dc_top_five_used_storage_domain_dr26" language="groovy" pageWidth="445" pageHeight="260" whenNoDataType="AllSectionsNoDetail" columnWidth="445" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="d47c0249-2df7-4e1a-8c42-f0d8863bd217">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_top_five_used_storage_domain_dr26"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -29,10 +29,10 @@ LIMIT 5]]>
     <field name="used_disk_size_gb" class="java.lang.Integer"/>
     <field name="free_disk_size_gb_percent" class="java.lang.Double"/>
     <summary>
-        <band height="167" splitType="Stretch">
+        <band height="260" splitType="Stretch">
             <stackedBarChart>
                 <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" renderType="draw" theme="WebadminLineBarChartTheme">
-                    <reportElement mode="Opaque" x="0" y="0" width="418" height="167"/>
+                    <reportElement uuid="9e221fcd-d57a-4f31-9a0c-9fb80d7de8f7" mode="Opaque" x="0" y="0" width="445" height="260"/>
                     <box>
                         <pen lineWidth="0.0" lineColor="#3C617F"/>
                         <topPen lineWidth="0.0" lineColor="#3C617F"/>
@@ -53,7 +53,7 @@ LIMIT 5]]>
                 </chart>
                 <categoryDataset>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Available"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{dr26.chart.available.size.percent}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{free_disk_size_gb_percent}]]></valueExpression>
                         <itemHyperlink hyperlinkTarget="Blank">
@@ -61,7 +61,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Used"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{dr26.chart.used.size.percent}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
                         <valueExpression><![CDATA[100 - $F{free_disk_size_gb_percent}]]></valueExpression>
                         <itemHyperlink hyperlinkTarget="Blank">
@@ -96,7 +96,7 @@ LIMIT 5]]>
                             </tickLabelFont>
                         </axisFormat>
                     </categoryAxisFormat>
-                    <valueAxisLabelExpression><![CDATA[$R{axis.used.free.storage.size.percent}]]></valueAxisLabelExpression>
+                    <valueAxisLabelExpression><![CDATA[]]></valueAxisLabelExpression>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666" verticalTickLabels="false">
                             <labelFont>

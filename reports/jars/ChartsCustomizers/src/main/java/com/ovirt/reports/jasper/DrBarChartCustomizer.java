@@ -22,6 +22,7 @@ public class DrBarChartCustomizer implements JRChartCustomizer {
     public void customize(JFreeChart chart, JRChart jasperChart) {
         BarRenderer renderer = (BarRenderer) chart.getCategoryPlot().getRenderer();
         CategoryPlot categoryPlot = renderer.getPlot();
+        renderer.setMaximumBarWidth(0.1);
         renderer.setBaseItemLabelsVisible(false);
         renderer.setItemMargin(-0.3);
 

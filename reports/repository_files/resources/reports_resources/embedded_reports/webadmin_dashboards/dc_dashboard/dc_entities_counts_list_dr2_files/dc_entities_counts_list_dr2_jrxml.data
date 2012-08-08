@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dc_entities_counts_list_dr2" language="groovy" pageWidth="360" pageHeight="160" whenNoDataType="AllSectionsNoDetail" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dc_entities_counts_list_dr2" language="groovy" pageWidth="360" pageHeight="160" whenNoDataType="AllSectionsNoDetail" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="0ddd0db5-b36c-44e2-ae0e-183fa3074cfb">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_entities_counts_list_dr2"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -25,43 +25,47 @@ WHERE v3_0_latest_cluster_configuration_view.datacenter_id = CAST($P{P_DataCente
     </background>
     <summary>
         <band height="160" splitType="Stretch">
+            <image>
+                <reportElement uuid="1231a632-b05a-489b-bfb1-40bcb03523a2" x="0" y="0" width="360" height="160"/>
+                <imageExpression><![CDATA["repo:statisticBackground.png"]]></imageExpression>
+            </image>
             <textField>
-                <reportElement x="53" y="36" width="185" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="8d6c9321-cc54-4bcb-9c8c-0cbd26f00733" x="53" y="36" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr.count.list.clusters} + ":"]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="53" y="65" width="185" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="86975072-5897-4e0b-aebf-1e62e8d5d278" x="53" y="65" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr.count.list.hosts} + ":"]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="53" y="94" width="185" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="1136c449-cade-4127-a362-56243273bfd7" x="53" y="94" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr.count.list.vms} + ":"]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="238" y="36" width="103" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="83d3568a-345e-4e3f-947e-86105f8fb7e3" x="238" y="36" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{cluster_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="238" y="65" width="103" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="c7d3954a-6faf-46a5-844b-f9bf5489d6f5" x="238" y="65" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{host_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="238" y="94" width="103" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="5de18132-8c05-4a51-be5a-35d35d2cfac0" x="238" y="94" width="103" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>

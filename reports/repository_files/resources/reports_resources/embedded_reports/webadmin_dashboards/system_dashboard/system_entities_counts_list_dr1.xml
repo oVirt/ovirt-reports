@@ -4,8 +4,8 @@
     <name>system_entities_counts_list_dr1</name>
     <version>5</version>
     <label>System Entities Counts List (DR1)</label>
-    <creationDate>2012-06-24T15:48:25.454+03:00</creationDate>
-    <updateDate>2012-07-02T17:28:09.631+03:00</updateDate>
+    <creationDate>2012-08-08T17:29:03.106+03:00</creationDate>
+    <updateDate>2012-08-08T17:59:09.379+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +15,7 @@
             <version>2</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:45.987+03:00</creationDate>
+            <creationDate>2012-08-08T17:29:03.106+03:00</creationDate>
             <updateDate>2012-06-27T12:07:45.987+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
@@ -28,11 +28,23 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
-            <version>0</version>
+            <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-07-02T17:28:09.631+03:00</creationDate>
+            <creationDate>2012-08-08T17:29:03.106+03:00</creationDate>
             <updateDate>2012-07-02T17:28:09.631+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>statisticBackground.png</name>
+            <version>0</version>
+            <label>statisticBackground.png</label>
+            <creationDate>2012-08-08T17:59:09.379+03:00</creationDate>
+            <updateDate>2012-08-08T17:59:09.379+03:00</updateDate>
+            <referenceUri>/reports_resources/images/statisticBackground.png</referenceUri>
         </localResource>
     </resource>
     <alwaysPromptControls>true</alwaysPromptControls>

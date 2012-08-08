@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used</folder>
+    <name>datacenter_top_five_least_busy_clusters_dr22</name>
+    <version>4</version>
+    <label>Datacenter Top Five Least Busy Clusters (DR22)</label>
+    <creationDate>2012-08-08T17:29:01.197+03:00</creationDate>
+    <updateDate>2012-07-02T14:25:06.251+03:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="datacenter_top_five_least_busy_clusters_dr22_jrxml.data" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/datacenter_top_five_least_busy_clusters_dr22_files</folder>
+            <name>datacenter_top_five_least_busy_clusters_dr22_jrxml</name>
+            <version>1</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-08-08T17:29:01.197+03:00</creationDate>
+            <updateDate>2012-06-27T12:07:44.479+03:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_DataCenter_ID</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/datacenter_top_five_least_busy_clusters_dr22_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-08-08T17:29:01.197+03:00</creationDate>
+            <updateDate>2012-07-02T14:25:06.251+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

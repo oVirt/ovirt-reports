@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datacenter_top_five_busiest_clusters_dr21" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datacenter_top_five_busiest_clusters_dr21" language="groovy" pageWidth="445" pageHeight="260" whenNoDataType="AllSectionsNoDetail" columnWidth="445" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="a27761af-05aa-412c-b09c-febe2220960e">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/datacenter_top_five_busiest_clusters_dr21"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <property name="net.sf.jasperreports.chart.theme" value="ReportsLineBarChartTheme"/>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -27,10 +27,10 @@ LIMIT 5]]>
     <field name="memory_usage_percent_avg" class="java.math.BigDecimal"/>
     <field name="memory_usage_percent_max" class="java.lang.Integer"/>
     <summary>
-        <band height="167" splitType="Stretch">
+        <band height="260" splitType="Stretch">
             <barChart>
                 <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
-                    <reportElement x="0" y="0" width="418" height="167"/>
+                    <reportElement uuid="9d1b8366-a42e-4163-a775-7757377d153e" x="0" y="0" width="445" height="260"/>
                     <chartTitle>
                         <font fontName="DejaVu Sans" size="10"/>
                         <titleExpression><![CDATA[$R{dr21.title}]]></titleExpression>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_hosts_downtime_dr18" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_hosts_downtime_dr18" language="groovy" pageWidth="445" pageHeight="260" whenNoDataType="AllSectionsNoDetail" columnWidth="445" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="79132293-de9a-497e-86cb-16aa02a41a0b">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/top_five_hosts_downtime_dr18"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -17,15 +17,8 @@ FROM v3_0_host_samples_history_view
      INNER JOIN v3_0_latest_host_configuration_view ON (v3_0_latest_host_configuration_view.host_id = v3_0_host_samples_history_view.host_id)
 WHERE v3_0_latest_host_configuration_view.cluster_id = cast($P{P_Cluster_ID} as UUID)
 GROUP BY v3_0_latest_host_configuration_view.host_id, v3_0_latest_host_configuration_view.host_name
-HAVING (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 1 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 != 100
-ORDER BY unplanned_downtime_percent DESC, planned_downtime_percent DESC
-LIMIT (SELECT CASE
-                  WHEN count(distinct a.host_id) <= 5 THEN 0
-                  WHEN count(distinct a.host_id) <= 10 THEN count(distinct a.host_id) - 5
-                  ELSE 5
-              END
-       FROM v3_0_latest_host_configuration_view as a
-       WHERE a.cluster_id = cast($P{P_Cluster_ID} as UUID))]]>
+ORDER BY uptime_percent ASC, unplanned_downtime_percent DESC, planned_downtime_percent DESC
+LIMIT 5]]>
     </queryString>
     <field name="host_id" class="java.lang.Object"/>
     <field name="host_name" class="java.lang.String"/>
@@ -33,10 +26,10 @@ LIMIT (SELECT CASE
     <field name="planned_downtime_percent" class="java.math.BigDecimal"/>
     <field name="unplanned_downtime_percent" class="java.math.BigDecimal"/>
     <summary>
-        <band height="167" splitType="Stretch">
+        <band height="260" splitType="Stretch">
             <stackedBarChart>
                 <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.StackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
-                    <reportElement mode="Transparent" x="0" y="0" width="418" height="167"/>
+                    <reportElement uuid="dc298783-7b10-4fde-bf45-dd2bad14bb5a" mode="Transparent" x="0" y="0" width="445" height="260"/>
                     <chartTitle>
                         <font fontName="DejaVu Sans"/>
                         <titleExpression><![CDATA[$R{dr18.title}]]></titleExpression>

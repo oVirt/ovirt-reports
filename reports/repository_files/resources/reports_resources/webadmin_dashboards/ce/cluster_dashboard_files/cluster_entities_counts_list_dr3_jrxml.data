@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_entities_counts_list_dr3" language="groovy" pageWidth="360" pageHeight="160" whenNoDataType="AllSectionsNoDetail" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_entities_counts_list_dr3" language="groovy" pageWidth="360" pageHeight="160" whenNoDataType="AllSectionsNoDetail" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" uuid="a568eb33-d5d5-4be5-a556-27d0a65cbe6f">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_entities_counts_list_dr3"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -22,29 +22,33 @@ WHERE v3_0_latest_host_configuration_view.cluster_id = CAST($P{P_Cluster_ID} as 
     </background>
     <summary>
         <band height="160" splitType="Stretch">
+            <image>
+                <reportElement uuid="724a08b6-219c-4cd0-9c28-dd0ab12bebef" x="0" y="0" width="360" height="160"/>
+                <imageExpression><![CDATA["repo:statisticBackground.png"]]></imageExpression>
+            </image>
             <textField>
-                <reportElement x="71" y="80" width="185" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="b35d1779-aafe-4f6f-8d87-98d218859e88" x="71" y="80" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr.count.list.vms} + ":"]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="256" y="51" width="103" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="09232f55-ca58-4d98-996c-8e3d5eaa080b" x="256" y="51" width="94" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{host_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="256" y="80" width="103" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="02b984d8-9301-47e0-9a82-2097a5f4f96e" x="256" y="80" width="94" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{vm_count}.toString()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="71" y="51" width="185" height="29" forecolor="#FFFFFF"/>
+                <reportElement uuid="e9474830-2f7c-47d2-94a8-6529fea5cf5e" x="71" y="51" width="185" height="29" forecolor="#FFFFFF"/>
                 <textElement verticalAlignment="Middle">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>

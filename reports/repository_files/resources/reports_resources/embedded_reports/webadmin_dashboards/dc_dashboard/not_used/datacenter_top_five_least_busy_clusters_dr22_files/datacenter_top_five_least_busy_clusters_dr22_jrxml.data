@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datacenter_top_five_busiest_clusters_dr21" language="groovy" pageWidth="445" pageHeight="260" whenNoDataType="AllSectionsNoDetail" columnWidth="445" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="a27761af-05aa-412c-b09c-febe2220960e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datacenter_top_five_least_busy_clusters_dr22" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/datacenter_top_five_busiest_clusters_dr21"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/datacenter_top_five_least_busy_clusters_dr22"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="net.sf.jasperreports.chart.theme" value="ReportsLineBarChartTheme"/>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -17,8 +17,14 @@ FROM v3_0_host_samples_history_view
 WHERE v3_0_host_samples_history_view.host_status = 1
       AND v3_0_latest_cluster_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as UUID)
 GROUP BY v3_0_latest_cluster_configuration_view.cluster_id, v3_0_latest_cluster_configuration_view.cluster_name
-ORDER BY AVG(cpu_usage_percent) + MAX(cpu_usage_percent) + AVG(memory_usage_percent) + MAX(memory_usage_percent) DESC
-LIMIT 5]]>
+ORDER BY AVG(cpu_usage_percent) + MAX(cpu_usage_percent) + AVG(memory_usage_percent) + MAX(memory_usage_percent) ASC
+LIMIT (SELECT CASE
+                  WHEN count(distinct a.cluster_id) <= 5 THEN 0
+                  WHEN count(distinct a.cluster_id) <= 10 THEN count(distinct a.cluster_id) - 5
+                  ELSE 5
+              END
+       FROM v3_0_latest_cluster_configuration_view as a
+       WHERE a.datacenter_id = cast($P{P_DataCenter_ID} as UUID))]]>
     </queryString>
     <field name="cluster_id" class="java.lang.Object"/>
     <field name="cluster_name" class="java.lang.String"/>
@@ -27,13 +33,13 @@ LIMIT 5]]>
     <field name="memory_usage_percent_avg" class="java.math.BigDecimal"/>
     <field name="memory_usage_percent_max" class="java.lang.Integer"/>
     <summary>
-        <band height="260" splitType="Stretch">
+        <band height="167" splitType="Stretch">
             <barChart>
                 <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
-                    <reportElement uuid="9d1b8366-a42e-4163-a775-7757377d153e" x="0" y="0" width="445" height="260"/>
+                    <reportElement x="0" y="0" width="418" height="167"/>
                     <chartTitle>
                         <font fontName="DejaVu Sans" size="10"/>
-                        <titleExpression><![CDATA[$R{dr21.title}]]></titleExpression>
+                        <titleExpression><![CDATA[$R{dr22.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="DejaVu Sans" size="9"/>
@@ -76,7 +82,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                 </categoryDataset>
-                <barPlot isShowTickMarks="true">
+                <barPlot>
                     <plot/>
                     <itemLabel color="#000000" backgroundColor="#FFFFFF">
                         <font fontName="DejaVu Sans" size="9"/>

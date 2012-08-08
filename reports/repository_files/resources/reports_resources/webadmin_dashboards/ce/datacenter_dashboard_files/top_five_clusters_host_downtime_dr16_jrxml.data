@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_clusters_host_downtime_dr16" language="groovy" pageWidth="418" pageHeight="167" whenNoDataType="AllSectionsNoDetail" columnWidth="418" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="top_five_clusters_host_downtime_dr16" language="groovy" pageWidth="445" pageHeight="260" whenNoDataType="AllSectionsNoDetail" columnWidth="445" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="463ea43a-6041-4368-b70a-8e03014018e2">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/top_five_clusters_host_downtime_dr16"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -18,15 +18,8 @@ FROM v3_0_host_samples_history_view
          INNER JOIN v3_0_latest_cluster_configuration_view ON (v3_0_latest_host_configuration_view.cluster_id = v3_0_latest_cluster_configuration_view.cluster_id)
 WHERE v3_0_latest_cluster_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as UUID)
 GROUP BY v3_0_latest_host_configuration_view.cluster_id, v3_0_latest_cluster_configuration_view.cluster_name
-HAVING (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 1 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 != 100
-ORDER BY unplanned_downtime_percent DESC, planned_downtime_percent DESC
-LIMIT (SELECT CASE
-                  WHEN count(distinct a.cluster_id) <= 5 THEN 0
-                  WHEN count(distinct a.cluster_id) <= 10 THEN count(distinct a.cluster_id) - 5
-                  ELSE 5
-              END
-       FROM v3_0_latest_cluster_configuration_view as a
-       WHERE a.datacenter_id = cast($P{P_DataCenter_ID} as UUID))]]>
+ORDER BY uptime_percent ASC, unplanned_downtime_percent DESC, planned_downtime_percent DESC
+LIMIT 5]]>
     </queryString>
     <field name="cluster_id" class="java.lang.Object"/>
     <field name="cluster_name" class="java.lang.String"/>
@@ -34,10 +27,10 @@ LIMIT (SELECT CASE
     <field name="planned_downtime_percent" class="java.math.BigDecimal"/>
     <field name="unplanned_downtime_percent" class="java.math.BigDecimal"/>
     <summary>
-        <band height="167" splitType="Stretch">
+        <band height="260" splitType="Stretch">
             <stackedBarChart>
                 <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.StackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
-                    <reportElement mode="Transparent" x="0" y="0" width="418" height="167"/>
+                    <reportElement uuid="d49201a8-9a58-49c0-8de8-ad901a3220fd" mode="Transparent" x="0" y="0" width="445" height="260"/>
                     <chartTitle>
                         <font fontName="DejaVu Sans"/>
                         <titleExpression><![CDATA[$R{dr16.title}]]></titleExpression>
@@ -80,7 +73,7 @@ LIMIT (SELECT CASE
                     <itemLabel/>
                     <categoryAxisLabelExpression><![CDATA[$R{axis.clusters.names}]]></categoryAxisLabelExpression>
                     <categoryAxisFormat labelRotation="-15.0">
-                        <axisFormat>
+                        <axisFormat labelColor="#666666">
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>
                             </labelFont>
@@ -91,7 +84,7 @@ LIMIT (SELECT CASE
                     </categoryAxisFormat>
                     <valueAxisLabelExpression><![CDATA[$R{axis.time.percent}]]></valueAxisLabelExpression>
                     <valueAxisFormat>
-                        <axisFormat>
+                        <axisFormat labelColor="#666666">
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>
                             </labelFont>
