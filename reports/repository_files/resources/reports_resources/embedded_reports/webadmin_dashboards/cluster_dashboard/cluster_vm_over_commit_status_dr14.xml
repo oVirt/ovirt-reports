@@ -4,18 +4,19 @@
     <name>cluster_vm_over_commit_status_dr14</name>
     <version>6</version>
     <label>Cluster Virtual Machine Over Commit Status (DR14)</label>
-    <creationDate>2012-06-24T15:48:24.066+03:00</creationDate>
-    <updateDate>2012-06-27T15:06:07.470+03:00</updateDate>
+    <description></description>
+    <creationDate>2012-08-08T19:01:41.783+03:00</creationDate>
+    <updateDate>2012-08-08T19:19:53.451+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             dataFile="cluster_vm_over_commit_status_dr14_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_vm_over_commit_status_dr14_files</folder>
             <name>cluster_vm_over_commit_status_dr14_jrxml</name>
-            <version>5</version>
+            <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:43.590+03:00</creationDate>
+            <creationDate>2012-08-08T19:01:41.783+03:00</creationDate>
             <updateDate>2012-06-27T12:07:43.590+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
@@ -26,6 +27,20 @@
     <inputControl>
         <uri>/reports_resources/JDBC/Input_Controls/webadmin_dashboards_ic/P_Cluster_ID</uri>
     </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_vm_over_commit_status_dr14_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <description></description>
+            <creationDate>2012-08-08T19:19:53.451+03:00</creationDate>
+            <updateDate>2012-08-08T19:19:53.451+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
     <alwaysPromptControls>true</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>
