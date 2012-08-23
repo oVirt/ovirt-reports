@@ -72,7 +72,7 @@ LIMIT 5]]>
                     <itemLabel/>
                     <categoryAxisLabelExpression><![CDATA[$R{axis.hosts.names}]]></categoryAxisLabelExpression>
                     <categoryAxisFormat labelRotation="-15.0">
-                        <axisFormat>
+                        <axisFormat labelColor="#666666">
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>
                             </labelFont>
@@ -83,7 +83,7 @@ LIMIT 5]]>
                     </categoryAxisFormat>
                     <valueAxisLabelExpression><![CDATA[$R{axis.time.percent}]]></valueAxisLabelExpression>
                     <valueAxisFormat>
-                        <axisFormat>
+                        <axisFormat labelColor="#666666">
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>
                             </labelFont>
