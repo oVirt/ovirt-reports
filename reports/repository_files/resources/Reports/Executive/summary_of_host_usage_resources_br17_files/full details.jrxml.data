@@ -116,8 +116,8 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$P{is_deleted} == "/**/" ? "<b>" + $R{full.details.show.deleted.hosts} + ":</b> " + $R{full.details.yes} : "<b>" + $R{full.details.show.deleted.hosts} + ":</b> " + $R{full.details.no}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$P{is_deleted} == "/**/" ? $R{full.details.yes} : $R{full.details.no}]]></hyperlinkTooltipExpression>
+                    <textFieldExpression class="java.lang.String"><![CDATA[$P{is_deleted} == "" ? "<b>" + $R{full.details.show.deleted.hosts} + ":</b> " + $R{full.details.yes} : "<b>" + $R{full.details.show.deleted.hosts} + ":</b> " + $R{full.details.no}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$P{is_deleted} == "" ? $R{full.details.yes} : $R{full.details.no}]]></hyperlinkTooltipExpression>
                 </textField>
             </frame>
             <textField evaluationTime="Report" isBlankWhenNull="false">
