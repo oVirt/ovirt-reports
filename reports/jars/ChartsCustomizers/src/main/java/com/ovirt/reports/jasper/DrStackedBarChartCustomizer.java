@@ -16,20 +16,17 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StackedBarRenderer;
 
-public class DrBarChartCustomizer implements JRChartCustomizer {
+public class DrStackedBarChartCustomizer implements JRChartCustomizer {
+
     @Override
     public void customize(JFreeChart chart, JRChart jasperChart) {
-        BarRenderer renderer = (BarRenderer) chart.getCategoryPlot().getRenderer();
+        StackedBarRenderer renderer = (StackedBarRenderer) chart.getCategoryPlot().getRenderer();
         CategoryPlot categoryPlot = renderer.getPlot();
         renderer.setMaximumBarWidth(0.1);
-        renderer.setBaseItemLabelsVisible(false);
-        renderer.setItemMargin(-0.3);
-
         categoryPlot.setNoDataMessage("No Data Available");
         categoryPlot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
-
 
 //        Widen the categories so those dots won't show up in the category.
         CategoryAxis domainaxis = categoryPlot.getDomainAxis();
@@ -48,7 +45,7 @@ public class DrBarChartCustomizer implements JRChartCustomizer {
            {
                label = label.substring(0,10).concat("...").concat(label.substring(label.length() - 5, label.length()));
            }
-           if (label.trim() != "" && item.getDescription().trim() != "")
+           if (label != "" && label != "/Rx Rate" && label != "/Tx Rate")
            {
            res.add(new LegendItem(label, item.getDescription(), item.getToolTipText(), item.getURLText(), true, square, true, item.getFillPaint(), item.isShapeOutlineVisible(), item.getOutlinePaint(), item.getOutlineStroke(), false, item.getLine(), item.getLineStroke(), item.getLinePaint()));
            }

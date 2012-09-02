@@ -27,7 +27,7 @@ LIMIT 5]]>
     <summary>
         <band height="260" splitType="Stretch">
             <stackedBarChart>
-                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.StackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
+                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.DrStackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
                     <reportElement uuid="2d1bfb2e-f032-43dd-b852-e8b3e15c0a41" mode="Transparent" x="0" y="0" width="445" height="260"/>
                     <chartTitle>
                         <font fontName="DejaVu Sans"/>
