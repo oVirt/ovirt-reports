@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_host_uptime_status_dr4" language="groovy" pageWidth="534" pageHeight="35" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_host_uptime_status_dr4" language="groovy" pageWidth="534" pageHeight="35" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="280aaf56-527a-469f-8439-912760450f4f">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_host_uptime_status_dr4"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <queryString>
         <![CDATA[SELECT (SUM(CASE WHEN v3_0_host_samples_history_view.host_status = 1 THEN coalesce(v3_0_host_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_host_samples_history_view.minutes_in_status)) * 100 as uptime_mins_percent
 FROM v3_0_host_samples_history_view INNER JOIN v3_0_latest_host_configuration_view ON (v3_0_latest_host_configuration_view.host_id = v3_0_host_samples_history_view.host_id)]]>
@@ -13,23 +13,26 @@ FROM v3_0_host_samples_history_view INNER JOIN v3_0_latest_host_configuration_vi
     <summary>
         <band height="35" splitType="Stretch">
             <textField>
-                <reportElement x="0" y="0" width="370" height="35" forecolor="#333333"/>
+                <reportElement uuid="8c74a391-0006-46e4-8a6d-5b7a18a896f6" x="0" y="0" width="370" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="DejaVu Sans" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr4.text} + ":"]]></textFieldExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the system."]]></hyperlinkTooltipExpression>
             </textField>
             <image>
-                <reportElement x="370" y="10" width="17" height="15">
+                <reportElement uuid="dadd5546-2da8-4a19-b802-c9d2167f03d9" x="370" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{uptime_mins_percent} == null || $F{uptime_mins_percent} >= 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the system."]]></hyperlinkTooltipExpression>
             </image>
             <image>
-                <reportElement x="370" y="10" width="17" height="15">
+                <reportElement uuid="e6ce90db-aa5d-4df9-92b8-201a5d0653f5" x="370" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{uptime_mins_percent} != null && $F{uptime_mins_percent} < 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the system."]]></hyperlinkTooltipExpression>
             </image>
         </band>
     </summary>

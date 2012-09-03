@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_host_uptime_status_dr6" language="groovy" pageWidth="534" pageHeight="35" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_host_uptime_status_dr6" language="groovy" pageWidth="534" pageHeight="35" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="04941db3-31ab-4425-9015-0d7bd4586d1b">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_host_uptime_status_dr6"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -18,23 +18,26 @@ WHERE v3_0_latest_host_configuration_view.cluster_id = CAST($P{P_Cluster_ID} as 
     <summary>
         <band height="35" splitType="Stretch">
             <textField>
-                <reportElement x="0" y="0" width="387" height="35" forecolor="#333333"/>
+                <reportElement uuid="646e1c49-211d-417d-b0ca-3cbeacb5569d" x="0" y="0" width="387" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="DejaVu Sans" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr6.text} + ":"]]></textFieldExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the selected cluster."]]></hyperlinkTooltipExpression>
             </textField>
             <image>
-                <reportElement x="387" y="10" width="17" height="15">
+                <reportElement uuid="f62694a7-214e-4e78-966a-2797bdf4f059" x="387" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{uptime_mins_percent} == null || $F{uptime_mins_percent} >= 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the selected cluster."]]></hyperlinkTooltipExpression>
             </image>
             <image>
-                <reportElement x="387" y="10" width="17" height="15">
+                <reportElement uuid="e0fd1cfb-fa18-47a8-84ff-f1c8eecf46d2" x="387" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{uptime_mins_percent} != null && $F{uptime_mins_percent} < 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the selected cluster."]]></hyperlinkTooltipExpression>
             </image>
         </band>
     </summary>

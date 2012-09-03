@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_host_resources_status_dr12" language="groovy" pageWidth="534" pageHeight="35" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cluster_host_resources_status_dr12" language="groovy" pageWidth="534" pageHeight="35" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" uuid="730ce376-1f59-480d-8a7c-12215324a377">
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_host_resources_status_dr12"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
@@ -20,23 +20,26 @@ FROM (SELECT AVG(cpu_usage_percent) AS cpu_usage_percent_avg,  AVG(memory_usage_
     <summary>
         <band height="35" splitType="Stretch">
             <textField>
-                <reportElement x="0" y="0" width="387" height="35" forecolor="#333333"/>
+                <reportElement uuid="faa5baa3-2e42-4b86-b015-cfd58f990200" x="0" y="0" width="387" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="DejaVu Sans" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr12.text} + ":"]]></textFieldExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates averages of CPU and memory percent for all hosts and averages the two values. Displays check mark if resources not used is over 60%, otherwise displays X mark.\nThis query is calculated from the host statistics samples view for the selected cluster."]]></hyperlinkTooltipExpression>
             </textField>
             <image>
-                <reportElement x="387" y="10" width="17" height="15">
+                <reportElement uuid="8fcbd622-3fa2-4f8b-9b6a-cfcc2cdffe51" x="387" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{average_resources_not_used} == null || $F{average_resources_not_used} >= 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates averages of CPU and memory percent for all hosts and averages the two values. Displays check mark if resources not used is over 60%, otherwise displays X mark.\nThis query is calculated from the host statistics samples view for the selected cluster."]]></hyperlinkTooltipExpression>
             </image>
             <image>
-                <reportElement x="387" y="10" width="17" height="15">
+                <reportElement uuid="5ba996a3-c840-4034-827a-6ac7510a722f" x="387" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{average_resources_not_used} != null && $F{average_resources_not_used} < 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates averages of CPU and memory percent for all hosts and averages the two values. Displays check mark if resources not used is over 60%, otherwise displays X mark.\nThis query is calculated from the host statistics samples view view for the selected cluster."]]></hyperlinkTooltipExpression>
             </image>
         </band>
     </summary>
