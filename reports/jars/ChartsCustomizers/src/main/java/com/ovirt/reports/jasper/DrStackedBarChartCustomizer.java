@@ -30,7 +30,6 @@ public class DrStackedBarChartCustomizer implements JRChartCustomizer {
 
 //        Widen the categories so those dots won't show up in the category.
         CategoryAxis domainaxis = categoryPlot.getDomainAxis();
-        domainaxis.setMaximumCategoryLabelWidthRatio(1.5f);
         domainaxis.setTickMarksVisible(true);
         domainaxis.setMaximumCategoryLabelLines(2);
 

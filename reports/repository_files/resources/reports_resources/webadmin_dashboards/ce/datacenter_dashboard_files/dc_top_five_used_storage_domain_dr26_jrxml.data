@@ -57,7 +57,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{free_disk_size_gb_percent}]]></valueExpression>
                         <itemHyperlink hyperlinkTarget="Blank">
-                            <hyperlinkTooltipExpression><![CDATA[$F{available_disk_size_gb}.toString() + "GB"]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{storage_domain_name} + ", " + $F{available_disk_size_gb}.toString() + "GB (" + BigDecimal.valueOf($F{free_disk_size_gb_percent}).setScale(2, RoundingMode.HALF_UP).toString() + "%)"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
@@ -65,7 +65,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
                         <valueExpression><![CDATA[100 - $F{free_disk_size_gb_percent}]]></valueExpression>
                         <itemHyperlink hyperlinkTarget="Blank">
-                            <hyperlinkTooltipExpression><![CDATA[$F{used_disk_size_gb}.toString() + "GB"]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{storage_domain_name} + ", " + $F{used_disk_size_gb}.toString() + "GB (" + BigDecimal.valueOf(100 - $F{free_disk_size_gb_percent}).setScale(2, RoundingMode.HALF_UP).toString() + "%)"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                 </categoryDataset>

@@ -69,10 +69,10 @@ LIMIT 5]]>
                     </categorySeries>
                 </categoryDataset>
                 <barPlot>
-                    <plot labelRotation="-15.0"/>
+                    <plot/>
                     <itemLabel/>
                     <categoryAxisLabelExpression><![CDATA[$R{axis.vms.names}]]></categoryAxisLabelExpression>
-                    <categoryAxisFormat labelRotation="-15.0">
+                    <categoryAxisFormat>
                         <axisFormat>
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>

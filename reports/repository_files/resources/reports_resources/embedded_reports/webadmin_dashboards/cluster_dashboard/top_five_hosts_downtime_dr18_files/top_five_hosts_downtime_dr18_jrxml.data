@@ -47,7 +47,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{uptime_percent}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{uptime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + $F{uptime_percent}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
@@ -55,7 +55,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{planned_downtime_percent}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{planned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + $F{planned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
@@ -63,15 +63,15 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[100 - $F{uptime_percent} - $F{planned_downtime_percent}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[(100 - $F{uptime_percent} - $F{planned_downtime_percent}).setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + (100 - $F{uptime_percent} - $F{planned_downtime_percent}).setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                 </categoryDataset>
                 <barPlot>
-                    <plot labelRotation="-15.0"/>
+                    <plot/>
                     <itemLabel/>
                     <categoryAxisLabelExpression><![CDATA[$R{axis.hosts.names}]]></categoryAxisLabelExpression>
-                    <categoryAxisFormat labelRotation="-15.0">
+                    <categoryAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
                                 <font fontName="DejaVu Sans" size="9"/>

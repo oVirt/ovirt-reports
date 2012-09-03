@@ -33,7 +33,7 @@
                     <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
                 </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression><![CDATA["repo:datacenter_host_uptime_status_dr5_jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:dc_host_uptime_status_dr5_jrxml"]]></subreportExpression>
             </subreport>
             <subreport>
                 <reportElement uuid="279ef6a0-3bad-483a-956a-d492d4c43338" x="3" y="108" width="534" height="35"/>

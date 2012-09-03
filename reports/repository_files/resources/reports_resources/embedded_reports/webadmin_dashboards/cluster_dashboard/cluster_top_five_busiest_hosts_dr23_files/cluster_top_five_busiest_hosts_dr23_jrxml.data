@@ -47,7 +47,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{cpu_usage_percent_avg}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{cpu_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + $F{cpu_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
@@ -55,7 +55,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{cpu_usage_percent_max}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{cpu_usage_percent_max}.toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + $F{cpu_usage_percent_max}.toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
@@ -63,7 +63,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{memory_usage_percent_avg}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{memory_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + $F{memory_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
@@ -71,7 +71,7 @@ LIMIT 5]]>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{memory_usage_percent_max}]]></valueExpression>
                         <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{memory_usage_percent_max}.toString()]]></hyperlinkTooltipExpression>
+                            <hyperlinkTooltipExpression><![CDATA[$F{host_name} + ", " + $F{memory_usage_percent_max}.toString() + "%"]]></hyperlinkTooltipExpression>
                         </itemHyperlink>
                     </categorySeries>
                 </categoryDataset>
