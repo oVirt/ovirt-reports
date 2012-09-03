@@ -1,3 +1,9 @@
+/.project
+/.settings/org.eclipse.m2e.core.prefs
+/reports/jars/ChartsCustomizers/.settings/org.eclipse.m2e.core.prefs
+/reports/jars/ReportsLineBarChartTheme/.settings/org.eclipse.m2e.core.prefs
+/reports/jars/ReportsPieChartTheme/.settings/org.eclipse.m2e.core.prefs
+/reports/jars/WebadminLineBarChartTheme/.settings/org.eclipse.m2e.core.prefs
 /reports/.project
 /reports/.settings/org.maven.ide.eclipse.prefs
 /reports/jars/.project
