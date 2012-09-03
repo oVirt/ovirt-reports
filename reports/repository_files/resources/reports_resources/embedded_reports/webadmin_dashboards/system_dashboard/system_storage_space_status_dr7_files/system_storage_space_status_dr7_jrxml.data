@@ -21,21 +21,21 @@ WHERE history_id in (SELECT max(a.history_id)
                     <font fontName="DejaVu Sans" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr7.text} + ":"]]></textFieldExpression>
-                <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."“]]></hyperlinkTooltipExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>
             </textField>
             <image>
                 <reportElement uuid="685337d4-65c6-451c-a09e-d85d60d502fb" x="370" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{free_disk_size_gb_percent} == null || $F{free_disk_size_gb_percent} >= 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
-                <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."“]]></hyperlinkTooltipExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>
             </image>
             <image>
                 <reportElement uuid="4bc479ac-521d-4da1-b776-edeb664228cb" x="370" y="10" width="17" height="15">
                     <printWhenExpression><![CDATA[$F{free_disk_size_gb_percent} != null && $F{free_disk_size_gb_percent} < 60]]></printWhenExpression>
                 </reportElement>
                 <imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
-                <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."“]]></hyperlinkTooltipExpression>
+                <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>
             </image>
         </band>
     </summary>
