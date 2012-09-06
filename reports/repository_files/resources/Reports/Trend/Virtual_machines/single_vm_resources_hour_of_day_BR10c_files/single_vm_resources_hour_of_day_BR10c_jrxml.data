@@ -13,7 +13,7 @@
             <parameterDescription><![CDATA[Period]]></parameterDescription>
             <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Start_Date" class="java.lang.String">
+        <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
         </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
@@ -86,7 +86,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
             <parameterDescription><![CDATA[Period]]></parameterDescription>
             <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Start_Date" class="java.lang.String">
+        <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
         </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
@@ -212,7 +212,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC, disk_name]]>
             <parameterDescription><![CDATA[Period]]></parameterDescription>
             <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Start_Date" class="java.lang.String">
+        <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
         </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
@@ -320,7 +320,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameterDescription><![CDATA[Period]]></parameterDescription>
         <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
+    <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
@@ -341,7 +341,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
     </parameter>
     <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-pro-3.7\\"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
     </parameter>
         <parameter name="table_name" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>

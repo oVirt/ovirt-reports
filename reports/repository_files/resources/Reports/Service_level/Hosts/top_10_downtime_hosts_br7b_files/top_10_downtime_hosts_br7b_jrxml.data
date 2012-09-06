@@ -19,7 +19,7 @@
         <parameterDescription><![CDATA[Period]]></parameterDescription>
         <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
+    <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
@@ -205,7 +205,6 @@ LIMIT 10]]>
                         <chartTitle/>
                         <chartSubtitle/>
                         <chartLegend/>
-                        <anchorNameExpression><![CDATA["http://192.168.10.120:8080/jasperserver-pro/flow.html?_flowId=viewReportFlow&ParentFolderUri=%2FRHEV%2FReports%2FService_Level&ndefined=&standAlone=true&reportUnit=%2FRHEV%2FReports%2FService_Level%2FTest_002_1_1_1_1"]]></anchorNameExpression>
                     </chart>
                     <categoryDataset>
                         <dataset resetType="Group" resetGroup="Host"/>

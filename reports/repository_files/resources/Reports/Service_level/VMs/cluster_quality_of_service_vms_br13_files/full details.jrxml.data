@@ -12,7 +12,7 @@
         <parameterDescription><![CDATA[Period]]></parameterDescription>
         <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Start_Date" class="java.lang.String">
+    <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
@@ -110,8 +110,8 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="DejaVu Sans" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA["<b>" + $R{full.details.date.range} + ": </b>" + $F{display_dates}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$F{display_dates}]]></hyperlinkTooltipExpression>
+                    <textFieldExpression><![CDATA[$P{P_Period} == "Daily" ? "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period} == "Daily" ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
                     <reportElement positionType="Float" x="519" y="20" width="139" height="20"/>
