@@ -88,7 +88,8 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     public void doFilterHttp(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
+        if (authentication == null || (authentication != null && !authentication.isAuthenticated())) {
+            logger.debug("authentication context is either null, or not authenticated. Validating session.");
             SecurityContextHolder.getContext().setAuthentication(getAuthRequest(request));
         } else {
             // The logic here is that if we are already authenticated, and the authentication was done in this pre-auth filter, then we check if we need
@@ -102,7 +103,16 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
                     EngineUserDetails userDetails = (EngineUserDetails) originalAuthentication.getPrincipal();
                     // Checking if we need to re-check the session, and acting accordingly
                     if (userDetails.isRecheckSessionIdNeeded()) {
-                        SecurityContextHolder.getContext().setAuthentication(getAuthRequest(request, userDetails.getUserSessionID()));
+                        logger.debug("Rechecking session is needed");
+                        UsernamePasswordAuthenticationToken token = getAuthRequest(request, userDetails.getUserSessionID());
+                        // if the token is null then it means we failed authentication
+                        if (token == null) {
+                            logger.debug("Returned token is null. Session was not valid. Setting authenticated to false");
+                            authentication.setAuthenticated(false);
+                        } else {
+                            logger.debug("Token is not null. Setting it.");
+                            metadataUserDetails.setOriginalAuthentication(token);
+                        }
                     }
                 }
             }
