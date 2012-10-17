@@ -1,0 +1,599 @@
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+footer.pagination=Page {0} sur {1}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18.chart.rhel.vs.other.linuxs=RHEL vs Autres SE Linux
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+axis.date=Date
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.number.of.vms=Nbre de VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18.chart.rhel.vs.windows=SE RHEL vs Windows
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18.chart.windows.distribution=Distribution des version Windows
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18.chart.known.vs.unknown.os=Machines virtuelles avec des SE connus vs inconnus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18.title=Mchines virtuelles actives par SE dans <b>{0}</b> du <b> Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.clusters=Clusters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.cluster.and.name=Cluster {0}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.criteria=Criteria
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+full.details.datacenter=Centre de donn\u00E9es
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.date.range=Plage de dates
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+full.details.vm.type=Type de VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+full.details.cluster=Cluster
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+full.details.all=Tout
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.period=P\u00E9riode
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.show.deleted.vms=Montrer les machines virtuelles supprim\u00E9es
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+full.details.yes=Oui
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+full.details.no=Non
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter.and.cluster=Le centre de donn\u00E9es a \u00E9t\u00E9 effac\u00E9 le {0} et le cluster a \u00E9t\u00E9 supprim\u00E9 le {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.cluster=Le cluster a \u00E9t\u00E9 supprim\u00E9 le {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter=Le centre de donn\u00E9es a \u00E9t\u00E9 supprim\u00E9 le {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br1.table.host.name=Nom de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.host.address=Adresse de l'h\u00F4te
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br1.table.os=SE
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.number.of.cores=Nbre de Cores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.cpu.type=Type de CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br1.table.host.type=Type
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.short.memory.size=Taille M\u00E9m.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.short.create.date=Date Cr.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.short.delete.date=Date Suppr.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.table.gb=Go
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br1.title=Inventaire des h\u00F4tes dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.show.deleted.hosts=Afficher les h\u00F4tes supprim\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+full.details.host.type=Type d'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br9.table.vm.name=Nom VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.table.template.name=Nom du mod\u00E8le
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br9.table.vm.type=Type
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br9.table.os=SE
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.table.short.memory.size=Taille M\u00E9m.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.table.number.of.cores=Nbre vCores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.table.create.date=Date de cr\u00E9ation
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.table.delete.date=Date de suppression
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.table.gb=Go
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br9.title=Inventaire des machines virtuelles dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.number.of.host.cores=Nbre de Cores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.number.of.vm.cores=Nbre vCores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.memory.size.gb=Taille de la m\u00E9more (Go)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br19.chart.cores=Le nombre moyen de Cores H\u00F4tes vs vCores Machines virtuelles (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br19.chart.memory.size=Taille de la m\u00E9moire de l'H\u00F4te moyen vs Machines virtuelles (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.show.deleted.entities=Afficher les entit\u00E9s supprim\u00E9es
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br19.title=Capacit\u00E9 Cluster Vs. Usage dans <b>{0}</b> of <b>Data Center {1}</b>
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+br22.table.date=Date
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br22.table.host.os=Type SE H\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br22.host.count=Nombre d'h\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br22.chart.title.os.break.down=D\u00E9tail des syst\u00E8mes d'exploitation des h\u00F4tes en cours
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.number.of.running.hosts=Nbre d'h\u00F4tes en cours
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br22.title=D\u00E9tail SE H\u00F4te dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.cpu.usage.percent=% Utilisation CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.memory.usage.percent=% Utilisation M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br17.chart.cpu=CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br17.chart.memory=M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br17.chart.active.hosts=H\u00F4tes actifs
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br17.chart.deleted.hosts=H\u00F4tes supprim\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br17.title=R\u00E9capitulatif Usage H\u00F4te dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.storage.domain.size.gb=Taille du stockage (Go)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br21.chart.size.of.storage.domain=Taille du domaine de stockage (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br21.chart.available.size=Espace disponible
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br21.chart.used.size=Espace utilis\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.storage.type=Type de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br21.title=Taille, sur la dur\u00E9e, <b>Domaine de stockage {0}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter.and.storage=Le centre de donn\u00E9es a \u00E9t\u00E9 effac\u00E9 le {0} et le cluster a \u00E9t\u00E9 supprim\u00E9 le {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.storage=Le centre de donn\u00E9es a \u00E9t\u00E9 supprim\u00E9 le {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.chart.cpu=CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br6.chart.memory=M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br5.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br5.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br5.title=Cinq h\u00F4tes les moins utilis\u00E9s dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br4.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br4.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br4.title=Cinq h\u00F4tes les plus utilis\u00E9s dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br3.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br3.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br3.title=Utilisation des ressources sur plusieurs h\u00F4tes (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.hosts.names=Noms des h\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2a.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2a.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2a.chart.network.usage=Utilisation des cinq interfaces de r\u00E9seau les plus charg\u00E9es (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2a.chart.active.vms=Le nombre de machines virtuelles actives (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.network.usage.percent=% Utilisation R\u00E9seau 
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.cpu.usage=Utilisation CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.cpu.peak=Pic CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.memory.usage=Usage de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.memory.peak=Pic M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.number.of.vms=Nbre de VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.peak.number.of.vms=Nbre de Pic M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.rx=/Rx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.tx=/Tx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.series.tooltip.network={0}{1}, {2}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.host=L'h\u00F4te a \u00E9t\u00E9 supprim\u00E9 le {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter.and.host=Le centre de donn\u00E9es a \u00E9t\u00E9 supprim\u00E9 le {0} et l'h\u00F4te a \u00E9t\u00E9 supprim\u00E9 le {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.cluster.and.host=Le cluster a \u00E9t\u00E9 supprim\u00E9 le {0} et l'h\u00F4te a \u00E9t\u00E9 supprim\u00E9 le {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter.cluster.and.host=Le centre de donn\u00E9es a \u00E9t\u00E9 supprim\u00E9 le {0}, le cluster a \u00E9t\u00E9 supprim\u00E9 le {1} et l'h\u00F4te a \u00E9t\u00E9 supprim\u00E9 le {2}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.host.address=Adresse de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.memory.size=Taille de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.gb=Go
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.create.date=Date de cr\u00E9ation
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.delete.date=Date de suppression
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.cpu.model=Mod\u00E8le du processeur
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.number.of.cpu.cores=Nbre de Cores CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2a.title=Utilisation des ressources de <b>H\u00F4te {0}</b> (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.host.details=Information sur l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2a.chart.network.subtitle.lines=Taux de r\u00E9ception en ligne constructive; taux de transmission en ligne discontinue
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2.chart.network.subtitle.deleted=Les interfaces supprim\u00E9es sont marqu\u00E9es par des ast\u00E9risques
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2b.title=Utilisation des ressources de <b>H\u00F4te {0}</b> par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2c.title=Utilisation des ressources de <b>H\u00F4te {0}</b> par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2b.chart.cpu.usage=Utilisation CPU par Jours de la semaine
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document adhoc_messages
+axis.day=Jour
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2b.chart.memory.usage=Utilisation m\u00E9moire par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2b.chart.active.vms=Nombre de machines virtuelles actives par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2b.chart.network.usage=Utilisation des trois interfaces de r\u00E9seau les plus charg\u00E9es par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.hour.of.day=Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2c.chart.active.vms=Nombre de machines virtuelles actives par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2c.chart.cpu.usage=Utilisation CPU par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2c.chart.memory.usage=Utilisation m\u00E9moire par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br2c.chart.network.usage=Utilisation des trois interfaces de r\u00E9seau les plus charg\u00E9es par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br12.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br12.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br12.title=Cinq h\u00F4tes les moins utilis\u00E9s dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br11.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br11.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br11.title=Cinq h\u00F4tes les plus utilis\u00E9s dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br16.title=Utilisation des ressources sur plusieurs machines virtuelles (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br16.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br16.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br16.more.than.five.warning=Ce rapport affiche les donn\u00E9es pour un maximum de cinq machines virtuelles. Veuillez appuyer sur \u00ABModifier Param\u00E8tres\u00BB et s\u00E9lectionner cinq machines virtuelles ou moins.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br3.more.than.five.warning=Ce rapport affiche les donn\u00E9es pour un maximum de cinq h\u00F4tes. Veuillez appuyer sur \u00ABModifier Param\u00E8tres\u00BB et s\u00E9lectionner cinq machines virtuelles ou moins.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.vms.names=Noms des machines virtuelles
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.title=Utilisation des ressources de <b>Machine Virtuelle {0}</b> (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.chart.network.usage=Utilisation des cinq interfaces de r\u00E9seau les plus charg\u00E9es (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.chart.disks.usage=Utilisation des cinq disques les plus charg\u00E9s (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10b.title=Utilisation des ressources de <b>Machine Virtuelle {0}</b> par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10c.title=Utilisation des ressources de <b>Machine Virtuelle {0}</b> par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10b.chart.network.usage=Utilisation des trois interfaces de r\u00E9seau les plus charg\u00E9es par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10c.chart.network.usage=Utilisation des trois interfaces de r\u00E9seau les plus charg\u00E9es par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10b.chart.memory.usage=Utilisation m\u00E9moire par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10c.chart.memory.usage=Utilisation m\u00E9moire par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10b.chart.disks.usage=Utilisation des cinq disques les plus charg\u00E9s par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10c.chart.disks.usage=Utilisation des cinq disques les plus charg\u00E9s par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10b.chart.cpu.usage=Utilisation CPU par Jours de la semaine
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10c.chart.cpu.usage=Utilisation CPU par Heure de la journ\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.network.subtitle.deleted=Les interfaces supprim\u00E9es sont marqu\u00E9es par des ast\u00E9risques
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.chart.network.subtitle.lines=Taux de r\u00E9ception en ligne constructive; taux de transmission en ligne discontinue
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.disks.subtitle.deleted=Les disques supprim\u00E9s sont marqu\u00E9s par des ast\u00E9risques
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10a.chart.disks.subtitle.lines=Taux de Lecture en ligne constructive; \u00C9criture en ligne discontinue
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.disks.usage.mb.pre.second=Utilisation Disque MB/s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.cpu.peak=Pic CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.cpu.usage=Utilisation CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.memory.peak=Pic M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.memory.usage=Usage de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.rx=/Rx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.tx=/Tx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.tooltip.network={0}{1}, {2}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.write=/\u00C9criture
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.read=/Lecture
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br10.chart.series.tooltip.disks={0}{1}, {2}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.cluster.and.vm=Le cluster a \u00E9t\u00E9 supprim\u00E9 le {0} et la machine virtuelle a \u00E9t\u00E9 supprim\u00E9e le {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter.and.vm=Le centre de donn\u00E9es a \u00E9t\u00E9 supprim\u00E9 le {0} et la machine virtuelle a \u00E9t\u00E9 supprim\u00E9e le {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.datacenter.cluster.and.vm=Le centre de donn\u00E9es a \u00E9t\u00E9 supprim\u00E9 le {0}, le cluster a \u00E9t\u00E9 supprim\u00E9 le {1} et la machine virtuelle a \u00E9t\u00E9 supprim\u00E9e le {2}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.deleted.comment.vm=La machine virtuelle a \u00E9t\u00E9 supprim\u00E9e le {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.vm.details=D\u00E9tails de la machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.number.of.vm.cores=Nbre vCores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.vm.high.availability=Haute disponiblit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.os=Syst\u00E8me d'exploitation
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.meter.title=Total Dur\u00E9e d'activit\u00E9 des h\u00F4tes du cluster
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br7.meter.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.meter.planned.downtime=Temps morts pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.meter.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.table.title=D\u00E9tail des temps morts des h\u00F4tes du cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br7.table.host.name=Nom de l'h\u00F4te
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br7.table.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.table.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.table.planned.downtime=Temps morts pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7.title=Temps d'activit\u00E9 dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br8.meter.title=Temps d'activit\u00E9 de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br8.meter.planned.downtime=Temps morts pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br8.meter.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br8.meter.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br8.title=Temps d'activit\u00E9 de l'<b>H\u00F4te {0}</b> 
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br7b.table.host.name=Nom de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7b.table.planned.downtime=Temps morts pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7b.table.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br7b.table.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7b.table.short.delete.date=Date Suppr.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7b.title=H\u00F4tes avec le plus haut temps mort dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br6.table.host.name=Nom de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.table.time.above.cpu.threshold=Temps au dessus de la limite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.table.time.above.memory.threshold=Temps au dessus de la limite de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.table.delete.date=Date de suppression
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+b6.table.cluster.average=Moyenne sur le cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.pie.average.time.below.threshold=Temps moyen sous la limite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.pie.average.time.above.threshold=Temps moyen au dessus de la limite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6.title=Qualit\u00E9 du service des h\u00F4tes dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.cpu.threshold=Limite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.memory.threshold=Limite de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.chart.cpu=CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br13.chart.memory=M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.pie.average.time.above.threshold=Temps moyen au dessus de la limite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.pie.average.time.below.threshold=Temps moyen sous la limite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.table.delete.date=Date de suppression
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.table.vm.name=Nom de la machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.table.time.above.cpu.threshold=Temps au dessus de la limite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.table.time.above.memory.threshold=Temps au dessus de la limite de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br13.title=Qualit\u00E9 du service des machines virtuelles dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.short.show.deleted.vms=Afficher les VM supprim\u00E9es
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14.meter.title=Total Temps d'activit\u00E9 des machines virtuelles du cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14.meter.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br14.meter.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14.table.vm.name=Nom de la machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14.table.title=D\u00E9tail des temps morts des serveurs virtuels haute disponibilit\u00E9 du cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14.table.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br14.table.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14.title=Temps d'activit\u00E9 des serveurs virtuels \u00E0 haute disponibilit\u00E9 dans <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18a.chart.active.vms.os=SE des machines virtuelles actives sur la dur\u00E9e
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+br18a.table.date=Date
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br18a.table.os.version=Version du SE
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br18a.table.number.of.vms=Nbre de VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7a.title=Temps d'activit\u00E9 des h\u00F4tes du cluster
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br7a.table.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7a.table.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br7a.table.planned.downtime=Temps morts pr\u00E9vus
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br7a.table.cluster.name=Nom du Custer
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.title=Qualit\u00E9 du service des h\u00F4tes par cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br6b.table.cluster.name=Nom du Custer
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.table.sample.time.below.cpu.threshold=Exemple d'heure en dessous de la limite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.table.sample.time.above.cpu.threshold=Exemple d'heure au dessus de la limite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.table.sample.time.below.memory.threshold=Exemple d'heure en dessous de la limite de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.table.sample.time.above.memory.threshold=Exemple d'heure au dessus de la limite de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.table.delete.date=Date de suppression
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.legend.below.threshold=Sous la limite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br6b.legend.above.threshold=Au dessus de la limite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br4b.title=Les cinq h\u00F4tes les plus utilis\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br4b.chart.hosts.cpu.usage=Usage CPU des h\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br4b.chart.hosts.memory.usage=Utilisation M\u00E9moire H\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br11b.title=Les Cinq Machines virtuelles les plus utilis\u00E9es
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br11b.chart.vms.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br11b.chart.vms.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br22b.title=D\u00E9tail SE H\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br23.title=Utilisation moyenne du Disque du Domaine de stockage 
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.storage.domain.names=Domaines de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br17b.title=R\u00E9capitulatif de l'utilisation des ressources de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14a.title=Temps d'activit\u00E9 des serveurs virtuels \u00E0 haute disponibilit\u00E9 du cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+br14a.table.cluster.name=Nom du Custer
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+br14a.table.unplanned.downtime=Temps morts non pr\u00E9vus
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
+br14a.table.uptime=Temps d'activit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+full.details.removed.on.message=Supprim\u00E9 de {0}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+b13.table.cluster.average=Moyenne sur le cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr29.title=Capacit\u00E9 Cluster vs Usage - Cores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr30.title=Capacit\u00E9 Cluster vs Usage - M\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
+dr.count.list.vms=Machines virtuelles
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr.count.list.hosts=H\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr13.text=Statut du temps d'activit\u00E9 des <b>Machines virtuelles</b> \u00E0 haute disponibilit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr12.text=Statut des ressources des <b>H\u00F4tes</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr6.text=Statut du temps d'activit\u00E9 des <b>H\u00F4tes</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr28.title=R\u00E9capitulatif de l'utilisation des ressources des h\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr23.title=Les cinq h\u00F4tes les plus charg\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.hosts.names=Noms des h\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.resources.usage=% d'utilisation des ressources
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr24.title=Les cinq h\u00F4tes les moins charg\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr14.text=Statut de sur-validation des <b>Machines virtuelles</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr20.title=Temps mort des cinq meilleurs serveurs virtuels \u00E0 haute disponibilit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.vms.names=Noms des machines virtuelles
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.time.percent=Dur\u00E9e %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr19.title=Temps d'activit\u00E9 des cinq meilleurs serveurs virtuels \u00E0 haute disponibilit\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr18.title=Les cinq h\u00F4tes avec le plus de temps morts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr17.title=Les cinq h\u00F4tes avec le moins de temps morts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr21.title=Les cinq clusters avec les clusters les plus charg\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.clusters.names=Les noms des clusters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr22.title=Les cinq clusters les plus charg\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr.count.list.clusters=Clusters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr11.text=Statut des ressources des <b>H\u00F4tes</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr5.text=Statut du temps d'activit\u00E9 des <b>H\u00F4tes</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr8.text=Statut des <b>Domaines de stockage</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr27.title=R\u00E9capitulatif de l'utilisation des ressources des h\u00F4tes du cluster
+axis.used.free.storage.size.percent=% Taille du stockage Disponible\\Utillis\u00E9
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr26.title=Les cinq domaines de stockage les plus utilis\u00E9s
+dr26.chart.available.size.percent=% Taille Disponible
+dr26.chart.used.size.percent=% Taille Utilis\u00E9e
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr25.title=Les cinq 'machines virtuelles' de clusters avec le plus de sur-validation
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+axis.over.commit.percent=% sur-validation
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr15.title=Les cinq h\u00F4tes avec le plus de l'activit\u00E9 de clusters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr16.title=Les cinq h\u00F4tes avec le plus de temps morts de clusters
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author croe
+dr.count.list.dcs=Centres de donn\u00E9es
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr10.text=Statut des ressources des <b>H\u00F4tes</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr4.text=Statut du temps d'activit\u00E9 des <b>H\u00F4tes</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+dr7.text=Statut des <b>Domaines de stockage</b>
+inventory.dashboard.title=Tableau de bord de l'inventaire du <font color\="\#333333">Data Center {0}</font>
+system.overview.dashboard.title=Tableau de bord syst\u00E8me du <font color\="\#333333">Data Center {0}</font>
+trends.dashboard.title=Tableau de bord des tendances du <font color\="\#333333">Data Center {0}</font>
+uptime.dashboard.title=Tableau de bord du temps d'activit\u00E9 <font color\="\#333333">Data Center {0}</font>

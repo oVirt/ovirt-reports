@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="ovirt_reports_bundle_zh_TW.properties.data">
+    <folder>/reports_resources/localization</folder>
+    <name>ovirt_reports_bundle_zh_TW.properties</name>
+    <version>0</version>
+    <label>ovirt_reports_bundle_zh_TW.properties</label>
+    <creationDate>2011-12-27T15:09:32.358+02:00</creationDate>
+    <updateDate>2011-12-27T15:09:32.358+02:00</updateDate>
+    <fileType>prop</fileType>
+</fileResource>

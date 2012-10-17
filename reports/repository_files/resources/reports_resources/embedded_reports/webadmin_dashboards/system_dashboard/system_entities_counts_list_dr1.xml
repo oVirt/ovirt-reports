@@ -27,12 +27,108 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_de.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_de.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_de.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-08-08T17:29:03.106+03:00</creationDate>
-            <updateDate>2012-07-02T17:28:09.631+03:00</updateDate>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_es.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_es.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_es.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_fr.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_fr.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_fr.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_ja.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_ja.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_ja.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_pt_BR.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_pt_BR.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_pt_BR.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_zh_CN.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_zh_CN.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_CN.properties</referenceUri>
+        </localResource>
+    </resource>
+	<resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
+            <name>ovirt_reports_bundle_zh_TW.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_zh_TW.properties</label>
+            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_TW.properties</referenceUri>
         </localResource>
     </resource>
     <resource>

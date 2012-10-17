@@ -1,0 +1,44 @@
+# translation auto-copied from project CFSE, version 1.1, document app, author snowlet
+axis.date=\u65E5\u671F
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author snowlet
+full.details.all=\u5168\u90E8
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+full.details.yes=\u662F
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+full.details.no=\u5426
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br1.table.os=OS
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br1.table.host.type=\u985E\u578B
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br9.table.vm.type=\u985E\u578B
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br9.table.os=OS
+# translation auto-copied from project CFSE, version 1.1, document app, author snowlet
+br22.table.date=\u65E5\u671F
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author snowlet
+br17.chart.memory=\u8A18\u61B6\u9AD4
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author snowlet
+br6.chart.memory=\u8A18\u61B6\u9AD4
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br7.meter.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br7.table.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br8.meter.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br7b.table.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author snowlet
+br13.chart.memory=\u8A18\u61B6\u9AD4
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br14.meter.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br14.table.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project CFSE, version 1.1, document app, author snowlet
+br18a.table.date=\u65E5\u671F
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br18a.table.os.version=OS \u7248\u672C
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br7a.table.uptime=\u958B\u6A5F\u6642\u9593
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author tchuang
+br14a.table.uptime=\u958B\u6A5F\u6642\u9593

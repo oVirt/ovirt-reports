@@ -1,0 +1,84 @@
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
+axis.date=Data
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
+full.details.clusters=Clusters
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author ldelima
+full.details.cluster=Cluster
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
+full.details.all=Todos
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+full.details.yes=Sim
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+full.details.no=N\u00E3o
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br1.table.os=SO
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
+br1.table.number.of.cores=\#Cores
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
+br1.table.cpu.type=Tipo da CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br1.table.host.type=Tipo
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br9.table.vm.type=Tipo
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br9.table.os=SO
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
+br9.table.number.of.cores=\#vCores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
+axis.number.of.host.cores=\#Cores
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
+axis.number.of.vm.cores=\#vCores
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
+br22.table.date=Data
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
+br17.chart.cpu=CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br17.chart.memory=Mem\u00F3ria
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
+br6.chart.cpu=CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br6.chart.memory=Mem\u00F3ria
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
+full.details.memory.size=Tamanho da Mem\u00F3ria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
+full.details.number.of.vm.cores=\#vCores
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
+full.details.vm.high.availability=Alta Disponibilidade
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br7.meter.uptime=Uptime
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br7.table.uptime=Uptime
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br8.meter.uptime=Uptime
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br7b.table.uptime=Uptime
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
+br13.chart.cpu=CPU
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br13.chart.memory=Mem\u00F3ria
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br14.meter.uptime=Uptime
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br14.table.uptime=Uptime
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
+br18a.table.date=Data
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
+br18a.table.os.version=Vers\u00E3o de SO
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br7a.table.uptime=Uptime
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
+br7a.table.cluster.name=Nome do Cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
+br6b.table.cluster.name=Nome do Cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
+br14a.table.cluster.name=Nome do Cluster
+# translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
+br14a.table.uptime=Uptime
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
+dr.count.list.vms=M\u00E1quinas Virtuais
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
+dr.count.list.hosts=Hosts
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
+dr.count.list.clusters=Clusters
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
+dr.count.list.dcs=Data Centers

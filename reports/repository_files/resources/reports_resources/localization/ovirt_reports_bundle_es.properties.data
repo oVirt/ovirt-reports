@@ -1,0 +1,592 @@
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+footer.pagination=P\u00E1gina {0} de {1}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18.chart.rhel.vs.other.linuxs=RHEL vs otros SO Linux
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.date=Fecha
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.number.of.vms=\#MVs
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18.chart.rhel.vs.windows=RHEL vs SO Windows
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18.chart.windows.distribution=Distribuci\u00F3n de versiones Windows
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18.chart.known.vs.unknown.os=M\u00E1quinas virtuales con SO conocidos vs SO desconocidos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18.title=M\u00E1quinas virtuales activas de SO en <b>{0}</b> de<b> Centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.clusters=Cl\u00FAsters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.cluster.and.name=Cl\u00FAster {0}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.criteria=Criterio
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+full.details.datacenter=Centro de datos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.date.range=Rango de datos
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+full.details.vm.type=Tipo MV
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+full.details.cluster=Cl\u00FAster 
+# translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author angelagarcia
+full.details.all=Todos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.period=Periodo
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.show.deleted.vms=Mostrar las m\u00E1quinas virtuales borradas
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.yes=Si
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.no=No
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter.and.cluster=El centro de datos se borr\u00F3 en {0} y el cl\u00FAster se borr\u00F3 en {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.cluster=El cl\u00FAster se borr\u00F3 en {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter=El centro de datos se borr\u00F3 en {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br1.table.host.name=Nombre del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.host.address=Direcci\u00F3n del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.os=SO
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.number.of.cores=\#N\u00FAcleos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.cpu.type=Tipo de CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.host.type=Tipo
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.short.memory.size=Tama\u00F1o de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.short.create.date=Fecha creaci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.short.delete.date=Fecha borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.table.gb=GB
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br1.title=Inventorio de hosts en <b>{0}</b> de <b>centro de dato {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.show.deleted.hosts=Mostrar hosts borrados
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+full.details.host.type=Tipo de host
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br9.table.vm.name=Nombre MV
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.template.name=Nombre de la plantilla
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.vm.type=Tipo
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.os=SO
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.short.memory.size=Tama\u00F1o de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.number.of.cores=\#vN\u00FAcleos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.create.date=Fecha de creaci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.delete.date=La fecha de borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.table.gb=GB
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br9.title=Inventorio de m\u00E1quinas virtuales en <b>{0}</b> de <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.number.of.host.cores=\#N\u00FAcleos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.number.of.vm.cores=\#vN\u00FAcleos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.memory.size.gb=Tama\u00F1o de la memoria (GB)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br19.chart.cores=N\u00FAmero promedio de n\u00FAcleos host vs vN\u00FAcleos de las m\u00E1quinas virtuales (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br19.chart.memory.size=Host promedio vs tama\u00F1o de memoria de las m\u00E1quinas virtuales (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.show.deleted.entities=Mostrar las entidades borradas
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br19.title=Capacidad del cl\u00FAster Vs. uso en <b>{0}</b> de <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br22.table.date=Fecha
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br22.table.host.os=Tipo de SO del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br22.host.count=Conteo de hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br22.chart.title.os.break.down=Desglose del sistema operativo de los hosts en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.number.of.running.hosts=\#Hosts en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br22.title=Desglose del SO host en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.cpu.usage.percent=Uso de la CPU %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.memory.usage.percent=Uso de la memoria %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br17.chart.cpu=CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br17.chart.memory=Memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br17.chart.active.hosts=Hosts activos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br17.chart.deleted.hosts=Hosts borrados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br17.title=Resumen del uso de hosts en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.storage.domain.size.gb=Tama\u00F1o de almacenamiento (GB)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br21.chart.size.of.storage.domain=Tama\u00F1o del dominio de almacenamiento (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br21.chart.available.size=Espacio disponible
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br21.chart.used.size=Espacio utilizado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.storage.type=Tipo de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br21.title=Tama\u00F1o durante el tiempo del <b>dominio de almacenamiento {0}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter.and.storage=El centro de datos se borr\u00F3 en {0} y el dominio de almacenamiento se borr\u00F3 en {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.storage=El  dominio de almacenamiento se borr\u00F3 en {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.chart.cpu=CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.chart.memory=Memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br5.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br5.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br5.title=Los cinco hosts menos utilizados en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br4.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br4.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br4.title=Los cinco hosts mas utilizados en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br3.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br3.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br3.title=Uso de recursos de m\u00FAltiples hosts (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.hosts.names=Nombres de hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2a.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2a.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2a.chart.network.usage=Uso de las cinco interfaces de red m\u00E1s ocupadas (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2a.chart.active.vms=N\u00FAmero de m\u00E1quinas virtuales activas (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.network.usage.percent=Uso de la red %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.cpu.usage=Uso de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.cpu.peak=Pico de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.memory.usage=Uso de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.memory.peak=Pico de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.number.of.vms=\#MVs
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.peak.number.of.vms=\#Pico de la MVs
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.rx=/Rx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.tx=/Tx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.series.tooltip.network={0}{1}, {2}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.host=El host se borr\u00F3 en {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter.and.host=El centro de datos se borr\u00F3 en {0} y el host se borr\u00F3 en {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.cluster.and.host=El cl\u00FAster se borr\u00F3 en {0} y el host se borr\u00F3 en {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter.cluster.and.host=El centro de datos se borr\u00F3 en {0}, el cl\u00FAster se borr\u00F3 en {1}  y el host se borr\u00F3 en {2}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.host.address=Direcci\u00F3n del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.memory.size=Tama\u00F1o de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.gb=GB
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.create.date=Fecha de creaci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.delete.date=La fecha de borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.cpu.model=Modelo de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.number.of.cpu.cores=\#N\u00FAcleos CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2a.title=Uso de recursos de <b>Host {0}</b> (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.host.details=Detalles del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2a.chart.network.subtitle.lines=Recibir tasa en l\u00EDnea consecutiva; tasa de trasmisi\u00F3n en l\u00EDnea puenteada
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2.chart.network.subtitle.deleted=Las interfaces borradas est\u00E1n marcadas con asteriscos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2b.title=Uso de recursos de <b>Host {0}</b> por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2c.title=Uso de recursos de <b>Host {0}</b> por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2b.chart.cpu.usage=Uso de la CPU por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.day=Dia
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2b.chart.memory.usage=Uso de la memoria por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2b.chart.active.vms=N\u00FAmero de m\u00E1quinas virtuales activas por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2b.chart.network.usage=Uso de las tres interfaces de red m\u00E1s ocupadas por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.hour.of.day=Hora del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2c.chart.active.vms=N\u00FAmero de m\u00E1quinas virtuales activas por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2c.chart.cpu.usage=Uso de la CPU por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2c.chart.memory.usage=Uso de la memoria por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br2c.chart.network.usage=Uso de las tres interfaces de red m\u00E1s ocupadas por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br12.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br12.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br12.title=Las cinco m\u00E1quinas virtuales menos utilizadas en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br11.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br11.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br11.title=Las cinco m\u00E1quinas virtuales m\u00E1s utilizadas en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br16.title=Uso de recursos de m\u00FAltiples m\u00E1quinas virtuales (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br16.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br16.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br16.more.than.five.warning=Este reporte preenta datos para hasta cinco m\u00E1quinas virtuales. Presione 'Modificar par\u00E1metros' y seleccione cinco m\u00E1quinas virtuales o menos.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br3.more.than.five.warning=Este reporte preenta datos para hasta cinco hosts. Presione 'Modificar par\u00E1metros' y seleccione cinco hosts o menos.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.vms.names=Nombres m\u00E1quinas virtuales
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.title=Uso de recursos de <b>M\u00E1quina virtual {0}</b> (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.chart.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.chart.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.chart.network.usage=Uso de las cinco interfaces de red m\u00E1s ocupadas (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.chart.disks.usage=Uso de los cinco discos m\u00E1s ocupados (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10b.title=Uso de recursos de <b>M\u00E1quina virtual {0}</b> por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10c.title=Uso de recursos de <b>M\u00E1quina virtual {0}</b> por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10b.chart.network.usage=Uso de las tres interfaces de red m\u00E1s ocupadas por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10c.chart.network.usage=Uso de las tres interfaces de red m\u00E1s ocupadas por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10b.chart.memory.usage=Uso de la memoria por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10c.chart.memory.usage=Uso de la memoria por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10b.chart.disks.usage=Uso de los cinco discos m\u00E1s ocupados por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10c.chart.disks.usage=Uso de los cinco discos m\u00E1s ocupados por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10b.chart.cpu.usage=Uso de la CPU por d\u00EDas de la semana
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10c.chart.cpu.usage=Uso de la CPU por horas del d\u00EDa
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.network.subtitle.deleted=Las interfaces borradas est\u00E1n marcadas con asteriscos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.chart.network.subtitle.lines=Recibir tasa en l\u00EDnea consecutiva; tasa de trasmisi\u00F3n en l\u00EDnea puenteada
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.disks.subtitle.deleted=Los discos borrados est\u00E1n marcados con asteriscos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10a.chart.disks.subtitle.lines=Leer tasa en l\u00EDnea consecutiva; escribir tasa en l\u00EDnea puenteada
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.disks.usage.mb.pre.second=Uso del disco MB/s
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.cpu.peak=Pico de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.cpu.usage=Uso de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.memory.peak=Pico de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.memory.usage=Uso de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.rx=/Rx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.tx=/Tx
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.tooltip.network={0}{1}, {2}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.write=/Escribir
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.read=/Leer
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br10.chart.series.tooltip.disks={0}{1}, {2}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.cluster.and.vm=El cl\u00FAster se borr\u00F3 en {0} y la m\u00E1quina virtual se borr\u00F3 en {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter.and.vm=El centro de datos se borr\u00F3 en {0} y la m\u00E1quina virtual se borr\u00F3 en {1}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.datacenter.cluster.and.vm=El centro de datos se borr\u00F3 en {0}, el cl\u00FAster se borr\u00F3 en {1}  y la m\u00E1quina virtual se borr\u00F3 en {2}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.deleted.comment.vm=La m\u00E1quina virtual se borr\u00F3 en {0}.
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.vm.details=Detalles de la m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.number.of.vm.cores=\#vN\u00FAcleos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.vm.high.availability=Alta disponibilidad
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.os=Sistema operativo
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.meter.title=Tiempo total en ejecuci\u00F3n de los hosts del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.meter.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.meter.planned.downtime=Tiempo apagado planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.meter.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.table.title=Desglose del tiempo apagado de los hosts del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br7.table.host.name=Nombre del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.table.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.table.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.table.planned.downtime=Tiempo apagado planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7.title=Tiempo en ejecucic\u00F3n de los hosts en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br8.meter.title=Tiempo en ejecuci\u00F3n del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br8.meter.planned.downtime=Tiempo apagado planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br8.meter.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br8.meter.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br8.title=Tiempo en ejecuci\u00F3n de <b>Host {0}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br7b.table.host.name=Nombre del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7b.table.planned.downtime=Tiempo apagado planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7b.table.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7b.table.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7b.table.short.delete.date=Fecha borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7b.title=Los 10 hosts apagados superiores en <b>{0}</b> de <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br6.table.host.name=Nombre del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.table.time.above.cpu.threshold=Tiempo por encima del l\u00EDmite de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.table.time.above.memory.threshold=Tiempo por encima del l\u00EDmite de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.table.delete.date=La fecha de borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+b6.table.cluster.average=Cl\u00FAster promedio
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.pie.average.time.below.threshold=Tiempo por debajo del l\u00EDmite promedio
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.pie.average.time.above.threshold=Tiempo promedio por encima del l\u00EDmite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6.title=Calidad del servicio de los hosts en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.cpu.threshold=L\u00EDmite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.memory.threshold=L\u00EDmite memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.chart.cpu=CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.chart.memory=Memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.pie.average.time.above.threshold=Tiempo promedio por encima del l\u00EDmite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.pie.average.time.below.threshold=Tiempo por debajo del l\u00EDmite promedio
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.table.delete.date=La fecha de borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.table.vm.name=Nombre m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.table.time.above.cpu.threshold=Tiempo por encima del l\u00EDmite de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.table.time.above.memory.threshold=Tiempo por encima del l\u00EDmite de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br13.title=Calidad del servicio de las m\u00E1quinas virtuales en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.short.show.deleted.vms=Mostrar MVs borradas
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.meter.title=Tiempo total en ejecuci\u00F3n de las m\u00E1quinas virtuales del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.meter.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.meter.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.table.vm.name=Nombre m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.table.title=Desglose del tiempo apagado de la alta disponibilidad de los servidores virtuales del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.table.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.table.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14.title=Tiempo de ejecuci\u00F3n de los servidores virtuales de alta disponibilidad en <b>{0}</b> del <b>centro de datos {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18a.chart.active.vms.os=Tiempo del SO de las m\u00E1quinas virtuales activas
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18a.table.date=Fecha
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18a.table.os.version=Versi\u00F3n SO 
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br18a.table.number.of.vms=\#MVs
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7a.title=Tiempo en ejecuci\u00F3n de los hosts del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7a.table.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7a.table.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br7a.table.planned.downtime=Tiempo apagado planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br7a.table.cluster.name=Nombre del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.title=Calidad del servicio de los hosts por cl\u00FAsters
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br6b.table.cluster.name=Nombre del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.table.sample.time.below.cpu.threshold=Tiempo de ejemplo por debajp del l\u00EDmite de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.table.sample.time.above.cpu.threshold=Tiempo de ejemplo por encima del l\u00EDmite de la CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.table.sample.time.below.memory.threshold=Tiempo de ejemplo por debajo del l\u00EDmite de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.table.sample.time.above.memory.threshold=Tiempo de ejemplo por encima del l\u00EDmite de la memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.table.delete.date=La fecha de borrado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.legend.below.threshold=Por debajo del l\u00EDmite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br6b.legend.above.threshold=Por encima del l\u00EDmite
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br4b.title=Los cinco hosts m\u00E1s utilizados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br4b.chart.hosts.cpu.usage=Uso de la CPU de los hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br4b.chart.hosts.memory.usage=Uso de la memoria de los hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br11b.title=La cinco m\u00E1quinas virtuales m\u00E1s utilizadas
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br11b.chart.vms.memory.usage=Uso de la memoria (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br11b.chart.vms.cpu.usage=Uso de la CPU (tiempo)
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br22b.title=Desglose SO de los hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br23.title=Uso promedio del disco del dominio de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.storage.domain.names=Dominios de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br17b.title=Resumen del uso de los recursos del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14a.title=Tiempo de ejecuci\u00F3n de los servidores virtuales de alta disponibilidad 
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+br14a.table.cluster.name=Nombre del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14a.table.unplanned.downtime=Tiempo apagado no planeado
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+br14a.table.uptime=Tiempo en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+full.details.removed.on.message=Borrado en {0}
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+b13.table.cluster.average=Cl\u00FAster promedio
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr29.title=Capacidad del cl\u00FAster Vs. uso - n\u00FAcleos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr30.title=Capacidad del cl\u00FAster Vs. uso - memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
+dr.count.list.vms=M\u00E1quinas virtuales
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr.count.list.hosts=Hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr13.text=Estatus del tiempo de ejecuci\u00F3n de las  <b>m\u00E1quinas virtuales</b> de alta disponibilidad
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr12.text=Estatus de los recursos <b>Hosts</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr6.text=Estatus de ejecuci\u00F3n des <b>Hosts</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr28.title=Resumen del uso de los recursos del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr23.title=Los cinco hosts m\u00E1s ocupados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.hosts.names=Nombres de los hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.resources.usage=Uso de los recursos %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr24.title=Los cinco hosts menos ocupados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr14.text=<b>M\u00E1quinas virtuales</b> en estatus de guardar los cambios
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr20.title=Tiempo de apagado de los servidores virtuales de alta disponibilidad - los cinco primeros
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.vms.names=Nombres m\u00E1quinas virtuales
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.time.percent=Tiempo %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr19.title=Tiempo de ejecuci\u00F3n de los servidores virtuales de alta disponibilidad - los cinco primeros
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr18.title=Los cinco primeros hosts apagados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr17.title=Los cinco primeros hosts en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr21.title=Los cinco cl\u00FAsters m\u00E1s ocupados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.clusters.names=Nombres de los cl\u00FAsters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr22.title=Los cinco cl\u00FAsters menos ocupados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr.count.list.clusters=Cl\u00FAsters
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr11.text=Estatus de los recursos <b>Hosts</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr5.text=Estatus de ejecuci\u00F3n des <b>Hosts</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr8.text=Estatus de espacio de los <b>dominios de almacenamiento</b> 
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr27.title=Resumen del uso de los recursos del host delk cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr26.title=Los cinco dominios de almacenamiento m\u00E1s utilizados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr25.title=Las cinco m\u00E1quinas virtuales de los cl\u00FAster que guardaron cambios
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+axis.over.commit.percent=Guardar cambios %
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr15.title=Los cinco primeros cl\u00FAsters en ejecuci\u00F3n
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr16.title=Los cinco primeros cl\u00FAsters apagados
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr.count.list.dcs=Centros de datos
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr10.text=Estatus de los recursos <b>Hosts</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr4.text=Estatus de ejecuci\u00F3n des <b>Hosts</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
+dr7.text=Estatus de espacio de los <b>dominios de almacenamiento</b> 

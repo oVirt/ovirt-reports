@@ -5,5 +5,13 @@
     <label>Localization Files</label>
     <creationDate>2011-12-27T15:09:23.119+02:00</creationDate>
     <updateDate>2011-11-21T13:20:55.913+02:00</updateDate>
+    <resource>ovirt_reports_bundle.properties</resource>
+    <resource>ovirt_reports_bundle_de.properties</resource>
     <resource>ovirt_reports_bundle_en_US.properties</resource>
+    <resource>ovirt_reports_bundle_es.properties</resource>
+    <resource>ovirt_reports_bundle_fr.properties</resource>
+    <resource>ovirt_reports_bundle_ja.properties</resource>
+    <resource>ovirt_reports_bundle_pt_BR.properties</resource>
+    <resource>ovirt_reports_bundle_zh_CN.properties</resource>
+    <resource>ovirt_reports_bundle_zh_TW.properties</resource>
 </folder>

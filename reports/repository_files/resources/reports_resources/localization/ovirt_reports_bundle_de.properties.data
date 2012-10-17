@@ -1,0 +1,20 @@
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+footer.pagination=Seite {0} von {1}
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+axis.date=Datum
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document adhoc_messages
+full.details.all=Alle
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document querybuilder_messages
+full.details.yes=Ja
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document querybuilder_messages
+full.details.no=Nein
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+br1.table.host.type=Typ
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+br9.table.vm.type=Typ
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+br22.table.date=Datum
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document adhoc_messages
+axis.day=Tag
+# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+br18a.table.date=Datum
