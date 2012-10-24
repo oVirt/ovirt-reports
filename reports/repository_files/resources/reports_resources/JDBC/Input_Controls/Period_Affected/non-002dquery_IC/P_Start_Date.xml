@@ -22,7 +22,7 @@
             <language>sql</language>
             <queryString>SELECT DISTINCT  CASE
                                   WHEN $P{P_Period} = 'Daily' THEN cast(o.the_date as date)
-                                   ELSE date_trunc('month', o.the_date)
+                                   ELSE cast(date_trunc('month', o.the_date) as date)
                            END as active_months,
                            CASE
                                    WHEN $P{P_Period} = 'Daily' THEN cast(cast(o.the_date as date) as varchar)
