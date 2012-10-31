@@ -57,7 +57,7 @@ FROM  (SELECT a.vm_id,
             <textField>
                 <reportElement uuid="8765321d-b97f-4e6e-9ce4-7c24bf500622" x="0" y="0" width="387" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="16"/>
+                    <font fontName="SansSerif" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr14.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates hosts' CPUs number and memory size averages and running virtual machines' total vCPUs number and total memory size averages. Displays check mark if hosts' memory available is more than three times less then committed to running virtual machines and hosts' CPUs are more than two times less than the committed running virtual machines vCPUs, otherwise displays X mark.\nThis query is calculated from the hosts' and virtual machines' statistics samples views for the selected cluster."]]></hyperlinkTooltipExpression>

@@ -16,21 +16,21 @@
             <textField>
                 <reportElement x="176" y="0" width="119" height="14"/>
                 <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{br7a.table.unplanned.downtime}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="66" y="0" width="95" height="14"/>
                 <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{br7a.table.planned.downtime}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="11" y="0" width="42" height="14"/>
                 <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{br7a.table.uptime}]]></textFieldExpression>
             </textField>

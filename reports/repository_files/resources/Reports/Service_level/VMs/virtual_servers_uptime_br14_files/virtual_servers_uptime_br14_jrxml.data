@@ -106,7 +106,7 @@ HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coa
                 <textField>
                     <reportElement x="0" y="0" width="223" height="31" forecolor="#3A5E75"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                        <font fontName="DejaVu Sans" size="13" isBold="true"/>
+                        <font fontName="SansSerif" size="13" isBold="true"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$R{br14.meter.title}]]></textFieldExpression>
                 </textField>
@@ -148,7 +148,7 @@ HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coa
                 <textField>
                     <reportElement x="0" y="262" width="158" height="15"/>
                     <textElement markup="none">
-                        <font fontName="DejaVu Sans" size="12" isBold="true"/>
+                        <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$R{br14.meter.unplanned.downtime} + ":"]]></textFieldExpression>
                 </textField>
@@ -157,7 +157,7 @@ HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coa
                         <printWhenExpression><![CDATA[(new Double($F{unplanned_downtime_mins}.doubleValue() / $F{total}.doubleValue())).toString() != "null"]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right">
-                        <font fontName="DejaVu Sans" size="12" isBold="false"/>
+                        <font fontName="SansSerif" size="12" isBold="false"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[new Double($F{unplanned_downtime_mins}.doubleValue() / $F{total}.doubleValue())]]></textFieldExpression>
                 </textField>
@@ -166,14 +166,14 @@ HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coa
                         <printWhenExpression><![CDATA[(new Double( $F{uptime_mins}.doubleValue() / $F{total}.doubleValue() )).toString() != "null"]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right">
-                        <font fontName="DejaVu Sans" size="12" isBold="true"/>
+                        <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[new Double( $F{uptime_mins}.doubleValue() / $F{total}.doubleValue() )]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="0" y="240" width="105" height="17" forecolor="#3A5E75"/>
                     <textElement markup="none">
-                        <font fontName="DejaVu Sans" size="12" isBold="true"/>
+                        <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$R{br14.meter.uptime} + ":"]]></textFieldExpression>
                 </textField>
@@ -208,7 +208,7 @@ HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coa
             <textField pattern="">
                 <reportElement x="554" y="27" width="278" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -223,7 +223,7 @@ HAVING SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view.vm_status = 1 THEN coa
             <textField evaluationTime="Auto">
                 <reportElement x="291" y="2" width="250" height="15"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

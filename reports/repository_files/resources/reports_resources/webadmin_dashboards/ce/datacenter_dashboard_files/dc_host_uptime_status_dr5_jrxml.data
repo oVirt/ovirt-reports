@@ -21,7 +21,7 @@ WHERE v3_0_latest_cluster_configuration_view.datacenter_id = CAST($P{P_DataCente
             <textField>
                 <reportElement uuid="4ccabe9d-6e27-4c32-86eb-ac4000adc105" x="0" y="0" width="370" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="16"/>
+                    <font fontName="SansSerif" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr5.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the selected datacenter."]]></hyperlinkTooltipExpression>

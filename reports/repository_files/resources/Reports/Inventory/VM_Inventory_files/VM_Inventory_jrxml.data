@@ -105,56 +105,56 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                     <textField>
                         <reportElement x="239" y="0" width="98" height="20"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.template.name}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="53" y="0" width="100" height="20"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.vm.name}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="587" y="0" width="50" height="20"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.number.of.cores}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="383" y="0" width="45" height="20"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.vm.type}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="435" y="0" width="58" height="20"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.os}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="517" y="0" width="65" height="20"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.short.memory.size}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="731" y="0" width="80" height="20"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.delete.date}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="640" y="0" width="84" height="20"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[$R{br9.table.create.date}]]></textFieldExpression>
                     </textField>
@@ -184,7 +184,7 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
             <textField pattern="">
                 <reportElement x="504" y="27" width="328" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -204,7 +204,7 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                 <textField isBlankWhenNull="true">
                     <reportElement x="383" y="0" width="45" height="18"/>
                     <textElement verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{vm_type}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{vm_type}]]></hyperlinkTooltipExpression>
@@ -212,7 +212,7 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                 <textField isBlankWhenNull="true">
                     <reportElement x="239" y="0" width="139" height="18"/>
                     <textElement verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{template_name}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{template_name}]]></hyperlinkTooltipExpression>
@@ -222,14 +222,14 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                         <printWhenExpression><![CDATA[$F{vm_memsize} != 0 && $F{vm_memsize} != null]]></printWhenExpression>
                     </reportElement>
                     <textElement verticalAlignment="Middle" markup="none">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$R{br9.table.gb}]]></textFieldExpression>
                 </textField>
                 <textField isBlankWhenNull="true">
                     <reportElement x="53" y="0" width="180" height="18"/>
                     <textElement verticalAlignment="Middle" markup="html">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{vm_name}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{vm_name}]]></hyperlinkTooltipExpression>
@@ -239,14 +239,14 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                         <printWhenExpression><![CDATA[$F{vm_memsize} != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{vm_memsize}]]></textFieldExpression>
                 </textField>
                 <textField isBlankWhenNull="true">
                     <reportElement x="435" y="0" width="78" height="18"/>
                     <textElement verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
@@ -256,7 +256,7 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                         <printWhenExpression><![CDATA[$F{vm_cpucores} != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{vm_cpucores}]]></textFieldExpression>
                 </textField>
@@ -269,14 +269,14 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
                 <textField isBlankWhenNull="true">
                     <reportElement x="640" y="0" width="84" height="18"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{create_date})]]></textFieldExpression>
                 </textField>
                 <textField isBlankWhenNull="true">
                     <reportElement x="731" y="0" width="80" height="18"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{delete_date})]]></textFieldExpression>
                 </textField>
@@ -293,7 +293,7 @@ ORDER BY v3_0_vm_configuration_view.cluster_id, v3_0_vm_configuration_view.delet
             <textField evaluationTime="Auto">
                 <reportElement x="221" y="0" width="391" height="15"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

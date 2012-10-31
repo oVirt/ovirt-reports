@@ -25,7 +25,7 @@ WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
                     <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
                 </reportElement>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="13" isBold="false"/>
+                    <font fontName="SansSerif" size="13" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{cluster_name} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + " (" + msg($R{full.details.removed.on.message}, DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})) + ")" : ""]]></textFieldExpression>
             </textField>
@@ -40,7 +40,7 @@ WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
                     <printWhenExpression><![CDATA[$F{delete_date} == null]]></printWhenExpression>
                 </reportElement>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="13" isBold="false"/>
+                    <font fontName="SansSerif" size="13" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{cluster_name} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} : ""]]></textFieldExpression>
             </textField>

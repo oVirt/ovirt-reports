@@ -122,7 +122,7 @@ order by $P!{calendar_column}]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br4b.chart.hosts.cpu.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle/>
@@ -173,10 +173,10 @@ order by $P!{calendar_column}]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -193,7 +193,7 @@ order by $P!{calendar_column}]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br4b.chart.hosts.memory.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle/>
@@ -244,10 +244,10 @@ order by $P!{calendar_column}]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -261,7 +261,7 @@ order by $P!{calendar_column}]]>
             <textField>
                 <reportElement x="0" y="0" width="831" height="20" forecolor="#3A5E75"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                    <font fontName="SansSerif" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{br4b.title}]]></textFieldExpression>
             </textField>

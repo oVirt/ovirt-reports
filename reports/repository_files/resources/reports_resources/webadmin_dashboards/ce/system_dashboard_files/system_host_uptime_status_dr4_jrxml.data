@@ -15,7 +15,7 @@ FROM v3_0_host_samples_history_view INNER JOIN v3_0_latest_host_configuration_vi
             <textField>
                 <reportElement uuid="8c74a391-0006-46e4-8a6d-5b7a18a896f6" x="0" y="0" width="370" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="16"/>
+                    <font fontName="SansSerif" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr4.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the system."]]></hyperlinkTooltipExpression>

@@ -398,14 +398,14 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br10b.chart.memory.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartSubtitle>
                         <chartLegend>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -435,13 +435,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                     <barPlot>
                         <plot/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -452,10 +452,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -474,15 +474,15 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br10b.chart.network.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <subtitleExpression><![CDATA[$P{is_deleted}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.network.subtitle.deleted}]]></subtitleExpression>
                         </chartSubtitle>
                         <chartLegend>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -512,13 +512,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                     <barPlot>
                         <plot/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -529,10 +529,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -551,15 +551,15 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br10b.chart.disks.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <subtitleExpression><![CDATA[$P{is_deleted}.contains("AND".subSequence(0,2)) ? null :  $R{br10.chart.disks.subtitle.deleted}]]></subtitleExpression>
                         </chartSubtitle>
                         <chartLegend>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -589,13 +589,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                     <barPlot>
                         <plot/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -606,10 +606,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -627,14 +627,14 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br10b.chart.cpu.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartSubtitle>
                         <chartLegend>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -658,13 +658,13 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                     <barPlot>
                         <plot/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -675,10 +675,10 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666" verticalTickLabels="false">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -723,7 +723,7 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
             <textField pattern="">
                 <reportElement x="546" y="27" width="286" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -738,7 +738,7 @@ order by extract(DOW from $P!{calendar_column}) ASC]]>
             <textField evaluationTime="Auto">
                 <reportElement x="286" y="1" width="260" height="13"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

@@ -128,14 +128,14 @@ order by $P!{calendar_column}]]>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E7E">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                         <titleExpression><![CDATA[$R{br22.chart.title.os.break.down}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <timeSeriesDataset timePeriod="Hour">
@@ -154,10 +154,10 @@ order by $P!{calendar_column}]]>
                     <timeAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </timeAxisFormat>
@@ -165,10 +165,10 @@ order by $P!{calendar_column}]]>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>
@@ -180,7 +180,7 @@ order by $P!{calendar_column}]]>
             <textField pattern="">
                 <reportElement x="568" y="27" width="264" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -195,21 +195,21 @@ order by $P!{calendar_column}]]>
             <textField>
                 <reportElement mode="Opaque" x="115" y="0" width="617" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    <font fontName="SansSerif" size="11" isBold="true"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA["  " + $R{br22.table.host.os}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement mode="Opaque" x="732" y="0" width="100" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    <font fontName="SansSerif" size="11" isBold="true"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[$R{br22.host.count}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement mode="Opaque" x="0" y="0" width="115" height="20" forecolor="#000000" backcolor="#D8E2FF"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                    <font fontName="SansSerif" size="11" isBold="true"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[$R{br22.table.date}]]></textFieldExpression>
             </textField>
@@ -224,21 +224,21 @@ order by $P!{calendar_column}]]>
                 <textField>
                     <reportElement x="731" y="0" width="60" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$F{host_count}.toString() + "  "]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="114" y="0" width="617" height="18"/>
                     <textElement verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA["  " + $F{os_type}]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement isPrintRepeatedValues="false" x="0" y="0" width="114" height="18"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
                 </textField>
@@ -250,7 +250,7 @@ order by $P!{calendar_column}]]>
             <textField evaluationTime="Auto">
                 <reportElement x="252" y="0" width="329" height="15"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans" size="10"/>
+                    <font fontName="SansSerif" size="10"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

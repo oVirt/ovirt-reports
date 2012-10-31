@@ -22,7 +22,7 @@ FROM (SELECT AVG(cpu_usage_percent) AS cpu_usage_percent_avg,  AVG(memory_usage_
             <textField>
                 <reportElement uuid="faa5baa3-2e42-4b86-b015-cfd58f990200" x="0" y="0" width="387" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="16"/>
+                    <font fontName="SansSerif" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr12.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates averages of CPU and memory percent for all hosts and averages the two values. Displays check mark if resources not used is over 60%, otherwise displays X mark.\nThis query is calculated from the host statistics samples view for the selected cluster."]]></hyperlinkTooltipExpression>

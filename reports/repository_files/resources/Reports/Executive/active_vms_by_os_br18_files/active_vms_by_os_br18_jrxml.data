@@ -305,7 +305,7 @@ order by $P!{calendar_column}]]>
             <textField pattern="">
                 <reportElement x="562" y="27" width="270" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -323,7 +323,7 @@ order by $P!{calendar_column}]]>
             <textField evaluationTime="Auto">
                 <reportElement x="291" y="0" width="250" height="15"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>
@@ -342,14 +342,14 @@ order by $P!{calendar_column}]]>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E7E">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                         <titleExpression><![CDATA[$R{br18.chart.rhel.vs.other.linuxs}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <timeSeriesDataset timePeriod="Hour">
@@ -375,10 +375,10 @@ order by $P!{calendar_column}]]>
                     <timeAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </timeAxisFormat>
@@ -386,10 +386,10 @@ order by $P!{calendar_column}]]>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>
@@ -406,14 +406,14 @@ order by $P!{calendar_column}]]>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E7E">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                         <titleExpression><![CDATA[$R{br18.chart.windows.distribution}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <timeSeriesDataset timePeriod="Hour">
@@ -441,10 +441,10 @@ order by $P!{calendar_column}]]>
                     <timeAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </timeAxisFormat>
@@ -452,10 +452,10 @@ order by $P!{calendar_column}]]>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>
@@ -472,14 +472,14 @@ order by $P!{calendar_column}]]>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E7E">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                         <titleExpression><![CDATA[$R{br18.chart.known.vs.unknown.os}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <timeSeriesDataset timePeriod="Hour">
@@ -504,10 +504,10 @@ order by $P!{calendar_column}]]>
                     <timeAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </timeAxisFormat>
@@ -515,10 +515,10 @@ order by $P!{calendar_column}]]>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>
@@ -535,14 +535,14 @@ order by $P!{calendar_column}]]>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E7E">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                         <titleExpression><![CDATA[$R{br18.chart.rhel.vs.windows}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <timeSeriesDataset timePeriod="Hour">
@@ -568,10 +568,10 @@ order by $P!{calendar_column}]]>
                     <timeAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </timeAxisFormat>
@@ -579,10 +579,10 @@ order by $P!{calendar_column}]]>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>

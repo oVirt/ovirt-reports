@@ -37,14 +37,14 @@ LIMIT (SELECT CASE
                 <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
                     <reportElement x="0" y="0" width="418" height="167"/>
                     <chartTitle>
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                         <titleExpression><![CDATA[$R{dr24.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </chartSubtitle>
                     <chartLegend>
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </chartLegend>
                 </chart>
                 <categoryDataset>

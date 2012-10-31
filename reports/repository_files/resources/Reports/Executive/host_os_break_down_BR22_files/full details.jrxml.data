@@ -74,7 +74,7 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                 <textField>
                     <reportElement uuid="b56ee5d2-837a-40f9-b5ce-ddf30dab9aa4" x="88" y="0" width="385" height="20"/>
                     <textElement verticalAlignment="Middle" markup="html">
-                        <font fontName="DejaVu Sans" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+                        <font fontName="SansSerif" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
                     </textElement>
                     <textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
@@ -82,7 +82,7 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                 <textField>
                     <reportElement uuid="cf41fe22-140f-4d50-8f20-c28ebb6e224d" positionType="Float" x="88" y="20" width="385" height="20"/>
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                        <font fontName="SansSerif" size="11" isBold="false"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{cluster_name} != "all" ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + $V{cluster_star} : "<b>" + $R{full.details.cluster} + ":</b> "+ $R{full.details.all}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "all" ? $F{cluster_name} + $V{cluster_star} : $R{full.details.all}]]></hyperlinkTooltipExpression>
@@ -90,7 +90,7 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                 <textField>
                     <reportElement uuid="9df66aba-5ae3-42e6-98f3-8ce25e606ff6" positionType="Float" x="593" y="0" width="235" height="20"/>
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                        <font fontName="SansSerif" size="11" isBold="false"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{P_Period} == "Daily" ? "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$P{P_Period} == "Daily" ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></hyperlinkTooltipExpression>
@@ -98,7 +98,7 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                 <textField>
                     <reportElement uuid="e2a32441-12c7-4b9c-85a2-14a564473e01" positionType="Float" x="483" y="0" width="107" height="20"/>
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                        <font fontName="SansSerif" size="11" isBold="false"/>
                     </textElement>
                     <textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
@@ -106,14 +106,14 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                 <textField>
                     <reportElement uuid="c1e934d1-d06c-45d0-a144-f245fa5f21d3" mode="Opaque" x="2" y="2" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                        <font fontName="DejaVu Sans" size="13" isBold="true"/>
+                        <font fontName="SansSerif" size="13" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement uuid="8470e6dc-06ab-45e4-9c1c-4fa835658669" positionType="Float" x="483" y="20" width="345" height="20"/>
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                        <font fontName="SansSerif" size="11" isBold="false"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{is_deleted} == "" ? "<b>" + $R{full.details.show.deleted.hosts} + ":</b> " + $R{full.details.yes} : "<b>" + $R{full.details.show.deleted.hosts} + ":</b> " + $R{full.details.no}]]></textFieldExpression>
                     <hyperlinkTooltipExpression><![CDATA[$P{is_deleted} == "" ? $R{full.details.yes} :$R{full.details.no}]]></hyperlinkTooltipExpression>
@@ -122,7 +122,7 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
             <textField evaluationTime="Report" isBlankWhenNull="false">
                 <reportElement uuid="f3b5ba1c-0434-4e41-b98c-898f2f30d0fa" x="0" y="0" width="830" height="25" forecolor="#666666"/>
                 <textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-                    <font fontName="DejaVu Sans" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+                    <font fontName="SansSerif" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA[msg($R{br22.title}, $F{cluster_name} == "all" ? $R{full.details.clusters} : msg($R{full.details.cluster.and.name}, $F{cluster_name}) + $V{cluster_star}, $F{datacenter_name} + $V{datacenter_star})]]></textFieldExpression>
             </textField>
@@ -137,14 +137,14 @@ WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCente
                     <printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
                 </reportElement>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans" size="12"/>
+                    <font fontName="SansSerif" size="12"/>
                 </textElement>
                 <text><![CDATA[*]]></text>
             </staticText>
             <textField>
                 <reportElement uuid="b2a682c8-cf1f-43d7-b122-9be9b4e9d9c1" x="29" y="74" width="735" height="14" forecolor="#666666"/>
                 <textElement markup="html">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{cluster_delete_date} != null ?
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :

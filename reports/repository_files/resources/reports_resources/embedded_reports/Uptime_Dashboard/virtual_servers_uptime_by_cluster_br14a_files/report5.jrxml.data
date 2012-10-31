@@ -11,14 +11,14 @@
             <staticText>
                 <reportElement x="66" y="0" width="119" height="14"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <text><![CDATA[Unplanned Downtime]]></text>
             </staticText>
             <staticText>
                 <reportElement x="11" y="0" width="42" height="14"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <text><![CDATA[Uptime]]></text>
             </staticText>

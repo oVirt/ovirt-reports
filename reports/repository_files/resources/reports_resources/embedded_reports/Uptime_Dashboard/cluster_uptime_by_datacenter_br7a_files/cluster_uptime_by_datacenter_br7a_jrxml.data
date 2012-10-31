@@ -103,7 +103,7 @@ ORDER BY (CASE
                 <textField>
                     <reportElement mode="Transparent" x="0" y="0" width="510" height="20" forecolor="#3A5E75"/>
                     <textElement markup="none">
-                        <font fontName="DejaVu Sans" size="13" isBold="true" isUnderline="false"/>
+                        <font fontName="SansSerif" size="13" isBold="true" isUnderline="false"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$R{br7a.title}]]></textFieldExpression>
                 </textField>
@@ -112,28 +112,28 @@ ORDER BY (CASE
                     <textField>
                         <reportElement mode="Opaque" x="10" y="0" width="140" height="26" backcolor="#D8E2FF"/>
                         <textElement verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br7a.table.cluster.name}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement mode="Opaque" x="269" y="0" width="116" height="26" backcolor="#D8E2FF"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br7a.table.planned.downtime}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement mode="Opaque" x="388" y="0" width="122" height="26" backcolor="#D8E2FF"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br7a.table.unplanned.downtime}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement mode="Opaque" x="150" y="0" width="117" height="26" backcolor="#D8E2FF"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br7a.table.uptime}]]></textFieldExpression>
                     </textField>
@@ -207,7 +207,7 @@ ORDER BY (CASE
                 <textField hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
                     <reportElement x="10" y="0" width="140" height="36"/>
                     <textElement verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
                     <hyperlinkParameter name="_report">
@@ -243,7 +243,7 @@ ORDER BY (CASE
                         <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                 </textField>
@@ -252,21 +252,21 @@ ORDER BY (CASE
                         <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0 || (($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="203" y="0" width="24" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="227" y="0" width="40" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA["(" + (100-(($F{planned_downtime_mins}/$F{total})*100).intValue()-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
                 </textField>
@@ -275,7 +275,7 @@ ORDER BY (CASE
                         <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                 </textField>
@@ -284,21 +284,21 @@ ORDER BY (CASE
                         <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0 || (($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[(($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="324" y="0" width="24" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[($F{planned_downtime_mins} - ((($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{planned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="348" y="0" width="40" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{planned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
                 </textField>
@@ -307,7 +307,7 @@ ORDER BY (CASE
                         <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                 </textField>
@@ -316,21 +316,21 @@ ORDER BY (CASE
                         <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0 || (($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                     </reportElement>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                 </textField>
                 <textField>
                     <reportElement x="446" y="0" width="24" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                 </textField>
                 <textField pattern="">
                     <reportElement x="470" y="0" width="40" height="18"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" isBold="false"/>
+                        <font fontName="SansSerif" isBold="false"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
                 </textField>

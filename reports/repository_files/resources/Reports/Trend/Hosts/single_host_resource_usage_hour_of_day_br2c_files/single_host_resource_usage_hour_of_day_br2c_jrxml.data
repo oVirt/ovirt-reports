@@ -348,14 +348,14 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans" size="10"/>
+                            <font fontName="SansSerif" size="10"/>
                             <titleExpression><![CDATA[$R{br2c.chart.memory.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartSubtitle>
                         <chartLegend position="Bottom">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -385,13 +385,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     <barPlot>
                         <plot labelRotation="-45.0"/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -402,10 +402,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -424,14 +424,14 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans" size="10"/>
+                            <font fontName="SansSerif" size="10"/>
                             <titleExpression><![CDATA[$R{br2c.chart.active.vms}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartSubtitle>
                         <chartLegend position="Bottom">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -461,13 +461,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     <barPlot>
                         <plot labelRotation="-45.0"/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -478,10 +478,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -499,15 +499,15 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans" size="10"/>
+                            <font fontName="SansSerif" size="10"/>
                             <titleExpression><![CDATA[$R{br2c.chart.network.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <subtitleExpression><![CDATA[$P{is_deleted}.contains("AND".subSequence(0,2)) ? null :  $R{br2.chart.network.subtitle.deleted}]]></subtitleExpression>
                         </chartSubtitle>
                         <chartLegend position="Bottom">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -537,13 +537,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     <barPlot>
                         <plot labelRotation="-45.0"/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -554,10 +554,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -576,14 +576,14 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans" size="10"/>
+                            <font fontName="SansSerif" size="10"/>
                             <titleExpression><![CDATA[$R{br2c.chart.cpu.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartSubtitle>
                         <chartLegend position="Bottom">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </chartLegend>
                     </chart>
                     <categoryDataset>
@@ -607,13 +607,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     <barPlot>
                         <plot labelRotation="-45.0"/>
                         <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </itemLabel>
                         <categoryAxisLabelExpression><![CDATA[$R{axis.hour.of.day}]]></categoryAxisLabelExpression>
                         <categoryAxisFormat labelRotation="-45.0">
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
                                     <font fontName="SansSerif"/>
@@ -624,10 +624,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -672,7 +672,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
             <textField pattern="">
                 <reportElement x="511" y="27" width="321" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -687,7 +687,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
             <textField evaluationTime="Auto">
                 <reportElement x="286" y="0" width="260" height="13"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

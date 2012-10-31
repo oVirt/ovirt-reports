@@ -103,14 +103,14 @@ Order by delete_date DESC, host_id]]>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E75">
-                        <font fontName="DejaVu Sans" isBold="true"/>
+                        <font fontName="SansSerif" isBold="true"/>
                         <titleExpression><![CDATA[$R{br17b.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartSubtitle>
                     <chartLegend>
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                     <hyperlinkParameter name="_report">
                         <hyperlinkParameterExpression><![CDATA["/Reports/Executive/summary_of_host_usage_resources_br17"]]></hyperlinkParameterExpression>
@@ -147,10 +147,10 @@ Order by delete_date DESC, host_id]]>
                     <xAxisFormat>
                         <axisFormat labelColor="#666666" verticalTickLabels="false">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </xAxisFormat>
@@ -158,10 +158,10 @@ Order by delete_date DESC, host_id]]>
                     <yAxisFormat>
                         <axisFormat labelColor="#666666" verticalTickLabels="false">
                             <labelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans"/>
+                                <font fontName="SansSerif"/>
                             </tickLabelFont>
                         </axisFormat>
                     </yAxisFormat>

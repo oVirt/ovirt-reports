@@ -101,7 +101,7 @@ order by $P!{calendar_column}]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br3.chart.cpu.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle/>
@@ -132,10 +132,10 @@ order by $P!{calendar_column}]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -154,7 +154,7 @@ order by $P!{calendar_column}]]>
                             <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                         </box>
                         <chartTitle>
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                             <titleExpression><![CDATA[$R{br3.chart.memory.usage}]]></titleExpression>
                         </chartTitle>
                         <chartSubtitle/>
@@ -185,10 +185,10 @@ order by $P!{calendar_column}]]>
                         <valueAxisFormat>
                             <axisFormat labelColor="#666666">
                                 <labelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </labelFont>
                                 <tickLabelFont>
-                                    <font fontName="DejaVu Sans"/>
+                                    <font fontName="SansSerif"/>
                                 </tickLabelFont>
                             </axisFormat>
                         </valueAxisFormat>
@@ -204,7 +204,7 @@ order by $P!{calendar_column}]]>
                     <printWhenExpression><![CDATA[$P{P_Host_ListID}.size() > 5]]></printWhenExpression>
                 </reportElement>
                 <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                    <font fontName="DejaVu Sans" size="16" isBold="true"/>
+                    <font fontName="SansSerif" size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[$R{br3.more.than.five.warning}]]></textFieldExpression>
             </textField>
@@ -239,7 +239,7 @@ order by $P!{calendar_column}]]>
             <textField pattern="">
                 <reportElement x="514" y="27" width="318" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -257,7 +257,7 @@ order by $P!{calendar_column}]]>
             <textField evaluationTime="Auto">
                 <reportElement x="286" y="0" width="260" height="13"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

@@ -23,7 +23,7 @@ WHERE v3_0_latest_datacenter_storage_domain_map_view.datacenter_id = CAST($P{P_D
             <textField>
                 <reportElement uuid="9fd81865-1947-472e-83f3-8b287c7832f1" x="0" y="0" width="375" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="DejaVu Sans" size="16"/>
+                    <font fontName="SansSerif" size="16"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr8.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains attached to the datacenter from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>

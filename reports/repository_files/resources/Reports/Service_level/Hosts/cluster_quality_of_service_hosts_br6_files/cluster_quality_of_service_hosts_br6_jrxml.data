@@ -243,7 +243,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                     <textField>
                         <reportElement x="12" y="0" width="410" height="20" forecolor="#000000"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{b6.table.cluster.average}]]></textFieldExpression>
                     </textField>
@@ -254,7 +254,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA[((($V{total_CPU}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                         </textField>
@@ -263,7 +263,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0 || (($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA[(($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                         </textField>
@@ -272,7 +272,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                         </textField>
@@ -281,7 +281,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[$V{presentage_avg_cpu} != null]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA["(" + $V{presentage_avg_cpu}.intValue().toString() + "%)"]]></textFieldExpression>
                         </textField>
@@ -293,7 +293,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA[((($V{total_MEM}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                         </textField>
@@ -302,7 +302,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0 || (($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA[(($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                         </textField>
@@ -311,7 +311,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                         </textField>
@@ -320,7 +320,7 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                                 <printWhenExpression><![CDATA[$V{presentage_avg_mem} != null]]></printWhenExpression>
                             </reportElement>
                             <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="DejaVu Sans" size="10" isBold="false"/>
+                                <font fontName="SansSerif" size="10" isBold="false"/>
                             </textElement>
                             <textFieldExpression class="java.lang.String"><![CDATA["(" + $V{presentage_avg_mem}.intValue().toString() + "%)"]]></textFieldExpression>
                         </textField>
@@ -341,28 +341,28 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                     <textField>
                         <reportElement x="12" y="0" width="410" height="40" forecolor="#000000"/>
                         <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br6.table.host.name}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="743" y="0" width="81" height="40" forecolor="#000000"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true" isPdfEmbedded="false"/>
+                            <font fontName="SansSerif" size="11" isBold="true" isPdfEmbedded="false"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br6.table.delete.date}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="600" y="0" width="118" height="40" forecolor="#000000"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br6.table.time.above.memory.threshold}]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="462" y="0" width="94" height="40" forecolor="#000000"/>
                         <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="DejaVu Sans" size="11" isBold="true"/>
+                            <font fontName="SansSerif" size="11" isBold="true"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[$R{br6.table.time.above.cpu.threshold}]]></textFieldExpression>
                     </textField>
@@ -415,14 +415,14 @@ ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E75">
-                        <font fontName="DejaVu Sans" size="13"/>
+                        <font fontName="SansSerif" size="13"/>
                         <titleExpression><![CDATA[$R{br6.chart.cpu}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="Arial" size="8"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <pieDataset>
@@ -461,7 +461,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{cpu_below} - ((($F{cpu_bel
                         <seriesColor seriesOrder="1" color="#FF0000"/>
                     </plot>
                     <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </itemLabel>
                 </piePlot>
             </pieChart>
@@ -476,14 +476,14 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{cpu_below} - ((($F{cpu_bel
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E75">
-                        <font fontName="DejaVu Sans" size="13"/>
+                        <font fontName="SansSerif" size="13"/>
                         <titleExpression><![CDATA[$R{br6.chart.memory}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
                         <font fontName="Arial" size="8"/>
                     </chartSubtitle>
                     <chartLegend position="Bottom">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </chartLegend>
                 </chart>
                 <pieDataset>
@@ -522,7 +522,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                         <seriesColor seriesOrder="1" color="#FF0000"/>
                     </plot>
                     <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="DejaVu Sans"/>
+                        <font fontName="SansSerif"/>
                     </itemLabel>
                 </piePlot>
             </pieChart>
@@ -532,7 +532,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
             <textField pattern="">
                 <reportElement x="577" y="27" width="255" height="15"/>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="11" isBold="false"/>
+                    <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
@@ -550,7 +550,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                 <textField>
                     <reportElement x="12" y="0" width="410" height="18"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[$F{host_name}]]></textFieldExpression>
                 </textField>
@@ -560,7 +560,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                         <rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
                     </box>
                     <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                     </textElement>
                     <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{host_delete_only_date})]]></textFieldExpression>
                 </textField>
@@ -577,7 +577,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                             <printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
@@ -586,21 +586,21 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                             <printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0 || (($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="67" y="0" width="25" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField pattern="">
                         <reportElement x="93" y="0" width="40" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{time_above_cpu_threshold}/$F{overall_host_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
                     </textField>
@@ -612,7 +612,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                             <printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
@@ -621,21 +621,21 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
                             <printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0 || (($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
                         <reportElement x="67" y="0" width="25" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField pattern="">
                         <reportElement x="93" y="0" width="40" height="18"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="DejaVu Sans"/>
+                            <font fontName="SansSerif"/>
                         </textElement>
                         <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{time_above_mem_threshold}/$F{overall_host_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
                     </textField>
@@ -651,7 +651,7 @@ $R{br6.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_bel
             <textField evaluationTime="Auto">
                 <reportElement x="291" y="0" width="250" height="15"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Sans"/>
+                    <font fontName="SansSerif"/>
                 </textElement>
                 <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>

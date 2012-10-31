@@ -32,14 +32,14 @@ LIMIT 5]]>
                 <chart customizerClass="com.ovirt.reports.jasper.DrBarChartCustomizer" theme="WebadminLineBarChartTheme">
                     <reportElement uuid="9d1b8366-a42e-4163-a775-7757377d153e" x="0" y="0" width="445" height="260"/>
                     <chartTitle>
-                        <font fontName="DejaVu Sans" size="10"/>
+                        <font fontName="SansSerif" size="10"/>
                         <titleExpression><![CDATA[$R{dr21.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </chartSubtitle>
                     <chartLegend>
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </chartLegend>
                 </chart>
                 <categoryDataset>
@@ -79,16 +79,16 @@ LIMIT 5]]>
                 <barPlot isShowTickMarks="true">
                     <plot/>
                     <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </itemLabel>
                     <categoryAxisLabelExpression><![CDATA[$R{axis.clusters.names}]]></categoryAxisLabelExpression>
                     <categoryAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </tickLabelFont>
                         </axisFormat>
                     </categoryAxisFormat>
@@ -96,10 +96,10 @@ LIMIT 5]]>
                     <valueAxisFormat>
                         <axisFormat labelColor="#666666">
                             <labelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </tickLabelFont>
                         </axisFormat>
                     </valueAxisFormat>

@@ -64,14 +64,14 @@ GROUP BY cluster_id, cluster_name]]>
                         <rightPen lineWidth="0.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E75">
-                        <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                        <font fontName="SansSerif" size="10" isBold="true"/>
                         <titleExpression><![CDATA[$R{dr27.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </chartSubtitle>
                     <chartLegend>
-                        <font fontName="DejaVu Sans" size="9"/>
+                        <font fontName="SansSerif" size="9"/>
                     </chartLegend>
                 </chart>
                 <xyDataset>
@@ -90,10 +90,10 @@ GROUP BY cluster_id, cluster_name]]>
                     <xAxisFormat>
                         <axisFormat labelColor="#666666" verticalTickLabels="false">
                             <labelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </tickLabelFont>
                         </axisFormat>
                     </xAxisFormat>
@@ -101,10 +101,10 @@ GROUP BY cluster_id, cluster_name]]>
                     <yAxisFormat>
                         <axisFormat labelColor="#666666" verticalTickLabels="false">
                             <labelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </labelFont>
                             <tickLabelFont>
-                                <font fontName="DejaVu Sans" size="9"/>
+                                <font fontName="SansSerif" size="9"/>
                             </tickLabelFont>
                         </axisFormat>
                     </yAxisFormat>
