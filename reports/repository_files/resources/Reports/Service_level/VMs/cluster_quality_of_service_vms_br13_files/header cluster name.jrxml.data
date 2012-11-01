@@ -3,7 +3,7 @@
     <property name="ireport.zoom" value="1.5"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/Hosts_Inventory"/>
+    <property name="ireport.jasperserver.reportUnit" value="/organizations/organization_1/Reports/Inventory/Hosts_Inventory"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <parameter name="P_Cluster_ID" class="java.lang.String">
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
@@ -33,7 +33,7 @@ WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
                 <reportElement x="0" y="4" width="10" height="11">
                     <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
                 </reportElement>
-                <imageExpression><![CDATA["repo:/organizations/ovirtreports/reports_resources/trash-icon"]]></imageExpression>
+                <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
             </image>
             <textField evaluationTime="Report">
                 <reportElement x="0" y="0" width="800" height="18" forecolor="#3A5E75">

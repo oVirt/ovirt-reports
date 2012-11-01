@@ -283,7 +283,7 @@ ORDER BY (CASE
                     <reportElement x="0" y="12" width="10" height="11">
                         <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
                     </reportElement>
-                    <imageExpression class="java.lang.String"><![CDATA["repo:/organizations/ovirtreports/reports_resources/trash-icon"]]></imageExpression>
+                    <imageExpression class="java.lang.String"><![CDATA["repo:trash-icon"]]></imageExpression>
                 </image>
             </frame>
         </band>

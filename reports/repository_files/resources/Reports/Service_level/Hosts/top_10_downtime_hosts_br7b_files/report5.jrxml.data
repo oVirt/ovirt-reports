@@ -3,7 +3,7 @@
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
+    <property name="ireport.jasperserver.reportUnit" value="/organizations/organization_1/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <title>
         <band height="14" splitType="Stretch">

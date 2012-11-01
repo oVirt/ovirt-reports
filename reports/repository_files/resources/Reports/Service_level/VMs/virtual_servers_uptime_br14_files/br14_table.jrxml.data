@@ -225,7 +225,7 @@ ORDER BY is_deleted ASC, cast(SUM(CASE WHEN v3_0_vm_$P!{table_name}_history_view
                     <reportElement x="0" y="3" width="10" height="11">
                         <printWhenExpression><![CDATA[$F{is_deleted} == 1]]></printWhenExpression>
                     </reportElement>
-                    <imageExpression class="java.lang.String"><![CDATA["repo:/organizations/ovirtreports/reports_resources/trash-icon"]]></imageExpression>
+                    <imageExpression class="java.lang.String"><![CDATA["repo:trash-icon"]]></imageExpression>
                 </image>
             </frame>
         </band>

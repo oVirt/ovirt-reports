@@ -3,7 +3,7 @@
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/ovirtreports/Reports/Inventory/Hosts_Inventory"/>
+    <property name="ireport.jasperserver.reportUnit" value="/organizations/organization_1/Reports/Inventory/Hosts_Inventory"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <parameter name="P_DataCenter_ID" class="java.lang.String">
         <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
