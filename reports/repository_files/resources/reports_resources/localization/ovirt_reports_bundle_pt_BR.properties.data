@@ -1,15 +1,37 @@
+footer.pagination=P\u00E1gina {0} de {1}
+br18.chart.rhel.vs.other.linuxs=RHEL versus Outros SO do Linux
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
 axis.date=Data
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+axis.number.of.vms=\#VMs
+br18.chart.rhel.vs.windows=RHEL versus Windows OS
+br18.chart.windows.distribution=Distribui\u00E7\u00E3o das Vers\u00F5es do Windows
+br18.chart.known.vs.unknown.os=Virtual Machines With Known OS vs Unknown OS
+br18.title=Active Virtual Machines by OS in <b>{0}</b> of<b> Data Center {1}</b>
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
 full.details.clusters=Clusters
+full.details.cluster.and.name=Cluster {0}
+full.details.criteria=Criteria
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: Ad_hoc_Report_Host_Domain
+full.details.datacenter=Centro de Dados
+full.details.date.range=Date Range
+full.details.vm.type=VM Type
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author ldelima
 full.details.cluster=Cluster
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
 full.details.all=Todos
+full.details.period=Period
+full.details.show.deleted.vms=Show Deleted Virtual Machines
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 full.details.yes=Sim
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 full.details.no=N\u00E3o
+full.details.deleted.comment.datacenter.and.cluster=The data center was deleted on {0} and the cluster was deleted on {1}.
+full.details.deleted.comment.cluster=The cluster was deleted on {0}.
+full.details.deleted.comment.datacenter=The data center was deleted on {0}.
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: Ad_hoc_Report_Host_Domain
+br1.table.host.name=Nome do Host
+br1.table.host.address=Host Address
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 br1.table.os=SO
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
@@ -18,67 +40,332 @@ br1.table.number.of.cores=\#Cores
 br1.table.cpu.type=Tipo da CPU
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br1.table.host.type=Tipo
+br1.table.short.memory.size=Mem. Size
+br1.table.short.create.date=Cr. Date
+br1.table.short.delete.date=Del. Date
+br1.table.gb=GB
+br1.title=Hosts Inventory in <b>{0}</b> of <b>Data Center {1}</b>
+full.details.show.deleted.hosts=Show Deleted Hosts
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: Ad_hoc_Report_Host_Domain
+full.details.host.type=Tipo do Host
+br9.table.vm.name=VM Name
+br9.table.template.name=Template Name
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br9.table.vm.type=Tipo
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 br9.table.os=SO
+br9.table.short.memory.size=Mem. Size
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
 br9.table.number.of.cores=\#vCores
+br9.table.create.date=Create Date
+br9.table.delete.date=Delete Date
+br9.table.gb=GB
+br9.title=Virtual Machines Inventory in <b>{0}</b> of <b>Data Center {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
 axis.number.of.host.cores=\#Cores
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
 axis.number.of.vm.cores=\#vCores
+axis.memory.size.gb=Memory Size (GB)
+br19.chart.cores=Average Number of Host Cores vs Virtual Machines vCores (Over Time)
+br19.chart.memory.size=Average Host vs Virtual Machines Memory Size (Over Time)
+full.details.show.deleted.entities=Show Deleted Entities
+br19.title=Cluster Capacity Vs. Usage in <b>{0}</b> of <b>Data Center {1}</b>
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
 br22.table.date=Data
+br22.table.host.os=Host OS Type
+br22.host.count=Host Count
+br22.chart.title.os.break.down=Running Hosts Operating System Break Down
+axis.number.of.running.hosts=\#Running Hosts
+br22.title=Host OS Break Down in <b>{0}</b> of <b>Data Center {1}</b>
+axis.cpu.usage.percent=CPU Usage %
+axis.memory.usage.percent=Memory Usage %
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
 br17.chart.cpu=CPU
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br17.chart.memory=Mem\u00F3ria
+br17.chart.active.hosts=Active Hosts
+br17.chart.deleted.hosts=Deleted Hosts
+br17.title=Summary of Host Usage in <b>{0}</b> of <b>Data Center {1}</b>
+axis.storage.domain.size.gb=Storage Size (GB)
+br21.chart.size.of.storage.domain=Size of Storage Domain (Over Time)
+br21.chart.available.size=Available Space
+br21.chart.used.size=Used Space
+full.details.storage.type=Storage Type
+br21.title=Size Over Time of <b>Storage Domain {0}</b>
+full.details.deleted.comment.datacenter.and.storage=The data center was deleted on {0} and the storage domain was deleted on {1}.
+full.details.deleted.comment.storage=The storage domain was deleted on {0}.
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
 br6.chart.cpu=CPU
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br6.chart.memory=Mem\u00F3ria
+br5.chart.cpu.usage=CPU Usage (Over Time)
+br5.chart.memory.usage=Memory Usage (Over Time)
+br5.title=Five Least Utilized Hosts in <b>{0}</b> of <b>Data Center {1}</b>
+br4.chart.cpu.usage=CPU Usage (Over Time)
+br4.chart.memory.usage=Memory Usage (Over Time)
+br4.title=Five Most Utilized Hosts in <b>{0}</b> of <b>Data Center {1}</b>
+br3.chart.memory.usage=Memory Usage (Over Time)
+br3.chart.cpu.usage=CPU Usage (Over Time)
+br3.title=Resource Usage of Multiple Hosts (Over Time)
+full.details.hosts.names=Hosts Names
+br2a.chart.memory.usage=Memory Usage (Over Time)
+br2a.chart.cpu.usage=CPU Usage (Over Time)
+br2a.chart.network.usage=Top Five Busiest Network Interfaces Usage (Over Time)
+br2a.chart.active.vms=Number of Active Virtual Machines (Over Time)
+axis.network.usage.percent=Network Usage %
+br2.chart.series.cpu.usage=CPU Usage
+br2.chart.series.cpu.peak=CPU Peak
+br2.chart.series.memory.usage=Memory Usage
+br2.chart.series.memory.peak=Memory Peak
+br2.chart.series.number.of.vms=\#VMs
+br2.chart.series.peak.number.of.vms=\#VMs Peak
+br2.chart.series.rx=/Rx
+br2.chart.series.tx=/Tx
+br2.chart.series.tooltip.network={0}{1}, {2}
+full.details.deleted.comment.host=The host was deleted on {0}.
+full.details.deleted.comment.datacenter.and.host=The data center was deleted on {0} and the host was deleted on {1}.
+full.details.deleted.comment.cluster.and.host=The cluster was deleted on {0} and the host was deleted on {1}.
+full.details.deleted.comment.datacenter.cluster.and.host=The data center was deleted on {0}, the cluster was deleted on {1} and the host was deleted on {2}.
+full.details.host.address=Host Address
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
 full.details.memory.size=Tamanho da Mem\u00F3ria
+full.details.gb=GB
+full.details.create.date=Create Date
+full.details.delete.date=Delete Date
+full.details.cpu.model=CPU Model
+full.details.number.of.cpu.cores=\#CPU Cores
+br2a.title=Resource Usage of <b>Host {0}</b> (Over Time)
+full.details.host.details=Host Details
+br2a.chart.network.subtitle.lines=Receive Rate in Consecutive Line; Trasmit Rate in Dashed Line
+br2.chart.network.subtitle.deleted=Deleted interfaces are marked with asterisks
+br2b.title=Resource Usage of <b>Host {0}</b> by Days of Week
+br2c.title=Resource Usage of <b>Host {0}</b> by Hour of Day
+br2b.chart.cpu.usage=CPU Usage by Days of Week
+axis.day=Day
+br2b.chart.memory.usage=Memory Usage by Days of Week
+br2b.chart.active.vms=Number of Active Virtual Machines by Days of Week
+br2b.chart.network.usage=Top Three Busiest Network Interfaces Usage by Days of Week
+axis.hour.of.day=Hour of Day
+br2c.chart.active.vms=Number of Active Virtual Machines by Hour of Day
+br2c.chart.cpu.usage=CPU Usage by Hour of Day
+br2c.chart.memory.usage=Memory Usage by Hour of Day
+br2c.chart.network.usage=Top Three Busiest Network Interfaces Usage by Hour of Day
+br12.chart.cpu.usage=CPU Usage (Over Time)
+br12.chart.memory.usage=Memory Usage (Over Time)
+br12.title=Five Least Utilized Virtual Machines in <b>{0}</b> of <b>Data Center {1}</b>
+br11.chart.cpu.usage=CPU Usage (Over Time)
+br11.chart.memory.usage=Memory Usage (Over Time)
+br11.title=Five Most Utilized Virtual Machines in <b>{0}</b> of <b>Data Center {1}</b>
+br16.title=Resource Usage of Multiple Virtual Machines (Over Time)
+br16.chart.memory.usage=Memory Usage (Over Time)
+br16.chart.cpu.usage=CPU Usage (Over Time)
+br16.more.than.five.warning=This Report Displays Data for Up to Five Virtual Machines Please Press on 'Edit Parameters' and Select Five Virtual Machines or Less.
+br3.more.than.five.warning=This Report Displays Data for Up to Five Hosts Please Press on 'Edit Parameters' and Select Five Hosts or Less.
+full.details.vms.names=Virtual Machines Names
+br10a.title=Resource Usage of <b>Virtual Machine {0}</b> (Over Time)
+br10a.chart.cpu.usage=CPU Usage (Over Time)
+br10a.chart.memory.usage=Memory Usage (Over Time)
+br10a.chart.network.usage=Top Five Busiest Network Interfaces Usage (Over Time)
+br10a.chart.disks.usage=Top Five Busiest Disks Usage (Over Time)
+br10b.title=Resource Usage of <b>Virtual Machine {0}</b> by Days of Week
+br10c.title=Resource Usage of <b>Virtual Machine {0}</b> by Hour of Day
+br10b.chart.network.usage=Top Three Busiest Network Interfaces Usage by Days of Week
+br10c.chart.network.usage=Top Three Busiest Network Interfaces Usage by Hour of Day
+br10b.chart.memory.usage=Memory Usage by Days of Week
+br10c.chart.memory.usage=Memory Usage by Hour of Day
+br10b.chart.disks.usage=Top Five Busiest Disks Usage by Days of Week
+br10c.chart.disks.usage=Top Five Busiest Disks Usage by Hour of Day
+br10b.chart.cpu.usage=CPU Usage by Days of Week
+br10c.chart.cpu.usage=CPU Usage by Hour of Day
+br10.chart.network.subtitle.deleted=Deleted interfaces are marked with asterisks
+br10a.chart.network.subtitle.lines=Receive Rate in Consecutive Line; Trasmit Rate in Dashed Line
+br10.chart.disks.subtitle.deleted=Deleted disks are marked with asterisks
+br10a.chart.disks.subtitle.lines=Read Rate in Consecutive Line; Write Rate in Dashed Line
+axis.disks.usage.mb.pre.second=Disk Usage MB/s
+br10.chart.series.cpu.peak=CPU Peak
+# auto translated by TM merge from project: oVirt, version: rhevm-3.1, DocId: frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.userportal.ApplicationConstants
+br10.chart.series.cpu.usage=Uso do CPU
+br10.chart.series.memory.peak=Memory Peak
+# auto translated by TM merge from project: oVirt, version: rhevm-3.1, DocId: frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.userportal.ApplicationConstants
+br10.chart.series.memory.usage=Mem\u00F3ria bb
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br10.chart.series.rx=/Rx
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br10.chart.series.tx=/Tx
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br10.chart.series.tooltip.network={0}{1}, {2}
+br10.chart.series.write=/Write
+br10.chart.series.read=/Read
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br10.chart.series.tooltip.disks={0}{1}, {2}
+full.details.deleted.comment.cluster.and.vm=The cluster was deleted on {0} and the virtual machine was deleted on {1}.
+full.details.deleted.comment.datacenter.and.vm=The data center was deleted on {0} and the virtual machine was deleted on {1}.
+full.details.deleted.comment.datacenter.cluster.and.vm=The data center was deleted on {0}, the cluster was deleted on {1} and the virtual machine was deleted on {2}.
+full.details.deleted.comment.vm=The virtual machine was deleted on {0}.
+full.details.vm.details=Virtual Machine Details
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ldelima
 full.details.number.of.vm.cores=\#vCores
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
 full.details.vm.high.availability=Alta Disponibilidade
+# auto translated by TM merge from project: oVirt, version: master, DocId: frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants
+full.details.os=Sistema Operacional
+br7.meter.title=Total Cluster's Hosts Uptime
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br7.meter.uptime=Uptime
+br7.meter.planned.downtime=Planned Downtime
+br7.meter.unplanned.downtime=Unplanned Downtime
+br7.table.title=Downtime Breakdown of Cluster's Hosts
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: Ad_hoc_Report_Host_Domain
+br7.table.host.name=Nome do Host
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br7.table.uptime=Uptime
+br7.table.unplanned.downtime=Unplanned Downtime
+br7.table.planned.downtime=Planned Downtime
+br7.title=Uptime of Hosts in <b>{0}</b> of <b>Data Center {1}</b>
+br8.meter.title=Host Uptime
+br8.meter.planned.downtime=Planned Downtime
+br8.meter.unplanned.downtime=Unplanned Downtime
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br8.meter.uptime=Uptime
+br8.title=Uptime of <b>Host {0}</b>
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: Ad_hoc_Report_Host_Domain
+br7b.table.host.name=Nome do Host
+br7b.table.planned.downtime=Planned Downtime
+br7b.table.unplanned.downtime=Unplanned Downtime
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br7b.table.uptime=Uptime
+br7b.table.short.delete.date=Del. Date
+br7b.title=Top 10 Downtime Hosts in <b>{0}</b> of <b>Data Center {1}</b>
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: Ad_hoc_Report_Host_Domain
+br6.table.host.name=Nome do Host
+br6.table.time.above.cpu.threshold=Time Above CPU Threshold
+br6.table.time.above.memory.threshold=Per\u00EDodo Acima do Limite da Mem\u00F3ria
+br6.table.delete.date=Deletar Data
+b6.table.cluster.average=M\u00E9dia do Cluster
+br6.pie.average.time.below.threshold=Per\u00EDodo M\u00E9dio Abaixo do Limite
+br6.pie.average.time.above.threshold=Per\u00EDodo M\u00E9dio Acima do Limite
+br6.title=Qualidade de Servi\u00E7os dos Hosts no  <b>{0}</b> do <b>Centro de Dados {1}</b>
+full.details.cpu.threshold=Limite do CPU
+full.details.memory.threshold=Limite da Mem\u00F3ria
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author Amador Pahim
 br13.chart.cpu=CPU
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
 br13.chart.memory=Mem\u00F3ria
+br13.pie.average.time.above.threshold=Per\u00EDodo M\u00E9dio Acima do Limite
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br13.pie.average.time.below.threshold=Per\u00EDodo M\u00E9dio Abaixo do Limite
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br13.table.delete.date=Delete Date
+br13.table.vm.name=Nome da M\u00E1quina Virtual
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br13.table.time.above.cpu.threshold=Per\u00EDodo Acima do Limite do CPU
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br13.table.time.above.memory.threshold=Per\u00EDodo Acima do Limite da Mem\u00F3ria
+br13.title=Qualidade de Servi\u00E7os das M\u00E1quinas Virtuais no  <b>{0}</b> do <b>Centro de Dados {1}</b>
+full.details.short.show.deleted.vms=Demonstra VMs Deletados
+br14.meter.title=Per\u00EDodo de Ativa\u00E7\u00E3o das M\u00E1quinas Virtuais do Total de Cluster
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br14.meter.unplanned.downtime=Per\u00EDodo de Inatividade do Servidor n\u00E3o planejado
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
-br14.meter.uptime=Uptime
+br14.meter.uptime=Per\u00EDodo de Ativa\u00E7\u00E3o
+br14.table.vm.name=Nome da M\u00E1quina Virtual
+br14.table.title=Servidores Virtuais de Alta Disponibilidade do Per\u00EDodo de Inatividade de Divis\u00E3o do Cluster
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br14.table.unplanned.downtime=Per\u00EDodo de Inatividade do Servidor n\u00E3o planejado
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
-br14.table.uptime=Uptime
+br14.table.uptime=Per\u00EDodo de Ativa\u00E7\u00E3o
+br14.title=Per\u00EDodo de Ativa\u00E7\u00E3o dos Servidores Virtuais de Alta Disponibilidade no <b>{0}</b> do <b>Centro de Dados {1}</b>
+br18a.chart.active.vms.os=Per\u00EDodo Passado do SO das M\u00E1quinas Virtuais Ativas
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author ldelima
 br18a.table.date=Data
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 br18a.table.os.version=Vers\u00E3o de SO
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br18a.table.number.of.vms=\#VMs
+br7a.title=Per\u00EDodo de Ativa\u00E7\u00E3o dos Hosts do Cluster
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
-br7a.table.uptime=Uptime
+br7a.table.uptime=Per\u00EDodo de Ativa\u00E7\u00E3o
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br7a.table.unplanned.downtime=Per\u00EDodo de Inatividade do Servidor n\u00E3o planejado
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br7a.table.planned.downtime=Per\u00EDodo de Inatividade do Servidor planejado
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
 br7a.table.cluster.name=Nome do Cluster
+br6b.title=Qualidade do Servi\u00E7o dos Hosts pelos Clusters
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
 br6b.table.cluster.name=Nome do Cluster
+br6b.table.sample.time.below.cpu.threshold=Limite do CPU Abaixo do Per\u00EDodo de Amostra
+br6b.table.sample.time.above.cpu.threshold=Limite do CPU Acima do Per\u00EDodo de Amostra
+br6b.table.sample.time.below.memory.threshold=Limite de Mem\u00F3ria Abaixo do Per\u00EDodo de Amostra
+br6b.table.sample.time.above.memory.threshold=Limite da Mem\u00F3ria Acima do Per\u00EDodo da Amostra
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br6b.table.delete.date=Deletar Data
+br6b.legend.below.threshold=Abaixo do Limite
+br6b.legend.above.threshold=Acima do Limite
+br4b.title=Cinco dos Hosts mais Utilizados
+br4b.chart.hosts.cpu.usage=Uso do CPU dos Hosts
+br4b.chart.hosts.memory.usage=Uso de Mem\u00F3ria dos Hosts
+br11b.title=Cinco das M\u00E1quinas Virtuais mais Utilizadas
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br11b.chart.vms.memory.usage=Uso da Mem\u00F3ria (Excede o Per\u00EDodo)
+# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+br11b.chart.vms.cpu.usage=Uso do CPU (Excede o Per\u00EDodo)
+br22b.title=Falha do SO do Host
+br23.title=Uso de Disco de Dom\u00EDnio da M\u00E9dia do Armazenamento
+axis.storage.domain.names=Dom\u00EDnios de Armazenamento
+br17b.title=Sum\u00E1rio do Uso dos Recursos do Host
+br14a.title=Per\u00EDodo de Ativa\u00E7\u00E3o dos Servidores Virtuais de Alta Disponibilidade do Cluster
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
 br14a.table.cluster.name=Nome do Cluster
+br14a.table.unplanned.downtime=Per\u00EDodo de Inatividade do Servidor n\u00E3o planejado
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author gcintra
-br14a.table.uptime=Uptime
+br14a.table.uptime=Per\u00EDodo de Ativa\u00E7\u00E3o
+full.details.removed.on.message=Removido no {0}
+b13.table.cluster.average=M\u00E9dia do Cluster
+dr29.title=Capacidade do Cluster versus Uso - Principais
+dr30.title=Capacidade do Cluster versus Uso - Mem\u00F3ria
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author Amador Pahim
 dr.count.list.vms=M\u00E1quinas Virtuais
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
 dr.count.list.hosts=Hosts
+dr13.text=Status do Per\u00EDodo de Ativa\u00E7\u00E3o das <b>M\u00E1quinas Virtuais</b> de Alta Disponibilidade
+dr12.text=Status dos Recursos dos <b>Hosts</b>
+dr6.text=Status do Per\u00EDodo de Ativa\u00E7\u00E3o dos Hosts
+dr28.title=Sum\u00E1rio do Uso dos Recursos dos Hosts
+dr23.title=Cinco dos Hosts mais Ocupados
+axis.hosts.names=Nomes dos Hosts
+axis.resources.usage=Uso dos Recursos %
+dr24.title=Cinco dos Hosts menos Ocupados
+dr14.text=<b>Virtual Machines</b> sob Status de Confirma\u00E7\u00E3o
+dr20.title=Tempo de Inatividade dos Cinco Servidores Virtuais mais frequentes de Alta Disponibilidade
+axis.vms.names=Os Nomes das M\u00E1quinas Virtuais
+axis.time.percent=Per\u00EDodo %
+dr19.title=Tempo de Ativa\u00E7\u00E3o dos Cinco Servidores Virtuais mais frequentes de Alta Disponibilidade
+dr18.title=Tempo de Inatividade dos Cinco Hosts mais frequentes
+dr17.title=Tempo de Ativa\u00E7\u00E3o dos Cinco Hosts mais frequentes
+dr21.title=Cinco Clusters mais Ocupados
+axis.clusters.names=Nomes dos Clusters
+dr22.title=Cinco dos Clusters menos Ocupados
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
 dr.count.list.clusters=Clusters
+dr11.text=Status dos Recursos dos <b>Hosts</b>
+dr5.text=Status do Per\u00EDodo de Ativa\u00E7\u00E3o dos <b>Hosts</b>
+dr8.text=Status do Espa\u00E7o dos <b>Dom\u00EDnios de Armazenamento</b>
+dr27.title=Sum\u00E1rio do Uso de Recursos dos Hosts do Cluster
+axis.used.free.storage.size.percent=Tamanho do Armazenamento Dispon\u00EDvel/Utilizado %
+dr26.title=Cinco dos Dom\u00EDnios de Armazenamento mais Utilizados
+dr26.chart.available.size.percent=Tamanho Dispon\u00EDvel %
+dr26.chart.used.size.percent=Tamanho Utilizado %
+dr25.title=Cinco das 'Maquinas Virtuais' de Clusters mais frequentes Confirmadas
+axis.over.commit.percent=Confirmado %
+dr15.title=Cinco dos Hosts de Per\u00EDodo de Ativa\u00E7\u00E3o de Clusters mais frequentes
+dr16.title=Cinco dos Hosts de Per\u00EDodo de Inativa\u00E7\u00E3o de Clusters mais frequentes
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/uicompat/src/main/resources/org/ovirt/engine/ui/uicompat/LocalizedEnums, author ldelima
-dr.count.list.dcs=Data Centers
+dr.count.list.dcs=Centros de Dados
+dr10.text=Status dos Recursos do <b>Hosts</b>
+dr4.text=Status do Per\u00EDodo de Ativa\u00E7\u00E3o dos <b>Hosts</b>
+dr7.text=Status do Espa\u00E7o dos <b>Dom\u00EDnios de Armazenamento</b>
+inventory.dashboard.title=Painel do Invent\u00E1rio do <font color\="\#333333">Centro de Dados {0}</font>
+system.overview.dashboard.title=Painel de Visualiza\u00E7\u00E3o do Sistema do <font color\="\#333333">Data Center {0}</font>
+trends.dashboard.title=Painel de Tend\u00EAncias do <font color\="\#333333">Data Center {0}</font>
+uptime.dashboard.title=Painel do Per\u00EDodo de Ativa\u00E7\u00E3o do <font color\="\#333333">Data Center {0}</font>

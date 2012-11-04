@@ -179,7 +179,7 @@ br2a.chart.network.usage=Utilisation des cinq interfaces de r\u00E9seau les plus
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br2a.chart.active.vms=Le nombre de machines virtuelles actives (sur la dur\u00E9e)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-axis.network.usage.percent=% Utilisation R\u00E9seau 
+axis.network.usage.percent=% Utilisation R\u00E9seau
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br2.chart.series.cpu.usage=Utilisation CPU
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
@@ -381,7 +381,7 @@ br8.meter.unplanned.downtime=Temps morts non pr\u00E9vus
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
 br8.meter.uptime=Temps d'activit\u00E9
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-br8.title=Temps d'activit\u00E9 de l'<b>H\u00F4te {0}</b> 
+br8.title=Temps d'activit\u00E9 de l'<b>H\u00F4te {0}</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author croe
 br7b.table.host.name=Nom de l'h\u00F4te
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
@@ -501,7 +501,7 @@ br11b.chart.vms.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br22b.title=D\u00E9tail SE H\u00F4te
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-br23.title=Utilisation moyenne du Disque du Domaine de stockage 
+br23.title=Utilisation moyenne du Disque du Domaine de stockage
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 axis.storage.domain.names=Domaines de stockage
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe

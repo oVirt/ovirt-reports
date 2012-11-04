@@ -27,7 +27,7 @@ full.details.date.range=Rango de datos
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
 full.details.vm.type=Tipo MV
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
-full.details.cluster=Cl\u00FAster 
+full.details.cluster=Cl\u00FAster
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.webadmin.ApplicationConstants, author angelagarcia
 full.details.all=Todos
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
@@ -455,7 +455,7 @@ br18a.chart.active.vms.os=Tiempo del SO de las m\u00E1quinas virtuales activas
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 br18a.table.date=Fecha
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-br18a.table.os.version=Versi\u00F3n SO 
+br18a.table.os.version=Versi\u00F3n SO
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 br18a.table.number.of.vms=\#MVs
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
@@ -507,7 +507,7 @@ axis.storage.domain.names=Dominios de almacenamiento
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 br17b.title=Resumen del uso de los recursos del host
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-br14a.title=Tiempo de ejecuci\u00F3n de los servidores virtuales de alta disponibilidad 
+br14a.title=Tiempo de ejecuci\u00F3n de los servidores virtuales de alta disponibilidad
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author angelagarcia
 br14a.table.cluster.name=Nombre del cl\u00FAster
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
@@ -531,7 +531,7 @@ dr13.text=Estatus del tiempo de ejecuci\u00F3n de las  <b>m\u00E1quinas virtuale
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr12.text=Estatus de los recursos <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-dr6.text=Estatus de ejecuci\u00F3n des <b>Hosts</b>
+dr6.text=Estatus de ejecuci\u00F3n de  <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr28.title=Resumen del uso de los recursos del host
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
@@ -567,13 +567,16 @@ dr.count.list.clusters=Cl\u00FAsters
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr11.text=Estatus de los recursos <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-dr5.text=Estatus de ejecuci\u00F3n des <b>Hosts</b>
+dr5.text=Estatus de ejecuci\u00F3n de  <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-dr8.text=Estatus de espacio de los <b>dominios de almacenamiento</b> 
+dr8.text=Estatus de espacio de los <b>dominios de almacenamiento</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr27.title=Resumen del uso de los recursos del host delk cl\u00FAster
+axis.used.free.storage.size.percent=Tama\u00F1o del almacenamiento utilizado/disponible %
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr26.title=Los cinco dominios de almacenamiento m\u00E1s utilizados
+dr26.chart.available.size.percent=Tama\u00F1o disponible %
+dr26.chart.used.size.percent=Tama\u00F1o utilizado %
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr25.title=Las cinco m\u00E1quinas virtuales de los cl\u00FAster que guardaron cambios
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
@@ -587,6 +590,10 @@ dr.count.list.dcs=Centros de datos
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr10.text=Estatus de los recursos <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-dr4.text=Estatus de ejecuci\u00F3n des <b>Hosts</b>
+dr4.text=Estatus de ejecuci\u00F3n de  <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
-dr7.text=Estatus de espacio de los <b>dominios de almacenamiento</b> 
+dr7.text=Estatus de espacio de los <b>dominios de almacenamiento</b>
+inventory.dashboard.title=Panel del inventorio del <font color\="\#333333">centro de datos {0}</font>
+system.overview.dashboard.title=Panel de la sinopsis del sistema del <font color\="\#333333">centro de datos {0}</font>
+trends.dashboard.title=Panel de tendencias del <font color\="\#333333">centro de datos {0}</font>
+uptime.dashboard.title=Panel del tiempo de ejecuci\u00F3n del <font color\="\#333333">centro de datos {0}</font>

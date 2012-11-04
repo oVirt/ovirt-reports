@@ -209,7 +209,7 @@ full.details.deleted.comment.datacenter.cluster.and.host=\u6570\u636E\u4E2D\u5FC
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 full.details.host.address=\u4E3B\u673A\u5730\u5740
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author xhuang
-full.details.memory.size=\u5185\u5B58\u5927\u5C0F 
+full.details.memory.size=\u5185\u5B58\u5927\u5C0F
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 full.details.gb=GB
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
@@ -301,7 +301,7 @@ br10c.chart.memory.usage=\u6309\u7167\u6BCF\u5929\u91CC\u5C0F\u65F6\u6570\u7684\
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10b.chart.disks.usage=\u6309\u7167\u661F\u671F\u4E2D\u5929\u6570\u7684 5 \u4E2A\u6700\u7E41\u5FD9\u7684\u78C1\u76D8\u7528\u5EA6
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
-br10c.chart.disks.usage=\u6309\u7167\u6BCF\u5929\u91CC\u5C0F\u65F6\u6570\u7684 5 \u4E2A\u6700\u7E41\u5FD9\u7684\u78C1\u76D8\u7528\u5EA6 
+br10c.chart.disks.usage=\u6309\u7167\u6BCF\u5929\u91CC\u5C0F\u65F6\u6570\u7684 5 \u4E2A\u6700\u7E41\u5FD9\u7684\u78C1\u76D8\u7528\u5EA6
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10b.chart.cpu.usage=\u6309\u7167\u661F\u671F\u4E2D\u5929\u6570\u7684 CPU \u7528\u5EA6
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
@@ -315,7 +315,7 @@ br10.chart.disks.subtitle.deleted=\u5DF2\u5220\u9664\u7684\u78C1\u76D8\u7528\u66
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10a.chart.disks.subtitle.lines=\u8FDE\u7EBF\u8868\u793A\u63A5\u6536\u901F\u7387\uFF1B\u77ED\u5212\u7EBF\u8868\u793A\u5199\u5165\u901F\u7387
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
-axis.disks.usage.mb.pre.second=\u78C1\u76D8\u7528\u5EA6 MB/s 
+axis.disks.usage.mb.pre.second=\u78C1\u76D8\u7528\u5EA6 MB/s
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10.chart.series.cpu.peak=CPU \u9AD8\u5CF0
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.userportal.ApplicationConstants, author xhuang
