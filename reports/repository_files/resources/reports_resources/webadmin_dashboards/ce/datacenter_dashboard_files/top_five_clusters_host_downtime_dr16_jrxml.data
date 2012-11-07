@@ -32,7 +32,7 @@ LIMIT 5]]>
                 <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.DrStackedBarChartCustomizer" theme="WebadminLineBarChartTheme">
                     <reportElement uuid="d49201a8-9a58-49c0-8de8-ad901a3220fd" mode="Transparent" x="0" y="0" width="445" height="260"/>
                     <chartTitle>
-                        <font fontName="SansSerif"/>
+                        <font fontName="SansSerif" size="10"/>
                         <titleExpression><![CDATA[$R{dr16.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
@@ -44,7 +44,7 @@ LIMIT 5]]>
                 </chart>
                 <categoryDataset>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Uptime"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br7a.table.uptime}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{uptime_percent}]]></valueExpression>
                         <itemHyperlink>
@@ -52,7 +52,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Planned Downtime"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br7a.table.planned.downtime}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{planned_downtime_percent}]]></valueExpression>
                         <itemHyperlink>
@@ -60,7 +60,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Unplanned Downtime"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br7a.table.unplanned.downtime}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
                         <valueExpression><![CDATA[100 - $F{uptime_percent} - $F{planned_downtime_percent}]]></valueExpression>
                         <itemHyperlink>

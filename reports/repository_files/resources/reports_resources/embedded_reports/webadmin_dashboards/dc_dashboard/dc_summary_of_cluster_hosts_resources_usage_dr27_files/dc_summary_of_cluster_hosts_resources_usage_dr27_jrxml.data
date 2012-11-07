@@ -64,7 +64,7 @@ GROUP BY cluster_id, cluster_name]]>
                         <rightPen lineWidth="0.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E75">
-                        <font fontName="DejaVu Sans" size="10" isBold="true"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                         <titleExpression><![CDATA[$R{dr27.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
@@ -76,7 +76,7 @@ GROUP BY cluster_id, cluster_name]]>
                 </chart>
                 <xyDataset>
                     <xySeries>
-                        <seriesExpression><![CDATA["Clusters"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{dr.count.list.clusters}]]></seriesExpression>
                         <xValueExpression><![CDATA[$F{avg_cpu_peak}]]></xValueExpression>
                         <yValueExpression><![CDATA[$F{avg_mem_peak}]]></yValueExpression>
                         <itemHyperlink>

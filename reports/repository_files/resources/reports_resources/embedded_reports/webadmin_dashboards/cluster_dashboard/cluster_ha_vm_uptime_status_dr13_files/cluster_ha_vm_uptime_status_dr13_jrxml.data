@@ -21,7 +21,7 @@ WHERE v3_0_latest_vm_configuration_view.high_availability = TRUE
             <textField>
                 <reportElement uuid="fb99c869-6fa6-4d6a-96f6-f99bd9d9d383" x="0" y="0" width="387" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="SansSerif" size="16"/>
+                    <font fontName="SansSerif" size="15"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr13.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates all high availability virtual machines average uptime percent.\nDisplays check mark if uptime is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>

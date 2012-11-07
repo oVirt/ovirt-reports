@@ -43,7 +43,7 @@ LIMIT 5]]>
                 </chart>
                 <categoryDataset>
                     <categorySeries>
-                        <seriesExpression><![CDATA["CPU Usage"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br10.chart.series.cpu.usage}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{cpu_usage_percent_avg}]]></valueExpression>
                         <itemHyperlink>
@@ -51,7 +51,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
-                        <seriesExpression><![CDATA["CPU Peak"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br10.chart.series.cpu.peak}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{cpu_usage_percent_max}]]></valueExpression>
                         <itemHyperlink>
@@ -59,7 +59,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Memory Usage"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br10.chart.series.memory.usage}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{memory_usage_percent_avg}]]></valueExpression>
                         <itemHyperlink>
@@ -67,7 +67,7 @@ LIMIT 5]]>
                         </itemHyperlink>
                     </categorySeries>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Memory Peak"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{br10.chart.series.memory.peak}]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{host_name}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{memory_usage_percent_max}]]></valueExpression>
                         <itemHyperlink>

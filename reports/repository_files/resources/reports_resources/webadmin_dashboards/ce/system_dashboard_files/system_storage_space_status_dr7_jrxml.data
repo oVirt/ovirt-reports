@@ -18,7 +18,7 @@ WHERE history_id in (SELECT max(a.history_id)
             <textField>
                 <reportElement uuid="cff1038f-a8a9-469e-b69d-4407d77e43d8" x="0" y="0" width="370" height="35" forecolor="#333333"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="SansSerif" size="16"/>
+                    <font fontName="SansSerif" size="15"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$R{dr7.text} + ":"]]></textFieldExpression>
                 <hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>

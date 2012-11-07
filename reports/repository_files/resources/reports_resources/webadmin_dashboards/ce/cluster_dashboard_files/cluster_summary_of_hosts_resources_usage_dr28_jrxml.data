@@ -60,7 +60,7 @@ GROUP BY host_id, host_name]]>
                         <rightPen lineWidth="0.0" lineColor="#3C617F"/>
                     </box>
                     <chartTitle color="#3A5E75">
-                        <font fontName="SansSerif" isBold="true"/>
+                        <font fontName="SansSerif" size="10"/>
                         <titleExpression><![CDATA[$R{dr28.title}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle>
@@ -72,7 +72,7 @@ GROUP BY host_id, host_name]]>
                 </chart>
                 <xyDataset>
                     <xySeries>
-                        <seriesExpression><![CDATA["Hosts"]]></seriesExpression>
+                        <seriesExpression><![CDATA[$R{dr.count.list.hosts}]]></seriesExpression>
                         <xValueExpression><![CDATA[$F{avg_cpu_peak}]]></xValueExpression>
                         <yValueExpression><![CDATA[$F{avg_mem_peak}]]></yValueExpression>
                         <itemHyperlink>
@@ -86,7 +86,7 @@ GROUP BY host_id, host_name]]>
                     <xAxisFormat>
                         <axisFormat labelColor="#666666" verticalTickLabels="false">
                             <labelFont>
-                                <font fontName="SansSerif"/>
+                                <font fontName="SansSerif" size="9"/>
                             </labelFont>
                             <tickLabelFont>
                                 <font fontName="SansSerif" size="9"/>
