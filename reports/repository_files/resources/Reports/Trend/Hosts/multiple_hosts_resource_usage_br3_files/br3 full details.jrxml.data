@@ -28,43 +28,43 @@
             WHEN delete_date IS NULL then host_name
             ELSE host_name ||  ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
         END as host_name,
-        coalesce((SELECT  ' ' || v3_0_cluster_configuration_view.cluster_name
-          FROM v3_0_cluster_configuration_view
-              WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
+        coalesce((SELECT  ' ' || v3_2_configuration_history_clusters.cluster_name
+          FROM v3_2_configuration_history_clusters
+              WHERE v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
                 and history_id in (SELECT max(b.history_id)
-                           FROM v3_0_cluster_configuration_view as b
+                           FROM v3_2_configuration_history_clusters as b
                           GROUP BY b.cluster_id)), 'all') AS cluster_name,
-        (SELECT cast(v3_0_cluster_configuration_view.delete_date as date)
-         FROM v3_0_cluster_configuration_view
-         WHERE     v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
+        (SELECT cast(v3_2_configuration_history_clusters.delete_date as date)
+         FROM v3_2_configuration_history_clusters
+         WHERE     v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
         and history_id in (SELECT max(c.history_id)
-                    FROM v3_0_cluster_configuration_view as c
+                    FROM v3_2_configuration_history_clusters as c
                       GROUP BY c.cluster_id)) as cluster_delete_date,
-        coalesce((SELECT v3_0_enum_translator_view.value
-              FROM v3_0_enum_translator_view
-          WHERE v3_0_enum_translator_view.enum_key = $P{P_Host_Type}
-          AND v3_0_enum_translator_view.enum_type = 'HOST_TYPE'), 'All') as host_type,
-       (SELECT v3_0_datacenter_configuration_view.datacenter_name
-        FROM v3_0_datacenter_configuration_view
-    WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+        coalesce((SELECT v3_2_enum_translator.value
+              FROM v3_2_enum_translator
+          WHERE v3_2_enum_translator.enum_key = $P{P_Host_Type}
+          AND v3_2_enum_translator.enum_type = 'HOST_TYPE'), 'All') as host_type,
+       (SELECT v3_2_configuration_history_datacenters.datacenter_name
+        FROM v3_2_configuration_history_datacenters
+    WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
           and history_id in (SELECT max(d.history_id)
-                     FROM v3_0_datacenter_configuration_view as d
+                     FROM v3_2_configuration_history_datacenters as d
                     GROUP BY d.datacenter_id)) as datacenter_name,
-       (SELECT CAST(v3_0_datacenter_configuration_view.delete_date as date)
-    FROM v3_0_datacenter_configuration_view
-    WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+       (SELECT CAST(v3_2_configuration_history_datacenters.delete_date as date)
+    FROM v3_2_configuration_history_datacenters
+    WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
           and history_id in (SELECT max(d.history_id)
-                     FROM v3_0_datacenter_configuration_view as d
+                     FROM v3_2_configuration_history_datacenters as d
                     GROUP BY d.datacenter_id)) as datacenter_delete_date,
         CASE
             WHEN $P{P_Period} = 'Monthly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
             WHEN $P{P_Period} = 'Quarterly' THEN CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date)
             WHEN $P{P_Period} = 'Yearly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date)
         END as end_date
-FROM v3_0_host_configuration_view
-WHERE     $X{IN, cast(v3_0_host_configuration_view.host_id as varchar), P_Host_ListID}
+FROM v3_2_configuration_history_hosts
+WHERE     $X{IN, cast(v3_2_configuration_history_hosts.host_id as varchar), P_Host_ListID}
     and history_id in (SELECT max(a.history_id)
-               FROM v3_0_host_configuration_view as a
+               FROM v3_2_configuration_history_hosts as a
                GROUP BY a.host_id)
 order by CASE
             WHEN delete_date IS NULL then host_name

@@ -7,13 +7,13 @@
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <queryString>
         <![CDATA[SELECT (SELECT count(*)
-        FROM v3_0_latest_datacenter_configuration_view) as datacenter_count,
+        FROM v3_2_latest_configuration_datacenters) as datacenter_count,
        (SELECT count(*)
-        FROM v3_0_latest_cluster_configuration_view) as cluster_count,
+        FROM v3_2_latest_configuration_clusters) as cluster_count,
        (SELECT count(*)
-        FROM v3_0_latest_host_configuration_view) as host_count,
+        FROM v3_2_latest_configuration_hosts) as host_count,
        (SELECT count(*)
-        FROM v3_0_latest_vm_configuration_view) as vm_count]]>
+        FROM v3_2_latest_configuration_vms) as vm_count]]>
     </queryString>
     <field name="datacenter_count" class="java.lang.Long"/>
     <field name="cluster_count" class="java.lang.Long"/>

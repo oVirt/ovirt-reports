@@ -53,49 +53,49 @@
         </parameter>
         <queryString>
             <![CDATA[SELECT
-      v3_0_cluster_configuration_view.cluster_name
-      ,v3_0_host_configuration_view.host_name
-      ,v3_0_host_configuration_view.fqn_or_ip
-      ,cast(v3_0_host_configuration_view.create_date as date) as create_date
-      ,cast(v3_0_host_configuration_view.delete_date as date) as delete_date
-      ,v3_0_host_configuration_view.number_of_cores
-      ,v3_0_host_configuration_view.vdsm_version
-      ,v3_0_host_configuration_view.host_os
-      ,v3_0_host_configuration_view.cluster_id
-      ,v3_0_host_configuration_view.cpu_model
-      ,v3_0_enum_translator_view.value as host_type
-      ,v3_0_cluster_configuration_view.delete_date as cluster_delete
+      v3_2_configuration_history_clusters.cluster_name
+      ,v3_2_configuration_history_hosts.host_name
+      ,v3_2_configuration_history_hosts.fqdn_or_ip
+      ,cast(v3_2_configuration_history_hosts.create_date as date) as create_date
+      ,cast(v3_2_configuration_history_hosts.delete_date as date) as delete_date
+      ,v3_2_configuration_history_hosts.number_of_cores
+      ,v3_2_configuration_history_hosts.vdsm_version
+      ,v3_2_configuration_history_hosts.host_os
+      ,v3_2_configuration_history_hosts.cluster_id
+      ,v3_2_configuration_history_hosts.cpu_model
+      ,v3_2_enum_translator.value as host_type
+      ,v3_2_configuration_history_clusters.delete_date as cluster_delete
       ,round(cast(coalesce(memory_size_mb, 0.00) as float)::numeric/1024,1) AS memory_size_mb
-FROM v3_0_host_configuration_view
-         LEFT OUTER JOIN v3_0_enum_translator_view ON (v3_0_host_configuration_view.host_type = v3_0_enum_translator_view.enum_key AND v3_0_enum_translator_view.enum_type = 'HOST_TYPE')
-         LEFT OUTER JOIN v3_0_cluster_configuration_view ON (v3_0_host_configuration_view.cluster_id = v3_0_cluster_configuration_view.cluster_id
-                                                             AND v3_0_cluster_configuration_view.history_id in (SELECT max(a.history_id)
-                                                                                                                FROM v3_0_cluster_configuration_view a
+FROM v3_2_configuration_history_hosts
+         LEFT OUTER JOIN v3_2_enum_translator ON (v3_2_configuration_history_hosts.host_type = v3_2_enum_translator.enum_key AND v3_2_enum_translator.enum_type = 'HOST_TYPE')
+         LEFT OUTER JOIN v3_2_configuration_history_clusters ON (v3_2_configuration_history_hosts.cluster_id = v3_2_configuration_history_clusters.cluster_id
+                                                             AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
+                                                                                                                FROM v3_2_configuration_history_clusters a
                                                                                                                 GROUP BY a.cluster_id))
-WHERE v3_0_host_configuration_view.cluster_id in (SELECT a.cluster_id
-                                                  FROM v3_0_cluster_configuration_view a
+WHERE v3_2_configuration_history_hosts.cluster_id in (SELECT a.cluster_id
+                                                  FROM v3_2_configuration_history_clusters a
                                                   WHERE a.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-      AND v3_0_host_configuration_view.cluster_id = CASE cast($P{P_Cluster_ID} as uuid)
-                                                        WHEN NULL THEN v3_0_host_configuration_view.cluster_id
-                                                        WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_0_host_configuration_view.cluster_id
+      AND v3_2_configuration_history_hosts.cluster_id = CASE cast($P{P_Cluster_ID} as uuid)
+                                                        WHEN NULL THEN v3_2_configuration_history_hosts.cluster_id
+                                                        WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_2_configuration_history_hosts.cluster_id
                                                         ELSE cast($P{P_Cluster_ID} as uuid)
                                                     END
-      AND v3_0_host_configuration_view.host_type = CASE $P{P_Host_Type}
-                                                       WHEN -1 THEN v3_0_host_configuration_view.host_type
+      AND v3_2_configuration_history_hosts.host_type = CASE $P{P_Host_Type}
+                                                       WHEN -1 THEN v3_2_configuration_history_hosts.host_type
                                                        ELSE $P{P_Host_Type}
                                                    END
-      AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
-                                                      FROM v3_0_host_configuration_view a
+      AND v3_2_configuration_history_hosts.history_id in (SELECT max(a.history_id)
+                                                      FROM v3_2_configuration_history_hosts a
                                                       GROUP BY a.host_id)
       AND CASE
-              WHEN $P{active_hosts_select} like '%delete%' THEN v3_0_host_configuration_view.delete_date IS NULL
-              ELSE v3_0_host_configuration_view.delete_date IS NULL or v3_0_host_configuration_view.delete_date IS NOT NULL
+              WHEN $P{active_hosts_select} like '%delete%' THEN v3_2_configuration_history_hosts.delete_date IS NULL
+              ELSE v3_2_configuration_history_hosts.delete_date IS NULL or v3_2_configuration_history_hosts.delete_date IS NOT NULL
           END
-ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.delete_date DESC, v3_0_host_configuration_view.host_name]]>
+ORDER BY v3_2_configuration_history_hosts.cluster_id, v3_2_configuration_history_hosts.delete_date DESC, v3_2_configuration_history_hosts.host_name]]>
         </queryString>
         <field name="cluster_name" class="java.lang.String"/>
         <field name="host_name" class="java.lang.String"/>
-        <field name="fqn_or_ip" class="java.lang.String"/>
+        <field name="fqdn_or_ip" class="java.lang.String"/>
         <field name="create_date" class="java.sql.Date"/>
         <field name="delete_date" class="java.sql.Date"/>
         <field name="number_of_cores" class="java.lang.Integer"/>
@@ -236,7 +236,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                 <jr:detailCell style="table_TD" height="18" rowSpan="1">
                                     <image hAlign="Center" vAlign="Middle">
                                         <reportElement uuid="704e5a12-37f6-45af-9541-ec0594b88fb9" x="0" y="2" width="10" height="11">
-                                        	<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
+                                            <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
                                         </reportElement>
                                         <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
                                         <hyperlinkTooltipExpression><![CDATA["Deleted"]]></hyperlinkTooltipExpression>
@@ -248,7 +248,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="c3f89f71-87f5-4f4b-aa4a-4eb93e99dc3e" x="0" y="0" width="120" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.host.name}]]></textFieldExpression>
                                     </textField>
@@ -267,7 +267,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="f6962f0f-cf3f-4560-9d04-1aed89c8c8db" x="0" y="0" width="137" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.host.address}]]></textFieldExpression>
                                     </textField>
@@ -276,8 +276,8 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="9a1e1b0a-f4ed-4c63-a1b7-49a6e787dd5a" x="0" y="0" width="137" height="18"/>
                                         <textElement verticalAlignment="Middle"/>
-                                        <textFieldExpression><![CDATA[$F{fqn_or_ip}]]></textFieldExpression>
-                                        <hyperlinkTooltipExpression><![CDATA[$F{fqn_or_ip}]]></hyperlinkTooltipExpression>
+                                        <textFieldExpression><![CDATA[$F{fqdn_or_ip}]]></textFieldExpression>
+                                        <hyperlinkTooltipExpression><![CDATA[$F{fqdn_or_ip}]]></hyperlinkTooltipExpression>
                                     </textField>
                                 </jr:detailCell>
                             </jr:column>
@@ -286,7 +286,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="4ebfb85b-be49-4661-8f4c-6f545bbe956a" x="0" y="0" width="107" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.os}]]></textFieldExpression>
                                     </textField>
@@ -305,7 +305,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="c3cc7e74-07de-4b41-8b81-a7e8b5d656a5" x="0" y="0" width="50" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.number.of.cores}]]></textFieldExpression>
                                     </textField>
@@ -324,7 +324,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="8cb6d099-34f7-4777-b678-5cb0e53a15d0" x="0" y="0" width="100" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.cpu.type}]]></textFieldExpression>
                                     </textField>
@@ -343,7 +343,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="f626add7-71ae-4eb0-9021-d363eec5bfbf" x="0" y="0" width="45" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.host.type}]]></textFieldExpression>
                                     </textField>
@@ -362,7 +362,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="02f6b670-fe11-42cd-aad5-f2d490426d45" x="0" y="0" width="65" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.short.memory.size}]]></textFieldExpression>
                                     </textField>
@@ -376,10 +376,10 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     </textField>
                                     <textField>
                                         <reportElement uuid="b9196f5d-cd35-4c6d-871b-4bcdc9838e2b" x="32" y="0" width="32" height="18">
-                                        	<printWhenExpression><![CDATA[$F{memory_size_mb} != 0 && $F{memory_size_mb} != null]]></printWhenExpression>
+                                            <printWhenExpression><![CDATA[$F{memory_size_mb} != 0 && $F{memory_size_mb} != null]]></printWhenExpression>
                                         </reportElement>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font fontName="SansSerif"/>
+                                            <font fontName="SansSerif"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.gb}]]></textFieldExpression>
                                         <hyperlinkTooltipExpression><![CDATA[$F{memory_size_mb}.toString()]]></hyperlinkTooltipExpression>
@@ -391,7 +391,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="61fc6ae6-2614-456e-98a3-6073de7080dd" x="0" y="0" width="64" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.short.create.date}]]></textFieldExpression>
                                     </textField>
@@ -411,7 +411,7 @@ ORDER BY v3_0_host_configuration_view.cluster_id, v3_0_host_configuration_view.d
                                     <textField>
                                         <reportElement uuid="f0b38cab-4319-4985-9b04-f8012996e42d" x="0" y="0" width="64" height="20"/>
                                         <textElement verticalAlignment="Middle" markup="none">
-                                        	<font isBold="true"/>
+                                            <font isBold="true"/>
                                         </textElement>
                                         <textFieldExpression><![CDATA[$R{br1.table.short.delete.date}]]></textFieldExpression>
                                     </textField>

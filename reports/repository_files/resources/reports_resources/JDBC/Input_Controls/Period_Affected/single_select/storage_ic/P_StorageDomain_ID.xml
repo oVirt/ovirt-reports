@@ -22,23 +22,23 @@
             <creationDate>2012-03-30T08:51:13.138+03:00</creationDate>
             <updateDate>2012-03-30T08:51:13.138+03:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct cast(v3_0_storage_domain_configuration_view.storage_domain_id as varchar), detach_date, CASE
+            <queryString>Select distinct cast(v3_2_configuration_history_storage_domains.storage_domain_id as varchar), detach_date, CASE
                                                                                                                                        WHEN detach_date IS NULL THEN storage_domain_name
                                                                                                                                        ELSE storage_domain_name || ' (Detached on ' || cast(detach_date as varchar) || ')'
                                                                                                                                    END as combo_name
-from v3_0_storage_domain_configuration_view, v3_0_datacenter_storage_domain_map_view
-WHERE  v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
-            AND v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-            AND v3_0_storage_domain_configuration_view.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
-                                                                                                                        WHEN NULL THEN  v3_0_storage_domain_configuration_view.storage_domain_type
-                                                                                                                        WHEN -1 THEN v3_0_storage_domain_configuration_view.storage_domain_type
+from v3_2_configuration_history_storage_domains, v3_2_map_history_datacenters_storage_domains
+WHERE  v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
+            AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+            AND v3_2_configuration_history_storage_domains.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
+                                                                                                                        WHEN NULL THEN  v3_2_configuration_history_storage_domains.storage_domain_type
+                                                                                                                        WHEN -1 THEN v3_2_configuration_history_storage_domains.storage_domain_type
                                                                                                                         ELSE cast($P{P_Storage_Type} as int)
                                                                                                                     END
-            AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
-                                                                                                        FROM v3_0_datacenter_storage_domain_map_view a
+            AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                                                        FROM v3_2_map_history_datacenters_storage_domains a
                                                                                                         GROUP BY a.storage_domain_id, a.datacenter_id)
-            AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(b.history_id)
-                                                                                                    FROM v3_0_storage_domain_configuration_view b
+            AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(b.history_id)
+                                                                                                    FROM v3_2_configuration_history_storage_domains b
                                                                                                     GROUP BY b.storage_domain_id)
            AND create_date &lt;= CASE
                                                  WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'

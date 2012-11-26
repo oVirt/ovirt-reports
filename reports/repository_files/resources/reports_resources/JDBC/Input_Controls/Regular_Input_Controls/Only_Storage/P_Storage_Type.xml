@@ -20,18 +20,18 @@
             <creationDate>2012-03-30T08:51:35.843+03:00</creationDate>
             <updateDate>2012-03-30T08:51:35.843+03:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT v3_0_enum_translator_view.value, v3_0_enum_translator_view.enum_key,  0 as sort
-FROM v3_0_enum_translator_view, v3_0_storage_domain_configuration_view, v3_0_datacenter_storage_domain_map_view
-WHERE v3_0_storage_domain_configuration_view.storage_domain_type = v3_0_enum_translator_view.enum_key
-AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'
-AND v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
-AND v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+            <queryString>SELECT DISTINCT v3_2_enum_translator.value, v3_2_enum_translator.enum_key,  0 as sort
+FROM v3_2_enum_translator, v3_2_configuration_history_storage_domains, v3_2_map_history_datacenters_storage_domains
+WHERE v3_2_configuration_history_storage_domains.storage_domain_type = v3_2_enum_translator.enum_key
+AND v3_2_enum_translator.enum_type = 'STORAGE_DOMAIN_TYPE'
+AND v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
+AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
 AND (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
 AND attach_date &gt;= cast($P{P_Start_Date} as timestamp)
 $P!{active_storage}
 UNION ALL
 SELECT DISTINCT value, -1, 1
-FROM v3_0_enum_translator_view
+FROM v3_2_enum_translator
 WHERE enum_type = 'REPORTS_ALL'
            AND enum_key = 0
 ORDER BY sort DESC, value</queryString>

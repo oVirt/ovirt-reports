@@ -24,25 +24,25 @@
                 WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
                 ELSE RTrim(cast(datacenter_name as varchar)) || ' (Removed on ' || cast(delete_date as varchar) || ')'
                   END as combo_name
-from v3_0_datacenter_configuration_view
+from v3_2_configuration_history_datacenters
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-        FROM v3_0_cluster_configuration_view
+        FROM v3_2_configuration_history_clusters
         WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-                         FROM v3_0_vm_configuration_view a))
+                         FROM v3_2_configuration_history_vms a))
               AND history_id in (SELECT max(a.history_id)
-         FROM v3_0_datacenter_configuration_view a
+         FROM v3_2_configuration_history_datacenters a
          GROUP BY a.datacenter_id)
               $P!{Active_VMs}
 UNION ALL
 SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), 'Non Available'
 WHERE NOT EXISTS     (Select distinct datacenter_id
-          from v3_0_datacenter_configuration_view
+          from v3_2_configuration_history_datacenters
           WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                  FROM v3_0_cluster_configuration_view
+                  FROM v3_2_configuration_history_clusters
           WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-                            FROM v3_0_vm_configuration_view a))
+                            FROM v3_2_configuration_history_vms a))
                                         AND history_id in (SELECT max(a.history_id)
-                  FROM v3_0_datacenter_configuration_view a
+                  FROM v3_2_configuration_history_datacenters a
                   GROUP BY a.datacenter_id)
           $P!{Active_VMs})
 order by delete_date DESC, combo_name</queryString>

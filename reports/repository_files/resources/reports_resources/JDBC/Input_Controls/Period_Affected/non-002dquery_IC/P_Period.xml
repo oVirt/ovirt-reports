@@ -21,7 +21,7 @@
             <updateDate>2012-03-30T08:51:10.537+03:00</updateDate>
             <language>sql</language>
             <queryString>select value as period
-from v3_0_enum_translator_view
+from v3_2_enum_translator
 where enum_type = 'REPORTS_PERIOD'</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

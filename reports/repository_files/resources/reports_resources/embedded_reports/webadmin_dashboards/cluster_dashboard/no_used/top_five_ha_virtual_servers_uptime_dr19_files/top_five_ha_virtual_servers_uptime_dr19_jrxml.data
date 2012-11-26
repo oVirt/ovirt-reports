@@ -9,15 +9,15 @@
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT v3_0_latest_vm_configuration_view.vm_id, v3_0_latest_vm_configuration_view.vm_name,
-       (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status = 1 THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 as uptime_percent,
-       (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status in (0,2) THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 AS planned_downtime_percent,
-       (SUM(CASE WHEN v3_0_vm_samples_history_view.vm_status = 3 THEN coalesce(v3_0_vm_samples_history_view.minutes_in_status,0) ELSE 0 END) / SUM(v3_0_vm_samples_history_view.minutes_in_status)) * 100 AS unplanned_downtime_percent
-FROM v3_0_vm_samples_history_view
-     INNER JOIN v3_0_latest_vm_configuration_view ON (v3_0_latest_vm_configuration_view.vm_id = v3_0_vm_samples_history_view.vm_id)
-WHERE v3_0_latest_vm_configuration_view.cluster_id = cast($P{P_Cluster_ID} as UUID)
-      AND v3_0_latest_vm_configuration_view.high_availability = TRUE
-GROUP BY v3_0_latest_vm_configuration_view.vm_id, v3_0_latest_vm_configuration_view.vm_name
+        <![CDATA[SELECT v3_2_latest_configuration_vms.vm_id, v3_2_latest_configuration_vms.vm_name,
+       (SUM(CASE WHEN v3_2_statistics_vms_resources_usage_samples.vm_status = 1 THEN coalesce(v3_2_statistics_vms_resources_usage_samples.minutes_in_status,0) ELSE 0 END) / SUM(v3_2_statistics_vms_resources_usage_samples.minutes_in_status)) * 100 as uptime_percent,
+       (SUM(CASE WHEN v3_2_statistics_vms_resources_usage_samples.vm_status in (0,2) THEN coalesce(v3_2_statistics_vms_resources_usage_samples.minutes_in_status,0) ELSE 0 END) / SUM(v3_2_statistics_vms_resources_usage_samples.minutes_in_status)) * 100 AS planned_downtime_percent,
+       (SUM(CASE WHEN v3_2_statistics_vms_resources_usage_samples.vm_status = 3 THEN coalesce(v3_2_statistics_vms_resources_usage_samples.minutes_in_status,0) ELSE 0 END) / SUM(v3_2_statistics_vms_resources_usage_samples.minutes_in_status)) * 100 AS unplanned_downtime_percent
+FROM v3_2_statistics_vms_resources_usage_samples
+     INNER JOIN v3_2_latest_configuration_vms ON (v3_2_latest_configuration_vms.vm_id = v3_2_statistics_vms_resources_usage_samples.vm_id)
+WHERE v3_2_latest_configuration_vms.cluster_id = cast($P{P_Cluster_ID} as UUID)
+      AND v3_2_latest_configuration_vms.high_availability = TRUE
+GROUP BY v3_2_latest_configuration_vms.vm_id, v3_2_latest_configuration_vms.vm_name
 ORDER BY uptime_percent DESC
 LIMIT 5]]>
     </queryString>

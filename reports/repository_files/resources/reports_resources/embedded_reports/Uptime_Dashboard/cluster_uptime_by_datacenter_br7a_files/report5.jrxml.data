@@ -3,7 +3,7 @@
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/organizations/organization_1/reports_resources/embedded_reports/cluster_uptime_by_datacenter_br7a"/>
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/cluster_uptime_by_datacenter_br7a"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <title>
         <band height="14" splitType="Stretch">

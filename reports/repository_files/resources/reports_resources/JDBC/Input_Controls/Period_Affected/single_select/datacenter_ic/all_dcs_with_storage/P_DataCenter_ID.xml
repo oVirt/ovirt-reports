@@ -24,15 +24,15 @@
                                                                        WHEN delete_date IS NULL THEN datacenter_name
                                                                        ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
                                                                  END as combo_name
-from v3_0_datacenter_configuration_view
+from v3_2_configuration_history_datacenters
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                                    FROM v3_0_datacenter_storage_domain_map_view, v3_0_storage_domain_configuration_view
-                                    WHERE  v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
-                                                AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
-                                                                                                                                            FROM v3_0_datacenter_storage_domain_map_view a
+                                    FROM v3_2_map_history_datacenters_storage_domains, v3_2_configuration_history_storage_domains
+                                    WHERE  v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
+                                                AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                                                                                            FROM v3_2_map_history_datacenters_storage_domains a
                                                                                                                                             GROUP BY a.storage_domain_id, a.datacenter_id)
-                                                AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(b.history_id)
-                                                                                                                                        FROM v3_0_storage_domain_configuration_view b
+                                                AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(b.history_id)
+                                                                                                                                        FROM v3_2_configuration_history_storage_domains b
                                                                                                                                         GROUP BY b.storage_domain_id)
                                                 AND create_date &lt;= CASE
                                                                                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -60,7 +60,7 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                                                                                                                                                                            END))
                                                $P!{is_deleted})
           AND history_id in (SELECT max(a.history_id)
-                                     FROM v3_0_datacenter_configuration_view a
+                                     FROM v3_2_configuration_history_datacenters a
                                      GROUP BY a.datacenter_id)
           AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
                                                                                                                                                                          WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -72,15 +72,15 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
 UNION ALL
 SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), 'Non Available'
 WHERE NOT EXISTS (Select 1
-                             from v3_0_datacenter_configuration_view
+                             from v3_2_configuration_history_datacenters
                              WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                                                                 FROM v3_0_datacenter_storage_domain_map_view, v3_0_storage_domain_configuration_view
-                                                                 WHERE  v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id
-                                                                             AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                         FROM v3_0_datacenter_storage_domain_map_view a
+                                                                 FROM v3_2_map_history_datacenters_storage_domains, v3_2_configuration_history_storage_domains
+                                                                 WHERE  v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
+                                                                             AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                                                                                                                         FROM v3_2_map_history_datacenters_storage_domains a
                                                                                                                                                                          GROUP BY a.storage_domain_id, a.datacenter_id)
-                                                                             AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(b.history_id)
-                                                                                                                                                                     FROM v3_0_storage_domain_configuration_view b
+                                                                             AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(b.history_id)
+                                                                                                                                                                     FROM v3_2_configuration_history_storage_domains b
                                                                                                                                                                      GROUP BY b.storage_domain_id)
                                                                              AND create_date &lt;= CASE
                                                                                                                    WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -108,7 +108,7 @@ WHERE NOT EXISTS (Select 1
                                                                                                                                                                                                                                         END))
                                                                             $P!{is_deleted})
                                        AND history_id in (SELECT max(a.history_id)
-                                                                  FROM v3_0_datacenter_configuration_view a
+                                                                  FROM v3_2_configuration_history_datacenters a
                                                                   GROUP BY a.datacenter_id)
                                        AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
                                                                                                                                                                                                       WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'

@@ -35,53 +35,53 @@
         <![CDATA[SELECT     host_name,
     cast(delete_date as date) as host_delete_date,
     cast(create_date as date) as host_create_date,
-    fqn_or_ip,
+    fqdn_or_ip,
     round(cast(memory_size_mb as float)::numeric/1024,1) as physical_memory,
     number_of_cores,
     cpu_model,
-        coalesce((SELECT  ' ' || v3_0_cluster_configuration_view.cluster_name
-          FROM v3_0_cluster_configuration_view
-              WHERE v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
+        coalesce((SELECT  ' ' || v3_2_configuration_history_clusters.cluster_name
+          FROM v3_2_configuration_history_clusters
+              WHERE v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
                 and history_id in (SELECT max(b.history_id)
-                           FROM v3_0_cluster_configuration_view as b
+                           FROM v3_2_configuration_history_clusters as b
                           GROUP BY b.cluster_id)), 'all') AS cluster_name,
-        (SELECT cast(v3_0_cluster_configuration_view.delete_date as date)
-         FROM v3_0_cluster_configuration_view
-         WHERE     v3_0_cluster_configuration_view.cluster_id = cast($P{P_Cluster_ID} as uuid)
+        (SELECT cast(v3_2_configuration_history_clusters.delete_date as date)
+         FROM v3_2_configuration_history_clusters
+         WHERE     v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
         and history_id in (SELECT max(c.history_id)
-                    FROM v3_0_cluster_configuration_view as c
+                    FROM v3_2_configuration_history_clusters as c
                       GROUP BY c.cluster_id)) as cluster_delete_date,
-        coalesce((SELECT v3_0_enum_translator_view.value
-              FROM v3_0_enum_translator_view
-          WHERE v3_0_enum_translator_view.enum_key = v3_0_host_configuration_view.host_type
-          AND v3_0_enum_translator_view.enum_type = 'HOST_TYPE'), 'All') as host_type,
-       (SELECT v3_0_datacenter_configuration_view.datacenter_name
-        FROM v3_0_datacenter_configuration_view
-    WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+        coalesce((SELECT v3_2_enum_translator.value
+              FROM v3_2_enum_translator
+          WHERE v3_2_enum_translator.enum_key = v3_2_configuration_history_hosts.host_type
+          AND v3_2_enum_translator.enum_type = 'HOST_TYPE'), 'All') as host_type,
+       (SELECT v3_2_configuration_history_datacenters.datacenter_name
+        FROM v3_2_configuration_history_datacenters
+    WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
           and history_id in (SELECT max(d.history_id)
-                     FROM v3_0_datacenter_configuration_view as d
+                     FROM v3_2_configuration_history_datacenters as d
                     GROUP BY d.datacenter_id)) as datacenter_name,
-       (SELECT CAST(v3_0_datacenter_configuration_view.delete_date as date)
-    FROM v3_0_datacenter_configuration_view
-    WHERE v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+       (SELECT CAST(v3_2_configuration_history_datacenters.delete_date as date)
+    FROM v3_2_configuration_history_datacenters
+    WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
           and history_id in (SELECT max(d.history_id)
-                     FROM v3_0_datacenter_configuration_view as d
+                     FROM v3_2_configuration_history_datacenters as d
                     GROUP BY d.datacenter_id)) as datacenter_delete_date,
         CASE
             WHEN $P{P_Period} = 'Monthly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
             WHEN $P{P_Period} = 'Quarterly' THEN CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date)
             WHEN $P{P_Period} = 'Yearly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date)
         END as end_date
-FROM v3_0_host_configuration_view
+FROM v3_2_configuration_history_hosts
 WHERE     host_id = cast($P{P_Host_ID} as uuid)
     and history_id in (SELECT max(a.history_id)
-               FROM v3_0_host_configuration_view as a
+               FROM v3_2_configuration_history_hosts as a
                GROUP BY a.host_id)]]>
     </queryString>
     <field name="host_name" class="java.lang.String"/>
     <field name="host_delete_date" class="java.sql.Date"/>
     <field name="host_create_date" class="java.sql.Date"/>
-    <field name="fqn_or_ip" class="java.lang.String"/>
+    <field name="fqdn_or_ip" class="java.lang.String"/>
     <field name="physical_memory" class="java.math.BigDecimal"/>
     <field name="number_of_cores" class="java.lang.Integer"/>
     <field name="cpu_model" class="java.lang.String"/>
@@ -216,8 +216,8 @@ $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacen
                     <textElement verticalAlignment="Middle" markup="html">
                         <font fontName="SansSerif" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$F{fqn_or_ip} != null ? "<b>" + $R{full.details.host.address} + ": </b>" + $F{fqn_or_ip} : "<b>" + $R{full.details.host.address} + ": </b>"]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$F{fqn_or_ip} != null ? $F{fqn_or_ip} : ""]]></hyperlinkTooltipExpression>
+                    <textFieldExpression><![CDATA[$F{fqdn_or_ip} != null ? "<b>" + $R{full.details.host.address} + ": </b>" + $F{fqdn_or_ip} : "<b>" + $R{full.details.host.address} + ": </b>"]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{fqdn_or_ip} != null ? $F{fqdn_or_ip} : ""]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
                     <reportElement uuid="88f04b6b-bb59-41d1-8e45-7b7a25c09cf1" positionType="Float" x="666" y="20" width="122" height="20"/>

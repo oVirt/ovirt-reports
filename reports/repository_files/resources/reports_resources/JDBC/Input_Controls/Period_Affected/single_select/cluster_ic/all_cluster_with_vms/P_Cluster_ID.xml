@@ -24,11 +24,11 @@
                                                                 WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))
                                                                 ELSE cluster_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
                                                             END as combo_name, 0 as sort
-FROM v3_0_cluster_configuration_view
+FROM v3_2_configuration_history_clusters
 WHERE cluster_id in (SELECT DISTINCT cluster_id
-                              FROM v3_0_vm_configuration_view
+                              FROM v3_2_configuration_history_vms
                               WHERE history_id in (SELECT max(a.history_id)
-                                                             FROM v3_0_vm_configuration_view a
+                                                             FROM v3_2_configuration_history_vms a
                                                              GROUP BY a.vm_id)
                                          AND create_date &lt;= CASE
                                                                                WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -45,7 +45,7 @@ WHERE cluster_id in (SELECT DISTINCT cluster_id
                                          $P!{is_deleted})
            AND datacenter_id = cast($P{P_DataCenter_ID} as uuid)
            AND history_id in (SELECT max(a.history_id)
-                                      FROM v3_0_cluster_configuration_view a
+                                      FROM v3_2_configuration_history_clusters a
                                       GROUP BY a.cluster_id)
            AND create_date &lt;= CASE
                                                  WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -62,7 +62,7 @@ WHERE cluster_id in (SELECT DISTINCT cluster_id
            $P!{is_deleted}
 UNION ALL
 SELECT distinct '11111111-1111-1111-1111-111111111111', cast(null as timestamp), value, 1
-FROM v3_0_enum_translator_view
+FROM v3_2_enum_translator
 WHERE enum_type = 'REPORTS_ALL'
            AND enum_key = 0
 ORDER BY sort DESC, delete_date DESC, combo_name

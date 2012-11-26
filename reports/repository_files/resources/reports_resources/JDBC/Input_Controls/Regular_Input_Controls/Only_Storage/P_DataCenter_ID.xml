@@ -24,25 +24,25 @@
                 WHEN delete_date IS NULL THEN datacenter_name
                 ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
                   END as combo_name
-from v3_0_datacenter_configuration_view
+from v3_2_configuration_history_datacenters
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-        FROM v3_0_datacenter_storage_domain_map_view
+        FROM v3_2_map_history_datacenters_storage_domains
         WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
                      AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
               AND history_id in (SELECT max(a.history_id)
-         FROM v3_0_datacenter_configuration_view a
+         FROM v3_2_configuration_history_datacenters a
          GROUP BY a.datacenter_id)
               $P!{active_storage}
 UNION ALL
 SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), 'Non Available'
 WHERE NOT EXISTS     (Select distinct datacenter_id
-        from v3_0_datacenter_configuration_view
+        from v3_2_configuration_history_datacenters
         WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                FROM v3_0_datacenter_storage_domain_map_view
+                FROM v3_2_map_history_datacenters_storage_domains
                 WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
                              AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
                       AND history_id in (SELECT max(a.history_id)
-                 FROM v3_0_datacenter_configuration_view a
+                 FROM v3_2_configuration_history_datacenters a
                  GROUP BY a.datacenter_id)
                       $P!{active_storage})
 order by delete_date DESC, combo_name</queryString>

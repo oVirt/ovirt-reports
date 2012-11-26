@@ -21,12 +21,12 @@
             <updateDate>2012-03-30T08:51:10.411+03:00</updateDate>
             <language>sql</language>
             <queryString>select value as display, 'AND delete_date IS NULL' as value
-from v3_0_enum_translator_view
+from v3_2_enum_translator
 where enum_type = 'REPORTS_SHOW_DELETED'
           and enum_key = 0
 UNION ALL
 select value, ''
-from v3_0_enum_translator_view
+from v3_2_enum_translator
 where enum_type = 'REPORTS_SHOW_DELETED'
           and enum_key = 1</queryString>
             <dataSource>

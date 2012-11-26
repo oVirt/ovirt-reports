@@ -9,13 +9,13 @@
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT count(DISTINCT v3_0_latest_cluster_configuration_view.cluster_id) AS cluster_count,
-       count(DISTINCT v3_0_latest_host_configuration_view.host_id) AS host_count,
-       count(DISTINCT v3_0_latest_vm_configuration_view.vm_id) AS vm_count
-FROM v3_0_latest_cluster_configuration_view
-     LEFT OUTER JOIN v3_0_latest_host_configuration_view ON (v3_0_latest_cluster_configuration_view.cluster_id = v3_0_latest_host_configuration_view.cluster_id)
-     LEFT OUTER JOIN v3_0_latest_vm_configuration_view ON (v3_0_latest_cluster_configuration_view.cluster_id = v3_0_latest_vm_configuration_view.cluster_id)
-WHERE v3_0_latest_cluster_configuration_view.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
+        <![CDATA[SELECT count(DISTINCT v3_2_latest_configuration_clusters.cluster_id) AS cluster_count,
+       count(DISTINCT v3_2_latest_configuration_hosts.host_id) AS host_count,
+       count(DISTINCT v3_2_latest_configuration_vms.vm_id) AS vm_count
+FROM v3_2_latest_configuration_clusters
+     LEFT OUTER JOIN v3_2_latest_configuration_hosts ON (v3_2_latest_configuration_clusters.cluster_id = v3_2_latest_configuration_hosts.cluster_id)
+     LEFT OUTER JOIN v3_2_latest_configuration_vms ON (v3_2_latest_configuration_clusters.cluster_id = v3_2_latest_configuration_vms.cluster_id)
+WHERE v3_2_latest_configuration_clusters.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
     </queryString>
     <field name="cluster_count" class="java.lang.Long"/>
     <field name="host_count" class="java.lang.Long"/>

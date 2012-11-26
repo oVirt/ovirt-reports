@@ -35,22 +35,22 @@
       ,cast(AVG(TBL_$P!{table_name}_PEAKS.mem_peak) as int) AS avg_mem_peak
 FROM     (
     -- Calculation of daily cpu and memory usage peaks
-    SELECT    v3_0_host_$P!{table_name}_history_view.host_id,
+    SELECT    v3_2_statistics_hosts_resources_usage_$P!{table_name}.host_id,
             host_name,
             history_datetime,
             delete_date,
             MAX(coalesce(max_cpu_usage,0)) as cpu_peak,
             MAX(coalesce(max_memory_usage,0)) as mem_peak
-    FROM v3_0_host_$P!{table_name}_history_view
-            INNER JOIN v3_0_host_configuration_view
-                      ON (v3_0_host_configuration_view.host_id = v3_0_host_$P!{table_name}_history_view.host_id)
+    FROM v3_2_statistics_hosts_resources_usage_$P!{table_name}
+            INNER JOIN v3_2_configuration_history_hosts
+                      ON (v3_2_configuration_history_hosts.host_id = v3_2_statistics_hosts_resources_usage_$P!{table_name}.host_id)
     WHERE
-        v3_0_host_configuration_view.cluster_id in (SELECT cluster_id
-                                FROM v3_0_cluster_configuration_view
+        v3_2_configuration_history_hosts.cluster_id in (SELECT cluster_id
+                                FROM v3_2_configuration_history_clusters
                                 Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-        AND v3_0_host_configuration_view.cluster_id = CASE $P{P_Cluster_ID}
-                                WHEN NULL THEN v3_0_host_configuration_view.cluster_id
-                                WHEN '11111111-1111-1111-1111-111111111111' THEN v3_0_host_configuration_view.cluster_id
+        AND v3_2_configuration_history_hosts.cluster_id = CASE $P{P_Cluster_ID}
+                                WHEN NULL THEN v3_2_configuration_history_hosts.cluster_id
+                                WHEN '11111111-1111-1111-1111-111111111111' THEN v3_2_configuration_history_hosts.cluster_id
                                 ELSE cast($P{P_Cluster_ID} as uuid)
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as date)
@@ -60,11 +60,11 @@ FROM     (
                                    WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
-        AND v3_0_host_configuration_view.history_id in (SELECT max(a.history_id)
-                                FROM v3_0_host_configuration_view a
+        AND v3_2_configuration_history_hosts.history_id in (SELECT max(a.history_id)
+                                FROM v3_2_configuration_history_hosts a
                                 GROUP BY a.host_id)
         $P!{is_deleted}
-    GROUP BY v3_0_host_$P!{table_name}_history_view.host_id, host_name, delete_date, history_datetime
+    GROUP BY v3_2_statistics_hosts_resources_usage_$P!{table_name}.host_id, host_name, delete_date, history_datetime
     ) AS TBL_$P!{table_name}_PEAKS
 GROUP BY
       TBL_$P!{table_name}_PEAKS.host_id, host_name, delete_date

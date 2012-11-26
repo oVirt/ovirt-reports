@@ -26,34 +26,34 @@
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT    v3_0_datacenter_configuration_view.datacenter_name as datacenter_name,
-         v3_0_datacenter_configuration_view.delete_date as datacenter_delete_date,
-          (SELECT v3_0_storage_domain_configuration_view.storage_domain_name
-      FROM v3_0_storage_domain_configuration_view
-      WHERE v3_0_storage_domain_configuration_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-            and v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
-                                      FROM v3_0_storage_domain_configuration_view as a
+        <![CDATA[SELECT    v3_2_configuration_history_datacenters.datacenter_name as datacenter_name,
+         v3_2_configuration_history_datacenters.delete_date as datacenter_delete_date,
+          (SELECT v3_2_configuration_history_storage_domains.storage_domain_name
+      FROM v3_2_configuration_history_storage_domains
+      WHERE v3_2_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+            and v3_2_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                                      FROM v3_2_configuration_history_storage_domains as a
                                       GROUP BY a.storage_domain_id)) as storage_name,
         (SELECT detach_date
-         FROM v3_0_datacenter_storage_domain_map_view
-         WHERE v3_0_datacenter_storage_domain_map_view.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-          and v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-          and v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
-                                            FROM v3_0_datacenter_storage_domain_map_view as a
+         FROM v3_2_map_history_datacenters_storage_domains
+         WHERE v3_2_map_history_datacenters_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+          and v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+          and v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                                            FROM v3_2_map_history_datacenters_storage_domains as a
                                         GROUP BY a.storage_domain_id, a.datacenter_id)) as storage_delete_date,
-        coalesce((SELECT v3_0_enum_translator_view.value
-              FROM v3_0_enum_translator_view
-          WHERE v3_0_enum_translator_view.enum_key = $P{P_Storage_Type}
-          AND v3_0_enum_translator_view.enum_type = 'STORAGE_DOMAIN_TYPE'), 'all') as storage_type,
+        coalesce((SELECT v3_2_enum_translator.value
+              FROM v3_2_enum_translator
+          WHERE v3_2_enum_translator.enum_key = $P{P_Storage_Type}
+          AND v3_2_enum_translator.enum_type = 'STORAGE_DOMAIN_TYPE'), 'all') as storage_type,
         CASE
             WHEN $P{P_Period} = 'Monthly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
             WHEN $P{P_Period} = 'Quarterly' THEN CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date)
             WHEN $P{P_Period} = 'Yearly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date)
         END as end_date
-FROM v3_0_datacenter_configuration_view
-WHERE     v3_0_datacenter_configuration_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-    and v3_0_datacenter_configuration_view.history_id in (SELECT max(a.history_id)
-                                 FROM v3_0_datacenter_configuration_view as a
+FROM v3_2_configuration_history_datacenters
+WHERE     v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+    and v3_2_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
+                                 FROM v3_2_configuration_history_datacenters as a
                                  GROUP BY a.datacenter_id)]]>
     </queryString>
     <field name="datacenter_name" class="java.lang.String"/>

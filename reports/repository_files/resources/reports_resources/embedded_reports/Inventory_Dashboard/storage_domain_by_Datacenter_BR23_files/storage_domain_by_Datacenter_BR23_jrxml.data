@@ -28,19 +28,19 @@
         <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT  ceiling(row_number() over (partition by 1)/20) as group_number, v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id,
-    v3_0_storage_domain_configuration_view.storage_domain_name,
-        SUM(coalesce(available_disk_size_gb,0)) / COUNT(distinct v3_0_storage_domain_$P!{table_name}_history_view.history_datetime) AS avail_size,
-        SUM(coalesce(used_disk_size_gb,0)) / COUNT(distinct v3_0_storage_domain_$P!{table_name}_history_view.history_datetime) AS used_size
+        <![CDATA[SELECT  ceiling(row_number() over (partition by 1)/20) as group_number, v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id,
+    v3_2_configuration_history_storage_domains.storage_domain_name,
+        SUM(coalesce(available_disk_size_gb,0)) / COUNT(distinct v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.history_datetime) AS avail_size,
+        SUM(coalesce(used_disk_size_gb,0)) / COUNT(distinct v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.history_datetime) AS used_size
 
-FROM v3_0_storage_domain_$P!{table_name}_history_view
-        INNER JOIN v3_0_storage_domain_configuration_view
-            ON (v3_0_storage_domain_configuration_view.storage_domain_id = v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id)
-                INNER JOIN v3_0_datacenter_storage_domain_map_view
-                    ON (v3_0_datacenter_storage_domain_map_view.storage_domain_id = v3_0_storage_domain_configuration_view.storage_domain_id)
+FROM v3_2_statistics_storage_domains_resources_usage_$P!{table_name}
+        INNER JOIN v3_2_configuration_history_storage_domains
+            ON (v3_2_configuration_history_storage_domains.storage_domain_id = v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id)
+                INNER JOIN v3_2_map_history_datacenters_storage_domains
+                    ON (v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id)
 WHERE
-v3_0_datacenter_storage_domain_map_view.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-AND (v3_0_datacenter_storage_domain_map_view.detach_date IS NULL or v3_0_datacenter_storage_domain_map_view.detach_date <= CASE
+v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+AND (v3_2_map_history_datacenters_storage_domains.detach_date IS NULL or v3_2_map_history_datacenters_storage_domains.detach_date <= CASE
     WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
     WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
     WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
@@ -53,15 +53,15 @@ AND history_datetime <= CASE
                            WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                            WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                        END
-AND v3_0_datacenter_storage_domain_map_view.history_id in (SELECT max(a.history_id)
-                              FROM v3_0_datacenter_storage_domain_map_view a
+AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                              FROM v3_2_map_history_datacenters_storage_domains a
                               GROUP BY a.storage_domain_id, a.datacenter_id)
-AND v3_0_storage_domain_configuration_view.history_id in (SELECT max(a.history_id)
-                             FROM v3_0_storage_domain_configuration_view a
+AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                             FROM v3_2_configuration_history_storage_domains a
                              GROUP BY a.storage_domain_id)
 $P!{is_deleted}
-GROUP BY v3_0_storage_domain_$P!{table_name}_history_view.storage_domain_id,
-         v3_0_storage_domain_configuration_view.storage_domain_name]]>
+GROUP BY v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id,
+         v3_2_configuration_history_storage_domains.storage_domain_name]]>
     </queryString>
     <field name="group_number" class="java.lang.Double"/>
     <field name="storage_domain_id" class="java.lang.Object"/>
