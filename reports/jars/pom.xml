@@ -15,6 +15,7 @@
 
   <modules>
     <module>ChartsCustomizers</module>
+    <module>EngineAuthentication</module>
     <module>ReportsPieChartTheme</module>
     <module>ReportsLineBarChartTheme</module>
     <module>WebadminLineBarChartTheme</module>

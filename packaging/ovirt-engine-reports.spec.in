@@ -1,0 +1,131 @@
+# Settings
+%global product_name Reports package for oVirt Virtualization Management
+%global product_description oVirt virtualization reports
+%global install_poms 1
+
+%global reports_name ovirt-engine-reports
+%global reports_java %{_javadir}/%{reports_name}
+
+%global make_common_opts \\\
+        -j1 \\\
+        PACKAGE_NAME=%{name} \\\
+        OVIRT_REPORTS_NAME=%{reports_name} \\\
+        PREFIX=%{_prefix} \\\
+        SYSCONF_DIR=%{_sysconfdir} \\\
+        BIN_DIR=%{_bindir} \\\
+        DATAROOT_DIR=%{_datadir} \\\
+        PYTHON=%{__python} \\\
+        PYTHON_DIR=%{python_sitelib} \\\
+        JAVA_DIR=%{_javadir} \\\
+        MAVENPOM_DIR=%{_mavenpomdir} \\\
+        PKG_JAVA_DIR=%{reports_java} \\\
+        %{?BUILD_FLAGS:BUILD_FLAGS="%{BUILD_FLAGS}"} \\\
+        %{?EXTRA_BUILD_FLAGS:EXTRA_BUILD_FLAGS="%{EXTRA_BUILD_FLAGS}"}
+
+Name: ovirt-engine-reports
+Version: @PACKAGE_VERSION@
+Release: @PACKAGE_RELEASE@%{dist}
+License: Commercial
+Summary: %{product_name}
+Group: Virtualization/Management
+URL: http://www.ovirt.org
+BuildArch: noarch
+Source: %{name}-%{version}.tar.gz
+BuildRequires: maven
+BuildRequires: jpackage-utils
+BuildRequires: make
+BuildRequires: log4j
+Requires: python
+Requires: java-1.7.0-openjdk
+Requires: jpackage-utils
+Requires: ovirt-engine >= 3.1
+Requires: ovirt-engine-dwh >= 3.1
+Requires: jasperreports-server >= 4.7.0
+
+# We need some packages installed in order to workaround
+# bug 862355:
+Requires: liberation-mono-fonts
+
+%description
+The %{product_description} package provides a suite of
+pre-configured reports and dashboards that enable you to
+monitor the system. The reports module is based on
+JasperReports and JasperServer, and can also be used to create
+ad-hoc reports.
+
+%prep
+
+%setup -c -q
+
+%build
+
+make %{make_common_opts}
+
+%install
+rm -fr "%{buildroot}"
+
+# Use the makefile to do the normal installation, after that we
+# will need to replace jar files with links to their actual
+# locations:
+make %{make_common_opts} install DESTDIR=%{buildroot}
+
+# Needed for compatibility if package is different than the directory structure
+%if "%{name}" != "%{reports_name}"
+    ln -s -f %{_bindir}/%{reports_name}-setup %{buildroot}%{_bindir}/%{name}-setup
+    ln -s "%{reports_name}" "%{buildroot}%{reports_java}/../%{name}"
+%endif
+
+# Register poms
+%if !%{install_poms}
+rm -fr "%{buildroot}%{_mavenpomdir}"
+%else
+for pom in %{buildroot}%{_mavenpomdir}/*.pom
+do
+  pomdir=`dirname "${pom}"`
+  pom=`basename "${pom}"`
+  jpppom="JPP.${pom}"
+  mv "${pomdir}/${pom}" "${pomdir}/${jpppom}"
+  artifact_id=`echo "${pom}" | sed -e 's/^%{name}-//' -e 's/\.pom//'`
+  if [ -f "%{buildroot}%{reports_java}/${artifact_id}.jar" ]
+  then
+    %add_maven_depmap "${jpppom}" "%{name}/${artifact_id}.jar"
+  else
+    %add_maven_depmap "${jpppom}"
+  fi
+done
+%endif
+
+%post
+%update_maven_depmap
+
+%postun
+%update_maven_depmap
+if [ "$1" -eq 0 ]; then
+    if [ -d /usr/share/ovirt-engine/%{reports_name}.war ]; then
+        rm -rf /usr/share/ovirt-engine/%{reports_name}.war
+        rm -rf /var/lib/ovirt-engine/deployments/%{reports_name}.war*
+    fi
+    if [ -f /etc/ovirt-engine/jrs-deployment.version ]; then
+        rm -rf /etc/ovirt-engine/jrs-deployment.version
+    fi
+fi
+
+%files
+%{reports_java}
+%{_datadir}/%{reports_name}
+%if "%{name}" != "%{reports_name}"
+%{_javadir}/%{name}
+%endif
+%if %{install_poms}
+%{_mavendepmapfragdir}/%{name}
+%{_mavenpomdir}/JPP.%{name}-*
+%endif
+
+%{_bindir}/%{reports_name}-setup
+%{_bindir}/%{name}-setup
+
+%changelog
+* Sun Nov 4 2012 Yaniv Dary <ydary@redhat.com> - 3.1.0
+- Update
+* Wed Feb 15 2012 Yaniv Dary <ydary@redhat.com> - 3.0.2
+- Initial Commit
