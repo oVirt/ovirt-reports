@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Reports/Inventory</folder>
+    <name>ccp_vm_inventory_br44</name>
+    <version>56</version>
+    <label>Cloud Provider Virtual Machine Inventory (BR44)</label>
+    <description>This report displays a list of virtual machines by OS of the selected data center and cluster and their respected uptime and existence time. This is required for billing cloud providers.</description>
+    <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+    <updateDate>2012-12-18T15:32:51.118+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="ccp_vm_inventory_br44_jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ccp_vm_inventory_br44_jrxml</name>
+            <version>36</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Period</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_vms/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_cluster_with_vms/P_Cluster_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/vm_ic/P_VM_Type</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="full details.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>full details.jrxml</name>
+            <version>2</version>
+            <label>full details.jrxml</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt-icon</name>
+            <version>0</version>
+            <label>ovirt-icon</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>trash-icon</name>
+            <version>0</version>
+            <label>trash-icon</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_de.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_de.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_de.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_es.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_es.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_es.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_fr.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_fr.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_fr.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_ja.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_ja.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_ja.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_pt_BR.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_pt_BR.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_pt_BR.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_zh_CN.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_zh_CN.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_CN.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/ccp_vm_inventory_br44_files</folder>
+            <name>ovirt_reports_bundle_zh_TW.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_zh_TW.properties</label>
+            <creationDate>2012-12-17T12:43:37.646+02:00</creationDate>
+            <updateDate>2012-12-17T12:43:37.646+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_TW.properties</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>

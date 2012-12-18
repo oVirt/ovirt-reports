@@ -9,4 +9,5 @@
     <resource>Hosts_Inventory</resource>
     <resource>Storage_Domain_Report_BR21</resource>
     <resource>VM_Inventory</resource>
+    <resource>ccp_vm_inventory_br44</resource>
 </folder>
