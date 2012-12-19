@@ -38,7 +38,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -50,7 +50,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_de.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -62,7 +62,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -74,7 +74,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_es.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -86,7 +86,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_fr.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -98,7 +98,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_ja.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -110,7 +110,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_pt_BR.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
@@ -122,7 +122,7 @@
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_CN.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/not_used/dc_vm_over_commit_dr25_files</folder>
