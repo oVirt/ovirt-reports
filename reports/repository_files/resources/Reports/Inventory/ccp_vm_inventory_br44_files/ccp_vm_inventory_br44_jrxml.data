@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR9" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="49dfbaac-af3c-4c9d-b3a5-261464e93c36">
-	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/ccp_vm_inventory_br44"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<style name="Crosstab Data Text" hAlign="Center"/>
-	<style name="Line Style">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{ClusterID_COUNT} % 2) == 0]]></conditionExpression>
-			<style mode="Opaque" backcolor="#EFF3FF"/>
-		</conditionalStyle>
-	</style>
-	<style name="table">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
-			<style backcolor="#EFF7FF"/>
-		</conditionalStyle>
-	</style>
-	<subDataset name="Table" uuid="5304bbd1-8453-4073-92dc-d0a20868e775">
-		<parameter name="is_deleted" class="java.lang.String">
-			<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Period" class="java.lang.String">
-			<parameterDescription><![CDATA[Period]]></parameterDescription>
-			<defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Start_Date" class="java.util.Date">
-			<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_DataCenter_ID" class="java.lang.String">
-			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_Cluster_ID" class="java.lang.String">
-			<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-		</parameter>
-		<parameter name="P_VM_Type" class="java.lang.Integer">
-			<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-		</parameter>
-		<parameter name="table_name" class="java.lang.String">
-			<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-		</parameter>
-		<queryString>
-			<![CDATA[SELECT v3_2_configuration_history_vms.cluster_id
+    <property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/ccp_vm_inventory_br44"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <style name="Crosstab Data Text" hAlign="Center"/>
+    <style name="Line Style">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[($V{ClusterID_COUNT} % 2) == 0]]></conditionExpression>
+            <style mode="Opaque" backcolor="#EFF3FF"/>
+        </conditionalStyle>
+    </style>
+    <style name="table">
+        <box>
+            <pen lineWidth="1.0" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+        <conditionalStyle>
+            <conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+            <style backcolor="#EFF7FF"/>
+        </conditionalStyle>
+    </style>
+    <subDataset name="Table" uuid="5304bbd1-8453-4073-92dc-d0a20868e775">
+        <parameter name="is_deleted" class="java.lang.String">
+            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Period" class="java.lang.String">
+            <parameterDescription><![CDATA[Period]]></parameterDescription>
+            <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Start_Date" class="java.util.Date">
+            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_DataCenter_ID" class="java.lang.String">
+            <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_Cluster_ID" class="java.lang.String">
+            <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+        </parameter>
+        <parameter name="P_VM_Type" class="java.lang.Integer">
+            <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+        </parameter>
+        <parameter name="table_name" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+        </parameter>
+        <queryString>
+            <![CDATA[SELECT v3_2_configuration_history_vms.cluster_id
       ,v3_2_configuration_history_clusters.cluster_name
       ,v3_2_configuration_history_clusters.delete_date as cluster_delete
       ,b.value AS os_version
@@ -142,419 +142,419 @@ GROUP BY v3_2_configuration_history_vms.cluster_id
          ,ROUND(CAST(EXTRACT(epoch FROM coalesce(v3_2_configuration_history_vms.delete_date,CURRENT_TIMESTAMP) - v3_2_configuration_history_vms.create_date)/3600 as numeric), 2)
          ,v3_2_configuration_history_vms.vm_id
 ORDER BY v3_2_configuration_history_vms.cluster_id, b.value, v3_2_configuration_history_vms.delete_date DESC, vm_uptime DESC, existence_time_hours DESC]]>
-		</queryString>
-		<field name="cluster_id" class="java.lang.Object"/>
-		<field name="cluster_name" class="java.lang.String"/>
-		<field name="cluster_delete" class="java.sql.Timestamp"/>
-		<field name="os_version" class="java.lang.String"/>
-		<field name="vm_name" class="java.lang.String"/>
-		<field name="vm_description" class="java.lang.String"/>
-		<field name="template_name" class="java.lang.String"/>
-		<field name="create_date" class="java.sql.Timestamp"/>
-		<field name="delete_date" class="java.sql.Timestamp"/>
-		<field name="number_of_sockets" class="java.lang.Integer"/>
-		<field name="cpu_per_socket" class="java.lang.Integer"/>
-		<field name="vm_cpucores" class="java.lang.Integer"/>
-		<field name="existence_time_hours" class="java.math.BigDecimal"/>
-		<field name="vm_uptime" class="java.math.BigDecimal"/>
-		<field name="vm_id" class="java.lang.Object"/>
-		<group name="cluster_group">
-			<groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
-		</group>
-		<group name="os_group">
-			<groupExpression><![CDATA[$F{os_version}]]></groupExpression>
-		</group>
-	</subDataset>
-	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Documents and Settings\\Administrator\\Local Settings\\Temp\\jstmp\\"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="is_deleted" class="java.lang.String">
-		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Period" class="java.lang.String">
-		<parameterDescription><![CDATA[Period]]></parameterDescription>
-		<defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Start_Date" class="java.util.Date">
-		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_DataCenter_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_Cluster_ID" class="java.lang.String">
-		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="P_VM_Type" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-	</parameter>
-	<parameter name="table_name" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
-	<field name="vm_name" class="java.lang.String"/>
-	<field name="template_name" class="java.lang.String"/>
-	<field name="create_date" class="java.sql.Date"/>
-	<field name="delete_date" class="java.sql.Date"/>
-	<field name="os_version" class="java.lang.String"/>
-	<field name="vm_memsize" class="java.math.BigDecimal"/>
-	<field name="vm_cpucores" class="java.math.BigDecimal"/>
-	<field name="cluster_id" class="java.lang.Object"/>
-	<field name="vm_type" class="java.lang.String"/>
-	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-		<initialValueExpression><![CDATA[]]></initialValueExpression>
-	</variable>
-	<title>
-		<band height="163">
-			<subreport>
-				<reportElement uuid="c2fc30d3-ba96-4faa-8dd1-7318d422acaa" x="0" y="45" width="832" height="116"/>
-				<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
-			</subreport>
-			<textField pattern="">
-				<reportElement uuid="5f2b22bd-acb2-4656-ab7f-1f79d1062273" x="504" y="27" width="328" height="15"/>
-				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="11" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement uuid="b6963bc2-26eb-4f01-8abb-6e947c98e830" x="0" y="43" width="832" height="1"/>
-			</line>
-			<image>
-				<reportElement uuid="668b7dbb-6cf3-4bf6-9cfa-d759143d9e98" x="0" y="0" width="228" height="42"/>
-				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
-			</image>
-		</band>
-	</title>
-	<pageFooter>
-		<band height="15" splitType="Stretch">
-			<textField evaluationTime="Auto">
-				<reportElement uuid="193359a0-548d-42d9-b7de-7d1018537337" x="221" y="0" width="391" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
-	<summary>
-		<band height="21">
-			<componentElement>
-				<reportElement uuid="50faf87c-7142-4260-965a-d5e11470f1b4" key="table" style="table" x="0" y="0" width="832" height="20"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table" uuid="c79c4d00-2d35-4c21-8ce4-65372c6688a8">
-						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:columnGroup uuid="a561c377-2ca4-4826-b822-ecb3f883d6c1" width="833">
-						<jr:groupHeader groupName="cluster_group">
-							<jr:cell style="table_TH" height="20" rowSpan="1">
-								<textField>
-									<reportElement uuid="de5826c5-dd56-4de1-a11a-bb89991747a2" x="15" y="0" width="817" height="20"/>
-									<textElement verticalAlignment="Middle" markup="html"/>
-									<textFieldExpression><![CDATA[$F{cluster_delete} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + " (" + msg($R{full.details.removed.on.message}, DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{cluster_delete})) + ")" :
+        </queryString>
+        <field name="cluster_id" class="java.lang.Object"/>
+        <field name="cluster_name" class="java.lang.String"/>
+        <field name="cluster_delete" class="java.sql.Timestamp"/>
+        <field name="os_version" class="java.lang.String"/>
+        <field name="vm_name" class="java.lang.String"/>
+        <field name="vm_description" class="java.lang.String"/>
+        <field name="template_name" class="java.lang.String"/>
+        <field name="create_date" class="java.sql.Timestamp"/>
+        <field name="delete_date" class="java.sql.Timestamp"/>
+        <field name="number_of_sockets" class="java.lang.Integer"/>
+        <field name="cpu_per_socket" class="java.lang.Integer"/>
+        <field name="vm_cpucores" class="java.lang.Integer"/>
+        <field name="existence_time_hours" class="java.math.BigDecimal"/>
+        <field name="vm_uptime" class="java.math.BigDecimal"/>
+        <field name="vm_id" class="java.lang.Object"/>
+        <group name="cluster_group">
+            <groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
+        </group>
+        <group name="os_group">
+            <groupExpression><![CDATA[$F{os_version}]]></groupExpression>
+        </group>
+    </subDataset>
+    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["C:\\Documents and Settings\\Administrator\\Local Settings\\Temp\\jstmp\\"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="is_deleted" class="java.lang.String">
+        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Period" class="java.lang.String">
+        <parameterDescription><![CDATA[Period]]></parameterDescription>
+        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Start_Date" class="java.util.Date">
+        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_DataCenter_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Cluster_ID" class="java.lang.String">
+        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_VM_Type" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+    </parameter>
+    <parameter name="table_name" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="vm_name" class="java.lang.String"/>
+    <field name="template_name" class="java.lang.String"/>
+    <field name="create_date" class="java.sql.Date"/>
+    <field name="delete_date" class="java.sql.Date"/>
+    <field name="os_version" class="java.lang.String"/>
+    <field name="vm_memsize" class="java.math.BigDecimal"/>
+    <field name="vm_cpucores" class="java.math.BigDecimal"/>
+    <field name="cluster_id" class="java.lang.Object"/>
+    <field name="vm_type" class="java.lang.String"/>
+    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+        <initialValueExpression><![CDATA[]]></initialValueExpression>
+    </variable>
+    <title>
+        <band height="163">
+            <subreport>
+                <reportElement uuid="c2fc30d3-ba96-4faa-8dd1-7318d422acaa" x="0" y="45" width="832" height="116"/>
+                <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                <subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
+            </subreport>
+            <textField pattern="">
+                <reportElement uuid="5f2b22bd-acb2-4656-ab7f-1f79d1062273" x="504" y="27" width="328" height="15"/>
+                <textElement textAlignment="Right">
+                    <font fontName="SansSerif" size="11" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement uuid="b6963bc2-26eb-4f01-8abb-6e947c98e830" x="0" y="43" width="832" height="1"/>
+            </line>
+            <image>
+                <reportElement uuid="668b7dbb-6cf3-4bf6-9cfa-d759143d9e98" x="0" y="0" width="228" height="42"/>
+                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+            </image>
+        </band>
+    </title>
+    <pageFooter>
+        <band height="15" splitType="Stretch">
+            <textField evaluationTime="Auto">
+                <reportElement uuid="193359a0-548d-42d9-b7de-7d1018537337" x="221" y="0" width="391" height="15"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif"/>
+                </textElement>
+                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="21">
+            <componentElement>
+                <reportElement uuid="50faf87c-7142-4260-965a-d5e11470f1b4" key="table" style="table" x="0" y="0" width="832" height="20"/>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="Table" uuid="c79c4d00-2d35-4c21-8ce4-65372c6688a8">
+                        <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:columnGroup uuid="a561c377-2ca4-4826-b822-ecb3f883d6c1" width="833">
+                        <jr:groupHeader groupName="cluster_group">
+                            <jr:cell style="table_TH" height="20" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="de5826c5-dd56-4de1-a11a-bb89991747a2" x="15" y="0" width="817" height="20"/>
+                                    <textElement verticalAlignment="Middle" markup="html"/>
+                                    <textFieldExpression><![CDATA[$F{cluster_delete} != null ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + " (" + msg($R{full.details.removed.on.message}, DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{cluster_delete})) + ")" :
 "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name}]]></textFieldExpression>
-								</textField>
-								<image>
-									<reportElement uuid="704e5a12-37f6-45af-9541-ec0594b88fb9" x="2" y="5" width="10" height="11">
-										<printWhenExpression><![CDATA[$F{cluster_delete} != null]]></printWhenExpression>
-									</reportElement>
-									<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-								</image>
-							</jr:cell>
-						</jr:groupHeader>
-						<jr:groupHeader groupName="os_group">
-							<jr:cell height="20" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="370954f6-a033-460f-bdc3-acef26eddb82" x="0" y="0" width="833" height="20"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:cell>
-						</jr:groupHeader>
-						<jr:column uuid="ce18be2c-8b6e-499e-9827-ddfc250665e8" width="33">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<staticText>
-									<reportElement uuid="33ce2d48-48a0-4761-8f79-2a3432e7954e" x="0" y="0" width="33" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font isBold="true"/>
-									</textElement>
-									<text><![CDATA[#]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField>
-									<reportElement uuid="27acab96-1d2f-4c6a-a437-eafe94273bf9" x="0" y="0" width="33" height="18"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{cluster_group_COUNT}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="95bc4cbd-9d5d-49c7-a02c-0880c8c8cf81" width="15">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1"/>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<image hAlign="Center" vAlign="Middle">
-									<reportElement uuid="704e5a12-37f6-45af-9541-ec0594b88fb9" x="3" y="3" width="10" height="11">
-										<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
-									</reportElement>
-									<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-									<hyperlinkTooltipExpression><![CDATA["Deleted"]]></hyperlinkTooltipExpression>
-								</image>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="fcf228f8-397b-454b-b7b6-7f8a000ade85" width="68">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="ba2c2f3f-ee84-4c6e-b9bb-a99f8554b17f" x="0" y="0" width="68" height="35"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br9.table.vm.name}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br9.table.vm.name}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="423dec4f-e93c-4e23-b7f3-42e68a8ec85b" x="0" y="0" width="68" height="18"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{vm_name}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{vm_name}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="4725ca06-465d-4052-ab70-be8e552f7352" width="68">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="e390a70d-c76a-4501-9a16-8155f39f9e03" x="0" y="0" width="68" height="35"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.vm.description}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.vm.description}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="78aae09f-2fa8-4aea-a6e2-ab0657eb9dc4" x="0" y="0" width="68" height="18"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{vm_description}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{vm_description}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="25a33611-3667-4ace-a3b6-5d9231ac6996" width="75">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="27f78a1e-3fe7-473b-b5f9-d3895d0871b7" x="0" y="0" width="75" height="35"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br9.table.os}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br9.table.os}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="370954f6-a033-460f-bdc3-acef26eddb82" x="0" y="0" width="75" height="18"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="4725ca06-465d-4052-ab70-be8ebb2f7352" width="68">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="e390a70d-c76a-4501-9a16-815bf39f9e03" x="0" y="0" width="68" height="35"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br9.table.template.name}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br9.table.template.name}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="78aae09f-2fa8-4aea-a6e2-ab0d09eb9dc4" x="0" y="0" width="68" height="18"/>
-									<textElement textAlignment="Left" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{template_name}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{template_name}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="398755ce-28e7-4179-b39a-3be1947f1aa2" width="77">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="71d4ea0e-3127-4642-8546-0733dfb525f7" x="0" y="0" width="77" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br9.table.create.date}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br9.table.create.date}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="6fc91eda-409e-41de-a8e5-33280a855fa7" x="0" y="0" width="77" height="18"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{create_date}]]></textFieldExpression>
-									<patternExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
-									<hyperlinkTooltipExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE}).format($F{create_date})]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="e8a2dbf7-ad7b-4eca-b574-e3f9da8cad88" width="77">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d" x="0" y="0" width="77" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br9.table.delete.date}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br9.table.delete.date}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="33cc21d0-93a4-4028-94e1-e80620c9a63f" x="0" y="0" width="77" height="18"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{delete_date}]]></textFieldExpression>
-									<patternExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
-									<hyperlinkTooltipExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="0e90c706-4f55-48c1-8b0a-8ef1f32385f3" width="56">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d" x="0" y="0" width="56" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="10" isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.number.of.sockets}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.number.of.sockets}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="76296d5e-bf6d-4e1d-b2c6-6ee21ab38faf" x="0" y="0" width="28" height="18"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{number_of_sockets}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{number_of_sockets}.toString()]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="7da7eafb-23fc-4590-afa1-290b2d246c21" width="65">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d" x="0" y="0" width="65" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="10" isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.cores.per.socket}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.cores.per.socket}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="1b011caf-2206-4ac8-ad48-7e18668a658f" x="0" y="0" width="33" height="18"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{cpu_per_socket}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{cpu_per_socket}.toString()]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="aaa24124-3177-47e2-9726-022bc48bb201" width="56">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="55" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br9.table.number.of.cores}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br9.table.number.of.cores}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="71149980-31ae-4bd9-bf97-eaeb47bfc8ab" x="0" y="0" width="27" height="18"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{vm_cpucores}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{vm_cpucores}.toString()]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="0e90c706-4f55-48c1-8b0a-8ef1f35555f3" width="76">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="76" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="10" isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.existence.time.hours}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.existence.time.hours}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="a066729e-e607-4099-819d-bd4adddc9203" x="0" y="0" width="60" height="18"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{existence_time_hours}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{existence_time_hours}.toString()]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="7da7eafb-23fc-5550-afa1-290b2d246c21" width="66">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="66" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="10" isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.vm.uptime.hours}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.vm.uptime.hours}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="f8f139bc-082d-4221-8b25-660203e94bf3" x="0" y="0" width="53" height="18"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{vm_uptime}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{vm_uptime}.toString()]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column uuid="7da7eafb-23fc-5550-afa1-29044d246c21" width="33">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="33" height="35"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="10" isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.vm.uuid}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.vm.uuid}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="2f3f0415-6aa6-4ae8-96c1-ac2eb7893be0" x="0" y="0" width="33" height="18"/>
-									<textElement verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[""+$F{vm_id}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA["" + $F{vm_id}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-					</jr:columnGroup>
-				</jr:table>
-			</componentElement>
-		</band>
-	</summary>
+                                </textField>
+                                <image>
+                                    <reportElement uuid="704e5a12-37f6-45af-9541-ec0594b88fb9" x="2" y="5" width="10" height="11">
+                                        <printWhenExpression><![CDATA[$F{cluster_delete} != null]]></printWhenExpression>
+                                    </reportElement>
+                                    <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+                                </image>
+                            </jr:cell>
+                        </jr:groupHeader>
+                        <jr:groupHeader groupName="os_group">
+                            <jr:cell height="20" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="370954f6-a033-460f-bdc3-acef26eddb82" x="0" y="0" width="833" height="20"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:cell>
+                        </jr:groupHeader>
+                        <jr:column uuid="ce18be2c-8b6e-499e-9827-ddfc250665e8" width="33">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <staticText>
+                                    <reportElement uuid="33ce2d48-48a0-4761-8f79-2a3432e7954e" x="0" y="0" width="33" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <text><![CDATA[#]]></text>
+                                </staticText>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="27acab96-1d2f-4c6a-a437-eafe94273bf9" x="0" y="0" width="33" height="18"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$V{cluster_group_COUNT}]]></textFieldExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="95bc4cbd-9d5d-49c7-a02c-0880c8c8cf81" width="15">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1"/>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <image hAlign="Center" vAlign="Middle">
+                                    <reportElement uuid="704e5a12-37f6-45af-9541-ec0594b88fb9" x="3" y="3" width="10" height="11">
+                                        <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
+                                    </reportElement>
+                                    <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+                                    <hyperlinkTooltipExpression><![CDATA["Deleted"]]></hyperlinkTooltipExpression>
+                                </image>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="fcf228f8-397b-454b-b7b6-7f8a000ade85" width="68">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="ba2c2f3f-ee84-4c6e-b9bb-a99f8554b17f" x="0" y="0" width="68" height="35"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br9.table.vm.name}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br9.table.vm.name}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="423dec4f-e93c-4e23-b7f3-42e68a8ec85b" x="0" y="0" width="68" height="18"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{vm_name}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{vm_name}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="4725ca06-465d-4052-ab70-be8e552f7352" width="68">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="e390a70d-c76a-4501-9a16-8155f39f9e03" x="0" y="0" width="68" height="35"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br44.table.vm.description}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br44.table.vm.description}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="78aae09f-2fa8-4aea-a6e2-ab0657eb9dc4" x="0" y="0" width="68" height="18"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{vm_description}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{vm_description}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="25a33611-3667-4ace-a3b6-5d9231ac6996" width="75">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="27f78a1e-3fe7-473b-b5f9-d3895d0871b7" x="0" y="0" width="75" height="35"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br9.table.os}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br9.table.os}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="370954f6-a033-460f-bdc3-acef26eddb82" x="0" y="0" width="75" height="18"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{os_version}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{os_version}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="4725ca06-465d-4052-ab70-be8ebb2f7352" width="68">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="e390a70d-c76a-4501-9a16-815bf39f9e03" x="0" y="0" width="68" height="35"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br9.table.template.name}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br9.table.template.name}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="78aae09f-2fa8-4aea-a6e2-ab0d09eb9dc4" x="0" y="0" width="68" height="18"/>
+                                    <textElement textAlignment="Left" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{template_name}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{template_name}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="398755ce-28e7-4179-b39a-3be1947f1aa2" width="77">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="71d4ea0e-3127-4642-8546-0733dfb525f7" x="0" y="0" width="77" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br9.table.create.date}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br9.table.create.date}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="6fc91eda-409e-41de-a8e5-33280a855fa7" x="0" y="0" width="77" height="18"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{create_date}]]></textFieldExpression>
+                                    <patternExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE}).format($F{create_date})]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="e8a2dbf7-ad7b-4eca-b574-e3f9da8cad88" width="77">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d" x="0" y="0" width="77" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br9.table.delete.date}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br9.table.delete.date}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="33cc21d0-93a4-4028-94e1-e80620c9a63f" x="0" y="0" width="77" height="18"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{delete_date}]]></textFieldExpression>
+                                    <patternExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="0e90c706-4f55-48c1-8b0a-8ef1f32385f3" width="56">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d" x="0" y="0" width="56" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font size="10" isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br44.table.number.of.sockets}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br44.table.number.of.sockets}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="76296d5e-bf6d-4e1d-b2c6-6ee21ab38faf" x="0" y="0" width="28" height="18"/>
+                                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{number_of_sockets}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{number_of_sockets}.toString()]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="7da7eafb-23fc-4590-afa1-290b2d246c21" width="65">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d" x="0" y="0" width="65" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font size="10" isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br44.table.cores.per.socket}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br44.table.cores.per.socket}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="1b011caf-2206-4ac8-ad48-7e18668a658f" x="0" y="0" width="33" height="18"/>
+                                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{cpu_per_socket}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{cpu_per_socket}.toString()]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="aaa24124-3177-47e2-9726-022bc48bb201" width="56">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="55" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br9.table.number.of.cores}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br9.table.number.of.cores}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="71149980-31ae-4bd9-bf97-eaeb47bfc8ab" x="0" y="0" width="27" height="18"/>
+                                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{vm_cpucores}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{vm_cpucores}.toString()]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="0e90c706-4f55-48c1-8b0a-8ef1f35555f3" width="76">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="76" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font size="10" isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br44.table.existence.time.hours}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br44.table.existence.time.hours}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="a066729e-e607-4099-819d-bd4adddc9203" x="0" y="0" width="60" height="18"/>
+                                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{existence_time_hours}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{existence_time_hours}.toString()]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="7da7eafb-23fc-5550-afa1-290b2d246c21" width="66">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="66" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font size="10" isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br44.table.vm.uptime.hours}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br44.table.vm.uptime.hours}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="f8f139bc-082d-4221-8b25-660203e94bf3" x="0" y="0" width="53" height="18"/>
+                                    <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[$F{vm_uptime}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$F{vm_uptime}.toString()]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                        <jr:column uuid="7da7eafb-23fc-5550-afa1-29044d246c21" width="33">
+                            <jr:columnHeader style="table_CH" height="35" rowSpan="1">
+                                <textField>
+                                    <reportElement uuid="c25306d3-4058-43e1-afe9-bd46f82a7205" x="0" y="0" width="33" height="35"/>
+                                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+                                        <font size="10" isBold="true"/>
+                                    </textElement>
+                                    <textFieldExpression><![CDATA[$R{br44.table.vm.uuid}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[$R{br44.table.vm.uuid}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:columnHeader>
+                            <jr:detailCell style="table_TD" height="18" rowSpan="1">
+                                <textField isBlankWhenNull="true">
+                                    <reportElement uuid="2f3f0415-6aa6-4ae8-96c1-ac2eb7893be0" x="0" y="0" width="33" height="18"/>
+                                    <textElement verticalAlignment="Middle"/>
+                                    <textFieldExpression><![CDATA[""+$F{vm_id}]]></textFieldExpression>
+                                    <hyperlinkTooltipExpression><![CDATA["" + $F{vm_id}]]></hyperlinkTooltipExpression>
+                                </textField>
+                            </jr:detailCell>
+                        </jr:column>
+                    </jr:columnGroup>
+                </jr:table>
+            </componentElement>
+        </band>
+    </summary>
 </jasperReport>
