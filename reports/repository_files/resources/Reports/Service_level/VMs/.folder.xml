@@ -7,4 +7,5 @@
     <updateDate>2011-06-20T17:29:08.000+03:00</updateDate>
     <resource>cluster_quality_of_service_vms_br13</resource>
     <resource>virtual_servers_uptime_br14</resource>
+    <resource>single_vm_uptime_br46</resource>
 </folder>

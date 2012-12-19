@@ -318,3 +318,5 @@ br45.table.peak.user.cpu.usage.percent=Max User CPU Usage %
 br45.table.average.memory.usage.percent=Avg Memory Usage %
 br45.table.peak.memory.usage.percent=Max Memory Usage %
 br45.title=Users'' Spice Sessions Activity in <b>{0}</b> of <b>Data Center {1}</b>
+dr.count.list.storage.domains=Storage Domains
+br46.title=Uptime of <b>Virtual Machine {0}</b>
