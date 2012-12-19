@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/Reports</parent>
+    <name>users_usage</name>
+    <label>Users' Usage</label>
+    <creationDate>2012-12-18T15:57:01.550+02:00</creationDate>
+    <updateDate>2012-12-18T15:57:01.550+02:00</updateDate>
+    <resource>users_spice_sessions_activity_br45</resource>
+</folder>
