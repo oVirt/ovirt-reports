@@ -92,7 +92,7 @@ WHERE     v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataC
                     <hyperlinkTooltipExpression><![CDATA[$F{host_type} != "All" ? $F{host_type} : $R{full.details.all}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
-                    <reportElement mode="Opaque" x="2" y="0" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
+                    <reportElement mode="Opaque" x="3" y="3" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="13" isBold="true"/>
                     </textElement>

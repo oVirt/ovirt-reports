@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
     <name>P_DataCenter_ID</name>
-    <version>19</version>
+    <version>9</version>
     <label>Data Center</label>
-    <creationDate>2011-12-27T15:25:52.385+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:35.737+03:00</updateDate>
+    <creationDate>2012-12-19T15:01:27.867+02:00</creationDate>
+    <updateDate>2012-12-20T11:38:56.143+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,18 +17,18 @@
             <name>Data_Centers</name>
             <version>1</version>
             <label>Data_Centers</label>
-            <creationDate>2012-03-30T08:51:35.737+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:35.737+03:00</updateDate>
+            <creationDate>2012-12-20T11:38:56.143+02:00</creationDate>
+            <updateDate>2012-12-20T11:38:56.143+02:00</updateDate>
             <language>sql</language>
             <queryString>Select distinct cast(datacenter_id as varchar), delete_date, CASE
-                WHEN delete_date IS NULL THEN datacenter_name
-                ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
+                WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
+                ELSE RTrim(cast(datacenter_name as varchar)) || ' (Removed on ' || cast(delete_date as varchar) || ')'
                   END as combo_name
 from v3_2_configuration_history_datacenters
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-        FROM v3_2_map_history_datacenters_storage_domains
-        WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
-                     AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
+        FROM v3_2_configuration_history_clusters
+        WHERE cluster_id in (SELECT DISTINCT a.cluster_id
+                         FROM v3_2_configuration_history_hosts a))
               AND history_id in (SELECT max(a.history_id)
          FROM v3_2_configuration_history_datacenters a
          GROUP BY a.datacenter_id)
@@ -36,15 +36,15 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
 UNION ALL
 SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), 'Non Available'
 WHERE NOT EXISTS     (Select distinct datacenter_id
-        from v3_2_configuration_history_datacenters
-        WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                FROM v3_2_map_history_datacenters_storage_domains
-                WHERE (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
-                             AND attach_date &gt;= cast($P{P_Start_Date} as timestamp))
-                      AND history_id in (SELECT max(a.history_id)
-                 FROM v3_2_configuration_history_datacenters a
-                 GROUP BY a.datacenter_id)
-                      $P!{active_storage})
+          from v3_2_configuration_history_datacenters
+          WHERE datacenter_id in (SELECT DISTINCT datacenter_id
+                  FROM v3_2_configuration_history_clusters
+                   WHERE cluster_id in (SELECT DISTINCT a.cluster_id
+                                    FROM v3_2_configuration_history_hosts a))
+                                        AND history_id in (SELECT max(a.history_id)
+                  FROM v3_2_configuration_history_datacenters a
+                  GROUP BY a.datacenter_id)
+          $P!{active_storage})
 order by delete_date DESC, combo_name</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

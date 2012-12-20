@@ -2,10 +2,11 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
     <name>P_Storage_Type</name>
-    <version>19</version>
+    <version>13</version>
     <label>Storage Type</label>
-    <creationDate>2011-12-27T15:25:52.451+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:35.843+03:00</updateDate>
+    <description></description>
+    <creationDate>2012-12-19T15:01:28.013+02:00</creationDate>
+    <updateDate>2012-12-20T11:33:02.594+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -15,20 +16,23 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
             <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage/P_Storage_Type_files</folder>
             <name>Storage_type</name>
-            <version>1</version>
+            <version>2</version>
             <label>Storage_type</label>
-            <creationDate>2012-03-30T08:51:35.843+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:35.843+03:00</updateDate>
+            <description></description>
+            <creationDate>2012-12-20T11:31:34.582+02:00</creationDate>
+            <updateDate>2012-12-20T11:31:34.582+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT v3_2_enum_translator.value, v3_2_enum_translator.enum_key,  0 as sort
-FROM v3_2_enum_translator, v3_2_configuration_history_storage_domains, v3_2_map_history_datacenters_storage_domains
+            <queryString>SELECT DISTINCT v3_2_enum_translator.value,
+                          v3_2_enum_translator.enum_key,
+                          0 as sort
+FROM v3_2_enum_translator,
+          v3_2_configuration_history_storage_domains,
+          v3_2_map_history_datacenters_storage_domains
 WHERE v3_2_configuration_history_storage_domains.storage_domain_type = v3_2_enum_translator.enum_key
-AND v3_2_enum_translator.enum_type = 'STORAGE_DOMAIN_TYPE'
-AND v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
-AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-AND (detach_date &lt; cast($P{P_End_Date} as date) + interval '1 day' OR detach_date IS NULL)
-AND attach_date &gt;= cast($P{P_Start_Date} as timestamp)
-$P!{active_storage}
+           AND v3_2_enum_translator.enum_type = 'STORAGE_DOMAIN_TYPE'
+           AND v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
+           AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+           $P!{active_storage}
 UNION ALL
 SELECT DISTINCT value, -1, 1
 FROM v3_2_enum_translator

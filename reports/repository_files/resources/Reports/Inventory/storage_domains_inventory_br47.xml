@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportUnit>
+    <folder>/Reports/Inventory</folder>
+    <name>storage_domains_inventory_br47</name>
+    <version>60</version>
+    <label>Storage Domains Inventory (BR47)</label>
+    <description>This report displays a list of all storage domains of the selected data center.</description>
+    <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+    <updateDate>2012-12-20T14:48:09.004+02:00</updateDate>
+    <mainReport>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="storage_domains_inventory_br47_jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>storage_domains_inventory_br47_jrxml</name>
+            <version>39</version>
+            <label>Main jrxml</label>
+            <description>Main jrxml</description>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </mainReport>
+    <dataSource>
+        <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
+    </dataSource>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage/active_storage</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage/P_DataCenter_ID</uri>
+    </inputControl>
+    <inputControl>
+        <uri>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage/P_Storage_Type</uri>
+    </inputControl>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="full details.jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>full details.jrxml</name>
+            <version>9</version>
+            <label>full details.jrxml</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            dataFile="chart.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>chart</name>
+            <version>1</version>
+            <label>chart</label>
+            <creationDate>2012-12-20T12:59:55.714+02:00</creationDate>
+            <updateDate>2012-12-20T12:59:55.714+02:00</updateDate>
+            <fileType>jrxml</fileType>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt-icon</name>
+            <version>0</version>
+            <label>ovirt-icon</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/ovirt-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>trash-icon</name>
+            <version>0</version>
+            <label>trash-icon</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/trash-icon</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_de.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_de.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_de.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_en_US.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_en_US.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_es.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_es.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_es.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_fr.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_fr.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_fr.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_ja.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_ja.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_ja.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_pt_BR.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_pt_BR.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_pt_BR.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_zh_CN.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_zh_CN.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_CN.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Inventory/storage_domains_inventory_br47_files</folder>
+            <name>ovirt_reports_bundle_zh_TW.properties</name>
+            <version>0</version>
+            <label>ovirt_reports_bundle_zh_TW.properties</label>
+            <creationDate>2012-12-19T15:43:27.470+02:00</creationDate>
+            <updateDate>2012-12-19T15:43:27.470+02:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_TW.properties</referenceUri>
+        </localResource>
+    </resource>
+    <inputControlRenderingView></inputControlRenderingView>
+    <reportRenderingView></reportRenderingView>
+    <alwaysPromptControls>true</alwaysPromptControls>
+    <controlsLayout>1</controlsLayout>
+</reportUnit>
