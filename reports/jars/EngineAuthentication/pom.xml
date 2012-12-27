@@ -4,13 +4,13 @@
   <parent>
     <groupId>ovirt_engine_reports</groupId>
     <artifactId>jars</artifactId>
-    <version>3.1.0</version>
+    <version>3.2.0</version>
   </parent>
 
   <groupId>ovirt_engine_reports</groupId>
   <artifactId>EngineAuthentication</artifactId>
   <packaging>jar</packaging>
-  <version>3.1.0</version>
+  <version>3.2.0</version>
   <name>EngineAuthentication jar to support webadmin-reports integration</name>
   <description>EngineAuthentication jar to support webadmin-reports integration</description>
 

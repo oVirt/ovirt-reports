@@ -38,8 +38,8 @@ BuildRequires: log4j
 Requires: python
 Requires: java-1.7.0-openjdk
 Requires: jpackage-utils
-Requires: ovirt-engine >= 3.1
-Requires: ovirt-engine-dwh >= 3.1
+Requires: ovirt-engine >= 3.2.0
+Requires: ovirt-engine-dwh >= 3.2.0
 Requires: jasperreports-server >= 4.7.0
 
 # We need some packages installed in order to workaround
