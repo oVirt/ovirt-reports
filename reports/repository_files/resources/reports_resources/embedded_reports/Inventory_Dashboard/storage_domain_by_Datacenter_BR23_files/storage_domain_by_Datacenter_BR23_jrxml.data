@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR23" language="groovy" pageWidth="490" pageHeight="305" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="490" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/storage_domain_by_Datacenter_BR23"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR23" language="groovy" pageWidth="490" pageHeight="305" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="490" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="a3b8b5d0-df02-495f-9b02-97046d4fa3cb">
+    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/Inventory_Dashboard/storage_domain_by_Datacenter_BR23"/>
     <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
@@ -77,7 +77,7 @@ GROUP BY v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage
             <band height="305">
                 <stackedBarChart>
                     <chart evaluationTime="Group" evaluationGroup="twenty_sd" customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" renderType="draw" theme="ReportsLineBarChartTheme">
-                        <reportElement mode="Opaque" x="0" y="0" width="490" height="305" printWhenGroupChanges="twenty_sd"/>
+                        <reportElement uuid="3f2c1297-fc65-4369-ad4d-da52a2fd1087" mode="Opaque" x="0" y="0" width="490" height="305" printWhenGroupChanges="twenty_sd"/>
                         <box>
                             <pen lineWidth="1.0" lineColor="#3C617F"/>
                             <topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -103,7 +103,7 @@ GROUP BY v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage
                             <categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
                             <valueExpression><![CDATA[$F{avail_size}]]></valueExpression>
                             <itemHyperlink hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
-                                <hyperlinkTooltipExpression><![CDATA[$F{avail_size}.toString()]]></hyperlinkTooltipExpression>
+                                <hyperlinkTooltipExpression><![CDATA[$F{avail_size}.toString() + "GB"]]></hyperlinkTooltipExpression>
                                 <hyperlinkParameter name="_report">
                                     <hyperlinkParameterExpression><![CDATA["/Reports/Inventory/Storage_Domain_Report_BR21"]]></hyperlinkParameterExpression>
                                 </hyperlinkParameter>
@@ -129,7 +129,7 @@ GROUP BY v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage
                             <categoryExpression><![CDATA[$F{storage_domain_name}]]></categoryExpression>
                             <valueExpression><![CDATA[$F{used_size}]]></valueExpression>
                             <itemHyperlink hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
-                                <hyperlinkTooltipExpression><![CDATA[$F{used_size}.toString()]]></hyperlinkTooltipExpression>
+                                <hyperlinkTooltipExpression><![CDATA[$F{used_size}.toString() + "GB"]]></hyperlinkTooltipExpression>
                                 <hyperlinkParameter name="_report">
                                     <hyperlinkParameterExpression><![CDATA["/Reports/Inventory/Storage_Domain_Report_BR21"]]></hyperlinkParameterExpression>
                                 </hyperlinkParameter>
