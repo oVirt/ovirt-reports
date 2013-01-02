@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR2C" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR2C" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="02691e7c-3dcc-4740-9027-5b9f609fc780">
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Hosts/single_host_resource_usage_hour_of_day_br2c"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="42"/>
-    <subDataset name="Memory_1_1">
+    <subDataset name="Memory_1_1" uuid="5271afe7-2dcc-4f23-9cd6-81a4ad78a69d">
         <parameter name="is_deleted" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
@@ -31,13 +31,13 @@
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-            <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
+        <parameter name="table_name" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+        </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+        </parameter>
+        <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int)as hour_num, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
 from    (-- Hosts Max and Average MEMory Usage Peaks
     SELECT
@@ -77,7 +77,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <field name="mem_usage" class="java.math.BigDecimal"/>
         <field name="mem_peak" class="java.math.BigDecimal"/>
     </subDataset>
-    <subDataset name="Active_vms_1_1">
+    <subDataset name="Active_vms_1_1" uuid="e12f04f7-2fe5-4f05-9afa-3f8e07f5116c">
         <parameter name="is_deleted" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
@@ -103,13 +103,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-            <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
+        <parameter name="table_name" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+        </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+        </parameter>
+        <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(VMS) as VMS, avg(VMS_Peak) as VMS_Peak
 from    (-- Hosts Max and Average Active VMs Counts
     SELECT
@@ -148,7 +148,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <field name="vms" class="java.math.BigDecimal"/>
         <field name="vms_peak" class="java.math.BigDecimal"/>
     </subDataset>
-    <subDataset name="Interfaces_1_1">
+    <subDataset name="Interfaces_1_1" uuid="20d5321d-fa32-4e71-9531-11f0b54a7b3f">
         <parameter name="is_deleted" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
@@ -174,13 +174,13 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="P_Host_Type" class="java.lang.Integer">
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
-            <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
+        <parameter name="table_name" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+        </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
+            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+        </parameter>
+        <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
 from    (-- Hosts Ethernet Interface Tx and Rx Rates
     SELECT
@@ -285,10 +285,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
     </parameter>
-        <parameter name="table_name" class="java.lang.String">
+    <parameter name="table_name" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
     </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
+    <parameter name="calendar_column" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
@@ -339,7 +339,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
             <band height="381">
                 <barChart>
                     <chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-                        <reportElement x="424" y="1" width="408" height="185"/>
+                        <reportElement uuid="14a965bb-97c5-4480-bf22-246c82f06661" x="424" y="1" width="408" height="185"/>
                         <box>
                             <pen lineWidth="1.0" lineColor="#3C617F"/>
                             <topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -360,7 +360,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     </chart>
                     <categoryDataset>
                         <dataset>
-                            <datasetRun subDataset="Memory_1_1">
+                            <datasetRun subDataset="Memory_1_1" uuid="54ce2798-119d-454e-8f57-2907bb4f3606">
                                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
                             </datasetRun>
@@ -415,7 +415,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                 </barChart>
                 <barChart>
                     <chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-                        <reportElement x="1" y="194" width="408" height="185"/>
+                        <reportElement uuid="948774f8-df49-40e3-b1b3-4ddec4bc31c3" x="1" y="194" width="408" height="185"/>
                         <box>
                             <pen lineWidth="1.0" lineColor="#3C617F"/>
                             <topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -436,7 +436,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     </chart>
                     <categoryDataset>
                         <dataset>
-                            <datasetRun subDataset="Active_vms_1_1">
+                            <datasetRun subDataset="Active_vms_1_1" uuid="8ba442b3-516b-4981-9269-ceb88a75c4cc">
                                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
                             </datasetRun>
@@ -490,7 +490,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                 </barChart>
                 <barChart>
                     <chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-                        <reportElement x="423" y="194" width="408" height="185"/>
+                        <reportElement uuid="3eed8fd0-59b3-4004-b85f-f358686a6df1" x="423" y="194" width="408" height="185"/>
                         <box>
                             <pen lineWidth="1.0" lineColor="#3C617F"/>
                             <topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -512,7 +512,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     </chart>
                     <categoryDataset>
                         <dataset>
-                            <datasetRun subDataset="Interfaces_1_1">
+                            <datasetRun subDataset="Interfaces_1_1" uuid="0b79f0ba-cc8b-4403-aa06-53660ef908b2">
                                 <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
                                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
                             </datasetRun>
@@ -530,7 +530,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                             <categoryExpression><![CDATA[$F{hour_num} + ":00"]]></categoryExpression>
                             <valueExpression><![CDATA[$F{tx_rate}]]></valueExpression>
                             <itemHyperlink>
-                                <hyperlinkTooltipExpression><![CDATA[msg($R{br2.chart.series.tooltip.network}, $F{interface_name}, str("br2.chart.series.tx"), $F{rx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
+                                <hyperlinkTooltipExpression><![CDATA[msg($R{br2.chart.series.tooltip.network}, $F{interface_name}, str("br2.chart.series.tx"), $F{tx_rate}.setScale(2, RoundingMode.HALF_UP).toString())]]></hyperlinkTooltipExpression>
                             </itemHyperlink>
                         </categorySeries>
                     </categoryDataset>
@@ -567,7 +567,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                 </barChart>
                 <barChart>
                     <chart customizerClass="com.ovirt.reports.jasper.BarChartCustomizer" theme="ReportsLineBarChartTheme">
-                        <reportElement x="1" y="1" width="408" height="185"/>
+                        <reportElement uuid="b847faf9-18ae-4f67-9bf8-d9e450a21732" x="1" y="1" width="408" height="185"/>
                         <box>
                             <pen lineWidth="1.0" lineColor="#3C617F"/>
                             <topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -641,7 +641,7 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
     <title>
         <band height="191">
             <subreport>
-                <reportElement x="1" y="45" width="830" height="145"/>
+                <reportElement uuid="5511a237-bb78-44fe-923c-0a04b333ff6e" x="1" y="45" width="830" height="145"/>
                 <subreportParameter name="P_Cluster_ID">
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -664,32 +664,32 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
                     <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
                 </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:br2 full details.jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:br2 full details.jrxml"]]></subreportExpression>
             </subreport>
             <line>
-                <reportElement x="0" y="43" width="832" height="1"/>
+                <reportElement uuid="4a2c1a7f-14b3-4d74-a783-ef22ac01adad" x="0" y="43" width="832" height="1"/>
             </line>
             <textField pattern="">
-                <reportElement x="511" y="27" width="321" height="15"/>
+                <reportElement uuid="a9cb76f2-d264-4d9b-a88c-1df4c9fe450f" x="511" y="27" width="321" height="15"/>
                 <textElement textAlignment="Right">
                     <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
             <image>
-                <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
+                <reportElement uuid="e72d6e4d-ea38-4bd5-9f07-782bcca1a697" x="0" y="0" width="228" height="42"/>
+                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
             </image>
         </band>
     </title>
     <pageFooter>
         <band height="13">
             <textField evaluationTime="Auto">
-                <reportElement x="286" y="0" width="260" height="13"/>
+                <reportElement uuid="e5e498b3-0fc7-4952-945e-706929a83745" x="286" y="0" width="260" height="13"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="SansSerif"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>
         </band>
     </pageFooter>
