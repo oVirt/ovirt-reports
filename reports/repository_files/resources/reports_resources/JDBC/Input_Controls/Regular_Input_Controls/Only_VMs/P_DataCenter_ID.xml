@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_VMs</folder>
     <name>P_DataCenter_ID</name>
-    <version>19</version>
-    <label>Data Center</label>
-    <creationDate>2011-12-27T15:25:50.846+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:13.676+03:00</updateDate>
+    <version>25</version>
+    <label>$R{ic.dc}</label>
+    <creationDate>2013-01-09T15:03:29.291+02:00</creationDate>
+    <updateDate>2013-01-09T15:58:31.411+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>Data_Centers</name>
             <version>1</version>
             <label>Data_Centers</label>
-            <creationDate>2012-03-30T08:51:13.676+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:13.676+03:00</updateDate>
+            <creationDate>2013-01-09T15:58:31.411+02:00</creationDate>
+            <updateDate>2013-01-09T15:58:31.411+02:00</updateDate>
             <language>sql</language>
             <queryString>Select distinct cast(datacenter_id as varchar), delete_date, CASE
                 WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))

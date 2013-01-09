@@ -2,11 +2,11 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
     <name>P_CPU_Threshold</name>
-    <version>4</version>
-    <label>CPU Threshold</label>
+    <version>22</version>
+    <label>$R{ic.cpu.threshold}</label>
     <description>CPU Threshold</description>
-    <creationDate>2012-03-08T15:37:22.473+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:18.010+03:00</updateDate>
+    <creationDate>2013-01-09T15:03:35.782+02:00</creationDate>
+    <updateDate>2013-01-09T15:45:58.343+02:00</updateDate>
     <type>3</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -19,8 +19,8 @@
             <version>1</version>
             <label>CPU_Threshold</label>
             <description>CPU_Threshold</description>
-            <creationDate>2012-03-30T08:51:18.010+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:18.010+03:00</updateDate>
+            <creationDate>2013-01-09T15:45:58.343+02:00</creationDate>
+            <updateDate>2013-01-09T15:45:58.343+02:00</updateDate>
             <item>
                 <itemLabel>100%</itemLabel>
                 <itemValue xsi:type="java:java.lang.String">100</itemValue>

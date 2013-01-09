@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts</folder>
     <name>P_Host_ListID</name>
-    <version>19</version>
-    <label>Host List</label>
-    <creationDate>2011-12-27T15:25:56.440+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:35.523+03:00</updateDate>
+    <version>22</version>
+    <label>$R{ic.hosts.list}</label>
+    <creationDate>2013-01-09T15:04:15.870+02:00</creationDate>
+    <updateDate>2013-01-09T15:56:48.631+02:00</updateDate>
     <type>7</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>host_multiselect</name>
             <version>1</version>
             <label>host_multiselect</label>
-            <creationDate>2012-03-30T08:51:35.523+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:35.523+03:00</updateDate>
+            <creationDate>2013-01-09T15:56:48.631+02:00</creationDate>
+            <updateDate>2013-01-09T15:56:48.631+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT distinct delete_date, CASE
             WHEN delete_date IS NULL then host_name

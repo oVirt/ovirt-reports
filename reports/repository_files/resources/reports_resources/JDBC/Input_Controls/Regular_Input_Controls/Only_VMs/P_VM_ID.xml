@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_VMs</folder>
     <name>P_VM_ID</name>
-    <version>19</version>
-    <label>VM Name</label>
-    <creationDate>2011-12-27T15:25:57.404+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:36.063+03:00</updateDate>
+    <version>22</version>
+    <label>$R{ic.vm.name}</label>
+    <creationDate>2013-01-09T15:04:16.123+02:00</creationDate>
+    <updateDate>2013-01-09T15:59:02.342+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>VM_Name</name>
             <version>1</version>
             <label>VM Name</label>
-            <creationDate>2012-03-30T08:51:36.063+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:36.063+03:00</updateDate>
+            <creationDate>2013-01-09T15:59:02.342+02:00</creationDate>
+            <updateDate>2013-01-09T15:59:02.342+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT distinct delete_date, CASE
             WHEN delete_date IS NULL then vm_name

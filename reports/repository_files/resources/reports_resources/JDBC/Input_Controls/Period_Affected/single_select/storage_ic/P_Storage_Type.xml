@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/storage_ic</folder>
     <name>P_Storage_Type</name>
-    <version>6</version>
-    <label>Storage Type</label>
-    <creationDate>2012-03-20T15:16:22.254+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:13.025+03:00</updateDate>
+    <version>25</version>
+    <label>$R{ic.storage.domain.type}</label>
+    <creationDate>2013-01-09T15:03:28.095+02:00</creationDate>
+    <updateDate>2013-01-09T15:52:32.269+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>Storage_type</name>
             <version>1</version>
             <label>Storage_type</label>
-            <creationDate>2012-03-30T08:51:13.025+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:13.025+03:00</updateDate>
+            <creationDate>2013-01-09T15:52:32.269+02:00</creationDate>
+            <updateDate>2013-01-09T15:52:32.269+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT v3_2_enum_translator.value, v3_2_enum_translator.enum_key,  0 as sort
 FROM v3_2_enum_translator, v3_2_configuration_history_storage_domains, v3_2_map_history_datacenters_storage_domains

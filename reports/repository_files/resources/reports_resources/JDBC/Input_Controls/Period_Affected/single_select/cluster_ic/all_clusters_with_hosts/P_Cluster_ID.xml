@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_clusters_with_hosts</folder>
     <name>P_Cluster_ID</name>
-    <version>4</version>
-    <label>Cluster</label>
-    <creationDate>2012-03-20T15:10:46.650+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:11.849+03:00</updateDate>
+    <version>25</version>
+    <label>$R{ic.cluster}</label>
+    <creationDate>2013-01-09T15:03:24.902+02:00</creationDate>
+    <updateDate>2013-01-09T15:48:42.059+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>Cluster</name>
             <version>1</version>
             <label>Cluster</label>
-            <creationDate>2012-03-30T08:51:11.849+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:11.849+03:00</updateDate>
+            <creationDate>2013-01-09T15:48:42.059+02:00</creationDate>
+            <updateDate>2013-01-09T15:48:42.059+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT cast(cluster_id as varchar), delete_date, CASE
                                                                 WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))

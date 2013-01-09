@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic</folder>
     <name>P_Host_Type</name>
-    <version>6</version>
-    <label>Host Type</label>
-    <creationDate>2012-03-20T15:10:45.823+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:17.910+03:00</updateDate>
+    <version>22</version>
+    <label>$R{ic.host.type}</label>
+    <creationDate>2013-01-09T15:03:35.593+02:00</creationDate>
+    <updateDate>2013-01-09T15:51:29.895+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>Host_Type</name>
             <version>1</version>
             <label>Host_Type</label>
-            <creationDate>2012-03-30T08:51:17.910+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:17.910+03:00</updateDate>
+            <creationDate>2013-01-09T15:51:29.895+02:00</creationDate>
+            <updateDate>2013-01-09T15:51:29.895+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT v3_2_enum_translator.value, v3_2_enum_translator.enum_key, 0 as sort
 FROM v3_2_enum_translator, v3_2_configuration_history_hosts

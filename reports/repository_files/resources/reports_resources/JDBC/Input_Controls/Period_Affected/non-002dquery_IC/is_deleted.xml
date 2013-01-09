@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
     <name>is_deleted</name>
-    <version>5</version>
-    <label>Show Deleted Entities?</label>
-    <creationDate>2012-03-18T15:56:11.948+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:10.411+03:00</updateDate>
+    <version>25</version>
+    <label>$R{ic.is.deleted}</label>
+    <creationDate>2013-01-09T15:03:21.249+02:00</creationDate>
+    <updateDate>2013-01-09T15:44:04.169+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>is_deleted</name>
             <version>1</version>
             <label>is_deleted</label>
-            <creationDate>2012-03-30T08:51:10.411+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:10.411+03:00</updateDate>
+            <creationDate>2013-01-09T15:44:04.169+02:00</creationDate>
+            <updateDate>2013-01-09T15:44:04.169+02:00</updateDate>
             <language>sql</language>
             <queryString>select value as display, 'AND delete_date IS NULL' as value
 from v3_2_enum_translator

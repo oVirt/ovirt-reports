@@ -2,11 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
     <name>P_Storage_Type</name>
-    <version>13</version>
-    <label>Storage Type</label>
-    <description></description>
-    <creationDate>2012-12-19T15:01:28.013+02:00</creationDate>
-    <updateDate>2012-12-20T11:33:02.594+02:00</updateDate>
+    <version>30</version>
+    <label>$R{ic.storage.domain.type}</label>
+    <creationDate>2013-01-09T15:03:31.342+02:00</creationDate>
+    <updateDate>2013-01-09T15:58:43.527+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -16,11 +15,10 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
             <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage/P_Storage_Type_files</folder>
             <name>Storage_type</name>
-            <version>2</version>
+            <version>1</version>
             <label>Storage_type</label>
-            <description></description>
-            <creationDate>2012-12-20T11:31:34.582+02:00</creationDate>
-            <updateDate>2012-12-20T11:31:34.582+02:00</updateDate>
+            <creationDate>2013-01-09T15:58:43.527+02:00</creationDate>
+            <updateDate>2013-01-09T15:58:43.527+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT v3_2_enum_translator.value,
                           v3_2_enum_translator.enum_key,

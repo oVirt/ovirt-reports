@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_VMs</folder>
     <name>P_VM_Type</name>
-    <version>19</version>
-    <label>VM Type</label>
-    <creationDate>2011-12-27T15:25:50.989+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:13.887+03:00</updateDate>
+    <version>25</version>
+    <label>$R{ic.vm.type}</label>
+    <creationDate>2013-01-09T15:03:29.647+02:00</creationDate>
+    <updateDate>2013-01-09T15:59:19.981+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>VM_type</name>
             <version>1</version>
             <label>VM_type</label>
-            <creationDate>2012-03-30T08:51:13.887+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:13.887+03:00</updateDate>
+            <creationDate>2013-01-09T15:59:19.981+02:00</creationDate>
+            <updateDate>2013-01-09T15:59:19.981+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT v3_2_enum_translator.value, v3_2_enum_translator.enum_key,  0 as sort
 FROM v3_2_enum_translator, v3_2_configuration_history_vms

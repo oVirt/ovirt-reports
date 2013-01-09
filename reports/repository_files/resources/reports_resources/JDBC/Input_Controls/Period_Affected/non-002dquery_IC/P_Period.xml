@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
     <name>P_Period</name>
-    <version>5</version>
-    <label>Period Range</label>
-    <creationDate>2012-03-08T15:37:22.473+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:10.537+03:00</updateDate>
+    <version>25</version>
+    <label>$R{ic.period.range}</label>
+    <creationDate>2013-01-09T15:03:21.465+02:00</creationDate>
+    <updateDate>2013-01-09T15:47:19.898+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,8 +17,8 @@
             <name>period</name>
             <version>1</version>
             <label>period</label>
-            <creationDate>2012-03-30T08:51:10.537+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:10.537+03:00</updateDate>
+            <creationDate>2013-01-09T15:47:19.898+02:00</creationDate>
+            <updateDate>2013-01-09T15:47:19.898+02:00</updateDate>
             <language>sql</language>
             <queryString>select value as period
 from v3_2_enum_translator
