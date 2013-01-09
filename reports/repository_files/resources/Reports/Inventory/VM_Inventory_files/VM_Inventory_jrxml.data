@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR9" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="49dfbaac-af3c-4c9d-b3a5-261464e93c36">
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/VM_Inventory"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -51,6 +51,9 @@
             <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
+        <parameter name="P_Locale" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+        </parameter>
         <queryString>
             <![CDATA[SELECT v3_2_configuration_history_vms.cluster_id
       ,v3_2_configuration_history_clusters.cluster_name
@@ -59,13 +62,23 @@
       ,v3_2_configuration_history_vms.template_name
       ,cast(v3_2_configuration_history_vms.create_date as date) as create_date
       ,cast(v3_2_configuration_history_vms.delete_date as date) as delete_date
-      ,b.value AS os_version
+      ,coalesce(b.value_localized,b.value) AS os_version
       ,ROUND(cast(coalesce(memory_size_mb, 0.00) as float)::numeric / 1024,1) AS vm_memsize
       ,ROUND(coalesce(cpu_per_socket, 0) * coalesce(number_of_sockets, 0), 0) AS vm_cpucores
-      ,a.value as vm_type
+      ,coalesce(a.value_localized,a.value) as vm_type
 FROM v3_2_configuration_history_vms
-         LEFT OUTER JOIN v3_2_enum_translator as a ON (v3_2_configuration_history_vms.vm_type = a.enum_key AND a.enum_type = 'VM_TYPE')
-         LEFT OUTER JOIN v3_2_enum_translator as b ON (v3_2_configuration_history_vms.operating_system = b.enum_key AND b.enum_type = 'OS_TYPE')
+         LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
+                          FROM enum_translator as enum_translator_default
+                                   LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                    FROM enum_translator
+                                                    WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type and enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                          WHERE language_code = 'en_US') as a ON (v3_2_configuration_history_vms.vm_type = a.enum_key AND a.enum_type = 'VM_TYPE')
+         LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
+                          FROM enum_translator as enum_translator_default
+                                   LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                    FROM enum_translator
+                                                    WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type and enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                          WHERE language_code = 'en_US') as b ON (v3_2_configuration_history_vms.operating_system = b.enum_key AND b.enum_type = 'OS_TYPE')
          LEFT OUTER JOIN v3_2_configuration_history_clusters ON (v3_2_configuration_history_vms.cluster_id = v3_2_configuration_history_clusters.cluster_id
                                                              AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
                                                                                                                 FROM v3_2_configuration_history_clusters a
@@ -124,37 +137,11 @@ ORDER BY v3_2_configuration_history_vms.cluster_id, v3_2_configuration_history_v
     <parameter name="Active_VMs" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
+    <parameter name="P_Locale" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+    </parameter>
     <queryString>
-        <![CDATA[SELECT
-       v3_2_configuration_history_vms.vm_name
-      ,v3_2_configuration_history_vms.template_name
-      ,cast(v3_2_configuration_history_vms.create_date as date) as create_date
-      ,cast(v3_2_configuration_history_vms.delete_date as date) as delete_date
-      ,b.value AS os_version
-      ,ROUND(cast(coalesce(memory_size_mb, 0.00) as float)::numeric / 1024,1) AS vm_memsize
-      ,ROUND(coalesce(cpu_per_socket, 0) * coalesce(number_of_sockets, 0), 0) AS vm_cpucores
-      ,v3_2_configuration_history_vms.cluster_id
-      ,a.value as vm_type
-FROM v3_2_configuration_history_vms, v3_2_enum_translator as a, v3_2_enum_translator as b
-WHERE v3_2_configuration_history_vms.vm_type = a.enum_key AND a.enum_type = 'VM_TYPE'
-AND v3_2_configuration_history_vms.operating_system = b.enum_key AND b.enum_type = 'OS_TYPE'
-AND v3_2_configuration_history_vms.cluster_id in (SELECT cluster_id
-              FROM v3_2_configuration_history_clusters
-             Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-AND v3_2_configuration_history_vms.cluster_id = CASE cast($P{P_Cluster_ID} as uuid)
-            WHEN NULL THEN v3_2_configuration_history_vms.cluster_id
-            WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_2_configuration_history_vms.cluster_id
-            ELSE cast($P{P_Cluster_ID} as uuid)
-           END
-AND v3_2_configuration_history_vms.vm_type = CASE $P{P_VM_Type}
-            WHEN -1 THEN v3_2_configuration_history_vms.vm_type
-            ELSE $P{P_VM_Type}
-            END
-AND v3_2_configuration_history_vms.history_id in (SELECT max(a.history_id)
-            FROM v3_2_configuration_history_vms a
-            GROUP BY a.vm_id)
-$P!{Active_VMs}
-ORDER BY v3_2_configuration_history_vms.cluster_id, v3_2_configuration_history_vms.delete_date DESC]]>
+        <![CDATA[]]>
     </queryString>
     <field name="vm_name" class="java.lang.String"/>
     <field name="template_name" class="java.lang.String"/>

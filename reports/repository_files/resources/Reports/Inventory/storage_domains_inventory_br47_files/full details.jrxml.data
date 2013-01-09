@@ -4,7 +4,7 @@
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/storage_domains_inventory_br47"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <parameter name="active_storage" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
@@ -15,13 +15,20 @@
     <parameter name="P_Storage_Type" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[12]]></defaultValueExpression>
     </parameter>
+    <parameter name="P_Locale" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+    </parameter>
     <queryString>
         <![CDATA[SELECT v3_2_configuration_history_datacenters.datacenter_name as datacenter_name,
        v3_2_configuration_history_datacenters.delete_date as datacenter_delete_date,
-       coalesce((SELECT v3_2_enum_translator.value
-                 FROM v3_2_enum_translator
-                 WHERE v3_2_enum_translator.enum_key = $P{P_Storage_Type}
-                       AND v3_2_enum_translator.enum_type = 'STORAGE_DOMAIN_TYPE'), 'All') as storage_domain_type
+       coalesce((SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
+                 FROM enum_translator as enum_translator_default
+                          LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                           FROM enum_translator
+                                           WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                 WHERE language_code = 'en_US'
+                       AND enum_translator_default.enum_key = $P{P_Storage_Type}
+                       AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE'), 'All') as storage_domain_type
 FROM v3_2_configuration_history_datacenters
 WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
       and v3_2_configuration_history_datacenters.history_id in (SELECT max(a.history_id)

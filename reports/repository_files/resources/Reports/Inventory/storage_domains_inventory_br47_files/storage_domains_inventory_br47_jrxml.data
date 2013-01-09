@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR47" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="92682d22-3f94-4ea0-b861-542eaea69385">
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/storage_domains_inventory_br47"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -47,11 +47,14 @@
         <parameter name="P_Storage_Type" class="java.lang.Integer">
             <defaultValueExpression><![CDATA[12]]></defaultValueExpression>
         </parameter>
+        <parameter name="P_Locale" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+        </parameter>
         <queryString>
             <![CDATA[SELECT storage_domain_name,
        v3_2_configuration_history_storage_domains.storage_domain_id,
-       a.value as storage_domain_type,
-       b.value as storage_type,
+       coalesce(a.value_localized,a.value) as storage_domain_type,
+       coalesce(b.value_localized,b.value) as storage_type,
        coalesce(samples.available_disk_size_gb,daily.available_disk_size_gb) as available_disk_size_gb,
        coalesce(samples.used_disk_size_gb,daily.used_disk_size_gb) as used_disk_size_gb,
        coalesce(samples.available_disk_size_gb + samples.used_disk_size_gb, daily.available_disk_size_gb + daily.used_disk_size_gb) as total_size,
@@ -63,8 +66,18 @@ FROM v3_2_configuration_history_storage_domains
                                                                      AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
                                                                                                                                       FROM v3_2_map_history_datacenters_storage_domains a
                                                                                                                                       GROUP BY a.storage_domain_id, a.datacenter_id))
-         LEFT OUTER JOIN v3_2_enum_translator as a ON (storage_domain_type = a.enum_key AND a.enum_type = 'STORAGE_DOMAIN_TYPE')
-         LEFT OUTER JOIN v3_2_enum_translator as b ON (storage_type = b.enum_key AND b.enum_type = 'STORAGE_TYPE')
+         LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
+                          FROM enum_translator as enum_translator_default
+                                   LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                    FROM enum_translator
+                                                    WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type and enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                          WHERE language_code = 'en_US') as a ON (storage_domain_type = a.enum_key AND a.enum_type = 'STORAGE_DOMAIN_TYPE')
+         LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
+                          FROM enum_translator as enum_translator_default
+                                   LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                    FROM enum_translator
+                                                    WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type and enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                          WHERE language_code = 'en_US') as b ON (storage_type = b.enum_key AND b.enum_type = 'STORAGE_TYPE')
          LEFT OUTER JOIN v3_2_statistics_storage_domains_resources_usage_samples as samples ON (v3_2_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
                                                                                      AND samples.history_id in (SELECT max(a.history_id)
                                                                                                                                                                 FROM v3_2_statistics_storage_domains_resources_usage_samples a
@@ -136,6 +149,9 @@ WHERE v3_2_configuration_history_storage_domains.storage_domain_id = cast($P{P_S
     </parameter>
     <parameter name="P_Storage_Type" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[12]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Locale" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[]]>

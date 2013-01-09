@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR1" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="92682d22-3f94-4ea0-b861-542eaea69385">
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/Hosts_Inventory"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -51,6 +51,9 @@
         <parameter name="active_hosts_select" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
+        <parameter name="P_Locale" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+        </parameter>
         <queryString>
             <![CDATA[SELECT
       v3_2_configuration_history_clusters.cluster_name
@@ -63,11 +66,16 @@
       ,v3_2_configuration_history_hosts.host_os
       ,v3_2_configuration_history_hosts.cluster_id
       ,v3_2_configuration_history_hosts.cpu_model
-      ,v3_2_enum_translator.value as host_type
+      ,coalesce(host_type.value_localized,host_type.value) as host_type
       ,v3_2_configuration_history_clusters.delete_date as cluster_delete
       ,round(cast(coalesce(memory_size_mb, 0.00) as float)::numeric/1024,1) AS memory_size_mb
 FROM v3_2_configuration_history_hosts
-         LEFT OUTER JOIN v3_2_enum_translator ON (v3_2_configuration_history_hosts.host_type = v3_2_enum_translator.enum_key AND v3_2_enum_translator.enum_type = 'HOST_TYPE')
+         LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
+                          FROM enum_translator as enum_translator_default
+                                   LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                    FROM enum_translator
+                                                    WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type and enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                          WHERE language_code = 'en_US') as host_type ON (v3_2_configuration_history_hosts.host_type = host_type.enum_key AND host_type.enum_type = 'HOST_TYPE')
          LEFT OUTER JOIN v3_2_configuration_history_clusters ON (v3_2_configuration_history_hosts.cluster_id = v3_2_configuration_history_clusters.cluster_id
                                                              AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
                                                                                                                 FROM v3_2_configuration_history_clusters a
@@ -127,6 +135,9 @@ ORDER BY v3_2_configuration_history_hosts.cluster_id, v3_2_configuration_history
     </parameter>
     <parameter name="active_hosts_select" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Locale" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[]]>

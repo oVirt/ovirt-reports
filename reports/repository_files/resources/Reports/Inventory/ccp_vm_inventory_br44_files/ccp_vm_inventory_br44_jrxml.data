@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR9" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="49dfbaac-af3c-4c9d-b3a5-261464e93c36">
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/ccp_vm_inventory_br44"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -61,11 +61,14 @@
         <parameter name="table_name" class="java.lang.String">
             <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
         </parameter>
+        <parameter name="P_Locale" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+        </parameter>
         <queryString>
             <![CDATA[SELECT v3_2_configuration_history_vms.cluster_id
       ,v3_2_configuration_history_clusters.cluster_name
       ,v3_2_configuration_history_clusters.delete_date as cluster_delete
-      ,b.value AS os_version
+      ,coalesce(b.value_localized,b.value) AS os_version
       ,v3_2_configuration_history_vms.vm_name
       ,v3_2_configuration_history_vms.vm_description
       ,v3_2_configuration_history_vms.template_name
@@ -81,7 +84,12 @@
                     END)/60,2),0) as vm_uptime
       ,v3_2_configuration_history_vms.vm_id
 FROM v3_2_configuration_history_vms
-         LEFT OUTER JOIN v3_2_enum_translator as b ON (v3_2_configuration_history_vms.operating_system = b.enum_key AND b.enum_type = 'OS_TYPE')
+         LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
+                          FROM enum_translator as enum_translator_default
+                                   LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                    FROM enum_translator
+                                                    WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                          WHERE language_code = 'en_US') as b ON (v3_2_configuration_history_vms.operating_system = b.enum_key AND b.enum_type = 'OS_TYPE')
          LEFT OUTER JOIN v3_2_configuration_history_clusters ON (v3_2_configuration_history_vms.cluster_id = v3_2_configuration_history_clusters.cluster_id
                                                              AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
                                                                                                                     FROM v3_2_configuration_history_clusters a
@@ -130,7 +138,7 @@ WHERE v3_2_configuration_history_vms.cluster_id in (SELECT cluster_id
 GROUP BY v3_2_configuration_history_vms.cluster_id
          ,v3_2_configuration_history_clusters.cluster_name
          ,v3_2_configuration_history_clusters.delete_date
-         ,b.value
+         ,coalesce(b.value_localized,b.value)
          ,v3_2_configuration_history_vms.vm_name
          ,v3_2_configuration_history_vms.vm_description
          ,v3_2_configuration_history_vms.template_name
@@ -141,7 +149,7 @@ GROUP BY v3_2_configuration_history_vms.cluster_id
          ,coalesce(cpu_per_socket, 0) * coalesce(number_of_sockets, 0)
          ,ROUND(CAST(EXTRACT(epoch FROM coalesce(v3_2_configuration_history_vms.delete_date,CURRENT_TIMESTAMP) - v3_2_configuration_history_vms.create_date)/3600 as numeric), 2)
          ,v3_2_configuration_history_vms.vm_id
-ORDER BY v3_2_configuration_history_vms.cluster_id, b.value, v3_2_configuration_history_vms.delete_date DESC, vm_uptime DESC, existence_time_hours DESC]]>
+ORDER BY v3_2_configuration_history_vms.cluster_id, coalesce(b.value_localized,b.value), v3_2_configuration_history_vms.delete_date DESC, vm_uptime DESC, existence_time_hours DESC]]>
         </queryString>
         <field name="cluster_id" class="java.lang.Object"/>
         <field name="cluster_name" class="java.lang.String"/>
@@ -192,6 +200,9 @@ ORDER BY v3_2_configuration_history_vms.cluster_id, b.value, v3_2_configuration_
     </parameter>
     <parameter name="table_name" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_Locale" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[]]>
