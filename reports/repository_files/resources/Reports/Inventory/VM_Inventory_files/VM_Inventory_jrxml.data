@@ -396,7 +396,7 @@ ORDER BY v3_2_configuration_history_vms.cluster_id, v3_2_configuration_history_v
                                     <reportElement uuid="6fc91eda-409e-41de-a8e5-33280a855fa7" x="0" y="0" width="84" height="18"/>
                                     <textElement textAlignment="Center" verticalAlignment="Middle"/>
                                     <textFieldExpression><![CDATA[$F{create_date}]]></textFieldExpression>
-                                    <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
+                                    <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toPattern()]]></patternExpression>
                                     <hyperlinkTooltipExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{create_date})]]></hyperlinkTooltipExpression>
                                 </textField>
                             </jr:detailCell>
@@ -416,7 +416,7 @@ ORDER BY v3_2_configuration_history_vms.cluster_id, v3_2_configuration_history_v
                                     <reportElement uuid="33cc21d0-93a4-4028-94e1-e80620c9a63f" x="0" y="0" width="84" height="18"/>
                                     <textElement textAlignment="Center" verticalAlignment="Middle"/>
                                     <textFieldExpression><![CDATA[$F{delete_date}]]></textFieldExpression>
-                                    <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
+                                    <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toPattern()]]></patternExpression>
                                     <hyperlinkTooltipExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})]]></hyperlinkTooltipExpression>
                                 </textField>
                             </jr:detailCell>

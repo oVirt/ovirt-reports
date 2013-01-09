@@ -407,7 +407,7 @@ WHERE v3_2_configuration_history_storage_domains.storage_domain_id = cast($P{P_S
                                         <reportElement uuid="0cb54c10-ffcd-44f1-94b8-6309387c3f83" x="0" y="0" width="64" height="30"/>
                                         <textElement textAlignment="Center" verticalAlignment="Middle"/>
                                         <textFieldExpression><![CDATA[$F{create_date}]]></textFieldExpression>
-                                        <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
+                                        <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toPattern()]]></patternExpression>
                                         <hyperlinkTooltipExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{create_date})]]></hyperlinkTooltipExpression>
                                     </textField>
                                 </jr:detailCell>
@@ -428,7 +428,7 @@ WHERE v3_2_configuration_history_storage_domains.storage_domain_id = cast($P{P_S
                                         <reportElement uuid="da1a66f3-6928-467e-ab99-edd344dc417f" x="0" y="0" width="64" height="30"/>
                                         <textElement textAlignment="Center" verticalAlignment="Middle"/>
                                         <textFieldExpression><![CDATA[$F{delete_date}]]></textFieldExpression>
-                                        <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toLocalizedPattern()]]></patternExpression>
+                                        <patternExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).toPattern()]]></patternExpression>
                                         <hyperlinkTooltipExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{delete_date})]]></hyperlinkTooltipExpression>
                                     </textField>
                                 </jr:detailCell>
