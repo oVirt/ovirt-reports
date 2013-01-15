@@ -552,9 +552,10 @@
         <property name="compiledReportsCache">
             <ref bean="${bean.engineService.compiledReportsCache}"/>
         </property>
-        <property name="queryManipulator">
+        <property name="queryManipulator" ref="CustomOvirtReportsQueryManipulator"/>
+        <!--property name="queryManipulator">
             <ref bean="CascadeQueryManipulator"/>
-        </property>
+        </property-->
         <property name="securityContextProvider" ref="${bean.securityContextProvider}"/>
         <property name="builtInParameterProviders" ref="builtInParameterProviders"/>
         <property name="reportParameterLabelKeyPrefix" value="net.sf.jasperreports.prompt.label."/>
@@ -566,6 +567,12 @@
         <property name="unsecureRepository" ref="unsecureRepositoryService"/>
         <property name="autoUpdateJRXMLs" value="false"/><!-- required for data snapshot persistence, which is turned off by default  -->
         <property name="reportExecutionListenerFactories" ref="${bean.reportExecutionListenerFactories}"/>
+    </bean>
+
+    <bean class="org.ovirt.jasperreports.querymodifier.CustomOvirtReportsQueryManipulator" id="CustomOvirtReportsQueryManipulator">
+    <property name ="cascading">
+        <ref bean="CascadeQueryManipulator"/>
+    </property>
     </bean>
 
 	<util:list id="reportExecutionListenerFactories">

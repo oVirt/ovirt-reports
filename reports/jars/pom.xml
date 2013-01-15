@@ -19,6 +19,7 @@
     <module>ReportsPieChartTheme</module>
     <module>ReportsLineBarChartTheme</module>
     <module>WebadminLineBarChartTheme</module>
+    <module>CustomOvirtReportsQueryManipulator</module>
   </modules>
 
 </project>
