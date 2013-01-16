@@ -9,9 +9,9 @@
         <parameter name="is_deleted" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Period" class="java.lang.String">
+        <parameter name="P_Period" class="java.lang.Short">
             <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
         </parameter>
         <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -32,10 +32,10 @@
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
         <parameter name="table_name" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
         </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int)as hour_num, avg(MEM_Usage) as MEM_Usage, avg(MEM_Peak) as MEM_Peak
@@ -56,19 +56,19 @@ from    (-- Hosts Max and Average MEMory Usage Peaks
             END
         AND history_datetime >= cast($P{P_Start_Date} as date)
         AND history_datetime <= CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP BY
         history_datetime) a RIGHT OUTER JOIN calendar ON (the_datetime = time)
 where     the_datetime >= cast($P{P_Start_Date} as date)
     AND the_datetime < CASE
-                           WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                           WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                           WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                           WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                           WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                           WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                           WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                           WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                        END
 group by cast(extract(HOUR from the_datetime) as int)
 order by cast(extract(HOUR from the_datetime) as int) ASC]]>
@@ -81,9 +81,9 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="is_deleted" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Period" class="java.lang.String">
+        <parameter name="P_Period" class="java.lang.Short">
             <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
         </parameter>
         <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -104,10 +104,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
         <parameter name="table_name" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
         </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(VMS) as VMS, avg(VMS_Peak) as VMS_Peak
@@ -127,19 +127,19 @@ from    (-- Hosts Max and Average Active VMs Counts
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP BY
         history_datetime) a RIGHT OUTER JOIN calendar ON (the_datetime = time)
 where     the_datetime >= cast($P{P_Start_Date} as date)
     AND the_datetime < CASE
-                           WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                           WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                           WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                           WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                           WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                           WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                           WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                           WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                        END
 group by cast(extract(HOUR from the_datetime) as int)
 order by cast(extract(HOUR from the_datetime) as int) ASC]]>
@@ -152,9 +152,9 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <parameter name="is_deleted" class="java.lang.String">
             <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Period" class="java.lang.String">
+        <parameter name="P_Period" class="java.lang.Short">
             <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
         </parameter>
         <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -175,10 +175,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
             <parameterDescription><![CDATA[Select a Host Type]]></parameterDescription>
         </parameter>
         <parameter name="table_name" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
         </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
@@ -205,10 +205,10 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
         AND v3_2_configuration_history_hosts_interfaces.history_id in (SELECT max(a.history_id)
                                    FROM v3_2_configuration_history_hosts_interfaces as a
@@ -225,10 +225,10 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                           END
                                     AND history_datetime >= cast($P{P_Start_Date} as timestamp)
                                     AND history_datetime <= CASE
-                                                               WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                               WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                               WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                               WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                               WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                               WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                               WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                               WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                            END
                                     AND c.history_id in (SELECT max(d.history_id)
                                              FROM v3_2_configuration_history_hosts_interfaces as d
@@ -243,10 +243,10 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
         v3_2_statistics_hosts_interfaces_resources_usage_hourly.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.the_datetime)
 where b.the_datetime >= cast($P{P_Start_Date} as timestamp)
       AND b.the_datetime < CASE
-                               WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                               WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                               WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                               WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                               WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                               WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                               WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                               WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                            END
 group by cast(extract(HOUR from the_datetime) as int), interface_name
 order by cast(extract(HOUR from the_datetime) as int) ASC]]>
@@ -259,9 +259,9 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
     <parameter name="is_deleted" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
+    <parameter name="P_Period" class="java.lang.Short">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -286,10 +286,10 @@ order by cast(extract(HOUR from the_datetime) as int) ASC]]>
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
     </parameter>
     <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
     </parameter>
     <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[select distinct cast(extract(HOUR from the_datetime) as int) as hour_num, avg(CPU_Usage) as CPU_Usage, avg(CPU_Peak) as CPU_Peak
@@ -309,19 +309,19 @@ from    (-- Hosts Max and Average CPU Usage Peaks
             END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
     GROUP By
         history_datetime) a RIGHT OUTER JOIN calendar ON (the_datetime = time)
 where     the_datetime >= cast($P{P_Start_Date} as date)
     AND the_datetime < CASE
-                           WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                           WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                           WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                           WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                           WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                           WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                           WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                           WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                        END
 group by cast(extract(HOUR from the_datetime) as int)
 order by cast(extract(HOUR from the_datetime) as int) ASC]]>

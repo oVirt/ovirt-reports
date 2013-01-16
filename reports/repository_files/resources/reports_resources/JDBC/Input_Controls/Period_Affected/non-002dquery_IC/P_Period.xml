@@ -20,7 +20,7 @@
             <creationDate>2013-01-15T18:02:03.644+02:00</creationDate>
             <updateDate>2013-01-15T18:02:03.644+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT enum_translator_default.value as period, coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as display
+            <queryString>SELECT DISTINCT enum_translator_default.enum_key as period, coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as display
 FROM enum_translator as enum_translator_default
                  LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
                                   FROM enum_translator

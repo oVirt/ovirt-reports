@@ -14,9 +14,9 @@
     <parameter name="is_deleted" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
+    <parameter name="P_Period" class="java.lang.Short">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -79,10 +79,10 @@ FROM   (SELECT     cluster_id,
                                     WHERE datacenter_id = cast($P{P_DataCenter_ID} as uuid))
             AND v3_2_statistics_hosts_resources_usage_hourly.history_datetime >= cast($P{P_Start_Date} as timestamp)
             AND v3_2_statistics_hosts_resources_usage_hourly.history_datetime <= CASE
-                                                                     WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                     WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                     WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                     WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                                                     WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                                                     WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                                                     WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                                                     WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                  END
             AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
                                       FROM v3_2_configuration_history_clusters a

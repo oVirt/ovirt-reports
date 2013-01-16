@@ -21,20 +21,20 @@
             <updateDate>2013-01-09T15:47:49.851+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT  CASE
-                                  WHEN $P{P_Period} = 'Daily' THEN cast(o.the_date as date)
+                                  WHEN $P{P_Period} = 0 THEN cast(o.the_date as date)
                                    ELSE cast(date_trunc('month', o.the_date) as date)
                            END as active_months,
                            CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN cast(cast(o.the_date as date) as varchar)
+                                   WHEN $P{P_Period} = 0 THEN cast(cast(o.the_date as date) as varchar)
                                    ELSE cast(cast(date_trunc('month', o.the_date) as date) as varchar) || ' - ' || CASE
-                                                                                                                                                        WHEN $P{P_Period} = 'Monthly' THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 month' - interval '1 day' as date) as varchar)
-                                                                                                                                                        WHEN $P{P_Period} = 'Quarterly' THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '3 month' - interval '1 day' as date) as varchar)
-                                                                                                                                                        WHEN $P{P_Period} = 'Yearly' THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 year' - interval '1 day' as date) as varchar)
+                                                                                                                                                        WHEN $P{P_Period} = 1 THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 month' - interval '1 day' as date) as varchar)
+                                                                                                                                                        WHEN $P{P_Period} = 2 THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '3 month' - interval '1 day' as date) as varchar)
+                                                                                                                                                        WHEN $P{P_Period} = 3 THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 year' - interval '1 day' as date) as varchar)
                                                                                                                                                  END
                             END as display_months
 FROM calendar as o
 WHERE o.the_date &gt;= CASE
-                                        WHEN $P{P_Period} = 'Daily' THEN coalesce((SELECT a.var_datetime - interval '2 months'
+                                        WHEN $P{P_Period} = 0 THEN coalesce((SELECT a.var_datetime - interval '2 months'
                                                                                                         FROM History_configuration as a
                                                                                                         WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
                                         ELSE coalesce((SELECT date_trunc('month',a.var_datetime)
@@ -42,7 +42,7 @@ WHERE o.the_date &gt;= CASE
                                                               WHERE a.var_name = 'firstSync'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
                                  END
            AND o.the_date &lt;= CASE
-                                        WHEN $P{P_Period} = 'Daily' THEN coalesce((SELECT a.var_datetime
+                                        WHEN $P{P_Period} = 0 THEN coalesce((SELECT a.var_datetime
                                                                                                         FROM History_configuration as a
                                                                                                         WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
                                         ELSE coalesce((SELECT date_trunc('month',a.var_datetime)

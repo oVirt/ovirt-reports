@@ -36,23 +36,23 @@
         <parameter name="P_Start_Date" class="java.util.Date">
             <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
         </parameter>
-        <parameter name="P_Period" class="java.lang.String">
+        <parameter name="P_Period" class="java.lang.Short">
             <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
         </parameter>
         <parameter name="P_Cluster_ID" class="java.lang.String">
             <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
         <parameter name="calendar_column" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
         </parameter>
         <parameter name="P_DataCenter_ID" class="java.lang.String">
             <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
         <parameter name="table_name" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
         </parameter>
         <queryString>
             <![CDATA[-- Datacenter aggregation level
@@ -79,10 +79,10 @@
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
             AND a.history_id in (SELECT max(b.history_id)
                          FROM v3_2_configuration_history_hosts b
@@ -103,9 +103,9 @@
     <parameter name="is_deleted" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
+    <parameter name="P_Period" class="java.lang.Short">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -123,10 +123,10 @@
         <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
     </parameter>
     <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "hourly" : "daily"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
     </parameter>
     <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == "Daily" ? "the_datetime" : "the_date"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
         <![CDATA[-- Datacenter aggregation level
@@ -154,10 +154,10 @@ FROM   (SELECT   history_datetime,
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
-                                   WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                   WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                   WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                   WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
             AND a.history_id in (SELECT max(b.history_id)
                          FROM v3_2_configuration_history_hosts b
@@ -169,10 +169,10 @@ FROM   (SELECT   history_datetime,
         GROUP BY history_datetime, coalesce(v3_2_configuration_history_hosts.host_os, 'Unknown')) a right outer join calendar b on (a.history_datetime = b.$P!{calendar_column})
 where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
       AND $P!{calendar_column} <= CASE
-                         WHEN $P{P_Period} = 'Daily' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                         WHEN $P{P_Period} = 'Monthly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                         WHEN $P{P_Period} = 'Quarterly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                         WHEN $P{P_Period} = 'Yearly' THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
+                         WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
+                         WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
+                         WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
+                         WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                      END
 group by $P!{calendar_column}, os_type, host_count
 order by $P!{calendar_column}]]>
@@ -307,7 +307,7 @@ order by $P!{calendar_column}]]>
                                     <textElement textAlignment="Left" verticalAlignment="Middle">
                                         <font isBold="true"/>
                                     </textElement>
-                                    <textFieldExpression><![CDATA[$P{P_Period} == "Daily" ? $R{br22.table.date} + ": " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{history_datetime}) :
+                                    <textFieldExpression><![CDATA[$P{P_Period} == 0 ? $R{br22.table.date} + ": " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{history_datetime}) :
 $R{br22.table.date} + ": " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{history_datetime})]]></textFieldExpression>
                                 </textField>
                             </jr:cell>

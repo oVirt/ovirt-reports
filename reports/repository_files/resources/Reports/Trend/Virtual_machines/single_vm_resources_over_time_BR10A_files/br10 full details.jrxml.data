@@ -8,9 +8,9 @@
     <parameter name="is_deleted" class="java.lang.String">
         <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
-    <parameter name="P_Period" class="java.lang.String">
+    <parameter name="P_Period" class="java.lang.Short">
         <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA["Daily"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Start_Date" class="java.util.Date">
         <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
@@ -82,10 +82,18 @@
                                  FROM v3_2_configuration_history_datacenters as d
                                  GROUP BY d.datacenter_id)) as datacenter_delete_date,
        CASE
-           WHEN $P{P_Period} = 'Monthly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
-           WHEN $P{P_Period} = 'Quarterly' THEN CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date)
-           WHEN $P{P_Period} = 'Yearly' THEN CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date)
-       END as end_date
+           WHEN $P{P_Period} = 1 THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
+           WHEN $P{P_Period} = 2 THEN CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date)
+           WHEN $P{P_Period} = 3 THEN CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date)
+       END as end_date,
+       (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
+        FROM enum_translator as enum_translator_default
+                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                  FROM enum_translator
+                                  WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+        WHERE language_code = 'en_US'
+              AND enum_translator_default.enum_key = $P{P_Period}
+              AND enum_translator_default.enum_type = 'REPORTS_PERIOD') as period
 FROM v3_2_configuration_history_vms
 WHERE vm_id = cast($P{P_VM_ID} as uuid)
       AND history_id in (SELECT max(a.history_id)
@@ -105,6 +113,7 @@ WHERE vm_id = cast($P{P_VM_ID} as uuid)
     <field name="datacenter_name" class="java.lang.String"/>
     <field name="datacenter_delete_date" class="java.sql.Date"/>
     <field name="end_date" class="java.sql.Date"/>
+    <field name="period" class="java.lang.String"/>
     <variable name="datacenter_star" class="java.lang.String" resetType="None">
         <variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
     </variable>
@@ -130,8 +139,8 @@ WHERE vm_id = cast($P{P_VM_ID} as uuid)
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="SansSerif" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $P{P_Period}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period}]]></hyperlinkTooltipExpression>
+                    <textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $F{period}]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$F{period}]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
                     <reportElement uuid="82ca373b-48b5-467b-894c-b3dc1c917770" x="83" y="0" width="338" height="20"/>
@@ -146,8 +155,8 @@ WHERE vm_id = cast($P{P_VM_ID} as uuid)
                     <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
                         <font fontName="SansSerif" size="11" isBold="false"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$P{P_Period} == "Daily" ? "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period} == "Daily" ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></hyperlinkTooltipExpression>
+                    <textFieldExpression><![CDATA[$P{P_Period} == 0 ? "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></textFieldExpression>
+                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period} == 0 ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></hyperlinkTooltipExpression>
                 </textField>
                 <textField>
                     <reportElement uuid="a2bc8c37-9a1f-45f8-927f-db05ce6e7932" positionType="Float" x="446" y="0" width="326" height="20"/>
