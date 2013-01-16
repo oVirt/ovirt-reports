@@ -2,16 +2,23 @@
 <query>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/vm_ic</folder>
     <name>VM_List</name>
-    <version>2</version>
+    <version>22</version>
     <label>VM List</label>
-    <creationDate>2012-03-29T20:47:56.831+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:22.876+03:00</updateDate>
+    <creationDate>2013-01-09T15:03:40.389+02:00</creationDate>
+    <updateDate>2013-01-16T15:11:23.107+02:00</updateDate>
     <language>sql</language>
     <queryString>SELECT distinct delete_date, CASE
                                                 WHEN delete_date IS NULL then vm_name
-                                                ELSE vm_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'
+                                                ELSE vm_name || ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
                                           END as combo_name, cast(vm_id as varchar)
 FROM v3_2_configuration_history_vms
+              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
+                                        FROM enum_translator as enum_translator_default
+                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                                                FROM enum_translator
+                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                                                  WHERE enum_translator_default.language_code = 'en_US'
+                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 WHERE v3_2_configuration_history_vms.cluster_id in (SELECT v3_2_configuration_history_clusters.cluster_id
                                                                         FROM v3_2_configuration_history_clusters
                                                                         WHERE v3_2_configuration_history_clusters.datacenter_id = cast($P{P_DataCenter_ID} as uuid))

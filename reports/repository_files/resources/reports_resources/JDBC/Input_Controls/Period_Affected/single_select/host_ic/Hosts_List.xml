@@ -2,17 +2,23 @@
 <query>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic</folder>
     <name>Hosts_List</name>
-    <version>1</version>
+    <version>23</version>
     <label>Hosts List</label>
-    <description></description>
-    <creationDate>2012-03-29T18:07:49.645+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:18.955+03:00</updateDate>
+    <creationDate>2013-01-09T15:03:37.438+02:00</creationDate>
+    <updateDate>2013-01-16T15:19:13.670+02:00</updateDate>
     <language>sql</language>
     <queryString>SELECT distinct delete_date, CASE
                                                 WHEN delete_date IS NULL then host_name
-                                                ELSE host_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'
+                                                ELSE host_name || ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
                                          END as combo_name, cast(host_id as varchar)
 FROM v3_2_configuration_history_hosts
+              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
+                                        FROM enum_translator as enum_translator_default
+                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                                                FROM enum_translator
+                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                                                  WHERE enum_translator_default.language_code = 'en_US'
+                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 Where v3_2_configuration_history_hosts.cluster_id in (SELECT v3_2_configuration_history_clusters.cluster_id
                                                                           FROM v3_2_configuration_history_clusters
                                                                           WHERE v3_2_configuration_history_clusters.datacenter_id = cast($P{P_DataCenter_ID} as uuid))

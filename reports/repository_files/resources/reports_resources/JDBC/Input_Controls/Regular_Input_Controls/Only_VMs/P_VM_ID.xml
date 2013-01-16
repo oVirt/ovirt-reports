@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_VMs</folder>
     <name>P_VM_ID</name>
-    <version>22</version>
+    <version>23</version>
     <label>$R{ic.vm.name}</label>
     <creationDate>2013-01-09T15:04:16.123+02:00</creationDate>
-    <updateDate>2013-01-09T15:59:02.342+02:00</updateDate>
+    <updateDate>2013-01-16T15:15:53.268+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,14 +17,21 @@
             <name>VM_Name</name>
             <version>1</version>
             <label>VM Name</label>
-            <creationDate>2013-01-09T15:59:02.342+02:00</creationDate>
-            <updateDate>2013-01-09T15:59:02.342+02:00</updateDate>
+            <creationDate>2013-01-16T15:15:53.268+02:00</creationDate>
+            <updateDate>2013-01-16T15:15:53.268+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT distinct delete_date, CASE
             WHEN delete_date IS NULL then vm_name
-            ELSE vm_name ||  ' (Removed on ' || cast(delete_date as varchar) || ')'
+            ELSE vm_name ||  ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
               END as combo_name, cast(vm_id as varchar)
 FROM v3_2_configuration_history_vms
+              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
+                                        FROM enum_translator as enum_translator_default
+                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                                                FROM enum_translator
+                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                                                  WHERE enum_translator_default.language_code = 'en_US'
+                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 Where v3_2_configuration_history_vms.cluster_id in (SELECT v3_2_configuration_history_clusters.cluster_id
                            FROM v3_2_configuration_history_clusters
                            WHERE v3_2_configuration_history_clusters.datacenter_id = cast($P{P_DataCenter_ID} as uuid))

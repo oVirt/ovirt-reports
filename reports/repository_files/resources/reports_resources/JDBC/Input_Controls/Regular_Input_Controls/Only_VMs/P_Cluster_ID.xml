@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_VMs</folder>
     <name>P_Cluster_ID</name>
-    <version>25</version>
+    <version>29</version>
     <label>$R{ic.cluster}</label>
     <creationDate>2013-01-09T15:03:29.476+02:00</creationDate>
-    <updateDate>2013-01-09T15:58:11.662+02:00</updateDate>
+    <updateDate>2013-01-16T15:14:59.926+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,14 +17,21 @@
             <name>Cluster</name>
             <version>1</version>
             <label>Cluster</label>
-            <creationDate>2013-01-09T15:58:11.662+02:00</creationDate>
-            <updateDate>2013-01-09T15:58:11.662+02:00</updateDate>
+            <creationDate>2013-01-16T15:14:59.926+02:00</creationDate>
+            <updateDate>2013-01-16T15:14:59.926+02:00</updateDate>
             <language>sql</language>
             <queryString>Select distinct cast(cluster_id as varchar), delete_date, CASE
 WHEN delete_date IS NULL THEN cluster_name
-ELSE cluster_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
+ELSE cluster_name || ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
 END as combo_name, 0 as sort
 from v3_2_configuration_history_clusters
+              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
+                                        FROM enum_translator as enum_translator_default
+                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                                                FROM enum_translator
+                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                                                  WHERE enum_translator_default.language_code = 'en_US'
+                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 WHERE cluster_id in (SELECT DISTINCT cluster_id
              FROM v3_2_configuration_history_vms)
               AND datacenter_id = CASE
@@ -37,10 +44,14 @@ WHERE cluster_id in (SELECT DISTINCT cluster_id
          GROUP BY a.cluster_id)
 $P!{Active_VMs}
 UNION ALL
-SELECT distinct '11111111-1111-1111-1111-111111111111', cast(null as timestamp), value, 1
-FROM v3_2_enum_translator
-WHERE enum_type = 'REPORTS_ALL'
-           AND enum_key = 0
+SELECT DISTINCT  '11111111-1111-1111-1111-111111111111', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, 1
+FROM enum_translator as enum_translator_default
+                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                  FROM enum_translator
+                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+WHERE language_code = 'en_US'
+             AND enum_translator_default.enum_type = 'REPORTS_ALL'
+             AND enum_translator_default.enum_key = 0
 ORDER BY sort DESC, delete_date DESC, combo_name</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

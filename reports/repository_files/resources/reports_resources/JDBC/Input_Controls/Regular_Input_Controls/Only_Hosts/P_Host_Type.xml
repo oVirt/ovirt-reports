@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts</folder>
     <name>P_Host_Type</name>
-    <version>25</version>
+    <version>26</version>
     <label>$R{ic.host.type}</label>
     <creationDate>2013-01-09T15:03:27.041+02:00</creationDate>
-    <updateDate>2013-01-09T15:56:59.314+02:00</updateDate>
+    <updateDate>2013-01-16T11:50:22.686+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,13 +17,17 @@
             <name>Host_Type</name>
             <version>1</version>
             <label>Host_Type</label>
-            <creationDate>2013-01-09T15:56:59.314+02:00</creationDate>
-            <updateDate>2013-01-09T15:56:59.314+02:00</updateDate>
+            <creationDate>2013-01-16T11:50:22.686+02:00</creationDate>
+            <updateDate>2013-01-16T11:50:22.686+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT v3_2_enum_translator.value, v3_2_enum_translator.enum_key,  0 as sort
-FROM v3_2_enum_translator, v3_2_configuration_history_hosts
-WHERE v3_2_configuration_history_hosts.host_type = v3_2_enum_translator.enum_key
-AND v3_2_enum_translator.enum_type = 'HOST_TYPE'
+            <queryString>SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, enum_translator_default.enum_key,  0 as sort
+FROM enum_translator as enum_translator_default
+              LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                         FROM enum_translator
+                                         WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+               INNER JOIN v3_2_configuration_history_hosts ON (v3_2_configuration_history_hosts.host_type = enum_translator_default.enum_key
+                                                                                        AND enum_translator_default.enum_type = 'HOST_TYPE')
+WHERE enum_translator_default.language_code = 'en_US'
 AND v3_2_configuration_history_hosts.cluster_id in (SELECT v3_2_configuration_history_clusters.cluster_id
                         FROM v3_2_configuration_history_clusters
                         WHERE v3_2_configuration_history_clusters.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
@@ -33,10 +37,14 @@ AND v3_2_configuration_history_hosts.cluster_id = CASE  $P{P_Cluster_ID}
                          END
 $P!{active_hosts_select}
 UNION
-SELECT DISTINCT value, -1, 1
-FROM v3_2_enum_translator
-WHERE enum_type = 'REPORTS_ALL'
-           AND enum_key = 0
+SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, -1, 1
+FROM enum_translator as enum_translator_default
+                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                  FROM enum_translator
+                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+WHERE language_code = 'en_US'
+             AND enum_translator_default.enum_type = 'REPORTS_ALL'
+             AND enum_translator_default.enum_key = 0
 ORDER BY sort DESC, value</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

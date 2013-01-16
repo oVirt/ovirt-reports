@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/datacenter_ic/all_dcs_with_storage</folder>
     <name>P_DataCenter_ID</name>
-    <version>25</version>
+    <version>29</version>
     <label>$R{ic.dc}</label>
     <creationDate>2013-01-09T15:03:27.913+02:00</creationDate>
-    <updateDate>2013-01-09T15:49:33.790+02:00</updateDate>
+    <updateDate>2013-01-16T15:50:27.125+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,14 +17,21 @@
             <name>Data_Centers</name>
             <version>1</version>
             <label>Data_Centers</label>
-            <creationDate>2013-01-09T15:49:33.790+02:00</creationDate>
-            <updateDate>2013-01-09T15:49:33.790+02:00</updateDate>
+            <creationDate>2013-01-16T15:50:27.125+02:00</creationDate>
+            <updateDate>2013-01-16T15:50:27.125+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT DISTINCT cast(datacenter_id as varchar), delete_date, CASE
                                                                        WHEN delete_date IS NULL THEN datacenter_name
-                                                                       ELSE datacenter_name || ' (Removed on ' || cast(delete_date as varchar) || ')'
+                                                                       ELSE datacenter_name || ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
                                                                  END as combo_name
 from v3_2_configuration_history_datacenters
+              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
+                                        FROM enum_translator as enum_translator_default
+                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                                                                FROM enum_translator
+                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+                                                  WHERE enum_translator_default.language_code = 'en_US'
+                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                     FROM v3_2_map_history_datacenters_storage_domains, v3_2_configuration_history_storage_domains
                                     WHERE  v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
@@ -70,8 +77,14 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                                                                                                                                   END))
            $P!{is_deleted}
 UNION ALL
-SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), 'Non Available'
-WHERE NOT EXISTS (Select 1
+SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
+FROM enum_translator as enum_translator_default
+                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
+                                  FROM enum_translator
+                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+WHERE language_code = 'en_US'
+           AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
+           AND NOT EXISTS (Select 1
                              from v3_2_configuration_history_datacenters
                              WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                                  FROM v3_2_map_history_datacenters_storage_domains, v3_2_configuration_history_storage_domains
