@@ -58,11 +58,12 @@ MAVEN_OUTPUT_DIR_DEFAULT=$(shell pwd -P)/tmp.repos
 MAVEN_OUTPUT_DIR=$(MAVEN_OUTPUT_DIR_DEFAULT)
 
 ARTIFACTS = \
-	ChartsCustomizers \
-	EngineAuthentication \
-	ReportsLineBarChartTheme \
-	ReportsPieChartTheme \
-	WebadminLineBarChartTheme
+    ChartsCustomizers \
+    EngineAuthentication \
+    ReportsLineBarChartTheme \
+    ReportsPieChartTheme \
+    WebadminLineBarChartTheme \
+    CustomOvirtReportsQueryManipulator
 
 all: $(BUILD_FILE)
 
