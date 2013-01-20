@@ -22,7 +22,7 @@
             <language>sql</language>
             <queryString>SELECT DISTINCT cast(cluster_id as varchar), delete_date, CASE
                                                                 WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))
-                                                                ELSE cluster_name || ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
+                                                                ELSE cluster_name || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
                                                             END as combo_name, 0 as sort
 FROM v3_2_configuration_history_clusters
               LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on

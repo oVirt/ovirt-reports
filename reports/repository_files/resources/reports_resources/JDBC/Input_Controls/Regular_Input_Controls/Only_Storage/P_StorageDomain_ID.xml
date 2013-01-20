@@ -24,7 +24,7 @@
             <language>sql</language>
             <queryString>Select distinct cast(v3_2_configuration_history_storage_domains.storage_domain_id as varchar), detach_date, CASE
                 WHEN detach_date IS NULL THEN storage_domain_name
-                ELSE storage_domain_name || ' (' || loc_detached_on.detached_on || ' ' || cast(detach_date as varchar) || ')'
+                ELSE storage_domain_name || ' (' || loc_detached_on.detached_on || ' ' || to_char(detach_date, $P{datetimelocalepattern}) || ')'
                            END as combo_name
 from v3_2_configuration_history_storage_domains
             INNER JOIN v3_2_map_history_datacenters_storage_domains ON (v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id

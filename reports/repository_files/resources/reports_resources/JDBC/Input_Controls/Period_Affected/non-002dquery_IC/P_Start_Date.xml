@@ -25,11 +25,11 @@
                                    ELSE cast(date_trunc('month', o.the_date) as date)
                            END as active_months,
                            CASE
-                                   WHEN $P{P_Period} = 0 THEN cast(cast(o.the_date as date) as varchar)
-                                   ELSE cast(cast(date_trunc('month', o.the_date) as date) as varchar) || ' - ' || CASE
-                                                                                                                                                        WHEN $P{P_Period} = 1 THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 month' - interval '1 day' as date) as varchar)
-                                                                                                                                                        WHEN $P{P_Period} = 2 THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '3 month' - interval '1 day' as date) as varchar)
-                                                                                                                                                        WHEN $P{P_Period} = 3 THEN CAST(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 year' - interval '1 day' as date) as varchar)
+                                   WHEN $P{P_Period} = 0 THEN to_char(cast(o.the_date as date), $P{datelocalepattern})
+                                   ELSE to_char(cast(date_trunc('month', o.the_date) as date), $P{datelocalepattern}) || ' - ' || CASE
+                                                                                                                                                        WHEN $P{P_Period} = 1 THEN to_char(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 month' - interval '1 day' as date), $P{datelocalepattern})
+                                                                                                                                                        WHEN $P{P_Period} = 2 THEN to_char(CAST(cast(date_trunc('month', o.the_date) as date) + interval '3 month' - interval '1 day' as date), $P{datelocalepattern})
+                                                                                                                                                        WHEN $P{P_Period} = 3 THEN to_char(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 year' - interval '1 day' as date), $P{datelocalepattern})
                                                                                                                                                  END
                             END as display_months
 FROM calendar as o

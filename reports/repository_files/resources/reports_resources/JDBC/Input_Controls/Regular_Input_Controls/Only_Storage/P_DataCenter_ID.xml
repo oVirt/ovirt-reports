@@ -22,7 +22,7 @@
             <language>sql</language>
             <queryString>Select distinct cast(datacenter_id as varchar), delete_date, CASE
                 WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
-                ELSE RTrim(cast(datacenter_name as varchar)) || ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
+                ELSE RTrim(cast(datacenter_name as varchar)) || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
                   END as combo_name
 from v3_2_configuration_history_datacenters
               LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on

@@ -22,7 +22,7 @@
             <language>sql</language>
             <queryString>SELECT distinct delete_date, CASE
             WHEN delete_date IS NULL then host_name
-            ELSE host_name ||  ' (' || loc_removed_on.removed_on || ' ' || cast(delete_date as varchar) || ')'
+            ELSE host_name ||  ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
               END as combo_name, cast(host_id as varchar)
 FROM v3_2_configuration_history_hosts
               LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
