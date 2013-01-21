@@ -120,7 +120,8 @@ ORDER BY $P!{calendar_column}]]>
                         <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
                         <rightPen lineWidth="1.0" lineColor="#3C617F"/>
                     </box>
-                    <chartTitle>
+                    <chartTitle color="#3A5E7E">
+                        <font fontName="SansSerif"/>
                         <titleExpression><![CDATA[$R{br18a.chart.active.vms.os}]]></titleExpression>
                     </chartTitle>
                     <chartSubtitle/>
