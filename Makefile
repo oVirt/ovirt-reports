@@ -58,12 +58,13 @@ MAVEN_OUTPUT_DIR_DEFAULT=$(shell pwd -P)/tmp.repos
 MAVEN_OUTPUT_DIR=$(MAVEN_OUTPUT_DIR_DEFAULT)
 
 ARTIFACTS = \
-    ChartsCustomizers \
-    EngineAuthentication \
-    ReportsLineBarChartTheme \
-    ReportsPieChartTheme \
-    WebadminLineBarChartTheme \
-    CustomOvirtReportsQueryManipulator
+            ChartsCustomizers \
+            EngineAuthentication \
+            ReportsLineBarChartTheme \
+            ReportsPieChartTheme \
+            WebadminLineBarChartTheme \
+            CustomOvirtReportsQueryManipulator \
+            $(NULL)
 
 all: $(BUILD_FILE)
 
@@ -90,12 +91,10 @@ test:
 	$(MVN) install $(BUILD_FLAGS) $(EXTRA_BUILD_FLAGS)
 
 install: \
-	all \
-	install_without_maven
-
-install_without_maven: \
-	install_artifacts \
-	install_files
+         all \
+         install_artifacts \
+         install_files  \
+         $(NULL)
 
 tarball:
 	sed -e 's/@PACKAGE_VERSION@/$(RPM_VERSION)/g' \
