@@ -22,6 +22,10 @@
                 name="Hosts Inventory (BR1)" description="This report displays a list of all hosts of the selected data center and cluster.">/Reports/Inventory/Hosts_Inventory</uri>
             <uri idParamName="P_DataCenter_ID" multiple="false"
                 name="Virtual Machines Inventory (BR9)" description="This report displays a list of all virtual machines of the selected data center and cluster.">/Reports/Inventory/VM_Inventory</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Storage Domains Inventory (BR47)" description="This report displays a list of all storage domains of the selected data center.">/Reports/Inventory/storage_domains_inventory_br47</uri>
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Cloud Provider Virtual Machine Inventory (BR44)" description="This report displays a list of virtual machines by OS of the selected data center and cluster and their respected uptime and existence time. This is required for billing cloud providers.">/Reports/Inventory/ccp_vm_inventory_br44</uri>
         </category>
         <category name="Service Level">
             <uri idParamName="P_DataCenter_ID" multiple="false"
@@ -44,6 +48,10 @@
                 name="Five Least Utilized Hosts (Over Time) (BR5)" description="This report contains two charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest hosts of a selected cluster and within a given period.">/Reports/Trend/Hosts/five_least_utilized_hosts_br5</uri>
             <uri idParamName="P_DataCenter_ID" multiple="false"
                 name="Five Least Utilized Virtual Machines (Over Time) (BR12)" description="This report contains charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest virtual machines of a selected cluster and within a given period month.">/Reports/Trend/Virtual_machines/five_least_utilized_vms_Over_Time_BR12</uri>
+        </category>
+        <category name="Users' Usage">
+            <uri idParamName="P_DataCenter_ID" multiple="false"
+                name="Users' Spice Sessions Activity (BR45)" description="This report contains a table detailing user spice activity with regards to time spent and resources used in the session in the selected data center and cluster and within the selected period.">/Reports/users_usage/users_spice_sessions_activity_br45</uri>
         </category>
     </resource>
 
@@ -71,6 +79,8 @@
                 name="Hosts Inventory (BR1)" description="This report displays a list of all hosts of the selected data center and cluster.">/Reports/Inventory/Hosts_Inventory</uri>
             <uri idParamName="P_Cluster_ID" multiple="false"
                 name="Virtual Machines Inventory (BR9)" description="This report displays a list of all virtual machines of the selected data center and cluster.">/Reports/Inventory/VM_Inventory</uri>
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Cloud Provider Virtual Machine Inventory (BR44)" description="This report displays a list of virtual machines by OS of the selected data center and cluster and their respected uptime and existence time. This is required for billing cloud providers.">/Reports/Inventory/ccp_vm_inventory_br44</uri>
         </category>
         <category name="Service Level">
             <uri idParamName="P_Cluster_ID" multiple="false"
@@ -93,6 +103,10 @@
                 name="Five Least Utilized Hosts (Over Time) (BR5)" description="This report contains two charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest hosts of a selected cluster and within a given period.">/Reports/Trend/Hosts/five_least_utilized_hosts_br5</uri>
             <uri idParamName="P_Cluster_ID" multiple="false"
                 name="Five Least Utilized Virtual Machines (Over Time) (BR12)" description="This report contains charts displaying weighted average daily peak of CPU and memory usage for the bottom five busiest virtual machines of a selected cluster and within a given period month.">/Reports/Trend/Virtual_machines/five_least_utilized_vms_Over_Time_BR12</uri>
+        </category>
+        <category name="Users' Usage">
+            <uri idParamName="P_Cluster_ID" multiple="false"
+                name="Users' Spice Sessions Activity (BR45)" description="This report contains a table detailing user spice activity with regards to time spent and resources used in the session in the selected data center and cluster and within the selected period.">/Reports/users_usage/users_spice_sessions_activity_br45</uri>
         </category>
     </resource>
 

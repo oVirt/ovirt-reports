@@ -4,7 +4,7 @@
     <name>users_spice_sessions_activity_br45</name>
     <version>42</version>
     <label>Users' Spice Sessions Activity (BR45)</label>
-    <description>This report contains a table detailing user spice activity with regards to time spent and resources used in the session in the selected data center and cluster and within the selected period. </description>
+    <description>This report contains a table detailing user spice activity with regards to time spent and resources used in the session in the selected data center and cluster and within the selected period.</description>
     <creationDate>2012-12-18T15:58:25.226+02:00</creationDate>
     <updateDate>2012-12-19T11:03:57.307+02:00</updateDate>
     <mainReport>
