@@ -177,7 +177,7 @@
                   <c:if test="${isProVersion}">
                       <li><span class="emphasis">superuser</span> <spring:message code='LOGIN_SUPERUSER_USER'/></li>
                   </c:if>
-                      <li><span class="emphasis">rhevm-admin</span> <spring:message code='LOGIN_ADMIN_USER'/></li>
+                      <li><span class="emphasis">ovirt-admin</span> <spring:message code='LOGIN_ADMIN_USER'/></li>
              </ul>
                 <p class="message"><spring:message code='CONTACT_ADMIN'/>.</p>
             </t:putAttribute>

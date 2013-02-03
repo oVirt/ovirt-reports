@@ -33,7 +33,7 @@
 
 <html>
 <head>
-    <title>RHEVM reports: <decorator:title/></title>
+    <title>oVirt Engine reports: <decorator:title/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=${requestScope['com.jaspersoft.ji.characterEncoding']}">
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <link rel="shortcut icon" href="favicon.ico"/>
