@@ -2,10 +2,10 @@
 <fileResource dataFile="overrides_custom.css.data">
     <folder>/themes/ovirt-reports-theme</folder>
     <name>overrides_custom.css</name>
-    <version>3</version>
+    <version>0</version>
     <label>overrides_custom.css</label>
     <description>overrides_custom.css</description>
-    <creationDate>2011-12-27T15:09:25.265+02:00</creationDate>
-    <updateDate>2011-12-27T15:07:38.424+02:00</updateDate>
+    <creationDate>2013-02-12T01:24:30.748+02:00</creationDate>
+    <updateDate>2013-02-12T01:24:30.748+02:00</updateDate>
     <fileType>css</fileType>
 </fileResource>

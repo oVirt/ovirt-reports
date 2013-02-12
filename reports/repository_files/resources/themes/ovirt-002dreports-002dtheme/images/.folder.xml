@@ -3,17 +3,17 @@
     <parent>/themes/ovirt-reports-theme</parent>
     <name>images</name>
     <label>images</label>
-    <creationDate>2011-12-27T15:05:19.389+02:00</creationDate>
-    <updateDate>2011-10-16T17:19:28.000+02:00</updateDate>
+    <creationDate>2013-02-12T01:24:30.795+02:00</creationDate>
+    <updateDate>2013-02-12T01:24:30.795+02:00</updateDate>
+    <resource>banner_bkgd.png</resource>
     <resource>body_bkgnd.png</resource>
     <resource>button_action_jumbo_primary_sprite.png</resource>
     <resource>button_action_jumbo_sprite.png</resource>
     <resource>button_action_primary_sprite.png</resource>
     <resource>button_capsule_sprite.png</resource>
-    <resource>logo_ovirt.png</resource>
+    <resource>logo.png</resource>
     <resource>menu_primaryNav_sprite.png</resource>
     <resource>panel_confirm_bkgd.png</resource>
     <resource>tabs_horizontal_sprite.png</resource>
     <resource>tabs_vertical_sprite.png</resource>
-    <resource>Thumbs.db</resource>
 </folder>

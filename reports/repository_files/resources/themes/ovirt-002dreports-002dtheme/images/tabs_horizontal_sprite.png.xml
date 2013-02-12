@@ -2,10 +2,10 @@
 <fileResource dataFile="tabs_horizontal_sprite.png.data">
     <folder>/themes/ovirt-reports-theme/images</folder>
     <name>tabs_horizontal_sprite.png</name>
-    <version>1</version>
+    <version>0</version>
     <label>tabs_horizontal_sprite.png</label>
     <description>tabs_horizontal_sprite.png</description>
-    <creationDate>2011-12-27T15:09:31.653+02:00</creationDate>
-    <updateDate>2011-12-27T15:05:28.144+02:00</updateDate>
+    <creationDate>2013-02-12T01:24:31.561+02:00</creationDate>
+    <updateDate>2013-02-12T01:24:31.561+02:00</updateDate>
     <fileType>img</fileType>
 </fileResource>

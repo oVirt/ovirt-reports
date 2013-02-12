@@ -2,10 +2,10 @@
 <fileResource dataFile="panel_confirm_bkgd.png.data">
     <folder>/themes/ovirt-reports-theme/images</folder>
     <name>panel_confirm_bkgd.png</name>
-    <version>1</version>
+    <version>0</version>
     <label>panel_confirm_bkgd.png</label>
     <description>panel_confirm_bkgd.png</description>
-    <creationDate>2011-12-27T15:09:31.598+02:00</creationDate>
-    <updateDate>2011-12-27T15:05:28.102+02:00</updateDate>
+    <creationDate>2013-02-12T01:24:31.502+02:00</creationDate>
+    <updateDate>2013-02-12T01:24:31.502+02:00</updateDate>
     <fileType>img</fileType>
 </fileResource>
