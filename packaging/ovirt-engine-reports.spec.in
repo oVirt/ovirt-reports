@@ -122,7 +122,9 @@ fi
 %endif
 
 %{_bindir}/%{reports_name}-setup
+%if "%{name}" != "%{reports_name}
 %{_bindir}/%{name}-setup
+%endif
 
 %changelog
 * Sun Nov 4 2012 Yaniv Dary <ydary@redhat.com> - 3.1.0
