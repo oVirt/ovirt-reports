@@ -38,6 +38,12 @@
       <artifactId>jasperserver-api-metadata-impl</artifactId>
       <version>${jasper.version}</version>
       <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>mondrian</groupId>
+                    <artifactId>mondrian</artifactId>
+                </exclusion>
+            </exclusions>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
@@ -63,6 +69,15 @@
     </pluginManagement>
   </build>
   <repositories>
+    <repository>
+      <id>jasper repo1</id>
+      <name>jasper repo1</name>
+      <layout>default</layout>
+      <url>https://services.boksa.de/maven/repositories/jasperreports-server-cp-4.5.0</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
     <repository>
       <id>central</id>
       <name>maven repo1</name>
