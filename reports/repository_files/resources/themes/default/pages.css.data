@@ -1,75 +1,44 @@
 /*
-pages.css
-
-intended scope:
-- default layout positioning
-
-pods skin
-tim sheiner & christie rixford
-*/
-
-/*
-______________________________________________________________
-
- PAGE LAYOUTS
-______________________________________________________________
-
-The most important layout concept for JIF is the column.
-
-The framework assumes that within a given layout context, there will be at most
-3 columns.  These columns will be identified as .primary, .secondary and .tertiary.
-
-.Column.primary is special in that it is not sized directly by the user, but absorbs
-the size changes initiated by the user to adjacent columns or the browser window.
-
-By convention, the layout context for a .column will be of class .body or .row, though
-neither of these selectors is required.
-
-However, setting additional class attributes on layout context element, as shown in the rules below, will create specific column layouts.
-
-Layout contexts can be nested, and the column layout metrics will cascade appropriately.
-
-*/
-
-/* ONE COLUMN */
-
+ * From: one_column.css
+ */
 .oneColumn>.primary.column,
 .body.oneColumn>.primary.column,
 .row.oneColumn>.primary.column {
-    right:0;
-    left:0;
-    display:block;
+	right:0;
+	left:0;
+	display:block;
 }
 
 .oneColumn>.secondary.column,
 .oneColumn>.tertiary.column {
-    display: none;
+	display: none;
 }
 
-/* TWO COLUMN */
-
-/* twoColumn */
+/*
+ * From: two_columns.css
+ */
+/* twoColumn.primaryRight */
 
 .twoColumn>.primary.column,
 .body.twoColumn>.primary.column,
 .row.twoColumn>.primary.column {
-    right:0;
-    left:200px;
-    display:block;
-    margin-left:43px;
+	right:0;
+	left:200px;
+	display:block;
+	margin-left:10px;
 }
 
 .twoColumn>.secondary.column,
 .body.twoColumn>.secondary.column,
 .row.twoColumn>.secondary.column {
-    width:200px;
-    left:0;
-    right:auto;
-    display:block;
+	min-width:200px;
+	width:200px;
+	left:0;
+	display:block;
 }
 
 .twoColumn>.tertiary.column {
-    display: none;
+	display: none;
 }
 
 /* twoColumn.primaryLeft */
@@ -77,10 +46,15 @@ Layout contexts can be nested, and the column layout metrics will cascade approp
 .twoColumn.primaryLeft>.primary.column,
 .body.twoColumn.primaryLeft>.primary.column,
 .row.twoColumn.primaryLeft>.primary.column {
-    right:200px;
-    left:0;
-    display:block;
-    margin-right:25px;
+	right:200px;
+	left:0;
+	display:block;
+	margin-right: 18px; /* bigger margin fixes issue in domain designer */
+}
+
+.body.twoColumn.secondaryHidden >.primary.column {
+    margin-left: 4px;
+    margin-right: 10px;
 }
 
 .twoColumn.primaryLeft>.secondary.column,
@@ -89,121 +63,112 @@ Layout contexts can be nested, and the column layout metrics will cascade approp
 .twoColumn.primaryLeft>.tertiary.column,
 .body.twoColumn.primaryLeft>.tertiary.column,
 .row.twoColumn.primaryLeft>.tertiary.column {
-    width:200px;
-    right:0;
-    left:auto;
-    display:block;
+	min-width:200px;
+	width:200px;
+	right:0;
+	left:auto; /* fixes problems in domain designer */
+	display:block;
 }
-
-.twoColumn.primaryLeft>.secondary.column>.sizer,
-.body.twoColumn.primaryLeft>.secondary.column>.sizer,
-.row.twoColumn.primaryLeft>.secondary.column>.sizer,
-.twoColumn.primaryLeft>.tertiary.column>.sizer,
-.body.twoColumn.primaryLeft>.tertiary.column>.sizer,
-.row.twoColumn.primaryLeft>.tertiary.column>.sizer {
-    left:0;
-    margin-left:-20px;
-}
-
 
 /* twocolumn_equal */
 
 .twoColumn_equal> .primary.column,
 .body.twoColumn_equal> .primary.column,
 .row.twoColumn_equal> .primary.column {
-    right:0;
-    left:50%;
-    display:block;
-    /* margin-left: 8px; */
-    width:auto;
+	right:0;
+	left:50%;
+	display:block;
+	width:auto;
 }
 
 .twoColumn_equal> .secondary.column,
 .body.twoColumn_equal> .secondary.column ,
 .row.twoColumn_equal> .secondary.column {
-    right:50%;
-    left:0;
-    display:block;
-    width:auto;
+	right:50%;
+	left:0;
+	display:block;
 }
 
 .twoColumn_equal> .tertiary.column {
-    display: none;
+	display: none;
 }
 
 .relative.twoColumn_equal> .primary.column {
-    width:50%;
-    display:block;
-    position: relative;
-    float: left;
-    right:auto;
-    margin: auto 0;
-    left:0;
+	width:50%;
+	display:block;
+	position: relative;
+	float: left;
+	right:auto;
+	margin: auto 0;
+	left:0;
 }
 
 .relative.twoColumn_equal> .secondary.column {
-    width:49%;
-    display:block;
-    position: relative;
-    float: right;
-    right:auto;
+	width:49%;
+	display:block;
+	position: relative;
+	float: right;
+	right:auto;
 }
 
 .relative.twoColumn_equal> .column {
-    overflow:hidden;
-    min-width:100px;
+	overflow:hidden;
+	min-width:100px;
 }
 
 /* .twoColumn.manager */
 
 .twoColumn.manager>.primary.column {
-    right:50%;
-    left:0;
-    display:block;
-    margin-left: 24px;
-    margin-right: 45px;
+	right:50%;
+	left:0;
+	display:block;
+	/*margin-left: 24px;*/
+	margin-right: 12px;
 }
 
 .twoColumn.manager>.secondary.column {
-    display:none;
+	display:none;
 }
 
 .twoColumn.manager>.tertiary.column {
-    right:0;
-    left: auto;
-    display:block;
-    width: 50%;
+	right:0;
+	left: auto;
+	display:block;
+	width: 50%;
 }
 
-/* THREE COLUMN LAYOUTS */
-
+/*
+ * From: three_columns.css
+ */
 /* .threeColumn */
 .threeColumn>.primary.column,
 .body.threeColumn>.primary.column,
 .row.threeColumn>.primary.column {
-    right:200px;
-    left:200px;
-    margin-left:43px;
-    margin-right: 43px;
-    display:block;
+	right:200px;
+	left:200px;
+	margin-left: 10px;
+	margin-right: 10px;
+	display:block;
 }
 
 .threeColumn>.secondary.column,
 .body.threeColumn>.secondary.column,
 .row.threeColumn>.secondary.column {
-    width:200px;
-    left:0;
-    right:auto;
-    display:block;
+	min-width:200px;
+	width:200px;
+	left:0;
+	right:auto;
+	display:block;
 }
 
 .threeColumn>.tertiary.column,
 .body.threeColumn>.tertiary.column,
 .row.threeColumn>.tertiary.column {
-    width:200px;
-    right:0;
-    left:auto;
-    display:block;
+	min-width:200px;
+	width:200px;
+	right:0;
+	left:auto;
+	display:block;	
 }
 
 /* .threeColumn_equal> */
@@ -211,179 +176,277 @@ Layout contexts can be nested, and the column layout metrics will cascade approp
 .threeColumn_equal> .primary.column,
 .body.threeColumn_equal> .primary.column,
 .row.threeColumn_equal> .primary.column {
-    right:33%;
-    left:33%;
-    display:block;
+	right:33%;
+	left:33%;
+	display:block;
 }
 
 .threeColumn_equal> .secondary.column,
 .body.threeColumn_equal> .secondary.column,
 .row.threeColumn_equal> .secondary.column {
-    width:32%;
-    left:0;
-    right:auto;
-    display:block;
+	width:32%;
+	left:0;
+	right:auto;
+	display:block;
 }
 
 .threeColumn_equal> .tertiary.column,
 .body.threeColumn_equal> .tertiary.column,
 .row.threeColumn_equal> .tertiary.column {
-    width:32%;
-    right:0;
-    left:auto;
-    display:block;
+	width:32%;
+	right:0;
+	left:auto;
+	display:block;
 }
 
 /* .threeColumn.manager */
 
 .threeColumn.manager>.primary.column {
-    right:40%;
-    left:15%;
-    display:block;
+	right:40%;
+	left:15%;
+	display:block;
 }
 
 .threeColumn.manager>.secondary.column {
-    left:0;
-    display:block;
-    width: 15%;
+	left:0;
+	display:block;
+	width: 15%;
 }
 
 .threeColumn.manager>.tertiary.column {
-    right:0;
-    display:block;
-    width: 40%;
+	right:0;
+	display:block;
+	width: 40%;
+}
+
+/*
+ * From: row.css
+ */
+/*
+ROW LAYOUTS Row elements can be used to create parent context's for columns for complex and nested layouts
+*/
+.row>.sizer.vertical {
+	bottom: 0;
+	width: 100%;
+	height: 10px;
+}
+
+/* two panes, fill column */
+
+.column .body.twoPanes {
+	overflow: hidden;
+} 
+
+.twoPanes .panel.pane {
+	position: absolute;
+	min-height: 30px;
+	margin-bottom: 0;
+}
+
+.twoPanes .pane>.content>.body {
+	bottom: 0;
+}
+
+.twoPanes .pane.secondary {
+	bottom:0px;
+	height: 200px;
+}
+
+.twoPanes .pane.primary {
+	top:0;
+	bottom:200px;
+	height: auto;
+}
+
+.twoPanes .pane.secondary>.content {
+	border-top: 1px solid #D4D5D5;
+}
+
+.twoPanes .pane .footer {
+	display: none;
+}
+
+.twoPanes .pane.secondary .sizer {
+	position:absolute;
+	width:9px;
+	height:9px;
+	background-image: url(images/panel_sizer_sprite.png);
+	background-repeat: none;
+	cursor: pointer;
+	z-index: 3;
+	background-position: left 0;
+	right:4px;
+	top:12px;
+	/*workaround for IE and Ch; see Bug 24068*/
+	bottom:13px!important;
 }
 
 
-/* .flow
+/* three panes, fill column */
 
-NOTE: .flow layout classes are used by .wizards as well
+.column .body.threeRow {
+	overflow: hidden;
+} 
 
+.threeRow .pane {
+	position: absolute;
+}
+
+.threeRow .pane.primary {
+	top:100px;
+	bottom:100px;
+	height: auto;
+}
+
+.threeRow .pane.upper {
+	top:0;
+	height:100px;
+}
+
+.threeRow .pane.lower {
+	bottom:0;
+	height:100px;
+}
+
+/*
+ * From: flow.css
+ */
+ 
+/* .flow 
+NOTE: .flow layout classes are used by .wizards as well 
 */
 
 .body.flow {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .flow .row {
-    white-space: normal;
+	white-space: normal;
 }
 
 .flow #flowControls {
-    float: left;
-    position: relative;
-    padding: 0 10px;
-    margin-top:85px;
-    min-width:125px;
+	float: left;
+	position: relative;
+	padding: 0 10px;
+	margin-top: 85px;
+	min-width: 125px;
+	color: #333;
 }
 
+.flow #stepDisplay .column.primary .header .title,
+.flow #stepDisplay .column.secondary .header .title{
+	float: none;
+	display: inline-block;
+	*display: inline; /* IE7 */
+	*margin-right: 4px; /* IE7 */
+	zoom:1; /* IE */
+} 
+
 .flow #stepDisplay {
-    display: inline-block;
-    position: relative;
-    height:99%;
+	display: inline-block;
+	position: relative;
+	height:99%;
+	width:80%
 }
 
 .flow #stepDisplay.error .instructions>.warning {
-    display:block;
+	display:block;
 }
 
 .flow #stepDisplay .instructions>.warning {
-    display:none;
+	display:none;
 }
 
 .flow #stepDisplay .instructions.error>.warning {
-    display:block;
+	display:block;
 }
 
 .flow .row.instructions {
-    margin:10px;
-    margin-bottom: 15px;
+	margin: 10px;
+	margin-bottom: 15px;
 }
 
 .flow .row.inputs {
-    min-height: 400px;
-    min-width: 600px;
-    height: 85%;
+	min-height: 350px;
+	min-width: 600px;
+	height: 80%;
 }
 
 .flow .row.inputs.twoColumn,
 .flow .row.inputs.twoColumn_equal {
-    min-width: 900px;
+	min-width:820px;
 }
 
 .flow .row.actions {
-    margin-bottom:10px;
+	margin-bottom:10px;
 }
 
 .flow .error .inputs {
-    top:100px;
+	top:100px;
 }
 
 flow #flowControls .tabSet {
-    float:none;
-    margin-bottom: 25px;
-    overflow: auto;
+	float: none;
+	margin-bottom: 25px;
+	overflow: auto;
 }
 
 .flow .inputs.oneColumn>.primary.decorated>.content>.body {
-    padding:15px 5px 5px 20px;
+	padding: 15px 5px 5px 20px;
 }
 
 .flow .inputs.oneColumn>.primary>.content>.header {
-    overflow:visible;
+	overflow:visible;
 }
 
-
 .flow .inputs .twoColumn_equal>.column {
-    padding:0 5px;
+	padding:0 5px;
 }
 
 .flow .inputs.twoColumn>.column.primary {
-    margin-left:35px;
+	margin-left:35px;
 }
 
 
 .flow .inputs> .column {
-    margin-left: 10px;
+	margin-left: 10px;	
 }
 
 .flow .inputs> .column.decorated {
-    margin-top: 5px;
+	margin-top: 5px;	
 }
 
-
-
 .flow .twoColumn_equal>.column>.sizer,
-.flow .twoColumn_equal .minimize  {
-    display: none;
+.flow .twoColumn_equal .minimize {
+	display: none;
 }
 
 .flow #moveButtons .button,
 .flow .moveButtons .button {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .flow #moveButtons .toRight,
 .flow #moveButtons .toTop,
 .flow .moveButtons .toRight,
-.flow .moveButtons .toTop  {
-    margin-top: 30px;
+.flow .moveButtons .toTop {
+	margin-top: 30px;
 }
 
 .flow .panel.info {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 
 .nameAndDescription {
-    margin:5px 20px;
+	margin:5px 20px;
 }
 
 /* .flow.wizard */
 
 .flow.wizard #wizardNav #done,
 .flow.wizard #wizardNav #submit {
-    display:none;
+	display:none;
 }
 
 .flow #next,
@@ -391,7 +454,7 @@ flow #flowControls .tabSet {
 .flow.wizard.oneStep #wizardNav #next,
 .flow.wizard.oneStep #wizardNav #previous,
 .flow.wizard.lastStep #wizardNav #next {
-    display:none;
+	display:none;
 }
 
 .flow.wizard #wizardNav #previous,
@@ -401,172 +464,53 @@ flow #flowControls .tabSet {
 .flow.wizard.oneStep #wizardNav #done,
 .flow.wizard.lastStep #wizardNav #done,
 .flow.wizard.oneStep #wizardNav #submit,
-.flow.wizard.lastStep #wizardNav #submit  {
-    display:inline;
+.flow.wizard.lastStep #wizardNav #submit {
+	display:inline;
 }
 
-
-
-
+/*
+ * From: pickwells.css
+ */
 /* .pickWells */
 
 .twoColumn_equal.pickWells>.primary.column,
-.moveButtons>.primary.column  {
-    margin-left:35px;
+.moveButtons>.primary.column {
+	margin: 16px 16px 16px 30px;
 }
 
 .twoColumn_equal.pickWells>.secondary.column,
 .moveButtons>.secondary.column {
-    margin-right:30px;
+	margin: 16px 30px 16px 16px;
 }
 
 .twoColumn_equal.pickWells> .primary > .content > .body {
-    padding:0;
+	padding: 0;
 }
 
 .flow .inputs .primary .twoColumn.pickWells>#moveButtons,
 .twoColumn_equal.pickWells>#moveButtons,
 .twoColumn_equal.pickWells>.moveButtons {
-    left: 50%;
-    margin-left: -17px;
+	left: 50%;
+	margin-left: -17px;
 }
 
 .pickWells .sizer,
 .pickWells .button.minimize {
-    display: none;
+	display: none;
 }
 
 .flow #moveButtons,
 .row #moveButtons,
 .moveButtons {
-    position: absolute;
-    width: 34px;
-    padding-top: 35px;
-    right:0;
-    margin-left: 38px;
-    margin-right:5px;
+	position: absolute;
+	width: 34px;
+	padding-top: 35px;
+	right: 0;
+	margin-left: 38px;
+	margin-right: 5px;
 }
 
-.moveButtons .button {
-    margin-bottom: 8px;
-}
-
-/* .tabbed */
-
-.column.decorated.tabbed.showingToolBar > .content > .body {
-    margin-top:70px;
-}
-
-.column.decorated.tabbed > .content > .body > .row.canvas {
-    height:86%;
-    margin: 1% 20px;
-}
-
-.column.decorated.tabbed > .content > .body > .row.actions {
-    height:9%;
-    padding: 0 35px;
-}
-
-
-/* ROW LAYOUTS
-
-Row elements can be used to create parent context's for columns for complex and nested layouts.
-
-*/
-
-.row>.sizer.vertical {
-    bottom: 0;
-    width: 100%;
-    height: 10px;
-}
-
-
-/* two panes, fill column */
-
-.column .body.twoPanes {
-    overflow: hidden;
-}
-
-.twoPanes .panel.pane {
-    position: absolute;
-    min-height: 30px;
-    margin-bottom: 0;
-}
-
-.twoPanes .pane>.content>.body {
-    bottom: 0;
-}
-
-.twoPanes .pane.secondary {
-    bottom:0px;
-    height: 200px;
-}
-
-.twoPanes .pane.primary {
-    top:0;
-    bottom:200px;
-    height: auto;
-}
-
-.twoPanes .pane.secondary>.content {
-    border-top: 1px solid #D4D5D5;
-}
-
-
-.twoPanes .pane .footer {
-    display: none;
-}
-
-.twoPanes .pane.secondary .sizer {
-    position:absolute;
-    width:9px;
-    height:9px;
-    background-image: url(images/panel_sizer_sprite.png);
-    background-repeat: none;
-    cursor: pointer;
-    z-index: 3;
-    background-position: left 0;
-    right:4px;
-    top:12px;
-}
-
-
-/* three panes, fill column */
-
-.column .body.threeRow {
-    overflow: hidden;
-}
-
-.threeRow .pane {
-    position: absolute;
-}
-
-.threeRow .pane.primary {
-    top:100px;
-    bottom:100px;
-    height: auto;
-}
-
-.threeRow .pane.upper {
-    top:0;
-    height:100px;
-}
-
-.threeRow .pane.lower {
-    bottom:0;
-    height:100px;
-}
-
-/* flashExport */
-
-.swfExport {
-    bottom:20px;
-    left:0;
-    position:absolute;
-    right:0;
-    top:37px;
-}
-
-.swfWrapper {
-    z-index: 0;
+.moveButtons .button,
+#moveButtons .button {
+	margin-bottom: 8px;
 }

@@ -3,96 +3,44 @@
     <parent>/themes/default</parent>
     <name>images</name>
     <label>images</label>
-    <creationDate>2011-12-27T15:04:24.735+02:00</creationDate>
-    <updateDate>2011-09-28T04:19:50.895+03:00</updateDate>
+    <creationDate>2013-02-20T12:06:02.549+02:00</creationDate>
+    <updateDate>2012-08-16T01:39:11.087+03:00</updateDate>
+    <resource>adhoc_datatree_icons_sprite.png</resource>
     <resource>adhoc_toolbar_buttons_sprite.png</resource>
-    <resource>ajax-loader.gif</resource>
-    <resource>body_bkgnd.png</resource>
-    <resource>button_action_jumbo_primary_sprite.png</resource>
-    <resource>button_action_jumbo_sprite.png</resource>
+    <resource>banner_bkgd.png</resource>
     <resource>button_action_primary_sprite.png</resource>
     <resource>button_action_sprite.png</resource>
     <resource>button_action_square_icons_sprite.png</resource>
     <resource>button_capsule_sprite.png</resource>
     <resource>button_options_sprite.png</resource>
-    <resource>column_bkgd_corners.png</resource>
-    <resource>column_bkgd_edges_rl.png</resource>
-    <resource>column_bkgd_edges_tb.png</resource>
-    <resource>column_bkgd.png</resource>
+    <resource>column_header_bkgd.png</resource>
     <resource>cursor_copy.cur</resource>
     <resource>cursor_copy.png</resource>
     <resource>disclosure_indicators_sprite.png</resource>
-    <resource>first.gif</resource>
-    <resource>first-d.gif</resource>
     <resource>floatingMenu_sprite.png</resource>
-    <resource>frame_background_sprite.png</resource>
-    <resource>frame_bkgd_corners.png</resource>
-    <resource>frame_bkgd_edges_rl.png</resource>
-    <resource>frame_bkgd_edges_tb.png</resource>
-    <resource>frame_header_sprite.png</resource>
-    <resource>gradient_frame.content.png</resource>
     <resource>grid_20x20_bkgd.png</resource>
-    <resource>grouper_sprite.png</resource>
-    <resource>header_primary_sprite.png</resource>
     <resource>home_bkgd.png</resource>
     <resource>home_icons_sprite.png</resource>
+    <resource>inner_pagination_sprite.png</resource>
     <resource>input_bkgd.png</resource>
-    <resource>last.gif</resource>
-    <resource>last-d.gif</resource>
     <resource>list_node_animation.gif</resource>
     <resource>list_pressed_bkgd.png</resource>
     <resource>lists_sprite.png</resource>
     <resource>loadinfo.gif</resource>
-    <resource>login_welcome_bkgd_ipad.jpg</resource>
     <resource>login_welcome_bkgd.jpg</resource>
     <resource>login_welcome_ce_bkgd.jpg</resource>
-    <resource>logo_small.png</resource>
     <resource>logo.png</resource>
-    <resource>menu_context_bkgd_corners.png</resource>
-    <resource>menu_context_bkgd_edges_rl.png</resource>
-    <resource>menu_context_bkgd_edges_tb.png</resource>
-    <resource>menu_dropDown_bkgd_corners.png</resource>
-    <resource>menu_dropDown_bkgd_edges_rl.png</resource>
-    <resource>menu_dropDown_bkgd_edges_tb.png</resource>
-    <resource>menu_indicators_sprite.png</resource>
     <resource>menu_primaryNav_sprite.png</resource>
-    <resource>menu_vertical_bkgd.png</resource>
     <resource>message_icons_sprite.png</resource>
-    <resource>next.gif</resource>
-    <resource>next-d.gif</resource>
-    <resource>panel_bkgd_corners.png</resource>
-    <resource>panel_bkgd_edges_rl.png</resource>
-    <resource>panel_bkgd_edges_tb.png</resource>
-    <resource>panel_confirm_bkgd.png</resource>
-    <resource>panel_dialog_header_sprite.png</resource>
-    <resource>panel_info_bkgd_corners.png</resource>
-    <resource>panel_info_bkgd_edges_rl.png</resource>
-    <resource>panel_info_bkgd_edges_tb.png</resource>
-    <resource>panel_info_system_bkgd_corners.png</resource>
-    <resource>panel_info_system_bkgd_edges_rl.png</resource>
-    <resource>panel_info_system_bkgd_edges_tb.png</resource>
-    <resource>panel_info_tooltip_bkgd_corners.png</resource>
-    <resource>panel_info_tooltip_bkgd_edges_rl.png</resource>
-    <resource>panel_info_tooltip_bkgd_edges_tb.png</resource>
-    <resource>panel_inlay_bkgd_corners.png</resource>
-    <resource>panel_inlay_bkgd_edges_rl.png</resource>
-    <resource>panel_inlay_bkgd_edges_tb.png</resource>
-    <resource>panel_inlay_bkgd.png</resource>
-    <resource>panel_inlay_gradient_left.png</resource>
-    <resource>panel_inlay_gradient_right.png</resource>
-    <resource>panel_inset_bkgd_corners.png</resource>
-    <resource>panel_inset_bkgd_edges_rl.png</resource>
-    <resource>panel_inset_bkgd_edges_tb.png</resource>
     <resource>panel_inset_inset_bkgd.png</resource>
     <resource>panel_sizer_sprite.png</resource>
-    <resource>panel_widget_header_sprite.png</resource>
-    <resource>prev.gif</resource>
-    <resource>prev-d.gif</resource>
+    <resource>report_load_animation.gif</resource>
     <resource>search_sprite.png</resource>
     <resource>sort_indicators_sprite.png</resource>
+    <resource>spacer.gif</resource>
     <resource>tabs_horizontal_buttons_bkgd.png</resource>
     <resource>tabs_horizontal_sprite.png</resource>
     <resource>tabs_vertical_sprite.png</resource>
-    <resource>toolbar_bkgd.png</resource>
+    <resource>viewer_toolbar_buttons_sprite.png</resource>
     <resource>wait_animation_large.gif</resource>
 </folder>
