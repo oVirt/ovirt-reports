@@ -122,7 +122,7 @@ fi
 %endif
 
 %{_bindir}/%{reports_name}-setup
-%if "%{name}" != "%{reports_name}
+%if "%{name}" != "%{reports_name}"
 %{_bindir}/%{name}-setup
 %endif
 
