@@ -26,7 +26,8 @@ FROM enum_translator as enum_translator_default
                                   FROM enum_translator
                                   WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_type = 'REPORTS_PERIOD'</queryString>
+           AND enum_translator_default.enum_type = 'REPORTS_PERIOD'
+           ORDER BY enum_translator_default.enum_key</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
