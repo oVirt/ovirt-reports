@@ -271,10 +271,10 @@ $F{cluster_name}]]></hyperlinkTooltipExpression>
                                 <textField>
                                     <reportElement uuid="6b9dc35c-062e-452d-b270-016de69c65bc" x="15" y="0" width="816" height="20"/>
                                     <textElement textAlignment="Left" verticalAlignment="Middle" markup="html"/>
-                                    <textFieldExpression><![CDATA[$P{P_Period} != "Daily" ?
+                                    <textFieldExpression><![CDATA[$P{P_Period} != 0 ?
 "<b>" + $R{axis.date} + ":</b> " + DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{history_datetime}) :
 "<b>" + $R{axis.date} + ":</b> " + DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE}).format($F{history_datetime})]]></textFieldExpression>
-                                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period} != "Daily" ?
+                                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period} != 0 ?
 DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format($F{history_datetime}) :
 DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, $P{REPORT_LOCALE}).format($F{history_datetime})]]></hyperlinkTooltipExpression>
                                 </textField>
