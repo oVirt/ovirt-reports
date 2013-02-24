@@ -43,12 +43,7 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                                                       WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                                                                       WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                                END
-                                                AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
-                                                                                                                                                                                                                WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                                                                                WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                                                                                WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                                                                                WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                                                                          END))
+                                                AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                $P!{is_deleted}
                                                AND cluster_id in (SELECT DISTINCT cluster_id
                                                                           FROM v3_2_configuration_history_vms
@@ -61,22 +56,12 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                                                                                            WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                                                                                                            WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                                                                      END
-                                                                                     AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
-                                                                                                                                                                                                                                                     WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                                                                                                                     WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                                                                                                                     WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                                                                                                                     WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                                                                                                              END))
+                                                                                     AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                                                    $P!{is_deleted}))
           AND history_id in (SELECT max(a.history_id)
                                      FROM v3_2_configuration_history_datacenters a
                                      GROUP BY a.datacenter_id)
-          AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
-                                                                                                                                                                         WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                                         WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                                         WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                                         WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                                  END))
+          AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
            $P!{is_deleted}
 UNION ALL
 SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
@@ -99,12 +84,7 @@ WHERE language_code = 'en_US'
                                                                                                                    WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                                                                                                    WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                                                             END
-                                                                             AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
-                                                                                                                                                                                                                                             WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                                                                                                             WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                                                                                                             WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                                                                                                             WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                                                                                                       END))
+                                                                             AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                                             $P!{is_deleted}
                                                                             AND cluster_id in (SELECT DISTINCT cluster_id
                                                                                                        FROM v3_2_configuration_history_vms
@@ -117,22 +97,12 @@ WHERE language_code = 'en_US'
                                                                                                                                                         WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                                                                                                                                         WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                                                                                                   END
-                                                                                                                  AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
-                                                                                                                                                                                                                                                                                  WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                                                                                                                                                  WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                                                                                                                                                  WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                                                                                                                                                  WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                                                                                                                                           END))
+                                                                                                                  AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                                                                                 $P!{is_deleted}))
                                        AND history_id in (SELECT max(a.history_id)
                                                                   FROM v3_2_configuration_history_datacenters a
                                                                   GROUP BY a.datacenter_id)
-                                       AND (delete_date IS NULL OR (delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP) AND delete_date &lt;= CASE
-                                                                                                                                                                                                      WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                                                                      WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                                                                      WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                                                                      WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                                                               END))
+                                       AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                         $P!{is_deleted})
 order by delete_date DESC, combo_name
 </queryString>
