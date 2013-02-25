@@ -70,17 +70,17 @@ AND history_datetime <= CASE
     <group name="Datacenter">
         <groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
         <groupFooter>
-            <band height="300">
+            <band height="320">
                 <textField>
-                    <reportElement uuid="210a1512-5049-435c-8cd8-91681089b101" x="254" y="263" width="183" height="15"/>
-                    <textElement markup="none">
+                    <reportElement uuid="210a1512-5049-435c-8cd8-91681089b101" x="254" y="267" width="183" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$R{br8.meter.planned.downtime} + ":"]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement uuid="2c9f4e90-bf84-4b9a-a123-2e7eef83ad63" x="254" y="282" width="183" height="15"/>
-                    <textElement markup="none">
+                    <reportElement uuid="2c9f4e90-bf84-4b9a-a123-2e7eef83ad63" x="254" y="290" width="183" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$R{br8.meter.unplanned.downtime} + ":"]]></textFieldExpression>
@@ -90,7 +90,7 @@ AND history_datetime <= CASE
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="13" isBold="true"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[$R{br8.meter.title}]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$R{br46.meter.title}]]></textFieldExpression>
                 </textField>
                 <meterChart>
                     <chart evaluationTime="Report" renderType="draw" theme="default">
@@ -127,16 +127,16 @@ AND history_datetime <= CASE
                     </meterPlot>
                 </meterChart>
                 <textField>
-                    <reportElement uuid="7eda181a-96f2-450c-9c98-bd4ba4ea49a2" x="254" y="244" width="183" height="15" forecolor="#3A5E75"/>
-                    <textElement markup="none">
+                    <reportElement uuid="7eda181a-96f2-450c-9c98-bd4ba4ea49a2" x="254" y="244" width="183" height="20" forecolor="#3A5E75"/>
+                    <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$R{br8.meter.uptime} + ":"]]></textFieldExpression>
                 </textField>
                 <frame>
-                    <reportElement uuid="023a9d15-d09e-4b62-afe4-79f30cdc6615" x="444" y="244" width="150" height="15"/>
+                    <reportElement uuid="023a9d15-d09e-4b62-afe4-79f30cdc6615" x="444" y="244" width="150" height="20"/>
                     <textField>
-                        <reportElement uuid="bee201b4-b883-4876-b4a9-4b6e280f9f59" x="0" y="0" width="32" height="15" forecolor="#3A5E75">
+                        <reportElement uuid="bee201b4-b883-4876-b4a9-4b6e280f9f59" x="0" y="0" width="32" height="20" forecolor="#3A5E75">
                             <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
@@ -145,7 +145,7 @@ AND history_datetime <= CASE
                         <textFieldExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="ace42702-aaa7-4aa2-97cf-76c81a1267aa" x="35" y="0" width="30" height="15" forecolor="#3A5E75">
+                        <reportElement uuid="ace42702-aaa7-4aa2-97cf-76c81a1267aa" x="35" y="0" width="30" height="20" forecolor="#3A5E75">
                             <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0 || (($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
@@ -154,14 +154,14 @@ AND history_datetime <= CASE
                         <textFieldExpression><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="064b51f3-4ab0-4ff1-b805-0038e534254e" x="65" y="0" width="30" height="15" forecolor="#3A5E75"/>
+                        <reportElement uuid="064b51f3-4ab0-4ff1-b805-0038e534254e" x="65" y="0" width="30" height="20" forecolor="#3A5E75"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="true"/>
                         </textElement>
                         <textFieldExpression><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="fedb4ae3-a819-4eb8-a2ba-8d4cf1be4ffd" x="100" y="0" width="50" height="15" forecolor="#3A5E75"/>
+                        <reportElement uuid="fedb4ae3-a819-4eb8-a2ba-8d4cf1be4ffd" x="100" y="0" width="50" height="20" forecolor="#3A5E75"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="true"/>
                         </textElement>
@@ -169,9 +169,9 @@ AND history_datetime <= CASE
                     </textField>
                 </frame>
                 <frame>
-                    <reportElement uuid="00855d57-30a2-4350-b6c0-35cf51d5bfa4" x="450" y="263" width="144" height="15"/>
+                    <reportElement uuid="00855d57-30a2-4350-b6c0-35cf51d5bfa4" x="450" y="267" width="144" height="20"/>
                     <textField>
-                        <reportElement uuid="f942afb7-886c-4e33-9e52-87d387976c8f" x="0" y="0" width="27" height="15">
+                        <reportElement uuid="f942afb7-886c-4e33-9e52-87d387976c8f" x="0" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
@@ -180,7 +180,7 @@ AND history_datetime <= CASE
                         <textFieldExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="468fe497-5fe2-4cb9-9010-addd0d83df61" x="31" y="0" width="27" height="15">
+                        <reportElement uuid="468fe497-5fe2-4cb9-9010-addd0d83df61" x="31" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0 || (($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
@@ -189,14 +189,14 @@ AND history_datetime <= CASE
                         <textFieldExpression><![CDATA[(($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="8206bb9f-3625-43af-9c35-f77daee20b59" x="62" y="0" width="27" height="15"/>
+                        <reportElement uuid="8206bb9f-3625-43af-9c35-f77daee20b59" x="62" y="0" width="27" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
                         <textFieldExpression><![CDATA[($F{planned_downtime_mins} - ((($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{planned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="c5d7a7a9-309d-4ac1-87cb-65aff9957c4f" x="94" y="0" width="50" height="15"/>
+                        <reportElement uuid="c5d7a7a9-309d-4ac1-87cb-65aff9957c4f" x="94" y="0" width="50" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
@@ -204,9 +204,9 @@ AND history_datetime <= CASE
                     </textField>
                 </frame>
                 <frame>
-                    <reportElement uuid="4e60c78c-64f1-448d-9776-92991bb5b8d9" x="450" y="282" width="145" height="15"/>
+                    <reportElement uuid="4e60c78c-64f1-448d-9776-92991bb5b8d9" x="450" y="290" width="145" height="20"/>
                     <textField>
-                        <reportElement uuid="840103d4-9f5c-466a-90de-c1528d83c2ab" x="0" y="0" width="27" height="15">
+                        <reportElement uuid="840103d4-9f5c-466a-90de-c1528d83c2ab" x="0" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
@@ -215,7 +215,7 @@ AND history_datetime <= CASE
                         <textFieldExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="356126fd-b6a1-4432-acec-0ef365745cc3" x="31" y="0" width="27" height="15">
+                        <reportElement uuid="356126fd-b6a1-4432-acec-0ef365745cc3" x="31" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0 || (($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
@@ -224,14 +224,14 @@ AND history_datetime <= CASE
                         <textFieldExpression><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement uuid="0ba05d57-ff10-49ef-9b22-d2be91a120e7" x="62" y="0" width="27" height="15"/>
+                        <reportElement uuid="0ba05d57-ff10-49ef-9b22-d2be91a120e7" x="62" y="0" width="27" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
                         <textFieldExpression><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField pattern="">
-                        <reportElement uuid="acae7374-52d9-4997-89d1-b6a424c126a5" x="94" y="0" width="50" height="15"/>
+                        <reportElement uuid="acae7374-52d9-4997-89d1-b6a424c126a5" x="94" y="0" width="50" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>

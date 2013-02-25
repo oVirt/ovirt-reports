@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR8" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR8" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="d5aafd4b-a538-43f1-8c2d-f942d2d94b6f">
     <property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/single_host_uptime_br8"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
     <property name="ireport.zoom" value="1.0"/>
     <property name="ireport.x" value="0"/>
     <property name="ireport.y" value="0"/>
@@ -32,10 +32,10 @@
     <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
         <defaultValueExpression><![CDATA["C:\\Clients\\BO Client Folders\\oVirt\\iReports\\"]]></defaultValueExpression>
     </parameter>
-        <parameter name="table_name" class="java.lang.String">
+    <parameter name="table_name" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
     </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
+    <parameter name="calendar_column" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
@@ -71,31 +71,31 @@ AND history_datetime <= CASE
     <group name="Datacenter">
         <groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
         <groupFooter>
-            <band height="300">
+            <band height="320">
                 <textField>
-                    <reportElement x="254" y="263" width="183" height="15"/>
-                    <textElement markup="none">
+                    <reportElement uuid="13709f8a-94bd-493f-98e3-22e0f332cb64" x="254" y="267" width="183" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br8.meter.planned.downtime} + ":"]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$R{br8.meter.planned.downtime} + ":"]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="254" y="282" width="183" height="15"/>
-                    <textElement markup="none">
+                    <reportElement uuid="2d1e2729-8888-4fee-87fa-0ff60d3f4252" x="254" y="290" width="183" height="20"/>
+                    <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br8.meter.unplanned.downtime} + ":"]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$R{br8.meter.unplanned.downtime} + ":"]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="305" y="10" width="222" height="17" forecolor="#3A5E75"/>
+                    <reportElement uuid="5deb4ba2-776f-40b5-9f16-0109a99a7f3b" x="305" y="10" width="222" height="17" forecolor="#3A5E75"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="13" isBold="true"/>
                     </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br8.meter.title}]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$R{br8.meter.title}]]></textFieldExpression>
                 </textField>
                 <meterChart>
                     <chart evaluationTime="Report" renderType="draw" theme="default">
-                        <reportElement mode="Transparent" x="319" y="34" width="200" height="200"/>
+                        <reportElement uuid="d8aa3deb-7b7f-43b3-a9d3-36a51e145039" mode="Transparent" x="319" y="34" width="200" height="200"/>
                         <box>
                             <pen lineWidth="0.0"/>
                             <topPen lineWidth="0.0"/>
@@ -114,7 +114,6 @@ AND history_datetime <= CASE
                     </valueDataset>
                     <meterPlot shape="dial" tickInterval="5.0" needleColor="#000000" tickColor="#000000">
                         <plot/>
-                        <tickLabelFont/>
                         <valueDisplay mask="0"/>
                         <dataRange>
                             <lowExpression><![CDATA[0]]></lowExpression>
@@ -129,115 +128,115 @@ AND history_datetime <= CASE
                     </meterPlot>
                 </meterChart>
                 <textField>
-                    <reportElement x="254" y="244" width="183" height="15" forecolor="#3A5E75"/>
-                    <textElement markup="none">
+                    <reportElement uuid="e8af15d4-f2c0-4856-9987-ebf6ba2c0c17" x="254" y="244" width="183" height="20" forecolor="#3A5E75"/>
+                    <textElement verticalAlignment="Middle" markup="none">
                         <font fontName="SansSerif" size="12" isBold="true"/>
                     </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br8.meter.uptime} + ":"]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$R{br8.meter.uptime} + ":"]]></textFieldExpression>
                 </textField>
                 <frame>
-                    <reportElement x="444" y="244" width="150" height="15"/>
+                    <reportElement uuid="25d79fc2-2888-4967-9d8d-e43b42552c3a" x="444" y="244" width="150" height="20"/>
                     <textField>
-                        <reportElement x="0" y="0" width="32" height="15" forecolor="#3A5E75">
+                        <reportElement uuid="58e1cf10-11b5-4fba-a854-420bff0d7f2e" x="0" y="0" width="32" height="20" forecolor="#3A5E75">
                             <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="true"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="35" y="0" width="30" height="15" forecolor="#3A5E75">
+                        <reportElement uuid="61a82816-88e4-44da-934c-2b232a0a9db2" x="35" y="0" width="30" height="20" forecolor="#3A5E75">
                             <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0 || (($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="true"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="65" y="0" width="30" height="15" forecolor="#3A5E75"/>
+                        <reportElement uuid="8c90bc40-398e-4f05-8c8b-f50aeefc37d5" x="65" y="0" width="30" height="20" forecolor="#3A5E75"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="true"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="100" y="0" width="50" height="15" forecolor="#3A5E75"/>
+                        <reportElement uuid="124ab677-0441-46cc-9585-0f5e307bb718" x="100" y="0" width="50" height="20" forecolor="#3A5E75"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="true"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (100-(($F{planned_downtime_mins}/$F{total})*100).intValue()-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA["(" + (100-(($F{planned_downtime_mins}/$F{total})*100).intValue()-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
                 <frame>
-                    <reportElement x="450" y="263" width="144" height="15"/>
+                    <reportElement uuid="bec4b45d-1240-4bd7-b138-d926a7487642" x="450" y="267" width="144" height="20"/>
                     <textField>
-                        <reportElement x="0" y="0" width="27" height="15">
+                        <reportElement uuid="2dad066d-2c5a-4804-8f00-16b58a46edac" x="0" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="31" y="0" width="27" height="15">
+                        <reportElement uuid="d7a787d4-1401-419a-b2fe-a39b9f77ff5f" x="31" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0 || (($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[(($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="62" y="0" width="27" height="15"/>
+                        <reportElement uuid="58d8f8e0-72d4-4d2a-99ec-c9c15b22051d" x="62" y="0" width="27" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{planned_downtime_mins} - ((($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{planned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[($F{planned_downtime_mins} - ((($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{planned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="94" y="0" width="50" height="15"/>
+                        <reportElement uuid="c29fed8c-70e2-43c1-9427-d5108ae46d73" x="94" y="0" width="50" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{planned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA["(" + (($F{planned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
                 <frame>
-                    <reportElement x="450" y="282" width="145" height="15"/>
+                    <reportElement uuid="f4b47fc8-92cd-4d36-b023-87b6613034be" x="450" y="290" width="145" height="20"/>
                     <textField>
-                        <reportElement x="0" y="0" width="27" height="15">
+                        <reportElement uuid="b099bf3b-3983-4a17-ad53-c1923c2da94e" x="0" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="31" y="0" width="27" height="15">
+                        <reportElement uuid="6fae2fc1-4ffb-4711-856a-6716e70a32fb" x="31" y="0" width="27" height="20">
                             <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0 || (($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
                         </reportElement>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
                     </textField>
                     <textField>
-                        <reportElement x="62" y="0" width="27" height="15"/>
+                        <reportElement uuid="de615754-f0d5-4e2e-b06a-6df78f9b3c2c" x="62" y="0" width="27" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
                     </textField>
                     <textField pattern="">
-                        <reportElement x="94" y="0" width="50" height="15"/>
+                        <reportElement uuid="a92ade4d-fbd3-4e1e-a3f3-37e0bbe5def2" x="94" y="0" width="50" height="20"/>
                         <textElement textAlignment="Right" verticalAlignment="Middle">
                             <font fontName="SansSerif" size="12" isBold="false"/>
                         </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
+                        <textFieldExpression><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
                     </textField>
                 </frame>
             </band>
@@ -246,7 +245,7 @@ AND history_datetime <= CASE
     <pageHeader>
         <band height="190" splitType="Prevent">
             <subreport>
-                <reportElement x="1" y="45" width="830" height="145"/>
+                <reportElement uuid="91ea4d77-abd7-40bb-9294-45977d66f693" x="1" y="45" width="830" height="145"/>
                 <subreportParameter name="P_Cluster_ID">
                     <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
                 </subreportParameter>
@@ -269,32 +268,32 @@ AND history_datetime <= CASE
                     <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
                 </subreportParameter>
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:br8 full details.jrxml"]]></subreportExpression>
+                <subreportExpression><![CDATA["repo:br8 full details.jrxml"]]></subreportExpression>
             </subreport>
             <textField pattern="">
-                <reportElement x="509" y="27" width="323" height="15"/>
+                <reportElement uuid="cdcef0de-fd00-4901-98ad-431231378c51" x="509" y="27" width="323" height="15"/>
                 <textElement textAlignment="Right">
                     <font fontName="SansSerif" size="11" isBold="false"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
             </textField>
             <line>
-                <reportElement x="0" y="43" width="832" height="1"/>
+                <reportElement uuid="6af9d8a9-487c-476a-ba37-998d6cbeb801" x="0" y="43" width="832" height="1"/>
             </line>
             <image>
-                <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
+                <reportElement uuid="0b232af8-8a6c-43cf-8bbc-25725eb50b47" x="0" y="0" width="228" height="42"/>
+                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
             </image>
         </band>
     </pageHeader>
     <pageFooter>
         <band height="15" splitType="Stretch">
             <textField evaluationTime="Auto">
-                <reportElement x="291" y="0" width="250" height="15"/>
+                <reportElement uuid="eedbb97f-0c06-4713-83c0-97f73de43d40" x="291" y="0" width="250" height="15"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="SansSerif"/>
                 </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
             </textField>
         </band>
     </pageFooter>

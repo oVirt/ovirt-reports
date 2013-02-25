@@ -320,6 +320,7 @@ br45.table.peak.memory.usage.percent=Max Memory Usage %
 br45.title=Users'' Spice Sessions Activity in <b>{0}</b> of <b>Data Center {1}</b>
 dr.count.list.storage.domains=Storage Domains
 br46.title=Uptime of <b>Virtual Machine {0}</b>
+br46.meter.title=Virtual Machine Uptime
 full.details.storage.domain.type=Storage Domain Type
 full.details.show.deleted.storage.domains=Show Deleted Storage Domains
 br47.title=Storage Domains Inventory of <b>Data Center {0}</b>
