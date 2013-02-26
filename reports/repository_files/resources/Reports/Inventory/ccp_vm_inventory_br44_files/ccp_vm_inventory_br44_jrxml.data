@@ -519,7 +519,7 @@ ORDER BY v3_2_configuration_history_vms.cluster_id, coalesce(b.value_localized,b
                                     <reportElement uuid="a066729e-e607-4099-819d-bd4adddc9203" x="0" y="0" width="60" height="18"/>
                                     <textElement textAlignment="Right" verticalAlignment="Middle"/>
                                     <textFieldExpression><![CDATA[$F{existence_time_hours}]]></textFieldExpression>
-                                    <hyperlinkTooltipExpression><![CDATA[$F{existence_time_hours}.toString()]]></hyperlinkTooltipExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[(((($F{existence_time_hours}*60)/60)/24).intValue()).toString() + "d " + ((($F{existence_time_hours}*60)/60).intValue()-((((($F{existence_time_hours}*60)/60)/24).intValue())*24)).toString() + "h " + (($F{existence_time_hours}*60) - (((($F{existence_time_hours}*60)/60).intValue()-((((($F{existence_time_hours}*60)/60)/24).intValue())*24))*60)-((((($F{existence_time_hours}*60)/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
                                 </textField>
                             </jr:detailCell>
                         </jr:column>
@@ -539,7 +539,7 @@ ORDER BY v3_2_configuration_history_vms.cluster_id, coalesce(b.value_localized,b
                                     <reportElement uuid="f8f139bc-082d-4221-8b25-660203e94bf3" x="0" y="0" width="53" height="18"/>
                                     <textElement textAlignment="Right" verticalAlignment="Middle"/>
                                     <textFieldExpression><![CDATA[$F{vm_uptime}]]></textFieldExpression>
-                                    <hyperlinkTooltipExpression><![CDATA[$F{vm_uptime}.toString()]]></hyperlinkTooltipExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[(((($F{vm_uptime}*60)/60)/24).intValue()).toString() + "d " + ((($F{vm_uptime}*60)/60).intValue()-((((($F{vm_uptime}*60)/60)/24).intValue())*24)).toString() + "h " + (($F{vm_uptime}*60) - (((($F{vm_uptime}*60)/60).intValue()-((((($F{vm_uptime}*60)/60)/24).intValue())*24))*60)-((((($F{vm_uptime}*60)/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
                                 </textField>
                             </jr:detailCell>
                         </jr:column>
