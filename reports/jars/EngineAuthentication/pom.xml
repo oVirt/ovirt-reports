@@ -70,8 +70,8 @@
   </build>
   <repositories>
     <repository>
-      <id>jasper repo1</id>
-      <name>jasper repo1</name>
+      <id>boksa.de</id>
+      <name>boksa.de</name>
       <layout>default</layout>
       <url>https://services.boksa.de/maven/repositories/jasperreports-server-cp-4.5.0</url>
       <snapshots>
