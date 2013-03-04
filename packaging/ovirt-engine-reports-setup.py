@@ -50,8 +50,7 @@ ALLOW_HTTP_SEPARATORS_IN_V0_COOKIES = "-Dorg.apache.tomcat.util.http.ServerCooki
 REPORTS_JARS_DIR = "/usr/share/java/ovirt-engine-reports"
 
 FILE_DEPLOY_VERSION = "/etc/ovirt-engine/jrs-deployment.version"
-FILE_WEB_CONF = "/etc/sysconfig/ovirt-engine"
-FILE_ENGINE_SYSCONFIG = "/etc/sysconfig/ovirt-engine"
+FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 DIR_PKI = "/etc/pki/ovirt-engine"
 DB_EXIST = False
 MUCK_PASSWORD="oVirtadmin2009!"
@@ -114,7 +113,7 @@ def deployJs(db_dict):
         os.remove("%s/%s.war.dodeploy" % (DIR_DEPLOY,JRS_APP_NAME))
 
         # Updating deploy params
-        handler = utils.TextConfigFileHandler(FILE_ENGINE_SYSCONFIG)
+        handler = utils.TextConfigFileHandler(FILE_ENGINE_CONF)
         handler.open()
         applist = handler.getParam("ENGINE_APPS")
         if applist and JRS_APP_NAME not in applist:
@@ -457,8 +456,8 @@ def isOvirtEngineInstalled():
     else:
         return False
 
-def updateEngineSysconfigPath():
-    handler = utils.TextConfigFileHandler(FILE_ENGINE_SYSCONFIG)
+def updateEngineConf():
+    handler = utils.TextConfigFileHandler(FILE_ENGINE_CONF)
     handler.open()
     properties = handler.getParam("ENGINE_PROPERTIES")
     if properties:
@@ -472,17 +471,17 @@ def updateEngineSysconfigPath():
 
 def getHostParams(secure=True):
     """
-    get hostname & secured port from /etc/sysconfig/ovirt-engine
+    get hostname & secured port from /etc/ovirt-engine/engine.conf
     """
 
     hostFqdn = None
     port = None
 
-    if not os.path.exists(FILE_WEB_CONF):
-        raise Exception("Could not find %s" % FILE_WEB_CONF)
+    if not os.path.exists(FILE_ENGINE_CONF):
+        raise Exception("Could not find %s" % FILE_ENGINE_CONF)
 
-    logging.debug("reading %s", FILE_WEB_CONF)
-    file_handler = utils.TextConfigFileHandler(FILE_WEB_CONF)
+    logging.debug("reading %s", FILE_ENGINE_CONF)
+    file_handler = utils.TextConfigFileHandler(FILE_ENGINE_CONF)
     file_handler.open()
     if secure:
         port = file_handler.getParam("ENGINE_HTTPS_PORT")
@@ -502,10 +501,10 @@ def getHostParams(secure=True):
         logging.debug("Host's FQDN: %s", hostFqdn)
 
     if not hostFqdn:
-        logging.error("Could not find the HOST FQDN from %s", FILE_WEB_CONF)
+        logging.error("Could not find the HOST FQDN from %s", FILE_ENGINE_CONF)
         raise Exception("Cannot find host fqdn from configuration, please verify that ovirt-engine is configured")
     if not port:
-        logging.error("Could not find the web port from %s", FILE_WEB_CONF)
+        logging.error("Could not find the web port from %s", FILE_ENGINE_CONF)
         raise Exception("Cannot find the web port from configuration, please verify that ovirt-engine is configured")
 
     return (hostFqdn, port)
@@ -738,8 +737,8 @@ def main():
                 # Edit Data Sources Driver Info
                 updateDsJdbc()
 
-                # Set sysconfig settings
-                updateEngineSysconfigPath()
+                # Set config settings
+                updateEngineConf()
 
                 # Setup the SSO
                 updateApplicationSecurity()
