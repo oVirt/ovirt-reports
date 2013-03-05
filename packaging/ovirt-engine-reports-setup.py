@@ -42,6 +42,7 @@ REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
 FILE_JASPER_DB_CONN = "%s/default_master.properties" % REPORTS_SERVER_BUILDOMATIC_DIR
 
 REPORTS_PACKAGE_DIR = "/usr/share/ovirt-engine-reports"
+SSL2JKSTRUST = "%s/ssl2jkstrust.py" % REPORTS_PACKAGE_DIR
 FILE_DB_DATA_SOURCE = "%s/reports/resources/reports_resources/JDBC/data_sources/ovirt.xml" % REPORTS_PACKAGE_DIR
 DIR_REPORTS_CUSTOMIZATION="%s/server-customizations" % REPORTS_PACKAGE_DIR
 DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPORTS_PACKAGE_DIR
@@ -52,6 +53,10 @@ FILE_DEPLOY_VERSION = "/etc/ovirt-engine/jrs-deployment.version"
 FILE_ENGINE_CONF_DEFAULTS = "/usr/share/ovirt-engine/conf/engine.conf.defaults"
 FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 DIR_PKI = "/etc/pki/ovirt-engine"
+OVIRT_REPORTS_ETC="/etc/ovirt-engine/ovirt-engine-reports"
+OVIRT_REPORTS_TRUST_STORE="%s/trust.jks" % OVIRT_REPORTS_ETC
+OVIRT_REPORTS_TRUST_STORE_PASS="mypass"
+
 DB_EXIST = False
 MUCK_PASSWORD="oVirtadmin2009!"
 PGDUMP_EXEC = "/usr/bin/pg_dump"
@@ -575,8 +580,22 @@ def updateApplicationSecurity():
     """
         Setting the SSO solution
     """
-    logging.debug("editing applicationContext-security-web file")
     (protocol, fqdn, port) = getHostParams()
+    logging.debug("downloading certificates %s://%s:%s" % (protocol, fqdn, port))
+    if protocol == 'https':
+        utils.execExternalCmd(
+            ' '.join(
+                (
+                    SSL2JKSTRUST,
+                    '--host=%s' % fqdn,
+                    '--port=%s' % port,
+                    '--keystore=%s' % OVIRT_REPORTS_TRUST_STORE,
+                    '--storepass=%s' % OVIRT_REPORTS_TRUST_STORE_PASS,
+                )
+            ),
+            fail_on_error=True,
+        )
+    logging.debug("editing applicationContext-security-web file")
     hostValidateSessionUrl = "%s://%s:%s/OvirtEngineWeb/ValidateSession" % (protocol, fqdn, port)
     fd = open(FILE_APPLICATION_SECURITY_WEB, "r")
     file_content = fd.read()
@@ -584,8 +603,14 @@ def updateApplicationSecurity():
     logging.debug("replace servlet URL")
     file_content = file_content.replace("http://localhost/OvirtEngineWeb/ValidateSession", hostValidateSessionUrl)
     logging.debug("replace trust store path and pass")
-    file_content = file_content.replace("name=\"trustStorePath\" value=\"/usr/local/jboss-as/truststore\"", "name=\"trustStorePath\" value=\"" + utils.getVDCOption("TruststoreUrl") + "\"")
-    file_content = file_content.replace("name=\"trustStorePassword\" value=\"NoSoup4U\"", "name=\"trustStorePassword\" value=\"" + utils.getVDCOption("TruststorePass") + "\"")
+    file_content = file_content.replace(
+        "name=\"trustStorePath\" value=\"/usr/local/jboss-as/truststore\"",
+        "name=\"trustStorePath\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE
+    )
+    file_content = file_content.replace(
+        "name=\"trustStorePassword\" value=\"NoSoup4U\"",
+        "name=\"trustStorePassword\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE_PASS
+    )
     logging.debug("writing replaced content to %s" % FILE_APPLICATION_SECURITY_WEB)
     fd = open(FILE_APPLICATION_SECURITY_WEB, "w")
     fd.write(file_content)

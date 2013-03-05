@@ -145,6 +145,7 @@ install_artifacts:
 
 install_files:
 	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
+	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/ovirt-engine-reports
 	install -d $(DESTDIR)$(BIN_DIR)
 	install -d $(DESTDIR)$(DATA_DIR)
 	install -d $(DESTDIR)$(DATA_DIR)/reports
@@ -152,6 +153,7 @@ install_files:
 
 	cp -a  reports/repository_files/* $(DESTDIR)$(DATA_DIR)/reports
 	install -p -m 644 packaging/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
+	install -p -m 755 packaging/ssl2jkstrust.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/ovirt-engine-reports-setup.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/common_utils.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/decorators.py $(DESTDIR)$(DATA_DIR)
