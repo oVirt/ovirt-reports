@@ -19,6 +19,7 @@ import cracklib
 import types
 import tempfile
 import re
+import glob
 
 log_file = utils.initLogging("ovirt-engine-reports-setup", "/var/log/ovirt-engine")
 
@@ -45,11 +46,10 @@ FILE_DB_DATA_SOURCE = "%s/reports/resources/reports_resources/JDBC/data_sources/
 DIR_REPORTS_CUSTOMIZATION="%s/server-customizations" % REPORTS_PACKAGE_DIR
 DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPORTS_PACKAGE_DIR
 
-ALLOW_HTTP_SEPARATORS_IN_V0_COOKIES = "-Dorg.apache.tomcat.util.http.ServerCookie.ALLOW_HTTP_SEPARATORS_IN_V0=true"
-
 REPORTS_JARS_DIR = "/usr/share/java/ovirt-engine-reports"
 
 FILE_DEPLOY_VERSION = "/etc/ovirt-engine/jrs-deployment.version"
+FILE_ENGINE_CONF_DEFAULTS = "/usr/share/ovirt-engine/conf/engine.conf.defaults"
 FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 DIR_PKI = "/etc/pki/ovirt-engine"
 DB_EXIST = False
@@ -112,18 +112,6 @@ def deployJs(db_dict):
         os.remove("%s/WEB-INF/lib/postgresql-jdbc.jar" % DIR_WAR)
         os.remove("%s/%s.war.dodeploy" % (DIR_DEPLOY,JRS_APP_NAME))
 
-        # Updating deploy params
-        handler = utils.TextConfigFileHandler(FILE_ENGINE_CONF)
-        handler.open()
-        applist = handler.getParam("ENGINE_APPS")
-        if applist and JRS_APP_NAME not in applist:
-            newlist = applist.replace('"', '')
-            newlist = '"' + newlist + ' ' + JRS_APP_NAME + '.war"'
-            handler.editParam("ENGINE_APPS", newlist)
-        elif not applist:
-            handler.editParam("ENGINE_APPS", '"engine.ear ' + JRS_APP_NAME + '.war"')
-        handler.close()
-
         # Restore the smtp configuration file
         if os.path.exists(tempSmtpFile):
             shutil.copy2(tempSmtpFile, smtpConfFile)
@@ -175,8 +163,8 @@ def updateServletDbRecord():
     # Since we cannot rely on jboss to redirect to a secure port, we insert
     # the Full url into the db.
 
-    (fqdn, port) = getHostParams()
-    hostUrl = "https://%s:%s/%s" % (fqdn, port, JRS_APP_NAME)
+    (protocol, fqdn, port) = getHostParams()
+    hostUrl = "%s://%s:%s/%s" % (protocol, fqdn, port, JRS_APP_NAME)
     query ="update vdc_options set option_value='%s' where option_name='RedirectServletReportsPage';" % hostUrl
     cmd = [
         "/usr/bin/psql",
@@ -456,42 +444,58 @@ def isOvirtEngineInstalled():
     else:
         return False
 
-def updateEngineConf():
-    handler = utils.TextConfigFileHandler(FILE_ENGINE_CONF)
-    handler.open()
-    properties = handler.getParam("ENGINE_PROPERTIES")
-    if properties:
-        newproperties = properties.replace('"', '')
-        if ALLOW_HTTP_SEPARATORS_IN_V0_COOKIES not in properties:
-            newproperties = newproperties + ' ' + ALLOW_HTTP_SEPARATORS_IN_V0_COOKIES
-        handler.editParam("ENGINE_PROPERTIES", '"' + newproperties + '"')
-    elif not properties:
-        handler.editParam("ENGINE_PROPERTIES", '"' + ALLOW_HTTP_SEPARATORS_IN_V0_COOKIES + '"')
-    handler.close()
-
 def getHostParams(secure=True):
     """
-    get hostname & secured port from /etc/ovirt-engine/engine.conf
+    get protocol, hostname & secured port from /etc/ovirt-engine/engine.conf
     """
 
+    protocol = "https" if secure else "http"
     hostFqdn = None
     port = None
 
-    if not os.path.exists(FILE_ENGINE_CONF):
-        raise Exception("Could not find %s" % FILE_ENGINE_CONF)
+    if not os.path.exists(FILE_ENGINE_CONF_DEFAULTS):
+        raise Exception("Could not find %s" % FILE_ENGINE_CONF_DEFAULTS)
+    engineConfigFiles = [
+        FILE_ENGINE_CONF_DEFAULTS,
+        FILE_ENGINE_CONF,
+    ]
+    engineConfigDir = FILE_ENGINE_CONF + ".d"
+    if os.path.isdir(engineConfigDir):
+        additionalEngineConfigFiles = glob.glob(engineConfigDir + "/*.conf")
+        additionalEngineConfigFiles.sort()
+        engineConfigFiles.extend(additionalEngineConfigFiles)
 
-    logging.debug("reading %s", FILE_ENGINE_CONF)
-    file_handler = utils.TextConfigFileHandler(FILE_ENGINE_CONF)
-    file_handler.open()
-    if secure:
-        port = file_handler.getParam("ENGINE_HTTPS_PORT")
-        if not port:
-            port = file_handler.getParam("ENGINE_PROXY_HTTPS_PORT")
-    else:
-        port = file_handler.getParam("ENGINE_HTTP_PORT")
-        if not port:
-            port = file_handler.getParam("ENGINE_PROXY_HTTP_PORT")
-    hostFqdn = file_handler.getParam("ENGINE_FQDN")
+    config = dict(
+        ENGINE_PROXY_ENABLED=None,
+        ENGINE_PROXY_HTTPS_PORT=None,
+        ENGINE_PROXY_HTTP_PORT=None,
+        ENGINE_HTTPS_ENABLED=None,
+        ENGINE_HTTPS_PORT=None,
+        ENGINE_HTTP_PORT=None,
+        ENGINE_FQDN=None,
+    )
+    for f in engineConfigFiles:
+        logging.debug("reading %s", f)
+        file_handler = utils.TextConfigFileHandler(f)
+        file_handler.open()
+
+        for k in config.keys():
+            v = file_handler.getParam(k)
+            if v is not None:
+                config[k] = v
+
+    proxyEnabled = config["ENGINE_PROXY_ENABLED"]
+    if proxyEnabled != None and proxyEnabled.lower() in ["true", "t", "yes", "y", "1"]:
+        if secure:
+            port = config["ENGINE_PROXY_HTTPS_PORT"]
+        else:
+            port = config["ENGINE_PROXY_HTTP_PORT"]
+    elif config["ENGINE_HTTPS_ENABLED"]:
+        if secure:
+            port = config["ENGINE_HTTPS_PORT"]
+        else:
+            port = config["ENGINE_HTTP_PORT"]
+    hostFqdn = config["ENGINE_FQDN"]
     file_handler.close()
     if port and secure:
         logging.debug("Secure web port is: %s", port)
@@ -501,13 +505,13 @@ def getHostParams(secure=True):
         logging.debug("Host's FQDN: %s", hostFqdn)
 
     if not hostFqdn:
-        logging.error("Could not find the HOST FQDN from %s", FILE_ENGINE_CONF)
+        logging.error("Could not find the HOST FQDN from %s", engineConfigFiles)
         raise Exception("Cannot find host fqdn from configuration, please verify that ovirt-engine is configured")
     if not port:
-        logging.error("Could not find the web port from %s", FILE_ENGINE_CONF)
+        logging.error("Could not find the web port from %s", engineConfigFiles)
         raise Exception("Cannot find the web port from configuration, please verify that ovirt-engine is configured")
 
-    return (hostFqdn, port)
+    return (protocol, hostFqdn, port)
 
 def isWarInstalled():
     """
@@ -572,8 +576,8 @@ def updateApplicationSecurity():
         Setting the SSO solution
     """
     logging.debug("editing applicationContext-security-web file")
-    (fqdn, port) = getHostParams()
-    hostValidateSessionUrl = "https://%s:%s/OvirtEngineWeb/ValidateSession" % (fqdn, port)
+    (protocol, fqdn, port) = getHostParams()
+    hostValidateSessionUrl = "%s://%s:%s/OvirtEngineWeb/ValidateSession" % (protocol, fqdn, port)
     fd = open(FILE_APPLICATION_SECURITY_WEB, "r")
     file_content = fd.read()
     fd.close()
@@ -736,9 +740,6 @@ def main():
 
                 # Edit Data Sources Driver Info
                 updateDsJdbc()
-
-                # Set config settings
-                updateEngineConf()
 
                 # Setup the SSO
                 updateApplicationSecurity()

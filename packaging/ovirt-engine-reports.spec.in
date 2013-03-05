@@ -111,6 +111,7 @@ if [ "$1" -eq 0 ]; then
 fi
 
 %files
+%{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{reports_java}
 %{_datadir}/%{reports_name}
 %if "%{name}" != "%{reports_name}"

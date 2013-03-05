@@ -33,6 +33,7 @@ DATAROOT_DIR=$(PREFIX)/share
 DATA_DIR=$(DATAROOT_DIR)/$(OVIRT_REPORTS_NAME)
 MAVENPOM_DIR=$(DATAROOT_DIR)/maven-poms
 JAVA_DIR=$(DATAROOT_DIR)/java
+PKG_SYSCONF_DIR=$(SYSCONF_DIR)/ovirt-engine
 PKG_JAVA_DIR=$(JAVA_DIR)/$(OVIRT_REPORTS_NAME)
 RPMBUILD=rpmbuild
 PYTHON=python
@@ -143,12 +144,14 @@ install_artifacts:
 	done
 
 install_files:
+	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
 	install -d $(DESTDIR)$(BIN_DIR)
 	install -d $(DESTDIR)$(DATA_DIR)
 	install -d $(DESTDIR)$(DATA_DIR)/reports
 	install -d $(DESTDIR)$(DATA_DIR)/server-customizations
 
 	cp -a  reports/repository_files/* $(DESTDIR)$(DATA_DIR)/reports
+	install -p -m 644 packaging/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
 	install -p -m 755 packaging/ovirt-engine-reports-setup.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/common_utils.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/decorators.py $(DESTDIR)$(DATA_DIR)
