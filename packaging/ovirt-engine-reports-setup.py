@@ -432,7 +432,7 @@ def restoreWAR():
         logging.debug("no saved WAR dir found, will not restore WAR")
 
 def isOvirtEngineInstalled():
-    keystore = os.path.join(DIR_PKI, ".keystore")
+    keystore = os.path.join(DIR_PKI, "keys", "engine.p12")
     engine_ear = "%s/engine.ear" % DIR_DEPLOY
 
     if os.path.exists(keystore):
