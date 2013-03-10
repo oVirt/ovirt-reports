@@ -20,13 +20,13 @@ public class ScatterChartCustomizer implements JRChartCustomizer {
             XYPlot categoryPlot = chart.getXYPlot();
             Marker ymarker = new ValueMarker(50);
             ymarker.setLabel("50% Usage");
-            ymarker.setLabelFont(new Font("DejaVu Sans", Font.BOLD, 11));
+            ymarker.setLabelFont(new Font("SansSerif", Font.BOLD, 11));
             ymarker.setPaint(Color.black);
             ymarker.setLabelAnchor(RectangleAnchor.TOP_LEFT);
             ymarker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
             Marker xmarker = new ValueMarker(50);
             xmarker.setLabel("50% Usage");
-            xmarker.setLabelFont(new Font("DejaVu Sans", Font.BOLD, 11));
+            xmarker.setLabelFont(new Font("SansSerif", Font.BOLD, 11));
             xmarker.setPaint(Color.black);
             xmarker.setLabelAnchor(RectangleAnchor.BOTTOM_RIGHT);
             xmarker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
