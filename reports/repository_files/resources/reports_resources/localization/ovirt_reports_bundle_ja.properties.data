@@ -23,7 +23,7 @@ full.details.criteria=\u6761\u4EF6
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author ykatabam
 full.details.datacenter=\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-full.details.date.range=\u30C7\u30FC\u30BF\u7BC4\u56F2
+full.details.date.range=\u65E5\u4ED8\u7BC4\u56F2
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author ykatabam
 full.details.vm.type=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30BF\u30A4\u30D7
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author miey
@@ -57,7 +57,7 @@ br1.table.cpu.type=CPU \u30BF\u30A4\u30D7
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author noriko
 br1.table.host.type=\u30BF\u30A4\u30D7
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br1.table.short.memory.size=\u30E1\u30E2\u30EA\u30B5\u30A4\u30BA
+br1.table.short.memory.size=\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br1.table.short.create.date=\u4F5C\u6210\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
@@ -69,7 +69,7 @@ br1.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC{1}</b> \u306E <b>{0}</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 full.details.show.deleted.hosts=\u524A\u9664\u6E08\u307F\u306E\u30DB\u30B9\u30C8\u3092\u8868\u793A
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author ykatabam
-full.details.host.type=\u30DB\u30B9\u30C8\u30BF\u30A4\u30D7
+full.details.host.type=\u30DB\u30B9\u30C8\u306E\u30BF\u30A4\u30D7
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author ykatabam
 br9.table.vm.name=\u4EEE\u60F3\u30DE\u30B7\u30F3\u540D
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -79,7 +79,7 @@ br9.table.vm.type=\u30BF\u30A4\u30D7
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 br9.table.os=OS
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br9.table.short.memory.size=\u30E1\u30E2\u30EA\u30B5\u30A4\u30BA
+br9.table.short.memory.size=\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br9.table.number.of.cores=\u4EEE\u60F3\u30B3\u30A2\u6570
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -89,17 +89,17 @@ br9.table.delete.date=\u524A\u9664\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br9.table.gb=GB
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br9.title=<b>{0}</b> of <b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br9.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 axis.number.of.host.cores=\u30B3\u30A2\u6570
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 axis.number.of.vm.cores=\u4EEE\u60F3\u30B3\u30A2\u6570
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-axis.memory.size.gb=\u30E1\u30E2\u30EA\u30B5\u30A4\u30BA (GB)
+axis.memory.size.gb=\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA (GB)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br19.chart.cores=\u30DB\u30B9\u30C8\u306E\u30B3\u30A2\u6570\u5E73\u5747 vs \u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u4EEE\u60F3\u30B3\u30A2\u6570\u5E73\u5747 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br19.chart.memory.size=\u30DB\u30B9\u30C8\u306E\u30E1\u30E2\u30EA\u30B5\u30A4\u30BA\u5E73\u5747 vs \u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30E1\u30E2\u30EA\u30B5\u30A4\u30BA\u5E73\u5747 (\u7D4C\u6642\u5909\u5316)
+br19.chart.memory.size=\u30DB\u30B9\u30C8\u306E\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA\u5E73\u5747 vs \u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA\u5E73\u5747 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 full.details.show.deleted.entities=\u524A\u9664\u6E08\u307F\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u3092\u8868\u793A
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -119,7 +119,7 @@ br22.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 axis.cpu.usage.percent=CPU \u4F7F\u7528\u7387 (%)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-axis.memory.usage.percent=\u30E1\u30E2\u30EA\u4F7F\u7528\u7387 (%)
+axis.memory.usage.percent=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u7387 (%)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br17.chart.cpu=CPU
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author noriko
@@ -153,17 +153,17 @@ br6.chart.memory=\u30E1\u30E2\u30EA\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br5.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br5.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br5.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br5.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u3067\u7A3C\u50CD\u7387\u4E0B\u4F4D 5 \u4F4D\u306E\u30DB\u30B9\u30C8
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br4.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br4.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br4.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br4.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u3067\u6700\u3082\u4F7F\u7528\u7387\u306E\u9AD8\u3044\u30DB\u30B9\u30C8 5 \u53F0
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br3.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br3.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br3.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -171,7 +171,7 @@ br3.title=\u8907\u6570\u306E\u30DB\u30B9\u30C8\u306E\u30EA\u30BD\u30FC\u30B9\u4F
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 full.details.hosts.names=\u30DB\u30B9\u30C8\u540D
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br2a.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br2a.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br2a.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -185,9 +185,9 @@ br2.chart.series.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br2.chart.series.cpu.peak=CPU \u30D4\u30FC\u30AF
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br2.chart.series.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1
+br2.chart.series.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br2.chart.series.memory.peak=\u30E1\u30E2\u30EA\u30D4\u30FC\u30AF
+br2.chart.series.memory.peak=\u30E1\u30E2\u30EA\u30FC\u30D4\u30FC\u30AF
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br2.chart.series.number.of.vms=\u4EEE\u60F3\u30DE\u30B7\u30F3\u6570
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -209,7 +209,7 @@ full.details.deleted.comment.datacenter.cluster.and.host=\u30C7\u30FC\u30BF\u30B
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 full.details.host.address=\u30DB\u30B9\u30C8\u30A2\u30C9\u30EC\u30B9
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-full.details.memory.size=\u30E1\u30E2\u30EA\u30B5\u30A4\u30BA
+full.details.memory.size=\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 full.details.gb=GB
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -237,7 +237,7 @@ br2b.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
 # translation auto-copied from project oVirt Engine jrs Branding, version master, document adhoc_messages
 axis.day=\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br2b.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
+br2b.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br2b.chart.active.vms=\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30B7\u30F3\u6570 (\u66DC\u65E5\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -249,25 +249,25 @@ br2c.chart.active.vms=\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br2c.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br2c.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u6642\u9593\u5E2F\u5225)
+br2c.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u6642\u9593\u5E2F\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br2c.chart.network.usage=\u4F7F\u7528\u7387\u4E0A\u4F4D 3 \u4F4D\u306E\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u30A4\u30F3\u30BF\u30FC\u30D5\u30A7\u30FC\u30B9\u306E\u4F7F\u7528\u72B6\u6CC1 (\u6642\u9593\u5E2F\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br12.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br12.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br12.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br12.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u3067\u7A3C\u50CD\u7387\u4E0B\u4F4D 5 \u4F4D\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br11.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br11.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br11.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br11.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u3067\u4F7F\u7528\u7387\u306E\u6700\u3082\u9AD8\u3044\u4EEE\u60F3\u30DE\u30B7\u30F3 5 \u53F0
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br16.title=\u8907\u6570\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30EA\u30BD\u30FC\u30B9\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br16.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br16.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br16.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -281,7 +281,7 @@ br10a.title=<b>\u4EEE\u60F3\u30DE\u30B7\u30F3 {0}</b> \u306E\u30EA\u30BD\u30FC\u
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br10a.chart.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br10a.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br10a.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br10a.chart.network.usage=\u4F7F\u7528\u7387\u4E0A\u4F4D 5 \u4F4D\u306E\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u30A4\u30F3\u30BF\u30FC\u30D5\u30A7\u30FC\u30B9\u306E\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -295,9 +295,9 @@ br10b.chart.network.usage=\u4F7F\u7528\u7387\u4E0A\u4F4D 3 \u4F4D\u306E\u30CD\u3
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br10c.chart.network.usage=\u4F7F\u7528\u7387\u4E0A\u4F4D 3 \u4F4D\u306E\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u30A4\u30F3\u30BF\u30FC\u30D5\u30A7\u30FC\u30B9\u306E\u4F7F\u7528\u72B6\u6CC1 (\u6642\u9593\u5E2F\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br10b.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
+br10b.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br10c.chart.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u6642\u9593\u5E2F\u5225)
+br10c.chart.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u6642\u9593\u5E2F\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br10b.chart.disks.usage=\u4F7F\u7528\u7387\u4E0A\u4F4D 5 \u4F4D\u306E\u30C7\u30A3\u30B9\u30AF\u306E\u4F7F\u7528\u72B6\u6CC1 (\u66DC\u65E5\u5225)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -321,9 +321,9 @@ br10.chart.series.cpu.peak=CPU \u30D4\u30FC\u30AF
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br10.chart.series.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br10.chart.series.memory.peak=\u30E1\u30E2\u30EA\u30D4\u30FC\u30AF
+br10.chart.series.memory.peak=\u30E1\u30E2\u30EA\u30FC\u30D4\u30FC\u30AF
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br10.chart.series.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1
+br10.chart.series.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br10.chart.series.rx=/Rx
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -361,7 +361,7 @@ br7.meter.planned.downtime=\u8A08\u753B\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 br7.meter.unplanned.downtime=\u8A08\u753B\u5916\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-br7.table.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u306E\u30DB\u30B9\u30C8\u306E\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0\u5185\u8A33
+br7.table.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u5185\u306E\u30DB\u30B9\u30C8\u306E\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0\u5185\u8A33
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author miey
 br7.table.host.name=\u30DB\u30B9\u30C8\u540D
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author nnakakit
@@ -399,7 +399,7 @@ br6.table.host.name=\u30DB\u30B9\u30C8\u540D
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br6.table.time.above.cpu.threshold=CPU \u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br6.table.time.above.memory.threshold=\u30E1\u30E2\u30EA\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593
+br6.table.time.above.memory.threshold=\u30E1\u30E2\u30EA\u30FC\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br6.table.delete.date=\u524A\u9664\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
@@ -409,11 +409,11 @@ br6.pie.average.time.below.threshold=\u95BE\u5024\u3092\u4E0B\u56DE\u3063\u305F\
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br6.pie.average.time.above.threshold=\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593\u306E\u5E73\u5747
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-br6.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC{1}</b> \u306E <b>{0}</b> \u5185\u306E\u30DB\u30B9\u30C8\u306EQoS
+br6.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC{1}</b> \u306E <b>{0}</b> \u5185\u306E\u30DB\u30B9\u30C8\u306E QoS
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 full.details.cpu.threshold=CPU \u306E\u95BE\u5024
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-full.details.memory.threshold=\u30E1\u30E2\u30EA\u306E\u95BE\u5024
+full.details.memory.threshold=\u30E1\u30E2\u30EA\u30FC\u306E\u95BE\u5024
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br13.chart.cpu=CPU
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author noriko
@@ -429,13 +429,13 @@ br13.table.vm.name=\u4EEE\u60F3\u30DE\u30B7\u30F3\u540D
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br13.table.time.above.cpu.threshold=CPU \u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br13.table.time.above.memory.threshold=\u30E1\u30E2\u30EA\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593
+br13.table.time.above.memory.threshold=\u30E1\u30E2\u30EA\u30FC\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 br13.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC{1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E QoS
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 full.details.short.show.deleted.vms=\u524A\u9664\u6E08\u307F\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u3092\u8868\u793A
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-br14.meter.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0\u5408\u8A08
+br14.meter.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0\u5408\u8A08
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 br14.meter.unplanned.downtime=\u8A08\u753B\u5916\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author nnakakit
@@ -443,7 +443,7 @@ br14.meter.uptime=\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 br14.table.vm.name=\u4EEE\u60F3\u30DE\u30B7\u30F3\u540D
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-br14.table.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u306E\u9AD8\u53EF\u7528\u6027\u4EEE\u60F3\u30B5\u30FC\u30D0\u30FC\u306E\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0\u5185\u8A33
+br14.table.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u5185\u306E\u9AD8\u53EF\u7528\u6027\u4EEE\u60F3\u30B5\u30FC\u30D0\u30FC\u306E\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0\u5185\u8A33
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 br14.table.unplanned.downtime=\u8A08\u753B\u5916\u30C0\u30A6\u30F3\u30BF\u30A4\u30E0
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author nnakakit
@@ -477,9 +477,9 @@ br6b.table.sample.time.below.cpu.threshold=CPU \u95BE\u5024\u3092\u4E0B\u56DE\u3
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br6b.table.sample.time.above.cpu.threshold=CPU \u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593 (\u30B5\u30F3\u30D7\u30EB)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br6b.table.sample.time.below.memory.threshold=\u30E1\u30E2\u30EA\u95BE\u5024\u3092\u4E0B\u56DE\u3063\u305F\u6642\u9593 (\u30B5\u30F3\u30D7\u30EB)
+br6b.table.sample.time.below.memory.threshold=\u30E1\u30E2\u30EA\u30FC\u95BE\u5024\u3092\u4E0B\u56DE\u3063\u305F\u6642\u9593 (\u30B5\u30F3\u30D7\u30EB)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br6b.table.sample.time.above.memory.threshold=\u30E1\u30E2\u30EA\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593 (\u30B5\u30F3\u30D7\u30EB)
+br6b.table.sample.time.above.memory.threshold=\u30E1\u30E2\u30EA\u30FC\u95BE\u5024\u3092\u4E0A\u56DE\u3063\u305F\u6642\u9593 (\u30B5\u30F3\u30D7\u30EB)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br6b.table.delete.date=\u524A\u9664\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
@@ -491,11 +491,11 @@ br4b.title=\u7A3C\u50CD\u7387\u4E0A\u4F4D 5 \u4F4D\u306E\u30DB\u30B9\u30C8
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br4b.chart.hosts.cpu.usage=\u30DB\u30B9\u30C8\u306E CPU \u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br4b.chart.hosts.memory.usage=\u30DB\u30B9\u30C8\u306E\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1
+br4b.chart.hosts.memory.usage=\u30DB\u30B9\u30C8\u306E\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br11b.title=\u7A3C\u50CD\u7387\u4E0A\u4F4D 5 \u4F4D\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
-br11b.chart.vms.memory.usage=\u30E1\u30E2\u30EA\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
+br11b.chart.vms.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 br11b.chart.vms.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
@@ -520,7 +520,7 @@ b13.table.cluster.average=\u30AF\u30E9\u30B9\u30BF\u30FC\u5E73\u5747
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 dr29.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u306E\u5BB9\u91CF vs \u4F7F\u7528\u72B6\u6CC1 - \u30B3\u30A2
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-dr30.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u306E\u5BB9\u91CF vs \u4F7F\u7528\u72B6\u6CC1 - \u30E1\u30E2\u30EA
+dr30.title=\u30AF\u30E9\u30B9\u30BF\u30FC\u306E\u5BB9\u91CF vs \u4F7F\u7528\u72B6\u6CC1 - \u30E1\u30E2\u30EA\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version master, document Statistics_Domain, author miey
 dr.count.list.vms=\u4EEE\u60F3\u30DE\u30B7\u30F3
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
@@ -548,7 +548,7 @@ dr20.title=\u4E0A\u4F4D 5 \u4F4D\u306E\u9AD8\u53EF\u7528\u6027\u4EEE\u60F3\u30B5
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 axis.vms.names=\u4EEE\u60F3\u30DE\u30B7\u30F3\u540D
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
-axis.time.percent=\u6642\u9593 (%)
+axis.time.percent=\u6642\u9593 (%) 
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
 dr19.title=\u4E0A\u4F4D 5 \u4F4D\u306E\u9AD8\u53EF\u7528\u6027\u4EEE\u60F3\u30B5\u30FC\u30D0\u30FC\u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author ykatabam
@@ -592,7 +592,50 @@ dr10.text=<b>\u30DB\u30B9\u30C8</b> \u306E\u30EA\u30BD\u30FC\u30B9\u30B9\u30C6\u
 dr4.text=<b>\u30DB\u30B9\u30C8</b> \u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0\u30B9\u30C6\u30FC\u30BF\u30B9
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author miey
 dr7.text=<b>\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3</b> \u306E\u9818\u57DF\u30B9\u30C6\u30FC\u30BF\u30B9
-inventory.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
-system.overview.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30B7\u30B9\u30C6\u30E0\u6982\u8981\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
-trends.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30C8\u30EC\u30F3\u30C9\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
-uptime.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
+br44.table.vm.description=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u8AAC\u660E
+br44.table.number.of.sockets=\u30BD\u30B1\u30C3\u30C8\u6570
+br44.table.cores.per.socket=\u30BD\u30B1\u30C3\u30C8\u3042\u305F\u308A\u306E\u30B3\u30A2\u6570
+br44.table.existence.time.hours=\u5B58\u5728\u6642\u9593 (\u6642\u9593\u6570)
+br44.table.vm.uptime.hours=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0 (\u6642\u9593\u6570)
+br44.table.vm.uuid=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E UUID
+br44.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br45.table.user.name=\u30E6\u30FC\u30B6\u30FC\u540D
+br45.table.vm.name=\u4EEE\u60F3\u30DE\u30B7\u30F3\u540D
+br45.table.session.time.in.hours=\u30BB\u30C3\u30B7\u30E7\u30F3\u6642\u9593 (\u6642\u9593\u6570)
+br45.table.average.cpu.usage.percent=CPU \u5E73\u5747\u4F7F\u7528\u7387 (%)
+br45.table.average.user.cpu.usage.percent=\u30E6\u30FC\u30B6\u30FC\u306E CPU \u5E73\u5747\u4F7F\u7528\u7387
+br45.table.average.system.cpu.usage.percent=\u30B7\u30B9\u30C6\u30E0 CPU \u306E\u5E73\u5747\u4F7F\u7528\u7387
+br45.table.peak.cpu.usage.percent=\u30D4\u30FC\u30AF\u6642\u306E CPU \u4F7F\u7528\u7387 (%)
+br45.table.peak.system.cpu.usage.percent=\u6700\u5927\u30B7\u30B9\u30C6\u30E0 CPU \u4F7F\u7528\u7387
+br45.table.peak.user.cpu.usage.percent=\u6700\u5927\u30E6\u30FC\u30B6\u30FC CPU \u4F7F\u7528\u7387
+br45.table.average.memory.usage.percent=\u30E1\u30E2\u30EA\u30FC\u5E73\u5747\u4F7F\u7528\u7387
+br45.table.peak.memory.usage.percent=\u6700\u5927\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u7387
+br45.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u306B\u304A\u3051\u308B\u30E6\u30FC\u30B6\u30FC\u306E SPICE \u30BB\u30C3\u30B7\u30E7\u30F3\u30A2\u30AF\u30C6\u30A3\u30D3\u30C6\u30A3 
+dr.count.list.storage.domains=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3
+br46.title=<b>\u4EEE\u60F3\u30DE\u30B7\u30F3 {0}</b> \u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0
+br46.meter.title=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30A2\u30C3\u30D7\u30BF\u30A4\u30E0
+full.details.storage.domain.type=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u30BF\u30A4\u30D7
+full.details.show.deleted.storage.domains=\u524A\u9664\u6E08\u307F\u306E\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u3092\u8868\u793A
+br47.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</b> \u306E\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br47.table.storage.domain.name=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u540D
+br47.table.storage.domain.type=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u30BF\u30A4\u30D7
+br47.table.storage.type=\u30B9\u30C8\u30EC\u30FC\u30B8\u30BF\u30A4\u30D7
+br47.table.free.space.gb=\u7A7A\u304D\u9818\u57DF (GB)
+br47.table.used.space.gb=\u4F7F\u7528\u6E08\u307F\u9818\u57DF (GB)
+br47.table.total.space.gb=\u9818\u57DF\u306E\u5408\u8A08 (GB)
+ic.cluster=\u30AF\u30E9\u30B9\u30BF\u30FC
+ic.is.deleted=\u524A\u9664\u6E08\u307F\u306E\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u3092\u8868\u793A\u3057\u307E\u3059\u304B\uFF1F
+ic.cpu.threshold=CPU \u306E\u95BE\u5024
+ic.memory.threshold=\u30E1\u30E2\u30EA\u30FC\u306E\u95BE\u5024
+ic.period.range=\u671F\u9593\u7BC4\u56F2
+ic.dates=\u65E5\u4ED8
+ic.dc=\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC
+ic.host.name=\u30DB\u30B9\u30C8\u540D
+ic.hosts.list=\u30DB\u30B9\u30C8\u4E00\u89A7
+ic.host.type=\u30DB\u30B9\u30C8\u306E\u30BF\u30A4\u30D7
+ic.storage.domain.type=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u30BF\u30A4\u30D7
+ic.storage.domain.name=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u540D
+ic.vm.name=\u4EEE\u60F3\u30DE\u30B7\u30F3\u540D
+ic.vm.list=\u4EEE\u60F3\u30DE\u30B7\u30F3\u4E00\u89A7
+ic.vm.type=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30BF\u30A4\u30D7
+ic.is.deleted.detached=\u524A\u9664\u6E08\u307F/\u30C7\u30BF\u30C3\u30C1\u6E08\u307F\u306E\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u3092\u8868\u793A\u3057\u307E\u3059\u304B\uFF1F

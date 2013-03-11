@@ -209,7 +209,7 @@ full.details.deleted.comment.datacenter.cluster.and.host=\u6570\u636E\u4E2D\u5FC
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 full.details.host.address=\u4E3B\u673A\u5730\u5740
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.common.CommonApplicationConstants, author xhuang
-full.details.memory.size=\u5185\u5B58\u5927\u5C0F
+full.details.memory.size=\u5185\u5B58\u5927\u5C0F 
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 full.details.gb=GB
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
@@ -301,7 +301,7 @@ br10c.chart.memory.usage=\u6309\u7167\u6BCF\u5929\u91CC\u5C0F\u65F6\u6570\u7684\
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10b.chart.disks.usage=\u6309\u7167\u661F\u671F\u4E2D\u5929\u6570\u7684 5 \u4E2A\u6700\u7E41\u5FD9\u7684\u78C1\u76D8\u7528\u5EA6
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
-br10c.chart.disks.usage=\u6309\u7167\u6BCF\u5929\u91CC\u5C0F\u65F6\u6570\u7684 5 \u4E2A\u6700\u7E41\u5FD9\u7684\u78C1\u76D8\u7528\u5EA6
+br10c.chart.disks.usage=\u6309\u7167\u6BCF\u5929\u91CC\u5C0F\u65F6\u6570\u7684 5 \u4E2A\u6700\u7E41\u5FD9\u7684\u78C1\u76D8\u7528\u5EA6 
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10b.chart.cpu.usage=\u6309\u7167\u661F\u671F\u4E2D\u5929\u6570\u7684 CPU \u7528\u5EA6
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
@@ -315,7 +315,7 @@ br10.chart.disks.subtitle.deleted=\u5DF2\u5220\u9664\u7684\u78C1\u76D8\u7528\u66
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10a.chart.disks.subtitle.lines=\u8FDE\u7EBF\u8868\u793A\u63A5\u6536\u901F\u7387\uFF1B\u77ED\u5212\u7EBF\u8868\u793A\u5199\u5165\u901F\u7387
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
-axis.disks.usage.mb.pre.second=\u78C1\u76D8\u7528\u5EA6 MB/s
+axis.disks.usage.mb.pre.second=\u78C1\u76D8\u7528\u5EA6 MB/s 
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 br10.chart.series.cpu.peak=CPU \u9AD8\u5CF0
 # translation auto-copied from project oVirt, version master, document frontend/webadmin/modules/webadmin/src/main/resources/org/ovirt/engine/ui/frontend/org.ovirt.engine.ui.userportal.ApplicationConstants, author xhuang
@@ -572,8 +572,11 @@ dr5.text=<b>\u4E3B\u673A</b>\u6B63\u5E38\u8FD0\u884C\u72B6\u6001
 dr8.text=<b>\u5B58\u50A8\u57DF</b>\u7684\u7A7A\u95F4\u72B6\u6001
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 dr27.title=\u7FA4\u96C6\u7684\u4E3B\u673A\u8D44\u6E90\u7528\u5EA6\u7684\u603B\u7ED3
+axis.used.free.storage.size.percent=\u53EF\u7528\u7684/\u5DF2\u4F7F\u7528\u5B58\u50A8\u5927\u5C0F %
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 dr26.title=5 \u4E2A\u4F7F\u7528\u6700\u591A\u7684\u5B58\u50A8\u57DF
+dr26.chart.available.size.percent=\u53EF\u7528\u7684\u5927\u5C0F %
+dr26.chart.used.size.percent=\u5DF2\u4F7F\u7528\u7684\u5927\u5C0F %
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 dr25.title=5 \u4E2A\u5B8C\u6574\u63D0\u4EA4\u6700\u591A\u7684\u7FA4\u96C6\u865A\u62DF\u673A
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
@@ -590,3 +593,50 @@ dr10.text=<b>\u4E3B\u673A</b>\u8D44\u6E90\u72B6\u6001
 dr4.text=<b>\u4E3B\u673A</b>\u6B63\u5E38\u8FD0\u884C\u72B6\u6001
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
 dr7.text=<b>\u5B58\u50A8\u57DF</b>\u7684\u7A7A\u95F4\u72B6\u6001
+br44.table.vm.description=\u865A\u62DF\u673A\u63CF\u8FF0
+br44.table.number.of.sockets=\#Sockets
+br44.table.cores.per.socket=\#Cores per Socket
+br44.table.existence.time.hours=\u5B58\u5728\u7684\u65F6\u95F4\uFF08\u5C0F\u65F6\uFF09
+br44.table.vm.uptime.hours=\u865A\u62DF\u673A\u4E0A\u7EBF\u65F6\u95F4\uFF08\u5C0F\u65F6\uFF09
+br44.table.vm.uuid=VM UUID
+br44.title=<b>\u6570\u636E\u4E2D\u5FC3 {1}</b> \u7684 <b>{0}</b> \u91CC\u7684\u4E91\u4F9B\u5E94\u5546\u865A\u62DF\u673A\u5E93\u5B58
+br45.table.user.name=\u7528\u6237\u540D
+br45.table.vm.name=\u865A\u62DF\u673A\u540D\u79F0
+br45.table.session.time.in.hours=\u4F1A\u8BDD\u65F6\u95F4\uFF08\u5C0F\u65F6\uFF09
+br45.table.average.cpu.usage.percent=\u5E73\u5747\u7684 CPU \u4F7F\u7528\u7387 %
+br45.table.average.user.cpu.usage.percent=\u7528\u6237 CPU \u7684\u5E73\u5747\u4F7F\u7528\u7387 %
+br45.table.average.system.cpu.usage.percent=\u7CFB\u7EDF CPU \u7684\u5E73\u5747\u4F7F\u7528\u7387 %
+br45.table.peak.cpu.usage.percent=CPU \u9AD8\u5CF0\u65F6\u4F7F\u7528\u7387 %
+br45.table.peak.system.cpu.usage.percent=\u7CFB\u7EDF CPU \u7684\u6700\u5927\u4F7F\u7528\u7387 %
+br45.table.peak.user.cpu.usage.percent=\u7528\u6237 CPU \u7684\u6700\u5927\u4F7F\u7528\u7387 %
+br45.table.average.memory.usage.percent=\u5E73\u5747\u7684\u5185\u5B58\u4F7F\u7528\u7387 %
+br45.table.peak.memory.usage.percent=\u6700\u5927\u7684\u5185\u5B58\u4F7F\u7528\u7387 %
+br45.title=<b>\u6570\u636E\u4E2D\u5FC3 {1}</b> \u7684 <b>{0}</b> \u91CC\u7684\u7528\u6237 Spice \u4F1A\u8BDD\u6D3B\u52A8
+dr.count.list.storage.domains=\u5B58\u50A8\u57DF
+br46.title=<b>\u865A\u62DF\u673A {0}</b>\u7684\u4E0A\u7EBF\u65F6\u95F4
+br46.meter.title=\u865A\u62DF\u673A\u7684\u4E0A\u7EBF\u65F6\u95F4
+full.details.storage.domain.type=\u5B58\u50A8\u57DF\u7684\u7C7B\u578B
+full.details.show.deleted.storage.domains=\u663E\u793A\u5DF2\u5220\u9664\u7684\u5B58\u50A8\u57DF
+br47.title=<b>\u6570\u636E\u4E2D\u5FC3 {0}</b>\u7684\u5B58\u50A8\u4E8E\u5E93\u5B58
+br47.table.storage.domain.name=\u5B58\u50A8\u57DF\u7684\u540D\u79F0
+br47.table.storage.domain.type=\u5B58\u50A8\u57DF\u7684\u7C7B\u578B
+br47.table.storage.type=\u5B58\u50A8\u7C7B\u578B
+br47.table.free.space.gb=\u7A7A\u95F2\u7A7A\u95F4\uFF08GB\uFF09
+br47.table.used.space.gb=\u5DF2\u7528\u7A7A\u95F4\uFF08GB\uFF09
+br47.table.total.space.gb=\u7A7A\u95F4\u603B\u91CF\uFF08GB\uFF09
+ic.cluster=\u7FA4\u96C6
+ic.is.deleted=\u663E\u793A\u5DF2\u5220\u9664\u7684\u5B9E\u4F53\uFF1F
+ic.cpu.threshold=CPU \u6781\u9650
+ic.memory.threshold=\u5185\u5B58\u6781\u9650
+ic.period.range=\u65E5\u671F\u8303\u56F4
+ic.dates=\u65E5\u671F
+ic.dc=\u6570\u636E\u4E2D\u5FC3
+ic.host.name=\u4E3B\u673A\u540D\u79F0
+ic.hosts.list=\u4E3B\u673A\u5217\u8868
+ic.host.type=\u4E3B\u673A\u7C7B\u578B
+ic.storage.domain.type=\u5B58\u50A8\u57DF\u7684\u7C7B\u578B
+ic.storage.domain.name=\u5B58\u50A8\u57DF\u7684\u540D\u79F0
+ic.vm.name=\u865A\u62DF\u673A\u540D\u79F0
+ic.vm.list=\u865A\u62DF\u673A\u5217\u8868
+ic.vm.type=\u865A\u62DF\u673A\u7684\u7C7B\u578B
+ic.is.deleted.detached=\u663E\u793A\u5DF2\u5220\u9664\u7684\u5206\u79BB\u7684\u5B9E\u4F53\uFF1F
