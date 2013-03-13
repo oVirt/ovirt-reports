@@ -4,3 +4,4 @@ ReportsLineBarChartTheme,,Chart Theme for oVirt Engine Reports (No Java Content)
 ReportsPieChartTheme,,Chart Theme for oVirt Engine Reports (No Java Content),ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
 WebadminLineBarChartTheme,,Chart Theme for oVirt Engine Reports (No Java Content),ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
 EngineAuthentication,,JRS Webadmin SSO Jar,ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
+CustomOvirtReportsQueryManipulator,,Custom oVirt Reports Query Manipulator,ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
