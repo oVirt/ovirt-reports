@@ -5,7 +5,7 @@ br18.chart.rhel.vs.other.linuxs=RHEL vs Autres SE Linux
 # translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
 axis.date=Date
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-axis.number.of.vms=Nbre de VM
+axis.number.of.vms=Nbre VMs
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br18.chart.rhel.vs.windows=SE RHEL vs Windows
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
@@ -13,7 +13,7 @@ br18.chart.windows.distribution=Distribution des version Windows
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br18.chart.known.vs.unknown.os=Machines virtuelles avec des SE connus vs inconnus
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-br18.title=Mchines virtuelles actives par SE dans <b>{0}</b> du <b> Centre de donn\u00E9es {1}</b>
+br18.title=Machines virtuelles actives par SE dans <b>{0}</b> du <b> Centre de donn\u00E9es {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 full.details.clusters=Clusters
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
@@ -189,9 +189,9 @@ br2.chart.series.memory.usage=Usage de la m\u00E9moire
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br2.chart.series.memory.peak=Pic M\u00E9moire
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-br2.chart.series.number.of.vms=Nbre de VM
+br2.chart.series.number.of.vms=Nbre VMs
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-br2.chart.series.peak.number.of.vms=Nbre de Pic M\u00E9moire
+br2.chart.series.peak.number.of.vms=Nbre VMs Pic M\u00E9moire
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br2.chart.series.rx=/Rx
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
@@ -457,7 +457,7 @@ br18a.table.date=Date
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults
 br18a.table.os.version=Version du SE
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
-br18a.table.number.of.vms=Nbre de VM
+br18a.table.number.of.vms=Nbre VMs
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 br7a.title=Temps d'activit\u00E9 des h\u00F4tes du cluster
 # translation auto-copied from project aeolus-conductor, version 1.1.1, document defaults, author samfreemanz
