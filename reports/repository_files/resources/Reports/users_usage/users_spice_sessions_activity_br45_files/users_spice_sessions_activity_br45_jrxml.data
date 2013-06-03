@@ -361,7 +361,7 @@ $F{user_name} :
                                     <reportElement uuid="0fe4a832-8e01-454b-92fb-207427ddcbbd" x="0" y="0" width="43" height="20"/>
                                     <textElement textAlignment="Right" verticalAlignment="Middle"/>
                                     <textFieldExpression><![CDATA[$F{session_time_in_hours}]]></textFieldExpression>
-                                    <hyperlinkTooltipExpression><![CDATA[$F{session_time_in_hours}.toString()]]></hyperlinkTooltipExpression>
+                                    <hyperlinkTooltipExpression><![CDATA[(((($F{session_time_in_hours}*60)/60)/24).intValue()).toString() + "d " + ((($F{session_time_in_hours}*60)/60).intValue()-((((($F{session_time_in_hours}*60)/60)/24).intValue())*24)).toString() + "h " + (($F{session_time_in_hours}*60) - (((($F{session_time_in_hours}*60)/60).intValue()-((((($F{session_time_in_hours}*60)/60)/24).intValue())*24))*60)-((((($F{session_time_in_hours}*60)/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
                                 </textField>
                             </jr:detailCell>
                         </jr:column>
@@ -531,4 +531,3 @@ $F{user_name} :
         </band>
     </summary>
 </jasperReport>
-
