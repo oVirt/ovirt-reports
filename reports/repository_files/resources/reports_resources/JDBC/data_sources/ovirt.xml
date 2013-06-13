@@ -10,6 +10,6 @@
     <driver>org.postgresql.Driver</driver>
     <connectionUrl>jdbc:postgresql://localhost:5432/ovirt_engine_history</connectionUrl>
     <connectionUser>postgres</connectionUser>
-    <connectionPassword>qum5net</connectionPassword>
+    <connectionPassword>123456</connectionPassword>
     <timezone></timezone>
 </jdbcDataSource>
