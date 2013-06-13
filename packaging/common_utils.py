@@ -307,9 +307,20 @@ def execExternalCmd(command, fail_on_error=False, msg="Return code differs from 
     executes a shell command, if fail_on_error is True, raises an exception
     '''
     logging.debug("cmd = %s" % (command))
-    pi = subprocess.Popen(command, shell=True,
-        stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE)
+
+    # Update os.environ with env if provided
+    env = os.environ.copy()
+    if not "PGPASSFILE" in env:
+        env["PGPASSFILE"] = FILE_PG_PASS
+
+    pi = subprocess.Popen(
+        command,
+        shell=True,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        env=env,
+    )
     out, err = pi.communicate()
     logging.debug("output = %s" % out)
     logging.debug("stderr = %s" % err)
