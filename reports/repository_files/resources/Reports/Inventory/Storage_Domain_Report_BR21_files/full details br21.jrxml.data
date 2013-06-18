@@ -29,20 +29,20 @@
         <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT v3_2_configuration_history_datacenters.datacenter_name as datacenter_name,
-       v3_2_configuration_history_datacenters.delete_date as datacenter_delete_date,
-       (SELECT v3_2_configuration_history_storage_domains.storage_domain_name
-        FROM v3_2_configuration_history_storage_domains
-        WHERE v3_2_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-              AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                            FROM v3_2_configuration_history_storage_domains as a
+        <![CDATA[SELECT v3_3_configuration_history_datacenters.datacenter_name as datacenter_name,
+       v3_3_configuration_history_datacenters.delete_date as datacenter_delete_date,
+       (SELECT v3_3_configuration_history_storage_domains.storage_domain_name
+        FROM v3_3_configuration_history_storage_domains
+        WHERE v3_3_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+              AND v3_3_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                            FROM v3_3_configuration_history_storage_domains as a
                                                                             GROUP BY a.storage_domain_id)) as storage_name,
        (SELECT detach_date
-        FROM v3_2_map_history_datacenters_storage_domains
-        WHERE v3_2_map_history_datacenters_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-              AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-              AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                              FROM v3_2_map_history_datacenters_storage_domains as a
+        FROM v3_3_map_history_datacenters_storage_domains
+        WHERE v3_3_map_history_datacenters_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+              AND v3_3_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+              AND v3_3_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                              FROM v3_3_map_history_datacenters_storage_domains as a
                                                                               GROUP BY a.storage_domain_id, a.datacenter_id)) as storage_delete_date,
        coalesce((SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
                  FROM enum_translator as enum_translator_default
@@ -65,10 +65,10 @@
         WHERE language_code = 'en_US'
               AND enum_translator_default.enum_key = $P{P_Period}
               AND enum_translator_default.enum_type = 'REPORTS_PERIOD') as period
-FROM v3_2_configuration_history_datacenters
-WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-      AND v3_2_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
-                                                                FROM v3_2_configuration_history_datacenters as a
+FROM v3_3_configuration_history_datacenters
+WHERE v3_3_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+      AND v3_3_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
+                                                                FROM v3_3_configuration_history_datacenters as a
                                                                 GROUP BY a.datacenter_id)]]>
     </queryString>
     <field name="datacenter_name" class="java.lang.String"/>

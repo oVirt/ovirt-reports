@@ -40,24 +40,24 @@
        avg(uptime_mins) as uptime_mins,
        avg(total) as total
 FROM    (SELECT
-              v3_2_configuration_history_vms.cluster_id
-              ,v3_2_configuration_history_clusters.cluster_name as name
-              ,v3_2_configuration_history_clusters.delete_date
-              ,v3_2_configuration_history_vms.vm_id
-              ,SUM(CASE WHEN v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1 THEN coalesce(v3_2_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS uptime_mins
-              ,SUM(CASE WHEN v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_status in (3,0) THEN coalesce(v3_2_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS unplanned_downtime_mins
-              ,Sum(v3_2_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status) as total
+              v3_3_configuration_history_vms.cluster_id
+              ,v3_3_configuration_history_clusters.cluster_name as name
+              ,v3_3_configuration_history_clusters.delete_date
+              ,v3_3_configuration_history_vms.vm_id
+              ,SUM(CASE WHEN v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1 THEN coalesce(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS uptime_mins
+              ,SUM(CASE WHEN v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_status in (3,0) THEN coalesce(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS unplanned_downtime_mins
+              ,Sum(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status) as total
 
-        FROM v3_2_statistics_vms_resources_usage_$P!{table_name}
-        INNER JOIN v3_2_configuration_history_vms
-             ON (v3_2_configuration_history_vms.vm_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-        INNER JOIN v3_2_configuration_history_clusters
-             ON (v3_2_configuration_history_vms.cluster_id = v3_2_configuration_history_clusters.cluster_id)
+        FROM v3_3_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v3_3_configuration_history_vms
+             ON (v3_3_configuration_history_vms.vm_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_id)
+        INNER JOIN v3_3_configuration_history_clusters
+             ON (v3_3_configuration_history_vms.cluster_id = v3_3_configuration_history_clusters.cluster_id)
         WHERE
-        v3_2_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                 FROM v3_2_configuration_history_clusters
+        v3_3_configuration_history_vms.cluster_id in (SELECT cluster_id
+                                 FROM v3_3_configuration_history_clusters
                                  Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-        AND v3_2_configuration_history_vms.vm_type = 1
+        AND v3_3_configuration_history_vms.vm_type = 1
         AND high_availability = TRUE
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
@@ -66,20 +66,20 @@ FROM    (SELECT
                                    WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
-        AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                  FROM v3_2_configuration_history_clusters a
+        AND v3_3_configuration_history_clusters.history_id in (SELECT max(a.history_id)
+                                  FROM v3_3_configuration_history_clusters a
                                   GROUP BY a.cluster_id)
-        AND v3_2_configuration_history_vms.history_id in (SELECT max(b.history_id)
-                                 FROM v3_2_configuration_history_vms b
+        AND v3_3_configuration_history_vms.history_id in (SELECT max(b.history_id)
+                                 FROM v3_3_configuration_history_vms b
                                  GROUP BY b.vm_id)
         AND CASE
-            WHEN $P{is_deleted} like 'AND%' THEN v3_2_configuration_history_vms.delete_date IS NULL
-            ELSE v3_2_configuration_history_vms.delete_date IS NULL or v3_2_configuration_history_vms.delete_date IS NOT NULL
+            WHEN $P{is_deleted} like 'AND%' THEN v3_3_configuration_history_vms.delete_date IS NULL
+            ELSE v3_3_configuration_history_vms.delete_date IS NULL or v3_3_configuration_history_vms.delete_date IS NOT NULL
             END
-        GROUP BY  v3_2_configuration_history_vms.cluster_id
-              ,v3_2_configuration_history_clusters.cluster_name
-              ,v3_2_configuration_history_clusters.delete_date
-              ,v3_2_configuration_history_vms.vm_id) a
+        GROUP BY  v3_3_configuration_history_vms.cluster_id
+              ,v3_3_configuration_history_clusters.cluster_name
+              ,v3_3_configuration_history_clusters.delete_date
+              ,v3_3_configuration_history_vms.vm_id) a
 GROUP BY cluster_id,
        name,
        delete_date

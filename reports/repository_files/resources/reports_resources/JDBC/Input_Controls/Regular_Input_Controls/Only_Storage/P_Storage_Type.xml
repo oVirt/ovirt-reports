@@ -27,10 +27,10 @@ FROM enum_translator as enum_translator_default
                LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
                                              FROM enum_translator
                                              WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-               INNER JOIN v3_2_configuration_history_storage_domains ON (v3_2_configuration_history_storage_domains.storage_domain_type = enum_translator_default.enum_key
+               INNER JOIN v3_3_configuration_history_storage_domains ON (v3_3_configuration_history_storage_domains.storage_domain_type = enum_translator_default.enum_key
                                                                                                             AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE')
-                   INNER JOIN v3_2_map_history_datacenters_storage_domains ON (v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
-                                                                                                                      AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
+                   INNER JOIN v3_3_map_history_datacenters_storage_domains ON (v3_3_map_history_datacenters_storage_domains.storage_domain_id = v3_3_configuration_history_storage_domains.storage_domain_id
+                                                                                                                      AND v3_3_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
 WHERE enum_translator_default.language_code = 'en_US'
              $P!{active_storage}
 UNION ALL

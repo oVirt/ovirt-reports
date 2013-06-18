@@ -6,7 +6,7 @@
     <label>Single Virtual Machine Resources (Days of Week) (BR10B)</label>
     <description>This report contains charts displaying resources usage measurements (CPU, Memory, Network Tx/Rx, Disk IO rates) for a selected virtual machine by days of week.</description>
     <creationDate>2012-03-15T21:03:55.792+02:00</creationDate>
-    <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
+    <updateDate>2012-03-30T08:51:23.331+03:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -16,8 +16,8 @@
             <version>1</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.331+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.331+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -53,8 +53,8 @@
             <name>br2 full details.jrxml</name>
             <version>1</version>
             <label>br2 full details.jrxml</label>
-            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.331+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.331+03:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </resource>
@@ -65,8 +65,8 @@
             <name>ovirt-icon</name>
             <version>1</version>
             <label>ovirt-icon</label>
-            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.331+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.331+03:00</updateDate>
             <referenceUri>/reports_resources/ovirt-icon</referenceUri>
         </localResource>
     </resource>
@@ -77,8 +77,8 @@
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2012-03-30T08:51:23.231+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:23.231+03:00</updateDate>
+            <creationDate>2012-03-30T08:51:23.331+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:23.331+03:00</updateDate>
             <referenceUri>/reports_resources/trash-icon</referenceUri>
         </localResource>
     </resource>

@@ -17,25 +17,25 @@
         <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
     </parameter>
     <parameter name="Active_VMs" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND v3_2_configuration_history_vms.delete_date IS NULL"]]></defaultValueExpression>
+        <defaultValueExpression><![CDATA["AND v3_3_configuration_history_vms.delete_date IS NULL"]]></defaultValueExpression>
     </parameter>
     <parameter name="P_Locale" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT v3_2_configuration_history_datacenters.datacenter_name as datacenter_name,
-       v3_2_configuration_history_datacenters.delete_date as datacenter_delete_date,
-       coalesce((SELECT ' ' || RTrim(cast(v3_2_configuration_history_clusters.cluster_name as varchar))
-                 FROM v3_2_configuration_history_clusters
-                 WHERE v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
-                       AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                                                              FROM v3_2_configuration_history_clusters as a
+        <![CDATA[SELECT v3_3_configuration_history_datacenters.datacenter_name as datacenter_name,
+       v3_3_configuration_history_datacenters.delete_date as datacenter_delete_date,
+       coalesce((SELECT ' ' || RTrim(cast(v3_3_configuration_history_clusters.cluster_name as varchar))
+                 FROM v3_3_configuration_history_clusters
+                 WHERE v3_3_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
+                       AND v3_3_configuration_history_clusters.history_id in (SELECT max(a.history_id)
+                                                                              FROM v3_3_configuration_history_clusters as a
                                                                               GROUP BY a.cluster_id)), 'all') as cluster_name,
-       (SELECT v3_2_configuration_history_clusters.delete_date
-        FROM v3_2_configuration_history_clusters
-        WHERE v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
-              AND v3_2_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                                                     FROM v3_2_configuration_history_clusters as a
+       (SELECT v3_3_configuration_history_clusters.delete_date
+        FROM v3_3_configuration_history_clusters
+        WHERE v3_3_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
+              AND v3_3_configuration_history_clusters.history_id in (SELECT max(a.history_id)
+                                                                     FROM v3_3_configuration_history_clusters as a
                                                                      GROUP BY a.cluster_id)) as cluster_delete_date,
        coalesce((SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
                  FROM enum_translator as enum_translator_default
@@ -45,10 +45,10 @@
                   WHERE language_code = 'en_US'
                         AND enum_translator_default.enum_key = $P{P_VM_Type}
                         AND enum_translator_default.enum_type = 'VM_TYPE'), 'All') as vm_type
-FROM v3_2_configuration_history_datacenters
-WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-      AND v3_2_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
-                                                                FROM v3_2_configuration_history_datacenters as a
+FROM v3_3_configuration_history_datacenters
+WHERE v3_3_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+      AND v3_3_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
+                                                                FROM v3_3_configuration_history_datacenters as a
                                                                 GROUP BY a.datacenter_id)]]>
     </queryString>
     <field name="datacenter_name" class="java.lang.String"/>

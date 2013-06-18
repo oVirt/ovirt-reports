@@ -46,26 +46,26 @@ FROM (SELECT DISTINCT CASE
                           ELSE 'Other OS'
                       END AS os_type,
                       history_datetime AS time,
-                      COUNT(DISTINCT v3_2_configuration_history_vms.vm_id) AS vm_count
-      FROM v3_2_statistics_vms_resources_usage_$P!{table_name}
-               INNER JOIN v3_2_configuration_history_vms ON (v3_2_configuration_history_vms.history_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
-                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_2_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
-               INNER JOIN v3_2_configuration_history_vms a ON (a.vm_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-      WHERE v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
-            AND v3_2_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                              FROM v3_2_configuration_history_clusters
+                      COUNT(DISTINCT v3_3_configuration_history_vms.vm_id) AS vm_count
+      FROM v3_3_statistics_vms_resources_usage_$P!{table_name}
+               INNER JOIN v3_3_configuration_history_vms ON (v3_3_configuration_history_vms.history_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
+                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_3_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
+               INNER JOIN v3_3_configuration_history_vms a ON (a.vm_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_id)
+      WHERE v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+            AND v3_3_configuration_history_vms.cluster_id in (SELECT cluster_id
+                                                              FROM v3_3_configuration_history_clusters
                                                               WHERE datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
-            AND v3_2_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
-                                                                WHEN NULL THEN v3_2_configuration_history_vms.cluster_id
-                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_2_configuration_history_vms.cluster_id
+            AND v3_3_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
+                                                                WHEN NULL THEN v3_3_configuration_history_vms.cluster_id
+                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_3_configuration_history_vms.cluster_id
                                                                 ELSE CAST($P{P_Cluster_ID} as uuid)
                                                             END
-            AND v3_2_configuration_history_vms.vm_type = CASE
-                                                             WHEN $P{P_VM_Type} = -1 THEN v3_2_configuration_history_vms.vm_type
+            AND v3_3_configuration_history_vms.vm_type = CASE
+                                                             WHEN $P{P_VM_Type} = -1 THEN v3_3_configuration_history_vms.vm_type
                                                              ELSE $P{P_VM_Type}
                                                          END
             AND a.history_id in (SELECT max(b.history_id)
-                                 FROM v3_2_configuration_history_vms b
+                                 FROM v3_3_configuration_history_vms b
                                  GROUP BY b.vm_id)
             AND history_datetime >= cast($P{P_Start_Date} as date)
             AND history_datetime <= CASE
@@ -138,25 +138,25 @@ FROM (SELECT distinct CASE
                           ELSE 'Known OS'
                        END AS os_type,
                        history_datetime AS time,
-                       COUNT(DISTINCT v3_2_configuration_history_vms.vm_id) AS vm_count
-      FROM v3_2_statistics_vms_resources_usage_$P!{table_name}
-               INNER JOIN v3_2_configuration_history_vms ON (v3_2_configuration_history_vms.history_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
-                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_2_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
-               INNER JOIN v3_2_configuration_history_vms a ON (a.vm_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-      WHERE v3_2_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                          FROM v3_2_configuration_history_clusters
+                       COUNT(DISTINCT v3_3_configuration_history_vms.vm_id) AS vm_count
+      FROM v3_3_statistics_vms_resources_usage_$P!{table_name}
+               INNER JOIN v3_3_configuration_history_vms ON (v3_3_configuration_history_vms.history_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
+                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_3_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
+               INNER JOIN v3_3_configuration_history_vms a ON (a.vm_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_id)
+      WHERE v3_3_configuration_history_vms.cluster_id in (SELECT cluster_id
+                                                          FROM v3_3_configuration_history_clusters
                                                           WHERE datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
-            AND v3_2_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
-                                                                WHEN NULL THEN v3_2_configuration_history_vms.cluster_id
-                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_2_configuration_history_vms.cluster_id
+            AND v3_3_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
+                                                                WHEN NULL THEN v3_3_configuration_history_vms.cluster_id
+                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_3_configuration_history_vms.cluster_id
                                                                 ELSE CAST($P{P_Cluster_ID} as uuid)
                                                             END
-            AND v3_2_configuration_history_vms.vm_type = CASE
-                                                             WHEN $P{P_VM_Type} = -1 THEN v3_2_configuration_history_vms.vm_type
+            AND v3_3_configuration_history_vms.vm_type = CASE
+                                                             WHEN $P{P_VM_Type} = -1 THEN v3_3_configuration_history_vms.vm_type
                                                              ELSE $P{P_VM_Type}
                                                          END
             AND a.history_id in (SELECT max(b.history_id)
-                                 FROM v3_2_configuration_history_vms b
+                                 FROM v3_3_configuration_history_vms b
                                  GROUP BY b.vm_id)
             AND history_datetime >= cast($P{P_Start_Date} as date)
             AND history_datetime <= CASE
@@ -223,27 +223,27 @@ ORDER BY $P!{calendar_column},
 SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
 FROM (SELECT DISTINCT enum_os_type.value as os_name,
                       history_datetime AS time,
-                      COUNT(DISTINCT v3_2_configuration_history_vms.vm_id) AS vm_count
-      FROM v3_2_statistics_vms_resources_usage_$P!{table_name}
-               INNER JOIN v3_2_configuration_history_vms ON (v3_2_configuration_history_vms.history_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
-                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_2_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
-               INNER JOIN v3_2_configuration_history_vms a ON (a.vm_id = v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-      WHERE v3_2_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+                      COUNT(DISTINCT v3_3_configuration_history_vms.vm_id) AS vm_count
+      FROM v3_3_statistics_vms_resources_usage_$P!{table_name}
+               INNER JOIN v3_3_configuration_history_vms ON (v3_3_configuration_history_vms.history_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
+                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_3_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
+               INNER JOIN v3_3_configuration_history_vms a ON (a.vm_id = v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_id)
+      WHERE v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
             AND UPPER(enum_os_type.value) like 'WIND%'
-            AND v3_2_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                              FROM v3_2_configuration_history_clusters
+            AND v3_3_configuration_history_vms.cluster_id in (SELECT cluster_id
+                                                              FROM v3_3_configuration_history_clusters
                                                               WHERE datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
-            AND v3_2_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
-                                                                WHEN NULL THEN v3_2_configuration_history_vms.cluster_id
-                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_2_configuration_history_vms.cluster_id
+            AND v3_3_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
+                                                                WHEN NULL THEN v3_3_configuration_history_vms.cluster_id
+                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_3_configuration_history_vms.cluster_id
                                                                 ELSE CAST($P{P_Cluster_ID} as uuid)
                                                             END
-            AND v3_2_configuration_history_vms.vm_type = CASE
-                                                             WHEN $P{P_VM_Type} = -1 THEN v3_2_configuration_history_vms.vm_type
+            AND v3_3_configuration_history_vms.vm_type = CASE
+                                                             WHEN $P{P_VM_Type} = -1 THEN v3_3_configuration_history_vms.vm_type
                                                              ELSE $P{P_VM_Type}
                                                          END
             AND a.history_id in (SELECT max(b.history_id)
-                                 FROM v3_2_configuration_history_vms b
+                                 FROM v3_3_configuration_history_vms b
                                  GROUP BY b.vm_id)
             AND history_datetime >= cast($P{P_Start_Date} as date)
             AND history_datetime <  CASE

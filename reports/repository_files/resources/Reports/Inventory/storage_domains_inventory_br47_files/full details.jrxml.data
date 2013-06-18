@@ -19,8 +19,8 @@
         <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT v3_2_configuration_history_datacenters.datacenter_name as datacenter_name,
-       v3_2_configuration_history_datacenters.delete_date as datacenter_delete_date,
+        <![CDATA[SELECT v3_3_configuration_history_datacenters.datacenter_name as datacenter_name,
+       v3_3_configuration_history_datacenters.delete_date as datacenter_delete_date,
        coalesce((SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
                  FROM enum_translator as enum_translator_default
                           LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
@@ -29,10 +29,10 @@
                  WHERE language_code = 'en_US'
                        AND enum_translator_default.enum_key = $P{P_Storage_Type}
                        AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE'), 'All') as storage_domain_type
-FROM v3_2_configuration_history_datacenters
-WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-      and v3_2_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
-                                                                FROM v3_2_configuration_history_datacenters as a
+FROM v3_3_configuration_history_datacenters
+WHERE v3_3_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+      and v3_3_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
+                                                                FROM v3_3_configuration_history_datacenters as a
                                                                 GROUP BY a.datacenter_id)]]>
     </queryString>
     <field name="datacenter_name" class="java.lang.String"/>

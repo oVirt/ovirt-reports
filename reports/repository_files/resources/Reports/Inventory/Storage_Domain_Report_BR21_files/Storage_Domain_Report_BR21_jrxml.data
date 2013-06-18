@@ -37,13 +37,13 @@
     </parameter>
     <queryString>
         <![CDATA[select distinct $P!{calendar_column} as the_date, coalesce(storage_domain_name,max(storage_domain_name) over (partition by 1),'') as storage_domain_name, available_disk_size, used_disk_size
-FROM (SELECT v3_2_configuration_history_storage_domains.storage_domain_name,
+FROM (SELECT v3_3_configuration_history_storage_domains.storage_domain_name,
            history_datetime,
            AVG(available_disk_size_gb) AS available_disk_size,
            AVG(used_disk_size_gb) AS used_disk_size
-    FROM v3_2_statistics_storage_domains_resources_usage_$P!{table_name}, v3_2_configuration_history_storage_domains
-    WHERE v3_2_configuration_history_storage_domains.storage_domain_id = v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id
-          AND v3_2_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id = CASE $P{P_StorageDomain_ID}
+    FROM v3_3_statistics_storage_domains_resources_usage_$P!{table_name}, v3_3_configuration_history_storage_domains
+    WHERE v3_3_configuration_history_storage_domains.storage_domain_id = v3_3_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id
+          AND v3_3_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id = CASE $P{P_StorageDomain_ID}
                                         WHEN NULL THEN null
                                         WHEN '11111111-1111-1111-1111-111111111111' then null
                                         ELSE cast($P{P_StorageDomain_ID} as uuid)
@@ -55,10 +55,10 @@ FROM (SELECT v3_2_configuration_history_storage_domains.storage_domain_name,
                                      WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                      WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                  END
-          AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                       FROM v3_2_configuration_history_storage_domains a
+          AND v3_3_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                                       FROM v3_3_configuration_history_storage_domains a
                                        GROUP BY a.storage_domain_id)
-    GROUP BY v3_2_configuration_history_storage_domains.storage_domain_name,
+    GROUP BY v3_3_configuration_history_storage_domains.storage_domain_name,
            history_datetime) a right outer join calendar b on (a.history_datetime = b.$P!{calendar_column})
 where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
       AND $P!{calendar_column} <= CASE

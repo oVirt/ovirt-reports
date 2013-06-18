@@ -31,17 +31,17 @@
                     WHEN delete_date IS NULL then vm_name
                     ELSE vm_name ||  ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
                 END as vm_name,
-                coalesce((SELECT  ' ' || v3_2_configuration_history_clusters.cluster_name
-                          FROM v3_2_configuration_history_clusters
-                          WHERE v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
+                coalesce((SELECT  ' ' || v3_3_configuration_history_clusters.cluster_name
+                          FROM v3_3_configuration_history_clusters
+                          WHERE v3_3_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
                                 AND history_id in (SELECT max(b.history_id)
-                                                   FROM v3_2_configuration_history_clusters as b
+                                                   FROM v3_3_configuration_history_clusters as b
                                                    GROUP BY b.cluster_id)), 'all') AS cluster_name,
-                (SELECT cast(v3_2_configuration_history_clusters.delete_date as date)
-                 FROM v3_2_configuration_history_clusters
-                 WHERE v3_2_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
+                (SELECT cast(v3_3_configuration_history_clusters.delete_date as date)
+                 FROM v3_3_configuration_history_clusters
+                 WHERE v3_3_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
                        AND history_id in (SELECT max(c.history_id)
-                                          FROM v3_2_configuration_history_clusters as c
+                                          FROM v3_3_configuration_history_clusters as c
                                           GROUP BY c.cluster_id)) as cluster_delete_date,
                 coalesce((SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
                           FROM enum_translator as enum_translator_default
@@ -51,17 +51,17 @@
                           WHERE language_code = 'en_US'
                                 AND enum_translator_default.enum_key = $P{P_VM_Type}
                                 AND enum_translator_default.enum_type = 'VM_TYPE'), 'All') as vm_type,
-                (SELECT v3_2_configuration_history_datacenters.datacenter_name
-                 FROM v3_2_configuration_history_datacenters
-                WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+                (SELECT v3_3_configuration_history_datacenters.datacenter_name
+                 FROM v3_3_configuration_history_datacenters
+                WHERE v3_3_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
                       AND history_id in (SELECT max(d.history_id)
-                                         FROM v3_2_configuration_history_datacenters as d
+                                         FROM v3_3_configuration_history_datacenters as d
                                          GROUP BY d.datacenter_id)) as datacenter_name,
-                (SELECT CAST(v3_2_configuration_history_datacenters.delete_date as date)
-                 FROM v3_2_configuration_history_datacenters
-                 WHERE v3_2_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+                (SELECT CAST(v3_3_configuration_history_datacenters.delete_date as date)
+                 FROM v3_3_configuration_history_datacenters
+                 WHERE v3_3_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
                        AND history_id in (SELECT max(d.history_id)
-                                          FROM v3_2_configuration_history_datacenters as d
+                                          FROM v3_3_configuration_history_datacenters as d
                                           GROUP BY d.datacenter_id)) as datacenter_delete_date,
                 CASE
                     WHEN $P{P_Period} = 1 THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
@@ -76,10 +76,10 @@
         WHERE language_code = 'en_US'
               AND enum_translator_default.enum_key = $P{P_Period}
               AND enum_translator_default.enum_type = 'REPORTS_PERIOD') as period
-FROM v3_2_configuration_history_vms
-WHERE $X{IN, cast(v3_2_configuration_history_vms.vm_id as varchar), P_VM_ListID}
+FROM v3_3_configuration_history_vms
+WHERE $X{IN, cast(v3_3_configuration_history_vms.vm_id as varchar), P_VM_ListID}
       AND history_id in (SELECT max(a.history_id)
-                         FROM v3_2_configuration_history_vms as a
+                         FROM v3_3_configuration_history_vms as a
                          GROUP BY a.vm_id)
 ORDER BY CASE
              WHEN delete_date IS NULL then vm_name

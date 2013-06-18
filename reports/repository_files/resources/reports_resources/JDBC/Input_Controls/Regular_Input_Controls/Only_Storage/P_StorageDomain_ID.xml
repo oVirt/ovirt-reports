@@ -22,13 +22,13 @@
             <creationDate>2013-01-16T15:35:23.744+02:00</creationDate>
             <updateDate>2013-01-16T15:35:23.744+02:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct cast(v3_2_configuration_history_storage_domains.storage_domain_id as varchar), detach_date, CASE
+            <queryString>Select distinct cast(v3_3_configuration_history_storage_domains.storage_domain_id as varchar), detach_date, CASE
                 WHEN detach_date IS NULL THEN storage_domain_name
                 ELSE storage_domain_name || ' (' || loc_detached_on.detached_on || ' ' || to_char(detach_date, $P{datetimelocalepattern}) || ')'
                            END as combo_name
-from v3_2_configuration_history_storage_domains
-            INNER JOIN v3_2_map_history_datacenters_storage_domains ON (v3_2_map_history_datacenters_storage_domains.storage_domain_id = v3_2_configuration_history_storage_domains.storage_domain_id
-                                                                                                           AND v3_2_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
+from v3_3_configuration_history_storage_domains
+            INNER JOIN v3_3_map_history_datacenters_storage_domains ON (v3_3_map_history_datacenters_storage_domains.storage_domain_id = v3_3_configuration_history_storage_domains.storage_domain_id
+                                                                                                           AND v3_3_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
             LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as detached_on
                                       FROM enum_translator as enum_translator_default
                                                      LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
@@ -36,16 +36,16 @@ from v3_2_configuration_history_storage_domains
                                                                                 WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
                                       WHERE enum_translator_default.language_code = 'en_US'
                                                  AND enum_translator_default.enum_type = 'REPORTS_DETACHED_ON') as loc_detached_on ON (0=0)
-WHERE  v3_2_configuration_history_storage_domains.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
-                            WHEN NULL THEN  v3_2_configuration_history_storage_domains.storage_domain_type
-                            WHEN -1 THEN v3_2_configuration_history_storage_domains.storage_domain_type
+WHERE  v3_3_configuration_history_storage_domains.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
+                            WHEN NULL THEN  v3_3_configuration_history_storage_domains.storage_domain_type
+                            WHEN -1 THEN v3_3_configuration_history_storage_domains.storage_domain_type
                             ELSE cast($P{P_Storage_Type} as int)
                                       END
-       AND v3_2_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
-                         FROM v3_2_map_history_datacenters_storage_domains a
+       AND v3_3_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                         FROM v3_3_map_history_datacenters_storage_domains a
                          GROUP BY a.storage_domain_id, a.datacenter_id)
-       AND v3_2_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                    FROM v3_2_configuration_history_storage_domains a
+       AND v3_3_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                    FROM v3_3_configuration_history_storage_domains a
                     GROUP BY a.storage_domain_id)
        AND CASE
         WHEN $P{active_storage} like 'AND%' THEN detach_date IS NULL

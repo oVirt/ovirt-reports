@@ -24,7 +24,7 @@
                 WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
                 ELSE RTrim(cast(datacenter_name as varchar)) || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
                   END as combo_name
-from v3_2_configuration_history_datacenters
+from v3_3_configuration_history_datacenters
               LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
                                         FROM enum_translator as enum_translator_default
                                                      LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
@@ -33,11 +33,11 @@ from v3_2_configuration_history_datacenters
                                                   WHERE enum_translator_default.language_code = 'en_US'
                                                              AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-        FROM v3_2_configuration_history_clusters
+        FROM v3_3_configuration_history_clusters
         WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-                         FROM v3_2_configuration_history_hosts a))
+                         FROM v3_3_configuration_history_hosts a))
               AND history_id in (SELECT max(a.history_id)
-         FROM v3_2_configuration_history_datacenters a
+         FROM v3_3_configuration_history_datacenters a
          GROUP BY a.datacenter_id)
               $P!{active_hosts_select}
 UNION ALL
@@ -49,13 +49,13 @@ FROM enum_translator as enum_translator_default
 WHERE language_code = 'en_US'
            AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
            AND NOT EXISTS     (Select distinct datacenter_id
-          from v3_2_configuration_history_datacenters
+          from v3_3_configuration_history_datacenters
           WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                  FROM v3_2_configuration_history_clusters
+                  FROM v3_3_configuration_history_clusters
                    WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-                                    FROM v3_2_configuration_history_hosts a))
+                                    FROM v3_3_configuration_history_hosts a))
                                         AND history_id in (SELECT max(a.history_id)
-                  FROM v3_2_configuration_history_datacenters a
+                  FROM v3_3_configuration_history_datacenters a
                   GROUP BY a.datacenter_id)
           $P!{active_hosts_select})
 order by delete_date DESC, combo_name</queryString>
