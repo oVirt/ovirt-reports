@@ -158,6 +158,13 @@ def setReportsDatasource(db_dict):
     xml_editor.editParams({'/jdbcDataSource/connectionPassword':db_dict["password"]})
     xml_editor.close()
 
+def resetReportsDatasourcePassword():
+    logging.debug("editing reports datasource file %s", FILE_DB_DATA_SOURCE)
+    xml_editor = utils.XMLConfigFileHandler(FILE_DB_DATA_SOURCE)
+    xml_editor.open()
+    xml_editor.editParams({'/jdbcDataSource/connectionPassword':""})
+    xml_editor.close()
+
 @transactionDisplay("Updating Redirect Servlet")
 def updateServletDbRecord():
     '''
@@ -819,6 +826,7 @@ def main():
         rc = 1
     finally:
         shutil.rmtree(DIR_TEMP_SCHEDUALE)
+        resetReportsDatasourcePassword()
         return rc
 
 if __name__ == "__main__":
