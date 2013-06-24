@@ -104,9 +104,9 @@ done
 %postun
 %update_maven_depmap
 if [ "$1" -eq 0 ]; then
-    if [ -d /usr/share/ovirt-engine/%{reports_name}.war ]; then
-        rm -rf /usr/share/ovirt-engine/%{reports_name}.war
-        rm -rf /var/lib/ovirt-engine/deployments/%{reports_name}.war*
+    if [ -d /usr/share/ovirt-engine/%{name}.war ]; then
+        rm -rf /usr/share/ovirt-engine/%{name}.war
+        rm -rf /var/lib/ovirt-engine/deployments/%{name}.war*
     fi
     if [ -f /etc/ovirt-engine/jrs-deployment.version ]; then
         rm -rf /etc/ovirt-engine/jrs-deployment.version
