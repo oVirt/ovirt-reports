@@ -20,6 +20,7 @@ import types
 import tempfile
 import re
 import glob
+import argparse
 
 log_file = utils.initLogging("ovirt-engine-reports-setup", "/var/log/ovirt-engine")
 
@@ -677,6 +678,11 @@ def main():
     rc = 0
     preserveReportsJobs = False
     userPassword = False
+
+    parser = argparse.ArgumentParser(description='Installs or upgrades your oVirt Engine Reports')
+    # Catch when calling ovirt-engine-dwh-setup --help
+    args = parser.parse_args()
+
     try:
         logging.debug("starting main()")
         print "Welcome to ovirt-engine-reports setup utility"
