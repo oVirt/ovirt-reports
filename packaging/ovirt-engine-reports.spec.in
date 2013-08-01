@@ -35,6 +35,7 @@ BuildArch: noarch
 Source: @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 BuildRequires: maven
 BuildRequires: jpackage-utils
+BuildRequires: java-1.7.0-openjdk-devel
 BuildRequires: make
 BuildRequires: log4j
 Requires: python
