@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="top_five_hosts_downtime_dr18_jrxml.data">
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls</folder>
+    <name>top_five_hosts_downtime_dr18_jrxml</name>
+    <version>0</version>
+    <label>top_five_hosts_downtime_dr18_jrxml</label>
+    <creationDate>2013-08-26T14:52:40.058+03:00</creationDate>
+    <updateDate>2013-08-26T14:52:40.058+03:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

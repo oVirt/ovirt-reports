@@ -7,18 +7,7 @@
     <creationDate>2012-06-24T15:48:23.935+03:00</creationDate>
     <updateDate>2012-06-27T15:05:05.353+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="cluster_top_five_busiest_hosts_dr23_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_top_five_busiest_hosts_dr23_files</folder>
-            <name>cluster_top_five_busiest_hosts_dr23_jrxml</name>
-            <version>5</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:43.391+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:43.391+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls/cluster_top_five_busiest_hosts_dr23_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

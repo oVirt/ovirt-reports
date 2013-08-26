@@ -7,18 +7,7 @@
     <creationDate>2012-06-24T15:48:25.753+03:00</creationDate>
     <updateDate>2012-07-02T17:33:40.044+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="system_storage_space_status_dr7_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_storage_space_status_dr7_files</folder>
-            <name>system_storage_space_status_dr7_jrxml</name>
-            <version>3</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:46.426+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:46.426+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/jrxmls/system_storage_space_status_dr7_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

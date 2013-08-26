@@ -7,18 +7,7 @@
     <creationDate>2012-06-24T15:48:25.106+03:00</creationDate>
     <updateDate>2012-07-02T14:44:38.417+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="dc_top_five_used_storage_domain_dr26_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/dc_top_five_used_storage_domain_dr26_files</folder>
-            <name>dc_top_five_used_storage_domain_dr26_jrxml</name>
-            <version>2</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:45.410+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:45.410+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/jrxmls/dc_top_five_used_storage_domain_dr26_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

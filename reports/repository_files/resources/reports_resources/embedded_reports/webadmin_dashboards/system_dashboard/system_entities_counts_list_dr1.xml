@@ -7,18 +7,7 @@
     <creationDate>2012-12-19T11:30:02.323+02:00</creationDate>
     <updateDate>2012-12-19T13:57:17.019+02:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="system_entities_counts_list_dr1_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/system_entities_counts_list_dr1_files</folder>
-            <name>system_entities_counts_list_dr1_jrxml</name>
-            <version>3</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-12-19T11:30:02.323+02:00</creationDate>
-            <updateDate>2012-06-27T12:07:45.987+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/jrxmls/system_entities_counts_list_dr1_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

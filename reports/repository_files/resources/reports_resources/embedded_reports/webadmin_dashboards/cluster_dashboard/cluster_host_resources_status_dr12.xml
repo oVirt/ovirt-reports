@@ -8,18 +8,7 @@
     <creationDate>2012-08-08T19:01:41.012+03:00</creationDate>
     <updateDate>2012-08-08T19:16:52.189+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="cluster_host_resources_status_dr12_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_host_resources_status_dr12_files</folder>
-            <name>cluster_host_resources_status_dr12_jrxml</name>
-            <version>1</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-08-08T19:01:41.012+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:42.840+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls/cluster_host_resources_status_dr12_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

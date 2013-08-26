@@ -7,18 +7,7 @@
     <creationDate>2012-06-24T15:48:24.132+03:00</creationDate>
     <updateDate>2012-06-27T15:06:34.368+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="top_five_ha_virtual_servers_downtime_dr20_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/top_five_ha_virtual_servers_downtime_dr20_files</folder>
-            <name>top_five_ha_virtual_servers_downtime_dr20_jrxml</name>
-            <version>15</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:43.738+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:43.738+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls/top_five_ha_virtual_servers_downtime_dr20_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

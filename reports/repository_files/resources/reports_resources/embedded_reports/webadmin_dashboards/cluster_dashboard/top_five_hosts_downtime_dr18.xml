@@ -7,18 +7,7 @@
     <creationDate>2012-06-24T15:48:24.268+03:00</creationDate>
     <updateDate>2012-06-27T15:07:41.889+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="top_five_hosts_downtime_dr18_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/top_five_hosts_downtime_dr18_files</folder>
-            <name>top_five_hosts_downtime_dr18_jrxml</name>
-            <version>5</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-06-27T12:07:44.039+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:44.039+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls/top_five_hosts_downtime_dr18_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>

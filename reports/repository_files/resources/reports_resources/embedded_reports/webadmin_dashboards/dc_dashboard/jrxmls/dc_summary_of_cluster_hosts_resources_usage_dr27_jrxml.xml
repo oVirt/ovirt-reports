@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="dc_summary_of_cluster_hosts_resources_usage_dr27_jrxml.data">
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/jrxmls</folder>
+    <name>dc_summary_of_cluster_hosts_resources_usage_dr27_jrxml</name>
+    <version>0</version>
+    <label>dc_summary_of_cluster_hosts_resources_usage_dr27_jrxml</label>
+    <creationDate>2013-08-26T15:22:56.707+03:00</creationDate>
+    <updateDate>2013-08-26T15:22:56.707+03:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="cluster_entities_counts_list_dr3_jrxml.data">
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls</folder>
+    <name>cluster_entities_counts_list_dr3_jrxml</name>
+    <version>0</version>
+    <label>cluster_entities_counts_list_dr3_jrxml</label>
+    <creationDate>2013-08-26T14:29:00.566+03:00</creationDate>
+    <updateDate>2013-08-26T14:29:00.566+03:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

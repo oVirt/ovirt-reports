@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_storage_space_status_dr7" language="groovy" pageWidth="534" pageHeight="35" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="187a4111-7b9a-4d51-a98a-19ceb718033f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/webadmin_dashboards/ce/system_dashboard"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+	<queryString>
+		<![CDATA[SELECT (SUM(cast(available_disk_size_gb as float)) / SUM(cast(used_disk_size_gb as float) + cast(available_disk_size_gb as float))) * 100 as free_disk_size_gb_percent
+FROM storage_domain_samples_history
+WHERE history_id in (SELECT max(a.history_id)
+                     FROM storage_domain_samples_history AS a
+                     GROUP BY a.storage_domain_id)]]>
+	</queryString>
+	<field name="free_disk_size_gb_percent" class="java.lang.Double"/>
+	<summary>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement uuid="cff1038f-a8a9-469e-b69d-4407d77e43d8" x="0" y="0" width="370" height="35" forecolor="#333333"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="SansSerif" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{dr7.text} + ":"]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>
+			</textField>
+			<image>
+				<reportElement uuid="685337d4-65c6-451c-a09e-d85d60d502fb" x="370" y="10" width="17" height="15">
+					<printWhenExpression><![CDATA[$F{free_disk_size_gb_percent} == null || $F{free_disk_size_gb_percent} >= 60]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
+				<hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>
+			</image>
+			<image>
+				<reportElement uuid="4bc479ac-521d-4da1-b776-edeb664228cb" x="370" y="10" width="17" height="15">
+					<printWhenExpression><![CDATA[$F{free_disk_size_gb_percent} != null && $F{free_disk_size_gb_percent} < 60]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
+				<hyperlinkTooltipExpression><![CDATA["Calculates free disk size percent average of all storage domains in the system from their latest sample. Displays check mark if free disk space is over 60%, otherwise displays X mark."]]></hyperlinkTooltipExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>

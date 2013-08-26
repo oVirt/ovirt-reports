@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder>
+    <parent>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard</parent>
+    <name>jrxmls</name>
+    <label>jrxmls</label>
+    <creationDate>2013-08-26T14:27:30.716+03:00</creationDate>
+    <updateDate>2013-08-26T14:27:30.716+03:00</updateDate>
+    <resource>cluster_entities_counts_list_dr3_jrxml</resource>
+    <resource>cluster_ha_vm_uptime_status_dr13_jrxml</resource>
+    <resource>cluster_host_resources_status_dr12_jrxml</resource>
+    <resource>cluster_host_uptime_status_dr6_jrxml</resource>
+    <resource>cluster_summary_of_hosts_resources_usage_dr28_jrxml</resource>
+    <resource>cluster_top_five_busiest_hosts_dr23_jrxml</resource>
+    <resource>cluster_vm_over_commit_status_dr14_jrxml</resource>
+    <resource>top_five_ha_virtual_servers_downtime_dr20_jrxml</resource>
+    <resource>top_five_hosts_downtime_dr18_jrxml</resource>
+</folder>

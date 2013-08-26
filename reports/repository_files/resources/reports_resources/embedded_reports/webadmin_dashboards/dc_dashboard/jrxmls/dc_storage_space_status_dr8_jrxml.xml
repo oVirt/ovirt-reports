@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="dc_storage_space_status_dr8_jrxml.data">
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/jrxmls</folder>
+    <name>dc_storage_space_status_dr8_jrxml</name>
+    <version>0</version>
+    <label>dc_storage_space_status_dr8_jrxml</label>
+    <creationDate>2013-08-26T15:27:44.939+03:00</creationDate>
+    <updateDate>2013-08-26T15:27:44.939+03:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

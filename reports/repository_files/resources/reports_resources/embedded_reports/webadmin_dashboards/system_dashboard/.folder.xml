@@ -5,6 +5,7 @@
     <label>System Dashboard</label>
     <creationDate>2012-01-22T13:48:32.196+02:00</creationDate>
     <updateDate>2012-01-22T13:48:32.196+02:00</updateDate>
+    <folder>jrxmls</folder>
     <resource>system_entities_counts_list_dr1</resource>
     <resource>system_host_resources_status_dr10</resource>
     <resource>system_host_uptime_status_dr4</resource>

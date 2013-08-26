@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="dc_top_five_used_storage_domain_dr26_jrxml.data">
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/jrxmls</folder>
+    <name>dc_top_five_used_storage_domain_dr26_jrxml</name>
+    <version>0</version>
+    <label>dc_top_five_used_storage_domain_dr26_jrxml</label>
+    <creationDate>2013-08-26T15:23:59.215+03:00</creationDate>
+    <updateDate>2013-08-26T15:23:59.215+03:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

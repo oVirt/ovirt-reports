@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="system_storage_space_status_dr7_jrxml.data">
+    <folder>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/jrxmls</folder>
+    <name>system_storage_space_status_dr7_jrxml</name>
+    <version>0</version>
+    <label>system_storage_space_status_dr7_jrxml</label>
+    <creationDate>2013-08-26T15:05:54.934+03:00</creationDate>
+    <updateDate>2013-08-26T15:05:54.934+03:00</updateDate>
+    <fileType>jrxml</fileType>
+</fileResource>

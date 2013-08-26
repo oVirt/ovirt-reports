@@ -8,18 +8,7 @@
     <creationDate>2012-08-08T19:01:41.783+03:00</creationDate>
     <updateDate>2012-08-08T19:19:53.451+03:00</updateDate>
     <mainReport>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            dataFile="cluster_vm_over_commit_status_dr14_jrxml.data" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/cluster_vm_over_commit_status_dr14_files</folder>
-            <name>cluster_vm_over_commit_status_dr14_jrxml</name>
-            <version>1</version>
-            <label>Main jrxml</label>
-            <description>Main jrxml</description>
-            <creationDate>2012-08-08T19:01:41.783+03:00</creationDate>
-            <updateDate>2012-06-27T12:07:43.590+03:00</updateDate>
-            <fileType>jrxml</fileType>
-        </localResource>
+        <uri>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls/cluster_vm_over_commit_status_dr14_jrxml</uri>
     </mainReport>
     <dataSource>
         <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
