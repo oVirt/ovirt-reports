@@ -23,8 +23,8 @@ import argparse
 import common_utils as utils
 
 from decorators import transactionDisplay
+import pwd
 
-log_file = utils.initLogging("ovirt-engine-reports-setup", "/var/log/ovirt-engine")
 
 DIR_DEPLOY = "/usr/share/ovirt-engine"
 JRS_APP_NAME = "ovirt-engine-reports"
@@ -79,6 +79,19 @@ In order to remedy this situation, please drop the ovirt-engine-reports database
 /usr/bin/dropdb -U %s -h %s -p %s %s"
 
 DIR_TEMP_SCHEDULE=tempfile.mkdtemp()
+
+log_file = None
+
+def _verifyUserPermissions():
+    username = pwd.getpwuid(os.getuid())[0]
+    if os.geteuid() != 0:
+        sys.exit(
+            'Error: insufficient permissions for user {user}, '
+            'you must run with user root.'.format(
+                user=username
+            )
+        )
+
 
 @transactionDisplay("Deploying Server")
 def deployJs(db_dict, TEMP_PGPASS):
@@ -1133,5 +1146,12 @@ def main():
         return rc
 
 if __name__ == "__main__":
+    # Check permissions first
+    _verifyUserPermissions()
+
+    log_file = utils.initLogging(
+        "ovirt-engine-reports-setup",
+        "/var/log/ovirt-engine"
+    )
     rc = main()
     sys.exit(rc)
