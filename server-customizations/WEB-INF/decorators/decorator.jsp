@@ -39,8 +39,15 @@
     <head>
         <title>oVirt Engine Reports: <decorator:title /></title>
         <meta http-equiv="Content-Type" content="text/html; charset=${requestScope['com.jaspersoft.ji.characterEncoding']}">
+
+        <!--
 		<meta http-equiv="X-UA-Compatible" content="IE=8"/>
-		<link rel="shortcut icon" href="favicon.ico" />
+		-->
+		<link rel="shortcut icon" href='${pageContext.request.contextPath}/<spring:theme code="images/favicon.ico" />' />
+
+		<!--
+			<link rel="shortcut icon" href="favicon.ico" />
+		-->
         <%@ include file="decoratorCommonImports.jsp" %>
         <decorator:head />
         <%--Online Help--%>
@@ -50,19 +57,22 @@
 <c:choose>
     <c:when test="${param['nui'] == null}">
     <%@ include file="../jsp/modules/common/jsEdition.jsp" %>
+    <%@ include file="../jsp/modules/common/jsEnvType.jsp" %>
 
     <body id="<decorator:getProperty property='body.id'/>" class="<decorator:getProperty property='body.class'/>">
-    <div id="banner" class="banner">
-        <div id="systemMessageConsole" style="display:none;">
+    <div id="banner" class="banner" style="<c:if test="${param['frame'] == 0}">display:none;</c:if>">
+        <div id="systemMessageConsole" style="display:none">
             <p id="systemMessage"><spring:message code="button.close"/></p>
         </div>
         <div id="logo" class="sectionLeft"></div>
-        <div class="sectionLeft" style="position:relative;z-index:1;">
+        <div class="sectionLeft">
             <c:if test="${pageProperties['meta.noMenu']==null}">
                <div id="mainNavigation" class="menu horizontal primaryNav">
                    <ul id="navigationOptions" data-tab-index="2" data-component-type="navigation">
                        <li id="main_home" tabIndex="-1" class="leaf"><p class="wrap button"><span class="icon"></span><spring:message code="menu.home"/></p></li>
-                       <li id="main_library" tabIndex="-1" class="leaf"><p class="wrap button"><span class="icon"></span><spring:message code="menu.library"/></p></li>
+                       <c:if test="<%= !com.jaspersoft.jasperserver.api.engine.common.service.impl.NavigationActionModelSupport.getInstance().banUserRole() %>">
+                           <li id="main_library" tabIndex="-1" class="leaf"><p class="wrap button"><span class="icon"></span><spring:message code="menu.library"/></p></li>
+                       </c:if>
                    </ul>
                </div>
              </c:if>
@@ -91,26 +101,32 @@
             </li>
             <c:set var="isShowHelp" scope="page"><%= WebHelpLookup.getInstance().isShowHelpTrue() %></c:set>
             <c:if test="${isProVersion && isShowHelp}"><li id="help"><a href="#" id="helpLink"><spring:message code="decorator.helpLink"/></a></li></c:if>
-            <li id="main_logOut" class="last"><a id="main_logOut_link" href="exituser.html"><spring:message code="menu.logout"/></a></li>
+            <li id="main_logOut" class="last"><a id="main_logOut_link"><spring:message code="menu.logout"/></a></li>
         </ul>
     </div>
 
-    <div id="frame">
+    <div id="frame" style="<c:if test="${param['frame'] == 0}">top:0;bottom:0;</c:if>">
         <div class="content">
             <decorator:body />
         </div>
     </div>
 
-    <div id="frameFooter">
-        <a id="about" href="#"><spring:message code="decorator.aboutLink"/></a>
-        <div id="hb" style="position:absolute;top:1px;left:260px;background:#fff;color#333;"></div>
+    <div id="frameFooter" style="<c:if test="${param['frame'] == 0}">display:none;</c:if>">
+        <p id="about">
+            <a href="#"><spring:message code="decorator.aboutLink"/></a>
+            <c:if test="${isDevelopmentEnvironmentType}">
+                <span id="license">
+                    (<spring:message code="LIC_023_license.envtype.development.label"/>)
+                </span>
+            </c:if>
+        </p>
         <p id="copyright"><spring:message code="decorators.main.copyright"/></p>
     </div>
 
     <div id="templateElements">
         <%@ include file="decoratorMinimalComponents.jsp" %>
         <%@ include file="../jsp/modules/commonJSTLScripts.jsp" %>
-        <div style="display:none">
+        <div class="hidden">
             <p class="action">&nbsp;</p>
             <p class="action over">&nbsp;</p>
             <p class="action pressed">&nbsp;</p>
@@ -141,7 +157,9 @@
                        <div id="mainNavigation" class="menu horizontal primaryNav">
                            <ul id="navigationOptions" data-tab-index="2" data-component-type="navigation">
                                <li id="main_home" tabIndex="-1" class="leaf"><p class="wrap button"><span class="icon"></span><spring:message code="menu.home"/></p></li>
-                               <li id="main_library" tabIndex="-1" class="leaf"><p class="wrap button"><span class="icon"></span><spring:message code="menu.library"/></p></li>
+                               <c:if test="<%= !com.jaspersoft.jasperserver.api.engine.common.service.impl.NavigationActionModelSupport.getInstance().banUserRole() %>">
+                                   <li id="main_library" tabIndex="-1" class="leaf"><p class="wrap button"><span class="icon"></span><spring:message code="menu.library"/></p></li>
+                               </c:if>
                            </ul>
                        </div>
                    </c:if>
@@ -159,7 +177,7 @@
             <p id="copyright"><spring:message code="decorators.main.copyright"/></p>
         </div>
 
-        <div id="systemMessageConsole" style="display:none;">
+        <div id="systemMessageConsole" class="hidden">
             <p id="systemMessage" style="padding:4px;color:#fff;"></p>
         </div>
 

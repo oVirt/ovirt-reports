@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Built-By: devuser
-Build-Jdk: 1.6.0_05
-Created-By: Apache Maven
+Build-Jdk: 1.6.0_29
+Created-By: Apache Maven 3.0.4
 Archiver-Version: Plexus Archiver
 Dependencies: org.postgresql
 

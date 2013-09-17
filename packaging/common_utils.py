@@ -8,13 +8,17 @@ import os
 import traceback
 import datetime
 import re
-from StringIO import StringIO
 import subprocess
 import shutil
 import libxml2
 import types
-from decorators import transactionDisplay
 import tempfile
+import random
+import string
+
+from StringIO import StringIO
+
+from decorators import transactionDisplay
 
 #text colors
 RED = "\033[0;31m"
@@ -26,16 +30,27 @@ ENGINE_SERVICE_NAME = "ovirt-engine"
 
 # CONST
 EXEC_IP = "/sbin/ip"
+EXEC_SU = "/bin/su"
+EXEC_PSQL = '/usr/bin/psql'
+EXEC_SERVICE="/sbin/service"
 FILE_PG_PASS="/etc/ovirt-engine/.pgpass"
+DIR_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/engine-reports.conf.d/"
+FILE_DATABASE_REPORTS_CONFIG = "10-setup-database-reports.conf"
 PGPASS_FILE_USER_LINE = "DB USER credentials"
 PGPASS_FILE_ADMIN_LINE = "DB ADMIN credentials"
 FILE_ENGINE_CONFIG_BIN="/usr/bin/engine-config"
 JRS_PACKAGE_PATH="/usr/share/jasperreports-server"
 
 # Defaults
-DB_ADMIN = "postgres"
+DB_ADMIN = "engine_reports"
 DB_HOST = "localhost"
 DB_PORT = "5432"
+
+DIR_PGSQL_DATA = '/var/lib/pgsql/data'
+FILE_PG_HBA = os.path.join(
+    DIR_PGSQL_DATA,
+    'pg_hba.conf'
+)
 
 # ERRORS
 # TODO: Move all errors here and make them consistent
@@ -49,6 +64,17 @@ ERR_EDIT_CONFIG_LINE = "Error: unable to edit config line"
 #set xml content & get node
 ERR_EXP_UPD_XML_CONTENT="Unexpected error: XML query %s returned %s results"
 ERR_EXP_UNKN_XML_OBJ="Unexpected error: given XML is neither string nor instance"
+
+def _maskString(string, maskList=[]):
+    """
+    private func to mask passwords
+    in utils
+    """
+    maskedStr = string
+    for maskItem in maskList:
+        maskedStr = maskedStr.replace(maskItem, "*"*8)
+
+    return maskedStr
 
 def getVDCOption(key):
     """
@@ -85,6 +111,12 @@ def runFunction(func, displayString, *args):
         logging.error(traceback.format_exc())
         raise Exception(instance)
     print ("[ " + _getColoredText("DONE", GREEN) + " ]").rjust(spaceLen - 3)
+
+def generatePassword():
+    return '%s%s' % (
+        ''.join([random.choice(string.digits) for i in xrange(4)]),
+        ''.join([random.choice(string.letters) for i in xrange(4)]),
+    )
 
 def _getColoredText (text, color):
     ''' gets text string and color
@@ -282,29 +314,58 @@ def getXmlNode(xml, xpath):
         raise Exception("Unexpected error: XML query %s returned %s results" % (xpath, len(nodes)))
     return nodes[0]
 
-def askYesNo(question=None):
+def askQuestion(question=None, yesNo=False, options='', default=''):
     '''
     provides an interface that prompts the user
     to answer "yes/no" to a given question
     '''
     message = StringIO()
-    ask_string = "%s? (yes|no): " % question
+    if yesNo:
+        options = '(yes|no)'
+    ask_string = "{question} {options}: ".format(
+        question=question,
+        options=options,
+    )
+    if default is not '':
+        ask_string = '{ask_string} [{default}] '.format(
+            ask_string=ask_string,
+            default=default,
+        )
     logging.debug("asking user: %s" % ask_string)
     message.write(ask_string)
     message.seek(0)
     raw_answer = raw_input(message.read())
     logging.debug("user answered: %s"%(raw_answer))
     answer = raw_answer.lower()
-    if answer == "yes" or answer == "y":
-        return True
-    elif answer == "no" or answer == "n":
-        return False
+    if yesNo:
+        if answer == "yes" or answer == "y":
+            return True
+        elif answer == "no" or answer == "n":
+            return False
+        else:
+            return askQuestion(question, yesNo=True)
     else:
-        return askYesNo(question)
+        if (
+            type(answer) != str or
+            (len(answer) == 0 and default == '')
+        ):
+            print 'Not a valid answer. Try again'
+            return askQuestion(question, options, default)
+        elif len(answer) == 0:
+            return default
+        else:
+            return answer
 
-def execExternalCmd(command, fail_on_error=False, msg="Return code differs from 0"):
+def askYesNo(question=None):
     '''
-    executes a shell command, if fail_on_error is True, raises an exception
+    provides an interface that prompts the user
+    to answer "yes/no" to a given question
+    '''
+    return askQuestion(question, yesNo=True)
+
+def execExternalCmd(command, failOnError=False, msg="Return code differs from 0"):
+    '''
+    executes a shell command, if failOnError is True, raises an exception
     '''
     logging.debug("cmd = %s" % (command))
 
@@ -326,28 +387,29 @@ def execExternalCmd(command, fail_on_error=False, msg="Return code differs from 
     logging.debug("stderr = %s" % err)
     logging.debug("retcode = %s" % pi.returncode)
     output = out + err
-    if fail_on_error and pi.returncode != 0:
+    if failOnError and pi.returncode != 0:
         raise Exception(msg)
     return ("".join(output.splitlines(True)), pi.returncode)
 
-def execSqlCmd(db_dict, sql_query, fail_on_error=False, err_msg="Failed running sql query"):
+def execSqlCmd(db_dict, sql_query, failOnError=False, err_msg="Failed running sql query", envDict={}):
     logging.debug("running sql query on host: %s, port: %s, db: %s, user: %s, query: \'%s\'." %
                   (db_dict["host"],
                    db_dict["port"],
-                   db_dict["name"],
+                   db_dict['dbname'],
                    db_dict["username"],
                    sql_query))
     cmd = [
         "/usr/bin/psql",
+        "-w",
         "--pset=tuples_only=on",
         "--set", "ON_ERROR_STOP=1",
-        "--dbname", db_dict["name"],
+        "--dbname", db_dict['dbname'],
         "--host", db_dict["host"],
         "--port", db_dict["port"],
         "--username", db_dict["username"],
         "-c", sql_query,
     ]
-    return execCmd(cmdList=cmd, failOnError=fail_on_error, msg=err_msg)
+    return execCmd(cmdList=cmd, failOnError=failOnError, msg=err_msg, envDict=envDict)
 
 def isEngineUp():
     '''
@@ -398,6 +460,12 @@ def startEngineService():
     logging.debug("Starting ovirt-engine")
     execExternalCmd(cmd, True, "Failed while trying to start the ovirt-engine service")
 
+@transactionDisplay("Restarting httpd")
+def restartHttpd():
+    cmd = "service httpd restart"
+    logging.debug("Restarting httpd")
+    execExternalCmd(cmd, True, "Failed while trying to restart the httpd service")
+
 def isPostgresUp():
     '''
     checks if the postgresql service is up and running
@@ -417,11 +485,26 @@ def startPostgres():
     if not isPostgresUp():
         startPostgresService()
 
-@transactionDisplay("Starting PostgresSql")
+def stopPostgres():
+    '''
+    stops the postgresql service
+    '''
+    if isPostgresUp():
+        stopPostgresService()
+
+def restartPostgres():
+    stopPostgres()
+    startPostgres()
+
 def startPostgresService():
     logging.debug("starting postgresql")
-    cmd = "service postgresql start"
-    execExternalCmd(cmd, True, "Failed while trying to start the postgresql service")
+    cmd = [EXEC_SERVICE, "postgresql", "start"]
+    execCmd(cmdList=cmd, failOnError=True, msg="Failed while trying to start the postgresql service")
+
+def stopPostgresService():
+    logging.debug("stopping postgresql")
+    cmd = [EXEC_SERVICE, "postgresql", "stop"]
+    execCmd(cmdList=cmd, failOnError=True, msg="Failed while trying to stop the postgresql service")
 
 def copyFile(source, destination):
     '''
@@ -540,13 +623,37 @@ def restoreDefaultUsersXmlFiles(tempDir):
     shutil.copytree("%s/users" % tempDir, "%s/users" % destDir)
     shutil.rmtree(tempDir)
 
-def dbExists(db_dict):
-    logging.debug("checking if %s db already exists" % db_dict["name"])
-    (output, rc) = execSqlCmd(db_dict, "select 1")
-    if (rc != 0):
-        return False
+
+def dbExists(db_dict, TEMP_PGPASS):
+
+    exists = False
+    owner = False
+    logging.debug("checking if %s db already exists" % db_dict['dbname'])
+    env = {'ENGINE_PGPASS': TEMP_PGPASS}
+    if (
+        db_dict['username'] == 'admin' and
+        db_dict['password'] == 'dummy'
+    ):
+        output, rc = runPostgresSuQuery(
+            query='"select 1;"',
+            database=db_dict['dbname'],
+            failOnError=False,
+        )
     else:
-        return True
+        output, rc = execSqlCmd(
+            db_dict=db_dict,
+            sql_query="select 1",
+            envDict=env,
+        )
+    if rc == 0:
+        exists = True
+        if (
+            db_dict['username'] != db_dict['engine_user'] and
+            db_dict != 'admin'
+        ):
+            owner = True
+
+    return exists, owner
 
 def getDbAdminUser():
     """
@@ -630,17 +737,55 @@ def getPassFromFile(username):
     # If no pass was found, return None
     return None
 
-def dropDB(db_dict):
+
+def createDB(db_dict):
+    if localHost(db_dict['host']):
+        if not db_dict['engine_user'] == db_dict['username']:
+            createRole(
+                database=db_dict['dbname'],
+                username=db_dict['username'],
+                password=db_dict['password'],
+                engine=db_dict['engine_user'],
+            )
+        createDatabase(db_dict['dbname'], db_dict['username'])
+
+
+def createLang(db_dict, TEMP_PGPASS):
+    cmd = [
+        '/usr/bin/createlang',
+        '--host=%s' % db_dict['host'],
+        '--port=%s' % db_dict['port'],
+        '--dbname=%s' % db_dict['dbname'],
+        '--username=%s' % db_dict['username'],
+        'plpgsql',
+    ]
+
+    execCmd(
+        cmdList=cmd,
+        failOnError=True,
+        envDict={'ENGINE_PGPASS': TEMP_PGPASS},
+    )
+
+
+def clearDB(db_dict, TEMP_PGPASS):
     """
-    drops the given DB
+    clears the given DB
     """
-    logging.debug("dropping db %s" % db_dict["name"])
-    cmd = "/usr/bin/dropdb -U %s %s" %(db_dict["username"], db_dict["name"])
-    (output, rc) = execExternalCmd(cmd, True, "Error while removing database %s" % db_dict["name"])
+    logging.debug("Clearing db %s contents" % db_dict['dbname'])
+    execSqlCmd(
+        sql_query=(
+            'drop owned by {user} cascade;'
+        ).format(
+            user=db_dict['username'],
+        ),
+        db_dict=db_dict,
+        failOnError=True,
+        envDict={'ENGINE_PGPASS': TEMP_PGPASS},
+    )
 
 def getConfiguredIps():
     try:
-        iplist=set()
+        iplist = set()
         cmd = EXEC_IP + " addr"
         output, rc = execExternalCmd(cmd, True, ERR_EXP_GET_CFG_IPS_CODES)
         ipaddrPattern=re.compile('\s+inet (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}).+')
@@ -657,17 +802,67 @@ def getConfiguredIps():
         logging.error(traceback.format_exc())
         raise Exception(ERR_EXP_GET_CFG_IPS)
 
+
+def getHostName():
+    cmd = [
+        '/bin/hostname',
+    ]
+    out, rc = execCmd(cmdList=cmd, failOnError=True)
+    return out.rstrip()
+
+
 def localHost(hostname):
     # Create an ip set of possible IPs on the machine. Set has only unique values, so
     # there's no problem with union.
     # TODO: cache the list somehow? There's no poing quering the IP configuraion all the time.
-    ipset = getConfiguredIps().union(set([ "localhost", "127.0.0.1"]))
+    ipset = getConfiguredIps().union(set(["localhost", "127.0.0.1", getHostName()]))
     if hostname in ipset:
         return True
     return False
 
-#TODO: Move all execution commands to execCmd
-def execCmd(cmdList, cwd=None, failOnError=False, msg=ERR_RC_CODE, maskList=[], useShell=False, usePipeFiles=False, envDict={}):
+def createTempPgpass(db_dict, mode='all'):
+
+    fd, pgpass = tempfile.mkstemp(
+        prefix='pgpass',
+        suffix='.tmp',
+    )
+    os.close(fd)
+    os.chmod(pgpass, 0o600)
+    with open(pgpass, 'w') as f:
+        f.write(
+            (
+                '# DB USER credentials.\n'
+                '{host}:{port}:{database}:{user}:{password}\n'
+                '{host}:{port}:{database}:{engine_user}:{engine_pass}\n'
+                '{host}:{port}:{engine_db}:{engine_user}:{engine_pass}\n'
+                '{host}:{port}:{dwh_db}:{dwh_user}:{dwh_pass}\n'
+            ).format(
+                host=db_dict['host'],
+                port=db_dict['port'],
+                database='*' if mode == 'all' else db_dict['dbname'],
+                engine_db=db_dict['engine_db'],
+                user=db_dict['username'],
+                password=db_dict['password'],
+                engine_user=db_dict['engine_user'],
+                engine_pass=db_dict['engine_pass'],
+                dwh_db=db_dict['dwh_database'],
+                dwh_user=db_dict['dwh_user'],
+                dwh_pass=db_dict['dwh_pass'],
+            ),
+        )
+
+    return pgpass
+
+def execCmd(
+        cmdList,
+        cwd=None,
+        failOnError=False,
+        msg='Return Code is not zero',
+        maskList=[],
+        useShell=False,
+        usePipeFiles=False,
+        envDict=None
+):
     """
     Run external shell command with 'shell=false'
     receives a list of arguments for command line execution
@@ -675,7 +870,10 @@ def execCmd(cmdList, cwd=None, failOnError=False, msg=ERR_RC_CODE, maskList=[], 
     # All items in the list needs to be strings, otherwise the subprocess will fail
     cmd = [str(item) for item in cmdList]
 
-    logging.debug("Executing command --> '%s'"%(cmd))
+    # We need to join cmd list into one string so we can look for passwords in it and mask them
+    logCmd = _maskString((' '.join(cmd)), maskList)
+
+    logging.debug("Executing command --> '%s' in working directory '%s'" % (logCmd, cwd or os.getcwd()))
 
     stdErrFD = subprocess.PIPE
     stdOutFD = subprocess.PIPE
@@ -686,11 +884,13 @@ def execCmd(cmdList, cwd=None, failOnError=False, msg=ERR_RC_CODE, maskList=[], 
         (stdOutFD, stdOutFile) = tempfile.mkstemp(dir="/tmp")
         (stdInFD, stdInFile) = tempfile.mkstemp(dir="/tmp")
 
-    # Update os.environ with env if provided
+    # Copy os.environ and update with envDict if provided
     env = os.environ.copy()
-    if not "PGPASSFILE" in env.keys():
+    env.update(envDict or {})
+    if "ENGINE_PGPASS" in env.keys():
+        env["PGPASSFILE"] = env["ENGINE_PGPASS"]
+    else:
         env["PGPASSFILE"] = FILE_PG_PASS
-    env.update(envDict)
 
     # We use close_fds to close any file descriptors we have so it won't be copied to forked childs
     proc = subprocess.Popen(
@@ -703,6 +903,7 @@ def execCmd(cmdList, cwd=None, failOnError=False, msg=ERR_RC_CODE, maskList=[], 
         close_fds=True,
         env=env,
     )
+
     out, err = proc.communicate()
     if usePipeFiles:
         with open(stdErrFile, 'r') as f:
@@ -721,3 +922,191 @@ def execCmd(cmdList, cwd=None, failOnError=False, msg=ERR_RC_CODE, maskList=[], 
     if failOnError and proc.returncode != 0:
         raise Exception(msg)
     return ("".join(output.splitlines(True)), proc.returncode)
+
+def runPostgresSuQuery(query, database=None, failOnError=True):
+    sql_command = [
+        EXEC_PSQL,
+        '-U', 'postgres',
+    ]
+    if database is not None:
+        sql_command.extend(
+            (
+                '-d', database
+            )
+        )
+    sql_command.extend(
+        (
+            '-c', query,
+        )
+    )
+    cmd = [
+        EXEC_SU,
+        '-l',
+        'postgres',
+        '-c',
+        '{command}'.format(
+            command=' '.join(sql_command),
+        )
+    ]
+
+    return execCmd(
+        cmdList=cmd,
+        failOnError=failOnError
+    )
+
+def configHbaIdent(orig='md5', newval='ident'):
+    content = []
+    logging.debug('Updating pghba postgres use')
+    contentline = (
+        'local   '
+        'all         '
+        'all                               '
+        '{value}'
+    )
+
+    with open(FILE_PG_HBA, 'r') as pghba:
+        for line in pghba.read().splitlines():
+            if line.startswith(
+                contentline.format(value=newval)
+            ):
+                return False
+
+            if line.startswith(
+                contentline.format(value=orig)
+            ):
+                line=contentline.format(value=newval)
+
+            content.append(line)
+
+    with open(FILE_PG_HBA, 'w') as pghba:
+        pghba.write('\n'.join(content))
+
+    restartPostgres()
+    return True
+
+def setPgHbaIdent():
+    return configHbaIdent()
+
+def restorePgHba():
+    return configHbaIdent('ident', 'md5')
+
+def updatePgHba(username, database, engine):
+    content = []
+    updated = False
+    logging.debug('Updating pghba')
+    with open(FILE_PG_HBA, 'r') as pghba:
+        for line in pghba.read().splitlines():
+            if username in line:
+                return
+
+            if line.startswith('host') and not updated:
+                for address in ('0.0.0.0/0', '::0/0'):
+                    content.append(
+                        (
+                            '{host:7} '
+                            '{database:15} '
+                            '{user:15} '
+                            '{address:23} '
+                            '{auth}'
+                        ).format(
+                            host='host',
+                            user=username,
+                            database=database,
+                            address=address,
+                            auth='md5',
+                        )
+                    )
+                updated = True
+
+            content.append(line)
+
+    with open(FILE_PG_HBA, 'w') as pghba:
+        pghba.write('\n'.join(content))
+
+
+def createRole(database, username, password, engine):
+    for query in (
+        (
+            '"create role {username}";'
+        ).format(
+            username=username,
+        ),
+        (
+            '"alter role {username} '
+            'with login encrypted password \'{password}\';"'
+        ).format(
+            username=username,
+            password=password,
+        ),
+
+    ):
+        runPostgresSuQuery(
+            query=query,
+            failOnError=False,
+        )
+    updatePgHba(username, database, engine)
+    restartPostgres()
+
+
+def createDatabase(database, owner):
+    runPostgresSuQuery(
+        query=(
+            (
+                '"create database {database} '
+                'encoding \'UTF8\' LC_COLLATE \'en_US.UTF-8\' LC_CTYPE \'en_US.UTF-8\' template template0 '
+                'owner {owner};"'
+            ).format(
+                database=database,
+                owner=owner,
+            )
+        )
+    )
+
+def updateDbOwner(db_dict, origowner, newowner):
+    createRole(
+        database=db_dict['dbname'],
+        username=db_dict['username'],
+        password=db_dict['password'],
+        engine=db_dict['engine_user'],
+    )
+    for query in (
+        (
+            '"alter database {database} owner to {user};"'
+        ).format(
+            database=db_dict['dbname'],
+            user=newowner,
+        ),
+        (
+            '"reassign owned by {origowner} to {newowner};"'
+        ).format(
+            origowner=origowner,
+            newowner=newowner,
+        ),
+    ):
+        runPostgresSuQuery(
+            query=query,
+            database=db_dict['dbname'],
+            failOnError=True,
+        )
+
+def storeConf(db_dict):
+    if not os.path.exists(DIR_DATABASE_REPORTS_CONFIG):
+        os.makedirs(DIR_DATABASE_REPORTS_CONFIG)
+    with open(
+        os.path.join(
+            DIR_DATABASE_REPORTS_CONFIG,
+            FILE_DATABASE_REPORTS_CONFIG
+        ),
+        'w'
+    ) as rf:
+        rf.write(
+            (
+                'REPORTS_DATABASE={database}\n'
+                'REPORTS_USER={user}\n'
+                'REPORTS_PASSWORD={password}'
+            ).format(
+                database=db_dict['dbname'],
+                user=db_dict['username'],
+                password=db_dict['password'],
+            )
+        )

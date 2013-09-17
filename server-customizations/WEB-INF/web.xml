@@ -19,6 +19,11 @@
         <param-name>log4jConfigLocation</param-name>
         <param-value>/WEB-INF/log4j.properties</param-value>
     </context-param>
+
+  <context-param>
+    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+    <param-value>true</param-value>
+  </context-param>
     
     <!-- listener to load the root application context -->
     <listener>
@@ -67,11 +72,15 @@
 
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-    </listener> 
+    </listener>
+
+    <listener>
+        <listener-class>org.springframework.security.ui.session.HttpSessionEventPublisher</listener-class>
+    </listener>
     
     <context-param>
         <param-name>sessionPublishedBeans</param-name>
-        <param-value>configurationBean,heartbeatBean</param-value>
+        <param-value>configurationBean,concreteHeartbeatBean</param-value>
     </context-param>
 
     <filter>
@@ -88,6 +97,15 @@
         </init-param>
     </filter>
     
+    <filter>
+        <filter-name>sessionDecoratorProxyFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetBeanName</param-name>
+            <param-value>sessionDecoratorFilter</param-value>
+        </init-param>
+    </filter>
+
     <filter>
         <filter-name>securityFilter</filter-name>
         <filter-class>org.springframework.security.util.FilterToBeanProxy</filter-class>
@@ -110,6 +128,11 @@
 
     <filter-mapping>
         <filter-name>characterEncodingProxyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sessionDecoratorProxyFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -174,8 +197,23 @@
     <url-pattern>/olap/viewOlap.html</url-pattern>
   </filter-mapping>
 
-<!--
--->
+    <filter> <!--  -->
+        <filter-name>StaticFilesCacheControlFilter</filter-name>
+        <filter-class>com.jaspersoft.jasperserver.war.StaticFilesCacheControlFilter</filter-class>
+        <init-param>
+            <param-name>urlEndsWith</param-name>
+            <param-value>.js</param-value>
+        </init-param>
+        <init-param>
+            <param-name>expiresAfterAccessInSecs</param-name>
+            <param-value>86400</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>StaticFilesCacheControlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- dispatcher servlet for the application -->
     <servlet>
         <servlet-name>jasperserver</servlet-name>
@@ -340,7 +378,7 @@
         -->
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>RESTServlet</servlet-name>
         <!--<url-pattern>/rest/*</url-pattern>-->
@@ -353,6 +391,15 @@
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
         </init-param>
+        <!--Enable to log request/responces-->
+        <!--<init-param>-->
+            <!--<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>-->
+            <!--<param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>-->
+            <!--<param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>-->
+        <!--</init-param>-->
         <load-on-startup>1</load-on-startup>
    </servlet>
     <servlet-mapping>
@@ -365,6 +412,10 @@
     <servlet>
         <servlet-name>AppThemeServlet</servlet-name>
         <servlet-class>com.jaspersoft.jasperserver.war.themes.ThemeResolverServlet</servlet-class>
+        <init-param>
+            <param-name>expiresAfterAccessInSecs</param-name>
+            <param-value>86400</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>AppThemeServlet</servlet-name>
@@ -544,5 +595,11 @@
       <error-code>500</error-code>
       <location>/500.html</location>
     </error-page>
+
+    <mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
+
 </web-app>
 

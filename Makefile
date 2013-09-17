@@ -154,12 +154,14 @@ install_files:
 	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
 	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/ovirt-engine-reports
 	install -d $(DESTDIR)$(BIN_DIR)
+	install -d $(DESTDIR)$(SYSCONF_DIR)/httpd/conf.d
 	install -d $(DESTDIR)$(DATA_DIR)
 	install -d $(DESTDIR)$(DATA_DIR)/reports
 	install -d $(DESTDIR)$(DATA_DIR)/server-customizations
 
 	cp -a  reports/repository_files/* $(DESTDIR)$(DATA_DIR)/reports
 	install -p -m 644 packaging/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
+	install -p -m 644 packaging/z-ovirt-engine-reports-proxy.conf  $(DESTDIR)$(SYSCONF_DIR)/httpd/conf.d
 	install -p -m 755 packaging/ssl2jkstrust.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/ovirt-engine-reports-setup.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/common_utils.py $(DESTDIR)$(DATA_DIR)

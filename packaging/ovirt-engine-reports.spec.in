@@ -43,7 +43,7 @@ Requires: java-1.7.0-openjdk
 Requires: jpackage-utils
 Requires: ovirt-engine >= 3.3.0
 Requires: ovirt-engine-dwh >= 3.3.0
-Requires: jasperreports-server >= 4.7.0
+Requires: jasperreports-server >= 5.2.0
 Requires: m2crypto
 
 # We need some packages installed in order to workaround
@@ -120,6 +120,7 @@ fi
 %files
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{_sysconfdir}/ovirt-engine/ovirt-engine-reports
+%{_sysconfdir}/httpd/conf.d/z-ovirt-engine-reports-proxy.conf
 %{reports_java}
 %{_datadir}/%{reports_name}
 %if "%{name}" != "%{reports_name}"

@@ -16,7 +16,16 @@
     <!-- Enable annotation-based wiring -->
     <context:annotation-config/>
 
+    <context:component-scan base-package="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl,com.jaspersoft.jasperserver.api.metadata.security"/>
+
+    <alias name="${bean.securityContextProvider}" alias="concreteSecurityContextProvider"/>
+    <alias name="${bean.engineService}" alias="concreteEngineService"/>
+
     <util:properties id="springConfiguration" location="${resource.root}/js.spring.properties" />
+
+
+    <alias name="${bean.jasperReportsContext}" alias="concreteJasperReportsContext"/>
+
 
     <bean id="contextApplicationContextProvider" class="com.jaspersoft.jasperserver.api.common.util.spring.ApplicationContextProvider"/>
 
@@ -27,6 +36,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="mappingResources">
             <list>
+                <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoResourceItemBase.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/CachedItem.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/ContentRepoFileResource.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoBeanDataSource.hbm.xml</value>
@@ -38,6 +48,8 @@
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoInputControl.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoJdbcDataSource.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoJndiJdbcDataSource.hbm.xml</value>
+                <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoVirtualDataSource.hbm.xml</value>
+                <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoAwsDataSource.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoListOfValues.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoOlapClientConnection.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/common/service/impl/hibernate/persistent/RepoOlapUnit.hbm.xml</value>
@@ -61,6 +73,7 @@
                 <value>/com/jaspersoft/jasperserver/api/logging/access/domain/hibernate/RepoAccessEvent.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/data/snapshot/hibernate/DataSnapshot.hbm.xml</value>
                 <value>/com/jaspersoft/jasperserver/api/metadata/data/snapshot/hibernate/DataSnapshotContents.hbm.xml</value>
+                <value>${property.hbm.NamedQueries}</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -105,6 +118,15 @@
                 </entry>
                 <entry key="post-update">
                     <ref bean="hibernateCompositePostUpdateListener"/>
+                </entry>
+                <entry key="post-commit-update">
+ 	                <ref bean="propertiesSaveOrUpdateListener" />
+                </entry>
+                <entry key="post-commit-insert">
+                    <ref bean="propertiesSaveOrUpdateListener" />
+                </entry>
+                <entry key="post-commit-delete">
+                    <ref bean="driverDeleteListener" />
                 </entry>
             </map>
         </property>
@@ -172,6 +194,12 @@
     <bean id="hibernateRoleDeleteListener"
           class="com.jaspersoft.jasperserver.api.metadata.user.service.impl.HibernateRoleDeleteListener"/>
 
+    <bean id="driverDeleteListener" class="com.jaspersoft.jasperserver.api.metadata.common.service.impl.DriverDeleteListener" depends-on="configurationBean">
+        <!-- the listener is not wired to the propertiesManagementService yet, because we dont want to use the service in the import/export context -->
+        <property name="propertiesManagementServiceName" value="propertiesManagementService"/>
+        <property name="jdbcDriversFolder" value="#{configurationBean.jdbcDriversFolderUri}"/>
+    </bean>
+
     <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -192,8 +220,12 @@
                     value="com.jaspersoft.jasperserver.api.metadata.common.domain.client.ContentResourceImpl"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.JdbcReportDataSource"
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.client.JdbcReportDataSourceImpl"/>
+                <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.AwsReportDataSource"
+                       value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.client.AwsReportDataSourceImpl"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.JndiJdbcReportDataSource"
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.client.JndiJdbcReportDataSourceImpl"/>
+                <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.VirtualReportDataSource"
+                    value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.client.VirtualReportDataSourceImpl"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.BeanReportDataSource"
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.client.BeanReportDataSourceImpl"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.CustomReportDataSource"
@@ -252,6 +284,8 @@
         <property name="objectFactory" ref="objectFactory"/>
         <property name="implementationClassMappings">
             <map>
+                <entry key="com.jaspersoft.jasperserver.api.metadata.common.domain.ResourceLookup"
+                    value="com.jaspersoft.jasperserver.api.metadata.common.service.impl.hibernate.persistent.RepoResourceItemBase"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.common.domain.Resource"
                     value="com.jaspersoft.jasperserver.api.metadata.common.service.impl.hibernate.persistent.RepoResource"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.common.domain.FileResource"
@@ -264,8 +298,12 @@
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.impl.datasource.RepoReportDataSource"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.JdbcReportDataSource"
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.impl.datasource.RepoJdbcDataSource"/>
+                <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.AwsReportDataSource"
+                       value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.impl.datasource.RepoAwsDataSource"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.JndiJdbcReportDataSource"
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.impl.datasource.RepoJndiJdbcDataSource"/>
+                <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.VirtualReportDataSource"
+                    value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.impl.datasource.RepoVirtualDataSource"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.BeanReportDataSource"
                     value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.impl.datasource.RepoBeanDataSource"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.CustomReportDataSource"
@@ -335,6 +373,7 @@
         <property name="securityChecker" ref="repositoryServiceSecurityChecker"/>
         <property name="lockFoldersOnPathChange" value="true"/>
         <property name="queryModificationEvaluator" ref="queryModificationEvaluator"/>
+        <property name="hibernateSaveUpdateDeleteListener" ref="${bean.themeHibernateListener}"/>
     </bean>
 
     <bean id="queryModificationEvaluator" class="com.jaspersoft.jasperserver.search.common.QueryModificationEvaluatorImpl"/>
@@ -355,7 +394,9 @@
             <map>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.common.domain.Resource" 
                     value-ref="defaultResourceValidator"/>
-                <entry key="com.jaspersoft.jasperserver.api.metadata.common.domain.Folder" 
+                <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.VirtualReportDataSource"
+                       value-ref="virtualDataSourceValidator"/>
+                <entry key="com.jaspersoft.jasperserver.api.metadata.common.domain.Folder"
                     value-ref="folderValidator"/>
                 <entry key="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.ReportUnit" 
                     value-ref="reportUnitValidator"/>
@@ -377,6 +418,10 @@
 
     <bean id="defaultResourceValidator" class="com.jaspersoft.jasperserver.api.metadata.common.service.impl.DefaultResourceValidator"
             parent="baseResourceValidator">
+    </bean>
+
+    <bean id="virtualDataSourceValidator" class="com.jaspersoft.jasperserver.api.metadata.common.service.impl.VirtualDataSourceValidator"
+          parent="baseResourceValidator">
     </bean>
 
     <bean id="folderValidator" class="com.jaspersoft.jasperserver.api.metadata.common.service.impl.FolderValidator"
@@ -411,6 +456,17 @@
 			</set>
 		</property>
 	</bean>
+    <bean class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.DataSourceServiceDefinition">
+        <property name="dataSourceInterface"
+                  value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.AwsReportDataSource" />
+        <property name="serviceBeanName" value="awsDataSourceServiceFactory" />
+        <property name="supportedQueryLanguages">
+            <set>
+                <value>sql</value>
+                <value>SQL</value>
+            </set>
+        </property>
+    </bean>
 	<bean class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.DataSourceServiceDefinition">
 		<property name="dataSourceInterface"
 			value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.JndiJdbcReportDataSource" />
@@ -423,6 +479,17 @@
 		</property>
 	</bean>
 	<bean class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.DataSourceServiceDefinition">
+		<property name="dataSourceInterface"
+			value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.VirtualReportDataSource" />
+		<property name="serviceBeanName" value="virtualDataSourceServiceFactory" />
+		<property name="supportedQueryLanguages">
+			<set>
+				<value>sql</value>
+				<value>SQL</value>
+			</set>
+		</property>
+	</bean>
+    <bean class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.DataSourceServiceDefinition">
 		<property name="dataSourceInterface"
 			value="com.jaspersoft.jasperserver.api.metadata.jasperreports.domain.BeanReportDataSource" />
 		<property name="serviceBeanName" value="beanDataSourceServiceFactory" />
@@ -456,16 +523,17 @@
 			</set>
 		</property>
 	</bean>
-    
+
     <bean id="dataSourceObjectPoolFactory" class="org.apache.commons.pool.impl.GenericObjectPoolFactory">
         <constructor-arg type="org.apache.commons.pool.PoolableObjectFactory"><null/></constructor-arg>
         <constructor-arg type="int" value="5"/>
     </bean>
-    
+
     <bean id="dbcpJdbcDataSourceFactory" class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.DbcpDataSourceFactory">
         <property name="objectPoolFactory">
             <ref bean="dataSourceObjectPoolFactory"/>
         </property>
+        <property name="jdbcDriverService" ref="jdbcDriverService"/>
     </bean>
 
     <bean id="jdbcDataSourceServiceFactory" class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.JdbcReportDataSourceServiceFactory">
@@ -474,6 +542,18 @@
         </property>
         <property name="poolTimeout" value="900"/>
     </bean>
+
+    <bean id="awsDataSourceServiceFactory" class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.AwsReportDataSourceServiceFactory"
+          parent="jdbcDataSourceServiceFactory">
+        <property name="awsDataSourceRecovery" ref="awsDataSourceRecovery"/>
+    </bean>
+
+    <bean id="virtualDataSourceServiceFactory" class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.VirtualReportDataSourceServiceFactory"
+            parent="jdbcDataSourceServiceFactory">
+        <property name="virtualDataSourceHandler" ref="virtualDataSourceHandler"/>
+        <property name="awsDataSourceServiceFactory" ref="awsDataSourceServiceFactory"/>
+    </bean>
+
 
     <bean id="jndiFallbackResolver" class="com.jaspersoft.jasperserver.api.metadata.common.util.JndiFallbackResolver">
         <property name="jndiFallbackProperties">
@@ -541,6 +621,8 @@
       </property>
     </bean>
 
+    <util:map id="engineExecutions" key-type="java.lang.String" value-type="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.EngineServiceImpl.ReportExecutionStatus" map-class="java.util.concurrent.ConcurrentHashMap"/>
+
     <bean id="engineService" class="${bean.class.engineService}" destroy-method="release">
         <property name="auditContext" ref="${bean.auditContext}"/>
         <property name="repositoryService">
@@ -567,7 +649,17 @@
         <property name="unsecureRepository" ref="unsecureRepositoryService"/>
         <property name="autoUpdateJRXMLs" value="false"/><!-- required for data snapshot persistence, which is turned off by default  -->
         <property name="reportExecutionListenerFactories" ref="${bean.reportExecutionListenerFactories}"/>
+        <property name="jasperReportsContext" ref="${bean.jasperReportsContext}"/>
+        <property name="dataParameterContributors" ref="${bean.engineServiceDataParameterContributors}"/>
     </bean>
+
+	<util:list id="engineServiceDataParameterContributors">
+		<ref bean="reportInputDataParameterContributors"/>
+	</util:list>
+	
+	<bean name="reportInputDataParameterContributors" class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.ReportInputDataParameterContributors">
+		<property name="reportLoadingService" ref="reportLoadingService"/>
+	</bean>
 
     <bean class="org.ovirt.jasperreports.querymodifier.CustomOvirtReportsQueryManipulator" id="CustomOvirtReportsQueryManipulator">
     <property name ="cascading">
@@ -644,7 +736,7 @@
         <property name="compiler"><ref local="engineService"/></property>
     </bean>
 
-    <bean id="profileAttributeService"
+    <bean id="profileAttributeServiceTarget"
           class="com.jaspersoft.jasperserver.api.metadata.user.service.impl.ProfileAttributeServiceImpl">
       <property name="sessionFactory" ref="sessionFactory"/>
       <property name="objectMappingFactory" ref="mappingResourceFactory"/>
@@ -652,7 +744,37 @@
       <property name="repositoryService" ref="unsecureRepositoryService"/>
       <property name="userAuthorityService" ref="${bean.internalUserAuthorityService}"/>
     </bean>
-    
+
+    <bean id="profileAttributeService" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interceptorNames">
+            <list>
+                <idref bean="profileAttributeServiceMethodSecurityInterceptor"/>
+                <idref bean="profileAttributeServiceTarget"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="profileAttributeServiceMethodSecurityInterceptor"
+          class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager">
+            <ref local="authenticationManager"/>
+        </property>
+        <property name="accessDecisionManager">
+            <bean class="org.springframework.security.vote.AffirmativeBased">
+                <property name="decisionVoters">
+                    <list>
+                        <ref local="roleVoter"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="objectDefinitionSource">
+            <value>
+                com.jaspersoft.jasperserver.api.metadata.user.service.ProfileAttributeService.putProfileAttribute=ROLE_ADMINISTRATOR,ROLE_SUPERUSER
+            </value>
+        </property>
+    </bean>
+
     <bean id="userAuthorityService"
         class="com.jaspersoft.jasperserver.api.metadata.user.service.impl.UserAuthorityServiceImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -667,6 +789,12 @@
         <property name="tenantPersistenceResolver"><ref bean="${bean.hibernateTenantService}"/></property>
         <property name="auditContext" ref="${bean.auditContext}"/>
         <property name="databaseCharactersEscapeResolver" ref="databaseCharactersEscapeResolver"/>
+        <property name="usernameCaseSensitive" value="false"/>
+
+        <!-- Allows to change regular expression, which validates password complexity.
+             You should also change "exception.remote.weak.password" message in
+             jsexeptions_messages.properties file according to your password policy-->
+        <property name="allowedPasswordPattern" value="^.*$"></property>
     </bean>
 
     <bean id="tenantService"
@@ -678,6 +806,7 @@
          <value>|</value>
         </property>
         <property name="databaseCharactersEscapeResolver" ref="databaseCharactersEscapeResolver"/>
+        <property name="tenantCaseSensitive" value="false"/>
     </bean>
         
     <bean id="objectPermissionServiceTarget"
@@ -709,7 +838,7 @@
     </bean>
 
      <!-- Setup a cache for ACLs -->
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" depends-on="sysProperties">
       <property name="configLocation">
          <value>${resource.root}/ehcache.xml</value>
       </property>
@@ -739,13 +868,27 @@
         </property>
     </bean>
 
+    <bean id="objectPermissionServiceUnsecure" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="targetName" value="objectPermissionServiceTarget"/>
+      <property name="interceptorNames" ref="${bean.objectPermissionServiceInterceptorNames}"/>
+    </bean>
+
+    <bean id="objectPermissionServiceInternal" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="targetName" value="objectPermissionServiceTarget"/>
+        <property name="interceptorNames" ref="objectPermissionServiceInterceptorNames"/>
+    </bean>
+
     <bean id="objectPermissionService" class="org.springframework.aop.framework.ProxyFactoryBean">
-      <property name="interceptorNames">
-        <list>
-          <idref local="objectPermissionServiceTransactionInterceptor"/>
-          <idref local="objectPermissionServiceTarget"/>
-        </list>
-      </property>
+        <property name="targetName" value="objectPermissionServiceTarget"/>
+        <property name="interceptorNames" ref="objectPermissionServiceInterceptorNamesSecured"/>
+    </bean>
+
+    <bean id="objectPermissionServiceInterceptorNames" class="java.util.ArrayList">
+        <constructor-arg  index="0">
+            <list>
+                <idref local="objectPermissionServiceTransactionInterceptor"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <bean id="objectPermissionsRepositoryListener" class="com.jaspersoft.jasperserver.api.metadata.user.service.impl.ObjectPermissionsRepositoryListener">
@@ -813,6 +956,7 @@
                 <value>net.sf.jasperreports.components.headertoolbar.actions.messages</value>
                 <value>net.sf.jasperreports.components.headertoolbar.messages</value>
                 <value>net.sf.jasperreports.components.messages</value>
+                <value>jasperreports_messages</value>
                 <!--
                 <value>net.sf.jasperreports.web.actions.messages</value>
                 -->
@@ -824,7 +968,9 @@
         <property name="datePatternKey" value="date.format"/>
         <property name="calendarDatePatternKey" value="calendar.date.format"/>
         <property name="datetimePatternKey" value="datetime.format"/>
-        <property name="calendarDatetimePatternKey" value="calendar.datetime.format"/>
+        <property name="timePatternKey" value="time.format"/>
+        <!--<property name="calendarDatetimePatternKey" value="calendar.datetime.format"/>-->
+        <property name="calendarDatetimeSeparatorKey" value="calendar.datetime.separator"/>
         <property name="calendarTimePatternKey" value="calendar.time.format"/>
         <property name="lenientFormats" value="false"/>
     </bean>
@@ -856,10 +1002,11 @@
       </property>
     </bean>
 
-    <bean id="hyperlinkDateParameterFormatter" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.HyperlinkDateParameterFormatter">
-        <property name="pattern" value="yyyyMMddHHmmss"/>
+    <bean id="hyperlinkDateParameterFormatter" class="com.jaspersoft.jasperserver.war.util.HyperlinkDateParameterFormatter">
+        <property name="dateConverter" ref="dateDataConverter"/>
+        <property name="timestampConverter" ref="timestampDataConverter"/>
+        <property name="timeConverter" ref="timeDataConverter"/>
     </bean>
-
 
     <bean id="encodingProvider" class="com.jaspersoft.jasperserver.api.common.util.StaticCharacterEncodingProvider">
         <constructor-arg value="UTF-8"/>
@@ -869,7 +1016,10 @@
         <property name="encodingProvider" ref="encodingProvider"/>
         <property name="encodingRequestAttrName" value="com.jaspersoft.ji.characterEncoding"/>
     </bean>
-    
+
+    <bean id="sessionDecoratorFilter" class="com.jaspersoft.jasperserver.war.util.SessionDecoratorFilter">
+    </bean>
+
     <!-- Make maxSize bigger if you are displaying dashboards with 10+ frames and you are getting image loading problems -->
     <bean id="jasperPrintAccessor" class="com.jaspersoft.jasperserver.war.util.LRUSessionObjectAccessor">
         <property name="listSessionName" value="jasperPrintSerie"/>
@@ -881,6 +1031,15 @@
         		</property>
         	</bean>
         </property>
+    </bean>
+
+    <bean id="reportContextWebSessionAccessor" class="com.jaspersoft.jasperserver.war.util.LRUSessionObjectAccessor">
+        <property name="listSessionName" value="jrReportContextSerie"/>
+        <property name="maxSize" value="10"/>
+    </bean>
+
+    <bean id="reportContextWebAccessor" class="com.jaspersoft.jasperserver.war.action.WebflowReportContextAccessor">
+        <property name="sessionAccessor" ref="reportContextWebSessionAccessor"/>
     </bean>
 
     <bean id="baseReportExecutionHyperlinkProducer" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.BaseReportExecutionHyperlinkProducerFactory"
@@ -965,6 +1124,9 @@
         <property name="roleNameNotSupportedSymbols">
             <value><![CDATA[[\|\s`"'~!#\u0024%\^&,*\+=;:?\<\>}{)(\]\[/\\]]]></value>
         </property>
+        <property name="emailRegExpPattern">
+            <value><![CDATA[^([\p{L}\p{M}\p{N}!#$%&'*+-/=?^_`{}|~]+|"[\p{L}\p{M}\p{N}_%'-+\s\(\)<>\[\]:,;@!#$%&'*+-/=?^_`{}|\s~\.]+")(\.([\p{L}\p{M}\p{N}_%'-+]+|"[\p{L}\p{M}\p{N}_%'-+\s\(\)<>\[\]:,;@!#$%&'*+-/=?^_`{}|\s~\.]+]*"))*@((\[(\d{1,3}\.){3,3}\d{1,3}\])|(([\p{L}\p{M}\p{N}-]+\.)*[\p{L}\p{M}\p{N}-]+))$]]></value>
+        </property>
         <property name="defaultRole" value="ROLE_USER" />
         <property name="passwordMask" value="*" />
         <property name="viewReportsFilterList">
@@ -980,13 +1142,13 @@
             </list>
         </property>
         <property name="tenantNameNotSupportedSymbols">
-            <value><![CDATA[[\|&*?<>/\\]]]></value>
+            <value><![CDATA[[\|&+*?\<\>/\\]]]></value>
         </property>
         <property name="tenantIdNotSupportedSymbols">
             <value><![CDATA[[~!\+\-#\$%\^\|\s]]]></value>
         </property>
         <property name="resourceIdNotSupportedSymbols">
-            <value><![CDATA[[~!#\$%^|\s`@&*()\-+={}\[\]:;"'\<\>,?/\|]]]></value>
+            <value><![CDATA[[~!#\$%^|\s`@&*()\-+={}\[\]:;"'\<\>,?/\|\\]]]></value>
         </property>
         <property name="publicFolderUri">
             <value><![CDATA[/public]]></value>
@@ -1004,13 +1166,29 @@
         <property name="entitiesPerPage" value="20"/>
         <property name="tempFolderUri" value="/temp"/>
         <property name="organizationsFolderUri" value="/organizations"/>
+        <property name="jdbcDriversFolderUri" value="/jdbc"/>
     </bean>
-    
+
     <!-- report virtualizers -->
     <bean id="fileVirtualizerFactory" class="com.jaspersoft.jasperserver.api.engine.common.service.impl.FileVirtualizerFactory">
         <property name="maxSize" value="300"></property>
         <property name="directory" value="${java.io.tmpdir}"></property>
     </bean>
+    
+    <!-- comment the above bean and uncomment this one to use a shared virtualizer -->
+    <!-- 
+    <bean id="fileVirtualizerFactory" class="com.jaspersoft.jasperserver.api.engine.common.service.impl.SharedVirtualizerStoreFactory">
+        <property name="maxSize" value="5000"></property>
+        <property name="storeFactory">
+        	<bean class="net.sf.jasperreports.engine.util.SwapFileVirtualizerStoreFactory">
+        		<property name="directory" value="${java.io.tmpdir}"/>
+        		<property name="blockSize" value="4096"/>
+        		<property name="minGrowCount" value="64"/>
+        	</bean>
+        </property>
+    </bean>
+     -->
+    
     
     <!-- resources bean for jpivot -->
     <bean id="jpivot-resources" class="com.tonbeller.tbutils.res.Resources">
@@ -1093,7 +1271,7 @@
     </bean>
     
     <util:map id="formatPatternsMap">
-        <!-- entry key="¤ #,##0.00" value="$ #,##0.00"/-->
+        <!-- entry key="$ #,##0.00" value="$ #,##0.00"/-->
     </util:map> 
 
     <!-- end export parameters -->
@@ -1134,6 +1312,7 @@
         <property name="actionModelXmlURIStub" value="${resource.root}/actionModel"/>
         <property name="actionModelTypes">
             <list>
+                <value>adhocIntelligentChart</value>
                 <value>adhocChart</value>
                 <value>adhocCrosstab</value>
                 <value>adhocTable</value>
@@ -1218,4 +1397,94 @@
 
 
     <bean id="uiExceptionRouter" class="com.jaspersoft.jasperserver.war.action.UIExceptionRouterImpl"/>
+
+    <bean id="emailInputValidator" class="com.jaspersoft.jasperserver.core.util.validators.EmailInputValidator">
+        <property name="pattern">
+            <bean class="java.util.regex.Pattern" factory-method="compile">
+                <constructor-arg>
+                    <util:property-path path="configurationBean.emailRegExpPattern"/>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+	
+	<!-- a hibernate listener to cactch updates to Global Properties resource -->
+	<bean id="propertiesSaveOrUpdateListener" class="com.jaspersoft.jasperserver.api.metadata.common.service.impl.PropertiesSaveOrUpdateListener">
+		<!-- the listener is not wired to the propertiesManagementService yet, because we dont want to use the service in the import/export context -->
+		<!-- property name="propertiesManagementServiceName" value="propertiesManagementService"/  -->
+	</bean>
+	
+    
+    <!-- setting system properties needed for EHCache (or anything else)
+    	 EHCache can use prop placeholders like ${blah.blah} in its conf files; these are replaced
+    	 with the value of the corresponding system property.
+    	 That means that the sys property has to be set before you init the EhCacheManagerFactoryBean.
+    	 To ensure this gets done in the right order, add depends-on="sysProperties" to your bean definition.
+    	 See the cacheManager bean in this file for an example.
+      -->
+    <bean id="sysProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" value="#{@systemProperties}"/>
+        <property name="targetMethod" value="putAll"/>
+        <property name="arguments">
+            <util:properties>
+                <prop key="ehcache.disk.store.dir">#{ systemProperties['java.io.tmpdir'] }</prop>
+            </util:properties>
+        </property>
+    </bean>
+
+    <bean id="diagnosticAttributeBuilder" class="com.jaspersoft.jasperserver.api.logging.diagnostic.helper.DiagnosticAttributeBuilder">
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+    <util:map id="applyClientTimezoneFormatting" key-type="java.lang.String" value-type="java.lang.Boolean">
+        <entry key="java.util.Date" value="false"/>
+        <entry key="java.sql.Date" value="false"/>
+        <entry key="java.sql.Timestamp" value="true"/>
+        <entry key="java.sql.Time" value="true"/>
+    </util:map>
+
+    <bean id="jdbcDriverService" class="com.jaspersoft.jasperserver.api.common.service.impl.JdbcDriverServiceImpl">
+        <!--<property name="repository" ref="${bean.internalRepositoryService}"/>-->
+        <property name="repository" ref="hibernateRepositoryService"/>
+        <property name="systemClassLoaderFirst" value="false"/>
+        <property name="jdbcDriversFolder" value="#{configurationBean.jdbcDriversFolderUri}"/>
+    </bean>
+
+
+    <bean id="awsDataSourceRecovery" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.AwsDataSourceRecovery">
+        <property name="awsRegions" ref="awsRegions"/>
+        <property name="awsDataSourceActiveStatus" value="available"/>
+        <property name="awsProperties" ref="awsProperties"/>
+        <property name="messageSource" ref="messageSource"/>
+        <property name="awsEc2MetadataClient" ref="awsEc2MetadataClient"/>
+    </bean>
+
+    <bean id="awsEc2MetadataClient" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.AwsEc2MetadataClient">
+        <property name="awsRegions" ref="awsRegions"/>
+    </bean>
+
+    <bean id="awsProperties" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.AwsProperties">
+        <property name="securityGroupChangesEnabled" value="${aws.db.security.group.changes.enabled}"/>
+        <property name="securityGroupName" value="${aws.db.security.group.name}"/>
+        <property name="securityGroupDescription" value="${aws.db.security.group.description}"/>
+        <property name="securityGroupIngressPublicIp" value="${aws.db.security.group.ingressPublicIp}"/>
+        <property name="suppressEc2CredentialsWarnings" value="${aws.db.security.group.suppressEc2CredentialsWarnings}" />
+        <property name="awsEc2MetadataClient" ref="awsEc2MetadataClient"/>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+    <bean id="instanceProductTypeResolverCe" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.InstanceProductTypeResolver" factory-method="getInstance" lazy-init="false"/>
+
+    <util:list id="awsRegions" >
+        <value>us-east-1.amazonaws.com</value>
+        <value>us-west-2.amazonaws.com</value>
+        <value>us-west-1.amazonaws.com</value>
+        <value>eu-west-1.amazonaws.com</value>
+        <value>ap-southeast-1.amazonaws.com</value>
+        <value>ap-southeast-2.amazonaws.com</value>
+        <value>ap-northeast-1.amazonaws.com</value>
+        <value>sa-east-1.amazonaws.com</value>
+    </util:list>
+
+
 </beans>
