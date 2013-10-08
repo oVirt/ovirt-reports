@@ -853,6 +853,26 @@ def createDB(db_dict):
 
 def createLang(db_dict, TEMP_PGPASS):
     cmd = [
+        EXEC_PSQL,
+        '--version'
+    ]
+    output, rc = execCmd(
+        cmdList=cmd,
+        failOnError=True,
+        envDict={'ENGINE_PGPASS': TEMP_PGPASS},
+    )
+
+    for line in output.splitlines():
+        if 'psql' in line:
+            version = int(line.split(' ')[2].replace('.', ''))
+            if version >= 92:
+                logging.debug(
+                    'PSQL version is higher than 9.2, '
+                    'no need to createlang'
+                )
+                return
+
+    cmd = [
         '/usr/bin/createlang',
         '--host=%s' % db_dict['host'],
         '--port=%s' % db_dict['port'],
