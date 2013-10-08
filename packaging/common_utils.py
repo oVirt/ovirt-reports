@@ -33,6 +33,9 @@ EXEC_IP = "/sbin/ip"
 EXEC_SU = "/bin/su"
 EXEC_PSQL = '/usr/bin/psql'
 EXEC_SERVICE="/sbin/service"
+EXEC_SYSTEMCTL="/bin/systemctl"
+EXEC_CHKCONFIG="/sbin/chkconfig"
+
 FILE_PG_PASS="/etc/ovirt-engine/.pgpass"
 DIR_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/engine-reports.conf.d/"
 FILE_DATABASE_REPORTS_CONFIG = "10-setup-database-reports.conf"
@@ -162,6 +165,109 @@ def initLogging(baseFileName, baseDir):
     except:
         logging.error(traceback.format_exc())
         raise Exception()
+
+
+class Service():
+    def __init__(self, name):
+        self.wasStopped = False
+        self.wasStarted = False
+        self.lastStateUp = False
+        self.name = name
+
+    def isServiceAvailable(self):
+        if os.path.exists("/etc/init.d/%s" % self.name):
+            return True
+        return False
+
+    def start(self, raiseFailure=False):
+        logging.debug("starting %s", self.name)
+        (output, rc) = self._serviceFacility("start")
+        if rc == 0:
+            self.wasStarted = True
+        elif raiseFailure:
+            raise Exception('Failed starting service %s' % self.name)
+
+        return (output, rc)
+
+    def stop(self, raiseFailure=False):
+        logging.debug("stopping %s", self.name)
+        (output, rc) = self._serviceFacility("stop")
+        if rc == 0:
+            self.wasStopped = True
+            self.lastStateUp = False
+        elif raiseFailure:
+            raise Exception('Failed stopping service %s' % self.name)
+
+        return (output, rc)
+
+    def autoStart(self, start=True):
+        mode = "on" if start else "off"
+        cmd = [
+            EXEC_CHKCONFIG,
+            self.name,
+            mode,
+        ]
+        execCmd(cmdList=cmd, failOnError=True)
+
+    def conditionalStart(self, raiseFailure=False):
+        """
+        Will only start if wasStopped is set to True
+        """
+        if self.wasStopped and self.lastStateUp:
+            logging.debug("Service %s was stopped. starting it again"%self.name)
+            return self.start(raiseFailure)
+        else:
+            logging.debug(
+                'Service was not stopped or was not running orignally, '
+                'therefore we are not starting it.'
+            )
+            return ('', 0)
+
+    def status(self):
+        logging.debug("getting status for %s", self.name)
+        (output, rc) = self._serviceFacility("status")
+        for st in ('dead', 'inactive', 'stopped'):
+            if st in output:
+                self.lastStateUp = False
+                break
+        else:
+            for st in ('running', 'active'):
+                if st in output:
+                    self.lastStateUp = True
+        return (output, rc)
+
+    def _serviceFacility(self, action):
+        """
+        Execute the command "service NAME action"
+        returns: output, rc
+        """
+        logging.debug("executing action %s on service %s", self.name, action)
+        cmd = [
+            EXEC_SERVICE,
+            self.name,
+            action
+        ]
+        return execCmd(cmdList=cmd, usePipeFiles=True)
+
+    def available(self):
+        logging.debug("checking if %s service is available", self.name)
+
+        # Checks if systemd service available
+        cmd = [
+            EXEC_SYSTEMCTL,
+            "show",
+            "%s.service" % self.name
+        ]
+        if os.path.exists(EXEC_SYSTEMCTL):
+            out, rc = execCmd(cmdList=cmd)
+            sysd = "LoadState=loaded" in out
+        else:
+            sysd = False
+
+        # Checks if systemV service available
+        sysv = os.path.exists("/etc/init.d/%s" % self.name)
+
+        return (sysd or sysv)
 
 class ConfigFileHandler:
     def __init__(self, filepath):
@@ -416,12 +522,9 @@ def isEngineUp():
     checks if ovirt-engine is active
     '''
     logging.debug("checking the status of ovirt-engine")
-    cmd = "service %s status" % ENGINE_SERVICE_NAME
-    output, rc = execExternalCmd(cmd, False, "Failed while checking for ovirt-engine service status")
-    if " is running" in output:
-        return True
-    else:
-        return False
+    engine_service = Service(ENGINE_SERVICE_NAME)
+    engine_service.status()
+    return engine_service.lastStateUp
 
 def stopEngine():
     '''
@@ -441,9 +544,9 @@ def stopEngine():
 
 @transactionDisplay("Stopping ovirt-engine")
 def stopEngineService():
-    cmd = "service %s stop" % ENGINE_SERVICE_NAME
     logging.debug("Stopping ovirt-engine")
-    execExternalCmd(cmd, True, "Failed while trying to stop the ovirt-engine service")
+    engine_service = Service(ENGINE_SERVICE_NAME)
+    engine_service.stop()
 
 def startEngine():
     '''
@@ -452,31 +555,29 @@ def startEngine():
     if not isEngineUp():
         startEngineService()
     else:
-        logging.debug("jobss is up. nothing to start")
+        logging.debug("ovirt-engine is up, nothing to start")
 
 @transactionDisplay("Starting ovirt-engine")
 def startEngineService():
-    cmd = "service %s start" % ENGINE_SERVICE_NAME
     logging.debug("Starting ovirt-engine")
-    execExternalCmd(cmd, True, "Failed while trying to start the ovirt-engine service")
+    engine_service = Service(ENGINE_SERVICE_NAME)
+    engine_service.start()
 
 @transactionDisplay("Restarting httpd")
 def restartHttpd():
-    cmd = "service httpd restart"
     logging.debug("Restarting httpd")
-    execExternalCmd(cmd, True, "Failed while trying to restart the httpd service")
+    httpd_service = Service('httpd')
+    httpd_service.stop()
+    httpd_service.start()
 
 def isPostgresUp():
     '''
     checks if the postgresql service is up and running
     '''
     logging.debug("checking the status of postgresql")
-    cmd = "service postgresql status"
-    output, rc = execExternalCmd(cmd, False)
-    if rc == 0:
-        return True
-    else:
-        return False
+    postgres_service = Service('postgresql')
+    postgres_service.status()
+    return postgres_service.lastStateUp
 
 def startPostgres():
     '''
@@ -498,13 +599,13 @@ def restartPostgres():
 
 def startPostgresService():
     logging.debug("starting postgresql")
-    cmd = [EXEC_SERVICE, "postgresql", "start"]
-    execCmd(cmdList=cmd, failOnError=True, msg="Failed while trying to start the postgresql service")
+    postgres_service = Service('postgresql')
+    postgres_service.start()
 
 def stopPostgresService():
     logging.debug("stopping postgresql")
-    cmd = [EXEC_SERVICE, "postgresql", "stop"]
-    execCmd(cmdList=cmd, failOnError=True, msg="Failed while trying to stop the postgresql service")
+    postgres_service = Service('postgresql')
+    postgres_service.stop()
 
 def copyFile(source, destination):
     '''
