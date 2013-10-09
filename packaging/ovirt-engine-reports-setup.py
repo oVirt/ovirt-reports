@@ -458,12 +458,25 @@ def customizeJsImple():
         logging.debug("Linking %s to %s" % (target, link))
         shutil.copyfile(target, link)
     #temp fix for JRS logging
-    jarPath = "%s/%s" % (destDir,"slf4j-api.jar")
-    if not os.path.exists(jarPath):
-        shutil.copyfile("/usr/share/java/slf4j-eap6/slf4j-api.jar", jarPath)
-    jarPath = "%s/%s" % (destDir,"slf4j-log4j12.jar")
-    if not os.path.exists(jarPath):
-        shutil.copyfile("/usr/share/java/slf4j-eap6/slf4j-log4j12.jar", jarPath)
+    for filename in ('slf4j-api.jar', 'slf4j-log4j12.jar'):
+        for srcDir in (
+            '/usr/share/java/slf4j',
+            '/usr/share/jbos-as/modules/org/slf4j/main',
+        ):
+            sourceFile = os.path.join(
+                srcDir,
+                filename
+            )
+            destFile = os.path.join(
+                destDir,
+                filename
+            )
+            if (
+                os.path.exists(sourceFile) and
+                not os.path.exists(destFile)
+            ):
+                shutil.copyfile(sourceFile, destFile)
+                break
 
 def isWarUpdated():
     """
