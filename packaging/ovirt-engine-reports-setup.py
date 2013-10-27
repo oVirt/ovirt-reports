@@ -374,7 +374,8 @@ def getDbCredentials(
 
 def getAdminPass():
     userInput = getPassFromUser(
-        'Please choose a password for the reports admin user: '
+        'Please choose a password for the reports admin user(s) '
+        '(ovirt-admin): '
     )
     # We do not need verification for the re-entered password
     userInput2 = getPassFromUser(
