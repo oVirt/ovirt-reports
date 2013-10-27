@@ -977,6 +977,18 @@ def main():
                     'Would you like to manually provide db credentials?'
                 ):
                     DB_EXIST = False
+                    print (
+                        'Remote installation selected. Make sure that DBA '
+                        'creates a user and the database in the following '
+                        ' fashion:\n'
+                        '\tcreate role <role> with login '
+                        'encrypted password <password>;\n'
+                        '\tcreate database ovirtenginereports '
+                        'template template0 encoding '
+                        '\'UTF8\' lc_collate \'en_US.UTF-8\' '
+                        'lc_ctype \'en_US.UTF-8\' '
+                        'owner <role>;\n'
+                    )
                     while not DB_EXIST:
                         (
                             db_dict['host'],
