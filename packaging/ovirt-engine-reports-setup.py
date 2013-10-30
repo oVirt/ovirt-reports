@@ -265,8 +265,8 @@ def getDbDictFromOptions():
                 dhandler.getParam('REPORTS_DATABASE') or
                 JRS_DB_NAME
             ),
-            'host': handler.getParam('ENGINE_DB_HOST'),
-            'port': handler.getParam('ENGINE_DB_PORT'),
+            'host': handler.getParam('ENGINE_DB_HOST').strip('"'),
+            'port': handler.getParam('ENGINE_DB_PORT').strip('"'),
             'username': (
                 dhandler.getParam('REPORTS_USER') or
                 REPORTS_DB_USER
@@ -276,11 +276,11 @@ def getDbDictFromOptions():
                 utils.generatePassword()
             ),
             'engine_db': (
-                handler.getParam('ENGINE_DB_NAME') or
+                handler.getParam('ENGINE_DB_NAME').strip('"') or
                 ENGINE_DB_NAME
             ),
-            'engine_user': handler.getParam('ENGINE_DB_USER'),
-            'engine_pass': handler.getParam('ENGINE_DB_PASSWORD').replace('"', ''),
+            'engine_user': handler.getParam('ENGINE_DB_USER').strip('"'),
+            'engine_pass': handler.getParam('ENGINE_DB_PASSWORD').strip('"'),
         }
         handler.close()
         dhandler.close()
