@@ -839,8 +839,8 @@ def updateApplicationSecurity():
         )
     logging.debug("editing applicationContext-security-web file")
     protocol, fqdn, port = getHostParams()
-    hostValidateSessionUrl = (
-        '{proto}://{fqdn}:{port}/OvirtEngineWeb/ValidateSession'
+    hostGetSessionUserUrl = (
+        '{proto}://{fqdn}:{port}/ovirt-engine/services/get-session-user'
     ).format(
         proto=protocol,
         fqdn=fqdn,
@@ -850,7 +850,7 @@ def updateApplicationSecurity():
         file_content = fd.read()
 
     logging.debug("replace servlet URL")
-    file_content = file_content.replace("http://localhost/OvirtEngineWeb/ValidateSession", hostValidateSessionUrl)
+    file_content = file_content.replace("http://localhost/ovirt-engine/services/get-session-user", hostGetSessionUserUrl)
 
     logging.debug("replace trust store path and pass")
     file_content = file_content.replace(

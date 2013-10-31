@@ -187,7 +187,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     /*
      * This method gets a sessionID, and validates it with the engine, using the servlet input URL
      */
-    protected String callValidateSession(String sessionID) {
+    protected String callGetSessionUser(String sessionID) {
         DataOutputStream output = null;
 
         try {
@@ -209,7 +209,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
 
             // Checking the result
             if (servletConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                logger.error("ValidateSession servlet returned " + servletConnection.getResponseCode());
+                logger.error("GetSessionUser servlet returned " + servletConnection.getResponseCode());
                 return null;
             }
 
@@ -245,7 +245,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     public UsernamePasswordAuthenticationToken getAuthRequest(HttpServletRequest request, String sessionID) {
         UsernamePasswordAuthenticationToken authRequest = null;
         if (sessionID != null) {
-            String result = callValidateSession(sessionID);
+            String result = callGetSessionUser(sessionID);
             if (result == null) {
                 return null;
             } else if (result.isEmpty()) {

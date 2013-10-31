@@ -49,7 +49,7 @@
         <property name="authenticationManager">
             <ref bean="authenticationManager"/>
         </property>
-        <property name="servletURL" value="http://localhost/OvirtEngineWeb/ValidateSession"/>
+        <property name="servletURL" value="http://localhost/ovirt-engine/services/get-session-user"/>
         <property name="pollingTimeout" value="60"/>
         <property name="trustStorePath" value="/usr/local/jboss-as/truststore"/>
         <property name="trustStorePassword" value="NoSoup4U"/>
