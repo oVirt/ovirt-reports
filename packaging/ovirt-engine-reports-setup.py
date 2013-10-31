@@ -37,7 +37,7 @@ FILE_JRS_DATASOURCES="%s/WEB-INF/js-jboss7-ds.xml" % DIR_WAR
 JRS_INSTALL_SCRIPT="js-install-ce.sh"
 
 db_dict = None
-ENGINE_DB_NAME = "engine"
+ENGINE_DB_DATABASE = "engine"
 ENGINE_HISTORY_DB_NAME = "ovirt_engine_history"
 REPORTS_DB_USER = 'engine_reports'
 DWH_USER = 'engine_history'
@@ -276,8 +276,8 @@ def getDbDictFromOptions():
                 utils.generatePassword()
             ),
             'engine_db': (
-                handler.getParam('ENGINE_DB_NAME').strip('"') or
-                ENGINE_DB_NAME
+                handler.getParam('ENGINE_DB_DATABASE').strip('"') or
+                ENGINE_DB_DATABASE
             ),
             'engine_user': handler.getParam('ENGINE_DB_USER').strip('"'),
             'engine_pass': handler.getParam('ENGINE_DB_PASSWORD').strip('"'),
@@ -291,7 +291,7 @@ def getDbDictFromOptions():
             'port': utils.getDbPort(),
             'username': utils.getDbAdminUser(),
             'password': utils.getPassFromFile(utils.getDbAdminUser()),
-            'engine_db': ENGINE_DB_NAME,
+            'engine_db': ENGINE_DB_DATABASE,
             'engine_user': utils.getDbAdminUser(),
             'engine_pass': utils.getPassFromFile(utils.getDbAdminUser()),
         }
