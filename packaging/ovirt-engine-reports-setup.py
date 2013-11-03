@@ -383,7 +383,7 @@ def getAdminPass():
     )
     if userInput != userInput2:
             print "ERROR: passwords don't match"
-            return getDbCredentials()
+            return getAdminPass()
 
     return userInput
 
