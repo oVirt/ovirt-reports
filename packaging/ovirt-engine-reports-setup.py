@@ -689,16 +689,17 @@ def getHostParams(secure=True):
         ENGINE_FQDN=None,
     )
     for f in engineConfigFiles:
-        logging.debug("reading %s", f)
-        file_handler = utils.TextConfigFileHandler(f)
-        file_handler.open()
+        if os.path.exists(f):
+            logging.debug("reading %s", f)
+            file_handler = utils.TextConfigFileHandler(f)
+            file_handler.open()
 
-        for k in config.keys():
-            v = file_handler.getParam(k)
-            if v is not None:
-                config[k] = v
+            for k in config.keys():
+                v = file_handler.getParam(k)
+                if v is not None:
+                    config[k] = v
 
-        file_handler.close()
+            file_handler.close()
 
     proxyEnabled = config["ENGINE_PROXY_ENABLED"]
     if (
