@@ -18,13 +18,22 @@ import types
 import tempfile
 import re
 import glob
-import argparse
+from optparse import OptionParser
+import ConfigParser
 
 import common_utils as utils
 
 from decorators import transactionDisplay
 import pwd
 
+params = {
+    'STOP_ENGINE': None,
+    'ADMIN_PASS': None,
+    'REMOTE_DB_HOST': None,
+    'REMOTE_DB_PORT': None,
+    'REMOTE_DB_USER': None,
+    'REMOTE_DB_PASSWORD': None,
+}
 
 DIR_DEPLOY = "/usr/share/ovirt-engine"
 JRS_APP_NAME = "ovirt-engine-reports"
@@ -92,6 +101,49 @@ def _verifyUserPermissions():
             )
         )
 
+
+def _parseAnswerFile(answerfile=None):
+    if (
+        answerfile is not None and
+        os.path.exists(answerfile)
+    ):
+        global params
+        fconf = ConfigParser.ConfigParser()
+        fconf.read(answerfile)
+        for param in params.keys():
+            params[param] = fconf.get('general', param).strip('"')
+            if params[param] == 'None':
+                params[param] = None
+            elif params[param].lower() in (
+                'true', 'y', 'yes',
+            ):
+                params[param] = True
+            elif params[param].lower() in (
+                'false', 'n', 'no'
+            ):
+                params[param] = False
+
+    return params
+
+
+def _getOptions():
+    parser = OptionParser()
+
+    parser.add_option(
+        "-a",
+        "--answer-file",
+        dest="answerfile",
+        help="Use the following answer file for dwh installation",
+    )
+    parser.add_option(
+        "-g",
+        "--gen-answer-file",
+        dest="genanswerfile",
+        help="Generate answer file",
+    )
+
+    (options, args) = parser.parse_args()
+    return (options, args)
 
 @transactionDisplay("Deploying Server")
 def deployJs(db_dict, TEMP_PGPASS):
@@ -373,6 +425,7 @@ def getDbCredentials(
     return dbhost, dbport, dbuser, userInput
 
 def getAdminPass():
+
     userInput = getPassFromUser(
         'Please choose a password for the reports admin user(s) '
         '(ovirt-admin): '
@@ -883,7 +936,7 @@ def configureRepository(password):
     os.chdir(current_dir)
     shutil.rmtree(savedRepoDir)
 
-def main():
+def main(options):
     '''
     main
     '''
@@ -892,10 +945,6 @@ def main():
     rc = 0
     preserveReportsJobs = False
     pghba_updated = False
-
-    parser = argparse.ArgumentParser(description='Installs or upgrades your oVirt Engine Reports')
-    # Catch when calling ovirt-engine-dwh-setup --help
-    args = parser.parse_args()
 
     try:
         logging.debug("starting main()")
@@ -908,7 +957,7 @@ def main():
             return 0
 
         # Check if ovirt-engine is up, if so prompt the user to stop it.
-        if utils.stopEngine():
+        if utils.stopEngine(options['STOP_ENGINE']):
             warUpdated = isWarUpdated()
 
             if not warUpdated and isWarInstalled():
@@ -972,50 +1021,54 @@ def main():
                     )
                 )
                 print 'Remote database found.'
-                if utils.askYesNo(
-                    'Setup could not connect to remote database server with '
-                    'automatically detected credentials. '
-                    'Would you like to manually provide db credentials?'
-                ):
-                    DB_EXIST = False
-                    print (
-                        'Remote installation selected. Make sure that DBA '
-                        'creates a user and the database in the following '
-                        ' fashion:\n'
-                        '\tcreate role <role> with login '
-                        'encrypted password <password>;\n'
-                        '\tcreate database ovirtenginereports '
-                        'template template0 encoding '
-                        '\'UTF8\' lc_collate \'en_US.UTF-8\' '
-                        'lc_ctype \'en_US.UTF-8\' '
-                        'owner <role>;\n'
-                    )
-                    while not DB_EXIST:
-                        (
-                            db_dict['host'],
-                            db_dict['port'],
-                            db_dict['username'],
-                            db_dict['password']
-                        ) = getDbCredentials()
-                        if os.path.exists(TEMP_PGPASS):
-                            os.remove(TEMP_PGPASS)
 
-                        TEMP_PGPASS = utils.createTempPgpass(
-                            db_dict=db_dict,
-                            mode='own',
-                        )
-                        DB_EXIST, owned = getDBStatus(
-                            db_dict,
-                            TEMP_PGPASS,
-                        )
-                        if not DB_EXIST:
-                            print (
-                                'error: cannot connect to the '
-                                'remote db with provided credentials. '
-                                'verify that the provided user is defined '
-                                'user exists on a remote db server and '
-                                'is the owner of the provided database.\n'
+                db_dict['host'] = options['REMOTE_DB_HOST']
+                db_dict['port'] = options['REMOTE_DB_PORT']
+                db_dict['username'] = options['REMOTE_DB_USER']
+                db_dict['password'] = options['REMOTE_DB_PASSWORD']
+                while not DB_EXIST:
+                    if options['REMOTE_DB_HOST'] is None:
+                        if utils.askYesNo(
+                            'Setup could not connect to remote database server with '
+                            'automatically detected credentials. '
+                            'Would you like to manually provide db credentials?'
+                        ):
+                            (
+                                db_dict['host'],
+                                db_dict['port'],
+                                db_dict['username'],
+                                db_dict['password'],
+                            ) = getDbCredentials()
+                        else:
+                            raise RuntimeError(
+                                'Error: cannot connect to the '
+                                'remote db with the provided credentials. '
+                                'User decided to exit.'
                             )
+
+                    if os.path.exists(TEMP_PGPASS):
+                        os.remove(TEMP_PGPASS)
+
+                    TEMP_PGPASS = utils.createTempPgpass(
+                        db_dict=db_dict,
+                        mode='own',
+                    )
+                    DB_EXIST, owned = getDBStatus(
+                        db_dict,
+                        TEMP_PGPASS,
+                    )
+                    if not DB_EXIST:
+                        print (
+                            'error: cannot connect to the '
+                            'remote db with provided credentials. '
+                            'verify that the provided user is defined '
+                            'user exists on a remote db server and '
+                            'is the owner of the provided database.\n'
+                            'Then rerun the setup.\n'
+                        )
+                        if options['REMOTE_DB_HOST'] is not None:
+                            sys.exit(1)
+
                 else:
                     raise RuntimeError('Could not connect to the remote DB')
 
@@ -1038,15 +1091,10 @@ def main():
             # Update reports datasource configuration
             setReportsDatasource(db_dict)
 
-            if not warUpdated and DB_EXIST:
-                #backupWAR()
-                #backupDB(db_dict, TEMP_PGPASS)
-		pass
-
             # Catch failures on configuration
             try:
                 # Export reports if we had a previous installation
-                adminPass = None
+                adminPass = options['ADMIN_PASS']
                 savedDir = None
                 if preserveReportsJobs:
                     exportScheduale()
@@ -1055,7 +1103,7 @@ def main():
                     warUpdated or isWarInstalled()
                 ):
                     savedDir = utils.exportUsers()
-                else:
+                elif adminPass is None:
                     adminPass = getAdminPass()
 
                 # Execute js-ant to create DB and deploy WAR
@@ -1069,6 +1117,7 @@ def main():
 
                 # If the userPassword var has been populated it means we need to edit the Admin xml file
                 if adminPass is not None:
+                    logging.debug('Setting real admin password')
                     editOvirtEngineAdminXml(adminPass)
 
                 if (
@@ -1180,5 +1229,23 @@ if __name__ == "__main__":
         "ovirt-engine-reports-setup",
         "/var/log/ovirt-engine"
     )
-    rc = main()
+    options, args = _getOptions()
+    if options.genanswerfile:
+        with open(options.genanswerfile, 'w') as af:
+            content = '[general]\n'
+            for param in params.keys():
+                content = '{content}{newline}\n'.format(
+                    content=content,
+                    newline='{key}={value}'.format(
+                        key=param,
+                        value=params[param],
+                    )
+                )
+            af.write(content)
+            print 'Answer file generated at {answerfile}\n'.format(
+                answerfile=options.genanswerfile
+            )
+            sys.exit(0)
+
+    rc = main(_parseAnswerFile(options.answerfile))
     sys.exit(rc)
