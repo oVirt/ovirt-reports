@@ -41,7 +41,7 @@ JRS_DB_NAME = "ovirtenginereports"
 JRS_PACKAGE_NAME = "jasperreports-server"
 DIR_WAR="%s/%s.war" % (DIR_DEPLOY, JRS_APP_NAME)
 FILE_JS_SMTP="%s/WEB-INF/js.quartz.properties" % DIR_WAR
-FILE_APPLICATION_SECURITY_WEB="%s/WEB-INF/applicationContext-security-web.xml" % DIR_WAR
+FILE_APPLICATION_CONTEXT_OVERRIDE ="%s/WEB-INF/applicationContext-ovirt-override.xml" % DIR_WAR
 FILE_JRS_DATASOURCES="%s/WEB-INF/js-jboss7-ds.xml" % DIR_WAR
 JRS_INSTALL_SCRIPT="js-install-ce.sh"
 
@@ -881,7 +881,7 @@ def updateApplicationSecurity():
             ),
             failOnError=True,
         )
-    logging.debug("editing applicationContext-security-web file")
+    logging.debug("editing applicationContext-ovirt-override file")
     protocol, fqdn, port = getHostParams()
     hostGetSessionUserUrl = (
         '{proto}://{fqdn}:{port}/ovirt-engine/services/get-session-user'
@@ -890,7 +890,7 @@ def updateApplicationSecurity():
         fqdn=fqdn,
         port=port,
     )
-    with open(FILE_APPLICATION_SECURITY_WEB, "r") as fd:
+    with open(FILE_APPLICATION_CONTEXT_OVERRIDE, "r") as fd:
         file_content = fd.read()
 
     logging.debug("replace servlet URL")
@@ -905,8 +905,8 @@ def updateApplicationSecurity():
         "name=\"trustStorePassword\" value=\"NoSoup4U\"",
         "name=\"trustStorePassword\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE_PASS
     )
-    logging.debug("writing replaced content to %s" % FILE_APPLICATION_SECURITY_WEB)
-    with open(FILE_APPLICATION_SECURITY_WEB, "w") as fd:
+    logging.debug("writing replaced content to %s" % FILE_APPLICATION_CONTEXT_OVERRIDE)
+    with open(FILE_APPLICATION_CONTEXT_OVERRIDE, "w") as fd:
         fd.write(file_content)
 
 @transactionDisplay("Running post setup steps")
@@ -1174,7 +1174,7 @@ def main(options):
                 configureRepository(adminPass)
 
                 # Copy reports xml to webadmin folder
-                webadminFolder = "%s/engine.ear/webadmin.war/webadmin/" % DIR_DEPLOY
+                webadminFolder = "%s/engine.ear/webadmin.war/" % DIR_DEPLOY
                 if not os.path.exists(webadminFolder):
                     os.makedirs(webadminFolder)
                 shutil.copy2("%s/Reports.xml" % REPORTS_PACKAGE_DIR, webadminFolder)

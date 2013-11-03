@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+    <bean class="com.jaspersoft.jasperserver.api.common.util.spring.BeanPropertyOverrider">
+       <property name="beanName" value="filterChainProxy"/>
+       <property name="propertyName" value="filterInvocationDefinitionSource"/>
+       <property name="override">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /xmla=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.basicProcessingFilter},JIAuthenticationSynchronizer,anonymousProcessingFilter,basicAuthExceptionTranslationFilter,filterInvocationInterceptor
+                /services/**=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.portletAuthenticationProcessingFilter}, delegatingBasicProcessingFilter,${bean.passwordExpirationProcessingFilter},JIAuthenticationSynchronizer,anonymousProcessingFilter,wsBasicAuthExceptionTranslationFilter,filterInvocationInterceptor
+                /rest/login=httpSessionContextIntegrationFilter,${bean.loggingFilter}, encryptionFilter,delegatingAuthenticationRestProcessingFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,filterInvocationInterceptor
+                /rest/**=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.portletAuthenticationProcessingFilter},delegatingBasicProcessingFilter,${bean.passwordExpirationProcessingFilter},JIAuthenticationSynchronizer,anonymousProcessingFilter,wsBasicAuthExceptionTranslationFilter,filterInvocationInterceptor
+                /rest_v2/**=httpSessionContextIntegrationFilter,encryptionFilter,textOnlyResponseWebAppSecurityFilter,jsCsrfGuardFilter,${bean.loggingFilter},${bean.userPreferencesFilter},${bean.authenticationProcessingFilter},${bean.userPreferencesFilter},delegatingBasicProcessingFilter,delegatingRequestParameterAuthenticationFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,restExceptionTranslationFilter,filterInvocationInterceptor
+                /**=httpSessionContextIntegrationFilter,encryptionFilter,multipartRequestWrapperFilter,webAppSecurityFilter,jsCsrfGuardFilter,${bean.loggingFilter},${bean.userPreferencesFilter},delegatingAuthenticationProcessingFilter,${bean.userPreferencesFilter},delegatingBasicProcessingFilter,EngineSimplePreAuthFilter,delegatingRequestParameterAuthenticationFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,delegatingExceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,iPadSupportFilter
+            </value>
+       </property>
+    </bean>
+
+    <bean id="EngineSimplePreAuthFilter" class="org.ovirt.authentication.EngineSimplePreAuthFilter">
+        <property name="authenticationManager">
+            <ref bean="authenticationManager"/>
+        </property>
+        <property name="servletURL" value="http://localhost/ovirt-engine/services/get-session-user"/>
+        <property name="pollingTimeout" value="60"/>
+        <property name="trustStorePath" value="/usr/local/jboss-as/truststore"/>
+        <property name="trustStorePassword" value="NoSoup4U"/>
+    </bean>
+
+    <bean class="org.ovirt.jasperreports.querymodifier.CustomOvirtReportsQueryManipulator" id="CustomOvirtReportsQueryManipulator">
+        <property name ="cascading">
+            <ref bean="CascadeQueryManipulator"/>
+        </property>
+    </bean>
+
+    <bean class="com.jaspersoft.jasperserver.api.common.util.spring.BeanPropertyOverrider">
+        <property name="beanName" value="engineService"/>
+        <property name="propertyName" value="queryManipulator"/>
+        <property name="override">
+            <ref bean="CustomOvirtReportsQueryManipulator"/>
+        </property>
+    </bean>
+
+    <bean class="com.jaspersoft.jasperserver.api.common.util.spring.BeanPropertyOverrider">
+        <property name="beanName" value="xlsExportParameters"/>
+        <property name="propertyName" value="ignoreGraphics"/>
+        <property name="override">
+            <value>false</value>
+        </property>
+    </bean>
+</beans>
