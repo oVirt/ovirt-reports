@@ -336,28 +336,20 @@ def getDbDictFromOptions():
         }
         handler.close()
         dhandler.close()
-    else:
-        db_dict = {
-            'dbname': JRS_DB_NAME,
-            'host': utils.getDbHostName(),
-            'port': utils.getDbPort(),
-            'username': utils.getDbAdminUser(),
-            'password': utils.getPassFromFile(utils.getDbAdminUser()),
-            'engine_db': ENGINE_DB_DATABASE,
-            'engine_user': utils.getDbAdminUser(),
-            'engine_pass': utils.getPassFromFile(utils.getDbAdminUser()),
-        }
 
-    if os.path.exists(FILE_DATABASE_DWH_CONFIG):
-        dwhandler = utils.TextConfigFileHandler(FILE_DATABASE_DWH_CONFIG)
-        dwhandler.open()
-        db_dict['dwh_database'] = dwhandler.getParam('DWH_DATABASE')
-        db_dict['dwh_user'] = dwhandler.getParam('DWH_USER')
-        db_dict['dwh_pass'] = dwhandler.getParam('DWH_PASSWORD')
     else:
-        db_dict['dwh_database'] = 'ovirt_engine_history'
-        db_dict['dwh_user'] = utils.getDbAdminUser()
-        db_dict['dwh_pass'] = utils.getPassFromFile(utils.getDbAdminUser())
+        raise RuntimeError(
+            'Engine was not setup on this machine. '
+            'Please execute: \"engine-setup\" followed by '
+            '\"ovirt-engine-dwh-setup\" '
+            'before setting up the reports.'
+        )
+
+    dwhandler = utils.TextConfigFileHandler(FILE_DATABASE_DWH_CONFIG)
+    dwhandler.open()
+    db_dict['dwh_database'] = dwhandler.getParam('DWH_DATABASE')
+    db_dict['dwh_user'] = dwhandler.getParam('DWH_USER')
+    db_dict['dwh_pass'] = dwhandler.getParam('DWH_PASSWORD')
 
     return db_dict
 
