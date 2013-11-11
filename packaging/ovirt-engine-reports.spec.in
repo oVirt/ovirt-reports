@@ -5,6 +5,8 @@
 
 %global reports_name ovirt-engine-reports
 %global reports_java %{_javadir}/%{reports_name}
+%global engine_group ovirt
+%global engine_user ovirt
 
 %global make_common_opts \\\
         -j1 \\\
@@ -118,6 +120,9 @@ if [ "$1" -eq 0 ]; then
 fi
 
 %files
+%dir %attr(-, %{engine_user}, %{engine_group}) %{_sysconfdir}/%{reports_name}/engine-reports.conf.d
+%config(noreplace) %{_sysconfdir}/%{reports_name}/engine-reports.conf.d/10-setup-database-reports.conf
+
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{_sysconfdir}/ovirt-engine/ovirt-engine-reports
 %{_sysconfdir}/httpd/conf.d/z-ovirt-engine-reports-proxy.conf
