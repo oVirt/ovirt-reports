@@ -83,9 +83,12 @@ DIR_TMP_WAR = tempfile.mkdtemp(dir="/tmp")
 #Error Messages
 MSG_ERROR_BACKUP_DB = "Error: Database backup failed"
 MSG_ERROR_RESTORE_DB = "Error: Database restore failed"
-MSG_ERROR_DB_EXISTS = "ERROR: Found the database for ovirt-engine-reports, but could not find the WAR directory!\n\
-In order to remedy this situation, please drop the ovirt-engine-reports database by executing:\n\
-/usr/bin/dropdb -U %s -h %s -p %s %s"
+MSG_ERROR_DB_EXISTS = "ERROR: Found the database for ovirt-engine-reports, \
+but could not find the WAR directory!\nIn order to remedy this situation, \
+please drop the %s database. For example, for local \
+controlled and provisioned setup, one could use the following command: \n\
+    su postgres -c 'dropdb %s'\n\
+For other cases, please ask your DBA to remove the aforementioned DB."
 
 DIR_TEMP_SCHEDULE=tempfile.mkdtemp()
 
@@ -1048,11 +1051,17 @@ def main(options):
                     raise RuntimeError('Could not connect to the remote DB')
 
             if not isWarInstalled() and DB_EXIST and dblocal:
-                logging.error("WAR Directory does not exist but the DB is up and running.")
-                raise Exception(MSG_ERROR_DB_EXISTS % (db_dict["username"],
-                                                       db_dict["host"],
-                                                       db_dict["port"],
-                                                       db_dict['dbname']))
+                @utils.transactionDisplay('Checking system state')
+                def _exitBadState():
+                    logging.error("WAR Directory does not exist but the DB is up and running.")
+                    raise Exception(
+                        MSG_ERROR_DB_EXISTS % (
+                            db_dict['dbname'],
+                            db_dict['dbname'],
+                        )
+                    )
+
+                _exitBadState()
 
             # Edit setup.xml & app-server.xml to remove profile name
             if not warUpdated or not isWarInstalled():
