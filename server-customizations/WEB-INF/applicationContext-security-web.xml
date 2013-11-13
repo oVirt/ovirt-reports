@@ -18,11 +18,11 @@
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /xmla=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.basicProcessingFilter},JIAuthenticationSynchronizer,anonymousProcessingFilter,basicAuthExceptionTranslationFilter,filterInvocationInterceptor
-                /services/**=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.portletAuthenticationProcessingFilter}, delegatingBasicProcessingFilter,${bean.passwordExpirationProcessingFilter},anonymousProcessingFilter,wsBasicAuthExceptionTranslationFilter,filterInvocationInterceptor
-                /rest/login=httpSessionContextIntegrationFilter,${bean.loggingFilter}, encryptionFilter,delegatingAuthenticationRestProcessingFilter,anonymousProcessingFilter,filterInvocationInterceptor
-                /rest/**=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.portletAuthenticationProcessingFilter},delegatingBasicProcessingFilter,${bean.passwordExpirationProcessingFilter},anonymousProcessingFilter,wsBasicAuthExceptionTranslationFilter,filterInvocationInterceptor
-                /rest_v2/**=httpSessionContextIntegrationFilter,encryptionFilter,textOnlyResponseWebAppSecurityFilter,jsCsrfGuardFilter,${bean.loggingFilter},${bean.userPreferencesFilter},${bean.authenticationProcessingFilter},${bean.userPreferencesFilter},${bean.basicProcessingFilter},requestParameterAuthenticationFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,restExceptionTranslationFilter,filterInvocationInterceptor
-                /**=httpSessionContextIntegrationFilter,encryptionFilter,multipartRequestWrapperFilter,webAppSecurityFilter,jsCsrfGuardFilter,${bean.loggingFilter},${bean.userPreferencesFilter},delegatingAuthenticationProcessingFilter,${bean.userPreferencesFilter},EngineSimplePreAuthFilter,delegatingRequestParameterAuthenticationFilter,anonymousProcessingFilter,delegatingExceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,iPadSupportFilter
+                /services/**=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.portletAuthenticationProcessingFilter}, delegatingBasicProcessingFilter,${bean.passwordExpirationProcessingFilter},JIAuthenticationSynchronizer,anonymousProcessingFilter,wsBasicAuthExceptionTranslationFilter,filterInvocationInterceptor
+                /rest/login=httpSessionContextIntegrationFilter,${bean.loggingFilter}, encryptionFilter,delegatingAuthenticationRestProcessingFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,filterInvocationInterceptor
+                /rest/**=httpSessionContextIntegrationFilter,${bean.loggingFilter},${bean.portletAuthenticationProcessingFilter},delegatingBasicProcessingFilter,${bean.passwordExpirationProcessingFilter},JIAuthenticationSynchronizer,anonymousProcessingFilter,wsBasicAuthExceptionTranslationFilter,filterInvocationInterceptor
+                /rest_v2/**=httpSessionContextIntegrationFilter,encryptionFilter,textOnlyResponseWebAppSecurityFilter,jsCsrfGuardFilter,${bean.loggingFilter},${bean.userPreferencesFilter},${bean.authenticationProcessingFilter},${bean.userPreferencesFilter},delegatingBasicProcessingFilter,delegatingRequestParameterAuthenticationFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,restExceptionTranslationFilter,filterInvocationInterceptor
+                /**=httpSessionContextIntegrationFilter,encryptionFilter,multipartRequestWrapperFilter,webAppSecurityFilter,jsCsrfGuardFilter,${bean.loggingFilter},${bean.userPreferencesFilter},delegatingAuthenticationProcessingFilter,${bean.userPreferencesFilter},EngineSimplePreAuthFilter,delegatingRequestParameterAuthenticationFilter,JIAuthenticationSynchronizer,anonymousProcessingFilter,delegatingExceptionTranslationFilter,filterInvocationInterceptor,switchUserProcessingFilter,iPadSupportFilter
             </value>
         </property>
     </bean>
@@ -335,19 +335,33 @@
                 /jrpxml/**=ROLE_USER,ROLE_ADMINISTRATOR
                 /heartbeatinfo.html=ROLE_USER,ROLE_ADMINISTRATOR
                 /rest/**=ROLE_USER,ROLE_ADMINISTRATOR
-                /rest_v2/users/**=ROLE_ADMINISTRATOR
-                /rest_v2/roles/**=ROLE_ADMINISTRATOR
-                /rest_v2/organizations/**=ROLE_ADMINISTRATOR
+                /rest_v2/jobs/**=ROLE_USER,ROLE_ADMINISTRATOR
                 /rest_v2/permissions/**=ROLE_USER,ROLE_ADMINISTRATOR
+                /rest_v2/reports/**=ROLE_USER,ROLE_ADMINISTRATOR
                 /rest_v2/resources/**=ROLE_USER,ROLE_ADMINISTRATOR
-                /rest_v2/export/**=ROLE_SUPERUSER
-                /rest_v2/import/**=ROLE_SUPERUSER
+                /rest_v2/reportexecutions/**=ROLE_USER,ROLE_ADMINISTRATOR
+                /rest_v2/serverinfo/**=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
+                /rest_v2/application.wadl=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
+                /rest_v2/application.wadl/xsd0.xsd=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
+                /rest_v2/bundles/**=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
+                /rest_v2/bundles/**=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
                 /404.html=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
                 /500.html=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
                 /reportgenerator.html=ROLE_USER,ROLE_ADMINISTRATOR
                 /viewreportcancel.html=ROLE_USER,ROLE_ADMINISTRATOR
                 /viewreportasynccancel.html=ROLE_USER,ROLE_ADMINISTRATOR
                 /viewreportpageupdatecheck.html=ROLE_USER,ROLE_ADMINISTRATOR
+                /bif/*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMINISTRATOR
+                /bif/*/**=ROLE_USER,ROLE_ADMINISTRATOR
+                /getreportcomponents.html=ROLE_USER,ROLE_ADMINISTRATOR
+                /getrequirejsconfig.html=ROLE_USER,ROLE_ADMINISTRATOR
+                /runreportaction.html=ROLE_USER,ROLE_ADMINISTRATOR
+
+                <!--scheduler-->
+                /scheduler/jobsummary.html=ROLE_USER,ROLE_ADMINISTRATOR
+                /scheduler/jobdetails.html=ROLE_USER,ROLE_ADMINISTRATOR
+                /scheduler/main.html=ROLE_USER,ROLE_ADMINISTRATOR
+
             </value>
         </property>
     </bean>
@@ -367,19 +381,7 @@
         <property name="value">
             <value>
                 /awsconfiguration.html=ROLE_SUPERUSER
-                /*.html=ROLE_ADMINISTRATOR
-                /*.jsp=ROLE_ADMINISTRATOR
-            </value>
-        </property>
-        <property name="valueType" value="string"/>
-    </bean>
-
-    <!-- get these done last -->
-    <bean class="com.jaspersoft.jasperserver.api.common.util.spring.GenericBeanUpdater">
-        <property name="definition" ref="setRolesForURL"/>
-        <property name="order" value="1000000000"/>
-        <property name="value">
-            <value>
+                /rest_v2/**=ROLE_ADMINISTRATOR
                 /*.html=ROLE_ADMINISTRATOR
                 /*.jsp=ROLE_ADMINISTRATOR
             </value>
@@ -428,7 +430,7 @@
                 <value>/flow.html?_flowId=designerOptionsFlow</value>
                 <value>/flow.html?_flowId=designerCacheFlow</value>
                 <value>/flow.html?_flowId=awsSettingsFlow</value>
-                <value>/flow.html?_flowId=reportSchedulingFlow</value>
+
                 <value>/flow.html?_flowId=dashboardDesignerFlow</value>
                 <value>/log_settings.html</value>
                 <value>/flow.html?_flowId=createSLDatasourceFlow</value>
