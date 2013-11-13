@@ -20,6 +20,8 @@
 
     <alias name="${bean.securityContextProvider}" alias="concreteSecurityContextProvider"/>
     <alias name="${bean.engineService}" alias="concreteEngineService"/>
+    <alias name="${bean.navigationActionModelSupport}" alias="concreteNavigationActionModelSupport"/>
+    <alias name="fileVirtualizerFactory" alias="concreteVirtualizerFactory"/>
 
     <util:properties id="springConfiguration" location="${resource.root}/js.spring.properties" />
 
@@ -554,12 +556,7 @@
         <property name="awsDataSourceServiceFactory" ref="awsDataSourceServiceFactory"/>
     </bean>
 
-
-    <bean id="jndiFallbackResolver" class="com.jaspersoft.jasperserver.api.metadata.common.util.JndiFallbackResolver">
-        <property name="jndiFallbackProperties">
-            <util:properties location="${resource.root}/js.jdbc.properties"/>
-        </property>
-    </bean>
+    <bean id="jndiFallbackResolver" class="com.jaspersoft.jasperserver.api.metadata.common.util.JndiFallbackResolver"/>
 
     <bean id="jndiJdbcDataSourceServiceFactory" 
     	class="com.jaspersoft.jasperserver.api.engine.jasperreports.service.impl.JndiJdbcReportDataSourceServiceFactory"
@@ -907,29 +904,40 @@
     <!-- i18n -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="useCodeAsDefaultMessage" value="true"/>
-        <property name="cacheSeconds" value="-1"/>
+        <!-- Uncomment this line in order to enable runtime bundle loading -->
+        <!-- Warning : this cause performance impact -->
+        <!--<property name="cacheSeconds" value="1"/>-->
         <property name="fallbackToSystemLocale" value="false"/>
-        <property name="basenames">
+        <property name="basenames" ref="bundlePathsList"/>
+    </bean>
+
+    <alias name="${bean.bundlePathsList}" alias="bundlePathsList"/>
+
+    <bean id="bundlePathsListCe" class="com.jaspersoft.jasperserver.api.common.util.spring.ArrayFactoryBean">
+        <property name="sourceList">
             <list>
                 <value>${resource.root}/bundles/jasperserver_messages</value>
                 <value>${resource.root}/bundles/jasperserver_config</value>
                 <value>${resource.root}/bundles/jpivot_messages</value>
-                <value>${resource.root}/internal/jpivot_internal_messages</value>
-                <value>${resource.root}/internal/jasperserver</value>
                 <value>${resource.root}/bundles/calendar</value>
                 <value>${resource.root}/bundles/jsexceptions_messages</value>
                 <value>${resource.root}/bundles/scheduling_ws</value>
                 <value>${resource.root}/bundles/ja-pro_messages</value>
-                <value>${resource.root}/internal/ja-pro_internal_messages</value>
                 <value>${resource.root}/bundles/ja_mondrian_messages</value>
                 <value>${resource.root}/bundles/mondrian_exception_messages</value>
                 <value>${resource.root}/bundles/security</value>
                 <value>${resource.root}/bundles/logger_descriptions</value>
                 <value>${resource.root}/bundles/jasperreports_messages</value>
+
+                <value>${resource.root}/internal/jpivot_internal_messages</value>
+                <value>${resource.root}/internal/jasperserver</value>
+                <value>${resource.root}/internal/ja-pro_internal_messages</value>
+
+                <value>${resource.root}/bundles/ScalableInputControlsBundle</value>
             </list>
         </property>
     </bean>
-    
+
     <!-- JasperReportsContext -->
     <bean id="jasperReportsContext" class="net.sf.jasperreports.engine.SimpleJasperReportsContext">
         <property name="extensions">
@@ -939,8 +947,74 @@
                         <ref bean="messageProviderFactory"/>
                	    </list>
                 </entry>
+                <entry key="net.sf.jasperreports.repo.RepositoryService">
+               	    <list>
+                        <ref bean="repoRepositoryService"/>
+               	    </list>
+                </entry>
+                <entry key="net.sf.jasperreports.web.WebLocaleResolver">
+                	<list>
+                		<bean class="com.jaspersoft.jasperserver.war.common.ServerLocaleResolver"/>
+                	</list>
+                </entry>
+                <entry key="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                	<list>
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="jquery-1.10.2"/>
+                			<constructor-arg value="lib/amd-jquery-1.10.2"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="jquery.ui-1.10.3"/>
+                			<constructor-arg value="lib/amd-jqueryui-1.10.3"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="jqueryui-1.10.3-timepicker"/>
+                			<constructor-arg value="lib/amd-jqueryui-1.10.3-timepicker"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="async"/>
+                			<constructor-arg value="lib/async"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="text"/>
+                			<constructor-arg value="text"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                		<!-- overwrite jr modules -->
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="jasperreports-loader"/>
+                			<constructor-arg value="report/jasperreports-loader"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                		<bean class="net.sf.jasperreports.web.util.RequirejsModuleMapping">
+                			<constructor-arg value="jasperreports-report-processor"/>
+                			<constructor-arg value="report/jasperreports-report-processor"/>
+                			<constructor-arg value="false"/>
+                		</bean>
+                	</list>
+                </entry>
             </map>
         </property>
+    </bean>
+    
+    <bean id="repoRepositoryService" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.RepoRepositoryService">
+    	<property name="persistenceServices">
+    		<map>
+    			<entry key="net.sf.jasperreports.repo.InputStreamResource">
+    				<bean class="net.sf.jasperreports.repo.InputStreamPersistenceService"/>
+    			</entry>
+    			<entry key="net.sf.jasperreports.repo.ReportResource">
+    				<bean class="net.sf.jasperreports.repo.SerializedReportPersistenceService"/>
+    			</entry>
+    			<entry key="net.sf.jasperreports.data.DataAdapter">
+    				<bean class="net.sf.jasperreports.repo.CastorDataAdapterPersistenceService"/>
+    			</entry>
+    		</map>
+    	</property>
     </bean>
 
     <bean id="messageProviderFactory" class="com.jaspersoft.jasperserver.api.engine.jasperreports.util.MessageSourceMessageProviderFactory">
@@ -1064,10 +1138,6 @@
         <property name="urlParameterReportLocale" value="reportLocale"/>
     </bean>
 
-    <bean id="localPageHyperlinkProducerFactory" class="com.jaspersoft.jasperserver.war.action.hyperlinks.LocalPageHyperlinkProducerFactory">
-        <property name="navigateToPageFunction" value="navigateToReportPage"/>
-    </bean>
-
     <bean id="localAnchorHyperlinkProducerFactory" class="com.jaspersoft.jasperserver.war.action.hyperlinks.LocalAnchorHyperlinkProducerFactory">
         <property name="jasperPrintNameRequestAttribute" value="jasperPrintName"/>
         <property name="flowControllerMapping" value="/flow.html"/>
@@ -1081,7 +1151,7 @@
             <map>
                 <entry key="ReportExecution" value-ref="${bean.reportExecutionHyperlinkProducer}"/>
                 <entry key="ReportInteraction" value-ref="${bean.reportExecutionHyperlinkProducer}"/>
-                <entry key="LocalPage" value-ref="localPageHyperlinkProducerFactory"/>
+                <entry key="LocalPage" value-ref="localAnchorHyperlinkProducerFactory"/>
                 <entry key="LocalAnchor" value-ref="localAnchorHyperlinkProducerFactory"/>
             </map>
         </property>
@@ -1167,6 +1237,9 @@
         <property name="tempFolderUri" value="/temp"/>
         <property name="organizationsFolderUri" value="/organizations"/>
         <property name="jdbcDriversFolderUri" value="/jdbc"/>
+
+        <property name="enableSaveToHostFS" value="false"/>
+
     </bean>
 
     <!-- report virtualizers -->
@@ -1231,8 +1304,8 @@
     <!-- add a message catalog -->
     <bean id="addMessageCatalog" class="com.jaspersoft.jasperserver.api.common.util.spring.GenericBeanUpdaterDefinition">
         <property name="order" value="10"/>
-        <property name="beanName" value="messageSource"/>
-        <property name="propertyName" value="basenames"/>
+        <property name="beanName" value="bundlePathsListCe"/>
+        <property name="propertyName" value="sourceList"/>
         <property name="operation" value="append"/>
     </bean>
 
