@@ -915,6 +915,9 @@ def main(options):
     '''
     main
     '''
+
+    os.umask(0022)
+
     global db_dict
     global DB_EXIST
     rc = 0
