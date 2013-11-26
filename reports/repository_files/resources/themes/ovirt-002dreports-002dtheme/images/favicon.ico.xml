@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileResource dataFile="favicon.ico.data">
+    <folder>/themes/ovirt-reports-theme/images</folder>
+    <name>favicon.ico</name>
+    <version>0</version>
+    <label>favicon.ico</label>
+    <creationDate>2013-10-24T06:04:07.654-07:00</creationDate>
+    <updateDate>2013-10-24T06:03:45.878-07:00</updateDate>
+    <fileType>img</fileType>
+</fileResource>
