@@ -1149,7 +1149,7 @@ def main(options):
                 updateApplicationSecurity()
 
                 #Run post setup steps - disable unused users, set theme, change superuser password if needed
-                configureRepository(db_dict['password'])
+                configureRepository(adminPass)
 
                 # Copy reports xml to webadmin folder
                 webadminFolder = "%s/engine.ear/webadmin.war/webadmin/" % DIR_DEPLOY
