@@ -1011,6 +1011,19 @@ def main(options):
                             'automatically detected credentials. '
                             'Would you like to manually provide db credentials?'
                         ):
+                            print (
+                                'Remote installation selected. '
+                                'Make sure that DBA '
+                                'creates a user and the database in the following '
+                                ' fashion:\n'
+                                '\tcreate role <role> with login '
+                                'encrypted password <password>;\n'
+                                '\tcreate database ovirtenginereports '
+                                'template template0 encoding '
+                                '\'UTF8\' lc_collate \'en_US.UTF-8\' '
+                                'lc_ctype \'en_US.UTF-8\' '
+                                'owner <role>;\n'
+                            )
                             (
                                 db_dict['host'],
                                 db_dict['port'],
@@ -1021,6 +1034,16 @@ def main(options):
                             raise RuntimeError(
                                 'Error: cannot connect to the '
                                 'remote db with the provided credentials. '
+                                'Make sure that DBA '
+                                'creates a user and the database in the following '
+                                ' fashion:\n'
+                                '\tcreate role <role> with login '
+                                'encrypted password <password>;\n'
+                                '\tcreate database ovirtenginereports '
+                                'template template0 encoding '
+                                '\'UTF8\' lc_collate \'en_US.UTF-8\' '
+                                'lc_ctype \'en_US.UTF-8\' '
+                                'owner <role>;\n'
                                 'User decided to exit.'
                             )
 
