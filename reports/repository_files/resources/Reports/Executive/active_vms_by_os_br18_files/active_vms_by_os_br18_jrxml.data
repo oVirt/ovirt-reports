@@ -42,7 +42,11 @@ FROM (SELECT DISTINCT CASE
                           WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
                           WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'WIND%' THEN 'Windows'
                           WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RHEL%' THEN 'RHEL'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RED HAT%' THEN 'RHEL'
                           WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'OTHER L%' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'LINUX' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%UBUNTU%' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%SUSE%' THEN 'Other Linux'
                           ELSE 'Other OS'
                       END AS os_type,
                       history_datetime AS time,
@@ -82,7 +86,11 @@ FROM (SELECT DISTINCT CASE
                    WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
                    WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'WIND%' THEN 'Windows'
                    WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RHEL%' THEN 'RHEL'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RED HAT%' THEN 'RHEL'
                    WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'OTHER L%' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'LINUX' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%UBUNTU%' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%SUSE%' THEN 'Other Linux'
                    ELSE 'Other OS'
                END,
                history_datetime) as all_query RIGHT OUTER JOIN calendar ON (all_query.time = calendar.$P!{calendar_column})
