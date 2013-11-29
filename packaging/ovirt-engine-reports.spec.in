@@ -45,7 +45,7 @@ Requires: java-1.7.0-openjdk
 Requires: jpackage-utils
 Requires: ovirt-engine >= 3.3.0
 Requires: ovirt-engine-dwh >= 3.3.0
-Requires: jasperreports-server >= 5.2.0
+Requires: jasperreports-server = 5.5.0-1
 Requires: m2crypto
 
 # We need some packages installed in order to workaround

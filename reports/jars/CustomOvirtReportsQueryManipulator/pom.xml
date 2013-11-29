@@ -4,13 +4,13 @@
   <parent>
     <groupId>ovirt_engine_reports</groupId>
     <artifactId>jars</artifactId>
-    <version>3.3.0</version>
+    <version>3.3.2</version>
   </parent>
 
   <groupId>ovirt_engine_reports</groupId>
   <artifactId>CustomOvirtReportsQueryManipulator</artifactId>
   <packaging>jar</packaging>
-  <version>3.3.0</version>
+  <version>3.3.2</version>
   <name>CustomOvirtReportsQueryManipulator jar to support adding parameters to input controls</name>
   <description>CustomOvirtReportsQueryManipulator jar to support adding parameters to input controls</description>
 
