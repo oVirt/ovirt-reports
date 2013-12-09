@@ -83,7 +83,7 @@ DIR_TMP_WAR = tempfile.mkdtemp(dir="/tmp")
 #Error Messages
 MSG_ERROR_BACKUP_DB = "Error: Database backup failed"
 MSG_ERROR_RESTORE_DB = "Error: Database restore failed"
-MSG_ERROR_DB_EXISTS = "ERROR: Found the database for ovirt-engine-reports, \
+MSG_ERROR_DB_EXISTS = "ERROR: Found the database for %s, \
 but could not find the WAR directory!\nIn order to remedy this situation, \
 please drop the %s database. For example, for local \
 controlled and provisioned setup, one could use the following command: \n\
@@ -926,12 +926,12 @@ def main(options):
 
     try:
         logging.debug("starting main()")
-        print "Welcome to ovirt-engine-reports setup utility"
+        print "Welcome to %s setup utility" % JRS_APP_NAME
 
         # Check that oVirt-Engine is installed, otherwise exit gracefully with an informative message
         if not isOvirtEngineInstalled():
             logging.debug("ovirt-engine is not installed, cannot continue")
-            print "Please install & configure oVirt engine by executing \"engine-setup\" prior to setting up the oVirt engine reports."
+            print "Please install & configure oVirt engine by executing \"engine-setup\" prior to setting up the %s." % JRS_APP_NAME
             return 0
 
         # Check if ovirt-engine is up, if so prompt the user to stop it.
@@ -1018,12 +1018,12 @@ def main(options):
                                 ' fashion:\n'
                                 '\tcreate role <role> with login '
                                 'encrypted password <password>;\n'
-                                '\tcreate database ovirtenginereports '
+                                '\tcreate database %s '
                                 'template template0 encoding '
                                 '\'UTF8\' lc_collate \'en_US.UTF-8\' '
                                 'lc_ctype \'en_US.UTF-8\' '
                                 'owner <role>;\n'
-                            )
+                            ) % JRS_DB_NAME
                             (
                                 db_dict['host'],
                                 db_dict['port'],
@@ -1039,13 +1039,13 @@ def main(options):
                                 ' fashion:\n'
                                 '\tcreate role <role> with login '
                                 'encrypted password <password>;\n'
-                                '\tcreate database ovirtenginereports '
+                                '\tcreate database %s '
                                 'template template0 encoding '
                                 '\'UTF8\' lc_collate \'en_US.UTF-8\' '
                                 'lc_ctype \'en_US.UTF-8\' '
                                 'owner <role>;\n'
                                 'User decided to exit.'
-                            )
+                            ) % JRS_DB_NAME
 
                     if os.path.exists(TEMP_PGPASS):
                         os.remove(TEMP_PGPASS)
@@ -1079,6 +1079,7 @@ def main(options):
                     logging.error("WAR Directory does not exist but the DB is up and running.")
                     raise Exception(
                         MSG_ERROR_DB_EXISTS % (
+                            JRS_APP_NAME,
                             db_dict['dbname'],
                             db_dict['dbname'],
                         )
@@ -1208,7 +1209,7 @@ def main(options):
             # Restart the httpd service
             utils.restartHttpd()
             utils.storeConf(db_dict)
-            print "Succesfully installed ovirt-engine-reports."
+            print "Succesfully installed %s." % JRS_APP_NAME
             print "The installation log file is available at: %s" % log_file
 
         else:
@@ -1219,7 +1220,7 @@ def main(options):
         logging.error("Exception caught!")
         logging.error(traceback.format_exc())
         print sys.exc_info()[1]
-        print "Error encountered while installing ovirt-engine-reports, please consult the log file: %s" % log_file
+        print "Error encountered while installing %s, please consult the log file: %s" % (JRS_APP_NAME, log_file)
         rc = 1
     finally:
         shutil.rmtree(DIR_TEMP_SCHEDULE)
