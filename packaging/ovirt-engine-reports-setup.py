@@ -1086,7 +1086,7 @@ def main(options):
                     )
                     if not DB_EXIST:
                         print (
-                            'error: cannot connect to the '
+                            'Error: cannot connect to the '
                             'remote db with provided credentials. '
                             'verify that the provided user is defined '
                             'user exists on a remote db server and '
@@ -1094,10 +1094,7 @@ def main(options):
                             'Then rerun the setup.\n'
                         )
                         if options['REMOTE_DB_HOST'] is not None:
-                            sys.exit(1)
-
-                else:
-                    raise RuntimeError('Could not connect to the remote DB')
+                            raise RuntimeError('Could not connect to the remote DB')
 
             if not isWarInstalled() and DB_EXIST and dblocal:
                 @utils.transactionDisplay('Checking system state')
