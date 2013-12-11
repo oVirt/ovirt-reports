@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ovirt_engine_reports</groupId>
+    <artifactId>jars</artifactId>
+    <version>3.3.0</version>
+  </parent>
+
+  <groupId>ovirt_engine_reports</groupId>
+  <artifactId>ReportStatus</artifactId>
+  <packaging>jar</packaging>
+  <version>3.3.0</version>
+  <name>Report Status Servlet</name>
+  <description>Report Status Servlet</description>
+
+  <properties>
+      <javax.servlet.api.version>2.3</javax.servlet.api.version>
+  </properties>
+
+  <dependencies>
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+          <version>${javax.servlet.api.version}</version>
+          <scope>provided</scope>
+      </dependency>
+  </dependencies>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+              <includes>
+                <include>**/*.java</include>
+              </includes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>maven repo1</name>
+      <layout>default</layout>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>maven.search.repo</id>
+      <name>maven search repo</name>
+      <layout>default</layout>
+      <url>http://mvnsearch.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>

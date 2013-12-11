@@ -18,6 +18,7 @@
     <module>EngineAuthentication</module>
     <module>ReportsPieChartTheme</module>
     <module>ReportsLineBarChartTheme</module>
+    <module>ReportsStatus</module>
     <module>WebadminLineBarChartTheme</module>
     <module>CustomOvirtReportsQueryManipulator</module>
   </modules>
