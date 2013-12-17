@@ -64,6 +64,7 @@ ARTIFACTS = \
             EngineAuthentication \
             ReportsLineBarChartTheme \
             ReportsPieChartTheme \
+            ReportsStatus \
             WebadminLineBarChartTheme \
             CustomOvirtReportsQueryManipulator \
             $(NULL)

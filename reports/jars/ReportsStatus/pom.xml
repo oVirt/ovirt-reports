@@ -8,7 +8,7 @@
   </parent>
 
   <groupId>ovirt_engine_reports</groupId>
-  <artifactId>ReportStatus</artifactId>
+  <artifactId>ReportsStatus</artifactId>
   <packaging>jar</packaging>
   <version>3.3.0</version>
   <name>Report Status Servlet</name>
