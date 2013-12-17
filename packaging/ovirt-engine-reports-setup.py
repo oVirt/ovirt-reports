@@ -180,7 +180,7 @@ def deployJs(db_dict, TEMP_PGPASS):
         shutil.copyfile("/usr/share/java/postgresql-jdbc.jar", "%s/conf_source/db/postgresql/jdbc/postgresql-jdbc.jar" % REPORTS_SERVER_BUILDOMATIC_DIR)
 
         # create DB if it didn't exist:
-        if not DB_EXISTED:
+        if not DB_EXISTED and utils.localHost(db_dict['host']):
             logging.debug('Creating DB')
             utils.createDB(db_dict)
             utils.createLang(db_dict, TEMP_PGPASS)
@@ -622,6 +622,7 @@ def restoreDB(db_dict, TEMP_PGPASS):
             "-U", db_dict["username"],
             "-h", db_dict["host"],
             "-p", db_dict["port"],
+            "-d", db_dict['dbname'],
             "-f", FILE_TMP_SQL_DUMP,
         ]
 
@@ -976,11 +977,13 @@ def main(options):
                             reports_user=REPORTS_DB_USER,
                         )
                     )
-                    utils.updateDbOwner(
-                        db_dict=db_dict,
-                        origowner=db_dict['username'],
-                        newowner=REPORTS_DB_USER,
+                    utils.createRole(
+                        database=db_dict['dbname'],
+                        username=db_dict['username'],
+                        password=db_dict['password'],
+                        engine=db_dict['engine_user'],
                     )
+                    utils.updateDbOwner(db_dict)
             elif not DB_EXIST:
                 logging.debug(
                     (
@@ -1090,6 +1093,10 @@ def main(options):
 
             # Update reports datasource configuration
             setReportsDatasource(db_dict)
+
+            if not warUpdated and isWarInstalled() and DB_EXIST:
+                backupWAR()
+                backupDB(db_dict, TEMP_PGPASS)
 
             # Catch failures on configuration
             try:

@@ -32,6 +32,7 @@ ENGINE_SERVICE_NAME = "ovirt-engine"
 EXEC_IP = "/sbin/ip"
 EXEC_SU = "/bin/su"
 EXEC_PSQL = '/usr/bin/psql'
+EXEC_PGDUMP = '/usr/bin/pg_dump'
 EXEC_SERVICE="/sbin/service"
 EXEC_SYSTEMCTL="/bin/systemctl"
 EXEC_CHKCONFIG="/sbin/chkconfig"
@@ -841,15 +842,7 @@ def getPassFromFile(username):
 
 
 def createDB(db_dict):
-    if localHost(db_dict['host']):
-        if not db_dict['engine_user'] == db_dict['username']:
-            createRole(
-                database=db_dict['dbname'],
-                username=db_dict['username'],
-                password=db_dict['password'],
-                engine=db_dict['engine_user'],
-            )
-        createDatabase(db_dict['dbname'], db_dict['username'])
+    createDatabase(db_dict['dbname'], db_dict['username'])
 
 
 def createLang(db_dict, TEMP_PGPASS):
@@ -1032,6 +1025,29 @@ def execCmd(
         raise Exception(msg)
     return ("".join(output.splitlines(True)), proc.returncode)
 
+
+def runPostgresSuCommand(command, database=None, failOnError=True):
+    sql_command = [
+        command,
+    ]
+    if database is not None:
+        sql_command.append(database)
+
+    cmd = [
+        EXEC_SU,
+        '-l',
+        'postgres',
+        '-c',
+        '{command}'.format(
+            command=' '.join(sql_command),
+        )
+    ]
+
+    return execCmd(
+        cmdList=cmd,
+        failOnError=failOnError
+    )
+
 def runPostgresSuQuery(query, database=None, failOnError=True):
     sql_command = [
         EXEC_PSQL,
@@ -1134,27 +1150,28 @@ def updatePgHba(username, database, engine):
     with open(FILE_PG_HBA, 'w') as pghba:
         pghba.write('\n'.join(content))
 
+def createUser(user, password):
+    if userExists(user):
+        return
+
+    logging.debug('Adding user {user}'.format(user=user))
+
+    runPostgresSuQuery(
+        query=(
+            '"CREATE ROLE {user} with '
+            'login encrypted password \'{password}\';"'
+        ).format(
+            user=user,
+            password=password,
+        )
+    )
+
 
 def createRole(database, username, password, engine):
-    for query in (
-        (
-            '"create role {username}";'
-        ).format(
-            username=username,
-        ),
-        (
-            '"alter role {username} '
-            'with login encrypted password \'{password}\';"'
-        ).format(
-            username=username,
-            password=password,
-        ),
-
-    ):
-        runPostgresSuQuery(
-            query=query,
-            failOnError=False,
-        )
+    createUser(
+        user=username,
+        password=password,
+    )
     updatePgHba(username, database, engine)
     restartPostgres()
 
@@ -1164,7 +1181,8 @@ def createDatabase(database, owner):
         query=(
             (
                 '"create database {database} '
-                'encoding \'UTF8\' LC_COLLATE \'en_US.UTF-8\' LC_CTYPE \'en_US.UTF-8\' template template0 '
+                'encoding \'UTF8\' LC_COLLATE \'en_US.UTF-8\' '
+                'LC_CTYPE \'en_US.UTF-8\' template template0 '
                 'owner {owner};"'
             ).format(
                 database=database,
@@ -1173,32 +1191,33 @@ def createDatabase(database, owner):
         )
     )
 
-def updateDbOwner(db_dict, origowner, newowner):
-    createRole(
+
+def updateDbOwner(db_dict):
+    logging.debug('Updating DB owner')
+    _RE_OWNER = re.compile(r'^([\w,.\(\)]+\s+)+OWNER TO (?P<owner>\w+).*$')
+    out, rc = runPostgresSuCommand(
+        command=EXEC_PGDUMP,
         database=db_dict['dbname'],
-        username=db_dict['username'],
-        password=db_dict['password'],
-        engine=db_dict['engine_user'],
     )
-    for query in (
-        (
-            '"alter database {database} owner to {user};"'
-        ).format(
-            database=db_dict['dbname'],
-            user=newowner,
-        ),
-        (
-            '"reassign owned by {origowner} to {newowner};"'
-        ).format(
-            origowner=origowner,
-            newowner=newowner,
-        ),
-    ):
+    sql_query_set = []
+    for line in out.splitlines():
+        matcher = _RE_OWNER.match(line)
+        if matcher is not None:
+            sql_query_set.append(
+                '"{query}"'.format(
+                    query=line.replace(
+                        'OWNER TO {orig}'.format(orig=matcher.group('owner')),
+                        'OWNER TO {new}'.format(new=db_dict['username'])
+                    )
+                )
+            )
+
+    for sql_query in sql_query_set:
         runPostgresSuQuery(
-            query=query,
+            query=sql_query,
             database=db_dict['dbname'],
-            failOnError=True,
         )
+
 
 def storeConf(db_dict):
     if not os.path.exists(DIR_DATABASE_REPORTS_CONFIG):
@@ -1221,3 +1240,12 @@ def storeConf(db_dict):
                 password=db_dict['password'],
             )
         )
+
+
+def userExists(user):
+    sql_query = '"select 1 from pg_roles where rolname=\'{user}\';"'.format(
+        user=user
+    )
+
+    output, rc = runPostgresSuQuery(sql_query)
+    return '1' in output
