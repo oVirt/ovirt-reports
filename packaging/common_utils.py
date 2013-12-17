@@ -944,7 +944,7 @@ def createTempPgpass(db_dict, mode='all'):
                 '{host}:{port}:{database}:{user}:{password}\n'
                 '{host}:{port}:{database}:{engine_user}:{engine_pass}\n'
                 '{host}:{port}:{engine_db}:{engine_user}:{engine_pass}\n'
-                '{host}:{port}:{dwh_db}:{dwh_user}:{dwh_pass}\n'
+                '{host}:{port}:{dwh_db}:{dwh_db_user}:{dwh_db_password}\n'
             ).format(
                 host=db_dict['host'],
                 port=db_dict['port'],
@@ -955,8 +955,8 @@ def createTempPgpass(db_dict, mode='all'):
                 engine_user=db_dict['engine_user'],
                 engine_pass=db_dict['engine_pass'],
                 dwh_db=db_dict['dwh_database'],
-                dwh_user=db_dict['dwh_user'],
-                dwh_pass=db_dict['dwh_pass'],
+                dwh_db_user=db_dict['dwh_db_user'],
+                dwh_db_password=db_dict['dwh_db_password'],
             ),
         )
 
@@ -1212,9 +1212,9 @@ def storeConf(db_dict):
     ) as rf:
         rf.write(
             (
-                'REPORTS_DATABASE={database}\n'
-                'REPORTS_USER={user}\n'
-                'REPORTS_PASSWORD={password}'
+                'REPORTS_DB_DATABASE={database}\n'
+                'REPORTS_DB_USER={user}\n'
+                'REPORTS_DB_PASSWORD={password}'
             ).format(
                 database=db_dict['dbname'],
                 user=db_dict['username'],

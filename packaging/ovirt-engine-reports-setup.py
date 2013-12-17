@@ -49,7 +49,7 @@ db_dict = None
 ENGINE_DB_DATABASE = "engine"
 ENGINE_HISTORY_DB_NAME = "ovirt_engine_history"
 REPORTS_DB_USER = 'engine_reports'
-DWH_USER = 'engine_history'
+DWH_DB_USER = 'engine_history'
 
 REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
@@ -253,8 +253,8 @@ def setReportsDatasource(db_dict):
     xml_editor = utils.XMLConfigFileHandler(FILE_DB_DATA_SOURCE)
     xml_editor.open()
     xml_editor.editParams({'/jdbcDataSource/connectionUrl':"jdbc:postgresql://%s:%s/%s" % (db_dict["host"],db_dict["port"],ENGINE_HISTORY_DB_NAME)})
-    xml_editor.editParams({'/jdbcDataSource/connectionUser':db_dict["dwh_user"]})
-    xml_editor.editParams({'/jdbcDataSource/connectionPassword':db_dict["dwh_pass"]})
+    xml_editor.editParams({'/jdbcDataSource/connectionUser':db_dict["dwh_db_user"]})
+    xml_editor.editParams({'/jdbcDataSource/connectionPassword':db_dict["dwh_db_password"]})
     xml_editor.close()
 
 def resetReportsDatasourcePassword():
@@ -324,17 +324,17 @@ def getDbDictFromOptions():
             handler.open()
 
             for k, v in (
-                ('dbname', 'REPORTS_DATABASE'),
+                ('dbname', 'REPORTS_DB_DATABASE'),
                 ('host', 'ENGINE_DB_HOST'),
                 ('port', 'ENGINE_DB_PORT'),
-                ('username', 'REPORTS_USER'),
-                ('password', 'REPORTS_PASSWORD'),
+                ('username', 'REPORTS_DB_USER'),
+                ('password', 'REPORTS_DB_PASSWORD'),
                 ('engine_db', 'ENGINE_DB_DATABASE'),
                 ('engine_user', 'ENGINE_DB_USER'),
                 ('engine_pass', 'ENGINE_DB_PASSWORD'),
-                ('dwh_database', 'DWH_DATABASE'),
-                ('dwh_user', 'DWH_USER'),
-                ('dwh_pass', 'DWH_PASSWORD'),
+                ('dwh_database', 'DWH_DB_DATABASE'),
+                ('dwh_db_user', 'DWH_DB_USER'),
+                ('dwh_db_password', 'DWH_DB_PASSWORD'),
             ):
                 s = handler.getParam(v)
                 if s is not None:
@@ -951,8 +951,8 @@ def main(options):
                     'host': db_dict['host'],
                     'port': db_dict['port'],
                     'dbname': db_dict['dwh_database'],
-                    'username': db_dict['dwh_user'],
-                    'password': db_dict['dwh_pass'],
+                    'username': db_dict['dwh_db_user'],
+                    'password': db_dict['dwh_db_password'],
                     'engine_user': db_dict['engine_user'],
                 },
                 TEMP_PGPASS=TEMP_PGPASS,
