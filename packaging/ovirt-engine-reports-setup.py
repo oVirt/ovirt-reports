@@ -55,8 +55,8 @@ REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
 FILE_JASPER_DB_CONN = "%s/default_master.properties" % REPORTS_SERVER_BUILDOMATIC_DIR
 FILE_DATABASE_CONFIG = "/etc/ovirt-engine/engine.conf.d/10-setup-database.conf"
-FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/engine-dwh.conf.d/10-setup-database-dwh.conf"
-FILE_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/engine-reports.conf.d/10-setup-database-reports.conf"
+FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d/10-setup-database-dwh.conf"
+FILE_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/10-setup-database-reports.conf"
 FILE_ENGINE_CONF_DEFAULTS = "/usr/share/ovirt-engine/services/ovirt-engine/ovirt-engine.conf"
 FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 
