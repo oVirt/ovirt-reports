@@ -38,7 +38,7 @@ EXEC_CHKCONFIG="/sbin/chkconfig"
 
 FILE_PG_PASS="/etc/ovirt-engine/.pgpass"
 DIR_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/"
-FILE_DATABASE_REPORTS_CONFIG = "10-setup-database-reports.conf"
+FILE_DATABASE_REPORTS_CONFIG = "10-setup-database.conf"
 PGPASS_FILE_USER_LINE = "DB USER credentials"
 PGPASS_FILE_ADMIN_LINE = "DB ADMIN credentials"
 FILE_ENGINE_CONFIG_BIN="/usr/bin/engine-config"

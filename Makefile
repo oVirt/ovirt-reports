@@ -161,7 +161,6 @@ install_files:
 	install -d $(DESTDIR)$(DATA_DIR)/server-customizations
 
 	cp -a  reports/repository_files/* $(DESTDIR)$(DATA_DIR)/reports
-	install -p -m 660 packaging/10-setup-database-reports.conf $(DESTDIR)$(SYSCONF_DIR)/$(OVIRT_REPORTS_NAME)/ovirt-engine-reports.conf.d
 	install -p -m 644 packaging/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
 	install -p -m 644 packaging/z-ovirt-engine-reports-proxy.conf  $(DESTDIR)$(SYSCONF_DIR)/httpd/conf.d
 	install -p -m 755 packaging/ssl2jkstrust.py $(DESTDIR)$(DATA_DIR)

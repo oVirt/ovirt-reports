@@ -54,9 +54,9 @@ DWH_USER = 'engine_history'
 REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
 FILE_JASPER_DB_CONN = "%s/default_master.properties" % REPORTS_SERVER_BUILDOMATIC_DIR
-FILE_DATABASE_CONFIG = "/etc/ovirt-engine/engine.conf.d/10-setup-database.conf"
-FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d/10-setup-database-dwh.conf"
-FILE_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/10-setup-database-reports.conf"
+FILE_DATABASE_ENGINE_CONFIG = "/etc/ovirt-engine/engine.conf.d/10-setup-database.conf"
+FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d/10-setup-database.conf"
+FILE_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/10-setup-database.conf"
 FILE_ENGINE_CONF_DEFAULTS = "/usr/share/ovirt-engine/services/ovirt-engine/ovirt-engine.conf"
 FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 
@@ -308,51 +308,38 @@ def setDBConn():
         raise OSError("Cannot find password for db")
 
 def getDbDictFromOptions():
-    if os.path.exists(FILE_DATABASE_CONFIG):
-        handler = utils.TextConfigFileHandler(FILE_DATABASE_CONFIG)
-        handler.open()
-        dhandler = handler
-        if os.path.exists(FILE_DATABASE_REPORTS_CONFIG):
-            dhandler = utils.TextConfigFileHandler(FILE_DATABASE_REPORTS_CONFIG)
-            dhandler.open()
-        db_dict = {
-            'dbname': (
-                dhandler.getParam('REPORTS_DATABASE') or
-                JRS_DB_NAME
-            ),
-            'host': handler.getParam('ENGINE_DB_HOST').strip('"'),
-            'port': handler.getParam('ENGINE_DB_PORT').strip('"'),
-            'username': (
-                dhandler.getParam('REPORTS_USER') or
-                REPORTS_DB_USER
-            ),
-            'password': (
-                dhandler.getParam('REPORTS_PASSWORD') or
-                utils.generatePassword()
-            ),
-            'engine_db': (
-                handler.getParam('ENGINE_DB_DATABASE').strip('"') or
-                ENGINE_DB_DATABASE
-            ),
-            'engine_user': handler.getParam('ENGINE_DB_USER').strip('"'),
-            'engine_pass': handler.getParam('ENGINE_DB_PASSWORD').strip('"'),
-        }
-        handler.close()
-        dhandler.close()
+    db_dict = {
+        'dbname': JRS_DB_NAME,
+        'host': utils.getDbHostName(),
+        'port': utils.getDbPort(),
+        'username': REPORTS_DB_USER,
+        'password': utils.generatePassword(),
+        'engine_db': ENGINE_DB_DATABASE,
+    }
 
-    else:
-        raise RuntimeError(
-            'Engine was not setup on this machine. '
-            'Please execute: \"engine-setup\" followed by '
-            '\"ovirt-engine-dwh-setup\" '
-            'before setting up the reports.'
-        )
+    for file in (FILE_DATABASE_ENGINE_CONFIG, FILE_DATABASE_DWH_CONFIG, FILE_DATABASE_REPORTS_CONFIG):
 
-    dwhandler = utils.TextConfigFileHandler(FILE_DATABASE_DWH_CONFIG)
-    dwhandler.open()
-    db_dict['dwh_database'] = dwhandler.getParam('DWH_DATABASE')
-    db_dict['dwh_user'] = dwhandler.getParam('DWH_USER')
-    db_dict['dwh_pass'] = dwhandler.getParam('DWH_PASSWORD')
+        if os.path.exists(file):
+            handler = utils.TextConfigFileHandler(file)
+            handler.open()
+
+            for k, v in (
+                ('dbname', 'REPORTS_DATABASE'),
+                ('host', 'ENGINE_DB_HOST'),
+                ('port', 'ENGINE_DB_PORT'),
+                ('username', 'REPORTS_USER'),
+                ('password', 'REPORTS_PASSWORD'),
+                ('engine_db', 'ENGINE_DB_DATABASE'),
+                ('engine_user', 'ENGINE_DB_USER'),
+                ('engine_pass', 'ENGINE_DB_PASSWORD'),
+                ('dwh_database', 'DWH_DATABASE'),
+                ('dwh_user', 'DWH_USER'),
+                ('dwh_pass', 'DWH_PASSWORD'),
+            ):
+                s = handler.getParam(v)
+                if s is not None:
+                    db_dict[k] = s.strip('"')
+            handler.close()
 
     return db_dict
 
@@ -932,6 +919,11 @@ def main(options):
         if not isOvirtEngineInstalled():
             logging.debug("ovirt-engine is not installed, cannot continue")
             print "Please install & configure oVirt engine by executing \"engine-setup\" prior to setting up the %s." % JRS_APP_NAME
+            return 0
+
+        if not os.path.exists(FILE_DATABASE_DWH_CONFIG):
+            logging.debug("ovirt-engine-dwh is not installed, cannot continue")
+            print "Please install & configure oVirt engine data warehouse by executing \"ovirt-engine-dwh-setup\" prior to setting up the %s." % JRS_APP_NAME
             return 0
 
         # Check if ovirt-engine is up, if so prompt the user to stop it.
