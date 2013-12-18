@@ -53,6 +53,7 @@ DWH_DB_USER = 'engine_history'
 
 REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
+REPORTS_DB_UPGRADE_SCRIPTS_DIR = "%s/install_resources/sql/postgresql" % REPORTS_SERVER_BUILDOMATIC_DIR
 FILE_JASPER_DB_CONN = "%s/default_master.properties" % REPORTS_SERVER_BUILDOMATIC_DIR
 FILE_DATABASE_ENGINE_CONFIG = "/etc/ovirt-engine/engine.conf.d/10-setup-database.conf"
 FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d/10-setup-database.conf"
@@ -77,6 +78,7 @@ OVIRT_REPORTS_TRUST_STORE_PASS="mypass"
 DB_EXIST = False
 MUCK_PASSWORD="oVirtadmin2009!"
 PGDUMP_EXEC = "/usr/bin/pg_dump"
+EXEC_PSQL = "/usr/bin/psql"
 FILE_TMP_SQL_DUMP = tempfile.mkstemp(suffix=".sql", dir="/tmp")[1]
 DIR_TMP_WAR = tempfile.mkdtemp(dir="/tmp")
 
@@ -147,6 +149,33 @@ def _getOptions():
 
     (options, args) = parser.parse_args()
     return (options, args)
+
+@transactionDisplay('Updating DB Schema')
+def updateDbSchema(db_dict, TEMP_PGPASS):
+    sql_files = os.listdir(REPORTS_DB_UPGRADE_SCRIPTS_DIR)
+    sql_files.sort()
+    reports_version_type = 'ce'
+    for sql_file in sql_files:
+        if (
+            not sql_file.startswith('upgrade-postgresql-') or
+            reports_version_type not in sql_file or
+            sql_file < 'upgrade-postgresql-4.7'
+        ):
+            continue
+
+        cmd = [
+            EXEC_PSQL,
+            '-U', db_dict['username'],
+            '-d', db_dict['dbname'],
+            '-h', db_dict['host'],
+            '-p', db_dict['port'],
+            '-f', os.path.join(REPORTS_DB_UPGRADE_SCRIPTS_DIR,sql_file)
+        ]
+        utils.execCmd(
+            cmdList=cmd,
+            failOnError=True,
+            envDict={'ENGINE_PGPASS': TEMP_PGPASS},
+        )
 
 @transactionDisplay("Deploying Server")
 def deployJs(db_dict, TEMP_PGPASS):
@@ -368,6 +397,8 @@ def getDBStatus(db_dict, TEMP_PGPASS):
     ):
         exists, owned = utils.dbExists(dbdict, TEMP_PGPASS)
         if exists:
+            db_dict['username'] = dbdict['username']
+            db_dict['password'] = dbdict['password']
             break
 
     return exists, owned
@@ -1097,6 +1128,10 @@ def main(options):
             if not warUpdated and isWarInstalled() and DB_EXIST:
                 backupWAR()
                 backupDB(db_dict, TEMP_PGPASS)
+                with open(FILE_DEPLOY_VERSION, 'r') as verfile:
+                    for line in verfile.readlines():
+                        if line.startswith('4.7'):
+                            updateDbSchema(db_dict, TEMP_PGPASS)
 
             # Catch failures on configuration
             try:
