@@ -997,6 +997,12 @@ def main(options):
 
             DB_EXIST, owned = getDBStatus(db_dict, TEMP_PGPASS)
             if dblocal:
+                utils.createRole(
+                    database=db_dict['dbname'],
+                    username=db_dict['username'],
+                    password=db_dict['password'],
+                    engine=db_dict['engine_user'],
+                )
                 if DB_EXIST and not owned:
                     logging.debug(
                         (
@@ -1007,12 +1013,6 @@ def main(options):
                             database=db_dict['dbname'],
                             reports_user=REPORTS_DB_USER,
                         )
-                    )
-                    utils.createRole(
-                        database=db_dict['dbname'],
-                        username=db_dict['username'],
-                        password=db_dict['password'],
-                        engine=db_dict['engine_user'],
                     )
                     utils.updateDbOwner(db_dict)
             elif not DB_EXIST:
