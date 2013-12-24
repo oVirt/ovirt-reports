@@ -731,11 +731,14 @@ def dbExists(db_dict, TEMP_PGPASS):
 
     exists = False
     owner = False
+    hasData = False
     logging.debug("checking if %s db already exists" % db_dict['dbname'])
     env = {'ENGINE_PGPASS': TEMP_PGPASS}
+    rc = -1
     if (
         db_dict['username'] == 'admin' and
-        db_dict['password'] == 'dummy'
+        db_dict['password'] == 'dummy' and
+        localHost(db_dict['host'])
     ):
         output, rc = runPostgresSuQuery(
             query='"select 1;"',
@@ -751,12 +754,31 @@ def dbExists(db_dict, TEMP_PGPASS):
     if rc == 0:
         exists = True
         if (
-            db_dict['username'] != db_dict['engine_user'] and
-            db_dict != 'admin'
+            db_dict['username'] == DB_ADMIN
         ):
             owner = True
 
-    return exists, owner
+        rc = -1
+        if (
+            db_dict['username'] == 'admin' and
+            db_dict['password'] == 'dummy' and
+            localHost(db_dict['host'])
+        ):
+            output, rc = runPostgresSuQuery(
+                query='"select 1 from jiadhocdataview;"',
+                database=db_dict['dbname'],
+                failOnError=False,
+            )
+        else:
+            output, rc = execSqlCmd(
+                db_dict=db_dict,
+                sql_query="select 1 from jiadhocdataview;",
+                envDict=env,
+            )
+        if rc == 0:
+            hasData = True
+
+    return exists, owner, hasData
 
 def getDbAdminUser():
     """
@@ -956,14 +978,16 @@ def createTempPgpass(db_dict, mode='all'):
     return pgpass
 
 def execCmd(
-        cmdList,
-        cwd=None,
-        failOnError=False,
-        msg='Return Code is not zero',
-        maskList=[],
-        useShell=False,
-        usePipeFiles=False,
-        envDict=None
+    cmdList,
+    cwd=None,
+    failOnError=False,
+    msg='Return Code is not zero',
+    maskList=[],
+    useShell=False,
+    usePipeFiles=False,
+    envDict=None,
+    stdIn=None,
+    stdOut=None,
 ):
     """
     Run external shell command with 'shell=false'
@@ -981,10 +1005,23 @@ def execCmd(
     stdOutFD = subprocess.PIPE
     stdInFD = subprocess.PIPE
 
+    stdInFile = None
+
     if usePipeFiles:
         (stdErrFD, stdErrFile) = tempfile.mkstemp(dir="/tmp")
         (stdOutFD, stdOutFile) = tempfile.mkstemp(dir="/tmp")
         (stdInFD, stdInFile) = tempfile.mkstemp(dir="/tmp")
+
+    if stdIn is not None:
+        logging.debug("input = %s"%(stdIn))
+        if stdInFile is None:
+            (stdInFD, stdInFile) = tempfile.mkstemp(dir="/tmp")
+        os.write(stdInFD, stdIn)
+        os.lseek(stdInFD, os.SEEK_SET, 0)
+
+    if stdOut is not None:
+        f = open(stdOut, 'w')
+        stdOutFD = f.fileno()
 
     # Copy os.environ and update with envDict if provided
     env = os.environ.copy()
@@ -1020,65 +1057,68 @@ def execCmd(
     logging.debug("output = %s"%(out))
     logging.debug("stderr = %s"%(err))
     logging.debug("retcode = %s"%(proc.returncode))
-    output = out + err
+    output = str(out) + str(err)
     if failOnError and proc.returncode != 0:
         raise Exception(msg)
     return ("".join(output.splitlines(True)), proc.returncode)
 
 
-def runPostgresSuCommand(command, database=None, failOnError=True):
-    sql_command = [
-        command,
-    ]
-    if database is not None:
-        sql_command.append(database)
-
+def runPostgresSuCommand(command, failOnError=True, output=None):
     cmd = [
         EXEC_SU,
         '-l',
         'postgres',
         '-c',
         '{command}'.format(
-            command=' '.join(sql_command),
+            command=' '.join(command),
         )
     ]
 
     return execCmd(
         cmdList=cmd,
-        failOnError=failOnError
+        failOnError=failOnError,
+        stdOut=output,
     )
 
 def runPostgresSuQuery(query, database=None, failOnError=True):
-    sql_command = [
+    logging.debug("starting runPostgresSuQuery database: %s query: %s" %
+                  (database,
+                   query))
+    command = [
         EXEC_PSQL,
         '--pset=tuples_only=on',
         '--set',
         'ON_ERROR_STOP=1',
     ]
     if database is not None:
-        sql_command.extend(
+        command.extend(
             (
                 '-d', database
             )
         )
-    sql_command.extend(
-        (
-            '-c', query,
+    stdIn = None
+    if isinstance(query, list) or isinstance(query, tuple):
+        stdIn = '\n'.join(query)
+    else:
+        command.extend(
+            (
+                '-c', query,
+            )
         )
-    )
     cmd = [
         EXEC_SU,
         '-l',
         'postgres',
         '-c',
         '{command}'.format(
-            command=' '.join(sql_command),
+            command=' '.join(command),
         )
     ]
 
     return execCmd(
         cmdList=cmd,
-        failOnError=failOnError
+        failOnError=failOnError,
+        stdIn=stdIn,
     )
 
 def configHbaIdent(orig='md5', newval='ident'):
@@ -1117,7 +1157,7 @@ def setPgHbaIdent():
 def restorePgHba():
     return configHbaIdent('ident', 'md5')
 
-def updatePgHba(username, database, engine):
+def updatePgHba(username, database):
     content = []
     updated = False
     logging.debug('Updating pghba')
@@ -1167,12 +1207,12 @@ def createUser(user, password):
     )
 
 
-def createRole(database, username, password, engine):
+def createRole(database, username, password):
     createUser(
         user=username,
         password=password,
     )
-    updatePgHba(username, database, engine)
+    updatePgHba(username, database)
     restartPostgres()
 
 
@@ -1196,15 +1236,24 @@ def updateDbOwner(db_dict):
     logging.debug('Updating DB owner')
     _RE_OWNER = re.compile(r'^([\w,.\(\)]+\s+)+OWNER TO (?P<owner>\w+).*$')
     out, rc = runPostgresSuCommand(
-        command=EXEC_PGDUMP,
-        database=db_dict['dbname'],
+        command=(
+            EXEC_PGDUMP,
+            '-s',
+            db_dict['dbname'],
+        ),
     )
     sql_query_set = []
+    sql_query_set.append(
+        'ALTER DATABASE {database} OWNER TO {owner};'.format(
+            database=db_dict['dbname'],
+            owner=db_dict['username'],
+        )
+    )
     for line in out.splitlines():
         matcher = _RE_OWNER.match(line)
         if matcher is not None:
             sql_query_set.append(
-                '"{query}"'.format(
+                '{query}'.format(
                     query=line.replace(
                         'OWNER TO {orig}'.format(orig=matcher.group('owner')),
                         'OWNER TO {new}'.format(new=db_dict['username'])
@@ -1212,11 +1261,10 @@ def updateDbOwner(db_dict):
                 )
             )
 
-    for sql_query in sql_query_set:
-        runPostgresSuQuery(
-            query=sql_query,
-            database=db_dict['dbname'],
-        )
+    runPostgresSuQuery(
+        query=sql_query_set,
+        database=db_dict['dbname'],
+    )
 
 
 def storeConf(db_dict):
