@@ -70,7 +70,7 @@ DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPO
 REPORTS_JARS_DIR = "/usr/share/java/ovirt-engine-reports"
 
 FILE_DEPLOY_VERSION = "/etc/ovirt-engine/jrs-deployment.version"
-DIR_PKI = "/etc/pki/ovirt-engine"
+OVIRT_SETUP_POST_INSTALL_CONFIG = "/etc/ovirt-engine-setup.conf.d/20-setup-ovirt-post.conf"
 OVIRT_REPORTS_ETC="/etc/ovirt-engine/ovirt-engine-reports"
 OVIRT_REPORTS_TRUST_STORE="%s/trust.jks" % OVIRT_REPORTS_ETC
 OVIRT_REPORTS_TRUST_STORE_PASS="mypass"
@@ -373,9 +373,13 @@ def getDbDictFromOptions():
     return db_dict
 
 def getDBStatus(db_dict, TEMP_PGPASS):
-    exists = owned = False
+    logging.debug("starting getDBStatus")
+    exists = owned = hasData = False
+    working_db_dict = None
     for dbdict in (
+        # Our own user
         db_dict,
+        # engine user
         {
             'dbname': JRS_DB_NAME,
             'host': db_dict['host'],
@@ -385,6 +389,7 @@ def getDBStatus(db_dict, TEMP_PGPASS):
             'engine_user': db_dict['engine_user'],
             'engine_pass': db_dict['engine_pass'],
         },
+        # postgres
         {
             'dbname': JRS_DB_NAME,
             'host': db_dict['host'],
@@ -395,13 +400,20 @@ def getDBStatus(db_dict, TEMP_PGPASS):
             'engine_pass': db_dict['engine_pass'],
         },
     ):
-        exists, owned = utils.dbExists(dbdict, TEMP_PGPASS)
-        if exists:
-            db_dict['username'] = dbdict['username']
-            db_dict['password'] = dbdict['password']
+        tmpexists, tmpowned, tmphasData = utils.dbExists(dbdict, TEMP_PGPASS)
+        exists |= tmpexists
+        owned |= tmpowned
+        hasData |= tmphasData
+        if hasData:
+            working_db_dict = dbdict
             break
+        elif working_db_dict is None and exists:
+            working_db_dict = dbdict
 
-    return exists, owned
+        if working_db_dict is not None:
+            logging.debug("getDBStatus working username %s" % working_db_dict['username'])
+    logging.debug("getDBStatus returns: exists %s owned %s hasData %s" % (exists, owned, hasData))
+    return exists, owned, hasData, working_db_dict
 
 def getDbCredentials(
     hostdefault='',
@@ -411,15 +423,15 @@ def getDbCredentials(
     """
     get db params from user
     """
-    dbhost = utils.askQuestion(
-        question='Enter the host name for the DB server',
-        default=hostdefault,
-    )
-
-    dbport = utils.askQuestion(
-        question='Enter the port of the remote DB server',
-        default=portdefault or '5432',
-    )
+    print (
+        'Remote installation selected. Make sure that DBA creates a user '
+        'and the database in the following fashion:\n'
+        '\tcreate role <role> with login '
+        'encrypted password \'<password>\';\n'
+        '\tcreate database %s template template0 encoding '
+        '\'UTF8\' lc_collate \'en_US.UTF-8\' lc_ctype \'en_US.UTF-8\' '
+        'owner <role>;\n'
+    ) % JRS_DB_NAME
 
     dbuser = utils.askQuestion(
         question='Provide a remote DB user',
@@ -435,7 +447,7 @@ def getDbCredentials(
             print "ERROR: passwords don't match"
             return getDbCredentials(dbhost, dbport, dbuser)
 
-    return dbhost, dbport, dbuser, userInput
+    return dbuser, userInput
 
 def getAdminPass():
 
@@ -614,28 +626,51 @@ def importScheduale(inputDir=DIR_TEMP_SCHEDULE):
 def backupDB(db_dict, TEMP_PGPASS):
     # pg_dump -C -E UTF8  --column-inserts --disable-dollar-quoting  --disable-triggers -U postgres --format=p -f $dir/$file  ovirt-engine
     logging.debug("DB Backup started")
-    cmd = [
-        PGDUMP_EXEC,
-        "-C",
-        "-E",
-        "UTF8",
-        "-w",
-        "--column-inserts",
-        "--disable-dollar-quoting",
-        "--disable-triggers",
-        "--format=p",
-        "-U", db_dict["username"],
-        "-h", db_dict["host"],
-        "-p", db_dict["port"],
-        "-f", FILE_TMP_SQL_DUMP,
-        db_dict['dbname'],
-    ]
-    output, rc = utils.execCmd(
-        cmdList=cmd,
-        failOnError=True,
-        msg=MSG_ERROR_BACKUP_DB,
-        envDict={'ENGINE_PGPASS': TEMP_PGPASS},
-    )
+    if (
+        db_dict['username'] == 'admin' and
+        db_dict['password'] == 'dummy' and
+        utils.localHost(db_dict['host'])
+    ):
+        cmd = [
+            PGDUMP_EXEC,
+            "-C",
+            "-E",
+            "UTF8",
+            "-w",
+            "--column-inserts",
+            "--disable-dollar-quoting",
+            "--disable-triggers",
+            "--format=p",
+            db_dict['dbname'],
+        ]
+        output, rc = utils.runPostgresSuCommand(
+            command=cmd,
+            failOnError=True,
+            output=FILE_TMP_SQL_DUMP,
+        )
+    else:
+        cmd = [
+            PGDUMP_EXEC,
+            "-C",
+            "-E",
+            "UTF8",
+            "-w",
+            "--column-inserts",
+            "--disable-dollar-quoting",
+            "--disable-triggers",
+            "--format=p",
+            "-U", db_dict["username"],
+            "-h", db_dict["host"],
+            "-p", db_dict["port"],
+            "-f", FILE_TMP_SQL_DUMP,
+            db_dict['dbname'],
+        ]
+        output, rc = utils.execCmd(
+            cmdList=cmd,
+            failOnError=True,
+            msg=MSG_ERROR_BACKUP_DB,
+            envDict={'ENGINE_PGPASS': TEMP_PGPASS},
+        )
     logging.debug("DB Backup completed successfully")
     logging.debug("DB Saved to %s", FILE_TMP_SQL_DUMP)
 
@@ -692,18 +727,8 @@ def restoreWAR():
     else:
         logging.debug("no saved WAR dir found, will not restore WAR")
 
-def isOvirtEngineInstalled():
-    keystore = os.path.join(DIR_PKI, "keys", "engine.p12")
-    engine_ear = "%s/engine.ear" % DIR_DEPLOY
-
-    if os.path.exists(keystore):
-        logging.debug("%s exists, ovirt-engine is installed", keystore)
-        return True
-    elif os.path.exists(engine_ear):
-        logging.debug("ear exists, ovirt-engine is installed")
-        return True
-    else:
-        return False
+def isOvirtEngineSetup():
+    return os.path.exists(os.path.join(OVIRT_SETUP_POST_INSTALL_CONFIG))
 
 def getHostParams(secure=True):
     """
@@ -787,7 +812,7 @@ def isWarInstalled():
     """
     jasperreports = DIR_WAR
     if os.path.exists(jasperreports):
-	logging.debug('Found WAR folder %s', jasperreports)
+        logging.debug('Found WAR folder %s', jasperreports)
         return True
     else:
         return False
@@ -948,9 +973,9 @@ def main(options):
         print "Welcome to %s setup utility" % JRS_APP_NAME
 
         # Check that oVirt-Engine is installed, otherwise exit gracefully with an informative message
-        if not isOvirtEngineInstalled():
-            logging.debug("ovirt-engine is not installed, cannot continue")
-            print "Please install & configure oVirt engine by executing \"engine-setup\" prior to setting up the %s." % JRS_APP_NAME
+        if not isOvirtEngineSetup():
+            logging.debug("ovirt-engine is not set up, cannot continue")
+            print "Please install & setup oVirt engine by executing \"engine-setup\" prior to setting up the %s." % JRS_APP_NAME
             return 0
 
         if not os.path.exists(FILE_DATABASE_DWH_CONFIG):
@@ -994,15 +1019,16 @@ def main(options):
                     'and execute: \"ovirt-engine-dwh-setup\" before setting up the '
                     'reports.'
                 )
-
-            DB_EXIST, owned = getDBStatus(db_dict, TEMP_PGPASS)
+            DB_EXIST, owned, hasData, working_db_dict = getDBStatus(db_dict, TEMP_PGPASS)
+            if DB_EXIST:
+                backupDB(working_db_dict, TEMP_PGPASS)
             if dblocal:
-                utils.createRole(
-                    database=db_dict['dbname'],
-                    username=db_dict['username'],
-                    password=db_dict['password'],
-                    engine=db_dict['engine_user'],
-                )
+                if not utils.userExists(db_dict['username']):
+                    utils.createRole(
+                        database=db_dict['dbname'],
+                        username=db_dict['username'],
+                        password=db_dict['password'],
+                    )
                 if DB_EXIST and not owned:
                     logging.debug(
                         (
@@ -1015,88 +1041,43 @@ def main(options):
                         )
                     )
                     utils.updateDbOwner(db_dict)
-            elif not DB_EXIST:
-                logging.debug(
-                    (
-                        'Remote database {database} found, '
-                        'not owned by reports user'
-                    ).format(
-                        database=db_dict['dbname']
+            else:
+                # remote
+                if hasData:
+                    # upgrade
+                    db_dict['username'] = working_db_dict['username']
+                    db_dict['password'] = working_db_dict['password']
+                else:
+                    logging.debug(
+                        (
+                            'Remote database {database} not found'
+                        ).format(
+                            database=db_dict['dbname']
+                        )
                     )
-                )
-                print 'Remote database found.'
+                    print 'Remote database not found.'
 
-                db_dict['host'] = options['REMOTE_DB_HOST']
-                db_dict['port'] = options['REMOTE_DB_PORT']
-                db_dict['username'] = options['REMOTE_DB_USER']
-                db_dict['password'] = options['REMOTE_DB_PASSWORD']
-                while not DB_EXIST:
-                    if options['REMOTE_DB_HOST'] is None:
-                        if utils.askYesNo(
-                            'Setup could not connect to remote database server with '
-                            'automatically detected credentials. '
-                            'Would you like to manually provide db credentials?'
-                        ):
-                            print (
-                                'Remote installation selected. '
-                                'Make sure that DBA '
-                                'creates a user and the database in the following '
-                                ' fashion:\n'
-                                '\tcreate role <role> with login '
-                                'encrypted password <password>;\n'
-                                '\tcreate database %s '
-                                'template template0 encoding '
-                                '\'UTF8\' lc_collate \'en_US.UTF-8\' '
-                                'lc_ctype \'en_US.UTF-8\' '
-                                'owner <role>;\n'
-                            ) % JRS_DB_NAME
+                    DB_EXIST, tmpowned, tmphasData = utils.dbExists(db_dict, TEMP_PGPASS)
+                    if options['REMOTE_DB_USER'] is None:
+                        while not DB_EXIST:
                             (
-                                db_dict['host'],
-                                db_dict['port'],
                                 db_dict['username'],
                                 db_dict['password'],
                             ) = getDbCredentials()
-                        else:
-                            raise RuntimeError(
-                                'Error: cannot connect to the '
-                                'remote db with the provided credentials. '
-                                'Make sure that DBA '
-                                'creates a user and the database in the following '
-                                ' fashion:\n'
-                                '\tcreate role <role> with login '
-                                'encrypted password <password>;\n'
-                                '\tcreate database %s '
-                                'template template0 encoding '
-                                '\'UTF8\' lc_collate \'en_US.UTF-8\' '
-                                'lc_ctype \'en_US.UTF-8\' '
-                                'owner <role>;\n'
-                                'User decided to exit.'
-                            ) % JRS_DB_NAME
+                            if os.path.exists(TEMP_PGPASS):
+                                os.remove(TEMP_PGPASS)
+                            TEMP_PGPASS = utils.createTempPgpass(
+                                db_dict=db_dict,
+                                mode='own',
+                            )
+                            DB_EXIST, tmpowned, tmphasData = utils.dbExists(db_dict, TEMP_PGPASS)
+                            if not DB_EXIST:
+                                print 'Could not connect to remote database - please try again.\n'
+                    else:
+                        db_dict['username'] = options['REMOTE_DB_USER']
+                        db_dict['password'] = options['REMOTE_DB_PASSWORD']
 
-                    if os.path.exists(TEMP_PGPASS):
-                        os.remove(TEMP_PGPASS)
-
-                    TEMP_PGPASS = utils.createTempPgpass(
-                        db_dict=db_dict,
-                        mode='own',
-                    )
-                    DB_EXIST, owned = getDBStatus(
-                        db_dict,
-                        TEMP_PGPASS,
-                    )
-                    if not DB_EXIST:
-                        print (
-                            'Error: cannot connect to the '
-                            'remote db with provided credentials. '
-                            'verify that the provided user is defined '
-                            'user exists on a remote db server and '
-                            'is the owner of the provided database.\n'
-                            'Then rerun the setup.\n'
-                        )
-                        if options['REMOTE_DB_HOST'] is not None:
-                            raise RuntimeError('Could not connect to the remote DB')
-
-            if not isWarInstalled() and DB_EXIST and dblocal:
+            if not isWarInstalled() and hasData:
                 @utils.transactionDisplay('Checking system state')
                 def _exitBadState():
                     logging.error("WAR Directory does not exist but the DB is up and running.")
@@ -1122,13 +1103,13 @@ def main(options):
             # Update reports datasource configuration
             setReportsDatasource(db_dict)
 
-            if not warUpdated and isWarInstalled() and DB_EXIST:
+            if not warUpdated and isWarInstalled():
                 backupWAR()
-                backupDB(db_dict, TEMP_PGPASS)
                 with open(FILE_DEPLOY_VERSION, 'r') as verfile:
                     for line in verfile.readlines():
                         if line.startswith('4.7'):
                             updateDbSchema(db_dict, TEMP_PGPASS)
+                            break
 
             # Catch failures on configuration
             try:
@@ -1138,11 +1119,10 @@ def main(options):
                 if preserveReportsJobs:
                     exportScheduale()
 
-                if DB_EXIST and (
-                    warUpdated or isWarInstalled()
-                ):
+                if hasData:
                     savedDir = utils.exportUsers()
-                elif adminPass is None:
+
+                if not isWarInstalled() and not hasData and adminPass is None:
                     adminPass = getAdminPass()
 
                 # Execute js-ant to create DB and deploy WAR
@@ -1159,16 +1139,9 @@ def main(options):
                     logging.debug('Setting real admin password')
                     editOvirtEngineAdminXml(adminPass)
 
-                if (
-                    DB_EXIST and
-                    savedDir is not None and
-                    (
-                        warUpdated or isWarInstalled()
-                    )
-                ):
+                if preserveReportsJobs:
                     logging.debug("Importing users")
                     utils.importUsers(savedDir)
-
 
                 # Execute js-import to add reports to DB
                 utils.importReports()
@@ -1176,13 +1149,7 @@ def main(options):
                 # We import users twice because we need permissions to be
                 # preserved as well as users passwords reset after importing
                 # reports in previous step.
-                if (
-                    DB_EXIST and
-                    savedDir is not None and
-                    (
-                        warUpdated or isWarInstalled()
-                    )
-                ):
+                if hasData:
                     logging.debug("Imporing users")
                     utils.importUsers(savedDir)
 
