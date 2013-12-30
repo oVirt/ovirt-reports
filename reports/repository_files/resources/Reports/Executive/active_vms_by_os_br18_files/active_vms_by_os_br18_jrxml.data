@@ -39,14 +39,14 @@
 -- VMs Count by OS (Windows vs Windows)
 SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_type,'RHEL','') as os_type, vm_count
 FROM (SELECT DISTINCT CASE
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'WIND%' THEN 'Windows'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RHEL%' THEN 'RHEL'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RED HAT%' THEN 'RHEL'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'OTHER L%' THEN 'Other Linux'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'LINUX' THEN 'Other Linux'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%UBUNTU%' THEN 'Other Linux'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%SUSE%' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Other OS'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'WIND%' THEN 'Windows'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RHEL%' THEN 'RHEL'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RED HAT%' THEN 'RHEL'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'OTHER L%' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'LINUX' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%UBUNTU%' THEN 'Other Linux'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%SUSE%' THEN 'Other Linux'
                           ELSE 'Other OS'
                       END AS os_type,
                       history_datetime AS time,
@@ -83,14 +83,14 @@ FROM (SELECT DISTINCT CASE
                     ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
                 END
       GROUP BY CASE
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'WIND%' THEN 'Windows'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RHEL%' THEN 'RHEL'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'RED HAT%' THEN 'RHEL'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'OTHER L%' THEN 'Other Linux'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'LINUX' THEN 'Other Linux'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%UBUNTU%' THEN 'Other Linux'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like '%SUSE%' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Other OS'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'WIND%' THEN 'Windows'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RHEL%' THEN 'RHEL'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RED HAT%' THEN 'RHEL'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'OTHER L%' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'LINUX' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%UBUNTU%' THEN 'Other Linux'
+                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%SUSE%' THEN 'Other Linux'
                    ELSE 'Other OS'
                END,
                history_datetime) as all_query RIGHT OUTER JOIN calendar ON (all_query.time = calendar.$P!{calendar_column})
@@ -142,7 +142,7 @@ ORDER BY $P!{calendar_column},
 -- VMs Count by OS (Windows vs Windows)
 SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_type, max(os_type) over (partition by 1),'') as os_type, vm_count
 FROM (SELECT distinct CASE
-                          WHEN UPPER(coalesce(enum_os_type.value,'Unknown OS')) like 'UNKN%' THEN 'Unknown OS'
+                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Unknown OS'
                           ELSE 'Known OS'
                        END AS os_type,
                        history_datetime AS time,
