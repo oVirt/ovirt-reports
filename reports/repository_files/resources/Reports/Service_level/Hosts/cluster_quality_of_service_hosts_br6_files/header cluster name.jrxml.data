@@ -10,10 +10,10 @@
     </parameter>
     <queryString>
         <![CDATA[SELECT Distinct cluster_name, delete_date
- FROM v3_3_configuration_history_clusters
+ FROM v3_4_configuration_history_clusters
 WHERE cluster_id = cast($P{P_Cluster_ID} as uuid)
     AND history_id in (SELECT max(a.history_id)
-               FROM v3_3_configuration_history_clusters as a
+               FROM v3_4_configuration_history_clusters as a
                GROUP BY a.cluster_id)]]>
     </queryString>
     <field name="cluster_name" class="java.lang.String"/>

@@ -45,10 +45,10 @@ from    (-- VMs Max and Average MEMory Usage Peaks
         history_datetime AS time,
             SUM(coalesce(memory_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Usage,
             SUM(coalesce(max_memory_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Peak
-    FROM v3_3_statistics_vms_resources_usage_hourly
+    FROM v3_4_statistics_vms_resources_usage_hourly
 
     WHERE
-        v3_3_statistics_vms_resources_usage_hourly.vm_id =
+        v3_4_statistics_vms_resources_usage_hourly.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -121,9 +121,9 @@ from   (-- VMs Disk Usage (I/O) Rates
                 cast(extract(HOUR FROM history_datetime) as int) AS Time,
                 MAX(ROUND(CAST(coalesce(read_rate_bytes_per_second, 0) AS FLOAT)::numeric /(1024*1024),1)) AS Read_Rate,
                 MAX(ROUND(CAST(coalesce(write_rate_bytes_per_second, 0) AS FLOAT)::numeric /(1024*1024),1)) AS Write_Rate
-        FROM v3_3_statistics_vms_disks_resources_usage_$P!{table_name}
-             INNER JOIN v3_3_configuration_history_vms_disks
-                 ON (v3_3_configuration_history_vms_disks.vm_disk_id = v3_3_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id)
+        FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name}
+             INNER JOIN v3_4_configuration_history_vms_disks
+                 ON (v3_4_configuration_history_vms_disks.vm_disk_id = v3_4_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id)
         WHERE history_datetime >= cast($P{P_Start_Date} as timestamp)
               AND history_datetime <= CASE
                                           WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -131,14 +131,14 @@ from   (-- VMs Disk Usage (I/O) Rates
                                           WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                           WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                       END
-              AND v3_3_configuration_history_vms_disks.history_id in (SELECT max(a.history_id)
-                                                                      FROM v3_3_configuration_history_vms_disks as a
+              AND v3_4_configuration_history_vms_disks.history_id in (SELECT max(a.history_id)
+                                                                      FROM v3_4_configuration_history_vms_disks as a
                                                                       GROUP BY a.vm_disk_id)
-              AND v3_3_configuration_history_vms_disks.vm_disk_id in (SELECT c.vm_disk_id
-                                                                      FROM v3_3_statistics_vms_disks_resources_usage_$P!{table_name} b
-                                                                           INNER JOIN v3_3_configuration_history_vms_disks c ON (c.vm_disk_id = b.vm_disk_id)
+              AND v3_4_configuration_history_vms_disks.vm_disk_id in (SELECT c.vm_disk_id
+                                                                      FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name} b
+                                                                           INNER JOIN v3_4_configuration_history_vms_disks c ON (c.vm_disk_id = b.vm_disk_id)
                                                                       WHERE c.vm_disk_id in (SELECT device_id
-                                                                                            FROM v3_3_configuration_history_vms_devices
+                                                                                            FROM v3_4_configuration_history_vms_devices
                                                                                             WHERE vm_id = CASE $P{P_VM_ID}
                                                                                                               WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                                                                                                               WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -153,7 +153,7 @@ from   (-- VMs Disk Usage (I/O) Rates
                                                                                                                      END
                                                                                                   AND (delete_date <= CAST($P{P_Start_Date} as TIMESTAMP) OR delete_date IS NULL)
                                                                                                   AND history_id in (SELECT max(a.history_id)
-                                                                                                                     FROM v3_3_configuration_history_vms_devices a
+                                                                                                                     FROM v3_4_configuration_history_vms_devices a
                                                                                                                      GROUP BY a.vm_id, a.device_id)
                                                                                                   $P!{is_deleted})
                                                                             AND history_datetime >= cast($P{P_Start_Date} as timestamp)
@@ -164,14 +164,14 @@ from   (-- VMs Disk Usage (I/O) Rates
                                                                                                         WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                                                     END
                                                                             AND c.history_id in (SELECT max(d.history_id)
-                                                                                                 FROM  v3_3_configuration_history_vms_disks as d
+                                                                                                 FROM  v3_4_configuration_history_vms_disks as d
                                                                                                  GROUP BY d.vm_disk_id)
                                                                             $P!{is_deleted}
                                                                       GROUP BY c.vm_disk_id
                                                                       ORDER BY MAX(ROUND(CAST(coalesce(b.read_rate_bytes_per_second, 0) AS FLOAT)::numeric,1)) + MAX(ROUND(CAST(coalesce(b.write_rate_bytes_per_second, 0) AS FLOAT)::numeric,1)) DESC
                                                                       LIMIT 5)
               $P!{is_deleted}
-        GROUP BY v3_3_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id, disk_name, cast(extract(HOUR FROM history_datetime) as int)) a RIGHT OUTER JOIN calendar ON (cast(extract(HOUR FROM $P!{calendar_column}) as int) = time)
+        GROUP BY v3_4_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id, disk_name, cast(extract(HOUR FROM history_datetime) as int)) a RIGHT OUTER JOIN calendar ON (cast(extract(HOUR FROM $P!{calendar_column}) as int) = time)
 WHERE $P!{calendar_column} >= cast($P{P_Start_Date} as date)
       AND $P!{calendar_column} <= CASE
                                       WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -223,16 +223,16 @@ ORDER BY cast(extract(HOUR FROM $P!{calendar_column}) as int), coalesce(disk_nam
         <queryString>
             <![CDATA[select distinct cast(extract(HOUR FROM $P!{calendar_column}) as int) as hour_num, coalesce(interface_name,max(interface_name) over (partition by 1), '') as interface_name, avg(Rx_rate) as Rx_rate, avg(Tx_rate) as Tx_rate
 from    (-- VMs Ethernet Interface Tx and Rx Rates
-         SELECT v3_3_configuration_history_vms_interfaces.vm_interface_id,
+         SELECT v3_4_configuration_history_vms_interfaces.vm_interface_id,
                 CASE
-                    WHEN delete_date IS NULL THEN v3_3_configuration_history_vms_interfaces.vm_interface_name
-                    ELSE v3_3_configuration_history_vms_interfaces.vm_interface_name || '*'
+                    WHEN delete_date IS NULL THEN v3_4_configuration_history_vms_interfaces.vm_interface_name
+                    ELSE v3_4_configuration_history_vms_interfaces.vm_interface_name || '*'
                 END as interface_name,
                 cast(extract(HOUR FROM history_datetime) as int) AS time,
                 avg(coalesce(receive_rate_percent,0)) AS Rx_rate,
                 avg(coalesce(transmit_rate_percent,0)) AS Tx_rate
-         FROM v3_3_statistics_vms_interfaces_resources_usage_$P!{table_name}
-              INNER JOIN v3_3_configuration_history_vms_interfaces ON (v3_3_configuration_history_vms_interfaces.vm_interface_id = v3_3_statistics_vms_interfaces_resources_usage_$P!{table_name}.vm_interface_id)
+         FROM v3_4_statistics_vms_interfaces_resources_usage_$P!{table_name}
+              INNER JOIN v3_4_configuration_history_vms_interfaces ON (v3_4_configuration_history_vms_interfaces.vm_interface_id = v3_4_statistics_vms_interfaces_resources_usage_$P!{table_name}.vm_interface_id)
          WHERE history_datetime >= cast($P{P_Start_Date} as timestamp)
                AND history_datetime <= CASE
                                            WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -240,15 +240,15 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                                            WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                            WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                        END
-               AND v3_3_configuration_history_vms_interfaces.history_id in (SELECT max(a.history_id)
-                                                                            FROM v3_3_configuration_history_vms_interfaces as a
+               AND v3_4_configuration_history_vms_interfaces.history_id in (SELECT max(a.history_id)
+                                                                            FROM v3_4_configuration_history_vms_interfaces as a
                                                                             GROUP BY a.vm_interface_id)
                $P!{is_deleted}
-               AND v3_3_configuration_history_vms_interfaces.vm_interface_id in (SELECT c.vm_interface_id
-                                                                                 FROM v3_3_statistics_vms_interfaces_resources_usage_$P!{table_name} b
-                                                                                      INNER JOIN v3_3_configuration_history_vms_interfaces c ON (c.vm_interface_id = b.vm_interface_id)
+               AND v3_4_configuration_history_vms_interfaces.vm_interface_id in (SELECT c.vm_interface_id
+                                                                                 FROM v3_4_statistics_vms_interfaces_resources_usage_$P!{table_name} b
+                                                                                      INNER JOIN v3_4_configuration_history_vms_interfaces c ON (c.vm_interface_id = b.vm_interface_id)
                                                                                  WHERE c.vm_interface_id in (SELECT device_id
-                                                                                                             FROM v3_3_configuration_history_vms_devices
+                                                                                                             FROM v3_4_configuration_history_vms_devices
                                                                                                              WHERE vm_id = CASE $P{P_VM_ID}
                                                                                                                                WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                                                                                                                                WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -263,7 +263,7 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                                                                                                                                       END
                                                                                                                    AND (delete_date <= CAST($P{P_Start_Date} as TIMESTAMP) OR delete_date IS NULL)
                                                                                                                    AND history_id in (SELECT max(a.history_id)
-                                                                                                                                      FROM v3_3_configuration_history_vms_devices a
+                                                                                                                                      FROM v3_4_configuration_history_vms_devices a
                                                                                                                                       GROUP BY a.vm_id, a.device_id)
                                                                                                                    $P!{is_deleted})
                                                                                        AND history_datetime >= cast($P{P_Start_Date} as timestamp)
@@ -274,13 +274,13 @@ from    (-- VMs Ethernet Interface Tx and Rx Rates
                                                                                                                    WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                                                                                END
                                                                                        AND c.history_id in (SELECT max(d.history_id)
-                                                                                                            FROM v3_3_configuration_history_vms_interfaces as d
+                                                                                                            FROM v3_4_configuration_history_vms_interfaces as d
                                                                                                             GROUP BY d.vm_interface_id)
                                                                                        $P!{is_deleted}
                                                                                  GROUP BY c.vm_interface_id
                                                                                  ORDER BY avg(coalesce(b.receive_rate_percent,0)) + avg(coalesce(b.transmit_rate_percent,0)) DESC
                                                                                  LIMIT 3)
-         Group BY v3_3_configuration_history_vms_interfaces.vm_interface_id, interface_name, cast(extract(HOUR FROM history_datetime) as int)) as a RIGHT OUTER JOIN calendar as b ON (a.time = cast(extract(HOUR FROM b.$P!{calendar_column}) as int))
+         Group BY v3_4_configuration_history_vms_interfaces.vm_interface_id, interface_name, cast(extract(HOUR FROM history_datetime) as int)) as a RIGHT OUTER JOIN calendar as b ON (a.time = cast(extract(HOUR FROM b.$P!{calendar_column}) as int))
 WHERE b.$P!{calendar_column} >= cast($P{P_Start_Date} as timestamp)
       AND b.$P!{calendar_column} <= CASE
                                         WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -339,9 +339,9 @@ from    (-- VMs Max and Average CPU Usage Peaks
         history_datetime,
               SUM(coalesce(cpu_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Usage,
         SUM(coalesce(max_cpu_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Peak
-    FROM v3_3_statistics_vms_resources_usage_hourly
+    FROM v3_4_statistics_vms_resources_usage_hourly
     WHERE
-        v3_3_statistics_vms_resources_usage_hourly.vm_id =
+        v3_4_statistics_vms_resources_usage_hourly.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'

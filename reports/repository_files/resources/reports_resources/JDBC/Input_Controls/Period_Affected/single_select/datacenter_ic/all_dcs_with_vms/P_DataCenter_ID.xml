@@ -24,7 +24,7 @@
                                                                        WHEN delete_date IS NULL THEN datacenter_name
                                                                        ELSE datacenter_name || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
                                                                  END as combo_name
-from v3_3_configuration_history_datacenters
+from v3_4_configuration_history_datacenters
               LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
                                         FROM enum_translator as enum_translator_default
                                                      LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
@@ -33,9 +33,9 @@ from v3_3_configuration_history_datacenters
                                                   WHERE enum_translator_default.language_code = 'en_US'
                                                              AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                                     FROM v3_3_configuration_history_clusters
+                                     FROM v3_4_configuration_history_clusters
                                      WHERE history_id in (SELECT max(a.history_id)
-                                                                    FROM v3_3_configuration_history_clusters a
+                                                                    FROM v3_4_configuration_history_clusters a
                                                                     GROUP BY a.cluster_id)
                                                 AND create_date &lt;= CASE
                                                                                       WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -46,9 +46,9 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                 AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                $P!{is_deleted}
                                                AND cluster_id in (SELECT DISTINCT cluster_id
-                                                                          FROM v3_3_configuration_history_vms
+                                                                          FROM v3_4_configuration_history_vms
                                                                           WHERE history_id in (SELECT max(a.history_id)
-                                                                                                         FROM v3_3_configuration_history_vms a
+                                                                                                         FROM v3_4_configuration_history_vms a
                                                                                                          GROUP BY a.vm_id)
                                                                                      AND create_date &lt;= CASE
                                                                                                                            WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -59,7 +59,7 @@ WHERE datacenter_id in (SELECT DISTINCT datacenter_id
                                                                                      AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                                                    $P!{is_deleted}))
           AND history_id in (SELECT max(a.history_id)
-                                     FROM v3_3_configuration_history_datacenters a
+                                     FROM v3_4_configuration_history_datacenters a
                                      GROUP BY a.datacenter_id)
           AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
            $P!{is_deleted}
@@ -72,11 +72,11 @@ FROM enum_translator as enum_translator_default
 WHERE language_code = 'en_US'
            AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
            AND NOT EXISTS (Select 1
-                             from v3_3_configuration_history_datacenters
+                             from v3_4_configuration_history_datacenters
                              WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                                                                  FROM v3_3_configuration_history_clusters
+                                                                  FROM v3_4_configuration_history_clusters
                                                                   WHERE history_id in (SELECT max(a.history_id)
-                                                                                                 FROM v3_3_configuration_history_clusters a
+                                                                                                 FROM v3_4_configuration_history_clusters a
                                                                                                  GROUP BY a.cluster_id)
                                                                              AND create_date &lt;= CASE
                                                                                                                    WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -87,9 +87,9 @@ WHERE language_code = 'en_US'
                                                                              AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                                             $P!{is_deleted}
                                                                             AND cluster_id in (SELECT DISTINCT cluster_id
-                                                                                                       FROM v3_3_configuration_history_vms
+                                                                                                       FROM v3_4_configuration_history_vms
                                                                                                        WHERE history_id in (SELECT max(a.history_id)
-                                                                                                                                      FROM v3_3_configuration_history_vms a
+                                                                                                                                      FROM v3_4_configuration_history_vms a
                                                                                                                                       GROUP BY a.vm_id)
                                                                                                                   AND create_date &lt;= CASE
                                                                                                                                                         WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -100,7 +100,7 @@ WHERE language_code = 'en_US'
                                                                                                                   AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                                                                                                 $P!{is_deleted}))
                                        AND history_id in (SELECT max(a.history_id)
-                                                                  FROM v3_3_configuration_history_datacenters a
+                                                                  FROM v3_4_configuration_history_datacenters a
                                                                   GROUP BY a.datacenter_id)
                                        AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
                                         $P!{is_deleted})

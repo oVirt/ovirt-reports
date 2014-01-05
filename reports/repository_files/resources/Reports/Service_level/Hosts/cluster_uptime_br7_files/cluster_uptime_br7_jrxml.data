@@ -38,29 +38,29 @@
         <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT SUM(CASE WHEN v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS Planned_Downtime_Mins
-      ,SUM(CASE WHEN v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS Unplanned_Downtime_Mins
-      ,SUM(CASE WHEN v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS Uptime_Mins
-      ,Sum(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status) as Total
+        <![CDATA[SELECT SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS Planned_Downtime_Mins
+      ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS Unplanned_Downtime_Mins
+      ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS Uptime_Mins
+      ,Sum(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status) as Total
 
-FROM v3_3_statistics_hosts_resources_usage_$P!{table_name}
-INNER JOIN v3_3_configuration_history_hosts
-     ON (v3_3_configuration_history_hosts.host_id = v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id)
+FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
+INNER JOIN v3_4_configuration_history_hosts
+     ON (v3_4_configuration_history_hosts.host_id = v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id)
 WHERE
-v3_3_configuration_history_hosts.cluster_id in (SELECT cluster_id
-                         FROM v3_3_configuration_history_clusters
+v3_4_configuration_history_hosts.cluster_id in (SELECT cluster_id
+                         FROM v3_4_configuration_history_clusters
                          Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-AND v3_3_configuration_history_hosts.cluster_id = CASE $P{P_Cluster_ID}
-                           WHEN NULL THEN v3_3_configuration_history_hosts.cluster_id
-                       WHEN '11111111-1111-1111-1111-111111111111' THEN v3_3_configuration_history_hosts.cluster_id
+AND v3_4_configuration_history_hosts.cluster_id = CASE $P{P_Cluster_ID}
+                           WHEN NULL THEN v3_4_configuration_history_hosts.cluster_id
+                       WHEN '11111111-1111-1111-1111-111111111111' THEN v3_4_configuration_history_hosts.cluster_id
                        ELSE cast($P{P_Cluster_ID} as uuid)
                        END
-AND v3_3_configuration_history_hosts.host_type = CASE $P{P_Host_Type}
-                    WHEN -1 THEN v3_3_configuration_history_hosts.host_type
+AND v3_4_configuration_history_hosts.host_type = CASE $P{P_Host_Type}
+                    WHEN -1 THEN v3_4_configuration_history_hosts.host_type
                     ELSE $P{P_Host_Type}
                     END
-AND v3_3_configuration_history_hosts.history_id in (SELECT max(a.history_id)
-                        FROM v3_3_configuration_history_hosts a
+AND v3_4_configuration_history_hosts.history_id in (SELECT max(a.history_id)
+                        FROM v3_4_configuration_history_hosts a
                         GROUP BY a.host_id)
 AND history_datetime >= cast($P{P_Start_Date} as timestamp)
 AND history_datetime <= CASE

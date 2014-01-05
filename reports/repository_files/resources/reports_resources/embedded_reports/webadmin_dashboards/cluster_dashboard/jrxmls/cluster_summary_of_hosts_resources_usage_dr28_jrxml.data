@@ -15,17 +15,17 @@ SELECT host_id,
        AVG(cpu_peak) AS avg_cpu_peak,
        AVG(mem_peak) AS avg_mem_peak
 FROM (-- Calculation of samples cpu and memory usage peaks
-      SELECT v3_3_latest_configuration_hosts.host_id,
-             v3_3_latest_configuration_hosts.host_name,
+      SELECT v3_4_latest_configuration_hosts.host_id,
+             v3_4_latest_configuration_hosts.host_name,
              MAX(cpu_usage_percent) as cpu_peak,
              MAX(memory_usage_percent) as mem_peak
-      FROM v3_3_statistics_hosts_resources_usage_samples
-          INNER JOIN v3_3_latest_configuration_hosts
-              ON (v3_3_latest_configuration_hosts.host_id = v3_3_statistics_hosts_resources_usage_samples.host_id)
-      WHERE v3_3_latest_configuration_hosts.cluster_id = cast($P{P_Cluster_ID} as UUID)
-      GROUP BY v3_3_latest_configuration_hosts.host_id,
-               v3_3_latest_configuration_hosts.host_name,
-         date_trunc('hour', v3_3_statistics_hosts_resources_usage_samples.history_datetime)) AS TBL_samples_PEAKS
+      FROM v3_4_statistics_hosts_resources_usage_samples
+          INNER JOIN v3_4_latest_configuration_hosts
+              ON (v3_4_latest_configuration_hosts.host_id = v3_4_statistics_hosts_resources_usage_samples.host_id)
+      WHERE v3_4_latest_configuration_hosts.cluster_id = cast($P{P_Cluster_ID} as UUID)
+      GROUP BY v3_4_latest_configuration_hosts.host_id,
+               v3_4_latest_configuration_hosts.host_name,
+         date_trunc('hour', v3_4_statistics_hosts_resources_usage_samples.history_datetime)) AS TBL_samples_PEAKS
 GROUP BY host_id, host_name]]>
 	</queryString>
 	<field name="host_id" class="java.lang.Object"/>

@@ -45,10 +45,10 @@ from    (-- Hosts Max and Average MEMory Usage Peaks
         history_datetime AS time,
             SUM(coalesce(memory_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Usage,
             SUM(coalesce(max_memory_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS MEM_Peak
-    FROM v3_3_statistics_hosts_resources_usage_$P!{table_name}
+    FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
 
     WHERE
-        v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -118,9 +118,9 @@ from    (-- Hosts Max and Average Active VMs Counts
         history_datetime AS time,
         SUM(coalesce(active_vms,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS VMS,
         SUM(coalesce(max_active_vms,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS VMS_Peak
-    FROM v3_3_statistics_hosts_resources_usage_$P!{table_name}
+    FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
-        v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -187,19 +187,19 @@ order by $P!{calendar_column}]]>
             <![CDATA[select $P!{calendar_column} as the_date, coalesce(interface_name, max(interface_name) over (partition by 1),'') as interface_name, Rx_rate, Tx_rate
 from    (-- Hosts Ethernet Interface Tx and Rx Rates
     SELECT
-        v3_3_configuration_history_hosts_interfaces.host_interface_id,
+        v3_4_configuration_history_hosts_interfaces.host_interface_id,
         CASE
-            WHEN delete_date IS NULL THEN v3_3_configuration_history_hosts_interfaces.host_interface_name
-            ELSE v3_3_configuration_history_hosts_interfaces.host_interface_name || '*'
+            WHEN delete_date IS NULL THEN v3_4_configuration_history_hosts_interfaces.host_interface_name
+            ELSE v3_4_configuration_history_hosts_interfaces.host_interface_name || '*'
         END as interface_name,
-        v3_3_statistics_hosts_interfaces_resources_usage_$P!{table_name}.history_datetime AS time,
+        v3_4_statistics_hosts_interfaces_resources_usage_$P!{table_name}.history_datetime AS time,
         avg(coalesce(receive_rate_percent,0)) AS Rx_rate,
         avg(coalesce(transmit_rate_percent,0)) AS Tx_rate
-    FROM v3_3_statistics_hosts_interfaces_resources_usage_$P!{table_name}
-        INNER JOIN v3_3_configuration_history_hosts_interfaces
-            ON (v3_3_configuration_history_hosts_interfaces.host_interface_id = v3_3_statistics_hosts_interfaces_resources_usage_$P!{table_name}.host_interface_id)
+    FROM v3_4_statistics_hosts_interfaces_resources_usage_$P!{table_name}
+        INNER JOIN v3_4_configuration_history_hosts_interfaces
+            ON (v3_4_configuration_history_hosts_interfaces.host_interface_id = v3_4_statistics_hosts_interfaces_resources_usage_$P!{table_name}.host_interface_id)
     WHERE
-        v3_3_configuration_history_hosts_interfaces.host_id =
+        v3_4_configuration_history_hosts_interfaces.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'
@@ -213,12 +213,12 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                    WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
-        AND v3_3_configuration_history_hosts_interfaces.history_id in (SELECT max(a.history_id)
-                                   FROM v3_3_configuration_history_hosts_interfaces as a
+        AND v3_4_configuration_history_hosts_interfaces.history_id in (SELECT max(a.history_id)
+                                   FROM v3_4_configuration_history_hosts_interfaces as a
                                    GROUP BY a.host_interface_id)
-        AND v3_3_configuration_history_hosts_interfaces.host_interface_id in (SELECT c.host_interface_id
-                                     FROM v3_3_statistics_hosts_interfaces_resources_usage_$P!{table_name} b
-                                    INNER JOIN v3_3_configuration_history_hosts_interfaces c
+        AND v3_4_configuration_history_hosts_interfaces.host_interface_id in (SELECT c.host_interface_id
+                                     FROM v3_4_statistics_hosts_interfaces_resources_usage_$P!{table_name} b
+                                    INNER JOIN v3_4_configuration_history_hosts_interfaces c
                                         ON (c.host_interface_id = b.host_interface_id)
                                    WHERE     c.host_id = CASE $P{P_Host_ID}
                                             WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
@@ -234,7 +234,7 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                                                WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                                            END
                                     AND c.history_id in (SELECT max(d.history_id)
-                                             FROM v3_3_configuration_history_hosts_interfaces as d
+                                             FROM v3_4_configuration_history_hosts_interfaces as d
                                              GROUP BY d.host_interface_id)
                                     $P!{is_deleted}
                                   Group BY c.host_interface_id
@@ -242,8 +242,8 @@ from    (-- Hosts Ethernet Interface Tx and Rx Rates
                                   LIMIT 5)
         $P!{is_deleted}
     Group BY
-        v3_3_configuration_history_hosts_interfaces.host_interface_id, interface_name,
-        v3_3_statistics_hosts_interfaces_resources_usage_$P!{table_name}.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.$P!{calendar_column})
+        v3_4_configuration_history_hosts_interfaces.host_interface_id, interface_name,
+        v3_4_statistics_hosts_interfaces_resources_usage_$P!{table_name}.history_datetime) as a RIGHT OUTER JOIN calendar as b ON (a.time = b.$P!{calendar_column})
 where b.$P!{calendar_column} >= cast($P{P_Start_Date} as timestamp)
       AND b.$P!{calendar_column} <= CASE
                            WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -302,9 +302,9 @@ from    (-- Hosts Max and Average CPU Usage Peaks
         history_datetime AS time,
               SUM(coalesce(cpu_usage_percent,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Usage,
         SUM(coalesce(max_cpu_usage,0)*coalesce(minutes_in_status,0))/SUM(coalesce(minutes_in_status,0)) AS CPU_Peak
-    FROM v3_3_statistics_hosts_resources_usage_$P!{table_name}
+    FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
-        v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
                 WHEN null THEN '00000000-0000-0000-0000-000000000000'

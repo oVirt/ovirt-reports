@@ -39,13 +39,13 @@
         <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT SUM(CASE WHEN v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS planned_downtime_mins
-      ,SUM(CASE WHEN v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
-      ,SUM(CASE WHEN v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS uptime_mins
-      ,Sum(v3_3_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status) as total
+        <![CDATA[SELECT SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS planned_downtime_mins
+      ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
+      ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS uptime_mins
+      ,Sum(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status) as total
 
-FROM v3_3_statistics_hosts_resources_usage_$P!{table_name}
-WHERE v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
+WHERE v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id =
         CASE $P{P_Host_ID}
             WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
             WHEN null THEN '00000000-0000-0000-0000-000000000000'

@@ -37,19 +37,19 @@
         <![CDATA[select  $P!{calendar_column} as the_date, host_id, coalesce(host_name,max(host_name) over (partition by 1),'') as host_name, CPU_Peak, MEM_Peak
 from    (-- Hosts CPU and MEMory Usage Peaks
         SELECT
-            v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+            v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id,
             CASE
                 WHEN delete_date IS NULL THEN host_name
                 ELSE host_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
             END as host_name,
-            v3_3_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
+            v3_4_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
             MAX(coalesce(max_cpu_usage,0)) AS CPU_Peak,
             MAX(coalesce(max_memory_usage,0)) AS MEM_Peak
-        FROM v3_3_statistics_hosts_resources_usage_$P!{table_name}
-            INNER JOIN v3_3_configuration_history_hosts
-                  ON (v3_3_configuration_history_hosts.host_id = v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id)
+        FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
+            INNER JOIN v3_4_configuration_history_hosts
+                  ON (v3_4_configuration_history_hosts.host_id = v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id)
         WHERE
-            $X{IN, cast(v3_3_configuration_history_hosts.host_id as varchar), P_Host_ListID}
+            $X{IN, cast(v3_4_configuration_history_hosts.host_id as varchar), P_Host_ListID}
             AND history_datetime >= cast($P{P_Start_Date} as timestamp)
             AND history_datetime <= CASE
                                        WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
@@ -57,15 +57,15 @@ from    (-- Hosts CPU and MEMory Usage Peaks
                                        WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                        WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                    END
-            AND v3_3_configuration_history_hosts.history_id in (SELECT max(a.history_id)
-                                                            FROM v3_3_configuration_history_hosts a
+            AND v3_4_configuration_history_hosts.history_id in (SELECT max(a.history_id)
+                                                            FROM v3_4_configuration_history_hosts a
                                                             GROUP BY a.host_id)
-        GROUP BY    v3_3_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        GROUP BY    v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id,
                     CASE
                         WHEN delete_date IS NULL THEN host_name
                         ELSE host_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
                     END,
-                    v3_3_statistics_hosts_resources_usage_$P!{table_name}.history_datetime) a RIGHT OUTER JOIN calendar b on (time = $P!{calendar_column})
+                    v3_4_statistics_hosts_resources_usage_$P!{table_name}.history_datetime) a RIGHT OUTER JOIN calendar b on (time = $P!{calendar_column})
 where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
       AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'

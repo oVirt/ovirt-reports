@@ -43,8 +43,8 @@ BuildRequires: log4j
 Requires: python
 Requires: java-1.7.0-openjdk
 Requires: jpackage-utils
-Requires: ovirt-engine >= 3.3.0
-Requires: ovirt-engine-dwh >= 3.3.0
+Requires: ovirt-engine >= 3.4.0
+Requires: ovirt-engine-dwh >= 3.4.0
 Requires: jasperreports-server >= 5.2.0
 Requires: m2crypto
 

@@ -52,7 +52,7 @@
         </parameter>
         <queryString>
             <![CDATA[SELECT storage_domain_name,
-       v3_3_configuration_history_storage_domains.storage_domain_id,
+       v3_4_configuration_history_storage_domains.storage_domain_id,
        coalesce(a.value_localized,a.value) as storage_domain_type,
        coalesce(b.value_localized,b.value) as storage_type,
        coalesce(samples.available_disk_size_gb,daily.available_disk_size_gb) as available_disk_size_gb,
@@ -60,11 +60,11 @@
        coalesce(samples.available_disk_size_gb + samples.used_disk_size_gb, daily.available_disk_size_gb + daily.used_disk_size_gb) as total_size,
        create_date,
        delete_date
-FROM v3_3_configuration_history_storage_domains
-         INNER JOIN v3_3_map_history_datacenters_storage_domains ON (v3_3_configuration_history_storage_domains.storage_domain_id = v3_3_map_history_datacenters_storage_domains.storage_domain_id
-                                                                     AND v3_3_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-                                                                     AND v3_3_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                                                                                      FROM v3_3_map_history_datacenters_storage_domains a
+FROM v3_4_configuration_history_storage_domains
+         INNER JOIN v3_4_map_history_datacenters_storage_domains ON (v3_4_configuration_history_storage_domains.storage_domain_id = v3_4_map_history_datacenters_storage_domains.storage_domain_id
+                                                                     AND v3_4_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
+                                                                     AND v3_4_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                                                                                      FROM v3_4_map_history_datacenters_storage_domains a
                                                                                                                                       GROUP BY a.storage_domain_id, a.datacenter_id))
          LEFT OUTER JOIN (SELECT enum_translator_default.enum_type, enum_translator_default.enum_key, enum_translator_default.value, enum_translator_localized.value_localized
                           FROM enum_translator as enum_translator_default
@@ -78,20 +78,20 @@ FROM v3_3_configuration_history_storage_domains
                                                     FROM enum_translator
                                                     WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type and enum_translator_localized.enum_key = enum_translator_default.enum_key)
                           WHERE language_code = 'en_US') as b ON (storage_type = b.enum_key AND b.enum_type = 'STORAGE_TYPE')
-         LEFT OUTER JOIN v3_3_statistics_storage_domains_resources_usage_samples as samples ON (v3_3_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
+         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_samples as samples ON (v3_4_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
                                                                                      AND samples.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_3_statistics_storage_domains_resources_usage_samples a
+                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_samples a
                                                                                                                                                                 GROUP BY a.storage_domain_id))
-         LEFT OUTER JOIN v3_3_statistics_storage_domains_resources_usage_daily as daily ON (v3_3_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
+         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_daily as daily ON (v3_4_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
                                                                                      AND daily.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_3_statistics_storage_domains_resources_usage_daily a
+                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_daily a
                                                                                                                                                                 GROUP BY a.storage_domain_id))
 WHERE storage_domain_type = CASE $P{P_Storage_Type}
                                 WHEN -1 THEN storage_domain_type
                                 ELSE $P{P_Storage_Type}
                             END
-      AND v3_3_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                    FROM v3_3_configuration_history_storage_domains as a
+      AND v3_4_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                    FROM v3_4_configuration_history_storage_domains as a
                                                                     GROUP BY a.storage_domain_id)
       $P!{active_storage}]]>
         </queryString>
@@ -113,22 +113,22 @@ WHERE storage_domain_type = CASE $P{P_Storage_Type}
             <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
         </parameter>
         <queryString>
-            <![CDATA[SELECT v3_3_configuration_history_storage_domains.storage_domain_id,
+            <![CDATA[SELECT v3_4_configuration_history_storage_domains.storage_domain_id,
        coalesce(samples.available_disk_size_gb,daily.available_disk_size_gb) as available_disk_size_gb,
        coalesce(samples.used_disk_size_gb,daily.used_disk_size_gb) as used_disk_size_gb,
        coalesce(samples.available_disk_size_gb + samples.used_disk_size_gb, daily.available_disk_size_gb + daily.used_disk_size_gb) as total_size
-FROM v3_3_configuration_history_storage_domains
-         LEFT OUTER JOIN v3_3_statistics_storage_domains_resources_usage_samples as samples ON (v3_3_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
+FROM v3_4_configuration_history_storage_domains
+         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_samples as samples ON (v3_4_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
                                                                                      AND samples.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_3_statistics_storage_domains_resources_usage_samples a
+                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_samples a
                                                                                                                                                                 GROUP BY a.storage_domain_id))
-         LEFT OUTER JOIN v3_3_statistics_storage_domains_resources_usage_daily as daily ON (v3_3_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
+         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_daily as daily ON (v3_4_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
                                                                                      AND daily.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_3_statistics_storage_domains_resources_usage_daily a
+                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_daily a
                                                                                                                                                                 GROUP BY a.storage_domain_id))
-WHERE v3_3_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-      AND v3_3_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                    FROM v3_3_configuration_history_storage_domains as a
+WHERE v3_4_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+      AND v3_4_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                    FROM v3_4_configuration_history_storage_domains as a
                                                                     GROUP BY a.storage_domain_id)]]>
         </queryString>
         <field name="storage_domain_id" class="java.lang.Object"/>

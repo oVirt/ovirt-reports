@@ -7,22 +7,22 @@
         <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT v3_3_configuration_history_storage_domains.storage_domain_id,
+        <![CDATA[SELECT v3_4_configuration_history_storage_domains.storage_domain_id,
        coalesce(samples.available_disk_size_gb,daily.available_disk_size_gb) as available_disk_size_gb,
        coalesce(samples.used_disk_size_gb,daily.used_disk_size_gb) as used_disk_size_gb,
        coalesce(samples.available_disk_size_gb + samples.used_disk_size_gb, daily.available_disk_size_gb + daily.used_disk_size_gb) as total_size
-FROM v3_3_configuration_history_storage_domains
-         LEFT OUTER JOIN v3_3_statistics_storage_domains_resources_usage_samples as samples ON (v3_3_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
+FROM v3_4_configuration_history_storage_domains
+         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_samples as samples ON (v3_4_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
                                                                                      AND samples.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_3_statistics_storage_domains_resources_usage_samples a
+                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_samples a
                                                                                                                                                                 GROUP BY a.storage_domain_id))
-         LEFT OUTER JOIN v3_3_statistics_storage_domains_resources_usage_daily as daily ON (v3_3_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
+         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_daily as daily ON (v3_4_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
                                                                                      AND daily.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_3_statistics_storage_domains_resources_usage_daily a
+                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_daily a
                                                                                                                                                                 GROUP BY a.storage_domain_id))
-WHERE v3_3_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-      AND v3_3_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                    FROM v3_3_configuration_history_storage_domains as a
+WHERE v3_4_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
+      AND v3_4_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
+                                                                    FROM v3_4_configuration_history_storage_domains as a
                                                                     GROUP BY a.storage_domain_id)]]>
     </queryString>
     <field name="storage_domain_id" class="java.lang.Object"/>

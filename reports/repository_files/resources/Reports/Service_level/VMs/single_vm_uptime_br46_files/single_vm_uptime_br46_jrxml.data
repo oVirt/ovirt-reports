@@ -39,12 +39,12 @@
         <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT SUM(CASE WHEN vm_status = 2 or vm_status = 0 THEN coalesce(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS planned_downtime_mins
-      ,SUM(CASE WHEN vm_status = 3 THEN coalesce(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
-      ,SUM(CASE WHEN vm_status = 1 THEN coalesce(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS uptime_mins
-      ,Sum(v3_3_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status) as total
-FROM v3_3_statistics_vms_resources_usage_$P!{table_name}
-WHERE v3_3_statistics_vms_resources_usage_$P!{table_name}.vm_id =
+        <![CDATA[SELECT SUM(CASE WHEN vm_status = 2 or vm_status = 0 THEN coalesce(v3_4_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS planned_downtime_mins
+      ,SUM(CASE WHEN vm_status = 3 THEN coalesce(v3_4_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS unplanned_downtime_mins
+      ,SUM(CASE WHEN vm_status = 1 THEN coalesce(v3_4_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)AS uptime_mins
+      ,Sum(v3_4_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status) as total
+FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
+WHERE v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id =
         CASE $P{P_VM_ID}
             WHEN '00000000-0000-0000-0000-000000000000' THEN '00000000-0000-0000-0000-000000000000'
             WHEN null THEN '00000000-0000-0000-0000-000000000000'

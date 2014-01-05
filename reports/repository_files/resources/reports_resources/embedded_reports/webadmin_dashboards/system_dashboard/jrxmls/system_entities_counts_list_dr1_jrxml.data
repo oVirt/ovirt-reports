@@ -7,20 +7,20 @@
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
 	<subDataset name="storage_count" uuid="6b400e6b-94db-4d9e-af5e-48b1d52f3ad3">
 		<queryString>
-			<![CDATA[SELECT count(DISTINCT v3_3_latest_map_datacenters_storage_domains.storage_domain_id) AS storage_count
-FROM v3_3_latest_map_datacenters_storage_domains]]>
+			<![CDATA[SELECT count(DISTINCT v3_4_latest_map_datacenters_storage_domains.storage_domain_id) AS storage_count
+FROM v3_4_latest_map_datacenters_storage_domains]]>
 		</queryString>
 		<field name="storage_count" class="java.lang.Long"/>
 	</subDataset>
 	<queryString>
 		<![CDATA[SELECT (SELECT count(*)
-        FROM v3_3_latest_configuration_datacenters) as datacenter_count,
+        FROM v3_4_latest_configuration_datacenters) as datacenter_count,
        (SELECT count(*)
-        FROM v3_3_latest_configuration_clusters) as cluster_count,
+        FROM v3_4_latest_configuration_clusters) as cluster_count,
        (SELECT count(*)
-        FROM v3_3_latest_configuration_hosts) as host_count,
+        FROM v3_4_latest_configuration_hosts) as host_count,
        (SELECT count(*)
-        FROM v3_3_latest_configuration_vms) as vm_count]]>
+        FROM v3_4_latest_configuration_vms) as vm_count]]>
 	</queryString>
 	<field name="datacenter_count" class="java.lang.Long"/>
 	<field name="cluster_count" class="java.lang.Long"/>

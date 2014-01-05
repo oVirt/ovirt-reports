@@ -59,14 +59,14 @@
             <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
         </parameter>
         <queryString>
-            <![CDATA[SELECT DISTINCT v3_3_configuration_history_clusters.cluster_id,
-                v3_3_configuration_history_clusters.cluster_name,
-                v3_3_configuration_history_clusters.delete_date as cluster_delete,
+            <![CDATA[SELECT DISTINCT v3_4_configuration_history_clusters.cluster_id,
+                v3_4_configuration_history_clusters.cluster_name,
+                v3_4_configuration_history_clusters.delete_date as cluster_delete,
                 history_datetime,
                 user_name,
-                v3_3_statistics_vms_users_usage_$P!{table_name}.vm_id,
-                v3_3_configuration_history_vms.vm_name,
-                v3_3_configuration_history_vms.delete_date,
+                v3_4_statistics_vms_users_usage_$P!{table_name}.vm_id,
+                v3_4_configuration_history_vms.vm_name,
+                v3_4_configuration_history_vms.delete_date,
                 round(session_time_in_minutes/60,2) as session_time_in_hours,
                 cpu_usage_percent,
                 max_cpu_usage,
@@ -76,26 +76,26 @@
                 max_user_cpu_usage_percent,
                 system_cpu_usage_percent,
                 max_system_cpu_usage_percent
-FROM v3_3_statistics_vms_users_usage_$P!{table_name}
-     LEFT OUTER JOIN v3_3_configuration_history_vms on (v3_3_statistics_vms_users_usage_$P!{table_name}.vm_id = v3_3_configuration_history_vms.vm_id)
-         LEFT OUTER JOIN v3_3_configuration_history_clusters ON (v3_3_configuration_history_vms.cluster_id = v3_3_configuration_history_clusters.cluster_id
-                                                             AND v3_3_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                                                                                                    FROM v3_3_configuration_history_clusters a
+FROM v3_4_statistics_vms_users_usage_$P!{table_name}
+     LEFT OUTER JOIN v3_4_configuration_history_vms on (v3_4_statistics_vms_users_usage_$P!{table_name}.vm_id = v3_4_configuration_history_vms.vm_id)
+         LEFT OUTER JOIN v3_4_configuration_history_clusters ON (v3_4_configuration_history_vms.cluster_id = v3_4_configuration_history_clusters.cluster_id
+                                                             AND v3_4_configuration_history_clusters.history_id in (SELECT max(a.history_id)
+                                                                                                                    FROM v3_4_configuration_history_clusters a
                                                                                                                     GROUP BY a.cluster_id))
-WHERE v3_3_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                    FROM v3_3_configuration_history_clusters
+WHERE v3_4_configuration_history_vms.cluster_id in (SELECT cluster_id
+                                                    FROM v3_4_configuration_history_clusters
                                                     WHERE datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-      AND v3_3_configuration_history_vms.cluster_id = CASE cast($P{P_Cluster_ID} as uuid)
-                                                          WHEN NULL THEN v3_3_configuration_history_vms.cluster_id
-                                                          WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_3_configuration_history_vms.cluster_id
+      AND v3_4_configuration_history_vms.cluster_id = CASE cast($P{P_Cluster_ID} as uuid)
+                                                          WHEN NULL THEN v3_4_configuration_history_vms.cluster_id
+                                                          WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_4_configuration_history_vms.cluster_id
                                                           ELSE cast($P{P_Cluster_ID} as uuid)
                                                        END
-      AND v3_3_configuration_history_vms.vm_type = CASE $P{P_VM_Type}
-                                                       WHEN -1 THEN v3_3_configuration_history_vms.vm_type
+      AND v3_4_configuration_history_vms.vm_type = CASE $P{P_VM_Type}
+                                                       WHEN -1 THEN v3_4_configuration_history_vms.vm_type
                                                        ELSE $P{P_VM_Type}
                                                    END
-      AND v3_3_configuration_history_vms.history_id in (SELECT max(a.history_id)
-                                                        FROM v3_3_configuration_history_vms a
+      AND v3_4_configuration_history_vms.history_id in (SELECT max(a.history_id)
+                                                        FROM v3_4_configuration_history_vms a
                                                         GROUP BY a.vm_id)
       AND history_datetime >= cast($P{P_Start_Date} as timestamp)
       AND history_datetime < CASE
@@ -105,10 +105,10 @@ WHERE v3_3_configuration_history_vms.cluster_id in (SELECT cluster_id
                                  WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                              END
       AND CASE
-              WHEN $P{is_deleted} like '%delete%' THEN v3_3_configuration_history_vms.delete_date IS NULL
-              ELSE v3_3_configuration_history_vms.delete_date IS NULL or v3_3_configuration_history_vms.delete_date IS NOT NULL
+              WHEN $P{is_deleted} like '%delete%' THEN v3_4_configuration_history_vms.delete_date IS NULL
+              ELSE v3_4_configuration_history_vms.delete_date IS NULL or v3_4_configuration_history_vms.delete_date IS NOT NULL
           END
-ORDER BY v3_3_configuration_history_clusters.cluster_id,
+ORDER BY v3_4_configuration_history_clusters.cluster_id,
          history_datetime,
          user_name,
          session_time_in_hours DESC]]>

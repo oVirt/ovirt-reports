@@ -24,7 +24,7 @@
 WHEN delete_date IS NULL THEN cluster_name
 ELSE cluster_name || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
 END as combo_name, 0 as sort
-from v3_3_configuration_history_clusters
+from v3_4_configuration_history_clusters
               LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
                                         FROM enum_translator as enum_translator_default
                                                      LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
@@ -33,14 +33,14 @@ from v3_3_configuration_history_clusters
                                                   WHERE enum_translator_default.language_code = 'en_US'
                                                              AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
 WHERE cluster_id in (SELECT DISTINCT cluster_id
-             FROM v3_3_configuration_history_vms)
+             FROM v3_4_configuration_history_vms)
               AND datacenter_id = CASE
             WHEN  $P{P_DataCenter_ID} IS NULL then cast('00000000-0000-0000-0000-000000000000' as uuid)
             WHEN upper($P{P_DataCenter_ID}) like 'UN%' then  cast('00000000-0000-0000-0000-000000000000' as uuid)
                     ELSE cast($P{P_DataCenter_ID} as uuid)
                 END
               AND history_id in (SELECT max(a.history_id)
-         FROM v3_3_configuration_history_clusters a
+         FROM v3_4_configuration_history_clusters a
          GROUP BY a.cluster_id)
 $P!{Active_VMs}
 UNION ALL
