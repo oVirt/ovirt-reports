@@ -15,6 +15,7 @@ import types
 import tempfile
 import random
 import string
+import glob
 
 from StringIO import StringIO
 
@@ -653,6 +654,19 @@ def importReports(update=True):
     execExternalCmd(cmd, True, "Failed while importing reports")
     os.chdir(current_dir)
 
+def fixNullUserPasswords(tempDir):
+    logging.debug("fixNullUserPasswords started for %s" % tempDir)
+    fixedFiles = []
+    for f in glob.glob(tempDir + '/users/organization_1/*.xml'):
+        xmlObj = XMLConfigFileHandler(f)
+        xmlObj.open()
+        node = getXmlNode(xmlObj, '/user/password')
+        if node.getContent() == 'ENC<null>':
+            fixedFiles.append(f)
+            node.setContent('ENC<>')
+        xmlObj.close()
+    logging.debug("fixNullUserPasswords fixed: %s" % fixedFiles)
+
 @transactionDisplay("Exporting current users")
 def exportUsers():
     """
@@ -671,6 +685,7 @@ def exportUsers():
     logging.debug("Exporting users to %s" % tempDir)
     cmd = "./js-export.sh --output-dir %s --users --roles" % tempDir
     execExternalCmd(cmd, True, "Failed while exporting users")
+    fixNullUserPasswords(tempDir)
 
     os.chdir(current_dir)
     return tempDir
