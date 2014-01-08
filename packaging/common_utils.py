@@ -46,6 +46,8 @@ PGPASS_FILE_ADMIN_LINE = "DB ADMIN credentials"
 FILE_ENGINE_CONFIG_BIN="/usr/bin/engine-config"
 JRS_PACKAGE_PATH="/usr/share/jasperreports-server"
 
+ENGINE_DBSCRIPTS_PATH="/usr/share/ovirt-engine/dbscripts"
+
 # Defaults
 DB_ADMIN = "engine_reports"
 DB_HOST = "localhost"
@@ -883,41 +885,40 @@ def createDB(db_dict):
 
 
 def createLang(db_dict, TEMP_PGPASS):
-    if runPostgresSuQuery('"show server_version;"')[0].strip() > '9.2.0':
-        logging.debug(
-            'PSQL version is higher than 9.2, '
-            'no need to createlang'
+    try:
+        cmd = [
+            '/usr/bin/createlang',
+            '--host=%s' % db_dict['host'],
+            '--port=%s' % db_dict['port'],
+            '--dbname=%s' % db_dict['dbname'],
+            '--username=%s' % db_dict['username'],
+            'plpgsql',
+        ]
+
+        execCmd(
+            cmdList=cmd,
+            failOnError=True,
+            envDict={'ENGINE_PGPASS': TEMP_PGPASS},
         )
-        return
+    except Exception as e:
+        logging.debug("createLang: %s" % e)
 
-    cmd = [
-        '/usr/bin/createlang',
-        '--host=%s' % db_dict['host'],
-        '--port=%s' % db_dict['port'],
-        '--dbname=%s' % db_dict['dbname'],
-        '--username=%s' % db_dict['username'],
-        'plpgsql',
-    ]
-
-    execCmd(
-        cmdList=cmd,
-        failOnError=True,
-        envDict={'ENGINE_PGPASS': TEMP_PGPASS},
-    )
-
-
-def clearDB(db_dict, TEMP_PGPASS):
+def clearDB(db_dict, TEMP_PGPASS, log_file):
     """
     clears the given DB
     """
+    createLang(db_dict, TEMP_PGPASS)
     logging.debug("Clearing db %s contents" % db_dict['dbname'])
-    execSqlCmd(
-        sql_query=(
-            'drop owned by {user} cascade;'
-        ).format(
-            user=db_dict['username'],
-        ),
-        db_dict=db_dict,
+    cmd = [
+        '%s/%s' % (ENGINE_DBSCRIPTS_PATH, 'cleandb.sh'),
+        '-s', db_dict['host'],
+        '-d', db_dict['dbname'],
+        '-u', db_dict['username'],
+        '-p', db_dict['port'],
+        '-l', log_file,
+    ]
+    execCmd(
+        cmdList=cmd,
         failOnError=True,
         envDict={'ENGINE_PGPASS': TEMP_PGPASS},
     )

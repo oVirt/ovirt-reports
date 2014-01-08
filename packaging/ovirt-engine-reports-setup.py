@@ -198,7 +198,7 @@ def deployJs(db_dict, TEMP_PGPASS):
         # If we need to refresh the war, we also need to drop the DB
         if DB_EXIST:
             logging.debug("Removing DB")
-            utils.clearDB(db_dict, TEMP_PGPASS)
+            utils.clearDB(db_dict, TEMP_PGPASS, log_file)
             DB_EXIST = False
             DB_EXISTED = True
 
@@ -212,7 +212,7 @@ def deployJs(db_dict, TEMP_PGPASS):
         if not DB_EXISTED and utils.localHost(db_dict['host']):
             logging.debug('Creating DB')
             utils.createDB(db_dict)
-            utils.createLang(db_dict, TEMP_PGPASS)
+        utils.createLang(db_dict, TEMP_PGPASS)
         logging.debug("Installing Jasper")
         for cmd in (
             'init-js-db-ce',
@@ -680,7 +680,7 @@ def restoreDB(db_dict, TEMP_PGPASS):
     if os.path.exists(FILE_TMP_SQL_DUMP):
         logging.debug("DB Restore started")
         # Drop
-        utils.clearDB(db_dict, TEMP_PGPASS)
+        utils.clearDB(db_dict, TEMP_PGPASS, log_file)
         # Restore
         cmd = [
             "/usr/bin/psql",
