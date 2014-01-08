@@ -965,7 +965,7 @@ def main(options):
     global db_dict
     global DB_EXIST
     rc = 0
-    preserveReportsJobs = False
+    preserveReports = False
     pghba_updated = False
 
     try:
@@ -989,7 +989,7 @@ def main(options):
 
             if not warUpdated and isWarInstalled():
                 logging.debug("war will be updated and was previously deployed, will preserve reports' jobs")
-                preserveReportsJobs = True
+                preserveReports = True
 
             if warUpdated and isWarInstalled():
                 logging.debug("war is installed and updated. reports will only be refreshed.")
@@ -1116,7 +1116,7 @@ def main(options):
                 # Export reports if we had a previous installation
                 adminPass = options['ADMIN_PASS']
                 savedDir = None
-                if preserveReportsJobs:
+                if preserveReports:
                     exportScheduale()
 
                 if hasData:
@@ -1139,7 +1139,7 @@ def main(options):
                     logging.debug('Setting real admin password')
                     editOvirtEngineAdminXml(adminPass)
 
-                if preserveReportsJobs:
+                if preserveReports:
                     logging.debug("Importing users")
                     utils.importUsers(savedDir)
 
