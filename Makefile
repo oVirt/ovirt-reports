@@ -157,19 +157,20 @@ install_files:
 	install -d $(DESTDIR)$(SYSCONF_DIR)/$(OVIRT_REPORTS_NAME)/ovirt-engine-reports.conf.d
 	install -d $(DESTDIR)$(BIN_DIR)
 	install -d $(DESTDIR)$(SYSCONF_DIR)/httpd/conf.d
-	install -d $(DESTDIR)$(DATA_DIR)
+	install -d $(DESTDIR)$(DATA_DIR)/conf
+	install -d $(DESTDIR)$(DATA_DIR)/legacy-setup
 	install -d $(DESTDIR)$(DATA_DIR)/reports
 	install -d $(DESTDIR)$(DATA_DIR)/server-customizations
 
 	cp -a  reports/repository_files/* $(DESTDIR)$(DATA_DIR)/reports
-	install -p -m 644 packaging/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
-	install -p -m 644 packaging/z-ovirt-engine-reports-proxy.conf  $(DESTDIR)$(SYSCONF_DIR)/httpd/conf.d
-	install -p -m 755 packaging/ssl2jkstrust.py $(DESTDIR)$(DATA_DIR)
-	install -p -m 755 packaging/ovirt-engine-reports-setup.py $(DESTDIR)$(DATA_DIR)
-	install -p -m 755 packaging/common_utils.py $(DESTDIR)$(DATA_DIR)
-	install -p -m 755 packaging/decorators.py $(DESTDIR)$(DATA_DIR)
-	install -p -m 644 packaging/default_master.properties $(DESTDIR)$(DATA_DIR)
-	install -p -m 644 reports/reports.xml $(DESTDIR)$(DATA_DIR)
+	install -p -m 644 packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
+	install -p -m 644 packaging/sys-etc/httpd/conf.d/z-ovirt-engine-reports-proxy.conf  $(DESTDIR)$(SYSCONF_DIR)/httpd/conf.d
+	install -p -m 755 packaging/legacy-setup/ssl2jkstrust.py $(DESTDIR)$(DATA_DIR)/legacy-setup
+	install -p -m 755 packaging/legacy-setup/ovirt-engine-reports-setup.py $(DESTDIR)$(DATA_DIR)/legacy-setup
+	install -p -m 755 packaging/legacy-setup/common_utils.py $(DESTDIR)$(DATA_DIR)/legacy-setup
+	install -p -m 755 packaging/legacy-setup/decorators.py $(DESTDIR)$(DATA_DIR)/legacy-setup
+	install -p -m 644 packaging/conf/default_master.properties $(DESTDIR)$(DATA_DIR)/conf
+	install -p -m 644 packaging/conf/reports.xml $(DESTDIR)$(DATA_DIR)/conf
 	cp -rpf server-customizations/* $(DESTDIR)$(DATA_DIR)/server-customizations
 
-	ln -s -f $(DATA_DIR)/$(OVIRT_REPORTS_NAME)-setup.py $(DESTDIR)$(BIN_DIR)/$(OVIRT_REPORTS_NAME)-setup
+	ln -s -f $(DATA_DIR)/legacy-setup/$(OVIRT_REPORTS_NAME)-setup.py $(DESTDIR)$(BIN_DIR)/$(OVIRT_REPORTS_NAME)-setup

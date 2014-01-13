@@ -62,7 +62,7 @@ FILE_ENGINE_CONF_DEFAULTS = "/usr/share/ovirt-engine/services/ovirt-engine/ovirt
 FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 
 REPORTS_PACKAGE_DIR = "/usr/share/ovirt-engine-reports"
-SSL2JKSTRUST = "%s/ssl2jkstrust.py" % REPORTS_PACKAGE_DIR
+SSL2JKSTRUST = "%s/legacy-setup/ssl2jkstrust.py" % REPORTS_PACKAGE_DIR
 FILE_DB_DATA_SOURCE = "%s/reports/resources/reports_resources/JDBC/data_sources/ovirt.xml" % REPORTS_PACKAGE_DIR
 DIR_REPORTS_CUSTOMIZATION="%s/server-customizations" % REPORTS_PACKAGE_DIR
 DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPORTS_PACKAGE_DIR
@@ -330,7 +330,7 @@ def updateServletDbRecord(TEMP_PGPASS):
 
 @transactionDisplay("Setting DB connectivity")
 def setDBConn():
-    shutil.copyfile("%s/default_master.properties" % REPORTS_PACKAGE_DIR, FILE_JASPER_DB_CONN)
+    shutil.copyfile("%s/conf/default_master.properties" % REPORTS_PACKAGE_DIR, FILE_JASPER_DB_CONN)
     if db_dict['password']:
         setDeploymentDetails(db_dict)
     else:
@@ -1166,7 +1166,7 @@ def main(options):
                 configureRepository(adminPass)
 
                 # Copy reports xml to engine
-                shutil.copy2("%s/reports.xml" % REPORTS_PACKAGE_DIR, '/var/lib/ovirt-engine/reports.xml')
+                shutil.copy2("%s/conf/reports.xml" % REPORTS_PACKAGE_DIR, '/var/lib/ovirt-engine/reports.xml')
 
                 # Delete default properties files
                 if os.path.exists(FILE_JASPER_DB_CONN):
