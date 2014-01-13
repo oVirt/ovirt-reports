@@ -1,7 +1,6 @@
 # Settings
 %global product_name Reports package for oVirt Virtualization Management
 %global product_description oVirt virtualization reports
-%global install_poms 1
 
 %global reports_name ovirt-engine-reports
 %global reports_java %{_javadir}/%{reports_name}
@@ -21,7 +20,6 @@
         PYTHON=%{__python} \\\
         PYTHON_DIR=%{python_sitelib} \\\
         JAVA_DIR=%{_javadir} \\\
-        MAVENPOM_DIR=%{_mavenpomdir} \\\
         PKG_JAVA_DIR=%{reports_java} \\\
         %{?BUILD_FLAGS:BUILD_FLAGS="%{BUILD_FLAGS}"} \\\
         %{?EXTRA_BUILD_FLAGS:EXTRA_BUILD_FLAGS="%{EXTRA_BUILD_FLAGS}"}
@@ -70,43 +68,19 @@ make %{make_common_opts}
 
 %install
 rm -fr "%{buildroot}"
+make %{make_common_opts} install DESTDIR="%{buildroot}"
 
-# Use the makefile to do the normal installation, after that we
-# will need to replace jar files with links to their actual
-# locations:
-make %{make_common_opts} install DESTDIR=%{buildroot}
+# Compile python files
+%{__python} -m compileall -f -q -d / "%{buildroot}"
+%{__python} -O -m compileall -f -q -d / "%{buildroot}"
 
 # Needed for compatibility if package is different than the directory structure
 %if "%{name}" != "%{reports_name}"
-    ln -s -f %{_bindir}/%{reports_name}-setup %{buildroot}%{_bindir}/%{name}-setup
+    ln -s -f "%{_bindir}/%{reports_name}-setup" "%{buildroot}%{_bindir}/%{name}-setup"
     ln -s "%{reports_name}" "%{buildroot}%{reports_java}/../%{name}"
 %endif
 
-# Register poms
-%if !%{install_poms}
-rm -fr "%{buildroot}%{_mavenpomdir}"
-%else
-for pom in %{buildroot}%{_mavenpomdir}/*.pom
-do
-  pomdir=`dirname "${pom}"`
-  pom=`basename "${pom}"`
-  jpppom="JPP.${pom}"
-  mv "${pomdir}/${pom}" "${pomdir}/${jpppom}"
-  artifact_id=`echo "${pom}" | sed -e 's/^%{name}-//' -e 's/\.pom//'`
-  if [ -f "%{buildroot}%{reports_java}/${artifact_id}.jar" ]
-  then
-    %add_maven_depmap "${jpppom}" "%{name}/${artifact_id}.jar"
-  else
-    %add_maven_depmap "${jpppom}"
-  fi
-done
-%endif
-
-%post
-%update_maven_depmap
-
 %postun
-%update_maven_depmap
 if [ "$1" -eq 0 ]; then
     if [ -d /usr/share/ovirt-engine/%{name}.war ]; then
         rm -rf /usr/share/ovirt-engine/%{name}.war
@@ -125,10 +99,6 @@ fi
 %{_datadir}/%{reports_name}
 %if "%{name}" != "%{reports_name}"
 %{_javadir}/%{name}
-%endif
-%if %{install_poms}
-%{_mavendepmapfragdir}/%{name}
-%{_mavenpomdir}/JPP.%{name}-*
 %endif
 
 %{_bindir}/%{reports_name}-setup

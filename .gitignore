@@ -14,4 +14,5 @@ target
 
 # generated files
 ###########################
+build/python-check.sh.in
 ovirt-engine-reports.spec
