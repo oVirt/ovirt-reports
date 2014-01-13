@@ -123,7 +123,6 @@ fi
 
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{_sysconfdir}/ovirt-engine/ovirt-engine-reports
-%{_sysconfdir}/httpd/conf.d/z-ovirt-engine-reports-proxy.conf
 %{reports_java}
 %{_datadir}/%{reports_name}
 %if "%{name}" != "%{reports_name}"

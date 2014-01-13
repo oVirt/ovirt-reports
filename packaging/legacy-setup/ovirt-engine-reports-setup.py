@@ -947,6 +947,23 @@ def configureRepository(password):
     os.chdir(current_dir)
     shutil.rmtree(savedRepoDir)
 
+
+def configureApache():
+    with open(
+        os.path.join(
+            REPORTS_PACKAGE_DIR,
+            'conf',
+            'ovirt-engine-reports-proxy.conf.in',
+        )
+    ) as f:
+        content = f.read().replace('@JBOSS_AJP_PORT@', '8702')
+    with open(
+        '/etc/httpd/conf.d/z-ovirt-engine-reports-proxy.conf',
+        'w',
+    ) as f:
+        f.write(content)
+
+
 def main(options):
     '''
     main
@@ -1179,6 +1196,8 @@ def main(options):
                 ):
                     if os.path.exists(path):
                         shutil.rmtree(path)
+
+                configureApache()
 
             # Restore previous version
             except:
