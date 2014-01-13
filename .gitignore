@@ -1,29 +1,13 @@
-/.project
-/.settings/org.eclipse.m2e.core.prefs
-/reports/jars/ChartsCustomizers/.settings/org.eclipse.m2e.core.prefs
-/reports/jars/ReportsLineBarChartTheme/.settings/org.eclipse.m2e.core.prefs
-/reports/jars/ReportsPieChartTheme/.settings/org.eclipse.m2e.core.prefs
-/reports/jars/WebadminLineBarChartTheme/.settings/org.eclipse.m2e.core.prefs
-/reports/.project
-/reports/.settings/org.maven.ide.eclipse.prefs
-/reports/jars/.project
-/reports/jars/.settings/org.maven.ide.eclipse.prefs
-/reports/jars/ChartsCustomizers/.classpath
-/reports/jars/ChartsCustomizers/.project
-/reports/jars/ChartsCustomizers/.settings/org.eclipse.jdt.core.prefs
-/reports/jars/ChartsCustomizers/.settings/org.maven.ide.eclipse.prefs
-/reports/jars/ReportsLineBarChartTheme/.classpath
-/reports/jars/ReportsLineBarChartTheme/.project
-/reports/jars/ReportsLineBarChartTheme/.settings/org.eclipse.jdt.core.prefs
-/reports/jars/ReportsLineBarChartTheme/.settings/org.maven.ide.eclipse.prefs
-/reports/jars/ReportsPieChartTheme/.classpath
-/reports/jars/ReportsPieChartTheme/.project
-/reports/jars/ReportsPieChartTheme/.settings/org.eclipse.jdt.core.prefs
-/reports/jars/ReportsPieChartTheme/.settings/org.maven.ide.eclipse.prefs
-/reports/jars/WebadminLineBarChartTheme/.classpath
-/reports/jars/WebadminLineBarChartTheme/.project
-/reports/jars/WebadminLineBarChartTheme/.settings/org.eclipse.jdt.core.prefs
-/reports/jars/WebadminLineBarChartTheme/.settings/org.maven.ide.eclipse.prefs
+# build-time files
+###########################
+tmp.*
+
+# IDE files
+###########################
+.project
+.classpath
+*.prefs
+
 # mvn folders
 ###########################
 target
