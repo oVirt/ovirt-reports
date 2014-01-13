@@ -71,7 +71,7 @@ REPORTS_JARS_DIR = "/usr/share/java/ovirt-engine-reports"
 
 FILE_DEPLOY_VERSION = "/etc/ovirt-engine/jrs-deployment.version"
 OVIRT_SETUP_POST_INSTALL_CONFIG = "/etc/ovirt-engine-setup.conf.d/20-setup-ovirt-post.conf"
-OVIRT_REPORTS_ETC="/etc/ovirt-engine/ovirt-engine-reports"
+OVIRT_REPORTS_ETC="/etc/ovirt-engine-reports"
 OVIRT_REPORTS_TRUST_STORE="%s/trust.jks" % OVIRT_REPORTS_ETC
 OVIRT_REPORTS_TRUST_STORE_PASS="mypass"
 

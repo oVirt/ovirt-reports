@@ -42,7 +42,7 @@ DATAROOT_DIR=$(PREFIX)/share
 DATA_DIR=$(DATAROOT_DIR)/$(OVIRT_REPORTS_NAME)
 MAVENPOM_DIR=$(DATAROOT_DIR)/maven-poms
 JAVA_DIR=$(DATAROOT_DIR)/java
-PKG_SYSCONF_DIR=$(SYSCONF_DIR)/ovirt-engine
+PKG_SYSCONF_DIR=$(SYSCONF_DIR)/ovirt-engine-reports
 PKG_JAVA_DIR=$(JAVA_DIR)/$(OVIRT_REPORTS_NAME)
 RPMBUILD=rpmbuild
 PYTHON=python
@@ -152,9 +152,8 @@ install_artifacts:
 	done
 
 install_files:
-	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
-	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/ovirt-engine-reports
-	install -d $(DESTDIR)$(SYSCONF_DIR)/$(OVIRT_REPORTS_NAME)/ovirt-engine-reports.conf.d
+	install -d $(DESTDIR)$(SYSCONF_DIR)/ovirt-engine/engine.conf.d
+	install -d $(DESTDIR)$(PKG_SYSCONF_DIR)/ovirt-engine-reports.conf.d
 	install -d $(DESTDIR)$(BIN_DIR)
 	install -d $(DESTDIR)$(DATA_DIR)/conf
 	install -d $(DESTDIR)$(DATA_DIR)/legacy-setup
@@ -162,7 +161,7 @@ install_files:
 	install -d $(DESTDIR)$(DATA_DIR)/server-customizations
 
 	cp -a  reports/repository_files/* $(DESTDIR)$(DATA_DIR)/reports
-	install -p -m 644 packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf  $(DESTDIR)$(PKG_SYSCONF_DIR)/engine.conf.d
+	install -p -m 644 packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf  $(DESTDIR)$(SYSCONF_DIR)/ovirt-engine/engine.conf.d
 	install -p -m 755 packaging/legacy-setup/ssl2jkstrust.py $(DESTDIR)$(DATA_DIR)/legacy-setup
 	install -p -m 755 packaging/legacy-setup/ovirt-engine-reports-setup.py $(DESTDIR)$(DATA_DIR)/legacy-setup
 	install -p -m 755 packaging/legacy-setup/common_utils.py $(DESTDIR)$(DATA_DIR)/legacy-setup
