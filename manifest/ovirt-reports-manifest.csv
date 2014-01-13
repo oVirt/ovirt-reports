@@ -1,8 +1,0 @@
-Artifact,URL,Name,License,Owner,Affiliate,Provided By,License URL,Crypto,Comments,Target
-ChartsCustomizers,,Chart Customization for oVirt Engine Reports,ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
-ReportsLineBarChartTheme,,Chart Theme for oVirt Engine Reports (No Java Content),ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
-ReportsPieChartTheme,,Chart Theme for oVirt Engine Reports (No Java Content),ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
-ReportsStatus,,Reports Status Servlet,ASL,Nori Ravi,Self Jar,Us,,0,,compile\deploy
-WebadminLineBarChartTheme,,Chart Theme for oVirt Engine Reports (No Java Content),ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
-EngineAuthentication,,JRS Webadmin SSO Jar,ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
-CustomOvirtReportsQueryManipulator,,Custom oVirt Reports Query Manipulator,ASL,Yaniv Dary,Self Jar,Us,,0,,compile\deploy
