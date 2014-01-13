@@ -11,3 +11,7 @@ tmp.*
 # mvn folders
 ###########################
 target
+
+# generated files
+###########################
+ovirt-engine-reports.spec

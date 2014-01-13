@@ -48,7 +48,7 @@ RPMBUILD=rpmbuild
 PYTHON=python
 PYTHON_DIR:=$(shell $(PYTHON) -c "from distutils.sysconfig import get_python_lib as f;print(f())")
 
-SPEC_FILE_IN=packaging/ovirt-engine-reports.spec.in
+SPEC_FILE_IN=ovirt-engine-reports.spec.in
 SPEC_FILE=$(PACKAGE_NAME).spec
 OUTPUT_RPMBUILD=$(shell pwd -P)/tmp.rpmbuild
 OUTPUT_DIR=output
