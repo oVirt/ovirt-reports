@@ -169,7 +169,7 @@ install_files:
 	install -p -m 755 packaging/common_utils.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 755 packaging/decorators.py $(DESTDIR)$(DATA_DIR)
 	install -p -m 644 packaging/default_master.properties $(DESTDIR)$(DATA_DIR)
-	install -p -m 644 reports/Reports.xml $(DESTDIR)$(DATA_DIR)
+	install -p -m 644 reports/reports.xml $(DESTDIR)$(DATA_DIR)
 	cp -rpf server-customizations/* $(DESTDIR)$(DATA_DIR)/server-customizations
 
 	ln -s -f $(DATA_DIR)/$(OVIRT_REPORTS_NAME)-setup.py $(DESTDIR)$(BIN_DIR)/$(OVIRT_REPORTS_NAME)-setup

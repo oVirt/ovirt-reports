@@ -1165,11 +1165,8 @@ def main(options):
                 #Run post setup steps - disable unused users, set theme, change superuser password if needed
                 configureRepository(adminPass)
 
-                # Copy reports xml to webadmin folder
-                webadminFolder = "%s/engine.ear/webadmin.war/" % DIR_DEPLOY
-                if not os.path.exists(webadminFolder):
-                    os.makedirs(webadminFolder)
-                shutil.copy2("%s/Reports.xml" % REPORTS_PACKAGE_DIR, webadminFolder)
+                # Copy reports xml to engine
+                shutil.copy2("%s/reports.xml" % REPORTS_PACKAGE_DIR, '/var/lib/ovirt-engine/reports.xml')
 
                 # Delete default properties files
                 if os.path.exists(FILE_JASPER_DB_CONN):

@@ -115,9 +115,7 @@ if [ "$1" -eq 0 ]; then
     if [ -f /etc/ovirt-engine/jrs-deployment.version ]; then
         rm -rf /etc/ovirt-engine/jrs-deployment.version
     fi
-    if [ -f /usr/share/ovirt-engine/engine.ear/webadmin.war/webadmin/Reports.xml ]; then
-        rm -rf /usr/share/ovirt-engine/engine.ear/webadmin.war/webadmin/Reports.xml
-    fi
+    rm -f /var/lib/ovirt-engine/reports.xml
 fi
 
 %files
