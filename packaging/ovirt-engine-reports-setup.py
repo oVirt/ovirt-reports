@@ -416,8 +416,6 @@ def getDBStatus(db_dict, TEMP_PGPASS):
     return exists, owned, hasData, working_db_dict
 
 def getDbCredentials(
-    hostdefault='',
-    portdefault='',
     userdefault='',
 ):
     """
@@ -434,20 +432,15 @@ def getDbCredentials(
     ) % JRS_DB_NAME
 
     dbuser = utils.askQuestion(
-        question='Provide a remote DB user',
+        question='Database user',
         default=userdefault,
     )
 
-    userInput = getPassFromUser(
-        'Please choose a password for the db user: '
+    dbpass = getPassFromUser(
+        prompt='Database password: ',
+        validate=False,
     )
-    # We do not need verification for the re-entered password
-    userInput2 = getpass.getpass("Re-type password: ")
-    if userInput != userInput2:
-            print "ERROR: passwords don't match"
-            return getDbCredentials(dbhost, dbport, dbuser)
-
-    return dbuser, userInput
+    return dbuser, dbpass
 
 def getAdminPass():
 
@@ -455,30 +448,29 @@ def getAdminPass():
         'Please choose a password for the reports admin user(s) '
         '(ovirt-admin): '
     )
-    # We do not need verification for the re-entered password
-    userInput2 = getPassFromUser(
-        'Retype password: '
-    )
-    if userInput != userInput2:
-            print "ERROR: passwords don't match"
-            return getAdminPass()
-
     return userInput
 
 
-def getPassFromUser(string):
+def getPassFromUser(prompt, validate=True):
     """
     get a single password from the user
     """
-    userInput = getpass.getpass(string)
-    if type(userInput) != types.StringType or len(userInput) == 0:
-        print "Cannot accept an empty password"
-        return getPassFromUser(string)
+    userInput = getpass.getpass(prompt)
 
-    try:
-        cracklib.FascistCheck(userInput)
-    except:
-        print "Warning: Weak Password."
+    if validate:
+        if type(userInput) != types.StringType or len(userInput) == 0:
+            print "Cannot accept an empty password"
+            return getPassFromUser(prompt)
+
+        try:
+            cracklib.FascistCheck(userInput)
+        except:
+            print "Warning: Weak Password."
+
+        userInput2 = getpass.getpass('Re-type password: ')
+        if userInput != userInput2:
+                print "ERROR: passwords don't match"
+                return getPassFromUser(prompt)
 
     return userInput
 
