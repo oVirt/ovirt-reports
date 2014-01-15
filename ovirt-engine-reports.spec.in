@@ -21,6 +21,7 @@
 	PYTHON_DIR=%{python_sitelib} \\\
 	JAVA_DIR=%{_javadir} \\\
 	PKG_JAVA_DIR=%{reports_java} \\\
+	PKG_LOG_DIR=%{_localstatedir}/log/%{reports_name} \\\
 	%{?BUILD_FLAGS:BUILD_FLAGS="%{BUILD_FLAGS}"} \\\
 	%{?EXTRA_BUILD_FLAGS:EXTRA_BUILD_FLAGS="%{EXTRA_BUILD_FLAGS}"}
 
@@ -73,6 +74,11 @@ make %{make_common_opts} install DESTDIR="%{buildroot}"
 %{__python} -m compileall -f -q -d / "%{buildroot}"
 %{__python} -O -m compileall -f -q -d / "%{buildroot}"
 
+#
+# /var creation
+#
+install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{name}"
+
 # Needed for compatibility if package is different than the directory structure
 %if "%{name}" != "%{reports_name}"
 ln -s -f "%{_bindir}/%{reports_name}-setup" "%{buildroot}%{_bindir}/%{name}-setup"
@@ -88,6 +94,7 @@ fi
 
 %files
 %dir %{_sysconfdir}/%{reports_name}/ovirt-engine-reports.conf.d
+%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{name}
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{reports_java}
 %{_datadir}/%{reports_name}

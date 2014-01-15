@@ -39,7 +39,7 @@ log4j.appender.stdout.layout.conversionPattern=%d{ISO8601} %5p %c{1},%t:%L - %m%
 # jasperserver.root is used only by JasperServer Community Edition.
 # JasperServer Professional users should look for jasperserver-pro.root lower in this file.
 log4j.appender.fileout=org.apache.log4j.RollingFileAppender
-log4j.appender.fileout.File=/var/log/ovirt-engine/jasperserver.log
+log4j.appender.fileout.File=@PKG_LOG_DIR@/jasperserver.log
 log4j.appender.fileout.MaxFileSize=1024KB
 log4j.appender.fileout.MaxBackupIndex=1
 log4j.appender.fileout.layout=org.apache.log4j.PatternLayout
@@ -64,7 +64,7 @@ log4j.appender.fileout.layout.conversionPattern=%d{ISO8601} %5p %c{1},%t:%L - %m
 # jasperserver.root is used only by JasperServer Community Edition.
 # JasperServer Professional users should look for jasperserver-pro.root lower in this file.
 log4j.appender.jasperanalysis=org.apache.log4j.RollingFileAppender
-log4j.appender.jasperanalysis.File=/var/log/ovirt-engine/jasperanalysis.log
+log4j.appender.jasperanalysis.File=@PKG_LOG_DIR@/jasperanalysis.log
 log4j.appender.jasperanalysis.MaxFileSize=1024KB
 log4j.appender.jasperanalysis.MaxBackupIndex=1
 log4j.appender.jasperanalysis.layout=org.apache.log4j.PatternLayout

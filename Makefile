@@ -120,6 +120,7 @@ ARTIFACTS = \
 GENERATED = \
 	build/python-check.sh \
 	ovirt-engine-reports.spec \
+	server-customizations/WEB-INF/log4j.properties \
 	$(NULL)
 
 all:	\
@@ -252,3 +253,5 @@ install-dev:	\
 		DEV_FLIST=tmp.dev.flist \
 		$(NULL)
 	cp tmp.dev.flist "$(DESTDIR)$(PREFIX)/dev.$(PACKAGE_NAME).flist"
+
+	install -d "$(DESTDIR)$(PKG_LOG_DIR)"
