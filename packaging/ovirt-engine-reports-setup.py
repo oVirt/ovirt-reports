@@ -1160,7 +1160,7 @@ def main(options):
                 customizeJs()
 
                 # Import scheduale reports if they were previously existing
-                if preserveReportsJobs:
+                if preserveReports:
                     scheduleDir = DIR_TEMP_SCHEDULE
                     importScheduale(scheduleDir)
 
