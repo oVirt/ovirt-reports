@@ -15,6 +15,7 @@
 	OVIRT_REPORTS_NAME=%{reports_name} \\\
 	PREFIX=%{_prefix} \\\
 	SYSCONF_DIR=%{_sysconfdir} \\\
+	LOCALSTATE_DIR=%{_localstatedir} \\\
 	BIN_DIR=%{_bindir} \\\
 	DATAROOT_DIR=%{_datadir} \\\
 	PYTHON=%{__python} \\\
@@ -22,6 +23,7 @@
 	JAVA_DIR=%{_javadir} \\\
 	PKG_JAVA_DIR=%{reports_java} \\\
 	PKG_LOG_DIR=%{_localstatedir}/log/%{reports_name} \\\
+	PKG_STATE_DIR=%{_localstatedir}/lib/%{reports_name} \\\
 	%{?BUILD_FLAGS:BUILD_FLAGS="%{BUILD_FLAGS}"} \\\
 	%{?EXTRA_BUILD_FLAGS:EXTRA_BUILD_FLAGS="%{EXTRA_BUILD_FLAGS}"}
 
@@ -77,6 +79,7 @@ make %{make_common_opts} install DESTDIR="%{buildroot}"
 #
 # /var creation
 #
+install -dm 755 "%{buildroot}/%{_localstatedir}/lib/%{name}"
 install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{name}"
 
 # Needed for compatibility if package is different than the directory structure
@@ -88,12 +91,13 @@ ln -s "%{reports_name}" "%{buildroot}%{reports_java}/../%{name}"
 %postun
 if [ "$1" -eq 0 ]; then
 	rm -f /etc/ovirt-engine/jrs-deployment.version
-	rm -rf /usr/share/ovirt-engine/%{name}.war
+	rm -rf /var/lib/ovirt-engine-reports/%{name}.war
 	rm -f /var/lib/ovirt-engine/reports.xml
 fi
 
 %files
 %dir %{_sysconfdir}/%{reports_name}/ovirt-engine-reports.conf.d
+%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{name}
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{name}
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{reports_java}

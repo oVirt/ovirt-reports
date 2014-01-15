@@ -35,11 +35,12 @@ params = {
     'REMOTE_DB_PASSWORD': None,
 }
 
-DIR_DEPLOY = "/usr/share/ovirt-engine"
+DIR_DEPLOY = "/var/lib/ovirt-engine-reports"
 JRS_APP_NAME = "ovirt-engine-reports"
 JRS_DB_NAME = "ovirtenginereports"
 JRS_PACKAGE_NAME = "jasperreports-server"
 DIR_WAR="%s/%s.war" % (DIR_DEPLOY, JRS_APP_NAME)
+LEGACY_WAR="/usr/share/ovirt-engine/ovirt-engine-reports.war"
 FILE_JS_SMTP="%s/WEB-INF/js.quartz.properties" % DIR_WAR
 FILE_APPLICATION_CONTEXT_OVERRIDE ="%s/WEB-INF/applicationContext-ovirt-override.xml" % DIR_WAR
 FILE_JRS_DATASOURCES="%s/WEB-INF/js-jboss7-ds.xml" % DIR_WAR
@@ -201,6 +202,9 @@ def deployJs(db_dict, TEMP_PGPASS):
             utils.clearDB(db_dict, TEMP_PGPASS, log_file)
             DB_EXIST = False
             DB_EXISTED = True
+
+        if os.path.exists(LEGACY_WAR):
+            shutil.rmtree(LEGACY_WAR)
 
         if isWarInstalled():
             shutil.rmtree(DIR_WAR)
@@ -994,6 +998,10 @@ def main(options):
 
         # Check if ovirt-engine is up, if so prompt the user to stop it.
         if utils.stopEngine(options['STOP_ENGINE']):
+
+            if os.path.exists(LEGACY_WAR) and not os.path.exists(DIR_WAR):
+                shutil.copytree(LEGACY_WAR, DIR_WAR, symlinks=True)
+
             warUpdated = isWarUpdated()
 
             if not warUpdated and isWarInstalled():
@@ -1198,6 +1206,9 @@ def main(options):
                         shutil.rmtree(path)
 
                 configureApache()
+
+                if os.path.exists(LEGACY_WAR):
+                    shutil.rmtree(LEGACY_WAR)
 
             # Restore previous version
             except:

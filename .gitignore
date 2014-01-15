@@ -16,4 +16,5 @@ target
 ###########################
 build/python-check.sh.in
 ovirt-engine-reports.spec
+packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 server-customizations/WEB-INF/log4j.properties
