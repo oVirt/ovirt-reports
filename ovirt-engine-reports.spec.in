@@ -8,48 +8,49 @@
 %global engine_user ovirt
 
 %global make_common_opts \\\
-        -j1 \\\
-        PACKAGE_NAME=%{name} \\\
-        RPM_VERSION=%{version} \\\
-        RPM_RELEASE=%{release} \\\
-        OVIRT_REPORTS_NAME=%{reports_name} \\\
-        PREFIX=%{_prefix} \\\
-        SYSCONF_DIR=%{_sysconfdir} \\\
-        BIN_DIR=%{_bindir} \\\
-        DATAROOT_DIR=%{_datadir} \\\
-        PYTHON=%{__python} \\\
-        PYTHON_DIR=%{python_sitelib} \\\
-        JAVA_DIR=%{_javadir} \\\
-        PKG_JAVA_DIR=%{reports_java} \\\
-        %{?BUILD_FLAGS:BUILD_FLAGS="%{BUILD_FLAGS}"} \\\
-        %{?EXTRA_BUILD_FLAGS:EXTRA_BUILD_FLAGS="%{EXTRA_BUILD_FLAGS}"}
+	-j1 \\\
+	PACKAGE_NAME=%{name} \\\
+	RPM_VERSION=%{version} \\\
+	RPM_RELEASE=%{release} \\\
+	OVIRT_REPORTS_NAME=%{reports_name} \\\
+	PREFIX=%{_prefix} \\\
+	SYSCONF_DIR=%{_sysconfdir} \\\
+	BIN_DIR=%{_bindir} \\\
+	DATAROOT_DIR=%{_datadir} \\\
+	PYTHON=%{__python} \\\
+	PYTHON_DIR=%{python_sitelib} \\\
+	JAVA_DIR=%{_javadir} \\\
+	PKG_JAVA_DIR=%{reports_java} \\\
+	%{?BUILD_FLAGS:BUILD_FLAGS="%{BUILD_FLAGS}"} \\\
+	%{?EXTRA_BUILD_FLAGS:EXTRA_BUILD_FLAGS="%{EXTRA_BUILD_FLAGS}"}
 
-Name: @PACKAGE_NAME@
-Version: @RPM_VERSION@
-Release: @RPM_RELEASE@%{?release_suffix}%{dist}
-License: Commercial
-Summary: %{product_name}
-Group: Virtualization/Management
-URL: http://www.ovirt.org
-BuildArch: noarch
-Source: @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
-BuildRequires: maven
-BuildRequires: jpackage-utils
-BuildRequires: java-1.7.0-openjdk-devel
-BuildRequires: make
-BuildRequires: log4j
-Requires: python
-Requires: java-1.7.0-openjdk
-Requires: jpackage-utils
-Requires: ovirt-engine >= 3.4.0
-Requires: ovirt-engine-dbscripts >= 3.4.0
-Requires: ovirt-engine-dwh >= 3.4.0
-Requires: jasperreports-server >= 5.2.0
-Requires: m2crypto
+Name:		@PACKAGE_NAME@
+Version:	@RPM_VERSION@
+Release:	@RPM_RELEASE@%{?release_suffix}%{dist}
+License:	Commercial
+Summary:	%{product_name}
+Group:		Virtualization/Management
+URL:		http://www.ovirt.org
+BuildArch:	noarch
+Source:		http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 
-# We need some packages installed in order to workaround
-# bug 862355:
-Requires: liberation-mono-fonts
+BuildRequires:	java-1.7.0-openjdk-devel
+BuildRequires:	jpackage-utils
+BuildRequires:	log4j
+BuildRequires:	make
+BuildRequires:	maven
+
+Requires:	jasperreports-server >= 5.2.0
+Requires:	java-1.7.0-openjdk
+Requires:	jpackage-utils
+Requires:	m2crypto
+Requires:	ovirt-engine >= 3.4.0
+Requires:	ovirt-engine-dbscripts >= 3.4.0
+Requires:	ovirt-engine-dwh >= 3.4.0
+Requires:	python
+
+# bug#862355
+Requires:	liberation-mono-fonts
 
 %description
 The %{product_description} package provides a suite of
@@ -59,11 +60,9 @@ JasperReports and JasperServer, and can also be used to create
 ad-hoc reports.
 
 %prep
-
 %setup -c -q
 
 %build
-
 make %{make_common_opts}
 
 %install
@@ -76,20 +75,15 @@ make %{make_common_opts} install DESTDIR="%{buildroot}"
 
 # Needed for compatibility if package is different than the directory structure
 %if "%{name}" != "%{reports_name}"
-    ln -s -f "%{_bindir}/%{reports_name}-setup" "%{buildroot}%{_bindir}/%{name}-setup"
-    ln -s "%{reports_name}" "%{buildroot}%{reports_java}/../%{name}"
+ln -s -f "%{_bindir}/%{reports_name}-setup" "%{buildroot}%{_bindir}/%{name}-setup"
+ln -s "%{reports_name}" "%{buildroot}%{reports_java}/../%{name}"
 %endif
 
 %postun
 if [ "$1" -eq 0 ]; then
-    if [ -d /usr/share/ovirt-engine/%{name}.war ]; then
-        rm -rf /usr/share/ovirt-engine/%{name}.war
-        rm -rf /var/lib/ovirt-engine/deployments/%{name}.war*
-    fi
-    if [ -f /etc/ovirt-engine/jrs-deployment.version ]; then
-        rm -rf /etc/ovirt-engine/jrs-deployment.version
-    fi
-    rm -f /var/lib/ovirt-engine/reports.xml
+	rm -f /etc/ovirt-engine/jrs-deployment.version
+	rm -rf /usr/share/ovirt-engine/%{name}.war
+	rm -f /var/lib/ovirt-engine/reports.xml
 fi
 
 %files
