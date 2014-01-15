@@ -64,7 +64,6 @@ FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 
 REPORTS_PACKAGE_DIR = "/usr/share/ovirt-engine-reports"
 SSL2JKSTRUST = "%s/legacy-setup/ssl2jkstrust.py" % REPORTS_PACKAGE_DIR
-FILE_DB_DATA_SOURCE = "%s/reports/resources/reports_resources/JDBC/data_sources/ovirt.xml" % REPORTS_PACKAGE_DIR
 DIR_REPORTS_CUSTOMIZATION="%s/server-customizations" % REPORTS_PACKAGE_DIR
 DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPORTS_PACKAGE_DIR
 
@@ -281,20 +280,14 @@ def setDeploymentDetails(db_dict):
     file_handler.editParam("appServerDir", DIR_DEPLOY)
     file_handler.close()
 
-def setReportsDatasource(db_dict):
-    logging.debug("editing reports datasource file %s", FILE_DB_DATA_SOURCE)
-    xml_editor = utils.XMLConfigFileHandler(FILE_DB_DATA_SOURCE)
+def setReportsDatasource(src, db_dict):
+    f = os.path.join(src, 'resources/reports_resources/JDBC/data_sources/ovirt.xml')
+    logging.debug("editing reports datasource file %s", f)
+    xml_editor = utils.XMLConfigFileHandler(f)
     xml_editor.open()
     xml_editor.editParams({'/jdbcDataSource/connectionUrl':"jdbc:postgresql://%s:%s/%s" % (db_dict["host"],db_dict["port"],ENGINE_HISTORY_DB_NAME)})
     xml_editor.editParams({'/jdbcDataSource/connectionUser':db_dict["dwh_db_user"]})
     xml_editor.editParams({'/jdbcDataSource/connectionPassword':db_dict["dwh_db_password"]})
-    xml_editor.close()
-
-def resetReportsDatasourcePassword():
-    logging.debug("editing reports datasource file %s", FILE_DB_DATA_SOURCE)
-    xml_editor = utils.XMLConfigFileHandler(FILE_DB_DATA_SOURCE)
-    xml_editor.open()
-    xml_editor.editParams({'/jdbcDataSource/connectionPassword':""})
     xml_editor.close()
 
 @transactionDisplay("Updating Redirect Servlet")
@@ -478,13 +471,13 @@ def getPassFromUser(prompt, validate=True):
 
     return userInput
 
-def editOvirtEngineAdminXml(password):
+def editOvirtEngineAdminXml(src, password):
     """
     edit ovirt-engine-admin xml file and set password
     TODO handle superuser password.
     """
     logging.debug("setting password for ovirt-engine-admin")
-    xmlFile  = "%s/reports/users/ovirt-002dadmin.xml" % REPORTS_PACKAGE_DIR
+    xmlFile  = "%s/users/ovirt-002dadmin.xml" % src
     logging.debug("opening xml file")
     xmlObj = utils.XMLConfigFileHandler(xmlFile)
     xmlObj.open()
@@ -980,6 +973,7 @@ def main(options):
     rc = 0
     preserveReports = False
     pghba_updated = False
+    reportsTemp = None
 
     try:
         logging.debug("starting main()")
@@ -1117,9 +1111,6 @@ def main(options):
             if not warUpdated or not isWarInstalled():
                 setDBConn()
 
-            # Update reports datasource configuration
-            setReportsDatasource(db_dict)
-
             if not warUpdated and isWarInstalled():
                 backupWAR()
                 with open(FILE_DEPLOY_VERSION, 'r') as verfile:
@@ -1151,17 +1142,24 @@ def main(options):
                 # Update oVirt-Engine vdc_options with reports relative url
                 updateServletDbRecord(TEMP_PGPASS)
 
+                reportsTemp = tempfile.mkdtemp()
+                reportsImport = os.path.join(reportsTemp, 'reports')
+                shutil.copytree('/usr/share/ovirt-engine-reports/reports', reportsImport,  symlinks=True)
+
                 # If the userPassword var has been populated it means we need to edit the Admin xml file
                 if adminPass is not None:
                     logging.debug('Setting real admin password')
-                    editOvirtEngineAdminXml(adminPass)
+                    editOvirtEngineAdminXml(reportsImport, adminPass)
 
                 if preserveReports:
                     logging.debug("Importing users")
                     utils.importUsers(savedDir)
 
+                # Update reports datasource configuration
+                setReportsDatasource(reportsImport, db_dict=db_dict)
+
                 # Execute js-import to add reports to DB
-                utils.importReports()
+                utils.importReports(reportsImport)
 
                 # We import users twice because we need permissions to be
                 # preserved as well as users passwords reset after importing
@@ -1169,9 +1167,6 @@ def main(options):
                 if hasData:
                     logging.debug("Imporing users")
                     utils.importUsers(savedDir)
-
-                # If this is a fresh install, we muck the password in the users xml files
-                editOvirtEngineAdminXml(MUCK_PASSWORD)
 
                 # Link all files in ovirt-engine-reports/reports*/jar to /var/lib/jbosas/server/ovirt-engine-slimmed/deploy/ovirt-engine-reports/WEB-INF/lib
                 customizeJs()
@@ -1241,7 +1236,8 @@ def main(options):
         rc = 1
     finally:
         shutil.rmtree(DIR_TEMP_SCHEDULE)
-        resetReportsDatasourcePassword()
+        if reportsTemp is not None:
+            shutil.rmtree(reportsTemp)
         if pghba_updated:
             utils.restorePgHba()
         return rc

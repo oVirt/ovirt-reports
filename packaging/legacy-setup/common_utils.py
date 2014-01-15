@@ -648,14 +648,14 @@ def getAppVersion(package):
     return output.rstrip()
 
 @transactionDisplay("Importing reports")
-def importReports(update=True):
+def importReports(src, update=True):
     """
     import the reports
     """
     logging.debug("importing reports")
     current_dir = os.getcwd()
     os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
-    cmd = "./js-import.sh --input-dir /usr/share/ovirt-engine-reports/reports"
+    cmd = "./js-import.sh --input-dir %s" % src
     if update:
         cmd = cmd + " --update"
     execExternalCmd(cmd, True, "Failed while importing reports")
