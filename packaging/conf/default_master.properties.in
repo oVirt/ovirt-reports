@@ -1,0 +1,30 @@
+# File locations
+reportsHome=@PKG_STATE_DIR@
+reportsWar=${reportsHome}/ovirt-engine-reports.war
+currentConf=${reportsHome}/build-conf
+appServerDir=${reportsHome}
+
+appServerType=jboss7
+
+# database type
+dbType=postgresql
+
+# database location and connection settings
+dbHost=localhost
+dbPort=5432
+dbUsername=postgres
+dbPassword=postgres
+
+# JasperServer db name
+js.dbName=ovirtenginereports
+
+# web app name
+# (set one of these to deploy to a non-default war file name)
+webAppNameCE=ovirt-engine-reports
+
+# Database
+maven.jdbc.groupId=postgresql
+maven.jdbc.artifactId=postgresql
+maven.jdbc.version=9.2-1002.jdbc4
+deployJDBCDriver=false
+

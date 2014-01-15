@@ -55,7 +55,6 @@ DWH_DB_USER = 'engine_history'
 REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
 REPORTS_DB_UPGRADE_SCRIPTS_DIR = "%s/install_resources/sql/postgresql" % REPORTS_SERVER_BUILDOMATIC_DIR
-FILE_JASPER_DB_CONN = "%s/default_master.properties" % REPORTS_SERVER_BUILDOMATIC_DIR
 FILE_DATABASE_ENGINE_CONFIG = "/etc/ovirt-engine/engine.conf.d/10-setup-database.conf"
 FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d/10-setup-database.conf"
 FILE_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/10-setup-database.conf"
@@ -183,6 +182,7 @@ def deployJs(db_dict, TEMP_PGPASS):
     execute js-ant with various directives
     '''
     global DB_EXIST
+    configFile = None
     try:
         logging.debug("Deploying Server ant scripts")
         current_dir = os.getcwd()
@@ -208,14 +208,23 @@ def deployJs(db_dict, TEMP_PGPASS):
         if isWarInstalled():
             shutil.rmtree(DIR_WAR)
 
-        logging.debug("Linking Postgresql JDBC driver to %s/conf_source/db/postgresql/jdbc for installation" % REPORTS_SERVER_BUILDOMATIC_DIR)
-        shutil.copyfile("/usr/share/java/postgresql-jdbc.jar", "%s/conf_source/db/postgresql/jdbc/postgresql-jdbc.jar" % REPORTS_SERVER_BUILDOMATIC_DIR)
-
         # create DB if it didn't exist:
         if not DB_EXISTED and utils.localHost(db_dict['host']):
             logging.debug('Creating DB')
             utils.createDB(db_dict)
         utils.createLang(db_dict, TEMP_PGPASS)
+
+        #
+        # workaround for not modify jasper faulty build
+        #
+        if not os.path.exists('/var/lib/ovirt-engine-reports/standalone'):
+            os.mkdir('/var/lib/ovirt-engine-reports/standalone')
+            os.symlink('..', '/var/lib/ovirt-engine-reports/standalone/deployments')
+
+        # Set db connectivity (user/pass)
+        logging.debug("Username is %s" % db_dict["username"])
+        configFile = setDBConn()
+
         logging.debug("Installing Jasper")
         for cmd in (
             'init-js-db-ce',
@@ -224,6 +233,7 @@ def deployJs(db_dict, TEMP_PGPASS):
         ):
             cmdList = [
                 './js-ant',
+                '-DmasterPropsSource=%s' % configFile,
                 cmd
             ]
             output, rc = utils.execCmd(
@@ -241,9 +251,18 @@ def deployJs(db_dict, TEMP_PGPASS):
 
         logging.debug("Removing deployment of Postgresql JDBC driver and unused dodeploy file post installation")
         for obsolete_file in (
-            "%s/postgresql-jdbc.jar" % DIR_DEPLOY,
-            "%s/WEB-INF/lib/postgresql-jdbc.jar" % DIR_WAR,
-            "%s/%s.war.dodeploy" % (DIR_DEPLOY,JRS_APP_NAME),
+            glob.glob(
+                os.path.join(
+                    DIR_DEPLOY,
+                    '*.war.dodeploy',
+                )
+            ) +
+            glob.glob(
+                os.path.join(
+                    DIR_DEPLOY,
+                    '*.war/WEB-INF/lib/postgresql-*.jar',
+                )
+            )
         ):
             if os.path.exists(obsolete_file):
                 os.remove(obsolete_file)
@@ -260,25 +279,8 @@ def deployJs(db_dict, TEMP_PGPASS):
         os.chdir(current_dir)
         if os.path.exists(tempSmtpFile):
             os.remove(tempSmtpFile)
-
-def setDeploymentDetails(db_dict):
-    '''
-    set the password for the user postgres
-    '''
-    logging.debug("Setting DB pass")
-
-    logging.debug("editing jasper db connectivity file")
-    file_handler = utils.TextConfigFileHandler(FILE_JASPER_DB_CONN)
-    file_handler.open()
-    # TODO: when JS support for passwords with $$ is added, remove 'replace'
-    file_handler.editParam("dbPassword", db_dict["password"].replace("$", "$$"))
-    file_handler.editParam("dbUsername", db_dict["username"])
-    file_handler.editParam("dbHost", db_dict["host"])
-    file_handler.editParam("dbPort", db_dict["port"])
-    file_handler.editParam("js.dbName", db_dict['dbname'])
-    file_handler.editParam("webAppNameCE", JRS_APP_NAME)
-    file_handler.editParam("appServerDir", DIR_DEPLOY)
-    file_handler.close()
+        if configFile:
+            os.remove(configFile)
 
 def setReportsDatasource(src, db_dict):
     f = os.path.join(src, 'resources/reports_resources/JDBC/data_sources/ovirt.xml')
@@ -325,13 +327,31 @@ def updateServletDbRecord(TEMP_PGPASS):
         envDict={'ENGINE_PGPASS': TEMP_PGPASS},
     )
 
-@transactionDisplay("Setting DB connectivity")
 def setDBConn():
-    shutil.copyfile("%s/conf/default_master.properties" % REPORTS_PACKAGE_DIR, FILE_JASPER_DB_CONN)
-    if db_dict['password']:
-        setDeploymentDetails(db_dict)
-    else:
+    if not db_dict['password']:
         raise OSError("Cannot find password for db")
+
+    fd, f = tempfile.mkstemp()
+    os.close(fd)
+
+    shutil.copyfile("%s/conf/default_master.properties" % REPORTS_PACKAGE_DIR, f)
+
+    logging.debug("Setting DB pass")
+
+    logging.debug("editing jasper db connectivity file")
+    file_handler = utils.TextConfigFileHandler(f)
+    file_handler.open()
+    # TODO: when JS support for passwords with $$ is added, remove 'replace'
+    file_handler.editParam("dbPassword", db_dict["password"].replace("$", "$$"))
+    file_handler.editParam("dbUsername", db_dict["username"])
+    file_handler.editParam("dbHost", db_dict["host"])
+    file_handler.editParam("dbPort", db_dict["port"])
+    file_handler.editParam("js.dbName", db_dict['dbname'])
+    file_handler.editParam("webAppNameCE", JRS_APP_NAME)
+    file_handler.editParam("appServerDir", DIR_DEPLOY)
+    file_handler.close()
+
+    return f
 
 def getDbDictFromOptions():
     db_dict = {
@@ -806,35 +826,10 @@ def isWarInstalled():
     else:
         return False
 
-@transactionDisplay("Editing XML files")
-def editXmlFiles():
-    logging.debug("Editing xml files for jasper installation")
-    for file in ["setup.xml", "app-server.xml"]:
-        logging.debug("reading %s" % file)
-        fd = open("%s/bin/%s" % (REPORTS_SERVER_BUILDOMATIC_DIR, file), "r")
-        file_content = fd.read()
-        fd.close()
-        logging.debug("replace install path to correct one")
-        file_content = file_content.replace("/${jboss7.profile}/deployments", "")
-        logging.debug("writing replaced content to %s" % file)
-        fd = open("%s/bin/%s" % (REPORTS_SERVER_BUILDOMATIC_DIR, file), "w")
-        fd.write(file_content)
-        logging.debug("closing file")
-        fd.close()
-
 def updateDsJdbc():
     """
         Updating datasource to point to jdbc module.
     """
-    file_content = ''
-    logging.debug("editing datasources file")
-    with open(FILE_JRS_DATASOURCES, "r") as fd:
-        file_content = fd.read()
-    logging.debug("replace driver to module name")
-    file_content = file_content.replace("<driver>postgresql-jdbc.jar</driver>", "<driver>postgresql</driver>")
-    logging.debug("writing replaced content to %s" % FILE_JRS_DATASOURCES)
-    with open(FILE_JRS_DATASOURCES, "w") as fd:
-        fd.write(file_content)
     logging.debug("adding driver section")
 
     xml_editor = utils.XMLConfigFileHandler(FILE_JRS_DATASOURCES)
@@ -849,7 +844,18 @@ def updateDsJdbc():
         </drivers>
         '''
         xml_editor.addNodes("/datasources", newDriver)
+    for node in xml_editor.xpathEval('/datasources/datasource/driver'):
+        if 'postgresql' in node.content:
+            node.setContent('postgresql')
     logging.debug("closing file")
+    xml_editor.close()
+
+    logging.debug("removing postgres built-in driver reference")
+    xml_editor = utils.XMLConfigFileHandler(os.path.join(DIR_WAR, 'META-INF/jboss-deployment-structure.xml'))
+    xml_editor.open()
+    for node in xml_editor.xpathEval('/jboss-deployment-structure/deployment/resources/resource-root'):
+        if 'postgresql' in node.prop('path'):
+            node.unlinkNode()
     xml_editor.close()
 
 def updateApplicationSecurity():
@@ -1102,15 +1108,6 @@ def main(options):
 
                 _exitBadState()
 
-            # Edit setup.xml & app-server.xml to remove profile name
-            if not warUpdated or not isWarInstalled():
-                editXmlFiles()
-
-            logging.debug("Username is %s" % db_dict["username"])
-            # Set db connectivity (user/pass)
-            if not warUpdated or not isWarInstalled():
-                setDBConn()
-
             if not warUpdated and isWarInstalled():
                 backupWAR()
                 with open(FILE_DEPLOY_VERSION, 'r') as verfile:
@@ -1188,9 +1185,6 @@ def main(options):
                 # Copy reports xml to engine
                 shutil.copy2("%s/conf/reports.xml" % REPORTS_PACKAGE_DIR, '/var/lib/ovirt-engine/reports.xml')
 
-                # Delete default properties files
-                if os.path.exists(FILE_JASPER_DB_CONN):
-                    os.remove(FILE_JASPER_DB_CONN)
                 # Delete Jasper's Temp Folder
                 # Delete Data Snapshots Folder,
                 for path in (

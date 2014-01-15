@@ -488,6 +488,7 @@ def execExternalCmd(command, failOnError=False, msg="Return code differs from 0"
     env = os.environ.copy()
     if not "PGPASSFILE" in env:
         env["PGPASSFILE"] = FILE_PG_PASS
+    env["ADDITIONAL_CONFIG_DIR"] = "/var/lib/ovirt-engine-reports/build-conf"
 
     pi = subprocess.Popen(
         command,
@@ -1052,6 +1053,7 @@ def execCmd(
         env["PGPASSFILE"] = env["ENGINE_PGPASS"]
     else:
         env["PGPASSFILE"] = FILE_PG_PASS
+    env["ADDITIONAL_CONFIG_DIR"] = "/var/lib/ovirt-engine-reports/build-conf"
 
     # We use close_fds to close any file descriptors we have so it won't be copied to forked childs
     proc = subprocess.Popen(
