@@ -1226,7 +1226,7 @@ def main(options):
             # Restart the httpd service
             utils.restartHttpd()
             utils.storeConf(db_dict)
-            print "Succesfully installed %s." % JRS_APP_NAME
+            print "Successfully installed %s." % JRS_APP_NAME
             print "The installation log file is available at: %s" % log_file
 
         else:
