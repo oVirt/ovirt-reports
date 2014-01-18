@@ -661,10 +661,10 @@ def importReports(update=True):
     execExternalCmd(cmd, True, "Failed while importing reports")
     os.chdir(current_dir)
 
-def fixNullUserPasswords(tempDir):
+def fixNullUserPasswords(tempDir, loc):
     logging.debug("fixNullUserPasswords started for %s" % tempDir)
     fixedFiles = []
-    for f in glob.glob(tempDir + '/users/organization_1/*.xml'):
+    for f in glob.glob(os.path.join(tempDir, loc, '*.xml')):
         xmlObj = XMLConfigFileHandler(f)
         xmlObj.open()
         node = getXmlNode(xmlObj, '/user/password')
@@ -692,7 +692,7 @@ def exportUsers():
     logging.debug("Exporting users to %s" % tempDir)
     cmd = "./js-export.sh --output-dir %s --users --roles" % tempDir
     execExternalCmd(cmd, True, "Failed while exporting users")
-    fixNullUserPasswords(tempDir)
+    fixNullUserPasswords(tempDir, 'users/organization_1')
 
     os.chdir(current_dir)
     return tempDir
@@ -714,6 +714,7 @@ def exportReportsRepository():
     logging.debug("Exporting repository to %s" % tempDir)
     cmd = "./js-export.sh --output-dir %s --everything" % tempDir
     execExternalCmd(cmd, True, "Failed while exporting users")
+    fixNullUserPasswords(tempDir, 'users')
 
     os.chdir(current_dir)
     return tempDir
