@@ -35,11 +35,11 @@ params = {
     'REMOTE_DB_PASSWORD': None,
 }
 
-DIR_DEPLOY = "/var/lib/ovirt-engine-reports"
+PKG_STATE_DIR = "/var/lib/ovirt-engine-reports"
 JRS_APP_NAME = "ovirt-engine-reports"
 JRS_DB_NAME = "ovirtenginereports"
 JRS_PACKAGE_NAME = "jasperreports-server"
-DIR_WAR="%s/%s.war" % (DIR_DEPLOY, JRS_APP_NAME)
+DIR_WAR="%s/%s.war" % (PKG_STATE_DIR, JRS_APP_NAME)
 LEGACY_WAR="/usr/share/ovirt-engine/ovirt-engine-reports.war"
 FILE_JS_SMTP="%s/WEB-INF/js.quartz.properties" % DIR_WAR
 FILE_APPLICATION_CONTEXT_OVERRIDE ="%s/WEB-INF/applicationContext-ovirt-override.xml" % DIR_WAR
@@ -253,13 +253,13 @@ def deployJs(db_dict, TEMP_PGPASS):
         for obsolete_file in (
             glob.glob(
                 os.path.join(
-                    DIR_DEPLOY,
+                    PKG_STATE_DIR,
                     '*.war.dodeploy',
                 )
             ) +
             glob.glob(
                 os.path.join(
-                    DIR_DEPLOY,
+                    PKG_STATE_DIR,
                     '*.war/WEB-INF/lib/postgresql-*.jar',
                 )
             )
@@ -334,22 +334,23 @@ def setDBConn():
     fd, f = tempfile.mkstemp()
     os.close(fd)
 
-    shutil.copyfile("%s/conf/default_master.properties" % REPORTS_PACKAGE_DIR, f)
-
-    logging.debug("Setting DB pass")
-
     logging.debug("editing jasper db connectivity file")
-    file_handler = utils.TextConfigFileHandler(f)
-    file_handler.open()
-    # TODO: when JS support for passwords with $$ is added, remove 'replace'
-    file_handler.editParam("dbPassword", db_dict["password"].replace("$", "$$"))
-    file_handler.editParam("dbUsername", db_dict["username"])
-    file_handler.editParam("dbHost", db_dict["host"])
-    file_handler.editParam("dbPort", db_dict["port"])
-    file_handler.editParam("js.dbName", db_dict['dbname'])
-    file_handler.editParam("webAppNameCE", JRS_APP_NAME)
-    file_handler.editParam("appServerDir", DIR_DEPLOY)
-    file_handler.close()
+    utils.processTemplate(
+        os.path.join(
+            REPORTS_PACKAGE_DIR,
+            'conf',
+            'default_master.properties.in',
+        ),
+        f,
+        subst={
+            '@PACKAGE_NAME@': JRS_APP_NAME,
+            '@PKG_STATE_DIR@': PKG_STATE_DIR,
+            '@REPORTS_DB_HOST@': db_dict["host"],
+            '@REPORTS_DB_PORT@': db_dict["port"],
+            '@REPORTS_DB_USER@': db_dict["username"],
+            '@REPORTS_DB_PASSWORD@': db_dict["password"].replace("$", "$$"),
+        },
+    )
 
     return f
 

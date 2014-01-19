@@ -10,17 +10,17 @@ appServerType=jboss7
 dbType=postgresql
 
 # database location and connection settings
-dbHost=localhost
-dbPort=5432
-dbUsername=postgres
-dbPassword=postgres
+dbHost=@REPORTS_DB_HOST@
+dbPort=@REPORTS_DB_PORT@
+dbUsername=@REPORTS_DB_USER@
+dbPassword=@REPORTS_DB_PASSWORD@
 
 # JasperServer db name
 js.dbName=ovirtenginereports
 
 # web app name
 # (set one of these to deploy to a non-default war file name)
-webAppNameCE=ovirt-engine-reports
+webAppNameCE=@PACKAGE_NAME@
 
 # Database
 maven.jdbc.groupId=postgresql

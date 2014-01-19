@@ -120,7 +120,6 @@ ARTIFACTS = \
 GENERATED = \
 	build/python-check.sh \
 	ovirt-engine-reports.spec \
-	packaging/conf/default_master.properties \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf \
 	server-customizations/WEB-INF/log4j.properties \
 	$(NULL)
