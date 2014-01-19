@@ -339,7 +339,7 @@ def setDBConn():
         os.path.join(
             REPORTS_PACKAGE_DIR,
             'conf',
-            'default_master.properties.in',
+            'jasper-master.properties.in',
         ),
         f,
         subst={
