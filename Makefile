@@ -214,8 +214,7 @@ install-packaging-files: \
 		$(NULL)
 	$(MAKE) copy-recursive SOURCEDIR=packaging/sys-etc TARGETDIR="$(DESTDIR)$(SYSCONF_DIR)" EXCLUDE_GEN="$(GENERATED)"
 	$(MAKE) copy-recursive SOURCEDIR=server-customizations TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/server-customizations" EXCLUDE_GEN="$(GENERATED)"
-	$(MAKE) copy-recursive SOURCEDIR=reports/repository_files TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/reports" EXCLUDE_GEN="$(GENERATED)"
-	for d in conf legacy-setup; do \
+	for d in conf ovirt-reports legacy-setup; do \
 		$(MAKE) copy-recursive SOURCEDIR="packaging/$${d}" TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/$${d}" EXCLUDE_GEN="$(GENERATED)"; \
 	done
 
@@ -225,7 +224,7 @@ install-layout: \
 
 	install -dm 755 "$(DESTDIR)$(PKG_SYSCONF_DIR)/ovirt-engine-reports.conf.d"
 	install -dm 755 "$(DESTDIR)$(BIN_DIR)"
-	ln -sf ovirt_reports_bundle_en_US.properties.data "$(DESTDIR)$(PKG_DATA_DIR)/reports/resources/reports_resources/localization/ovirt_reports_bundle.properties.data"
+	ln -sf ovirt_reports_bundle_en_US.properties.data "$(DESTDIR)$(PKG_DATA_DIR)/ovirt-reports/resources/reports_resources/localization/ovirt_reports_bundle.properties.data"
 	ln -sf "$(PKG_DATA_DIR)/legacy-setup/ovirt-engine-reports-setup.py" "$(DESTDIR)$(BIN_DIR)/ovirt-engine-reports-setup"
 
 all-dev:

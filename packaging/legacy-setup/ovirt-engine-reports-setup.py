@@ -1139,8 +1139,8 @@ def main(options):
                 updateServletDbRecord(TEMP_PGPASS)
 
                 reportsTemp = tempfile.mkdtemp()
-                reportsImport = os.path.join(reportsTemp, 'reports')
-                shutil.copytree('/usr/share/ovirt-engine-reports/reports', reportsImport,  symlinks=True)
+                reportsImport = os.path.join(reportsTemp, 'ovirt-reports')
+                shutil.copytree('/usr/share/ovirt-engine-reports/ovirt-reports', reportsImport,  symlinks=True)
 
                 # If the userPassword var has been populated it means we need to edit the Admin xml file
                 if adminPass is not None:
