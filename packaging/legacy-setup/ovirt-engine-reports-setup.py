@@ -63,7 +63,7 @@ FILE_ENGINE_CONF = "/etc/ovirt-engine/engine.conf"
 
 REPORTS_PACKAGE_DIR = "/usr/share/ovirt-engine-reports"
 SSL2JKSTRUST = "%s/legacy-setup/ssl2jkstrust.py" % REPORTS_PACKAGE_DIR
-DIR_REPORTS_CUSTOMIZATION="%s/server-customizations" % REPORTS_PACKAGE_DIR
+DIR_REPORTS_CUSTOMIZATION="%s/jasper-customizations" % REPORTS_PACKAGE_DIR
 DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPORTS_PACKAGE_DIR
 
 REPORTS_JARS_DIR = "/usr/share/java/ovirt-engine-reports"

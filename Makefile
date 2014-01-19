@@ -120,8 +120,8 @@ ARTIFACTS = \
 GENERATED = \
 	build/python-check.sh \
 	ovirt-engine-reports.spec \
+	packaging/jasper-customizations/WEB-INF/log4j.properties \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf \
-	server-customizations/WEB-INF/log4j.properties \
 	$(NULL)
 
 all:	\
@@ -213,8 +213,7 @@ install-packaging-files: \
 		$(GENERATED) \
 		$(NULL)
 	$(MAKE) copy-recursive SOURCEDIR=packaging/sys-etc TARGETDIR="$(DESTDIR)$(SYSCONF_DIR)" EXCLUDE_GEN="$(GENERATED)"
-	$(MAKE) copy-recursive SOURCEDIR=server-customizations TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/server-customizations" EXCLUDE_GEN="$(GENERATED)"
-	for d in conf ovirt-reports legacy-setup; do \
+	for d in conf jasper-customizations ovirt-reports legacy-setup; do \
 		$(MAKE) copy-recursive SOURCEDIR="packaging/$${d}" TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/$${d}" EXCLUDE_GEN="$(GENERATED)"; \
 	done
 
