@@ -3,17 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
 
   <parent>
-        <groupId>ovirt_engine_reports</groupId>
-        <artifactId>jars</artifactId>
-        <version>3.4.0</version>
+    <groupId>org.ovirt.engine.reports</groupId>
+    <artifactId>ovirt-engine-reports</artifactId>
+    <version>3.4.0</version>
   </parent>
 
-  <groupId>ovirt_engine_reports</groupId>
+  <groupId>org.ovirt.engine.reports</groupId>
   <artifactId>ReportsPieChartTheme</artifactId>
   <packaging>jar</packaging>
   <version>3.4.0</version>
   <name>Reports Chart Theme For Pie Charts</name>
   <description>The jar that contains the chart theme for pie charts</description>
+
   <build>
     <pluginManagement>
             <plugins>

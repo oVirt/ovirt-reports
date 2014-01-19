@@ -3,17 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
 
   <parent>
-      <groupId>ovirt_engine_reports</groupId>
-      <artifactId>jars</artifactId>
-      <version>3.4.0</version>
+    <groupId>org.ovirt.engine.reports</groupId>
+    <artifactId>ovirt-engine-reports</artifactId>
+    <version>3.4.0</version>
   </parent>
 
-  <groupId>ovirt_engine_reports</groupId>
-  <artifactId>ReportsLineBarChartTheme</artifactId>
+  <groupId>org.ovirt.engine.reports</groupId>
+  <artifactId>WebadminLineBarChartTheme</artifactId>
   <packaging>jar</packaging>
   <version>3.4.0</version>
-  <name>Reports Chart Theme for Line and Bar Charts</name>
-  <description>The jar that contains the chart theme line and bar charts</description>
+  <name>Webadmin Chart Theme for Line and Bar Charts</name>
+  <description>The jar that contains the chart theme line and bar charts in the webadmin dashboards</description>
+
   <build>
        <pluginManagement>
            <plugins>

@@ -1,15 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ovirt_engine_reports</groupId>
+  <groupId>org.ovirt.engine.reports</groupId>
   <artifactId>root</artifactId>
   <version>3.4.0</version>
   <packaging>pom</packaging>
-
   <name>oVirt Reports Root Project</name>
 
   <modules>
-    <module>reports</module>
+    <module>ovirt-engine-reports</module>
   </modules>
 
   <properties>

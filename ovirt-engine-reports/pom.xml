@@ -2,16 +2,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-       <groupId>ovirt_engine_reports</groupId>
-       <artifactId>reports</artifactId>
-       <version>3.4.0</version>
+    <groupId>org.ovirt.engine.reports</groupId>
+    <artifactId>root</artifactId>
+    <version>3.4.0</version>
   </parent>
 
-  <artifactId>jars</artifactId>
+  <groupId>org.ovirt.engine.reports</groupId>
+  <artifactId>ovirt-engine-reports</artifactId>
+  <version>3.4.0</version>
   <packaging>pom</packaging>
-
-  <name>Jars</name>
-  <description>The home of all jars deployed with the reports package</description>
+  <name>Reports</name>
+  <description>oVirt Reports Reports Package Home</description>
 
   <modules>
     <module>ChartsCustomizers</module>

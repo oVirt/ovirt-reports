@@ -2,25 +2,40 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>ovirt_engine_reports</groupId>
-    <artifactId>jars</artifactId>
+    <groupId>org.ovirt.engine.reports</groupId>
+    <artifactId>ovirt-engine-reports</artifactId>
     <version>3.4.0</version>
   </parent>
 
-  <groupId>ovirt_engine_reports</groupId>
-  <artifactId>CustomOvirtReportsQueryManipulator</artifactId>
+  <groupId>org.ovirt.engine.reports</groupId>
+  <artifactId>EngineAuthentication</artifactId>
   <packaging>jar</packaging>
   <version>3.4.0</version>
-  <name>CustomOvirtReportsQueryManipulator jar to support adding parameters to input controls</name>
-  <description>CustomOvirtReportsQueryManipulator jar to support adding parameters to input controls</description>
+  <name>EngineAuthentication jar to support webadmin-reports integration</name>
+  <description>EngineAuthentication jar to support webadmin-reports integration</description>
 
   <properties>
+    <spring.version>2.0.7.RELEASE</spring.version>
     <jasper.version>4.5.0</jasper.version>
+    <javax.servlet.api.version>2.3</javax.servlet.api.version>
+    <commons-logging.version>1.1</commons-logging.version>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>com.jaspersoft.jasperserver</groupId>
-      <artifactId>jasperserver-war-jar</artifactId>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${javax.servlet.api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jaspersoft.jasperserver.api.metadata.impl</groupId>
+      <artifactId>jasperserver-api-metadata-impl</artifactId>
       <version>${jasper.version}</version>
       <scope>provided</scope>
             <exclusions>
@@ -31,21 +46,10 @@
             </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.jaspersoft.jasperserver.api.engine</groupId>
-      <artifactId>jasperserver-api-engine</artifactId>
-      <version>${jasper.version}</version>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>${commons-logging.version}</version>
       <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>mondrian</groupId>
-                    <artifactId>mondrian</artifactId>
-                </exclusion>
-            </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.1</version>
     </dependency>
   </dependencies>
   <build>
@@ -75,20 +79,13 @@
       </snapshots>
     </repository>
     <repository>
-      <id>jaspersoft</id>
-      <url>http://jasperreports.sourceforge.net/maven2</url>
-    </repository>
-    <repository>
       <id>central</id>
-      <name>Maven Plugin Repository</name>
-      <url>http://repo1.maven.org/maven2</url>
+      <name>maven repo1</name>
       <layout>default</layout>
+      <url>http://repo1.maven.org/maven2</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
     </repository>
     <repository>
       <id>maven.search.repo</id>
@@ -99,7 +96,11 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-    </repositories>
+    <repository>
+      <id>jaspersoft</id>
+      <url>http://www.jasperforge.org/maven2</url>
+    </repository>
+  </repositories>
   <pluginRepositories>
     <pluginRepository>
       <id>central</id>
@@ -114,4 +115,5 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
+
 </project>

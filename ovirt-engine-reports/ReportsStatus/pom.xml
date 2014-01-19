@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>ovirt_engine_reports</groupId>
-    <artifactId>jars</artifactId>
+    <groupId>org.ovirt.engine.reports</groupId>
+    <artifactId>ovirt-engine-reports</artifactId>
     <version>3.4.0</version>
   </parent>
 
-  <groupId>ovirt_engine_reports</groupId>
+  <groupId>org.ovirt.engine.reports</groupId>
   <artifactId>ReportsStatus</artifactId>
   <packaging>jar</packaging>
   <version>3.4.0</version>
