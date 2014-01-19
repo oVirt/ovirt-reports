@@ -331,6 +331,13 @@ def setDBConn():
     if not db_dict['password']:
         raise OSError("Cannot find password for db")
 
+    # jasper build system places password in property file
+    # sometime with escape and sometime without
+    # do not allow special characters of property files
+    for c in db_dict['password']:
+        if c in ':=\\ $':
+            raise OSError("Database password contains charecters that are not supported by jasper")
+
     fd, f = tempfile.mkstemp()
     os.close(fd)
 
@@ -348,7 +355,7 @@ def setDBConn():
             '@REPORTS_DB_HOST@': db_dict["host"],
             '@REPORTS_DB_PORT@': db_dict["port"],
             '@REPORTS_DB_USER@': db_dict["username"],
-            '@REPORTS_DB_PASSWORD@': db_dict["password"].replace("$", "$$"),
+            '@REPORTS_DB_PASSWORD@': db_dict["password"],
         },
     )
 
