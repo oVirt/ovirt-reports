@@ -1321,3 +1321,12 @@ def userExists(user):
 
     output, rc = runPostgresSuQuery(sql_query)
     return '1' in output
+
+def processTemplate(template, target, subst={}):
+    content = ''
+    with open(template, 'r') as f:
+        content = f.read()
+    for k, v in subst.items():
+        content = content.replace(str(k), str(v))
+    with open(target, 'w') as f:
+        f.write(content)

@@ -952,19 +952,17 @@ def configureRepository(password):
 
 
 def configureApache():
-    with open(
+    utils.processTemplate(
         os.path.join(
             REPORTS_PACKAGE_DIR,
             'conf',
             'ovirt-engine-reports-proxy.conf.in',
-        )
-    ) as f:
-        content = f.read().replace('@JBOSS_AJP_PORT@', '8702')
-    with open(
+        ),
         '/etc/httpd/conf.d/z-ovirt-engine-reports-proxy.conf',
-        'w',
-    ) as f:
-        f.write(content)
+        subst={
+            '@JBOSS_AJP_PORT@': '8702',
+        },
+    )
 
 
 def main(options):
