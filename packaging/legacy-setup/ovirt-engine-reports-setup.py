@@ -16,7 +16,6 @@ import shutil
 import cracklib
 import types
 import tempfile
-import re
 import glob
 from optparse import OptionParser
 import ConfigParser
@@ -70,7 +69,6 @@ DIR_OVIRT_THEME="%s/reports/resources/themes/ovirt-002dreports-002dtheme" % REPO
 
 REPORTS_JARS_DIR = "/usr/share/java/ovirt-engine-reports"
 
-FILE_DEPLOY_VERSION = "/etc/ovirt-engine/jrs-deployment.version"
 OVIRT_SETUP_POST_INSTALL_CONFIG = "/etc/ovirt-engine-setup.conf.d/20-setup-ovirt-post.conf"
 OVIRT_REPORTS_ETC="/etc/ovirt-engine-reports"
 OVIRT_REPORTS_TRUST_STORE="%s/trust.jks" % OVIRT_REPORTS_ETC
@@ -151,33 +149,6 @@ def _getOptions():
     (options, args) = parser.parse_args()
     return (options, args)
 
-@transactionDisplay('Updating DB Schema')
-def updateDbSchema(db_dict, TEMP_PGPASS):
-    sql_files = os.listdir(REPORTS_DB_UPGRADE_SCRIPTS_DIR)
-    sql_files.sort()
-    reports_version_type = 'ce'
-    for sql_file in sql_files:
-        if (
-            not sql_file.startswith('upgrade-postgresql-') or
-            reports_version_type not in sql_file or
-            sql_file < 'upgrade-postgresql-4.7'
-        ):
-            continue
-
-        cmd = [
-            EXEC_PSQL,
-            '-U', db_dict['username'],
-            '-d', db_dict['dbname'],
-            '-h', db_dict['host'],
-            '-p', db_dict['port'],
-            '-f', os.path.join(REPORTS_DB_UPGRADE_SCRIPTS_DIR,sql_file)
-        ]
-        utils.execCmd(
-            cmdList=cmd,
-            failOnError=True,
-            envDict={'ENGINE_PGPASS': TEMP_PGPASS},
-        )
-
 @transactionDisplay("Deploying Server")
 def deployJs(db_dict, TEMP_PGPASS):
     '''
@@ -207,7 +178,7 @@ def deployJs(db_dict, TEMP_PGPASS):
         if os.path.exists(LEGACY_WAR):
             shutil.rmtree(LEGACY_WAR)
 
-        if isWarInstalled():
+        if os.path.exists(DIR_WAR):
             shutil.rmtree(DIR_WAR)
 
         # create DB if it didn't exist:
@@ -339,7 +310,7 @@ def exportUsers():
     logging.debug("Exporting users to %s" % tempDir)
     cmd = "./js-export.sh --output-dir %s --users --roles" % tempDir
     utils.execExternalCmd(cmd, True, "Failed while exporting users")
-    fixNullUserPasswords(tempDir, 'users/organization_1')
+    fixNullUserPasswords(tempDir, 'users')
 
     os.chdir(current_dir)
     return tempDir
@@ -650,38 +621,6 @@ def customizeJsImple():
         link = "%s/%s" % (destDir, jarFile)
         logging.debug("Linking %s to %s" % (target, link))
         shutil.copyfile(target, link)
-
-def isWarUpdated():
-    """
-    check the war version and compare it with current rpm version
-    """
-    warUpdated = False
-    if os.path.exists(FILE_DEPLOY_VERSION):
-        logging.debug("%s exists, checking version" % FILE_DEPLOY_VERSION)
-
-        fd = file(FILE_DEPLOY_VERSION, 'r')
-        deployedVersion = fd.readline()
-        deployedVersion = deployedVersion.strip()
-        found = re.search("(\d+\.\d+)\.(\d+\-.+)", deployedVersion)
-        if not found:
-            logging.error("%s is not a valid version string" % deployedVersion)
-            raise Exception("Cannot parse version string, please report this error")
-
-        rpmVersion = utils.getAppVersion(JRS_PACKAGE_NAME)
-
-        if deployedVersion != rpmVersion:
-            logging.debug("%s differs from %s, war deployment required" % (deployedVersion, rpmVersion))
-        else:
-            logging.debug("war directory is up to date with installed version")
-            warUpdated = True
-    else:
-        logging.debug("%s does not exist, assuming clean install" % FILE_DEPLOY_VERSION)
-        fd = open(FILE_DEPLOY_VERSION, "w")
-        fd.write(utils.getAppVersion(JRS_PACKAGE_NAME))
-        fd.close()
-        logging.debug("Created JRS version file")
-
-    return warUpdated
 
 @transactionDisplay("Exporting scheduled reports")
 def exportScheduale():
@@ -1010,9 +949,9 @@ def updateApplicationSecurity():
         fd.write(file_content)
 
 @transactionDisplay("Running post setup steps")
-def configureRepository(password):
+def configureRepository():
     """
-        Run post setup steps - disable unused users, set theme, change superuser password if needed
+        Run post setup steps - disable unused users, set theme
     """
     savedRepoDir = exportReportsRepository()
     anonymousUserFile = "%s/users/anonymousUser.xml" % savedRepoDir
@@ -1093,9 +1032,10 @@ def main(options):
     global db_dict
     global DB_EXIST
     rc = 0
-    preserveReports = False
     pghba_updated = False
     reportsTemp = None
+    isUpgrade = isWarInstalled()
+    databaseBackupAvailable = False
 
     try:
         logging.debug("starting main()")
@@ -1118,14 +1058,8 @@ def main(options):
             if os.path.exists(LEGACY_WAR) and not os.path.exists(DIR_WAR):
                 shutil.copytree(LEGACY_WAR, DIR_WAR, symlinks=True)
 
-            warUpdated = isWarUpdated()
-
-            if not warUpdated and isWarInstalled():
+            if isUpgrade:
                 logging.debug("war will be updated and was previously deployed, will preserve reports' jobs")
-                preserveReports = True
-
-            if warUpdated and isWarInstalled():
-                logging.debug("war is installed and updated. reports will only be refreshed.")
 
             db_dict = getDbDictFromOptions()
             TEMP_PGPASS = utils.createTempPgpass(
@@ -1155,6 +1089,7 @@ def main(options):
             DB_EXIST, owned, hasData, working_db_dict = getDBStatus(db_dict, TEMP_PGPASS)
             if DB_EXIST:
                 backupDB(working_db_dict, TEMP_PGPASS)
+                databaseBackupAvailable = True
             if dblocal:
                 if not utils.userExists(db_dict['username']):
                     utils.createRole(
@@ -1210,46 +1145,28 @@ def main(options):
                         db_dict['username'] = options['REMOTE_DB_USER']
                         db_dict['password'] = options['REMOTE_DB_PASSWORD']
 
-            if not isWarInstalled() and hasData:
-                @utils.transactionDisplay('Checking system state')
-                def _exitBadState():
-                    logging.error("WAR Directory does not exist but the DB is up and running.")
-                    raise Exception(
-                        MSG_ERROR_DB_EXISTS % (
-                            JRS_APP_NAME,
-                            db_dict['dbname'],
-                            db_dict['dbname'],
-                        )
-                    )
+            if isUpgrade and not hasData:
+                raise RuntimeError('Upgrade detected but database is empty')
+            if not isUpgrade and hasData:
+                raise RuntimeError('Upgrade not detected but database is not empty')
 
-                _exitBadState()
-
-            if not warUpdated and isWarInstalled():
-                backupWAR()
-                with open(FILE_DEPLOY_VERSION, 'r') as verfile:
-                    for line in verfile.readlines():
-                        if line.startswith('4.7'):
-                            updateDbSchema(db_dict, TEMP_PGPASS)
-                            break
 
             # Catch failures on configuration
             try:
                 # Export reports if we had a previous installation
-                adminPass = options['ADMIN_PASS']
                 savedDir = None
-                if preserveReports:
+                if isUpgrade:
+                    backupWAR()
                     exportScheduale()
-
-                if hasData or preserveReports:
                     savedDir = exportUsers()
-
-                if not isWarInstalled() and not hasData and adminPass is None:
-                    adminPass = getAdminPass()
+                else:
+                    adminPass = options['ADMIN_PASS']
+                    if adminPass is None:
+                        adminPass = getAdminPass()
 
                 # Execute js-ant to create DB and deploy WAR
                 # May also set DB_EXIST to False if WAR is in need of an upgrade
-                if not warUpdated or not isWarInstalled():
-                    deployJs(db_dict, TEMP_PGPASS)
+                deployJs(db_dict, TEMP_PGPASS)
 
                 logging.debug("Database status: %s" % DB_EXIST)
                 # Update oVirt-Engine vdc_options with reports relative url
@@ -1259,14 +1176,12 @@ def main(options):
                 reportsImport = os.path.join(reportsTemp, 'ovirt-reports')
                 shutil.copytree('/usr/share/ovirt-engine-reports/ovirt-reports', reportsImport,  symlinks=True)
 
-                # If the userPassword var has been populated it means we need to edit the Admin xml file
-                if adminPass is not None:
-                    logging.debug('Setting real admin password')
-                    editOvirtEngineAdminXml(reportsImport, adminPass)
-
-                if preserveReports:
+                if isUpgrade:
                     logging.debug("Importing users")
                     importUsers(savedDir)
+                else:
+                    logging.debug('Setting real admin password')
+                    editOvirtEngineAdminXml(reportsImport, adminPass)
 
                 # Update reports datasource configuration
                 setReportsDatasource(reportsImport, db_dict=db_dict)
@@ -1277,7 +1192,7 @@ def main(options):
                 # We import users twice because we need permissions to be
                 # preserved as well as users passwords reset after importing
                 # reports in previous step.
-                if hasData:
+                if isUpgrade:
                     logging.debug("Imporing users")
                     importUsers(savedDir)
 
@@ -1285,7 +1200,7 @@ def main(options):
                 customizeJs()
 
                 # Import scheduale reports if they were previously existing
-                if preserveReports:
+                if isUpgrade:
                     scheduleDir = DIR_TEMP_SCHEDULE
                     importScheduale(scheduleDir)
 
@@ -1296,7 +1211,7 @@ def main(options):
                 updateApplicationSecurity()
 
                 #Run post setup steps - disable unused users, set theme, change superuser password if needed
-                configureRepository(adminPass)
+                configureRepository()
 
                 # Copy reports xml to engine
                 shutil.copy2("%s/conf/reports.xml" % REPORTS_PACKAGE_DIR, '/var/lib/ovirt-engine/reports.xml')
@@ -1320,8 +1235,9 @@ def main(options):
                 logging.error("Failed to complete the setup of the reports package!")
                 logging.debug(traceback.format_exc())
                 logging.debug("Restoring previous version")
-                if not warUpdated and DB_EXIST:
+                if isUpgrade:
                     restoreWAR()
+                if databaseBackupAvailable:
                     restoreDB(db_dict, TEMP_PGPASS)
                 raise
 

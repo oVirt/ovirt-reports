@@ -636,14 +636,6 @@ def parseVersionString(string):
 
     return (version, minorVersion, release)
 
-def getAppVersion(package):
-    '''
-    get the installed package version
-    '''
-    cmd = "rpm -q --queryformat %{VERSION}-%{RELEASE} " + package
-    output, rc = execExternalCmd(cmd, True, "Failed to get package version & release")
-    return output.rstrip()
-
 def dbExists(db_dict, TEMP_PGPASS):
 
     exists = False
@@ -682,14 +674,14 @@ def dbExists(db_dict, TEMP_PGPASS):
             localHost(db_dict['host'])
         ):
             output, rc = runPostgresSuQuery(
-                query='"select 1 from jiadhocdataview;"',
+                query='"select 1 from jireportjob;"',
                 database=db_dict['dbname'],
                 failOnError=False,
             )
         else:
             output, rc = execSqlCmd(
                 db_dict=db_dict,
-                sql_query="select 1 from jiadhocdataview;",
+                sql_query="select 1 from jireportjob;",
                 envDict=env,
             )
         if rc == 0:
