@@ -14,7 +14,7 @@ target
 
 # generated files
 ###########################
-build/python-check.sh.in
+build/python-check.sh
 ovirt-engine-reports.spec
 packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 server-customizations/WEB-INF/log4j.properties
