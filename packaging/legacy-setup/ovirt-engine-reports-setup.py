@@ -1130,7 +1130,7 @@ def main(options):
                 if preserveReports:
                     exportScheduale()
 
-                if hasData:
+                if hasData or preserveReports:
                     savedDir = utils.exportUsers()
 
                 if not isWarInstalled() and not hasData and adminPass is None:
