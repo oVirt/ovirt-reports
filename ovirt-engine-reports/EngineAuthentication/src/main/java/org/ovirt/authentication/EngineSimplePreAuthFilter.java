@@ -3,10 +3,13 @@ package org.ovirt.authentication;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -63,11 +66,45 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     private final Log logger = LogFactory.getLog(EngineSimplePreAuthFilter.class);
     private boolean sslIgnoreCertErrors = false;
     private boolean sslIgnoreHostVerification = false;
-    private static final HostnameVerifier IgnoredHostnameVerifier = new HostnameVerifier() {
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
+
+    private SSLContext sslctx;
+
+    private void setupSSLContext() throws KeyStoreException, FileNotFoundException, IOException, NoSuchAlgorithmException, KeyManagementException, CertificateException {
+        TrustManager[] trustManagers = null;
+        if (sslIgnoreCertErrors) {
+            trustManagers = new TrustManager[] {
+                new X509TrustManager() {
+                    @Override
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {}
+                    @Override
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {}
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[] {};
+                    }
+                }
+            };
+        } else {
+            if (trustStorePath != null && trustStorePassword != null) {
+                try(InputStream in = new FileInputStream(trustStorePath)) {
+                    KeyStore trustStore = KeyStore.getInstance(trustStoreType);
+                    trustStore.load(in, trustStorePassword.toCharArray());
+                    TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                    trustManagerFactory.init(trustStore);
+                    trustManagers = trustManagerFactory.getTrustManagers();
+                }
+            }
         }
-    };
+
+        sslctx = SSLContext.getInstance(sslProtocol);
+        sslctx.init(null, trustManagers, null);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        super.afterPropertiesSet();
+        setupSSLContext();
+    }
 
     @Override
     protected Object getPreAuthenticatedCredentials(HttpServletRequest arg0) {
@@ -123,32 +160,34 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     /*
      * This method creates the URL connection, whether it is a secured connection or not.
      */
-    private HttpURLConnection createURLConnection() throws IOException, NoSuchAlgorithmException, CertificateException, KeyStoreException, KeyManagementException {
-        boolean secured = servletURL.startsWith("https");
+    private HttpURLConnection createURLConnection() throws MalformedURLException, IOException, ProtocolException {
+
+        logger.debug(
+            String.format(
+                "createURLConnection: servletURL=%s, sslIgnoreCertErrors=%s, sslIgnoreHostVerification=%s, trustStorePath=%s",
+                servletURL,
+                sslIgnoreCertErrors,
+                sslIgnoreHostVerification,
+                trustStorePath
+            )
+        );
 
         URL url = new URL(servletURL);
-        HttpURLConnection servletConnection;
+        HttpURLConnection servletConnection = (HttpURLConnection) url.openConnection();
 
-        if (secured) {
-            if (trustStorePassword == null || trustStorePath == null) {
-                logger.error("The Supplied URL is secured, however no trust store path or password were supplied.");
-                return null;
-            }
-            HttpsURLConnection securedConnection = (HttpsURLConnection) url.openConnection();
-            KeyStore trustStore = KeyStore.getInstance(trustStoreType);
-            trustStore.load(new FileInputStream(trustStorePath), trustStorePassword.toCharArray());
-            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            trustManagerFactory.init(trustStore);
-            SSLContext ctx = SSLContext.getInstance(sslProtocol);
-            initSslcontext(ctx, trustManagerFactory);
-            securedConnection.setSSLSocketFactory(ctx.getSocketFactory());
+        if ("https".equals(url.getProtocol())) {
+            HttpsURLConnection httpsConnection = (HttpsURLConnection)servletConnection;
+            httpsConnection.setSSLSocketFactory(sslctx.getSocketFactory());
             if (sslIgnoreHostVerification) {
-                logger.debug("sslIgnoreHostVerification mode");
-                securedConnection.setHostnameVerifier(IgnoredHostnameVerifier);
+                httpsConnection.setHostnameVerifier(
+                    new HostnameVerifier() {
+                        @Override
+                        public boolean verify(String hostname, SSLSession session) {
+                            return true;
+                        }
+                    }
+                );
             }
-            servletConnection = securedConnection;
-        } else {
-            servletConnection = (HttpURLConnection) url.openConnection();
         }
 
         servletConnection.setRequestMethod("POST");
@@ -158,30 +197,6 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
         servletConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
 
         return servletConnection;
-    }
-
-    private void initSslcontext(SSLContext ctx, TrustManagerFactory trustManagerFactory) throws KeyManagementException {
-        if (sslIgnoreCertErrors) {
-            logger.debug("sslIgnoreCertErrors mode");
-            ctx.init(null, new TrustManager[] { new X509TrustManager() {
-
-                @Override
-                public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-                }
-
-                @Override
-                public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-                }
-
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
-
-            } }, null);
-        } else {
-            ctx.init(null, trustManagerFactory.getTrustManagers(), null);
-        }
     }
 
     /*
