@@ -902,52 +902,6 @@ def updateDsJdbc():
             node.unlinkNode()
     xml_editor.close()
 
-def updateApplicationSecurity():
-    """
-        Setting the SSO solution
-    """
-    file_content = ''
-    protocol, fqdn, port = getHostParams()
-    logging.debug("downloading certificates %s://%s:%s" % (protocol, fqdn, port))
-    if protocol == 'https':
-        utils.execCmd(
-            cmdList=(
-                SSL2JKSTRUST,
-                '--host=%s' % fqdn,
-                '--port=%s' % port,
-                '--keystore=%s' % OVIRT_REPORTS_TRUST_STORE,
-                '--storepass=%s' % OVIRT_REPORTS_TRUST_STORE_PASS,
-            ),
-            failOnError=True,
-        )
-    logging.debug("editing applicationContext-ovirt-override file")
-    protocol, fqdn, port = getHostParams()
-    hostGetSessionUserUrl = (
-        '{proto}://{fqdn}:{port}/ovirt-engine/services/get-session-user'
-    ).format(
-        proto=protocol,
-        fqdn=fqdn,
-        port=port,
-    )
-    with open(FILE_APPLICATION_CONTEXT_OVERRIDE, "r") as fd:
-        file_content = fd.read()
-
-    logging.debug("replace servlet URL")
-    file_content = file_content.replace("http://localhost/ovirt-engine/services/get-session-user", hostGetSessionUserUrl)
-
-    logging.debug("replace trust store path and pass")
-    file_content = file_content.replace(
-        "name=\"sslTrustStorePath\" value=\"/usr/local/jboss-as/truststore\"",
-        "name=\"sslTrustStorePath\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE
-    )
-    file_content = file_content.replace(
-        "name=\"sslTrustStorePassword\" value=\"NoSoup4U\"",
-        "name=\"sslTrustStorePassword\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE_PASS
-    )
-    logging.debug("writing replaced content to %s" % FILE_APPLICATION_CONTEXT_OVERRIDE)
-    with open(FILE_APPLICATION_CONTEXT_OVERRIDE, "w") as fd:
-        fd.write(file_content)
-
 @transactionDisplay("Running post setup steps")
 def configureRepository():
     """
@@ -1206,9 +1160,6 @@ def main(options):
 
                 # Edit Data Sources Driver Info
                 updateDsJdbc()
-
-                # Setup the SSO
-                updateApplicationSecurity()
 
                 #Run post setup steps - disable unused users, set theme, change superuser password if needed
                 configureRepository()

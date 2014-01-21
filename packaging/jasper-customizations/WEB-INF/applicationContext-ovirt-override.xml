@@ -31,9 +31,8 @@
         <property name="authenticationManager">
             <ref bean="authenticationManager"/>
         </property>
-        <property name="getSessionUserServletURL" value="http://localhost/ovirt-engine/services/get-session-user"/>
-        <property name="sslTrustStorePath" value="/usr/local/jboss-as/truststore"/>
-        <property name="sslTrustStorePassword" value="NoSoup4U"/>
+        <property name="getSessionUserServletURL" value="https://localhost/ovirt-engine/services/get-session-user"/>
+        <property name="sslInsecure" value="true"/>
     </bean>
 
     <bean class="org.ovirt.jasperreports.querymodifier.CustomOvirtReportsQueryManipulator" id="CustomOvirtReportsQueryManipulator">
