@@ -51,7 +51,8 @@ ENGINE_HISTORY_DB_NAME = "ovirt_engine_history"
 REPORTS_DB_USER = 'engine_reports'
 DWH_DB_USER = 'engine_history'
 
-DIR_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/"
+DIR_REPORTS_CONFIG = "/etc/ovirt-engine-reports"
+DIR_DATABASE_REPORTS_CONFIG = os.path.join(DIR_REPORTS_CONFIG, "ovirt-engine-reports.conf.d/")
 JRS_PACKAGE_PATH="/usr/share/jasperreports-server"
 REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
@@ -948,6 +949,12 @@ def configureRepository():
     os.chdir(current_dir)
     shutil.rmtree(savedRepoDir)
 
+def configureSSO():
+    with open(os.path.join(DIR_REPORTS_CONFIG, 'authentication.properties'), 'w') as f:
+        f.write(
+            'sslInsecure = true\n'
+            'getSessionUserGetSessionUserServletURL = https://localhost/ovirt-engine/services/get-session-user\n'
+        )
 
 def configureApache():
     utils.processTemplate(
@@ -1176,6 +1183,7 @@ def main(options):
                     if os.path.exists(path):
                         shutil.rmtree(path)
 
+                configureSSO()
                 configureApache()
 
                 if os.path.exists(LEGACY_WAR):

@@ -120,6 +120,7 @@ ARTIFACTS = \
 GENERATED = \
 	build/python-check.sh \
 	ovirt-engine-reports.spec \
+	packaging/jasper-customizations/WEB-INF/applicationContext-ovirt-override.xml \
 	packaging/jasper-customizations/WEB-INF/log4j.properties \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf \
 	$(NULL)

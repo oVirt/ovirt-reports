@@ -2,6 +2,7 @@ package org.ovirt.authentication;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -65,6 +67,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     private String sslProtocol = "TLS";
     private boolean sslInsecure = false;
     private boolean sslNoHostVerification = false;
+    private String authenticationProperties;
 
     protected AuthenticationDetailsSource authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
@@ -104,6 +107,28 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     @Override
     public void afterPropertiesSet() throws Exception {
         super.afterPropertiesSet();
+
+        if (authenticationProperties != null) {
+            File authenticationPropertiesFile = new File(authenticationProperties);
+            if (!authenticationPropertiesFile.exists()) {
+                logger.warn(String.format("authenticationProperties '%s' cannot be found", authenticationProperties));
+            }
+            else {
+                try(InputStream in = new FileInputStream(authenticationPropertiesFile)) {
+                    Properties props = new Properties();
+                    props.load(in);
+                    getSessionUserGetSessionUserServletURL = new URL(props.getProperty("getSessionUserGetSessionUserServletURL", String.valueOf(getSessionUserGetSessionUserServletURL)));
+                    pollingTimeout = Integer.valueOf(props.getProperty("pollingTimeout", Integer.toString(pollingTimeout)));
+                    sslTrustStoreType = props.getProperty("sslTrustStoreType", sslTrustStoreType);
+                    sslTrustStorePath = props.getProperty("sslTrustStorePath", sslTrustStorePath);
+                    sslTrustStorePassword = props.getProperty("sslTrustStorePassword", sslTrustStorePassword);
+                    sslProtocol = props.getProperty("sslProtocol", sslProtocol);
+                    sslInsecure = Boolean.valueOf(props.getProperty("sslInsecure", Boolean.toString(sslInsecure)));
+                    sslNoHostVerification = Boolean.valueOf(props.getProperty("sslNoHostVerification", Boolean.toString(sslNoHostVerification)));
+                }
+            }
+        }
+
         setupSSLContext();
     }
 
@@ -327,5 +352,9 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
 
     public void setSslNoHostVerification(boolean sslNoHostVerification) {
         this.sslNoHostVerification = sslNoHostVerification;
+    }
+
+    public void setAuthenticationProperties(String authenticationProperties) {
+        this.authenticationProperties = authenticationProperties;
     }
 }

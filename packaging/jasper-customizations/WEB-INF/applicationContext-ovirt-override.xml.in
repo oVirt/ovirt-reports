@@ -31,8 +31,7 @@
         <property name="authenticationManager">
             <ref bean="authenticationManager"/>
         </property>
-        <property name="getSessionUserServletURL" value="https://localhost/ovirt-engine/services/get-session-user"/>
-        <property name="sslInsecure" value="true"/>
+	<property name="authenticationProperties" value="@PKG_SYSCONF_DIR@/authentication.properties"/>
     </bean>
 
     <bean class="org.ovirt.jasperreports.querymodifier.CustomOvirtReportsQueryManipulator" id="CustomOvirtReportsQueryManipulator">
