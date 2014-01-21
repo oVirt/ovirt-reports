@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -53,25 +52,27 @@ import com.jaspersoft.jasperserver.api.metadata.user.domain.impl.client.Metadata
  * It gets a session ID, and validates it using the oVirt engine, getting the logged-in user.
  */
 public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessingFilter {
-    protected AuthenticationDetailsSource authenticationDetailsSource = new WebAuthenticationDetailsSource();
-    // Will be set using the bean properties defined in applicationContext-security-web.xml file
-    private String servletURL;
-    private int pollingTimeout;
-    private String SESSION_DATA_FORMAT = "sessionID=%1$s";
-    private int DEFAULT_POLLING_TIMEOUT = 30; // in seconds
-    private String trustStorePath;
-    private String trustStorePassword;
-    private String sslProtocol = "TLS";
-    private String trustStoreType = "JKS";
     private final Log logger = LogFactory.getLog(EngineSimplePreAuthFilter.class);
-    private boolean sslIgnoreCertErrors = false;
-    private boolean sslIgnoreHostVerification = false;
+
+    private final String SESSION_DATA_FORMAT = "sessionID=%1$s";
+    private final int DEFAULT_POLLING_TIMEOUT = 60; // in seconds
+
+    private URL getSessionUserGetSessionUserServletURL;
+    private int pollingTimeout;
+    private String sslTrustStoreType = "JKS";
+    private String sslTrustStorePath;
+    private String sslTrustStorePassword;
+    private String sslProtocol = "TLS";
+    private boolean sslInsecure = false;
+    private boolean sslNoHostVerification = false;
+
+    protected AuthenticationDetailsSource authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
     private SSLContext sslctx;
 
     private void setupSSLContext() throws KeyStoreException, FileNotFoundException, IOException, NoSuchAlgorithmException, KeyManagementException, CertificateException {
         TrustManager[] trustManagers = null;
-        if (sslIgnoreCertErrors) {
+        if (sslInsecure) {
             trustManagers = new TrustManager[] {
                 new X509TrustManager() {
                     @Override
@@ -85,10 +86,10 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
                 }
             };
         } else {
-            if (trustStorePath != null && trustStorePassword != null) {
-                try(InputStream in = new FileInputStream(trustStorePath)) {
-                    KeyStore trustStore = KeyStore.getInstance(trustStoreType);
-                    trustStore.load(in, trustStorePassword.toCharArray());
+            if (sslTrustStorePath != null && sslTrustStorePassword != null) {
+                try(InputStream in = new FileInputStream(sslTrustStorePath)) {
+                    KeyStore trustStore = KeyStore.getInstance(sslTrustStoreType);
+                    trustStore.load(in, sslTrustStorePassword.toCharArray());
                     TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
                     trustManagerFactory.init(trustStore);
                     trustManagers = trustManagerFactory.getTrustManagers();
@@ -160,25 +161,26 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     /*
      * This method creates the URL connection, whether it is a secured connection or not.
      */
-    private HttpURLConnection createURLConnection() throws MalformedURLException, IOException, ProtocolException {
+    private HttpURLConnection createURLConnection() throws IOException {
 
         logger.debug(
             String.format(
-                "createURLConnection: servletURL=%s, sslIgnoreCertErrors=%s, sslIgnoreHostVerification=%s, trustStorePath=%s",
-                servletURL,
-                sslIgnoreCertErrors,
-                sslIgnoreHostVerification,
-                trustStorePath
+                "createURLConnection: getSessionUserGetSessionUserServletURL=%s, sslInsecure=%s, sslNoHostVerification=%s, sslTrustStoreType=%s, sslTrustStorePath=%s, sslProtocol=%s",
+                getSessionUserGetSessionUserServletURL,
+                sslInsecure,
+                sslNoHostVerification,
+                sslTrustStoreType,
+                sslTrustStorePath,
+                sslProtocol
             )
         );
 
-        URL url = new URL(servletURL);
-        HttpURLConnection servletConnection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection servletConnection = (HttpURLConnection) getSessionUserGetSessionUserServletURL.openConnection();
 
-        if ("https".equals(url.getProtocol())) {
+        if ("https".equals(getSessionUserGetSessionUserServletURL.getProtocol())) {
             HttpsURLConnection httpsConnection = (HttpsURLConnection)servletConnection;
             httpsConnection.setSSLSocketFactory(sslctx.getSocketFactory());
-            if (sslIgnoreHostVerification) {
+            if (sslInsecure || sslNoHostVerification) {
                 httpsConnection.setHostnameVerifier(
                     new HostnameVerifier() {
                         @Override
@@ -290,16 +292,8 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
     }
 
-    public String getServletURL() {
-        return servletURL;
-    }
-
-    public void setServletURL(String servletURL) {
-        this.servletURL = servletURL;
-    }
-
-    public int getPollingTimeout() {
-        return pollingTimeout;
+    public void setGetSessionUserServletURL(String getSessionUserGetSessionUserServletURL) throws MalformedURLException {
+        this.getSessionUserGetSessionUserServletURL = new URL(getSessionUserGetSessionUserServletURL);
     }
 
     public void setPollingTimeout(int pollingTimeout) {
@@ -311,31 +305,27 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
         }
     }
 
-    public void setTrustStorePath(String trustStorePath) {
-        this.trustStorePath = trustStorePath;
+    public void setSslTrustStoreType(String sslTrustStoreType) {
+        this.sslTrustStoreType = sslTrustStoreType;
     }
 
-    public void setTrustStorePassword(String trustStorePassword) {
-        this.trustStorePassword = trustStorePassword;
+    public void setSslTrustStorePath(String sslTrustStorePath) {
+        this.sslTrustStorePath = sslTrustStorePath;
+    }
+
+    public void setSslTrustStorePassword(String sslTrustStorePassword) {
+        this.sslTrustStorePassword = sslTrustStorePassword;
     }
 
     public void setSslProtocol(String sslProtocol) {
         this.sslProtocol = sslProtocol;
     }
 
-    public boolean getSslIgnoreCertErrors() {
-        return sslIgnoreCertErrors;
+    public void setSslInsecure(boolean sslInsecure) {
+        this.sslInsecure = sslInsecure;
     }
 
-    public void setSslIgnoreCertErrors(boolean sslIgnoreCertErrors) {
-        this.sslIgnoreCertErrors = sslIgnoreCertErrors;
-    }
-
-    public boolean getSslIgnoreHostVerification() {
-        return sslIgnoreHostVerification;
-    }
-
-    public void setSslIgnoreHostVerification(boolean sslIgnoreHostVerification) {
-        this.sslIgnoreHostVerification = sslIgnoreHostVerification;
+    public void setSslNoHostVerification(boolean sslNoHostVerification) {
+        this.sslNoHostVerification = sslNoHostVerification;
     }
 }

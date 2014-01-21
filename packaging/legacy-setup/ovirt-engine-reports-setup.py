@@ -937,12 +937,12 @@ def updateApplicationSecurity():
 
     logging.debug("replace trust store path and pass")
     file_content = file_content.replace(
-        "name=\"trustStorePath\" value=\"/usr/local/jboss-as/truststore\"",
-        "name=\"trustStorePath\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE
+        "name=\"sslTrustStorePath\" value=\"/usr/local/jboss-as/truststore\"",
+        "name=\"sslTrustStorePath\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE
     )
     file_content = file_content.replace(
-        "name=\"trustStorePassword\" value=\"NoSoup4U\"",
-        "name=\"trustStorePassword\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE_PASS
+        "name=\"sslTrustStorePassword\" value=\"NoSoup4U\"",
+        "name=\"sslTrustStorePassword\" value=\"%s\"" % OVIRT_REPORTS_TRUST_STORE_PASS
     )
     logging.debug("writing replaced content to %s" % FILE_APPLICATION_CONTEXT_OVERRIDE)
     with open(FILE_APPLICATION_CONTEXT_OVERRIDE, "w") as fd:
