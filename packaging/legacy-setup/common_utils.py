@@ -15,7 +15,6 @@ import types
 import tempfile
 import random
 import string
-import glob
 
 from StringIO import StringIO
 
@@ -39,12 +38,9 @@ EXEC_SYSTEMCTL="/bin/systemctl"
 EXEC_CHKCONFIG="/sbin/chkconfig"
 
 FILE_PG_PASS="/etc/ovirt-engine/.pgpass"
-DIR_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/"
-FILE_DATABASE_REPORTS_CONFIG = "10-setup-database.conf"
 PGPASS_FILE_USER_LINE = "DB USER credentials"
 PGPASS_FILE_ADMIN_LINE = "DB ADMIN credentials"
 FILE_ENGINE_CONFIG_BIN="/usr/bin/engine-config"
-JRS_PACKAGE_PATH="/usr/share/jasperreports-server"
 
 ENGINE_DBSCRIPTS_PATH="/usr/share/ovirt-engine/dbscripts"
 
@@ -648,109 +644,6 @@ def getAppVersion(package):
     output, rc = execExternalCmd(cmd, True, "Failed to get package version & release")
     return output.rstrip()
 
-@transactionDisplay("Importing reports")
-def importReports(src, update=True):
-    """
-    import the reports
-    """
-    logging.debug("importing reports")
-    current_dir = os.getcwd()
-    os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
-    cmd = "./js-import.sh --input-dir %s" % src
-    if update:
-        cmd = cmd + " --update"
-    execExternalCmd(cmd, True, "Failed while importing reports")
-    os.chdir(current_dir)
-
-def fixNullUserPasswords(tempDir, loc):
-    logging.debug("fixNullUserPasswords started for %s" % tempDir)
-    fixedFiles = []
-    for f in glob.glob(os.path.join(tempDir, loc, '*.xml')):
-        xmlObj = XMLConfigFileHandler(f)
-        xmlObj.open()
-        node = getXmlNode(xmlObj, '/user/password')
-        if node.getContent() == 'ENC<null>':
-            fixedFiles.append(f)
-            node.setContent('ENC<>')
-        xmlObj.close()
-    logging.debug("fixNullUserPasswords fixed: %s" % fixedFiles)
-
-@transactionDisplay("Exporting current users")
-def exportUsers():
-    """
-    export all users from jasper
-    """
-    logging.debug("exporting users from reports")
-    current_dir = os.getcwd()
-
-    # Create a temp directory
-    tempDir =  tempfile.mkdtemp()
-    logging.debug("temp directory: %s" % tempDir)
-
-    os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
-
-    # Export all users from jasper into the temp directory
-    logging.debug("Exporting users to %s" % tempDir)
-    cmd = "./js-export.sh --output-dir %s --users --roles" % tempDir
-    execExternalCmd(cmd, True, "Failed while exporting users")
-    fixNullUserPasswords(tempDir, 'users/organization_1')
-
-    os.chdir(current_dir)
-    return tempDir
-
-def exportReportsRepository():
-    """
-    export all resources
-    """
-    logging.debug("exporting reports repository")
-    current_dir = os.getcwd()
-
-    # Create a temp directory
-    tempDir =  tempfile.mkdtemp()
-    logging.debug("temp directory: %s" % tempDir)
-
-    os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
-
-    # Export all users from jasper into the temp directory
-    logging.debug("Exporting repository to %s" % tempDir)
-    cmd = "./js-export.sh --output-dir %s --everything" % tempDir
-    execExternalCmd(cmd, True, "Failed while exporting users")
-    fixNullUserPasswords(tempDir, 'users')
-
-    os.chdir(current_dir)
-    return tempDir
-
-@transactionDisplay("Importing current users")
-def importUsers(inputDir, update=True):
-    """
-    import all users from a given directory
-    """
-    logging.debug("importing users into reports")
-    current_dir = os.getcwd()
-
-    try:
-        os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
-
-        # Export all users from jasper into the temp directory
-        logging.debug("importing users from %s" % inputDir)
-        cmd = "./js-import.sh --input-dir %s" % inputDir
-        if update:
-            cmd = cmd + " --update"
-        execExternalCmd(cmd, True, "Failed while importing users")
-    except:
-        logging.error("exception caught, re-raising")
-        raise
-    finally:
-        os.chdir(current_dir)
-
-def restoreDefaultUsersXmlFiles(tempDir):
-    logging.debug("restoring default users xml files")
-    destDir = "/usr/share/ovirt-engine-reports/reports"
-    shutil.rmtree("%s/users" % destDir)
-    shutil.copytree("%s/users" % tempDir, "%s/users" % destDir)
-    shutil.rmtree(tempDir)
-
-
 def dbExists(db_dict, TEMP_PGPASS):
 
     exists = False
@@ -1289,29 +1182,6 @@ def updateDbOwner(db_dict):
         query=sql_query_set,
         database=db_dict['dbname'],
     )
-
-
-def storeConf(db_dict):
-    if not os.path.exists(DIR_DATABASE_REPORTS_CONFIG):
-        os.makedirs(DIR_DATABASE_REPORTS_CONFIG)
-    with open(
-        os.path.join(
-            DIR_DATABASE_REPORTS_CONFIG,
-            FILE_DATABASE_REPORTS_CONFIG
-        ),
-        'w'
-    ) as rf:
-        rf.write(
-            (
-                'REPORTS_DB_DATABASE={database}\n'
-                'REPORTS_DB_USER={user}\n'
-                'REPORTS_DB_PASSWORD={password}'
-            ).format(
-                database=db_dict['dbname'],
-                user=db_dict['username'],
-                password=db_dict['password'],
-            )
-        )
 
 
 def userExists(user):

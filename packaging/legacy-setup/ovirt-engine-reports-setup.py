@@ -52,6 +52,8 @@ ENGINE_HISTORY_DB_NAME = "ovirt_engine_history"
 REPORTS_DB_USER = 'engine_reports'
 DWH_DB_USER = 'engine_history'
 
+DIR_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/"
+JRS_PACKAGE_PATH="/usr/share/jasperreports-server"
 REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
 REPORTS_DB_UPGRADE_SCRIPTS_DIR = "%s/install_resources/sql/postgresql" % REPORTS_SERVER_BUILDOMATIC_DIR
@@ -291,6 +293,101 @@ def setReportsDatasource(src, db_dict):
     xml_editor.editParams({'/jdbcDataSource/connectionUser':db_dict["dwh_db_user"]})
     xml_editor.editParams({'/jdbcDataSource/connectionPassword':db_dict["dwh_db_password"]})
     xml_editor.close()
+
+@transactionDisplay("Importing reports")
+def importReports(src, update=True):
+    """
+    import the reports
+    """
+    logging.debug("importing reports")
+    current_dir = os.getcwd()
+    os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
+    cmd = "./js-import.sh --input-dir %s" % src
+    if update:
+        cmd = cmd + " --update"
+    utils.execExternalCmd(cmd, True, "Failed while importing reports")
+    os.chdir(current_dir)
+
+def fixNullUserPasswords(tempDir, loc):
+    logging.debug("fixNullUserPasswords started for %s" % tempDir)
+    fixedFiles = []
+    for f in glob.glob(os.path.join(tempDir, loc, '*.xml')):
+        xmlObj = utils.XMLConfigFileHandler(f)
+        xmlObj.open()
+        node = utils.getXmlNode(xmlObj, '/user/password')
+        if node.getContent() == 'ENC<null>':
+            fixedFiles.append(f)
+            node.setContent('ENC<>')
+        xmlObj.close()
+    logging.debug("fixNullUserPasswords fixed: %s" % fixedFiles)
+
+@transactionDisplay("Exporting current users")
+def exportUsers():
+    """
+    export all users from jasper
+    """
+    logging.debug("exporting users from reports")
+    current_dir = os.getcwd()
+
+    # Create a temp directory
+    tempDir =  tempfile.mkdtemp()
+    logging.debug("temp directory: %s" % tempDir)
+
+    os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
+
+    # Export all users from jasper into the temp directory
+    logging.debug("Exporting users to %s" % tempDir)
+    cmd = "./js-export.sh --output-dir %s --users --roles" % tempDir
+    utils.execExternalCmd(cmd, True, "Failed while exporting users")
+    fixNullUserPasswords(tempDir, 'users/organization_1')
+
+    os.chdir(current_dir)
+    return tempDir
+
+def exportReportsRepository():
+    """
+    export all resources
+    """
+    logging.debug("exporting reports repository")
+    current_dir = os.getcwd()
+
+    # Create a temp directory
+    tempDir =  tempfile.mkdtemp()
+    logging.debug("temp directory: %s" % tempDir)
+
+    os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
+
+    # Export all users from jasper into the temp directory
+    logging.debug("Exporting repository to %s" % tempDir)
+    cmd = "./js-export.sh --output-dir %s --everything" % tempDir
+    utils.execExternalCmd(cmd, True, "Failed while exporting users")
+    fixNullUserPasswords(tempDir, 'users')
+
+    os.chdir(current_dir)
+    return tempDir
+
+@transactionDisplay("Importing current users")
+def importUsers(inputDir, update=True):
+    """
+    import all users from a given directory
+    """
+    logging.debug("importing users into reports")
+    current_dir = os.getcwd()
+
+    try:
+        os.chdir("%s/buildomatic" % JRS_PACKAGE_PATH)
+
+        # Export all users from jasper into the temp directory
+        logging.debug("importing users from %s" % inputDir)
+        cmd = "./js-import.sh --input-dir %s" % inputDir
+        if update:
+            cmd = cmd + " --update"
+        utils.execExternalCmd(cmd, True, "Failed while importing users")
+    except:
+        logging.error("exception caught, re-raising")
+        raise
+    finally:
+        os.chdir(current_dir)
 
 @transactionDisplay("Updating Redirect Servlet")
 def updateServletDbRecord(TEMP_PGPASS):
@@ -917,7 +1014,7 @@ def configureRepository(password):
     """
         Run post setup steps - disable unused users, set theme, change superuser password if needed
     """
-    savedRepoDir = utils.exportReportsRepository()
+    savedRepoDir = exportReportsRepository()
     anonymousUserFile = "%s/users/anonymousUser.xml" % savedRepoDir
     jasperAdminFile = "%s/users/jasperadmin.xml" % savedRepoDir
     logging.debug("disabling unused users, if needed")
@@ -972,6 +1069,19 @@ def configureApache():
         },
     )
 
+def storeConf(db_dict):
+    with open(FILE_DATABASE_REPORTS_CONFIG, 'w') as rf:
+        rf.write(
+            (
+                'REPORTS_DB_DATABASE={database}\n'
+                'REPORTS_DB_USER={user}\n'
+                'REPORTS_DB_PASSWORD={password}'
+            ).format(
+                database=db_dict['dbname'],
+                user=db_dict['username'],
+                password=db_dict['password'],
+            )
+        )
 
 def main(options):
     '''
@@ -1131,7 +1241,7 @@ def main(options):
                     exportScheduale()
 
                 if hasData or preserveReports:
-                    savedDir = utils.exportUsers()
+                    savedDir = exportUsers()
 
                 if not isWarInstalled() and not hasData and adminPass is None:
                     adminPass = getAdminPass()
@@ -1156,20 +1266,20 @@ def main(options):
 
                 if preserveReports:
                     logging.debug("Importing users")
-                    utils.importUsers(savedDir)
+                    importUsers(savedDir)
 
                 # Update reports datasource configuration
                 setReportsDatasource(reportsImport, db_dict=db_dict)
 
                 # Execute js-import to add reports to DB
-                utils.importReports(reportsImport)
+                importReports(reportsImport)
 
                 # We import users twice because we need permissions to be
                 # preserved as well as users passwords reset after importing
                 # reports in previous step.
                 if hasData:
                     logging.debug("Imporing users")
-                    utils.importUsers(savedDir)
+                    importUsers(savedDir)
 
                 # Link all files in ovirt-engine-reports/reports*/jar to /var/lib/jbosas/server/ovirt-engine-slimmed/deploy/ovirt-engine-reports/WEB-INF/lib
                 customizeJs()
@@ -1220,7 +1330,7 @@ def main(options):
 
             # Restart the httpd service
             utils.restartHttpd()
-            utils.storeConf(db_dict)
+            storeConf(db_dict)
             print "Successfully installed %s." % JRS_APP_NAME
             print "The installation log file is available at: %s" % log_file
 
