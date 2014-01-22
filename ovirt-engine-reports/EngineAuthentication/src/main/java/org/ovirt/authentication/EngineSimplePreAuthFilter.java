@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -230,8 +231,6 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
      * This method gets a sessionID, and validates it with the engine, using the servlet input URL
      */
     protected String callGetSessionUser(String sessionID) {
-        DataOutputStream output = null;
-
         try {
             // Formatting data
             String data = String.format(SESSION_DATA_FORMAT, URLEncoder.encode(sessionID, "UTF-8"));
@@ -244,10 +243,13 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
             }
 
             // Sending the sessionID parameter
-            output = new DataOutputStream(servletConnection.getOutputStream());
-            output.writeBytes(data);
-            output.flush();
-            output.close();
+            try (
+                OutputStream os = servletConnection.getOutputStream();
+                DataOutputStream output = new DataOutputStream(os)
+            ) {
+                output.writeBytes(data);
+                output.flush();
+            }
 
             // Checking the result
             if (servletConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -256,21 +258,15 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
             }
 
             // Getting the user name
-            InputStream inputStream = servletConnection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String inputLine;
-            inputLine = reader.readLine();
-            return inputLine;
-
+            try (
+                InputStream in = servletConnection.getInputStream();
+                InputStreamReader isreader = new InputStreamReader(in);
+                BufferedReader reader = new BufferedReader(isreader)
+            ) {
+                return reader.readLine();
+            }
         } catch (Exception ex) {
             logger.error(ex);
-        } finally {
-            try {
-                if (output != null)
-                output.close();
-            } catch (IOException ex) {
-                logger.error(ex);
-            }
         }
         return null;
     }
