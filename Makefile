@@ -26,7 +26,7 @@
 #
 BUILD_UT=1
 EXTRA_BUILD_FLAGS=
-BUILD_VALIDATION=0
+BUILD_VALIDATION=1
 
 PACKAGE_NAME=ovirt-engine-reports
 MVN=mvn
@@ -35,7 +35,6 @@ PYFLAKES=pyflakes
 PEP8=pep8
 PREFIX=/usr/local
 LOCALSTATE_DIR=$(PREFIX)/var
-BIN_DIR=$(PREFIX)/bin
 SYSCONF_DIR=$(PREFIX)/etc
 DATAROOT_DIR=$(PREFIX)/share
 MAN_DIR=$(DATAROOT_DIR)/man
@@ -44,12 +43,8 @@ PKG_DATA_DIR=$(DATAROOT_DIR)/ovirt-engine-reports
 JAVA_DIR=$(DATAROOT_DIR)/java
 PKG_JAVA_DIR=$(JAVA_DIR)/ovirt-engine-reports
 PKG_SYSCONF_DIR=$(SYSCONF_DIR)/ovirt-engine-reports
-PKG_JBOSS_MODULES=$(PKG_DATA_DIR)/modules
-PKG_CACHE_DIR=$(LOCALSTATE_DIR)/cache/ovirt-engine-reports
 PKG_LOG_DIR=$(LOCALSTATE_DIR)/log/ovirt-engine-reports
-PKG_TMP_DIR=$(LOCALSTATE_DIR)/tmp/ovirt-engine-reports
 PKG_STATE_DIR=$(LOCALSTATE_DIR)/lib/ovirt-engine-reports
-JBOSS_HOME=/usr/share/jboss-as
 PYTHON_DIR=$(PYTHON_SYS_DIR)
 DEV_PYTHON_DIR=
 PKG_USER=ovirt
@@ -102,12 +97,10 @@ ARTIFACTS = \
 	-e "s|@DATAROOT_DIR@|$(DATAROOT_DIR)|g" \
 	-e "s|@PKG_SYSCONF_DIR@|$(PKG_SYSCONF_DIR)|g" \
 	-e "s|@PKG_DATA_DIR@|$(PKG_DATA_DIR)|g" \
+	-e "s|@PKG_JAVA_DIR@|$(PKG_JAVA_DIR)|g" \
 	-e "s|@PKG_LOG_DIR@|$(PKG_LOG_DIR)|g" \
 	-e "s|@PKG_STATE_DIR@|$(PKG_STATE_DIR)|g" \
-	-e "s|@PKG_JBOSS_MODULES@|$(PKG_JBOSS_MODULES)|g" \
-	-e "s|@JBOSS_HOME@|$(JBOSS_HOME)|g" \
 	-e "s|@DEV_PYTHON_DIR@|$(DEV_PYTHON_DIR)|g" \
-	-e "s|@DWH_VARS@|$(PKG_SYSCONF_DIR)/ovirt-engine-reportsd.conf|g" \
 	-e "s|@RPM_VERSION@|$(RPM_VERSION)|g" \
 	-e "s|@RPM_RELEASE@|$(RPM_RELEASE)|g" \
 	-e "s|@PACKAGE_NAME@|$(PACKAGE_NAME)|g" \
@@ -122,6 +115,7 @@ GENERATED = \
 	ovirt-engine-reports.spec \
 	packaging/jasper-customizations/WEB-INF/applicationContext-ovirt-override.xml \
 	packaging/jasper-customizations/WEB-INF/log4j.properties \
+	packaging/setup/ovirt_engine_setup/reportsconfig.py \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf \
 	$(NULL)
 
@@ -214,7 +208,8 @@ install-packaging-files: \
 		$(GENERATED) \
 		$(NULL)
 	$(MAKE) copy-recursive SOURCEDIR=packaging/sys-etc TARGETDIR="$(DESTDIR)$(SYSCONF_DIR)" EXCLUDE_GEN="$(GENERATED)"
-	for d in conf jasper-customizations ovirt-reports legacy-setup; do \
+	$(MAKE) copy-recursive SOURCEDIR=packaging/setup TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/../ovirt-engine/setup" EXCLUDE_GEN="$(GENERATED)"
+	for d in conf etc jasper-customizations ovirt-reports; do \
 		$(MAKE) copy-recursive SOURCEDIR="packaging/$${d}" TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/$${d}" EXCLUDE_GEN="$(GENERATED)"; \
 	done
 
@@ -222,10 +217,8 @@ install-layout: \
 		install-packaging-files \
 		$(NULL)
 
-	install -dm 755 "$(DESTDIR)$(PKG_SYSCONF_DIR)/ovirt-engine-reports.conf.d"
-	install -dm 755 "$(DESTDIR)$(BIN_DIR)"
 	ln -sf ovirt_reports_bundle_en_US.properties.data "$(DESTDIR)$(PKG_DATA_DIR)/ovirt-reports/resources/reports_resources/localization/ovirt_reports_bundle.properties.data"
-	ln -sf "$(PKG_DATA_DIR)/legacy-setup/ovirt-engine-reports-setup.py" "$(DESTDIR)$(BIN_DIR)/ovirt-engine-reports-setup"
+	install -dm 755 "$(DESTDIR)$(PKG_STATE_DIR)/backups"
 
 all-dev:
 	rm -f $(GENERATED)
@@ -256,3 +249,4 @@ install-dev:	\
 
 	install -d "$(DESTDIR)$(PKG_LOG_DIR)"
 	install -d "$(DESTDIR)$(PKG_STATE_DIR)"
+	install -d "$(DESTDIR)$(PKG_SYSCONF_DIR)"

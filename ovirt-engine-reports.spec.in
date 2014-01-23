@@ -16,7 +16,6 @@
 	PREFIX=%{_prefix} \\\
 	SYSCONF_DIR=%{_sysconfdir} \\\
 	LOCALSTATE_DIR=%{_localstatedir} \\\
-	BIN_DIR=%{_bindir} \\\
 	DATAROOT_DIR=%{_datadir} \\\
 	PYTHON=%{__python} \\\
 	PYTHON_DIR=%{python_sitelib} \\\
@@ -43,14 +42,13 @@ BuildRequires:	log4j
 BuildRequires:	make
 BuildRequires:	maven
 
-Requires:	jasperreports-server >= 5.5.0-3
+Requires:	%{name}-setup >= %{version}-%{release}
 Requires:	jasperreports-server < 5.6.0
+Requires:	jasperreports-server >= 5.5.0-5
 Requires:	java-1.7.0-openjdk
 Requires:	jpackage-utils
 Requires:	m2crypto
 Requires:	ovirt-engine >= 3.4.0
-Requires:	ovirt-engine-dbscripts >= 3.4.0
-Requires:	ovirt-engine-dwh >= 3.4.0
 Requires:	python
 
 # bug#862355
@@ -62,6 +60,17 @@ pre-configured reports and dashboards that enable you to
 monitor the system. The reports module is based on
 JasperReports and JasperServer, and can also be used to create
 ad-hoc reports.
+
+%package setup
+Summary:	%{product_name} setup
+Group:		Virtualization/Management
+Requires:	cracklib-python
+Requires:	libxml2-python
+Requires:	ovirt-engine-dwh-setup
+Requires:	ovirt-engine-setup-plugin-ovirt-engine-common
+
+%description setup
+%{product_description} setup package.
 
 %prep
 %setup -c -q
@@ -83,12 +92,6 @@ make %{make_common_opts} install DESTDIR="%{buildroot}"
 install -dm 755 "%{buildroot}/%{_localstatedir}/lib/%{name}"
 install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{name}"
 
-# Needed for compatibility if package is different than the directory structure
-%if "%{name}" != "%{reports_name}"
-ln -s -f "%{_bindir}/%{reports_name}-setup" "%{buildroot}%{_bindir}/%{name}-setup"
-ln -s "%{reports_name}" "%{buildroot}%{reports_java}/../%{name}"
-%endif
-
 %postun
 if [ "$1" -eq 0 ]; then
 	rm -f /etc/ovirt-engine/jrs-deployment.version
@@ -97,9 +100,9 @@ if [ "$1" -eq 0 ]; then
 fi
 
 %files
-%dir %{_sysconfdir}/%{reports_name}/ovirt-engine-reports.conf.d
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{name}
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{name}
+%{_localstatedir}/lib/ovirt-engine-reports/backups/
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{reports_java}
 %{_datadir}/%{reports_name}
@@ -107,10 +110,9 @@ fi
 %{_javadir}/%{name}
 %endif
 
-%{_bindir}/%{reports_name}-setup
-%if "%{name}" != "%{reports_name}"
-%{_bindir}/%{name}-setup
-%endif
+%files setup
+%{_datadir}/ovirt-engine/setup/ovirt_engine_setup/reports*
+%{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
 * Sun Nov 4 2012 Yaniv Dary <ydary@redhat.com> - 3.1.0
