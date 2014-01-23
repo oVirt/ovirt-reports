@@ -950,7 +950,7 @@ def configureRepository():
     shutil.rmtree(savedRepoDir)
 
 def configureSSO():
-    with open(os.path.join(DIR_REPORTS_CONFIG, 'authentication.properties'), 'w') as f:
+    with open(os.path.join(DIR_REPORTS_CONFIG, 'sso.properties'), 'w') as f:
         f.write(
             'sslInsecure = true\n'
             'getSessionUserGetSessionUserServletURL = https://localhost/ovirt-engine/services/get-session-user\n'
