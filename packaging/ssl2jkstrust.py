@@ -111,7 +111,8 @@ def main():
         p.communicate(input=c)
         if p.returncode != 0:
             raise RuntimeError('keytool failed')
-    os.rename(tmp, options.keystore)
+    if os.path.exists(tmp):
+        os.rename(tmp, options.keystore)
 
 main()
 
