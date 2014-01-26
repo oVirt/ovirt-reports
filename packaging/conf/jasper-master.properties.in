@@ -14,9 +14,7 @@ dbHost=@REPORTS_DB_HOST@
 dbPort=@REPORTS_DB_PORT@
 dbUsername=@REPORTS_DB_USER@
 dbPassword=@REPORTS_DB_PASSWORD@
-
-# JasperServer db name
-js.dbName=ovirtenginereports
+js.dbName=@REPORTS_DB_DATABASE@
 
 # web app name
 # (set one of these to deploy to a non-default war file name)

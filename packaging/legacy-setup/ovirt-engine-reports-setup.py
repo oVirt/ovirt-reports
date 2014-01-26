@@ -425,6 +425,7 @@ def setDBConn():
             '@REPORTS_DB_PORT@': db_dict["port"],
             '@REPORTS_DB_USER@': db_dict["username"],
             '@REPORTS_DB_PASSWORD@': db_dict["password"],
+            '@REPORTS_DB_DATABASE@': JRS_DB_NAME,
         },
     )
 
