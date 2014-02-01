@@ -7,7 +7,7 @@
 <IfModule proxy_ajp_module>
 
     <Location /ovirt-engine-reports>
-        ProxyPassMatch ajp://127.0.0.1:@JBOSS_AJP_PORT@
+        ProxyPassMatch ajp://127.0.0.1:@JBOSS_AJP_PORT@ timeout=3600 retry=5
         <IfModule deflate_module>
             AddOutputFilterByType DEFLATE text/javascript text/css text/html text/xml text/json application/xml application/json application/x-yaml
         </IfModule>
