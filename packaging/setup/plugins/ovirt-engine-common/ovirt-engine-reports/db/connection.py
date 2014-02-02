@@ -103,76 +103,94 @@ class Plugin(plugin.PluginBase):
     @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,
         name=oreportscons.Stages.DB_CONNECTION_SETUP,
-        condition=lambda self: (
-            self.environment[oreportscons.CoreEnv.ENABLE] and
-            os.path.exists(
-                oreportscons.FileLocations.
-                OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
-            )
-        ),
     )
     def _setup(self):
-        config = configparser.ConfigParser()
-        config.optionxform = str
-        with open(
+        p = None
+        if os.path.exists(
             oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
-        ) as f:
-            config.readfp(
-                io.StringIO(
-                    '[default]' +
-                    f.read().decode('utf-8')
+        ):
+            p = oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+        elif os.path.exists(
+            os.path.join(
+                self.environment[oreportscons.ConfigEnv.JASPER_HOME],
+                (
+                    oreportscons.FileLocations.
+                    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+                ),
+            )
+        ):
+            self.environment[oreportscons.CoreEnv.ENABLE] = True
+            p = os.path.join(
+                self.environment[oreportscons.ConfigEnv.JASPER_HOME],
+                (
+                    oreportscons.FileLocations.
+                    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+                ),
+            )
+
+        if (
+            p is not None and
+            self.environment[oreportscons.CoreEnv.ENABLE]
+        ):
+            config = configparser.ConfigParser()
+            config.optionxform = str
+            with open(p) as f:
+                config.readfp(
+                    io.StringIO(
+                        '[default]' +
+                        f.read().decode('utf-8')
+                    )
                 )
-            )
-        dbenv = {}
-        try:
-            for e, k in (
-                (oreportscons.DBEnv.HOST, 'dbHost'),
-                (oreportscons.DBEnv.PORT, 'dbPort'),
-                (oreportscons.DBEnv.USER, 'dbUsername'),
-                (oreportscons.DBEnv.PASSWORD, 'dbPassword'),
-                (oreportscons.DBEnv.DATABASE, 'js.dbName'),
-            ):
-                dbenv[e] = config.get('default', k)
+            dbenv = {}
+            try:
+                for e, k in (
+                    (oreportscons.DBEnv.HOST, 'dbHost'),
+                    (oreportscons.DBEnv.PORT, 'dbPort'),
+                    (oreportscons.DBEnv.USER, 'dbUsername'),
+                    (oreportscons.DBEnv.PASSWORD, 'dbPassword'),
+                    (oreportscons.DBEnv.DATABASE, 'js.dbName'),
+                ):
+                    dbenv[e] = config.get('default', k)
 
-            dbenv[
-                oreportscons.DBEnv.SECURED
-            ] = dbenv[
-                oreportscons.DBEnv.SECURED_HOST_VALIDATION
-            ] = False
+                dbenv[
+                    oreportscons.DBEnv.SECURED
+                ] = dbenv[
+                    oreportscons.DBEnv.SECURED_HOST_VALIDATION
+                ] = False
 
-            self.environment[otopicons.CoreEnv.LOG_FILTER].append(
-                dbenv[oreportscons.DBEnv.PASSWORD]
-            )
+                self.environment[otopicons.CoreEnv.LOG_FILTER].append(
+                    dbenv[oreportscons.DBEnv.PASSWORD]
+                )
 
-            dbovirtutils = database.OvirtUtils(
-                plugin=self,
-                dbenvkeys=oreportscons.Const.REPORTS_DB_ENV_KEYS,
-            )
-            dbovirtutils.tryDatabaseConnect(dbenv)
-            self.environment.update(dbenv)
-            self.environment[
-                oreportscons.DBEnv.NEW_DATABASE
-            ] = dbovirtutils.isNewDatabase()
-        except RuntimeError as e:
-            self.logger.debug(
-                'Existing credential use failed',
-                exc_info=True,
-            )
-            msg = _(
-                'Cannot connect to Reports database using existing '
-                'credentials: {user}@{host}:{port}'
-            ).format(
-                host=dbenv[oreportscons.DBEnv.HOST],
-                port=dbenv[oreportscons.DBEnv.PORT],
-                database=dbenv[oreportscons.DBEnv.DATABASE],
-                user=dbenv[oreportscons.DBEnv.USER],
-            )
-            if self.environment[
-                osetupcons.CoreEnv.ACTION
-            ] == osetupcons.Const.ACTION_REMOVE:
-                self.logger.warning(msg)
-            else:
-                raise RuntimeError(msg)
+                dbovirtutils = database.OvirtUtils(
+                    plugin=self,
+                    dbenvkeys=oreportscons.Const.REPORTS_DB_ENV_KEYS,
+                )
+                dbovirtutils.tryDatabaseConnect(dbenv)
+                self.environment.update(dbenv)
+                self.environment[
+                    oreportscons.DBEnv.NEW_DATABASE
+                ] = dbovirtutils.isNewDatabase()
+            except RuntimeError as e:
+                self.logger.debug(
+                    'Existing credential use failed',
+                    exc_info=True,
+                )
+                msg = _(
+                    'Cannot connect to Reports database using existing '
+                    'credentials: {user}@{host}:{port}'
+                ).format(
+                    host=dbenv[oreportscons.DBEnv.HOST],
+                    port=dbenv[oreportscons.DBEnv.PORT],
+                    database=dbenv[oreportscons.DBEnv.DATABASE],
+                    user=dbenv[oreportscons.DBEnv.USER],
+                )
+                if self.environment[
+                    osetupcons.CoreEnv.ACTION
+                ] == osetupcons.Const.ACTION_REMOVE:
+                    self.logger.warning(msg)
+                else:
+                    raise RuntimeError(msg)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

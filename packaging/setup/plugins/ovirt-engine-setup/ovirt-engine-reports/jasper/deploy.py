@@ -505,14 +505,75 @@ class Plugin(plugin.PluginBase):
         ),
     )
     def _export(self):
+        config = self._jasperConfiguration()
 
         self.logger.info(_('Exporting data out of Jasper'))
-
         self._quartzprops = os.path.join(self._temproot, 'quartzprops')
-        shutil.copyfile(
-            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_QUARTZ,
-            self._quartzprops,
-        )
+
+        if (
+            os.path.exists(
+                oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR
+            )
+        ):
+            shutil.copyfile(
+                oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_QUARTZ,
+                self._quartzprops,
+            )
+        elif (
+            os.path.exists(
+                oreportscons.FileLocations.
+                LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR
+            )
+        ):
+            shutil.copyfile(
+                (
+                    oreportscons.FileLocations.
+                    LEGACY_OVIRT_ENGINE_REPORTS_JASPER_QUARTZ
+                ),
+                self._quartzprops,
+            )
+
+            self.logger.info(
+                _("Regenerating Jasper's build configuration files")
+            )
+
+            try:
+                myumask = os.umask(0o022)
+
+                rc, stdout, stderr = self.execute(
+                    args=(
+                        './js-ant',
+                        '-DmasterPropsSource=%s' % config,
+                        'gen-config',
+                    ),
+                    cwd=os.path.join(
+                        self.environment[
+                            oreportscons.ConfigEnv.JASPER_HOME
+                        ],
+                        'buildomatic',
+                    ),
+                )
+
+                # FIXME: this is a temp WA for an issue in JS
+                # running js-install always returns 0
+                if 'BUILD FAILED' in '\n'.join(stdout + stderr):
+                    raise RuntimeError(
+                        _('Could not regenerate build configuration')
+                    )
+            finally:
+                os.umask(myumask)
+                os.chmod(
+                    (
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                    ),
+                    0o700,
+                )
+        else:
+            raise RuntimeError(
+                _('Could not detect Jasper war folder')
+            )
+
         self._jobs = self._exportJs(
             what='jobs',
             args=(
@@ -545,7 +606,6 @@ class Plugin(plugin.PluginBase):
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
     )
     def _deploy(self):
-        config = None
         standalone = os.path.join(
             oreportscons.FileLocations.PKG_STATE_DIR,
             'standalone',
@@ -828,6 +888,24 @@ class Plugin(plugin.PluginBase):
         for d in ('jasperserver', 'dataSnapshots'):
             d = os.path.join('/tmp', d)
             if os.path.exists(d):
+                shutil.rmtree(d)
+
+    @plugin.event(
+        stage=plugin.Stages.STAGE_CLOSEUP,
+    )
+    def _closeup(self):
+        for d in (
+            oreportscons.FileLocations.LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR,
+            os.path.join(
+                self.environment[oreportscons.ConfigEnv.JASPER_HOME],
+                (
+                    oreportscons.FileLocations.
+                    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                ),
+            ),
+        ):
+            if os.path.exists(d):
+                self.logger.debug(_('Removing folder: %s'), d)
                 shutil.rmtree(d)
 
     @plugin.event(

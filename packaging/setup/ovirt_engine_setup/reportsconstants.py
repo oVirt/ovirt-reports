@@ -150,6 +150,29 @@ class FileLocations(object):
         'jasperreports-server',
     )
 
+    LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR = os.path.join(
+        DATADIR,
+        'ovirt-engine',
+        'ovirt-engine-reports.war',
+    )
+
+    LEGACY_OVIRT_ENGINE_REPORTS_JASPER_QUARTZ = os.path.join(
+        LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR,
+        'WEB-INF',
+        'js.quartz.properties',
+    )
+
+    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG = os.path.join(
+        'buildomatic',
+        'build_conf',
+    )
+
+    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP = os.path.join(
+        LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG,
+        'default',
+        'master.properties',
+    )
+
 
 @util.export
 class Stages(object):
