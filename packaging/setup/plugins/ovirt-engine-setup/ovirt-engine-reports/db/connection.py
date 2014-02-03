@@ -102,7 +102,7 @@ class Plugin(plugin.PluginBase):
     @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,
     )
-    def _commands(self):
+    def _setup(self):
         self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
             self.DBTransaction(self)
         )
