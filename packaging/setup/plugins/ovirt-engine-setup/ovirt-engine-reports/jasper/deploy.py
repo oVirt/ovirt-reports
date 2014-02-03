@@ -487,7 +487,7 @@ class Plugin(plugin.PluginBase):
                 raise RuntimeError(
                     _(
                         'Jasper database password contains '
-                        'charecters ({chars}) that are not '
+                        'characters ({chars}) that are not '
                         'supported by Jasper'
                     ).format(
                         chars=chars,
