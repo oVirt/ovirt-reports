@@ -660,7 +660,7 @@ class Plugin(plugin.PluginBase):
         if self._jobs:
             self._importJs(self._jobs)
 
-        self.logger.info(_('Configurating Jasper Java resources'))
+        self.logger.info(_('Configuring Jasper Java resources'))
 
         for f in glob.glob(
             os.path.join(
@@ -677,7 +677,7 @@ class Plugin(plugin.PluginBase):
                 )
             )
 
-        self.logger.info(_('Configurating Jasper Database resources'))
+        self.logger.info(_('Configuring Jasper Database resources'))
 
         for f in glob.glob(
             os.path.join(
