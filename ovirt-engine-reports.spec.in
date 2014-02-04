@@ -1,4 +1,13 @@
 # Settings
+
+%if 0%{?fedora}
+%global ovirt_require_maven 1
+%endif
+
+%if 0%{?rhel}
+%global ovirt_require_maven 0
+%endif
+
 %global product_name Reports package for oVirt Virtualization Management
 %global product_description oVirt virtualization reports
 
@@ -29,7 +38,7 @@
 Name:		@PACKAGE_NAME@
 Version:	@RPM_VERSION@
 Release:	@RPM_RELEASE@%{?release_suffix}%{dist}
-License:	Commercial
+License:	AGPLv3
 Summary:	%{product_name}
 Group:		Virtualization/Management
 URL:		http://www.ovirt.org
@@ -40,8 +49,9 @@ BuildRequires:	java-1.7.0-openjdk-devel
 BuildRequires:	jpackage-utils
 BuildRequires:	log4j
 BuildRequires:	make
+%if %{ovirt_require_maven}
 BuildRequires:	maven
-
+%endif
 Requires:	%{name}-setup >= %{version}-%{release}
 Requires:	jasperreports-server < 5.6.0
 Requires:	jasperreports-server >= 5.5.0-5
