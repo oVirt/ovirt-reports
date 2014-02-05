@@ -201,6 +201,60 @@ class Plugin(plugin.PluginBase):
                 if os.path.exists(entry['dst']):
                     shutil.rmtree(entry['dst'])
 
+    def _buildJs(self, cmd, config):
+        try:
+            myumask = os.umask(0o022)
+
+            rc, stdout, stderr = self.execute(
+                args=(
+                    './js-ant',
+                    '-DmasterPropsSource=%s' % config,
+                    cmd
+                ),
+                envAppend={
+                    'JAVA_HOME': self.environment[
+                        osetupcons.ConfigEnv.JAVA_HOME
+                    ],
+                    'ANT_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
+                },
+                cwd=os.path.join(
+                    self.environment[
+                        oreportscons.ConfigEnv.JASPER_HOME
+                    ],
+                    'buildomatic',
+                ),
+            )
+
+            # FIXME: this is a temp WA for an issue in JS
+            # running js-install always returns 0
+            if 'BUILD FAILED' in '\n'.join(stdout + stderr):
+                raise RuntimeError(
+                    _("Cannot build Jasper '{command}'").format(
+                        command=cmd,
+                    )
+                )
+        finally:
+            os.umask(myumask)
+
+            #
+            # foomatic config
+            # contains sensitive information
+            # for some reason jasper recreate
+            # it, so we cannot be fully secured while
+            # running.
+            #
+            if os.path.exists(
+                oreportscons.FileLocations.
+                OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+            ):
+                os.chmod(
+                    (
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                    ),
+                    0o700,
+                )
+
     def _exportJs(self, what, args):
         dest = os.path.join(
             self._temproot,
@@ -218,6 +272,10 @@ class Plugin(plugin.PluginBase):
                 'buildomatic',
             ),
             envAppend={
+                'JAVA_HOME': self.environment[
+                    osetupcons.ConfigEnv.JAVA_HOME
+                ],
+                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
                     OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
@@ -240,6 +298,10 @@ class Plugin(plugin.PluginBase):
                 'buildomatic',
             ),
             envAppend={
+                'JAVA_HOME': self.environment[
+                    osetupcons.ConfigEnv.JAVA_HOME
+                ],
+                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
                     OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
@@ -449,6 +511,8 @@ class Plugin(plugin.PluginBase):
     )
     def _init(self):
         self._temproot = tempfile.mkdtemp()
+        self._javatmp = os.path.join(self._temproot, 'tmp')
+        os.mkdir(self._javatmp)
 
     @plugin.event(
         stage=plugin.Stages.STAGE_VALIDATION,
@@ -537,38 +601,7 @@ class Plugin(plugin.PluginBase):
                 _("Regenerating Jasper's build configuration files")
             )
 
-            try:
-                myumask = os.umask(0o022)
-
-                rc, stdout, stderr = self.execute(
-                    args=(
-                        './js-ant',
-                        '-DmasterPropsSource=%s' % config,
-                        'gen-config',
-                    ),
-                    cwd=os.path.join(
-                        self.environment[
-                            oreportscons.ConfigEnv.JASPER_HOME
-                        ],
-                        'buildomatic',
-                    ),
-                )
-
-                # FIXME: this is a temp WA for an issue in JS
-                # running js-install always returns 0
-                if 'BUILD FAILED' in '\n'.join(stdout + stderr):
-                    raise RuntimeError(
-                        _('Could not regenerate build configuration')
-                    )
-            finally:
-                os.umask(myumask)
-                os.chmod(
-                    (
-                        oreportscons.FileLocations.
-                        OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
-                    ),
-                    0o700,
-                )
+            self._buildJs(config=config, cmd='gen-config')
         else:
             raise RuntimeError(
                 _('Could not detect Jasper war folder')
@@ -629,49 +662,12 @@ class Plugin(plugin.PluginBase):
         os.symlink('..', os.path.join(standalone, 'deployments'))
 
         self.logger.info(_('Deploying Jasper'))
-
-        try:
-            myumask = os.umask(0o022)
-
-            for cmd in (
-                'init-js-db-ce',
-                'import-minimal-ce',
-                'deploy-webapp-ce',
-            ):
-                rc, stdout, stderr = self.execute(
-                    args=(
-                        './js-ant',
-                        '-DmasterPropsSource=%s' % config,
-                        cmd
-                    ),
-                    cwd=os.path.join(
-                        self.environment[
-                            oreportscons.ConfigEnv.JASPER_HOME
-                        ],
-                        'buildomatic',
-                    ),
-                )
-
-                # FIXME: this is a temp WA for an issue in JS
-                # running js-install always returns 0
-                if 'BUILD FAILED' in '\n'.join(stdout + stderr):
-                    raise RuntimeError(
-                        _('Cannot deploy Jasper')
-                    )
-        finally:
-            os.umask(myumask)
-
-        #
-        # foomatic config
-        # contains sensitive information
-        # for some reason jasper recreate
-        # it, so we cannot be fully secured while
-        # running.
-        #
-        os.chmod(
-            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG,
-            0o700,
-        )
+        for cmd in (
+            'init-js-db-ce',
+            'import-minimal-ce',
+            'deploy-webapp-ce',
+        ):
+            self._buildJs(config=config, cmd=cmd)
 
         if os.path.exists(standalone):
             shutil.rmtree(standalone)
@@ -877,18 +873,6 @@ class Plugin(plugin.PluginBase):
                 ),
             )
             os.chmod(f, 0o600)
-
-        #
-        # jasper uses constant temp path
-        # and it does not clean it correctly
-        # so if we touch something as root
-        # service will be unable to touch it
-        # remove these now
-        #
-        for d in ('jasperserver', 'dataSnapshots'):
-            d = os.path.join('/tmp', d)
-            if os.path.exists(d):
-                shutil.rmtree(d)
 
     @plugin.event(
         stage=plugin.Stages.STAGE_CLOSEUP,

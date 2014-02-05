@@ -54,7 +54,7 @@ BuildRequires:	maven
 %endif
 Requires:	%{name}-setup >= %{version}-%{release}
 Requires:	jasperreports-server < 5.6.0
-Requires:	jasperreports-server >= 5.5.0-5
+Requires:	jasperreports-server >= 5.5.0-6
 Requires:	java-1.7.0-openjdk
 Requires:	jpackage-utils
 Requires:	m2crypto
