@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="EngineAuthentication" default="all">
+	<property name="build.output" location="lib"/>
+	<property name="local.output" value="${build.output}/EngineAuthentication.jar"/>
+
+	<path id="local.classpath">
+		<fileset dir="${jasper.lib}"><filename regex="commons-logging-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="jasperserver-api-metadata-impl-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="servlet-api-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="spring-(core|context|beans)-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="spring-security-core-\d.*.jar"/></fileset>
+	</path>
+
+	<target name="all">
+		<mkdir dir="target"/>
+		<mkdir dir="${build.output}"/>
+		<javac
+			srcdir="src"
+			destdir="target"
+			includeAntRuntime="no"
+			encoding="utf-8"
+			classpathref="local.classpath"
+		/>
+		<jar
+			destfile="${local.output}"
+			basedir="target"
+			includes="**/*.class"
+		/>
+	</target>
+
+	<target name="clean">
+		<delete dir="target"/>
+		<delete file="${local.output}"/>
+	</target>
+</project>

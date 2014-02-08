@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="oVirt Engine Reports" default="all">
+	<property file="build.properties"/>
+	<property name="build.root" location="."/>
+	<property name="build.output" value="${build.root}/lib"/>
+	<!--property name="jasper.lib" location=""/-->
+
+	<target name="detect.jasper" unless="${jasper.lib}">
+		<available property="jasper.home" file="/usr/share/jasperreports-server" type="dir" value="/usr/share/jasperreports-server"/>
+		<available property="jasper.home" file="/usr/share/jasperreports-server-pro" type="dir" value="/usr/share/jasperreports-server-pro"/>
+		<fail unless="jasper.home" message="Cannot detect jasper home"/>
+		<echo message="jasper home: ${jasper.home}"/>
+		<path id="detect.jasper.jar">
+			<fileset dir="${jasper.home}/buildomatic/conf_source">
+				<filename regex=".*/lib/jasperreports-\d.*.jar"/>
+			</fileset>
+		</path>
+		<pathconvert property="detect.jasper.jar" refid="detect.jasper.jar"/>
+		<dirname property="jasper.lib" file="${detect.jasper.jar}"/>
+		<echo message="jasper lib: ${jasper.lib}"/>
+	</target>
+
+	<target name="dependencies" depends="detect.jasper">
+		<fail message="Jasper lib '${jasper.lib}' could not be found">
+			<condition>
+				<not>
+					<available property="jasper.lib.present" file="${jasper.lib}" type="dir"/>
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<target name="all" depends="dependencies">
+		<antcall target="jars">
+			<param name="target" value="all"/>
+		</antcall>
+	</target>
+
+	<target name="clean">
+		<antcall target="jars">
+			<param name="target" value="clean"/>
+		</antcall>
+		<delete dir="${build.output}"/>
+	</target>
+
+	<target name="jars">
+		<echo message="ChartsCustomizers"/>
+		<ant dir="ovirt-engine-reports/ChartsCustomizers" target="${target}"/>
+		<echo message="CustomOvirtReportsQueryManipulator"/>
+		<ant dir="ovirt-engine-reports/CustomOvirtReportsQueryManipulator" target="${target}"/>
+		<echo message="EngineAuthentication"/>
+		<ant dir="ovirt-engine-reports/EngineAuthentication" target="${target}"/>
+		<echo message="ReportsLineBarChartTheme"/>
+		<ant dir="ovirt-engine-reports/ReportsLineBarChartTheme" target="${target}"/>
+		<echo message="ReportsPieChartTheme"/>
+		<ant dir="ovirt-engine-reports/ReportsPieChartTheme" target="${target}"/>
+		<echo message="ReportsStatus"/>
+		<ant dir="ovirt-engine-reports/ReportsStatus" target="${target}"/>
+		<echo message="WebadminLineBarChartTheme"/>
+		<ant dir="ovirt-engine-reports/WebadminLineBarChartTheme" target="${target}"/>
+	</target>
+
+</project>

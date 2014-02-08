@@ -1,19 +1,7 @@
-# build-time files
-###########################
+lib
+target
 tmp.*
 
-# IDE files
-###########################
-.project
-.classpath
-*.prefs
-
-# mvn folders
-###########################
-target
-
-# generated files
-###########################
 build/python-check.sh
 ovirt-engine-reports.spec
 packaging/jasper-customizations/WEB-INF/applicationContext-ovirt-override.xml

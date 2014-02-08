@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="CustomOvirtReportsQueryManipulator" default="all">
+	<property name="build.output" location="lib"/>
+	<property name="local.output" value="${build.output}/CustomOvirtReportsQueryManipulator.jar"/>
+
+	<path id="local.classpath">
+		<fileset dir="${jasper.lib}"><filename regex="commons-lang-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="jasperserver-api-common-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="jasperserver-api-engine-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename regex="jasperserver-war-jar-\d.*.jar"/></fileset>
+	</path>
+
+	<target name="all">
+		<mkdir dir="target"/>
+		<mkdir dir="${build.output}"/>
+		<javac
+			srcdir="src"
+			destdir="target"
+			includeAntRuntime="no"
+			encoding="utf-8"
+			classpathref="local.classpath"
+		/>
+		<jar
+			destfile="${local.output}"
+			basedir="target"
+			includes="**/*.class"
+		/>
+	</target>
+
+	<target name="clean">
+		<delete dir="target"/>
+		<delete file="${local.output}"/>
+	</target>
+</project>

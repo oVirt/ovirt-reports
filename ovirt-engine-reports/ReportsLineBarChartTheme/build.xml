@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="ReportsLineBarChartTheme" default="all">
+	<property name="build.output" location="lib"/>
+	<property name="local.output" value="${build.output}/ReportsLineBarChartTheme.jar"/>
+
+	<target name="all">
+		<mkdir dir="${build.output}"/>
+		<jar
+			destfile="${local.output}"
+			basedir="src/main/resources"
+		/>
+	</target>
+
+	<target name="clean">
+		<delete file="${local.output}"/>
+	</target>
+</project>

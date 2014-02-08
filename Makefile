@@ -24,12 +24,11 @@
 #
 # CUSTOMIZATION-BEGIN
 #
-BUILD_UT=1
 EXTRA_BUILD_FLAGS=
 BUILD_VALIDATION=1
 
 PACKAGE_NAME=ovirt-engine-reports
-MVN=mvn
+ANT=ant
 PYTHON=python
 PYFLAKES=pyflakes
 PEP8=pep8
@@ -54,19 +53,11 @@ PKG_GROUP=ovirt
 #
 
 include version.mak
-# major, minor, seq
-POM_VERSION:=$(shell cat pom.xml | grep '<ovirt-reports.version>' | sed -e 's/.*>\(.*\)<.*/\1/' -e 's/-SNAPSHOT//')
-# major, minor from pom and fix
-APP_VERSION=$(shell echo $(POM_VERSION) | sed 's/\([^.]*\.[^.]\)\..*/\1/').$(FIX_RELEASE)
-RPM_VERSION=$(APP_VERSION)
-PACKAGE_VERSION=$(APP_VERSION)$(if $(MILESTONE),_$(MILESTONE))
+RPM_VERSION=$(VERSION)
+PACKAGE_VERSION=$(VERSION)$(if $(MILESTONE),_$(MILESTONE))
 DISPLAY_VERSION=$(PACKAGE_VERSION)
 
-
 BUILD_FLAGS:=
-ifeq ($(BUILD_UT),0)
-BUILD_FLAGS:=$(BUILD_FLAGS) -D skipTests
-endif
 BUILD_FLAGS:=$(BUILD_FLAGS) $(EXTRA_BUILD_FLAGS)
 
 PYTHON_SYS_DIR:=$(shell $(PYTHON) -c "from distutils.sysconfig import get_python_lib as f;print(f())")
@@ -76,16 +67,6 @@ ARCH=noarch
 BUILD_FILE=tmp.built
 MAVEN_OUTPUT_DIR=.
 BUILD_TARGET=install
-
-ARTIFACTS = \
-	ChartsCustomizers \
-	EngineAuthentication \
-	ReportsLineBarChartTheme \
-	ReportsPieChartTheme \
-	ReportsStatus \
-	WebadminLineBarChartTheme \
-	CustomOvirtReportsQueryManipulator \
-	$(NULL)
 
 .SUFFIXES:
 .SUFFIXES: .in
@@ -129,20 +110,14 @@ generated-files:	$(GENERATED)
 	chmod a+x build/python-check.sh
 
 $(BUILD_FILE):
-	export MAVEN_OPTS="${MAVEN_OPTS} -XX:MaxPermSize=512m"
-	$(MVN) \
-		$(BUILD_FLAGS) \
-		$(BUILD_TARGET) \
-		$(NULL)
+	$(ANT) $(BUILD_FLAGS) all
 	touch $(BUILD_FILE)
 
 clean:
-	$(MVN) clean $(EXTRA_BUILD_FLAGS)
-	rm -rf $(OUTPUT_DIR) $(BUILD_FILE) tmp.dev.flist
+	$(ANT) $(BUILD_FLAGS) clean
+	rm -rf $(BUILD_FILE)
+	rm -fr tmp.dev.flist
 	rm -rf $(GENERATED)
-
-test:
-	$(MVN) install $(BUILD_FLAGS) $(EXTRA_BUILD_FLAGS)
 
 install: \
 	all \
@@ -199,9 +174,9 @@ validations:	generated-files
 
 install-artifacts:
 	install -d "$(DESTDIR)$(PKG_JAVA_DIR)"
-	for artifact_id in $(ARTIFACTS); do \
-		JAR=`find "$(MAVEN_OUTPUT_DIR)" -name "$${artifact_id}-*.jar" | grep -v tmp.repos`; \
-		install -p -m 644 "$${JAR}" "$(DESTDIR)$(PKG_JAVA_DIR)/$${artifact_id}.jar"; \
+	install -d -m 755 "$(DESTDIR)$(PKG_JAVA_DIR)"
+		for jar in lib/*.jar; do \
+		install -m 0644 "$${jar}" "$(DESTDIR)$(PKG_JAVA_DIR)"; \
 	done
 
 install-packaging-files: \
