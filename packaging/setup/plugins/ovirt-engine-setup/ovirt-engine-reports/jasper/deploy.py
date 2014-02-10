@@ -515,6 +515,12 @@ class Plugin(plugin.PluginBase):
         os.mkdir(self._javatmp)
 
     @plugin.event(
+        stage=plugin.Stages.STAGE_SETUP,
+    )
+    def _setup(self):
+        self.command.detect('patch')
+
+    @plugin.event(
         stage=plugin.Stages.STAGE_VALIDATION,
         condition=lambda self: (
             self.environment[oreportscons.CoreEnv.ENABLE]
@@ -795,6 +801,30 @@ class Plugin(plugin.PluginBase):
                     node.unlinkNode()
 
         self.logger.info(_('Customizing Jasper'))
+
+        for p in sorted(
+            glob.glob(
+                os.path.join(
+                    oreportscons.FileLocations.OVIRT_ENGINE_WAR_PATCHES,
+                    '*.patch',
+                )
+            )
+        ):
+            rc, stdout, stderr = self.execute(
+                args=(
+                    self.command.get('patch'),
+                    '-p1',
+                    '-B', os.path.join(self._temproot, 'patches-backup'),
+                    '-d', (
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_JASPER_WAR
+                    ),
+                    '-i', p,
+                    '--reject-file', '-',
+                    '--batch',
+                    '--silent',
+                ),
+            )
 
         base = oreportscons.FileLocations.OVIRT_ENGINE_JASPER_CUSTOMIZATION
         for directory, dirs, files in os.walk(base):

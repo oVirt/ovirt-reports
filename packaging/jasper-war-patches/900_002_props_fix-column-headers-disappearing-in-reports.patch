@@ -1,0 +1,25 @@
+--- a/WEB-INF/classes/jasperreports.properties
++++ b/WEB-INF/classes/jasperreports.properties
+@@ -4,11 +4,18 @@
+ #limit the crosstab bucket/measure count to prevent out of memory errors
+ net.sf.jasperreports.crosstab.bucket.measure.limit=100000
+ 
+-#suppress page and column footers and all but the first page and column headers when exporting to XLS
++# suppress page headers and footers when exporting to XLS 
++
++net.sf.jasperreports.export.exclude.origin.band.1=pageHeader
++net.sf.jasperreports.export.exclude.origin.band.2=pageFooter
++
++# this gets rid of the repeating column headers and footers in excel exports
++net.sf.jasperreports.export.xls.exclude.origin.band.1=columnHeader
++net.sf.jasperreports.export.xls.exclude.origin.band.2=pageFooter
++
++# keep the first column header on export
+ net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1=pageHeader
+-net.sf.jasperreports.export.xls.exclude.origin.band.2=pageFooter
+-net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.3=columnHeader
+-net.sf.jasperreports.export.xls.exclude.origin.band.4=columnFooter
++net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.2=columnHeader
+ 
+ # report exporter hints override export parameters
+ net.sf.jasperreports.export.parameters.override.report.hints=false

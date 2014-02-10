@@ -1,0 +1,14 @@
+--- a/WEB-INF/web.xml
++++ b/WEB-INF/web.xml
+@@ -19,6 +19,11 @@
+         <param-name>log4jConfigLocation</param-name>
+         <param-value>/WEB-INF/log4j.properties</param-value>
+     </context-param>
++
++  <context-param>
++    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
++    <param-value>true</param-value>
++  </context-param>
+     
+     <!-- listener to load the root application context -->
+     <listener>

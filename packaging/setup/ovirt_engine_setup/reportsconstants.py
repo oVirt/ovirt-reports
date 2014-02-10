@@ -115,6 +115,10 @@ class FileLocations(object):
         PKG_DATA_DIR,
         'jasper-customizations',
     )
+    OVIRT_ENGINE_WAR_PATCHES = os.path.join(
+        PKG_DATA_DIR,
+        'jasper-war-patches',
+    )
     OVIRT_ENGINE_REPORTS_EXPORT = os.path.join(
         PKG_DATA_DIR,
         'ovirt-reports',

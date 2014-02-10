@@ -49,6 +49,7 @@ Requires:	java
 Requires:	jpackage-utils
 Requires:	m2crypto
 Requires:	ovirt-engine >= 3.4.0
+Requires:	patch
 
 # bug#862355
 Requires:	liberation-mono-fonts

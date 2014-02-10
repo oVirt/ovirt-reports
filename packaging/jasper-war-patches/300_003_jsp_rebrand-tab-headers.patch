@@ -1,0 +1,22 @@
+--- a/WEB-INF/decorators/decorator.jsp
++++ b/WEB-INF/decorators/decorator.jsp
+@@ -37,7 +37,7 @@
+ 
+ <html>
+     <head>
+-        <title>Jaspersoft: <decorator:title /></title>
++        <title>oVirt Engine Reports: <decorator:title /></title>
+         <meta http-equiv="Content-Type" content="text/html; charset=${requestScope['com.jaspersoft.ji.characterEncoding']}">
+ 
+         <!--
+--- a/WEB-INF/decorators/minimalDecorator.jsp
++++ b/WEB-INF/decorators/minimalDecorator.jsp
+@@ -33,7 +33,7 @@
+ 
+ <html>
+ <head>
+-    <title>Jaspersoft: <decorator:title/></title>
++    <title>oVirt Engine reports: <decorator:title/></title>
+     <meta http-equiv="Content-Type" content="text/html; charset=${requestScope['com.jaspersoft.ji.characterEncoding']}">
+     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+     <link rel="shortcut icon" href="favicon.ico"/>

@@ -1,0 +1,10 @@
+--- a/WEB-INF/jsp/modules/viewReport/ViewReportState.jsp
++++ b/WEB-INF/jsp/modules/viewReport/ViewReportState.jsp
+@@ -24,7 +24,6 @@
+ <c:if test="${needPageRefresh}">
+ <script type="text/javascript">
+     <%-- HTTP redirect can't be applied here because it adds jsessionid parameter --%>
+-    window.location.reload();
+ </script>
+ </c:if>
+ 

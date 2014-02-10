@@ -1,0 +1,20 @@
+--- a/WEB-INF/web.xml
++++ b/WEB-INF/web.xml
+@@ -338,6 +338,17 @@
+   <servlet-mapping>
+     <servlet-name>JasperXmlaServlet</servlet-name>
+     <url-pattern>/xmla</url-pattern>
++  </servlet-mapping>
++
++  <!-- Status Servlet -->
++  <servlet>
++    <servlet-name>StatusServlet</servlet-name>
++    <servlet-class>org.ovirt.status.StatusServlet</servlet-class>
++  </servlet>
++
++  <servlet-mapping>
++    <servlet-name>StatusServlet</servlet-name>
++    <url-pattern>/Status</url-pattern>
+   </servlet-mapping>
+ 
+   <!-- for drillthrough -->

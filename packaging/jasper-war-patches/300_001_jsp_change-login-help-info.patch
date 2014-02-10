@@ -1,0 +1,15 @@
+--- a/WEB-INF/jsp/modules/login/loginHelp.jsp
++++ b/WEB-INF/jsp/modules/login/loginHelp.jsp
+@@ -34,11 +34,7 @@
+             <c:if test="${isProVersion}">
+                 <li><span class="emphasis">superuser</span> <spring:message code='LOGIN_SUPERUSER_USER'/></li>
+             </c:if>
+-            <li><span class="emphasis">jasperadmin</span> <spring:message code='LOGIN_ADMIN_USER'/></li>
+-            <li><span class="emphasis">joeuser/joeuser</span> <spring:message code='LOGIN_JOEUSER'/></li>
+-            <c:if test="${isProVersion}">
+-                <li><span class="emphasis">demo/demo</span> <spring:message code='LOGIN_TO_VIEW_DEMO'/></li>
+-            </c:if>
++            <li><span class="emphasis">ovirt-admin</span> <spring:message code='LOGIN_ADMIN_USER'/></li>
+         </ul>
+         <p class="message"><spring:message code='CONTACT_ADMIN'/>.</p>
+     </t:putAttribute>
