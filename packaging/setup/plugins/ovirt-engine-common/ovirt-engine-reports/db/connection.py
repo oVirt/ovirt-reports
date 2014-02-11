@@ -107,15 +107,18 @@ class Plugin(plugin.PluginBase):
     def _setup(self):
         p = None
         if os.path.exists(
-            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
         ):
-            p = oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+            p = (
+                oreportscons.FileLocations.
+                OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+            )
         elif os.path.exists(
             os.path.join(
                 self.environment[oreportscons.ConfigEnv.JASPER_HOME],
                 (
                     oreportscons.FileLocations.
-                    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+                    LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
                 ),
             )
         ):
@@ -124,7 +127,7 @@ class Plugin(plugin.PluginBase):
                 self.environment[oreportscons.ConfigEnv.JASPER_HOME],
                 (
                     oreportscons.FileLocations.
-                    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP
+                    LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
                 ),
             )
 

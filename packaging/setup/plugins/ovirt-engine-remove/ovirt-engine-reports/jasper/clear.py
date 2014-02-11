@@ -95,7 +95,7 @@ class Plugin(plugin.PluginBase):
             oreportscons.FileLocations.
             OVIRT_ENGINE_REPORTS_JASPER_MODULES,
             oreportscons.FileLocations.
-            OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG,
+            OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG,
         ):
             if os.path.exists(src):
                 shutil.rmtree(src)

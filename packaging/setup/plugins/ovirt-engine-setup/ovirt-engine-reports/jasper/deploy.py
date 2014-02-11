@@ -118,7 +118,7 @@ class Plugin(plugin.PluginBase):
                 oreportscons.FileLocations.
                 OVIRT_ENGINE_REPORTS_JASPER_MODULES,
                 oreportscons.FileLocations.
-                OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG,
+                OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG,
             ):
                 if os.path.exists(src):
                     dst = '%s.%s' % (src, suffix)
@@ -237,7 +237,7 @@ class Plugin(plugin.PluginBase):
             os.umask(myumask)
 
             #
-            # foomatic config
+            # buildomatic config
             # contains sensitive information
             # for some reason jasper recreate
             # it, so we cannot be fully secured while
@@ -245,12 +245,12 @@ class Plugin(plugin.PluginBase):
             #
             if os.path.exists(
                 oreportscons.FileLocations.
-                OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
             ):
                 os.chmod(
                     (
                         oreportscons.FileLocations.
-                        OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                        OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
                     ),
                     0o700,
                 )
@@ -278,7 +278,7 @@ class Plugin(plugin.PluginBase):
                 'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
-                    OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
                 ),
             },
         )
@@ -304,7 +304,7 @@ class Plugin(plugin.PluginBase):
                 'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
-                    OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
                 ),
             },
         )
@@ -914,7 +914,7 @@ class Plugin(plugin.PluginBase):
                 self.environment[oreportscons.ConfigEnv.JASPER_HOME],
                 (
                     oreportscons.FileLocations.
-                    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG
+                    LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
                 ),
             ),
         ):

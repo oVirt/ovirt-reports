@@ -103,12 +103,12 @@ class FileLocations(object):
         'WEB-INF',
         'js.quartz.properties',
     )
-    OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG = os.path.join(
+    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG = os.path.join(
         PKG_STATE_DIR,
         'build-conf',
     )
-    OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP = os.path.join(
-        OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG,
+    OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP = os.path.join(
+        OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG,
         'master.properties',
     )
     OVIRT_ENGINE_JASPER_CUSTOMIZATION = os.path.join(
@@ -166,13 +166,13 @@ class FileLocations(object):
         'js.quartz.properties',
     )
 
-    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG = os.path.join(
+    LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG = os.path.join(
         'buildomatic',
         'build_conf',
     )
 
-    LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_DBPROP = os.path.join(
-        LEGACY_OVIRT_ENGINE_REPORTS_FOOMATIC_CONFIG,
+    LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP = os.path.join(
+        LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG,
         'default',
         'master.properties',
     )
