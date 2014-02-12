@@ -509,6 +509,7 @@ class Plugin(plugin.PluginBase):
         self._users = None
         self._jobs = None
         self._dwhdatasource = None
+        self._savedReports = None
 
     @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
@@ -617,6 +618,24 @@ class Plugin(plugin.PluginBase):
                 _('Could not detect Jasper war folder')
             )
 
+        everything = self._exportJs(
+            what='everything',
+            args=(
+                '--everything',
+            ),
+        )
+        if os.path.exists(
+            os.path.join(
+                everything,
+                'resources/saved_reports',
+            )
+        ):
+            self._savedReports = self._exportJs(
+                what='savedReports',
+                args=(
+                    '--uris', '/saved_reports',
+                ),
+            )
         self._jobs = self._exportJs(
             what='jobs',
             args=(
@@ -712,6 +731,9 @@ class Plugin(plugin.PluginBase):
 
         if self._users:
             self._importJs(self._users)
+
+        if self._savedReports:
+            self._importJs(self._savedReports)
 
         self._importJs(self._prepareOvirtReports())
 

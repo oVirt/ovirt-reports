@@ -8,6 +8,7 @@
     <folder>Reports</folder>
     <folder>reports_resources</folder>
     <folder>themes</folder>
+    <folder>saved_reports</folder>
     <permission>
         <permissionMask>2</permissionMask>
         <recipient recipientType="role">ROLE_USER</recipient>
