@@ -649,14 +649,14 @@ class Plugin(plugin.PluginBase):
                 '--roles',
             ),
         )
-        everything = self._exportJs(
-            what='everything',
+        dwhdatasourceexport = self._exportJs(
+            what='dwhdatasourceexport',
             args=(
-                '--everything',
+                '--uris', '/reports_resources/JDBC/data_sources/ovirt',
             ),
         )
         self._dwhdatasource = os.path.join(
-            everything,
+            dwhdatasourceexport,
             'resources/reports_resources/JDBC/data_sources/ovirt.xml',
         )
 
