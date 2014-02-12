@@ -94,7 +94,6 @@ install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{name}"
 
 %postun
 if [ "$1" -eq 0 ]; then
-	rm -f /etc/ovirt-engine/jrs-deployment.version
 	rm -rf /var/lib/ovirt-engine-reports/%{name}.war
 	rm -f /var/lib/ovirt-engine/reports.xml
 fi
