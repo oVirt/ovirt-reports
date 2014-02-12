@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<export><property name="pathProcessorId" value="file"/><property name="jsVersion" value="4.2.1 CE"/><module id="authority"><user>ovirt-admin</user><role>ROLE_USER</role><role>ROLE_ADMINISTRATOR</role></module><module id="repositoryResources"><folder>/</folder></module></export>
+<export><property name="pathProcessorId" value="file"/><property name="jsVersion" value="4.2.1 CE"/><module id="authority"><user>admin</user><role>ROLE_USER</role><role>ROLE_ADMINISTRATOR</role></module><module id="repositoryResources"><folder>/</folder></module></export>

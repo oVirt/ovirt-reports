@@ -9,7 +9,7 @@
 -            <c:if test="${isProVersion}">
 -                <li><span class="emphasis">demo/demo</span> <spring:message code='LOGIN_TO_VIEW_DEMO'/></li>
 -            </c:if>
-+            <li><span class="emphasis">ovirt-admin</span> <spring:message code='LOGIN_ADMIN_USER'/></li>
++            <li><span class="emphasis">admin</span> <spring:message code='LOGIN_ADMIN_USER'/></li>
          </ul>
          <p class="message"><spring:message code='CONTACT_ADMIN'/>.</p>
      </t:putAttribute>

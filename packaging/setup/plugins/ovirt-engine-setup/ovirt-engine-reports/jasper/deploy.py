@@ -365,7 +365,7 @@ class Plugin(plugin.PluginBase):
                 os.path.join(
                     reportsImport,
                     'users',
-                    'ovirt-002dadmin.xml',
+                    'admin.xml',
                 )
             ) as xml:
                 xml.setNodesContent(
@@ -373,6 +373,10 @@ class Plugin(plugin.PluginBase):
                     self.environment[
                         oreportscons.ConfigEnv.ADMIN_PASSWORD
                     ],
+                )
+                xml.setNodesContent(
+                    '/user/enabled',
+                    'true',
                 )
 
         dwhdatasource = os.path.join(

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <user>
-    <username>ovirt-admin</username>
-    <fullName>ovirt-admin</fullName>
-    <password>oVirtadmin2009!</password>
+    <username>admin</username>
+    <fullName>admin</fullName>
+    <password>admin1!</password>
     <email></email>
     <externallyDefined>false</externallyDefined>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <role>ROLE_USER</role>
     <role>ROLE_ADMINISTRATOR</role>
 </user>
