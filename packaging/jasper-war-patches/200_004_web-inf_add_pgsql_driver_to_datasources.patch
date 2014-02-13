@@ -1,0 +1,12 @@
+--- a/WEB-INF/js-jboss7-ds.xml
++++ b/WEB-INF/js-jboss7-ds.xml
+@@ -68,4 +68,9 @@
+             <share-prepared-statements>false</share-prepared-statements>
+         </statement>
+     </datasource>
++    <drivers>
++        <driver name="postgresql" module="org.postgresql">
++            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
++        </driver>
++    </drivers>
+ </datasources>

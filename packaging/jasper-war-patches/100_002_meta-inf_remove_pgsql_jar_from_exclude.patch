@@ -1,0 +1,10 @@
+--- a/META-INF/jboss-deployment-structure.xml
++++ b/META-INF/jboss-deployment-structure.xml
+@@ -174,7 +174,6 @@
+          	<resource-root path="WEB-INF/lib/db2jcc-9.7.jar" use-physical-code-source="true"/>
+          	<resource-root path="WEB-INF/lib/sqljdbc-1.6-2206.100.jar" use-physical-code-source="true"/>
+          	<resource-root path="WEB-INF/lib/vertica_4.1.19_jdk_5.jar" use-physical-code-source="true"/>
+-         	<resource-root path="WEB-INF/lib/postgresql-9.2-1002.jdbc4.jar" use-physical-code-source="true"/>
+ 
+ 
+             <!-- 2013-07-15 thorick

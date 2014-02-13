@@ -784,47 +784,11 @@ class Plugin(plugin.PluginBase):
                 'js-jboss7-ds.xml',
             )
         ) as xml:
-            if len(xml.xpath.xpathEval('/datasources/drivers')) == 0:
-                addition = None
-                try:
-                    addition = libxml2.parseDoc(
-                        '''
-<drivers>
-  <driver name="postgresql" module="org.postgresql">
-    <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
-  </driver>
-</drivers>
-                        '''
-                    )
-                    xml.xpath.xpathEval('/datasources')[0].addChild(
-                        addition.getRootElement()
-                    )
-                finally:
-                    # do not free, cause segmentation fault
-                    #addition.freeDoc()
-                    pass
-
             for node in xml.xpath.xpathEval(
                 '/datasources/datasource/driver'
             ):
                 if 'postgresql' in node.content:
                     node.setContent('postgresql')
-
-        with self.XMLDoc(
-            os.path.join(
-                oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR,
-                'META-INF',
-                'jboss-deployment-structure.xml',
-            )
-        ) as xml:
-            for node in xml.xpath.xpathEval(
-                (
-                    '/jboss-deployment-structure/deployment'
-                    '/resources/resource-root'
-                )
-            ):
-                if 'postgresql' in node.prop('path'):
-                    node.unlinkNode()
 
         self.logger.info(_('Customizing Jasper'))
 
