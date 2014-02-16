@@ -572,10 +572,13 @@ dr5.text=Estatus de ejecuci\u00F3n de  <b>Hosts</b>
 dr8.text=Estatus de espacio de los <b>dominios de almacenamiento</b> 
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr27.title=Resumen del uso de los recursos del host del cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 axis.used.free.storage.size.percent=Tama\u00F1o del almacenamiento utilizado/disponible %
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr26.title=Los cinco dominios de almacenamiento m\u00E1s utilizados
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 dr26.chart.available.size.percent=Tama\u00F1o disponible %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 dr26.chart.used.size.percent=Tama\u00F1o utilizado %
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr25.title=Las cinco primeras m\u00E1quinas virtuales de los cl\u00FAsters que guardaron cambios
@@ -593,50 +596,105 @@ dr10.text=Estatus de los recursos <b>Hosts</b>
 dr4.text=Estatus de ejecuci\u00F3n de  <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author angelagarcia
 dr7.text=Estatus de espacio de los <b>dominios de almacenamiento</b> 
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.table.vm.description=Descripci\u00F3n MV
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.table.number.of.sockets=\#Sockets
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.table.cores.per.socket=\#N\u00FAcleos por socket
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.table.existence.time.hours=Tiempo de existencia (horas)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.table.vm.uptime.hours=Tiempo ejecutando MV (horas)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.table.vm.uuid=UUID MV
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br44.title=Inventorio de la m\u00E1quina virtual del proveedor nube en <b>{0}</b> of <b>Data Center {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.user.name=Nombre de usuario
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.vm.name=Nombre m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.session.time.in.hours=Tiempo de sesi\u00F3n (horas)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.average.cpu.usage.percent=Uso promedio de la CPU %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.average.user.cpu.usage.percent=Uso promedio de la CPU del usuario %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.average.system.cpu.usage.percent=Uso promedio de la CPU del sistema %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.peak.cpu.usage.percent=Uso m\u00E1ximo de la CPU %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.peak.system.cpu.usage.percent=Uso m\u00E1ximo de la CPU del sistema %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.peak.user.cpu.usage.percent=Uso m\u00E1ximo de la CPU del usuario %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.average.memory.usage.percent=Uso promedio de la memoria %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.table.peak.memory.usage.percent=Uso m\u00E1ximo de la memoria %
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br45.title=Actividad de las sesiones Spice de los usuarios en <b>{0}</b> de <b>Data Center {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 dr.count.list.storage.domains=Dominios de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br46.title=Tiempo en ejecuci\u00F3n de <b>Virtual Machine {0}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br46.meter.title=Tiempo de ejecuci\u00F3n de la m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 full.details.storage.domain.type=Tipo del dominio de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 full.details.show.deleted.storage.domains=Mostrar los dominios de almacenamiento borrados
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.title=Inventorio de los dominios de almacenamiento de <b>Data Center {0}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.table.storage.domain.name=Nombre del dominio de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.table.storage.domain.type=Tipo del dominio de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.table.storage.type=Tipo de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.table.free.space.gb=Espacio libre (GB)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.table.used.space.gb=Espacio utilizado (GB)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 br47.table.total.space.gb=Espacio total (GB)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.cluster=Cl\u00FAster
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.is.deleted=\u00BFMostrar entidades borradas
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.cpu.threshold=L\u00EDmite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.memory.threshold=L\u00EDmite memoria
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.period.range=Rango del periodo
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.dates=Fechas
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.dc=Centro de datos
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.host.name=Nombre del host
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.hosts.list=Lista de hosts
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.host.type=Tipo de host
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.storage.domain.type=Tipo del dominio de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.storage.domain.name=Nombre del dominio de almacenamiento
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.vm.name=Nombre m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.vm.list=Lisya de m\u00E1quinas virtuales
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.vm.type=Tipo de m\u00E1quina virtual
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
 ic.is.deleted.detached=\u00BFMostrar las entidades Show DeletedDetached?
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
+inventory.dashboard.title=Panel del inventorio del <font color\="\#333333">centro de datos {0}</font>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
+system.overview.dashboard.title=Panel de la sinopsis del sistema del <font color\="\#333333">centro de datos {0}</font>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
+trends.dashboard.title=Panel de tendencias del <font color\="\#333333">centro de datos {0}</font>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author angelagarcia
+uptime.dashboard.title=Panel del tiempo de ejecuci\u00F3n del <font color\="\#333333">centro de datos {0}</font>

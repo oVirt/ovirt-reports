@@ -572,10 +572,13 @@ dr5.text=Statut du temps d'activit\u00E9 des <b>H\u00F4tes</b>
 dr8.text=Statut des <b>Domaines de stockage</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 dr27.title=R\u00E9capitulatif de l'utilisation des ressources des h\u00F4tes du cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 axis.used.free.storage.size.percent=% Taille du stockage Disponible\\Utillis\u00E9
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 dr26.title=Les cinq domaines de stockage les plus utilis\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 dr26.chart.available.size.percent=% Taille Disponible
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 dr26.chart.used.size.percent=% Taille Utilis\u00E9e
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 dr25.title=Les cinq 'machines virtuelles' de clusters avec le plus de sur-validation
@@ -593,50 +596,105 @@ dr10.text=Statut des ressources des <b>H\u00F4tes</b>
 dr4.text=Statut du temps d'activit\u00E9 des <b>H\u00F4tes</b>
 # translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
 dr7.text=Statut des <b>Domaines de stockage</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.table.vm.description=Description VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.table.number.of.sockets=\#Sockets
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.table.cores.per.socket=\#Cores par Socket
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.table.existence.time.hours=Temps Existence (Heures)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.table.vm.uptime.hours=Temps d'activit\u00E9 (Heures)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.table.vm.uuid=UUID VM
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br44.title=Inventaire des machines virtuelles du fournisseur Cloud <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.user.name=Nom d'utilisateur
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.vm.name=Nom de la machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.session.time.in.hours=Temps de session (Heures)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.average.cpu.usage.percent=% Utilisation CPU moyen
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.average.user.cpu.usage.percent=% Utilisation CPU moyen Utilisateur
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.average.system.cpu.usage.percent=% Utilisation CPU moyen Syst\u00E8me
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.peak.cpu.usage.percent=% Utilisation CPU Pic
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.peak.system.cpu.usage.percent=% Utilisation CPU max Syst\u00E8me
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.peak.user.cpu.usage.percent=% Utilisation CPU max Utilisateur
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.average.memory.usage.percent=% Utilisation M\u00E9moire moyen
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.table.peak.memory.usage.percent=% Utilisation M\u00E9moire max
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br45.title=Temps d'activit\u00E9 Utilisateur du <b>{0}</b> du <b>Centre de donn\u00E9es {1}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 dr.count.list.storage.domains=Domaines de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br46.title=Temps d'activit\u00E9 de la <b>Machine Virtuelle {0}</b> 
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br46.meter.title=Temps d'activit\u00E9 de la machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 full.details.storage.domain.type=Type Domaine de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 full.details.show.deleted.storage.domains=Affichier les Domaines de stockage supprim\u00E9s
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.title=Inventaire des domaines de stockage du <b>Centre de donn\u00E9es {0}</b>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.table.storage.domain.name=Nom Domaine de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.table.storage.domain.type=Type Domaine de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.table.storage.type=Type de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.table.free.space.gb=Espace libre (Go)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.table.used.space.gb=Espace utilis\u00E9 (Go)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 br47.table.total.space.gb=Espace total (Go)
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.cluster=Cluster
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.is.deleted=Afficher les entit\u00E9s supprim\u00E9es ?
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.cpu.threshold=Limite CPU
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.memory.threshold=Limite de la m\u00E9moire
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.period.range=Plage de valeurs
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.dates=Dates
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.dc=Centre de donn\u00E9es
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.host.name=Nom de l'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.hosts.list=Liste des h\u00F4tes
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.host.type=Type d'h\u00F4te
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.storage.domain.type=Type Domaine de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.storage.domain.name=Nom Domaine de stockage
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.vm.name=Nom de machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.vm.list=Liste des machines virtuelles
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.vm.type=Type de machine virtuelle
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
 ic.is.deleted.detached=Afficher les entit\u00E9s Supprim\u00E9esD\u00E9tach\u00E9es ?
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
+inventory.dashboard.title=Tableau de bord de l'inventaire du <font color\="\#333333">Data Center {0}</font>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
+system.overview.dashboard.title=Tableau de bord syst\u00E8me du <font color\="\#333333">Data Center {0}</font>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
+trends.dashboard.title=Tableau de bord des tendances du <font color\="\#333333">Data Center {0}</font>
+# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author croe
+uptime.dashboard.title=Tableau de bord du temps d'activit\u00E9 <font color\="\#333333">Data Center {0}</font>

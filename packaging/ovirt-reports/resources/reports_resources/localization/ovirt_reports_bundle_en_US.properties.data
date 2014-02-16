@@ -346,3 +346,7 @@ ic.vm.name=Virtual Machine Name
 ic.vm.list=Virtual Machine List
 ic.vm.type=Virtual Machine Type
 ic.is.deleted.detached=Show Deleted\Detached Entities?
+inventory.dashboard.title=Inventory Dashboard of <font color="#333333">Data Center {0}</font>
+system.overview.dashboard.title=System Overview Dashboard of <font color="#333333">Data Center {0}</font>
+trends.dashboard.title=Trends Dashboard of <font color="#333333">Data Center {0}</font>
+uptime.dashboard.title=Uptime Dashboard of <font color="#333333">Data Center {0}</font>
