@@ -1,42 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<inputControl>
+<inputControl exportedWithPermissions="true">
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
     <name>is_deleted</name>
-    <version>29</version>
+    <version>5</version>
     <label>$R{ic.is.deleted}</label>
-    <creationDate>2013-01-09T15:03:21.249+02:00</creationDate>
-    <updateDate>2013-01-15T17:57:27.550+02:00</updateDate>
+    <creationDate>2014-02-13T15:26:02.373+02:00</creationDate>
+    <updateDate>2014-02-17T10:04:49.427+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
     <visible>true</visible>
     <query>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="query">
             <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/is_deleted_files</folder>
             <name>is_deleted</name>
             <version>1</version>
             <label>is_deleted</label>
-            <creationDate>2013-01-15T17:57:27.550+02:00</creationDate>
-            <updateDate>2013-01-15T17:57:27.550+02:00</updateDate>
+            <creationDate>2014-02-17T10:04:49.427+02:00</creationDate>
+            <updateDate>2014-02-17T10:04:49.427+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as display, 'AND delete_date IS NULL' as value
+            <queryString>-- The select list will display "Yes" or "No",
+-- if the user chose to include deleted entities or not correspondingly.
+-- The value is localized according to the session and passed to the report query.
+
+SELECT DISTINCT
+    coalesce(
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+    as display,
+    /* If the user chose not to include deleted entities in the report */
+    /* then 'AND delete_date IS NULL' will be passed as $P!{is_deleted} parameter to the report queries */
+    'AND delete_date IS NULL' as value
 FROM enum_translator as enum_translator_default
-                LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                           FROM enum_translator
-                                           WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+    LEFT OUTER JOIN
+        (
+        SELECT
+            enum_type, enum_key,
+            value as value_localized
+        FROM enum_translator
+        WHERE
+            language_code = $P{userlocale}
+        )
+        as enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_key = 0
-           AND enum_translator_default.enum_type = 'REPORTS_SHOW_DELETED'
+AND enum_translator_default.enum_key = 0
+AND enum_translator_default.enum_type = 'REPORTS_SHOW_DELETED'
+
 UNION ALL
-SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as display, '' as value
+
+SELECT DISTINCT
+    coalesce(
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+    as display,
+    /* If the user chose to include deleted entities in the report */
+    /* then '' will be passed as $P!{is_deleted} parameter to the report queries */
+    '' as value
 FROM enum_translator as enum_translator_default
-                LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                           FROM enum_translator
-                                           WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value as value_localized
+        FROM enum_translator
+        WHERE
+            language_code = $P{userlocale}
+    )
+    as enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_key = 1
-           AND enum_translator_default.enum_type = 'REPORTS_SHOW_DELETED'</queryString>
+AND enum_translator_default.enum_key = 1
+AND enum_translator_default.enum_type = 'REPORTS_SHOW_DELETED'</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
             </dataSource>

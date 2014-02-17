@@ -1,71 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<inputControl>
+<inputControl exportedWithPermissions="true">
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_cluster_with_vms</folder>
     <name>P_Cluster_ID</name>
-    <version>36</version>
+    <version>4</version>
     <label>$R{ic.cluster}</label>
-    <creationDate>2013-01-09T15:03:22.057+02:00</creationDate>
-    <updateDate>2013-01-16T15:17:17.199+02:00</updateDate>
+    <creationDate>2014-02-13T15:26:05.841+02:00</creationDate>
+    <updateDate>2014-02-17T13:04:56.608+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
     <visible>true</visible>
     <query>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="query">
             <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/cluster_ic/all_cluster_with_vms/P_Cluster_ID_files</folder>
             <name>Cluster</name>
             <version>1</version>
             <label>Cluster</label>
-            <creationDate>2013-01-16T15:17:17.199+02:00</creationDate>
-            <updateDate>2013-01-16T15:17:17.199+02:00</updateDate>
+            <creationDate>2014-02-17T13:04:56.608+02:00</creationDate>
+            <updateDate>2014-02-17T13:04:56.608+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT cast(cluster_id as varchar), delete_date, CASE
-                                                                WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))
-                                                                ELSE cluster_name || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
-                                                            END as combo_name, 0 as sort
+            <queryString>--This will display in the select list only the clusters that have vms.
+--The list can include deleted clusters, according to the value of the "is_deleted" parameter.
+--The deleted cluster names will be concatenated along with their remove date.
+
+
+SELECT DISTINCT
+    cast ( cluster_id as VARCHAR ),
+    delete_date,
+    CASE
+        WHEN delete_date IS NULL
+            THEN RTrim
+                (
+                    cast( cluster_name  as VARCHAR )
+                )
+        ELSE
+            cluster_name
+            ||
+            ' ('
+            ||
+            loc_removed_on.removed_on
+            ||
+            ' '
+            ||
+            to_char ( delete_date, $P{datetimelocalepattern} )
+            ||
+            ')'
+    END
+    as combo_name,
+    0 as sort
 FROM v3_4_configuration_history_clusters
-              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
-                                        FROM enum_translator as enum_translator_default
-                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                                                                FROM enum_translator
-                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-                                                  WHERE enum_translator_default.language_code = 'en_US'
-                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
-WHERE cluster_id in (SELECT DISTINCT cluster_id
-                              FROM v3_4_configuration_history_vms
-                              WHERE history_id in (SELECT max(a.history_id)
-                                                             FROM v3_4_configuration_history_vms a
-                                                             GROUP BY a.vm_id)
-                                         AND create_date &lt;= CASE
-                                                                               WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                               WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                               WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                               WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                         END
-                                         AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-                                         $P!{is_deleted})
-           AND datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-           AND history_id in (SELECT max(a.history_id)
-                                      FROM v3_4_configuration_history_clusters a
-                                      GROUP BY a.cluster_id)
-           AND create_date &lt;= CASE
-                                                 WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                 WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                 WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                 WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                           END
-           AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-           $P!{is_deleted}
+    LEFT OUTER JOIN (
+        SELECT DISTINCT
+            coalesce(
+                enum_translator_localized.value_localized,
+                enum_translator_default.value
+        )
+        as removed_on
+        FROM enum_translator as enum_translator_default
+            LEFT OUTER JOIN (
+                SELECT
+                    enum_type,
+                    enum_key,
+                    value as value_localized
+                FROM enum_translator
+                WHERE language_code = $P{userlocale}
+            )
+            as enum_translator_localized
+                ON (
+                    enum_translator_localized.enum_type =
+                    enum_translator_default.enum_type
+                    AND enum_translator_localized.enum_key =
+                    enum_translator_default.enum_key
+                )
+        WHERE enum_translator_default.language_code = 'en_US'
+        AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON'
+    )
+    as loc_removed_on
+        ON (0=0)
+WHERE cluster_id in
+    (
+        SELECT DISTINCT cluster_id
+        FROM v3_4_configuration_history_vms
+        WHERE history_id in
+            (
+                SELECT max( a.history_id )
+                FROM v3_4_configuration_history_vms a
+                GROUP BY a.vm_id
+            )
+        AND create_date &lt;=
+            CASE
+                WHEN $P{P_Period} = 0
+                    THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '1 year'
+            END
+        AND
+            (
+                delete_date IS NULL
+                OR
+                delete_date &gt;= cast( $P{P_Start_Date} as TIMESTAMP )
+            )
+         /* "is_deleted" is a parameter that will pass a part of the query. */
+        /* if the user chose not to view deleted entities then it will pass "AND delete_date IS NULL" else "NULL" */
+        $P!{is_deleted}
+    )
+AND datacenter_id = cast( $P{P_DataCenter_ID} as uuid )
+AND history_id in
+    (
+        SELECT max( a.history_id )
+        FROM v3_4_configuration_history_clusters a
+        GROUP BY a.cluster_id
+    )
+AND create_date &lt;=
+    CASE
+        WHEN $P{P_Period} = 0
+            THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '1 day'
+        WHEN $P{P_Period} = 1
+            THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '1 month'
+        WHEN $P{P_Period} = 2
+            THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '3 month'
+        WHEN $P{P_Period} = 3
+            THEN cast( $P{P_Start_Date} as TIMESTAMP ) + interval '1 year'
+    END
+AND
+    (
+        delete_date IS NULL
+        OR
+        delete_date &gt;= cast($P{P_Start_Date} as TIMESTAMP)
+    )
+$P!{is_deleted}
+
 UNION ALL
-SELECT distinct '11111111-1111-1111-1111-111111111111', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, 1
+
+-- This sub-query is for displaying the "All" option in the select list localized.
+
+SELECT DISTINCT
+    '11111111-1111-1111-1111-111111111111',
+    cast( NULL as timestamp ),
+    coalesce(
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+    as value,
+    1
 FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                            FROM enum_translator
-                                            WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value as value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    )
+    as enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_type = 'REPORTS_ALL'
-           AND enum_translator_default.enum_key = 0
+AND enum_translator_default.enum_type = 'REPORTS_ALL'
+AND enum_translator_default.enum_key = 0
 ORDER BY sort DESC, delete_date DESC, combo_name
 </queryString>
             <dataSource>

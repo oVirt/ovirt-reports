@@ -1,55 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<inputControl>
+<inputControl exportedWithPermissions="true">
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
     <name>P_Start_Date</name>
-    <version>25</version>
+    <version>7</version>
     <label>$R{ic.dates}</label>
-    <creationDate>2013-01-09T15:03:21.664+02:00</creationDate>
-    <updateDate>2013-01-09T15:47:49.851+02:00</updateDate>
+    <creationDate>2014-02-13T15:26:02.535+02:00</creationDate>
+    <updateDate>2014-02-17T11:57:39.099+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
     <visible>true</visible>
     <query>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="query">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="query">
             <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Start_Date_files</folder>
             <name>startDate</name>
             <version>1</version>
             <label>startDate</label>
-            <creationDate>2013-01-09T15:47:49.851+02:00</creationDate>
-            <updateDate>2013-01-09T15:47:49.851+02:00</updateDate>
+            <creationDate>2014-02-17T11:57:39.099+02:00</creationDate>
+            <updateDate>2014-02-17T11:57:39.099+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT  CASE
-                                  WHEN $P{P_Period} = 0 THEN cast(o.the_date as date)
-                                   ELSE cast(date_trunc('month', o.the_date) as date)
-                           END as active_months,
-                           CASE
-                                   WHEN $P{P_Period} = 0 THEN to_char(cast(o.the_date as date), $P{datelocalepattern})
-                                   ELSE to_char(cast(date_trunc('month', o.the_date) as date), $P{datelocalepattern}) || ' - ' || CASE
-                                                                                                                                                        WHEN $P{P_Period} = 1 THEN to_char(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 month' - interval '1 day' as date), $P{datelocalepattern})
-                                                                                                                                                        WHEN $P{P_Period} = 2 THEN to_char(CAST(cast(date_trunc('month', o.the_date) as date) + interval '3 month' - interval '1 day' as date), $P{datelocalepattern})
-                                                                                                                                                        WHEN $P{P_Period} = 3 THEN to_char(CAST(cast(date_trunc('month', o.the_date) as date) + interval '1 year' - interval '1 day' as date), $P{datelocalepattern})
-                                                                                                                                                 END
-                            END as display_months
+            <queryString>--If period is "Daily" then the select list will display a dates list for the last 2 months.
+--If period is not "Daily" then the select list will present a "From"-"To" dates list,
+--since the beginning of the month of the firstSync.
+--firstSync is the date of the first time data from the engine db was updated to the engine_history db.
+
+SELECT DISTINCT
+    CASE
+        WHEN $P{P_Period} = 0
+            THEN
+                cast( o.the_date as date )
+        ELSE
+            cast(
+                date_trunc( 'month', o.the_date ) as date
+            )
+    END as active_months,
+    CASE
+         /* Daily */
+        WHEN $P{P_Period} = 0
+            THEN
+                to_char(
+                    cast( o.the_date as date ),
+                    $P{datelocalepattern}
+                )
+        ELSE
+            to_char(
+                cast(
+                    date_trunc( 'month', o.the_date ) as date
+                ),
+                $P{datelocalepattern}
+            )
+            ||
+            ' - '
+            ||
+            CASE
+                /* Monthly */
+                WHEN $P{P_Period} = 1
+                    THEN to_char(
+                        cast(
+                            cast(
+                                date_trunc( 'month', o.the_date ) as date
+                            ) +
+                                interval '1 month' - interval '1 day'
+                         as date
+                        ),
+                         $P{datelocalepattern}
+                    )
+                /* Quarterly */
+                WHEN $P{P_Period} = 2
+                    THEN to_char(
+                        cast(
+                            cast(
+                                date_trunc( 'month', o.the_date ) as date
+                            ) +
+                            interval '3 month' - interval '1 day' as date
+                        ),
+                        $P{datelocalepattern}
+                    )
+                /* Yearly */
+                WHEN $P{P_Period} = 3
+                    THEN to_char(
+                        cast(
+                            cast(
+                                date_trunc( 'month', o.the_date ) as date
+                            ) +
+                            interval '1 year' - interval '1 day' as date
+                        ),
+                        $P{datelocalepattern}
+                    )
+            END
+    END
+    as display_months
 FROM calendar as o
-WHERE o.the_date &gt;= CASE
-                                        WHEN $P{P_Period} = 0 THEN coalesce((SELECT a.var_datetime - interval '2 months'
-                                                                                                        FROM History_configuration as a
-                                                                                                        WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
-                                        ELSE coalesce((SELECT date_trunc('month',a.var_datetime)
-                                                              FROM History_configuration as a
-                                                              WHERE a.var_name = 'firstSync'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
-                                 END
-           AND o.the_date &lt;= CASE
-                                        WHEN $P{P_Period} = 0 THEN coalesce((SELECT a.var_datetime
-                                                                                                        FROM History_configuration as a
-                                                                                                        WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
-                                        ELSE coalesce((SELECT date_trunc('month',a.var_datetime)
-                                                       FROM History_configuration as a
-                                                       WHERE a.var_name = 'lastHourAggr'), to_timestamp('01/01/2219', 'DD/MM/YYYY'))
-                                 END
-ORDER BY active_months DESC</queryString>
+WHERE o.the_date &gt;=
+    CASE
+        WHEN $P{P_Period} = 0
+            THEN
+                coalesce(
+                    (
+                        SELECT a.var_datetime - interval '2 months'
+                        FROM History_configuration as a
+                        WHERE a.var_name = 'lastHourAggr'
+                    ),
+                    to_timestamp('01/01/2219', 'DD/MM/YYYY')
+                )
+        ELSE
+            coalesce(
+                (
+                    SELECT date_trunc( 'month', a.var_datetime )
+                    FROM History_configuration as a
+                    WHERE a.var_name = 'firstSync'
+                ),
+                to_timestamp('01/01/2219', 'DD/MM/YYYY')
+            )
+    END
+AND o.the_date &lt;=
+    CASE
+        WHEN $P{P_Period} = 0
+            THEN
+                coalesce(
+                    (
+                        SELECT a.var_datetime
+                        FROM History_configuration as a
+                        WHERE a.var_name = 'lastHourAggr'
+                    ),
+                    to_timestamp('01/01/2219', 'DD/MM/YYYY')
+                )
+        ELSE
+            coalesce(
+                (
+                    SELECT date_trunc( 'month', a.var_datetime )
+                    FROM History_configuration as a
+                    WHERE a.var_name = 'lastHourAggr'
+                ),
+                to_timestamp('01/01/2219', 'DD/MM/YYYY')
+            )
+    END
+ORDER BY active_months DESC
+</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
