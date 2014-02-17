@@ -115,6 +115,12 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Mon Fec 17 2014 Yaniv Dary <ydary@redhat.com> - 3.4.0
+- Moved war customization to patches instead of overwrites
+- Moved to otopi setup.
+- Admin user name is now 'admin' in clean installations.
+- A new folder called 'Saved Reports' is now saved between upgrades.
+
 * Sun Nov 4 2012 Yaniv Dary <ydary@redhat.com> - 3.1.0
 - Update
 * Wed Feb 15 2012 Yaniv Dary <ydary@redhat.com> - 3.0.2
