@@ -74,13 +74,13 @@ class Plugin(plugin.PluginBase):
             while not valid:
                 password = self.dialog.queryString(
                     name='OVESETUP_REPORTS_CONFIG_JASPER_ADMIN_PASSWORD',
-                    note=_('Reports admin user password: '),
+                    note=_('Reports power users password: '),
                     prompt=True,
                     hidden=True,
                 )
                 password2 = self.dialog.queryString(
                     name='OVESETUP_REPOTS_CONFIG_JASPER_ADMIN_PASSWORD',
-                    note=_('Confirm Reports admin user password: '),
+                    note=_('Confirm Reports power users password: '),
                     prompt=True,
                     hidden=True,
                 )
