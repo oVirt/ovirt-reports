@@ -1,597 +1,809 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="94affc6e-e7dd-42b9-9529-60ec67a6c3e6">
-    <property name="ireport.jasperserver.reportUnit" value="/Reports/Executive/active_vms_by_os_br18"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <subDataset name="dataset1" uuid="dbe64307-d7db-4ba9-925f-efc01d783cef">
-        <parameter name="is_deleted" class="java.lang.String">
-            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Period" class="java.lang.Short">
-            <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Start_Date" class="java.util.Date">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_DataCenter_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Cluster_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_VM_Type" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
-            <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-        </parameter>
-        <parameter name="table_name" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-        </parameter>
-        <queryString>
-            <![CDATA[-- BR18 - Datacenter aggregation level
--- VMs Count by OS (Windows vs Windows)
-SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_type,'RHEL','') as os_type, vm_count
-FROM (SELECT DISTINCT CASE
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Other OS'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'WIND%' THEN 'Windows'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RHEL%' THEN 'RHEL'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RED HAT%' THEN 'RHEL'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'OTHER L%' THEN 'Other Linux'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'LINUX' THEN 'Other Linux'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%UBUNTU%' THEN 'Other Linux'
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%SUSE%' THEN 'Other Linux'
-                          ELSE 'Other OS'
-                      END AS os_type,
-                      history_datetime AS time,
-                      COUNT(DISTINCT v3_4_configuration_history_vms.vm_id) AS vm_count
-      FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
-               INNER JOIN v3_4_configuration_history_vms ON (v3_4_configuration_history_vms.history_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
-                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_4_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
-               INNER JOIN v3_4_configuration_history_vms a ON (a.vm_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-      WHERE v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
-            AND v3_4_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                              FROM v3_4_configuration_history_clusters
-                                                              WHERE datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
-            AND v3_4_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
-                                                                WHEN NULL THEN v3_4_configuration_history_vms.cluster_id
-                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_4_configuration_history_vms.cluster_id
-                                                                ELSE CAST($P{P_Cluster_ID} as uuid)
-                                                            END
-            AND v3_4_configuration_history_vms.vm_type = CASE
-                                                             WHEN $P{P_VM_Type} = -1 THEN v3_4_configuration_history_vms.vm_type
-                                                             ELSE $P{P_VM_Type}
-                                                         END
-            AND a.history_id in (SELECT max(b.history_id)
-                                 FROM v3_4_configuration_history_vms b
-                                 GROUP BY b.vm_id)
-            AND history_datetime >= cast($P{P_Start_Date} as date)
-            AND history_datetime <= CASE
-                                        WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                        WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                        WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                        WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                    END
-            AND CASE
-                    WHEN $P{is_deleted} like 'AND%' THEN a.delete_date IS NULL
-                    ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
-                END
-      GROUP BY CASE
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Other OS'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'WIND%' THEN 'Windows'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RHEL%' THEN 'RHEL'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'RED HAT%' THEN 'RHEL'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'OTHER L%' THEN 'Other Linux'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like 'LINUX' THEN 'Other Linux'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%UBUNTU%' THEN 'Other Linux'
-                   WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) like '%SUSE%' THEN 'Other Linux'
-                   ELSE 'Other OS'
-               END,
-               history_datetime) as all_query RIGHT OUTER JOIN calendar ON (all_query.time = calendar.$P!{calendar_column})
-WHERE $P!{calendar_column} >= cast($P{P_Start_Date} as date)
-      AND $P!{calendar_column} <= CASE
-                                      WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                      WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                      WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                      WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                  END
-ORDER BY $P!{calendar_column},
-         os_type]]>
-        </queryString>
-        <field name="the_date" class="java.sql.Timestamp"/>
-        <field name="os_type" class="java.lang.String"/>
-        <field name="vm_count" class="java.lang.Long"/>
-    </subDataset>
-    <subDataset name="dataset2" uuid="2360eb8e-3307-4cbf-b956-8e0e8cc2af9b">
-        <parameter name="is_deleted" class="java.lang.String">
-            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Period" class="java.lang.Short">
-            <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Start_Date" class="java.util.Date">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_DataCenter_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Cluster_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_VM_Type" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
-            <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-        </parameter>
-        <parameter name="table_name" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
-            <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-        </parameter>
-        <queryString>
-            <![CDATA[-- BR18 - Datacenter aggregation level
--- VMs Count by OS (Windows vs Windows)
-SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_type, max(os_type) over (partition by 1),'') as os_type, vm_count
-FROM (SELECT distinct CASE
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Unknown OS'
-                          ELSE 'Known OS'
-                       END AS os_type,
-                       history_datetime AS time,
-                       COUNT(DISTINCT v3_4_configuration_history_vms.vm_id) AS vm_count
-      FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
-               INNER JOIN v3_4_configuration_history_vms ON (v3_4_configuration_history_vms.history_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
-                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_4_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
-               INNER JOIN v3_4_configuration_history_vms a ON (a.vm_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-      WHERE v3_4_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                          FROM v3_4_configuration_history_clusters
-                                                          WHERE datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
-            AND v3_4_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
-                                                                WHEN NULL THEN v3_4_configuration_history_vms.cluster_id
-                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_4_configuration_history_vms.cluster_id
-                                                                ELSE CAST($P{P_Cluster_ID} as uuid)
-                                                            END
-            AND v3_4_configuration_history_vms.vm_type = CASE
-                                                             WHEN $P{P_VM_Type} = -1 THEN v3_4_configuration_history_vms.vm_type
-                                                             ELSE $P{P_VM_Type}
-                                                         END
-            AND a.history_id in (SELECT max(b.history_id)
-                                 FROM v3_4_configuration_history_vms b
-                                 GROUP BY b.vm_id)
-            AND history_datetime >= cast($P{P_Start_Date} as date)
-            AND history_datetime <= CASE
-                                        WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                        WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                        WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                        WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                    END
-            AND CASE
-                    WHEN $P{is_deleted} like 'AND%' THEN a.delete_date IS NULL
-                    ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
-                END
-      GROUP BY os_type,
-               history_datetime) as windows_query RIGHT OUTER JOIN calendar ON (windows_query.time = calendar.$P!{calendar_column})
-WHERE $P!{calendar_column} >= cast($P{P_Start_Date} as date)
-      AND $P!{calendar_column} <= CASE
-                                      WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                      WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                      WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                      WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                  END
-ORDER BY $P!{calendar_column},
-         os_type]]>
-        </queryString>
-        <field name="the_date" class="java.sql.Timestamp"/>
-        <field name="os_type" class="java.lang.String"/>
-        <field name="vm_count" class="java.lang.Long"/>
-    </subDataset>
-    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="is_deleted" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Period" class="java.lang.Short">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Cluster_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_VM_Type" class="java.lang.Integer">
-        <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
-        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.util.Date">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-        <![CDATA[-- BR18 - Datacenter aggregation level
--- VMs Count by OS (Windows vs Windows)
-SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_name,max(os_name) over (partition by 1),'') as os_name, vm_count
-FROM (SELECT DISTINCT enum_os_type.value as os_name,
-                      history_datetime AS time,
-                      COUNT(DISTINCT v3_4_configuration_history_vms.vm_id) AS vm_count
-      FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
-               INNER JOIN v3_4_configuration_history_vms ON (v3_4_configuration_history_vms.history_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version)
-                   INNER JOIN enum_translator enum_os_type ON (enum_os_type.enum_key = v3_4_configuration_history_vms.operating_system AND enum_os_type.enum_type = 'OS_TYPE' AND language_code = 'en_US')
-               INNER JOIN v3_4_configuration_history_vms a ON (a.vm_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-      WHERE v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
-            AND UPPER(enum_os_type.value) like 'WIND%'
-            AND v3_4_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                              FROM v3_4_configuration_history_clusters
-                                                              WHERE datacenter_id = CAST($P{P_DataCenter_ID} as uuid))
-            AND v3_4_configuration_history_vms.cluster_id = CASE CAST($P{P_Cluster_ID} as uuid)
-                                                                WHEN NULL THEN v3_4_configuration_history_vms.cluster_id
-                                                                WHEN CAST('11111111-1111-1111-1111-111111111111' as uuid) THEN v3_4_configuration_history_vms.cluster_id
-                                                                ELSE CAST($P{P_Cluster_ID} as uuid)
-                                                            END
-            AND v3_4_configuration_history_vms.vm_type = CASE
-                                                             WHEN $P{P_VM_Type} = -1 THEN v3_4_configuration_history_vms.vm_type
-                                                             ELSE $P{P_VM_Type}
-                                                         END
-            AND a.history_id in (SELECT max(b.history_id)
-                                 FROM v3_4_configuration_history_vms b
-                                 GROUP BY b.vm_id)
-            AND history_datetime >= cast($P{P_Start_Date} as date)
-            AND history_datetime <  CASE
-                                        WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                        WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                        WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                        WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                    END
-            AND CASE
-                    WHEN $P{is_deleted} like 'AND%' THEN a.delete_date IS NULL
-                    ELSE a.delete_date IS NULL or a.delete_date IS NOT NULL
-                END
-      GROUP BY enum_os_type.value, history_datetime) as windows_query RIGHT OUTER JOIN calendar ON (windows_query.time = calendar.$P!{calendar_column})
-WHERE $P!{calendar_column} >= cast($P{P_Start_Date} as date)
-      AND $P!{calendar_column} <= CASE
-                                      WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                      WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                      WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                      WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                  END
+	<subDataset name="active_vms_by_os_type" uuid="dbe64307-d7db-4ba9-925f-efc01d783cef">
+		<parameter name="is_deleted" class="java.lang.String">
+			<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Period" class="java.lang.Short">
+			<parameterDescription><![CDATA[Period]]></parameterDescription>
+			<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Start_Date" class="java.util.Date">
+			<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_DataCenter_ID" class="java.lang.String">
+			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Cluster_ID" class="java.lang.String">
+			<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_VM_Type" class="java.lang.Integer">
+			<parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
+			<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+		</parameter>
+		<parameter name="table_name" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[-- BR18 - This query will return the total number of active VMs,
+-- Count by OS types.
+
+SELECT DISTINCT
+    -- If "Period" equals to "Daily" then
+    -- the "calendar_column" parameter is equal to "the_datetime" else "the_date"
+    $P!{calendar_column} AS the_date,
+    COALESCE (
+        os_type,
+        'RHEL'
+    )
+    AS os_type,
+    vm_count
+FROM (
+    SELECT DISTINCT
+        CASE
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) = 'OTHER OS'
+                THEN 'Other OS'
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) LIKE '%WINDOWS%'
+                THEN 'Windows'
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) LIKE 'RHEL%'
+                THEN 'RHEL'
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) LIKE 'RED HAT%'
+                THEN 'RHEL'
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) LIKE 'OTHER L%'
+                THEN 'Other Linux'
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) LIKE 'LINUX'
+                THEN 'Other Linux'
+            WHEN UPPER (COALESCE( enum_os_type.value,'Other OS' ) ) LIKE '%UBUNTU%'
+                THEN 'Other Linux'
+            WHEN UPPER ( COALESCE( enum_os_type.value,'Other OS' ) ) LIKE '%SUSE%'
+                THEN 'Other Linux'
+            ELSE 'Other OS'
+        END
+        AS os_type,
+        history_datetime AS time,
+        COUNT ( DISTINCT v3_4_configuration_history_vms.vm_id ) AS vm_count
+    -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
+    FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v3_4_configuration_history_vms
+            ON (
+                v3_4_configuration_history_vms.history_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version
+            )
+        INNER JOIN enum_translator enum_os_type
+            ON (
+                enum_os_type.enum_key =
+                v3_4_configuration_history_vms.operating_system
+                AND enum_os_type.enum_type = 'OS_TYPE'
+                AND language_code = 'en_US'
+            )
+        INNER JOIN v3_4_configuration_history_vms latest_config
+            ON (
+                latest_config.vm_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id
+            )
+    WHERE
+        -- Here we filter only the vms that are in active status
+        v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+        -- Filter vms list according to the datacenter that was chosen by the user
+        AND v3_4_configuration_history_vms.cluster_id IN
+            (
+                SELECT cluster_id
+                FROM v3_4_configuration_history_clusters
+                WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
+            )
+        -- Filter vms list according to the cluster that was chosen by the user
+        AND v3_4_configuration_history_vms.cluster_id =
+            CASE CAST ( $P{P_Cluster_ID} AS uuid )
+                WHEN NULL
+                    THEN v3_4_configuration_history_vms.cluster_id
+                WHEN CAST ( '11111111-1111-1111-1111-111111111111' AS uuid )
+                    THEN v3_4_configuration_history_vms.cluster_id
+                ELSE CAST ( $P{P_Cluster_ID} AS uuid )
+            END
+        -- Filter vms list according to the vm type that was chosen by the user
+        AND v3_4_configuration_history_vms.vm_type =
+            CASE
+                WHEN $P{P_VM_Type} = -1
+                    THEN v3_4_configuration_history_vms.vm_type
+                ELSE $P{P_VM_Type}
+            END
+        -- Here we get the vm latest configuration
+        AND latest_config.history_id IN
+            (
+                SELECT MAX ( b.history_id )
+                FROM v3_4_configuration_history_vms b
+                GROUP BY b.vm_id
+            )
+        AND history_datetime >= CAST ( $P{P_Start_Date} AS date )
+        AND history_datetime <=
+            CASE
+                WHEN $P{P_Period} = 0
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+            END
+        AND
+            -- This will determine where deleted entities will be included in the report,
+            -- according to the user selection for "is_deleted" parameter
+            CASE
+                WHEN $P{is_deleted} LIKE 'AND%'
+                    THEN latest_config.delete_date IS NULL
+                ELSE
+                    latest_config.delete_date IS NULL
+                    OR
+                    latest_config.delete_date IS NOT NULL
+            END
+    GROUP BY
+        CASE
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) = 'OTHER OS'
+                THEN 'Other OS'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like '%WINDOWS%'
+                THEN 'Windows'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like 'RHEL%'
+                THEN 'RHEL'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like 'RED HAT%'
+                THEN 'RHEL'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like 'OTHER L%'
+                THEN 'Other Linux'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like 'LINUX'
+                THEN 'Other Linux'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like '%UBUNTU%'
+                THEN 'Other Linux'
+            WHEN UPPER ( COALESCE ( enum_os_type.value,'Other OS' ) ) like '%SUSE%'
+                THEN 'Other Linux'
+            ELSE 'Other OS'
+        END,
+        history_datetime
+)
+AS all_query
+    RIGHT OUTER JOIN calendar
+        ON (
+            all_query.time = calendar.$P!{calendar_column}
+        )
+WHERE $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
+    AND $P!{calendar_column} <=
+        CASE
+            WHEN $P{P_Period} = 0
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+            WHEN $P{P_Period} = 1
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+            WHEN $P{P_Period} = 2
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+            WHEN $P{P_Period} = 3
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+        END
+ORDER BY $P!{calendar_column}, os_type]]>
+		</queryString>
+		<field name="the_date" class="java.sql.Timestamp"/>
+		<field name="os_type" class="java.lang.String"/>
+		<field name="vm_count" class="java.lang.Long"/>
+	</subDataset>
+	<subDataset name="vms_known_vs_unknown_os_type" uuid="2360eb8e-3307-4cbf-b956-8e0e8cc2af9b">
+		<parameter name="is_deleted" class="java.lang.String">
+			<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Period" class="java.lang.Short">
+			<parameterDescription><![CDATA[Period]]></parameterDescription>
+			<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Start_Date" class="java.util.Date">
+			<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_DataCenter_ID" class="java.lang.String">
+			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Cluster_ID" class="java.lang.String">
+			<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_VM_Type" class="java.lang.Integer">
+			<parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
+			<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+		</parameter>
+		<parameter name="table_name" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[-- BR18 - This query will return the total number of VMs,
+-- Count by "Known" OS type and "Unknown" OS type.
+
+SELECT DISTINCT
+    --If "Period" is "Daily" then
+    -- the "calendar_column" parameter is equal to "the_datetime" else "the_date"
+    $P!{calendar_column} AS the_date,
+    COALESCE (
+        os_type,
+        MAX ( os_type ) over ( partition by 1 ),
+        ''
+    )
+    AS os_type,
+    vm_count
+FROM (
+    SELECT DISTINCT
+        CASE
+            WHEN COALESCE ( enum_os_type.enum_key, 0 ) IN ( 0, 1001)
+                THEN 'Unknown OS'
+            ELSE 'Known OS'
+        END AS os_type,
+        history_datetime AS time,
+        COUNT( DISTINCT v3_4_configuration_history_vms.vm_id ) AS vm_count
+    -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
+    FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v3_4_configuration_history_vms
+            ON (
+                v3_4_configuration_history_vms.history_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version
+            )
+        INNER JOIN enum_translator enum_os_type
+            ON (
+                enum_os_type.enum_key =
+                v3_4_configuration_history_vms.operating_system
+                AND enum_os_type.enum_type = 'OS_TYPE'
+                AND language_code = 'en_US'
+            )
+        INNER JOIN v3_4_configuration_history_vms latest_config
+            ON (
+                latest_config.vm_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id
+            )
+    WHERE
+        -- Filter vms list according to the datacenter that was chosen by the user
+        v3_4_configuration_history_vms.cluster_id IN (
+                SELECT cluster_id
+                FROM v3_4_configuration_history_clusters
+                WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
+            )
+        -- Filter vms list according to the cluster that was chosen by the user
+        AND v3_4_configuration_history_vms.cluster_id =
+            CASE CAST ( $P{P_Cluster_ID} AS uuid )
+                WHEN NULL
+                    THEN v3_4_configuration_history_vms.cluster_id
+                WHEN CAST ( '11111111-1111-1111-1111-111111111111' AS uuid )
+                    THEN v3_4_configuration_history_vms.cluster_id
+                ELSE CAST ( $P{P_Cluster_ID} AS uuid )
+            END
+        -- Filter vms list according to the vn type that was chosen by the user
+        AND v3_4_configuration_history_vms.vm_type =
+            CASE
+                WHEN $P{P_VM_Type} = -1
+                    THEN v3_4_configuration_history_vms.vm_type
+                ELSE $P{P_VM_Type}
+            END
+        -- Here we get the vm latest configuration
+        AND latest_config.history_id IN
+            (
+                SELECT MAX ( b.history_id )
+                FROM v3_4_configuration_history_vms b
+                GROUP BY b.vm_id
+            )
+        AND history_datetime >= CAST ( $P{P_Start_Date} AS date )
+        AND history_datetime <=
+            CASE
+                WHEN $P{P_Period} = 0
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+            END
+        AND
+            -- This will determine where deleted entities will be included in the report,
+            -- according to the user selection for "is_deleted" parameter
+            CASE
+                WHEN $P{is_deleted} LIKE 'AND%'
+                    THEN latest_config.delete_date IS NULL
+                ELSE
+                    latest_config.delete_date IS NULL
+                    OR
+                    latest_config.delete_date IS NOT NULL
+            END
+    GROUP BY os_type, history_datetime
+)
+AS os_query
+    RIGHT OUTER JOIN calendar
+        ON ( os_query.time = calendar.$P!{calendar_column} )
+WHERE $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
+    AND $P!{calendar_column} <=
+        CASE
+            WHEN $P{P_Period} = 0
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+            WHEN $P{P_Period} = 1
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+            WHEN $P{P_Period} = 2
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+            WHEN $P{P_Period} = 3
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+        END
+ORDER BY $P!{calendar_column}, os_type]]>
+		</queryString>
+		<field name="the_date" class="java.sql.Timestamp"/>
+		<field name="os_type" class="java.lang.String"/>
+		<field name="vm_count" class="java.lang.Long"/>
+	</subDataset>
+	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="is_deleted" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.Short">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_VM_Type" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.util.Date">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- BR18 - This query will return the total number of active VMs,
+-- Count by distributions of Windows OS versions.
+
+SELECT DISTINCT
+    -- If "Period" is "Daily" then
+    -- the "calendar_column" parameter is equal to "the_datetime" else "the_date"
+    $P!{calendar_column} AS the_date,
+    COALESCE(
+        os_name,
+        MAX ( os_name ) over ( partition by 1 ),
+        ''
+    )
+    AS os_name,
+    vm_count
+FROM (
+    SELECT DISTINCT
+        enum_os_type.value AS os_name,
+        history_datetime AS time,
+        COUNT( DISTINCT v3_4_configuration_history_vms.vm_id ) AS vm_count
+    -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
+    FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v3_4_configuration_history_vms
+            ON (
+                v3_4_configuration_history_vms.history_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version
+            )
+        INNER JOIN enum_translator enum_os_type
+            ON (
+                enum_os_type.enum_key =
+                v3_4_configuration_history_vms.operating_system
+                AND enum_os_type.enum_type = 'OS_TYPE'
+                AND language_code = 'en_US'
+            )
+        INNER JOIN v3_4_configuration_history_vms latest_config
+            ON (
+                latest_config.vm_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id
+            )
+    WHERE
+        -- Here we filter only the vms that are in active status
+        v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+        AND UPPER ( enum_os_type.value ) LIKE '%WINDOWS%'
+        -- Filter vms list according to the datacenter that was chosen by the user
+        AND v3_4_configuration_history_vms.cluster_id IN
+            (
+                SELECT cluster_id
+                FROM v3_4_configuration_history_clusters
+                WHERE
+                    datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
+            )
+        -- Filter vms list according to the cluster that was chosen by the user
+        AND v3_4_configuration_history_vms.cluster_id =
+            CASE CAST ( $P{P_Cluster_ID} AS uuid )
+                WHEN NULL
+                    THEN v3_4_configuration_history_vms.cluster_id
+                WHEN CAST ( '11111111-1111-1111-1111-111111111111' AS uuid )
+                    THEN v3_4_configuration_history_vms.cluster_id
+                ELSE CAST ( $P{P_Cluster_ID} AS uuid )
+            END
+        -- Filter vms list according to the vm type that was chosen by the user
+        AND v3_4_configuration_history_vms.vm_type =
+            CASE
+                 WHEN $P{P_VM_Type} = -1
+                    THEN v3_4_configuration_history_vms.vm_type
+                 ELSE $P{P_VM_Type}
+             END
+        -- Here we get the vm latest configuration
+        AND latest_config.history_id IN
+            (
+                SELECT MAX ( b.history_id )
+                FROM v3_4_configuration_history_vms b
+                GROUP BY b.vm_id
+            )
+        AND history_datetime >= CAST ( $P{P_Start_Date} AS date )
+        AND history_datetime <
+            CASE
+                WHEN $P{P_Period} = 0
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+            END
+        AND
+            -- This will determine if deleted entities will be included in the report,
+            -- according to the user selection for "is_deleted" parameter
+            CASE
+                WHEN $P{is_deleted} like 'AND%'
+                    THEN latest_config.delete_date IS NULL
+                ELSE
+                    latest_config.delete_date IS NULL
+                    OR
+                    latest_config.delete_date IS NOT NULL
+            END
+    GROUP BY enum_os_type.value, history_datetime
+)
+AS windows_query
+    RIGHT OUTER JOIN calendar
+        ON (
+            windows_query.time = calendar.$P!{calendar_column}
+        )
+WHERE $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
+    AND $P!{calendar_column} <=
+        CASE
+            WHEN $P{P_Period} = 0
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+            WHEN $P{P_Period} = 1
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+            WHEN $P{P_Period} = 2
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+            WHEN $P{P_Period} = 3
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+        END
 ORDER BY $P!{calendar_column}]]>
-    </queryString>
-    <field name="the_date" class="java.sql.Timestamp"/>
-    <field name="os_name" class="java.lang.String"/>
-    <field name="vm_count" class="java.lang.Long"/>
-    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-        <initialValueExpression><![CDATA[]]></initialValueExpression>
-    </variable>
-    <title>
-        <band height="139" splitType="Stretch">
-            <subreport>
-                <reportElement uuid="9657ac07-f993-4ba8-b92d-585fea38625c" x="1" y="45" width="830" height="93"/>
-                <subreportParameter name="is_deleted">
-                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Cluster_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Period">
-                    <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_DataCenter_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Start_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_VM_Type">
-                    <subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
-                </subreportParameter>
-                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
-            </subreport>
-            <textField pattern="">
-                <reportElement uuid="e4c039c9-9ad5-4f4f-a53a-048c86bb4041" x="562" y="27" width="270" height="15"/>
-                <textElement textAlignment="Right">
-                    <font fontName="SansSerif" size="11" isBold="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-            </textField>
-            <line>
-                <reportElement uuid="c42faa1d-93c5-43cb-8a2a-3d059c9f5164" x="0" y="43" width="832" height="1"/>
-            </line>
-            <image>
-                <reportElement uuid="f760fc99-06bb-47ba-a6f0-b26690078c0b" x="0" y="0" width="228" height="42"/>
-                <imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
-            </image>
-        </band>
-    </title>
-    <pageFooter>
-        <band height="15" splitType="Stretch">
-            <textField evaluationTime="Auto">
-                <reportElement uuid="77ac3250-13de-4bc7-9ff1-a42838c67db5" x="291" y="0" width="250" height="15"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
-    <summary>
-        <band height="415">
-            <timeSeriesChart>
-                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ActiveOsTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-                    <reportElement uuid="f12a313a-2c38-4951-94bd-6ef36cfc541c" mode="Opaque" x="0" y="0" width="408" height="200"/>
-                    <box>
-                        <pen lineWidth="1.0" lineColor="#3C617F"/>
-                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                    </box>
-                    <chartTitle color="#3A5E7E">
-                        <font fontName="SansSerif"/>
-                        <titleExpression><![CDATA[$R{br18.chart.rhel.vs.other.linuxs}]]></titleExpression>
-                    </chartTitle>
-                    <chartSubtitle>
-                        <font fontName="SansSerif"/>
-                    </chartSubtitle>
-                    <chartLegend position="Bottom">
-                        <font fontName="SansSerif"/>
-                    </chartLegend>
-                </chart>
-                <timeSeriesDataset timePeriod="Hour">
-                    <dataset>
-                        <incrementWhenExpression><![CDATA[$F{os_type} == "RHEL" || $F{os_type} == "Other Linux" || $F{os_type} == ""]]></incrementWhenExpression>
-                        <datasetRun subDataset="dataset1" uuid="913579aa-d8eb-489d-8aa4-ac268e56fe86">
-                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                        </datasetRun>
-                    </dataset>
-                    <timeSeries>
-                        <seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
-                        <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-                        <valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
-                        <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{os_type} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
-                        </itemHyperlink>
-                    </timeSeries>
-                </timeSeriesDataset>
-                <timeSeriesPlot isShowShapes="false">
-                    <plot labelRotation="-45.0"/>
-                    <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-                    <timeAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </timeAxisFormat>
-                    <valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
-                    <valueAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </valueAxisFormat>
-                </timeSeriesPlot>
-            </timeSeriesChart>
-            <timeSeriesChart>
-                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-                    <reportElement uuid="3ebd4067-b64b-48db-b880-bfa07930628e" mode="Opaque" x="421" y="0" width="408" height="200"/>
-                    <box>
-                        <pen lineWidth="1.0" lineColor="#3C617F"/>
-                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                    </box>
-                    <chartTitle color="#3A5E7E">
-                        <font fontName="SansSerif"/>
-                        <titleExpression><![CDATA[$R{br18.chart.windows.distribution}]]></titleExpression>
-                    </chartTitle>
-                    <chartSubtitle>
-                        <font fontName="SansSerif"/>
-                    </chartSubtitle>
-                    <chartLegend position="Bottom">
-                        <font fontName="SansSerif"/>
-                    </chartLegend>
-                </chart>
-                <timeSeriesDataset timePeriod="Hour">
-                    <timeSeries>
-                        <seriesExpression><![CDATA[$F{os_name}]]></seriesExpression>
-                        <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-                        <valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
-                        <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{os_name} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
-                        </itemHyperlink>
-                    </timeSeries>
-                </timeSeriesDataset>
-                <timeSeriesPlot isShowShapes="false">
-                    <plot labelRotation="-45.0">
-                        <seriesColor seriesOrder="1" color="#009900"/>
-                        <seriesColor seriesOrder="2" color="#003399"/>
-                        <seriesColor seriesOrder="3" color="#FF6600"/>
-                        <seriesColor seriesOrder="4" color="#FFA500"/>
-                        <seriesColor seriesOrder="5" color="#6EC000"/>
-                        <seriesColor seriesOrder="6" color="#7300A5"/>
-                        <seriesColor seriesOrder="7" color="#990000"/>
-                        <seriesColor seriesOrder="8" color="#0000FF"/>
-                    </plot>
-                    <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-                    <timeAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </timeAxisFormat>
-                    <valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
-                    <valueAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </valueAxisFormat>
-                </timeSeriesPlot>
-            </timeSeriesChart>
-            <timeSeriesChart>
-                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ActiveOsTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-                    <reportElement uuid="796d241e-5cfd-45c3-b6c9-65fd4a0b20dd" mode="Opaque" x="421" y="208" width="408" height="199"/>
-                    <box>
-                        <pen lineWidth="1.0" lineColor="#3C617F"/>
-                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                    </box>
-                    <chartTitle color="#3A5E7E">
-                        <font fontName="SansSerif"/>
-                        <titleExpression><![CDATA[$R{br18.chart.known.vs.unknown.os}]]></titleExpression>
-                    </chartTitle>
-                    <chartSubtitle>
-                        <font fontName="SansSerif"/>
-                    </chartSubtitle>
-                    <chartLegend position="Bottom">
-                        <font fontName="SansSerif"/>
-                    </chartLegend>
-                </chart>
-                <timeSeriesDataset timePeriod="Hour">
-                    <dataset>
-                        <datasetRun subDataset="dataset2" uuid="9492df00-45fc-48c1-ad2d-0b39b7db01e1">
-                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                        </datasetRun>
-                    </dataset>
-                    <timeSeries>
-                        <seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
-                        <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-                        <valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
-                        <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{os_type} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
-                        </itemHyperlink>
-                    </timeSeries>
-                </timeSeriesDataset>
-                <timeSeriesPlot isShowShapes="false">
-                    <plot labelRotation="-45.0"/>
-                    <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-                    <timeAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </timeAxisFormat>
-                    <valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
-                    <valueAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </valueAxisFormat>
-                </timeSeriesPlot>
-            </timeSeriesChart>
-            <timeSeriesChart>
-                <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ActiveOsTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-                    <reportElement uuid="abd96a6f-5557-49a2-be59-7cd00761ce42" mode="Opaque" x="0" y="208" width="408" height="199"/>
-                    <box>
-                        <pen lineWidth="1.0" lineColor="#3C617F"/>
-                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                    </box>
-                    <chartTitle color="#3A5E7E">
-                        <font fontName="SansSerif"/>
-                        <titleExpression><![CDATA[$R{br18.chart.rhel.vs.windows}]]></titleExpression>
-                    </chartTitle>
-                    <chartSubtitle>
-                        <font fontName="SansSerif"/>
-                    </chartSubtitle>
-                    <chartLegend position="Bottom">
-                        <font fontName="SansSerif"/>
-                    </chartLegend>
-                </chart>
-                <timeSeriesDataset timePeriod="Hour">
-                    <dataset>
-                        <incrementWhenExpression><![CDATA[$F{os_type} == "RHEL" || $F{os_type} == "Windows" || $F{os_type} == ""]]></incrementWhenExpression>
-                        <datasetRun subDataset="dataset1" uuid="ba553067-3367-4ef4-ac9b-26837b906a81">
-                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                        </datasetRun>
-                    </dataset>
-                    <timeSeries>
-                        <seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
-                        <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-                        <valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
-                        <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{os_type} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
-                        </itemHyperlink>
-                    </timeSeries>
-                </timeSeriesDataset>
-                <timeSeriesPlot isShowShapes="false">
-                    <plot labelRotation="-45.0"/>
-                    <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-                    <timeAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </timeAxisFormat>
-                    <valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
-                    <valueAxisFormat>
-                        <axisFormat labelColor="#666666">
-                            <labelFont>
-                                <font fontName="SansSerif"/>
-                            </labelFont>
-                            <tickLabelFont>
-                                <font fontName="SansSerif"/>
-                            </tickLabelFont>
-                        </axisFormat>
-                    </valueAxisFormat>
-                </timeSeriesPlot>
-            </timeSeriesChart>
-        </band>
-    </summary>
+	</queryString>
+	<field name="the_date" class="java.sql.Timestamp"/>
+	<field name="os_name" class="java.lang.String"/>
+	<field name="vm_count" class="java.lang.Long"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="139" splitType="Stretch">
+			<subreport>
+				<reportElement x="1" y="45" width="830" height="93" uuid="9657ac07-f993-4ba8-b92d-585fea38625c"/>
+				<subreportParameter name="is_deleted">
+					<subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Cluster_ID">
+					<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Period">
+					<subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DataCenter_ID">
+					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Start_Date">
+					<subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_VM_Type">
+					<subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
+			</subreport>
+			<textField pattern="">
+				<reportElement x="562" y="27" width="270" height="15" uuid="e4c039c9-9ad5-4f4f-a53a-048c86bb4041"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="43" width="832" height="1" uuid="c42faa1d-93c5-43cb-8a2a-3d059c9f5164"/>
+			</line>
+			<image>
+				<reportElement x="0" y="0" width="228" height="42" uuid="f760fc99-06bb-47ba-a6f0-b26690078c0b"/>
+				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField evaluationTime="Auto">
+				<reportElement x="291" y="0" width="250" height="15" uuid="77ac3250-13de-4bc7-9ff1-a42838c67db5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="415">
+			<timeSeriesChart>
+				<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ActiveOsTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+					<reportElement mode="Opaque" x="0" y="0" width="408" height="200" uuid="f12a313a-2c38-4951-94bd-6ef36cfc541c"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3C617F"/>
+						<topPen lineWidth="1.0" lineColor="#3C617F"/>
+						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+					</box>
+					<chartTitle color="#3A5E7E">
+						<font fontName="SansSerif"/>
+						<titleExpression><![CDATA[$R{br18.chart.rhel.vs.other.linuxs}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="SansSerif"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="SansSerif"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset timePeriod="Hour">
+					<dataset>
+						<incrementWhenExpression><![CDATA[$F{os_type} == "RHEL" || $F{os_type} == "Other Linux" || $F{os_type} == ""]]></incrementWhenExpression>
+						<datasetRun subDataset="active_vms_by_os_type" uuid="913579aa-d8eb-489d-8aa4-ac268e56fe86">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{os_type} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowShapes="false">
+					<plot labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+					<reportElement mode="Opaque" x="421" y="0" width="408" height="200" uuid="3ebd4067-b64b-48db-b880-bfa07930628e"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3C617F"/>
+						<topPen lineWidth="1.0" lineColor="#3C617F"/>
+						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+					</box>
+					<chartTitle color="#3A5E7E">
+						<font fontName="SansSerif"/>
+						<titleExpression><![CDATA[$R{br18.chart.windows.distribution}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="SansSerif"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="SansSerif"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset timePeriod="Hour">
+					<timeSeries>
+						<seriesExpression><![CDATA[$F{os_name}]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{os_name} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowShapes="false">
+					<plot labelRotation="-45.0">
+						<seriesColor seriesOrder="1" color="#009900"/>
+						<seriesColor seriesOrder="2" color="#003399"/>
+						<seriesColor seriesOrder="3" color="#FF6600"/>
+						<seriesColor seriesOrder="4" color="#FFA500"/>
+						<seriesColor seriesOrder="5" color="#6EC000"/>
+						<seriesColor seriesOrder="6" color="#7300A5"/>
+						<seriesColor seriesOrder="7" color="#990000"/>
+						<seriesColor seriesOrder="8" color="#0000FF"/>
+					</plot>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ActiveOsTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+					<reportElement mode="Opaque" x="421" y="208" width="408" height="199" uuid="796d241e-5cfd-45c3-b6c9-65fd4a0b20dd"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3C617F"/>
+						<topPen lineWidth="1.0" lineColor="#3C617F"/>
+						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+					</box>
+					<chartTitle color="#3A5E7E">
+						<font fontName="SansSerif"/>
+						<titleExpression><![CDATA[$R{br18.chart.known.vs.unknown.os}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="SansSerif"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="SansSerif"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset timePeriod="Hour">
+					<dataset>
+						<datasetRun subDataset="vms_known_vs_unknown_os_type" uuid="9492df00-45fc-48c1-ad2d-0b39b7db01e1">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{os_type} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowShapes="false">
+					<plot labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+			<timeSeriesChart>
+				<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.ActiveOsTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+					<reportElement mode="Opaque" x="0" y="208" width="408" height="199" uuid="abd96a6f-5557-49a2-be59-7cd00761ce42"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3C617F"/>
+						<topPen lineWidth="1.0" lineColor="#3C617F"/>
+						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+					</box>
+					<chartTitle color="#3A5E7E">
+						<font fontName="SansSerif"/>
+						<titleExpression><![CDATA[$R{br18.chart.rhel.vs.windows}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="SansSerif"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="SansSerif"/>
+					</chartLegend>
+				</chart>
+				<timeSeriesDataset timePeriod="Hour">
+					<dataset>
+						<incrementWhenExpression><![CDATA[$F{os_type} == "RHEL" || $F{os_type} == "Windows" || $F{os_type} == ""]]></incrementWhenExpression>
+						<datasetRun subDataset="active_vms_by_os_type" uuid="ba553067-3367-4ef4-ac9b-26837b906a81">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<timeSeries>
+						<seriesExpression><![CDATA[$F{os_type}]]></seriesExpression>
+						<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+						<valueExpression><![CDATA[$F{vm_count}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{os_type} + ", " + $F{vm_count}.toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</timeSeries>
+				</timeSeriesDataset>
+				<timeSeriesPlot isShowShapes="false">
+					<plot labelRotation="-45.0"/>
+					<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+					<timeAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</timeAxisFormat>
+					<valueAxisLabelExpression><![CDATA[$R{axis.number.of.vms}]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat labelColor="#666666">
+							<labelFont>
+								<font fontName="SansSerif"/>
+							</labelFont>
+							<tickLabelFont>
+								<font fontName="SansSerif"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</timeSeriesPlot>
+			</timeSeriesChart>
+		</band>
+	</summary>
 </jasperReport>
