@@ -313,6 +313,14 @@ class ProvisioningEnv(object):
 @util.export
 @util.codegen
 @osetupattrsclass
+class RPMDistroEnv(object):
+    PACKAGES = 'OVESETUP_REPORTS_RPMDISRO_PACKAGES'
+    PACKAGES_SETUP = 'OVESETUP_REPORTS_RPMDISRO_PACKAGES_SETUP'
+
+
+@util.export
+@util.codegen
+@osetupattrsclass
 class ApacheEnv(object):
     HTTPD_CONF_OVIRT_ENGINE_REPORTS = \
         'OVESETUP_REPORTS_APACHE/configFileOvirtEngineReports'
