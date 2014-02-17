@@ -202,6 +202,7 @@ class Plugin(plugin.PluginBase):
                     shutil.rmtree(entry['dst'])
 
     def _buildJs(self, cmd, config):
+
         try:
             myumask = os.umask(0o022)
 
@@ -209,7 +210,12 @@ class Plugin(plugin.PluginBase):
                 args=(
                     './js-ant',
                     '-DmasterPropsSource=%s' % config,
-                    cmd
+                    '%s-%s' % (
+                        cmd,
+                        self.environment[
+                            oreportscons.JasperEnv.JASPER_NAME
+                        ],
+                    ),
                 ),
                 envAppend={
                     'JAVA_HOME': self.environment[
@@ -355,9 +361,9 @@ class Plugin(plugin.PluginBase):
         reportsImport = os.path.join(self._temproot, 'ovirt-reports')
 
         shutil.copytree(
-            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_EXPORT,
+            self.environment[oreportscons.JasperEnv.REPORTS_EXPORT],
             reportsImport,
-            symlinks=True,
+            symlinks=False,
         )
 
         if self.environment[oreportscons.ConfigEnv.ADMIN_PASSWORD] is not None:
@@ -519,6 +525,19 @@ class Plugin(plugin.PluginBase):
         self._javatmp = os.path.join(self._temproot, 'tmp')
         os.mkdir(self._javatmp)
 
+        self.environment.setdefault(
+            oreportscons.JasperEnv.REPORTS_EXPORT,
+            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_EXPORT
+        )
+        self.environment.setdefault(
+            oreportscons.JasperEnv.SAVED_REPORTS_URI,
+            '/saved_reports'
+        )
+        self.environment.setdefault(
+            oreportscons.JasperEnv.THEME,
+            'ovirt-reports-theme'
+        )
+
     @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,
     )
@@ -569,8 +588,26 @@ class Plugin(plugin.PluginBase):
                     )
                 )
 
+        install = glob.glob(
+            os.path.join(
+                self.environment[oreportscons.ConfigEnv.JASPER_HOME],
+                'buildomatic',
+                'js-install-*.sh',
+            )
+        )
+        if len(install) != 1:
+            raise RuntimeError(
+                _('Unexpected jasper installation, js-install-*.sh is missing')
+            )
+        self.environment[
+            oreportscons.JasperEnv.JASPER_NAME
+        ] = os.path.basename(install[0]).replace(
+            'js-install-', ''
+        ).replace('.sh', '')
+
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
+        name=oreportscons.Stages.JASPER_DEPLOY_EXPORT,
         condition=lambda self: (
             self.environment[oreportscons.CoreEnv.ENABLE] and
             not self.environment[oreportscons.DBEnv.NEW_DATABASE]
@@ -627,13 +664,20 @@ class Plugin(plugin.PluginBase):
         if os.path.exists(
             os.path.join(
                 everything,
-                'resources/saved_reports',
+                os.path.join(
+                    'resources',
+                    self.environment[
+                        oreportscons.JasperEnv.SAVED_REPORTS_URI
+                    ],
+                )
             )
         ):
             self._savedReports = self._exportJs(
                 what='savedReports',
                 args=(
-                    '--uris', '/saved_reports',
+                    '--uris', self.environment[
+                        oreportscons.JasperEnv.SAVED_REPORTS_URI
+                    ],
                 ),
             )
         self._jobs = self._exportJs(
@@ -692,9 +736,9 @@ class Plugin(plugin.PluginBase):
 
         self.logger.info(_('Deploying Jasper'))
         for cmd in (
-            'init-js-db-ce',
-            'import-minimal-ce',
-            'deploy-webapp-ce',
+            'init-js-db',
+            'import-minimal',
+            'deploy-webapp',
         ):
             self._buildJs(config=config, cmd=cmd)
 
@@ -710,6 +754,7 @@ class Plugin(plugin.PluginBase):
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
+        name=oreportscons.Stages.JASPER_DEPLOY_IMPORT,
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
         after=(
             oreportscons.Stages.DB_SCHEMA,
@@ -849,29 +894,29 @@ class Plugin(plugin.PluginBase):
             for f in (
                 'users/anonymousUser.xml',
                 'users/jasperadmin.xml',
+                'users/organization_1/jasperadmin.xml',
             ):
-                with self.XMLDoc(
-                    os.path.join(
-                        everything,
-                        f,
-                    ),
-                ) as xml:
-                    xml.setNodesContent(
-                        '/user/enabled',
-                        'false',
-                    )
+                f = os.path.join(everything, f)
+                if os.path.exists(f):
+                    with self.XMLDoc(f) as xml:
+                        xml.setNodesContent(
+                            '/user/enabled',
+                            'false',
+                        )
 
-        with self.XMLDoc(
-            os.path.join(
-                everything,
-                'organizations',
-                'organizations.xml',
-            ),
-        ) as xml:
-            xml.setNodesContent(
-                '/organization/theme',
-                'ovirt-reports-theme',
-            )
+        for f in (
+            'organizations/organizations.xml',
+            'organizations/organization_1.xml',
+        ):
+            f = os.path.join(everything, f)
+            if os.path.exists(f):
+                with self.XMLDoc(f) as xml:
+                    xml.setNodesContent(
+                        '/organization/theme',
+                        self.environment[
+                            oreportscons.JasperEnv.THEME
+                        ],
+                    )
 
         self._importJs(everything)
 

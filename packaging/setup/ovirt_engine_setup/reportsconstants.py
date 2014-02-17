@@ -126,7 +126,7 @@ class FileLocations(object):
     OVIRT_ENGINE_REPORTS_UI = os.path.join(
         PKG_DATA_DIR,
         'conf',
-        'reports.xml',
+        'reports.xml.in',
     )
     JASPER_BUILDOMATIC_CONFIG_TEMPALTE = os.path.join(
         PKG_DATA_DIR,
@@ -186,6 +186,8 @@ class Stages(object):
     DB_CONNECTION_CUSTOMIZATION = 'osetup.reports.db.connection.customization'
     DB_CONNECTION_AVAILABLE = 'osetup.reports.db.connection.available'
     DB_SCHEMA = 'osetup.reports.db.schema'
+    JASPER_DEPLOY_EXPORT = 'osetup.reports.jasper.deploy.export'
+    JASPER_DEPLOY_IMPORT = 'osetup.reports.jasper.deploy.import'
 
 
 @util.export
@@ -215,6 +217,16 @@ class ConfigEnv(object):
     )
     def ADMIN_PASSWORD(self):
         return 'OVESETUP_REPORTS_CONFIG/adminPassword'
+
+
+@util.export
+@util.codegen
+@osetupattrsclass
+class JasperEnv(object):
+    JASPER_NAME = 'OVESETUP_REPORTS_JASPER/jasperName'
+    REPORTS_EXPORT = 'OVESETUP_REPORTS_JASPER/reportsExport'
+    SAVED_REPORTS_URI = 'OVESETUP_REPORTS_JASPER/savedReportsUri'
+    THEME = 'OVESETUP_REPORTS_JASPER/theme'
 
 
 @util.export
