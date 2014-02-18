@@ -843,20 +843,23 @@ class Plugin(plugin.PluginBase):
             ),
         )
 
-        for f in (
-            'users/anonymousUser.xml',
-            'users/jasperadmin.xml',
-        ):
-            with self.XMLDoc(
-                os.path.join(
-                    everything,
-                    f,
-                ),
-            ) as xml:
-                xml.setNodesContent(
-                    '/user/enabled',
-                    'false',
-                )
+        if self.environment[
+            oreportscons.DBEnv.NEW_DATABASE
+        ]:
+            for f in (
+                'users/anonymousUser.xml',
+                'users/jasperadmin.xml',
+            ):
+                with self.XMLDoc(
+                    os.path.join(
+                        everything,
+                        f,
+                    ),
+                ) as xml:
+                    xml.setNodesContent(
+                        '/user/enabled',
+                        'false',
+                    )
 
         with self.XMLDoc(
             os.path.join(
