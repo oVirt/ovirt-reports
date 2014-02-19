@@ -98,7 +98,7 @@ install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{reports_name}"
 # Packaging branding
 #
 %if "%{name}" != "%{reports_name}"
-install -dm 755 "%{buildroot}%{_javadir}/%{name}"
+ln -s "%{reports_name}" "%{buildroot}%{_javadir}/%{name}"
 %endif
 
 %postun
