@@ -11,9 +11,11 @@
 		<fail unless="jasper.home" message="Cannot detect jasper home"/>
 		<echo message="jasper home: ${jasper.home}"/>
 		<path id="detect.jasper.jar">
-			<fileset dir="${jasper.home}/buildomatic/conf_source">
-				<filename regex=".*/lib/jasperreports-\d.*.jar"/>
-			</fileset>
+			<first>
+				<fileset dir="${jasper.home}/buildomatic/conf_source">
+					<filename name="**/jasperreports-*.jar"/>
+				</fileset>
+			</first>
 		</path>
 		<pathconvert property="detect.jasper.jar" refid="detect.jasper.jar"/>
 		<dirname property="jasper.lib" file="${detect.jasper.jar}"/>

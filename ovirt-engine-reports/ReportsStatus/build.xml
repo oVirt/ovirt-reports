@@ -4,7 +4,7 @@
 	<property name="local.output" value="${build.output}/ReportsStatus.jar"/>
 
 	<path id="local.classpath">
-		<fileset dir="${jasper.lib}"><filename regex="servlet-api-\d.*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="servlet-api-*.jar"/></fileset>
 	</path>
 
 	<target name="all">
