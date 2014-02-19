@@ -8,6 +8,7 @@
 
 %global make_common_opts \\\
 	-j1 \\\
+	BUILD_VALIDATION=0 \\\
 	PACKAGE_NAME=%{name} \\\
 	RPM_VERSION=%{version} \\\
 	RPM_RELEASE=%{release} \\\
