@@ -592,18 +592,22 @@ class Plugin(plugin.PluginBase):
             os.path.join(
                 self.environment[oreportscons.ConfigEnv.JASPER_HOME],
                 'buildomatic',
-                'js-install-*.sh',
+                'conf_source',
+                'ie*',
             )
         )
         if len(install) != 1:
             raise RuntimeError(
-                _('Unexpected jasper installation, js-install-*.sh is missing')
+                _(
+                    'Unexpected jasper installation, '
+                    'buildomatic lib folder is missing'
+                )
             )
         self.environment[
             oreportscons.JasperEnv.JASPER_NAME
         ] = os.path.basename(install[0]).replace(
-            'js-install-', ''
-        ).replace('.sh', '')
+            'ie', ''
+        ).lower()
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
