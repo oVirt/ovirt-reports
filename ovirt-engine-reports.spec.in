@@ -91,18 +91,25 @@ make %{make_common_opts} install DESTDIR="%{buildroot}"
 #
 # /var creation
 #
-install -dm 755 "%{buildroot}/%{_localstatedir}/lib/%{name}"
-install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{name}"
+install -dm 755 "%{buildroot}/%{_localstatedir}/lib/%{reports_name}"
+install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{reports_name}"
+
+#
+# Packaging branding
+#
+%if "%{name}" != "%{reports_name}"
+install -dm 755 "%{buildroot}%{_javadir}/%{name}"
+%endif
 
 %postun
 if [ "$1" -eq 0 ]; then
-	rm -rf /var/lib/ovirt-engine-reports/%{name}.war
+	rm -rf /var/lib/ovirt-engine-reports/%{reports_name}.war
 	rm -f /var/lib/ovirt-engine/reports.xml
 fi
 
 %files
-%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{name}
-%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{name}
+%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{reports_name}
+%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}
 %{_localstatedir}/lib/ovirt-engine-reports/backups/
 %{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
 %{reports_java}
