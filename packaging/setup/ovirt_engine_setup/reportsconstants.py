@@ -36,7 +36,7 @@ from . import reportsconfig
 @util.export
 @util.codegen
 class Const(object):
-    PACKAGE_NAME = reportsconfig.PACKAGE_NAME
+    PACKAGE_NAME = 'ovirt-engine-reports'
     PACKAGE_VERSION = reportsconfig.PACKAGE_VERSION
     DISPLAY_VERSION = reportsconfig.DISPLAY_VERSION
     RPM_VERSION = reportsconfig.RPM_VERSION
