@@ -19,7 +19,6 @@ js.dbName=@REPORTS_DB_DATABASE@
 # web app name
 # (set one of these to deploy to a non-default war file name)
 webAppNameCE=@PACKAGE_NAME@
-webAppNamePro=@PACKAGE_NAME@
 
 # Database
 maven.jdbc.groupId=postgresql
