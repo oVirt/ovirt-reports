@@ -18,7 +18,8 @@ js.dbName=@REPORTS_DB_DATABASE@
 
 # web app name
 # (set one of these to deploy to a non-default war file name)
-webAppNameCE=@PACKAGE_NAME@
+webAppNameCE=ovirt-engine-reports
+webAppNamePro=ovirt-engine-reports
 
 # Database
 maven.jdbc.groupId=postgresql

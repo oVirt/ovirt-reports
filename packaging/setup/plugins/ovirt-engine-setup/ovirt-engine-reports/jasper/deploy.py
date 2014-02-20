@@ -332,7 +332,6 @@ class Plugin(plugin.PluginBase):
                         JASPER_BUILDOMATIC_CONFIG_TEMPALTE
                     ),
                     subst={
-                        '@PACKAGE_NAME@': oreportscons.Const.PACKAGE_NAME,
                         '@PKG_STATE_DIR@': (
                             oreportscons.FileLocations.PKG_STATE_DIR
                         ),
