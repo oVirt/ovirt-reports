@@ -841,12 +841,25 @@ class Plugin(plugin.PluginBase):
         self.logger.info(_('Customizing Jasper'))
 
         for p in sorted(
-            glob.glob(
-                os.path.join(
-                    oreportscons.FileLocations.OVIRT_ENGINE_WAR_PATCHES,
-                    '*.patch',
+            (
+                glob.glob(
+                    os.path.join(
+                        oreportscons.FileLocations.OVIRT_ENGINE_WAR_PATCHES,
+                        self.environment[
+                            oreportscons.JasperEnv.JASPER_NAME
+                        ],
+                        '*.patch',
+                    )
+                ) +
+                glob.glob(
+                    os.path.join(
+                        oreportscons.FileLocations.OVIRT_ENGINE_WAR_PATCHES,
+                        'common',
+                        '*.patch',
+                    )
                 )
-            )
+            ),
+            key=lambda x: os.path.basename(x),
         ):
             rc, stdout, stderr = self.execute(
                 args=(

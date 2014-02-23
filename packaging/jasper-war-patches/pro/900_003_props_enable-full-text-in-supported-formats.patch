@@ -1,0 +1,12 @@
+--- a/WEB-INF/classes/jasperreports.properties
++++ b/WEB-INF/classes/jasperreports.properties
+@@ -84,6 +84,9 @@ com.jaspersoft.jasperreports.highcharts.highcharts.js$context.url=reportresource
+ com.jaspersoft.jasperreports.highcharts.default.service.js$context.url=reportresource?resource=com/jaspersoft/jasperreports/highcharts/charts/services/default.service.js
+ com.jaspersoft.jasperreports.highcharts.item.hyperlink.service.js$context.url=reportresource?resource=com/jaspersoft/jasperreports/highcharts/charts/services/item.hyperlink.service.js
+ 
++# enable full text in ods export format
++net.sf.jasperreports.print.keep.full.text=true
++
+ # highcharts: phantomjs's executable absolute path
+ #com.jaspersoft.jasperreports.highcharts.phantomjs.executable.path=path/to/phantomjs
+ 

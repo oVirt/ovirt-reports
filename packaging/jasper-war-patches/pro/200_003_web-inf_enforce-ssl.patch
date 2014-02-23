@@ -1,0 +1,17 @@
+--- a/WEB-INF/web.xml
++++ b/WEB-INF/web.xml
+@@ -499,10 +499,10 @@
+       <url-pattern>/*</url-pattern>
+     </web-resource-collection>
+     <user-data-constraint>
+-      <!--SSL disabled-->
+-      <transport-guarantee>NONE</transport-guarantee>
+-      <!--SSL enabled 
+-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
++      <!--SSL disabled>
++      <transport-guarantee>NONE</transport-guarantee>  -->
++      <!--SSL enabled  -->
++			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+     </user-data-constraint>
+   </security-constraint>
+   <!--This constraint disables the listed HTTP methods, which are not used by JS

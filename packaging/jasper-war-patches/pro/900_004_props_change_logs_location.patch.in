@@ -1,0 +1,13 @@
+--- a/WEB-INF/log4j.properties
++++ b/WEB-INF/log4j.properties
+@@ -139,8 +139,8 @@ log4j.logger.IntrusionDetector=ERROR
+ #log4j.logger.com.jaspersoft.jasperserver.jaxrs.importexport.ImportJaxrsService=DEBUG# overriding fileout location
+ # jasperserver-pro.root is used only by JasperServer Professional.
+ # JasperServer Community Edition users should look for jasperserver.root above in this file.
+-log4j.appender.fileout.File=${ovirt-engine-reports.root}/WEB-INF/logs/jasperserver.log
+-log4j.appender.jasperanalysis.File=${ovirt-engine-reports.root}/WEB-INF/logs/jasperanalysis.log
++log4j.appender.fileout.File=@PKG_LOG_DIR@/jasperserver.log
++log4j.appender.jasperanalysis.File=@PKG_LOG_DIR@/jasperanalysis.log
+ 
+ ## Show some audit related warnings
+ log4j.logger.com.jaspersoft.ji.logging.context=warn

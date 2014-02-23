@@ -95,7 +95,8 @@ GENERATED = \
 	build/python-check.sh \
 	ovirt-engine-reports.spec \
 	packaging/jasper-customizations/WEB-INF/applicationContext-ovirt-override.xml \
-	packaging/jasper-war-patches/900_004_props_change_logs_location.patch \
+	packaging/jasper-war-patches/ce/900_004_props_change_logs_location.patch \
+	packaging/jasper-war-patches/pro/900_004_props_change_logs_location.patch \
 	packaging/setup/ovirt_engine_setup/reportsconfig.py \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf \
 	$(NULL)
