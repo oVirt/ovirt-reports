@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inputControl exportedWithPermissions="true">
-<inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/vm_ic</folder>
     <name>P_VM_Type</name>
     <version>3</version>
