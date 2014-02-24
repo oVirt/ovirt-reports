@@ -815,16 +815,6 @@ class Plugin(plugin.PluginBase):
 
         self.logger.info(_('Configuring Jasper Database resources'))
 
-        for f in glob.glob(
-            os.path.join(
-                oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR,
-                'WEB-INF',
-                'lib',
-                'postgresql-*.jar',
-            )
-        ):
-            os.unlink(f)
-
         with self.XMLDoc(
             os.path.join(
                 oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR,
@@ -935,6 +925,28 @@ class Plugin(plugin.PluginBase):
                     )
 
         self._importJs(everything)
+
+    @plugin.event(
+        stage=plugin.Stages.STAGE_MISC,
+        after=(
+            oreportscons.Stages.DB_SCHEMA,
+        ),
+        condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
+    )
+    def _artifacts(self):
+
+        #
+        # Remove embedded psql resources
+        #
+        for f in glob.glob(
+            os.path.join(
+                oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR,
+                'WEB-INF',
+                'lib',
+                'postgresql-*.jar',
+            )
+        ):
+            os.unlink(f)
 
         #
         # Files contain password
