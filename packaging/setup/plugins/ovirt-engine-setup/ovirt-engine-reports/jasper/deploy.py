@@ -28,11 +28,7 @@ import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
-import libxml2
-
-
 from otopi import constants as otopicons
-from otopi import base
 from otopi import util
 from otopi import plugin
 from otopi import transaction
@@ -43,6 +39,7 @@ from ovirt_engine import util as outil
 
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup import reportsconstants as oreportscons
+from ovirt_engine_setup import reportsutil as oreportsutil
 from ovirt_engine_setup import util as osetuputil
 from ovirt_engine_setup import database
 
@@ -50,49 +47,6 @@ from ovirt_engine_setup import database
 @util.export
 class Plugin(plugin.PluginBase):
     """Schema plugin."""
-
-    class XMLDoc(base.Base):
-
-        @property
-        def document(self):
-            return self._doc
-
-        @property
-        def xpath(self):
-            return self._ctx
-
-        def __init__(self, f):
-            super(Plugin.XMLDoc, self).__init__()
-            self._file = f
-            self._doc = None
-            self._ctx = None
-
-        def __enter__(self):
-            self._doc = libxml2.parseFile(self._file)
-            self._ctx = self._doc.xpathNewContext()
-            return self
-
-        def __exit__(self, exc_type, exc_value, traceback):
-            if not exc_type:
-                with open(self._file, 'w') as f:
-                    f.write(
-                        self._doc.serialize(
-                            'UTF-8',
-                            libxml2.XML_SAVE_FORMAT,
-                        )
-                    )
-                os.chmod(self._file, 0o644)
-
-            if self._doc:
-                self._doc.freeDoc()
-                self._doc = None
-            if self._ctx:
-                self._ctx.xpathFreeContext()
-                self._ctx = None
-
-        def setNodesContent(self, path, content):
-            for node in self.xpath.xpathEval(path):
-                node.setContent(content)
 
     class JasperSchemaTransaction(transaction.TransactionElement):
 
@@ -261,63 +215,9 @@ class Plugin(plugin.PluginBase):
                     0o700,
                 )
 
-    def _exportJs(self, what, args):
-        dest = os.path.join(
-            self._temproot,
-            what,
-        )
-        self.execute(
-            args=(
-                './js-export.sh',
-                '--output-dir', dest,
-            ) + args,
-            cwd=os.path.join(
-                self.environment[
-                    oreportscons.ConfigEnv.JASPER_HOME
-                ],
-                'buildomatic',
-            ),
-            envAppend={
-                'JAVA_HOME': self.environment[
-                    osetupcons.ConfigEnv.JAVA_HOME
-                ],
-                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
-                'ADDITIONAL_CONFIG_DIR': (
-                    oreportscons.FileLocations.
-                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
-                ),
-            },
-        )
-        return dest
-
-    def _importJs(self, src):
-        self.execute(
-            args=(
-                './js-import.sh',
-                '--input-dir', src,
-                '--update',
-            ),
-            cwd=os.path.join(
-                self.environment[
-                    oreportscons.ConfigEnv.JASPER_HOME
-                ],
-                'buildomatic',
-            ),
-            envAppend={
-                'JAVA_HOME': self.environment[
-                    osetupcons.ConfigEnv.JAVA_HOME
-                ],
-                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
-                'ADDITIONAL_CONFIG_DIR': (
-                    oreportscons.FileLocations.
-                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
-                ),
-            },
-        )
-
     def _workaroundUsersNullPaswords(self, src):
         for f in glob.glob(os.path.join(src, 'users', '*.xml')):
-            with self.XMLDoc(f) as xml:
+            with oreportsutil.XMLDoc(f) as xml:
                 for node in xml.xpath.xpathEval('/user/password'):
                     if node.getContent() == 'ENC<null>':
                         node.setContent('ENC<>')
@@ -366,7 +266,7 @@ class Plugin(plugin.PluginBase):
         )
 
         if self.environment[oreportscons.ConfigEnv.ADMIN_PASSWORD] is not None:
-            with self.XMLDoc(
+            with oreportsutil.XMLDoc(
                 os.path.join(
                     reportsImport,
                     'users',
@@ -394,7 +294,7 @@ class Plugin(plugin.PluginBase):
                 dwhdatasource,
             )
         else:
-            with self.XMLDoc(dwhdatasource) as xml:
+            with oreportsutil.XMLDoc(dwhdatasource) as xml:
                 xml.setNodesContent(
                     '/jdbcDataSource/connectionUrl',
                     'jdbc:postgresql://%s:%s/%s?%s' % (
@@ -509,6 +409,7 @@ class Plugin(plugin.PluginBase):
 
     def __init__(self, context):
         super(Plugin, self).__init__(context=context)
+        self._oreportsutil = None
         self._temproot = None
         self._quartzprops = None
         self._users = None
@@ -520,6 +421,7 @@ class Plugin(plugin.PluginBase):
         stage=plugin.Stages.STAGE_INIT,
     )
     def _init(self):
+        self._oreportsutil = oreportsutil.JasperUtil(plugin=self)
         self._temproot = tempfile.mkdtemp()
         self._javatmp = os.path.join(self._temproot, 'tmp')
         os.mkdir(self._javatmp)
@@ -658,7 +560,7 @@ class Plugin(plugin.PluginBase):
                 _('Could not detect Jasper war folder')
             )
 
-        everything = self._exportJs(
+        everything = self._oreportsutil.jsexport(
             what='everything',
             args=(
                 '--everything',
@@ -675,7 +577,7 @@ class Plugin(plugin.PluginBase):
                 )
             )
         ):
-            self._savedReports = self._exportJs(
+            self._savedReports = self._oreportsutil.jsexport(
                 what='savedReports',
                 args=(
                     '--uris', self.environment[
@@ -683,20 +585,20 @@ class Plugin(plugin.PluginBase):
                     ],
                 ),
             )
-        self._jobs = self._exportJs(
+        self._jobs = self._oreportsutil.jsexport(
             what='jobs',
             args=(
                 '--report-jobs', '/',
             ),
         )
-        self._users = self._exportJs(
+        self._users = self._oreportsutil.jsexport(
             what='users',
             args=(
                 '--users',
                 '--roles',
             ),
         )
-        dwhdatasourceexport = self._exportJs(
+        dwhdatasourceexport = self._oreportsutil.jsexport(
             what='dwhdatasourceexport',
             args=(
                 '--uris', '/reports_resources/JDBC/data_sources/ovirt',
@@ -778,12 +680,12 @@ class Plugin(plugin.PluginBase):
             )
 
         if self._users:
-            self._importJs(self._users)
+            self._oreportsutil.jsimport(self._users)
 
         if self._savedReports:
-            self._importJs(self._savedReports)
+            self._oreportsutil.jsimport(self._savedReports)
 
-        self._importJs(self._prepareOvirtReports())
+        self._oreportsutil.jsimport(self._prepareOvirtReports())
 
         #
         # We import users twice because we need permissions to be
@@ -791,10 +693,10 @@ class Plugin(plugin.PluginBase):
         # reports in previous step.
         #
         if self._users:
-            self._importJs(self._users)
+            self._oreportsutil.jsimport(self._users)
 
         if self._jobs:
-            self._importJs(self._jobs)
+            self._oreportsutil.jsimport(self._jobs)
 
         self.logger.info(_('Configuring Jasper Java resources'))
 
@@ -815,7 +717,7 @@ class Plugin(plugin.PluginBase):
 
         self.logger.info(_('Configuring Jasper Database resources'))
 
-        with self.XMLDoc(
+        with oreportsutil.XMLDoc(
             os.path.join(
                 oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR,
                 'WEB-INF',
@@ -887,7 +789,7 @@ class Plugin(plugin.PluginBase):
 
         self.logger.info(_('Customizing Jasper metadata'))
 
-        everything = self._exportJs(
+        everything = self._oreportsutil.jsexport(
             what='everything-post',
             args=(
                 '--everything',
@@ -904,7 +806,7 @@ class Plugin(plugin.PluginBase):
             ):
                 f = os.path.join(everything, f)
                 if os.path.exists(f):
-                    with self.XMLDoc(f) as xml:
+                    with oreportsutil.XMLDoc(f) as xml:
                         xml.setNodesContent(
                             '/user/enabled',
                             'false',
@@ -916,7 +818,7 @@ class Plugin(plugin.PluginBase):
         ):
             f = os.path.join(everything, f)
             if os.path.exists(f):
-                with self.XMLDoc(f) as xml:
+                with oreportsutil.XMLDoc(f) as xml:
                     xml.setNodesContent(
                         '/organization/theme',
                         self.environment[
@@ -924,7 +826,7 @@ class Plugin(plugin.PluginBase):
                         ],
                     )
 
-        self._importJs(everything)
+        self._oreportsutil.jsimport(everything)
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
