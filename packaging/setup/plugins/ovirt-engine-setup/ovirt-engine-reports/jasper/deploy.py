@@ -782,6 +782,24 @@ class Plugin(plugin.PluginBase):
 
         self.logger.info(_('Customizing Jasper'))
 
+        base = oreportscons.FileLocations.OVIRT_ENGINE_JASPER_CUSTOMIZATION
+        for directory, dirs, files in os.walk(base):
+            for f in files:
+                shutil.copy2(
+                    os.path.join(
+                        directory,
+                        f,
+                    ),
+                    os.path.join(
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_JASPER_WAR,
+                        os.path.relpath(
+                            directory,
+                            base,
+                        ),
+                    )
+                )
+
         for p in sorted(
             (
                 glob.glob(
@@ -818,24 +836,6 @@ class Plugin(plugin.PluginBase):
                     '--silent',
                 ),
             )
-
-        base = oreportscons.FileLocations.OVIRT_ENGINE_JASPER_CUSTOMIZATION
-        for directory, dirs, files in os.walk(base):
-            for f in files:
-                shutil.copy2(
-                    os.path.join(
-                        directory,
-                        f,
-                    ),
-                    os.path.join(
-                        oreportscons.FileLocations.
-                        OVIRT_ENGINE_REPORTS_JASPER_WAR,
-                        os.path.relpath(
-                            directory,
-                            base,
-                        ),
-                    )
-                )
 
         self.logger.info(_('Customizing Jasper metadata'))
 

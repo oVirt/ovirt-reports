@@ -1,0 +1,34 @@
+[PATCH] Remove query manipulator override
+
+This is due to a change in JRS pro causing the override to fail
+application start. For now we will apply it directly on the
+applicationContext file.
+
+--- a/WEB-INF/applicationContext-ovirt-override.xml
++++ b/WEB-INF/applicationContext-ovirt-override.xml
+@@ -41,14 +41,6 @@
+     </bean>
+ 
+     <bean class="com.jaspersoft.jasperserver.api.common.util.spring.BeanPropertyOverrider">
+-        <property name="beanName" value="engineService"/>
+-        <property name="propertyName" value="queryManipulator"/>
+-        <property name="override">
+-            <ref bean="CustomOvirtReportsQueryManipulator"/>
+-        </property>
+-    </bean>
+-
+-    <bean class="com.jaspersoft.jasperserver.api.common.util.spring.BeanPropertyOverrider">
+         <property name="beanName" value="xlsExportParameters"/>
+         <property name="propertyName" value="ignoreGraphics"/>
+         <property name="override">
+--- a/WEB-INF/applicationContext.xml
++++ b/WEB-INF/applicationContext.xml
+@@ -470,7 +470,7 @@
+       <ref bean="${bean.engineService.compiledReportsCache}"/>
+     </property>
+     <property name="queryManipulator">
+-      <ref bean="CascadeQueryManipulator"/>
++      <ref bean="CustomOvirtReportsQueryManipulator"/>
+     </property>
+     <property name="securityContextProvider" ref="${bean.securityContextProvider}"/>
+     <property name="builtInParameterProviders" ref="builtInParameterProviders"/>
