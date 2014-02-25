@@ -34,7 +34,7 @@ Summary: %{product_name}
 Group: Virtualization/Management
 URL: http://www.ovirt.org
 BuildArch: noarch
-Source: http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
+Source: http://resources.ovirt.org/pub/ovirt-3.3-snapshot/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 BuildRequires: maven
 BuildRequires: jpackage-utils
 BuildRequires: java-1.7.0-openjdk-devel
