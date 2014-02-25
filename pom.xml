@@ -3,7 +3,7 @@
 
   <groupId>ovirt_engine_reports</groupId>
   <artifactId>root</artifactId>
-  <version>3.3.3</version>
+  <version>3.3.4</version>
   <packaging>pom</packaging>
 
   <name>oVirt Reports Root Project</name>
@@ -14,7 +14,7 @@
 
   <properties>
     <!-- dependency versions -->
-    <ovirt-reports.version>3.3.3</ovirt-reports.version>
+    <ovirt-reports.version>3.3.4</ovirt-reports.version>
     <version.jasperreports>4.0.2</version.jasperreports>
     <version.jfreechart>1.0.12</version.jfreechart>
     <version.jcommon>1.0.15</version.jcommon>

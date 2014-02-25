@@ -29,12 +29,12 @@
 Name: @PACKAGE_NAME@
 Version: @RPM_VERSION@
 Release: @RPM_RELEASE@%{?release_suffix}%{dist}
-License: Commercial
+License: AGPLv3
 Summary: %{product_name}
 Group: Virtualization/Management
 URL: http://www.ovirt.org
 BuildArch: noarch
-Source: @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
+Source: http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 BuildRequires: maven
 BuildRequires: jpackage-utils
 BuildRequires: java-1.7.0-openjdk-devel
@@ -142,7 +142,11 @@ fi
 %endif
 
 %changelog
+* Tue Feb 25 2014 Sandro Bonazzola <sbonazzo@redhat.com> - 3.3.4-1
+- 3.3.4-1
+
 * Sun Nov 4 2012 Yaniv Dary <ydary@redhat.com> - 3.1.0
 - Update
+
 * Wed Feb 15 2012 Yaniv Dary <ydary@redhat.com> - 3.0.2
 - Initial Commit

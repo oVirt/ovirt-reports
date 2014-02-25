@@ -5,13 +5,13 @@
   <parent>
       <groupId>ovirt_engine_reports</groupId>
       <artifactId>jars</artifactId>
-      <version>3.3.3</version>
+      <version>3.3.4</version>
   </parent>
 
   <groupId>ovirt_engine_reports</groupId>
   <artifactId>WebadminLineBarChartTheme</artifactId>
   <packaging>jar</packaging>
-  <version>3.3.3</version>
+  <version>3.3.4</version>
   <name>Webadmin Chart Theme for Line and Bar Charts</name>
   <description>The jar that contains the chart theme line and bar charts in the webadmin dashboards</description>
   <build>
