@@ -28,6 +28,9 @@ import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
+import libxml2
+
+
 from otopi import constants as otopicons
 from otopi import util
 from otopi import plugin
@@ -286,13 +289,31 @@ class Plugin(plugin.PluginBase):
 
         dwhdatasource = os.path.join(
             reportsImport,
-            'resources/reports_resources/JDBC/data_sources/ovirt.xml',
+            'resources',
+            'reports_resources',
+            'JDBC',
+            'data_sources',
+            'ovirt.xml',
         )
         if self._dwhdatasource:
             shutil.copyfile(
                 self._dwhdatasource,
                 dwhdatasource,
             )
+            if (
+                self.environment[oreportscons.JasperEnv.JASPER_NAME] == 'pro'
+            ):
+                with oreportsutil.XMLDoc(dwhdatasource) as xml:
+                    node = xml.xpath.xpathEval('/jdbcDataSource/folder')[0]
+                    nodeContent = node.getContent()
+                    nodeContent = nodeContent.replace(
+                        os.path.join(
+                            '/',
+                            self._reportsProRelativePath,
+                        ),
+                        ''
+                    )
+                    node.setContent(nodeContent)
         else:
             with oreportsutil.XMLDoc(dwhdatasource) as xml:
                 xml.setNodesContent(
@@ -416,6 +437,7 @@ class Plugin(plugin.PluginBase):
         self._jobs = None
         self._dwhdatasource = None
         self._savedReports = None
+        self._reportsProRelativePath = ''
 
     @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
@@ -560,6 +582,11 @@ class Plugin(plugin.PluginBase):
                 _('Could not detect Jasper war folder')
             )
 
+        if (
+            self.environment[oreportscons.JasperEnv.JASPER_NAME] == 'pro'
+        ):
+            self._reportsProRelativePath = 'organizations/organization_1'
+
         everything = self._oreportsutil.jsexport(
             what='everything',
             args=(
@@ -571,6 +598,7 @@ class Plugin(plugin.PluginBase):
                 everything,
                 os.path.join(
                     'resources',
+                    self._reportsProRelativePath,
                     self.environment[
                         oreportscons.JasperEnv.SAVED_REPORTS_URI
                     ],
@@ -580,9 +608,14 @@ class Plugin(plugin.PluginBase):
             self._savedReports = self._oreportsutil.jsexport(
                 what='savedReports',
                 args=(
-                    '--uris', self.environment[
-                        oreportscons.JasperEnv.SAVED_REPORTS_URI
-                    ],
+                    '--uris',
+                    os.path.join(
+                        '/',
+                        self._reportsProRelativePath,
+                        self.environment[
+                            oreportscons.JasperEnv.SAVED_REPORTS_URI
+                        ],
+                    ),
                 ),
             )
         self._jobs = self._oreportsutil.jsexport(
@@ -601,12 +634,29 @@ class Plugin(plugin.PluginBase):
         dwhdatasourceexport = self._oreportsutil.jsexport(
             what='dwhdatasourceexport',
             args=(
-                '--uris', '/reports_resources/JDBC/data_sources/ovirt',
+                '--uris',
+                os.path.join(
+                    '/',
+                    self._reportsProRelativePath,
+                    'reports_resources',
+                    'JDBC',
+                    'data_sources',
+                    'ovirt',
+                ),
             ),
         )
+        #
+        # due to os.path.join considering any path starting with '/'
+        # to be a new absulote path, had to concat the path strings.
+        #
         self._dwhdatasource = os.path.join(
             dwhdatasourceexport,
-            'resources/reports_resources/JDBC/data_sources/ovirt.xml',
+            'resources',
+            self._reportsProRelativePath,
+            'reports_resources',
+            'JDBC',
+            'data_sources',
+            'ovirt.xml',
         )
 
         self._workaroundUsersNullPaswords(self._users)
@@ -825,6 +875,116 @@ class Plugin(plugin.PluginBase):
                             oreportscons.JasperEnv.THEME
                         ],
                     )
+
+        if (
+            self.environment[oreportscons.JasperEnv.JASPER_NAME] == 'pro'
+        ):
+            self.logger.info(_('Customizing Jasper Pro Parts'))
+
+            if self.environment[
+                oreportscons.ConfigEnv.ADMIN_PASSWORD
+            ] is not None:
+                with oreportsutil.XMLDoc(
+                    os.path.join(
+                        everything,
+                        'users',
+                        'superuser.xml',
+                    )
+                ) as xml:
+                    xml.setNodesContent(
+                        '/user/password',
+                        self.environment[
+                            oreportscons.ConfigEnv.ADMIN_PASSWORD
+                        ],
+                    )
+
+            if os.path.exists(
+                os.path.join(
+                    everything,
+                    'resources',
+                    'themes',
+                    self.environment[
+                        oreportscons.JasperEnv.THEME
+                    ].replace(
+                        '-',
+                        '-002d'
+                    ),
+                ),
+            ):
+                shutil.rmtree(
+                    os.path.join(
+                        everything,
+                        'resources',
+                        'themes',
+                        self.environment[
+                            oreportscons.JasperEnv.THEME
+                        ].replace(
+                            '-',
+                            '-002d'
+                        ),
+                    ),
+                )
+
+            shutil.copytree(
+                os.path.join(
+                    self.environment[oreportscons.JasperEnv.REPORTS_EXPORT],
+                    'resources',
+                    'themes',
+                    self.environment[
+                        oreportscons.JasperEnv.THEME
+                    ].replace(
+                        '-',
+                        '-002d'
+                    ),
+                ),
+                os.path.join(
+                    everything,
+                    'resources',
+                    'themes',
+                    self.environment[
+                        oreportscons.JasperEnv.THEME
+                    ].replace(
+                        '-',
+                        '-002d'
+                    ),
+                ),
+            )
+
+            with oreportsutil.XMLDoc(
+                os.path.join(
+                    everything,
+                    'resources',
+                    'themes',
+                    '.folder.xml',
+                )
+            ) as xml:
+                addNode = True
+                for node in xml.xpath.xpathEval(
+                    '/folder'
+                ):
+                    if self.environment[
+                        oreportscons.JasperEnv.THEME
+                    ] in node.content:
+                        addNode = False
+                if addNode:
+                    addition = None
+                    try:
+                        addition = libxml2.parseDoc(
+                            '''
+                                <folder>%s</folder>
+                            ''' % (
+                            self.environment[
+                                oreportscons.JasperEnv.THEME
+                            ]
+                            )
+                        )
+                        xml.xpath.xpathEval('/folder')[0].addChild(
+                            addition.getRootElement()
+                        )
+                    finally:
+                        # do not free, cause segmentation fault
+                        #addition.freeDoc()
+                        pass
 
         self._oreportsutil.jsimport(everything)
 
