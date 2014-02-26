@@ -1,71 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="191" pageHeight="15" orientation="Landscape" columnWidth="191" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d015ef0a-9374-4889-8704-483486e27e5a">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <parameter name="P_StorageDomain_ID" class="java.lang.String">
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-        <![CDATA[SELECT v3_4_configuration_history_storage_domains.storage_domain_id,
-       coalesce(samples.available_disk_size_gb,daily.available_disk_size_gb) as available_disk_size_gb,
-       coalesce(samples.used_disk_size_gb,daily.used_disk_size_gb) as used_disk_size_gb,
-       coalesce(samples.available_disk_size_gb + samples.used_disk_size_gb, daily.available_disk_size_gb + daily.used_disk_size_gb) as total_size
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/storage_domains_inventory_br47_files/chart"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/storage_domains_inventory_br47"/>
+	<parameter name="P_StorageDomain_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- BR47 - This query returns for each storage domain the :
+-- available disk size, used disk size and total disk size
+
+SELECT
+    v3_4_configuration_history_storage_domains.storage_domain_id,
+   COALESCE (
+        samples.available_disk_size_gb,
+        daily.available_disk_size_gb
+    )
+    AS available_disk_size_gb,
+    COALESCE (
+        samples.used_disk_size_gb,
+        daily.used_disk_size_gb
+    )
+    AS used_disk_size_gb,
+    COALESCE (
+        samples.available_disk_size_gb + samples.used_disk_size_gb,
+        daily.available_disk_size_gb + daily.used_disk_size_gb
+    )
+    AS total_size
 FROM v3_4_configuration_history_storage_domains
-         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_samples as samples ON (v3_4_configuration_history_storage_domains.storage_domain_id = samples.storage_domain_id
-                                                                                     AND samples.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_samples a
-                                                                                                                                                                GROUP BY a.storage_domain_id))
-         LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_daily as daily ON (v3_4_configuration_history_storage_domains.storage_domain_id = daily.storage_domain_id
-                                                                                     AND daily.history_id in (SELECT max(a.history_id)
-                                                                                                                                                                FROM v3_4_statistics_storage_domains_resources_usage_daily a
-                                                                                                                                                                GROUP BY a.storage_domain_id))
-WHERE v3_4_configuration_history_storage_domains.storage_domain_id = cast($P{P_StorageDomain_ID} as uuid)
-      AND v3_4_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                    FROM v3_4_configuration_history_storage_domains as a
-                                                                    GROUP BY a.storage_domain_id)]]>
-    </queryString>
-    <field name="storage_domain_id" class="java.lang.Object"/>
-    <field name="available_disk_size_gb" class="java.lang.Integer"/>
-    <field name="used_disk_size_gb" class="java.lang.Integer"/>
-    <field name="total_size" class="java.lang.Integer"/>
-    <summary>
-        <band height="15" splitType="Stretch">
-            <stackedBarChart>
-                <chart isShowLegend="false" customizerClass="com.ovirt.reports.jasper.HorizontalStackedBarChart">
-                    <reportElement uuid="0506e0ad-2d9f-409c-abbc-88c0641f7511" x="0" y="0" width="191" height="15"/>
-                    <chartTitle/>
-                    <chartSubtitle/>
-                    <chartLegend/>
-                </chart>
-                <categoryDataset>
-                    <categorySeries>
-                        <seriesExpression><![CDATA["Free Space"]]></seriesExpression>
-                        <categoryExpression><![CDATA[$F{storage_domain_id}]]></categoryExpression>
-                        <valueExpression><![CDATA[$F{available_disk_size_gb}]]></valueExpression>
-                        <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{available_disk_size_gb}.toString()]]></hyperlinkTooltipExpression>
-                        </itemHyperlink>
-                    </categorySeries>
-                    <categorySeries>
-                        <seriesExpression><![CDATA["Used Space"]]></seriesExpression>
-                        <categoryExpression><![CDATA[$F{storage_domain_id}]]></categoryExpression>
-                        <valueExpression><![CDATA[$F{used_disk_size_gb}]]></valueExpression>
-                        <itemHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[$F{used_disk_size_gb}.toString()]]></hyperlinkTooltipExpression>
-                        </itemHyperlink>
-                    </categorySeries>
-                </categoryDataset>
-                <barPlot isShowLabels="false" isShowTickLabels="false" isShowTickMarks="false">
-                    <plot orientation="Horizontal">
-                        <seriesColor seriesOrder="0" color="#6EC000"/>
-                        <seriesColor seriesOrder="1" color="#FF0000"/>
-                    </plot>
-                    <itemLabel color="#000000" backgroundColor="#FFFFFF"/>
-                    <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
-                    <rangeAxisMaxValueExpression><![CDATA[$F{total_size}+1]]></rangeAxisMaxValueExpression>
-                </barPlot>
-            </stackedBarChart>
-        </band>
-    </summary>
+    LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_samples AS samples
+        ON (
+            v3_4_configuration_history_storage_domains.storage_domain_id =
+            samples.storage_domain_id
+            AND samples.history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_statistics_storage_domains_resources_usage_samples a
+                GROUP BY a.storage_domain_id
+            )
+        )
+    LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_daily AS daily
+        ON (
+            v3_4_configuration_history_storage_domains.storage_domain_id =
+            daily.storage_domain_id
+            AND daily.history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_statistics_storage_domains_resources_usage_daily a
+                GROUP BY a.storage_domain_id
+            )
+        )
+WHERE
+    v3_4_configuration_history_storage_domains.storage_domain_id =
+        CAST ( $P{P_StorageDomain_ID} AS uuid )
+    AND v3_4_configuration_history_storage_domains.history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_storage_domains AS a
+        GROUP BY a.storage_domain_id
+    )]]>
+	</queryString>
+	<field name="storage_domain_id" class="java.lang.Object"/>
+	<field name="available_disk_size_gb" class="java.lang.Integer"/>
+	<field name="used_disk_size_gb" class="java.lang.Integer"/>
+	<field name="total_size" class="java.lang.Integer"/>
+	<summary>
+		<band height="15" splitType="Stretch">
+			<stackedBarChart>
+				<chart isShowLegend="false" customizerClass="com.ovirt.reports.jasper.HorizontalStackedBarChart">
+					<reportElement x="0" y="0" width="191" height="15" uuid="0506e0ad-2d9f-409c-abbc-88c0641f7511"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Free Space"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{storage_domain_id}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{available_disk_size_gb}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{available_disk_size_gb}.toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["Used Space"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{storage_domain_id}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{used_disk_size_gb}]]></valueExpression>
+						<itemHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[$F{used_disk_size_gb}.toString()]]></hyperlinkTooltipExpression>
+						</itemHyperlink>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="false" isShowTickLabels="false" isShowTickMarks="false">
+					<plot orientation="Horizontal">
+						<seriesColor seriesOrder="0" color="#6EC000"/>
+						<seriesColor seriesOrder="1" color="#FF0000"/>
+					</plot>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+					<rangeAxisMaxValueExpression><![CDATA[$F{total_size}+1]]></rangeAxisMaxValueExpression>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</summary>
 </jasperReport>
