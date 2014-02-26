@@ -1,267 +1,330 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR16" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="41"/>
-    <parameter name="is_deleted" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Period" class="java.lang.Short">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.util.Date">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-    </parameter>
-    <parameter name="P_Cluster_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-    </parameter>
-    <parameter name="P_VM_Type" class="java.lang.Integer"/>
-    <parameter name="P_VM_ListID" class="java.util.Collection"/>
-    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
-    </parameter>
-        <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-        <![CDATA[select  $P!{calendar_column} as the_date, vm_id, coalesce(vm_name,max(vm_name) over (partition by 1),'') as vm_name, CPU_Peak, MEM_Peak
-from    (-- VMs CPU and MEMory Usage Peaks
-        SELECT
-            v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+<!-- Created with Jaspersoft Studio version 5.5.0-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR16" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="6efef281-4820-45ce-a69e-4cde82be318d">
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Virtual_machines/multiple_vms_resource_usage_over_time_br16"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="41"/>
+	<parameter name="is_deleted" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.Short">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.util.Date">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+	</parameter>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+	</parameter>
+	<parameter name="P_VM_Type" class="java.lang.Integer"/>
+	<parameter name="P_VM_ListID" class="java.util.Collection"/>
+	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- BR16 - This query returns for each VM,
+-- Hourly or Daily CPU and Memory Usage Peaks
+
+SELECT DISTINCT
+    -- If "Period" is "Daily" then
+    -- the "calendar_column" parameter is equal to "the_datetime" else "the_date"
+    $P!{calendar_column} AS the_date,
+    vm_id,
+    COALESCE (
+        vm_name,
+        MAX(vm_name) over (partition by 1),
+        ''
+    )
+    AS vm_name,
+    CPU_Peak,
+    MEM_Peak
+FROM (
+    SELECT
+        -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
+        v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+        CASE
+            WHEN delete_date IS NULL
+                THEN vm_name
+            ELSE
+                vm_name
+                ||
+                ' (Removed on '
+                ||
+                CAST ( CAST ( delete_date AS date ) AS varchar )
+                ||
+                ')'
+        END AS vm_name,
+        v3_4_statistics_vms_resources_usage_$P!{table_name}.history_datetime AS time,
+        MAX (
+            COALESCE ( max_cpu_usage, 0 )
+        )
+        AS CPU_Peak,
+        MAX (
+            COALESCE ( max_memory_usage, 0 )
+        )
+        AS MEM_Peak
+    FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v3_4_configuration_history_vms
+              ON (
+                v3_4_configuration_history_vms.vm_id =
+                v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id
+            )
+    WHERE
+        -- This condition will filter the vm's based on the vm list the user chose
+        $X{IN, CAST ( v3_4_configuration_history_vms.vm_id AS varchar ), P_VM_ListID}
+        AND history_datetime >= CAST ( $P{P_Start_Date} AS timestamp )
+        AND history_datetime <=
             CASE
-                WHEN delete_date IS NULL THEN vm_name
-                ELSE vm_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
-            END as vm_name,
-            v3_4_statistics_vms_resources_usage_$P!{table_name}.history_datetime AS time,
-            MAX(coalesce(max_cpu_usage,0)) AS CPU_Peak,
-            MAX(coalesce(max_memory_usage,0)) AS MEM_Peak
-        FROM v3_4_statistics_vms_resources_usage_$P!{table_name}
-            INNER JOIN v3_4_configuration_history_vms
-                  ON (v3_4_configuration_history_vms.vm_id = v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id)
-        WHERE
-            $X{IN, cast(v3_4_configuration_history_vms.vm_id as varchar), P_VM_ListID}
-            AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-            AND history_datetime <= CASE
-                                       WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                       WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                       WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                       WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                   END
-            AND v3_4_configuration_history_vms.history_id in (SELECT max(a.history_id)
-                                    FROM v3_4_configuration_history_vms a
-                                    GROUP BY a.vm_id)
-            $P!{is_deleted}
-        GROUP BY    v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id,
-                    CASE
-                        WHEN delete_date IS NULL THEN vm_name
-                        ELSE vm_name || ' (Removed on ' || cast(cast(delete_date as date) as varchar) || ')'
-                    END,
-                    v3_4_statistics_vms_resources_usage_$P!{table_name}.history_datetime) a RIGHT OUTER JOIN calendar b on (time = $P!{calendar_column})
-where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
-      AND $P!{calendar_column} <= CASE
-                         WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                         WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                         WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                         WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                      END
-order by $P!{calendar_column}]]>
-    </queryString>
-    <field name="the_date" class="java.sql.Timestamp"/>
-    <field name="vm_id" class="java.lang.Object"/>
-    <field name="vm_name" class="java.lang.String"/>
-    <field name="cpu_peak" class="java.lang.Integer"/>
-    <field name="mem_peak" class="java.lang.Integer"/>
-    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-        <initialValueExpression><![CDATA[]]></initialValueExpression>
-    </variable>
-    <group name="Cluster">
-        <groupExpression><![CDATA[$P{P_Cluster_ID}]]></groupExpression>
-        <groupFooter>
-            <band height="393">
-                <timeSeriesChart>
-                    <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.PercentTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-                        <reportElement mode="Opaque" x="1" y="1" width="830" height="193">
-                            <printWhenExpression><![CDATA[$P{P_VM_ListID}.size() <= 5]]></printWhenExpression>
-                        </reportElement>
-                        <box>
-                            <pen lineWidth="1.0" lineColor="#3C617F"/>
-                            <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                            <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                            <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                            <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                        </box>
-                        <chartTitle>
-                            <font fontName="SansSerif"/>
-                            <titleExpression><![CDATA[$R{br16.chart.cpu.usage}]]></titleExpression>
-                        </chartTitle>
-                        <chartSubtitle/>
-                        <chartLegend/>
-                    </chart>
-                    <timeSeriesDataset timePeriod="Hour">
-                        <timeSeries>
-                            <seriesExpression><![CDATA[$F{vm_name}]]></seriesExpression>
-                            <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-                            <valueExpression><![CDATA[$F{cpu_peak}]]></valueExpression>
-                            <itemHyperlink>
-                                <hyperlinkTooltipExpression><![CDATA[$F{vm_name} + ", " + $F{cpu_peak}.toString()]]></hyperlinkTooltipExpression>
-                            </itemHyperlink>
-                        </timeSeries>
-                    </timeSeriesDataset>
-                    <timeSeriesPlot isShowShapes="false">
-                        <plot labelRotation="-45.0"/>
-                        <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-                        <timeAxisFormat>
-                            <axisFormat labelColor="#666666">
-                                <labelFont>
-                                    <font fontName="SansSerif" isBold="true"/>
-                                </labelFont>
-                                <tickLabelFont/>
-                            </axisFormat>
-                        </timeAxisFormat>
-                        <valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
-                        <valueAxisFormat>
-                            <axisFormat labelColor="#666666">
-                                <labelFont>
-                                    <font fontName="SansSerif"/>
-                                </labelFont>
-                                <tickLabelFont>
-                                    <font fontName="SansSerif"/>
-                                </tickLabelFont>
-                            </axisFormat>
-                        </valueAxisFormat>
-                    </timeSeriesPlot>
-                </timeSeriesChart>
-                <timeSeriesChart>
-                    <chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.PercentTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-                        <reportElement mode="Opaque" x="1" y="198" width="830" height="193">
-                            <printWhenExpression><![CDATA[$P{P_VM_ListID}.size() <= 5]]></printWhenExpression>
-                        </reportElement>
-                        <box>
-                            <pen lineWidth="1.0" lineColor="#3C617F"/>
-                            <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                            <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                            <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                            <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                        </box>
-                        <chartTitle>
-                            <font fontName="SansSerif"/>
-                            <titleExpression><![CDATA[$R{br16.chart.memory.usage}]]></titleExpression>
-                        </chartTitle>
-                        <chartSubtitle/>
-                        <chartLegend/>
-                    </chart>
-                    <timeSeriesDataset timePeriod="Hour">
-                        <timeSeries>
-                            <seriesExpression><![CDATA[$F{vm_name}]]></seriesExpression>
-                            <timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
-                            <valueExpression><![CDATA[$F{mem_peak}]]></valueExpression>
-                            <itemHyperlink>
-                                <hyperlinkTooltipExpression><![CDATA[$F{vm_name} + ", " + $F{mem_peak}.toString()]]></hyperlinkTooltipExpression>
-                            </itemHyperlink>
-                        </timeSeries>
-                    </timeSeriesDataset>
-                    <timeSeriesPlot isShowShapes="false">
-                        <plot labelRotation="-45.0"/>
-                        <timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
-                        <timeAxisFormat>
-                            <axisFormat labelColor="#666666">
-                                <labelFont>
-                                    <font fontName="SansSerif" isBold="true"/>
-                                </labelFont>
-                                <tickLabelFont/>
-                            </axisFormat>
-                        </timeAxisFormat>
-                        <valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
-                        <valueAxisFormat>
-                            <axisFormat labelColor="#666666">
-                                <labelFont>
-                                    <font fontName="SansSerif"/>
-                                </labelFont>
-                                <tickLabelFont>
-                                    <font fontName="SansSerif"/>
-                                </tickLabelFont>
-                            </axisFormat>
-                        </valueAxisFormat>
-                    </timeSeriesPlot>
-                </timeSeriesChart>
-            </band>
-        </groupFooter>
-    </group>
-    <title>
-        <band height="179">
-            <textField>
-                <reportElement mode="Opaque" x="153" y="45" width="527" height="133">
-                    <printWhenExpression><![CDATA[$P{P_VM_ListID}.size() > 5]]></printWhenExpression>
-                </reportElement>
-                <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif" size="16" isBold="true"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[$R{br16.more.than.five.warning}]]></textFieldExpression>
-            </textField>
-            <subreport>
-                <reportElement x="1" y="45" width="830" height="133">
-                    <printWhenExpression><![CDATA[$P{P_VM_ListID}.size() <= 5]]></printWhenExpression>
-                </reportElement>
-                <subreportParameter name="P_Cluster_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="is_deleted">
-                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Period">
-                    <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_DataCenter_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Start_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_VM_ListID">
-                    <subreportParameterExpression><![CDATA[$P{P_VM_ListID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_VM_Type">
-                    <subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
-                </subreportParameter>
-                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:report3.jrxml"]]></subreportExpression>
-            </subreport>
-            <textField pattern="" isBlankWhenNull="false">
-                <reportElement x="560" y="27" width="272" height="15"/>
-                <textElement textAlignment="Right">
-                    <font fontName="SansSerif" size="11" isBold="false"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-            </textField>
-            <line>
-                <reportElement x="0" y="43" width="832" height="1"/>
-            </line>
-            <image>
-                <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
-            </image>
-        </band>
-    </title>
-    <pageFooter>
-        <band height="13" splitType="Stretch">
-            <textField evaluationTime="Auto">
-                <reportElement x="286" y="0" width="260" height="13"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
+                WHEN $P{P_Period} = 0
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+            END
+        -- Here we get the latest vm configurations
+        AND v3_4_configuration_history_vms.history_id in (
+            SELECT MAX ( a.history_id )
+            FROM v3_4_configuration_history_vms a
+            GROUP BY a.vm_id
+        )
+        -- This will determine if deleted entities will be included in the report,
+        -- according to the user selection for "is_deleted" parameter
+        $P!{is_deleted}
+    GROUP BY
+        v3_4_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+        CASE
+            WHEN delete_date IS NULL
+                THEN vm_name
+            ELSE
+                vm_name
+                ||
+                ' (Removed on '
+                ||
+                CAST ( CAST ( delete_date AS date ) AS varchar )
+                ||
+                ')'
+        END,
+        v3_4_statistics_vms_resources_usage_$P!{table_name}.history_datetime
+) AS a
+    RIGHT OUTER JOIN calendar b
+        ON (
+            time = $P!{calendar_column}
+        )
+WHERE
+    $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
+    AND $P!{calendar_column} <=
+    CASE
+        WHEN $P{P_Period} = 0
+            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+        WHEN $P{P_Period} = 1
+            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+        WHEN $P{P_Period} = 2
+            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+        WHEN $P{P_Period} = 3
+            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+    END
+ORDER BY $P!{calendar_column}]]>
+	</queryString>
+	<field name="the_date" class="java.sql.Timestamp"/>
+	<field name="vm_id" class="java.lang.Object"/>
+	<field name="vm_name" class="java.lang.String"/>
+	<field name="cpu_peak" class="java.lang.Integer"/>
+	<field name="mem_peak" class="java.lang.Integer"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="Cluster">
+		<groupExpression><![CDATA[$P{P_Cluster_ID}]]></groupExpression>
+		<groupFooter>
+			<band height="393">
+				<timeSeriesChart>
+					<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.PercentTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+						<reportElement mode="Opaque" x="1" y="1" width="830" height="193" uuid="081aa47d-de35-43e4-8006-5140a0006d4e">
+							<printWhenExpression><![CDATA[$P{P_VM_ListID}.size() <= 5]]></printWhenExpression>
+						</reportElement>
+						<box>
+							<pen lineWidth="1.0" lineColor="#3C617F"/>
+							<topPen lineWidth="1.0" lineColor="#3C617F"/>
+							<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+							<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+							<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+						</box>
+						<chartTitle>
+							<font fontName="SansSerif"/>
+							<titleExpression><![CDATA[$R{br16.chart.cpu.usage}]]></titleExpression>
+						</chartTitle>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<timeSeriesDataset timePeriod="Hour">
+						<timeSeries>
+							<seriesExpression><![CDATA[$F{vm_name}]]></seriesExpression>
+							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+							<valueExpression><![CDATA[$F{cpu_peak}]]></valueExpression>
+							<itemHyperlink>
+								<hyperlinkTooltipExpression><![CDATA[$F{vm_name} + ", " + $F{cpu_peak}.toString()]]></hyperlinkTooltipExpression>
+							</itemHyperlink>
+						</timeSeries>
+					</timeSeriesDataset>
+					<timeSeriesPlot isShowShapes="false">
+						<plot labelRotation="-45.0"/>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+						<timeAxisFormat>
+							<axisFormat labelColor="#666666">
+								<labelFont>
+									<font fontName="SansSerif" isBold="true"/>
+								</labelFont>
+							</axisFormat>
+						</timeAxisFormat>
+						<valueAxisLabelExpression><![CDATA[$R{axis.cpu.usage.percent}]]></valueAxisLabelExpression>
+						<valueAxisFormat>
+							<axisFormat labelColor="#666666">
+								<labelFont>
+									<font fontName="SansSerif"/>
+								</labelFont>
+								<tickLabelFont>
+									<font fontName="SansSerif"/>
+								</tickLabelFont>
+							</axisFormat>
+						</valueAxisFormat>
+					</timeSeriesPlot>
+				</timeSeriesChart>
+				<timeSeriesChart>
+					<chart evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.PercentTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
+						<reportElement mode="Opaque" x="1" y="198" width="830" height="193" uuid="69d76b10-aa93-4776-9d8c-8983f3071b38">
+							<printWhenExpression><![CDATA[$P{P_VM_ListID}.size() <= 5]]></printWhenExpression>
+						</reportElement>
+						<box>
+							<pen lineWidth="1.0" lineColor="#3C617F"/>
+							<topPen lineWidth="1.0" lineColor="#3C617F"/>
+							<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+							<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+							<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+						</box>
+						<chartTitle>
+							<font fontName="SansSerif"/>
+							<titleExpression><![CDATA[$R{br16.chart.memory.usage}]]></titleExpression>
+						</chartTitle>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<timeSeriesDataset timePeriod="Hour">
+						<timeSeries>
+							<seriesExpression><![CDATA[$F{vm_name}]]></seriesExpression>
+							<timePeriodExpression><![CDATA[$F{the_date}]]></timePeriodExpression>
+							<valueExpression><![CDATA[$F{mem_peak}]]></valueExpression>
+							<itemHyperlink>
+								<hyperlinkTooltipExpression><![CDATA[$F{vm_name} + ", " + $F{mem_peak}.toString()]]></hyperlinkTooltipExpression>
+							</itemHyperlink>
+						</timeSeries>
+					</timeSeriesDataset>
+					<timeSeriesPlot isShowShapes="false">
+						<plot labelRotation="-45.0"/>
+						<timeAxisLabelExpression><![CDATA[$R{axis.date}]]></timeAxisLabelExpression>
+						<timeAxisFormat>
+							<axisFormat labelColor="#666666">
+								<labelFont>
+									<font fontName="SansSerif" isBold="true"/>
+								</labelFont>
+							</axisFormat>
+						</timeAxisFormat>
+						<valueAxisLabelExpression><![CDATA[$R{axis.memory.usage.percent}]]></valueAxisLabelExpression>
+						<valueAxisFormat>
+							<axisFormat labelColor="#666666">
+								<labelFont>
+									<font fontName="SansSerif"/>
+								</labelFont>
+								<tickLabelFont>
+									<font fontName="SansSerif"/>
+								</tickLabelFont>
+							</axisFormat>
+						</valueAxisFormat>
+					</timeSeriesPlot>
+				</timeSeriesChart>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="179">
+			<textField>
+				<reportElement mode="Opaque" x="153" y="45" width="527" height="133" uuid="64ade643-1069-4cd9-9c92-89609b67781a">
+					<printWhenExpression><![CDATA[$P{P_VM_ListID}.size() > 5]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br16.more.than.five.warning}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="1" y="45" width="830" height="133" uuid="3a831963-9b3f-43cd-aa07-9e80f263e4c0">
+					<printWhenExpression><![CDATA[$P{P_VM_ListID}.size() <= 5]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="P_Cluster_ID">
+					<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="is_deleted">
+					<subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Period">
+					<subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DataCenter_ID">
+					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Start_Date">
+					<subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_VM_ListID">
+					<subreportParameterExpression><![CDATA[$P{P_VM_ListID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_VM_Type">
+					<subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["repo:report3.jrxml"]]></subreportExpression>
+			</subreport>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="560" y="27" width="272" height="15" uuid="bc4a4709-cc34-42d3-9e33-38a859c73bc7"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="43" width="832" height="1" uuid="d3b415c0-825b-4f71-b6f4-97aff43efac4"/>
+			</line>
+			<image>
+				<reportElement x="0" y="0" width="228" height="42" uuid="fe7718f0-6f41-48f3-8ae3-6d7ec9d6a07e"/>
+				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<textField evaluationTime="Auto">
+				<reportElement x="286" y="0" width="260" height="13" uuid="7a225a55-50be-4314-82cb-63b3c8e03a5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>
