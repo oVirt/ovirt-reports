@@ -111,7 +111,7 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{reports_name}
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}
 %{_localstatedir}/lib/ovirt-engine-reports/backups/
-%{_sysconfdir}/ovirt-engine/engine.conf.d/50-ovirt-engine-reports.conf
+%{_sysconfdir}/ovirt-engine/engine.conf.d/20-ovirt-engine-reports.conf
 %{reports_java}
 %{_datadir}/%{reports_name}
 %if "%{name}" != "%{reports_name}"
