@@ -1,390 +1,505 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR7B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="834" leftMargin="4" rightMargin="4" topMargin="4" bottomMargin="4" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <style name="Crosstab Data Text" hAlign="Center"/>
-    <style name="Line Style">
-        <conditionalStyle>
-            <conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
-            <style mode="Opaque" backcolor="#EFF3FF"/>
-        </conditionalStyle>
-    </style>
-    <parameter name="is_deleted" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Period" class="java.lang.Short">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.util.Date">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Cluster_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Host_Type" class="java.lang.Integer">
-        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-    </parameter>
-    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-        <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-        <![CDATA[SELECT v3_4_configuration_history_hosts.host_id
-          ,v3_4_configuration_history_hosts.host_name
-          ,CAST(v3_4_configuration_history_hosts.delete_date as date) as delete_date
-          ,(CASE WHEN v3_4_configuration_history_hosts.delete_date IS NULL THEN 0 ELSE 1 END) as is_deleted
-          ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS planned_downtime_mins
-                ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS unplanned_downtime_mins
-               ,SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS uptime_mins
-                ,SUM(coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0)) as total
-FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
-INNER JOIN v3_4_configuration_history_hosts
-     ON (v3_4_configuration_history_hosts.host_id = v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id)
+<!-- Created with Jaspersoft Studio version 5.5.0-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR7B" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="834" leftMargin="4" rightMargin="4" topMargin="4" bottomMargin="4" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="8a028d11-1920-4488-85d6-077aff701fc5">
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files/top_10_downtime_hosts_br7b_jrxml"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="Line Style">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EFF3FF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="is_deleted" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.Short">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.util.Date">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Host_Type" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- BR7B - The query will return the uptime; maintenance time and the down time,
+-- for the bottom 10 hosts sorted by weighted uptime value descending.
+
+SELECT
+    v3_4_configuration_history_hosts.host_id,
+    v3_4_configuration_history_hosts.host_name,
+    CAST ( v3_4_configuration_history_hosts.delete_date AS date ) AS delete_date,
+    (
+        CASE
+            WHEN v3_4_configuration_history_hosts.delete_date IS NULL
+                THEN 0
+            ELSE 1
+        END
+    )
+    AS is_deleted,
+    SUM (
+        CASE
+            WHEN stats_hosts.host_status = 2
+                THEN
+                    COALESCE (
+                        stats_hosts.minutes_in_status,
+                        0
+                    )
+            ELSE 0
+        END
+    )
+    AS planned_downtime_mins,
+    SUM (
+        CASE
+            WHEN stats_hosts.host_status = 3
+                THEN
+                    COALESCE (
+                        stats_hosts.minutes_in_status,
+                        0
+                    )
+            ELSE 0
+        END
+    )
+    AS unplanned_downtime_mins,
+    SUM (
+        CASE
+            WHEN stats_hosts.host_status = 1
+                THEN
+                    COALESCE (
+                        stats_hosts.minutes_in_status,
+                        0
+                    )
+            ELSE 0
+        END
+    )
+    AS uptime_mins,
+    SUM (
+        stats_hosts.minutes_in_status
+    ) AS total
+-- If "Period" equals to "Daily" then "table_name"
+-- parameter equals to "hourly" else "daily"
+FROM v3_4_statistics_hosts_resources_usage_$P!{table_name} AS stats_hosts
+    INNER JOIN v3_4_configuration_history_hosts
+        ON (
+            v3_4_configuration_history_hosts.host_id =
+            stats_hosts.host_id
+        )
 WHERE
-v3_4_configuration_history_hosts.cluster_id in (SELECT cluster_id
-                         FROM v3_4_configuration_history_clusters
-                         Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-AND v3_4_configuration_history_hosts.cluster_id = CASE $P{P_Cluster_ID}
-                           WHEN NULL THEN v3_4_configuration_history_hosts.cluster_id
-                       WHEN '11111111-1111-1111-1111-111111111111' THEN v3_4_configuration_history_hosts.cluster_id
-                       ELSE cast($P{P_Cluster_ID} as uuid)
-                       END
-AND v3_4_configuration_history_hosts.host_type = CASE $P{P_Host_Type}
-                    WHEN -1 THEN v3_4_configuration_history_hosts.host_type
-                    ELSE $P{P_Host_Type}
-                    END
-AND v3_4_configuration_history_hosts.history_id in (SELECT max(a.history_id)
-                        FROM v3_4_configuration_history_hosts a
-                        GROUP BY a.host_id)
-AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-AND history_datetime <= CASE
-                           WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                           WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                           WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                           WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                       END
-$P!{is_deleted}
-GROUP BY v3_4_configuration_history_hosts.host_id
-     ,v3_4_configuration_history_hosts.host_name
-     ,(CASE  WHEN v3_4_configuration_history_hosts.delete_date IS NULL THEN 0 ELSE 1 END)
-     ,v3_4_configuration_history_hosts.delete_date
-HAVING  round(cast(SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END)/60 as float)::numeric ,1) > 0
+    -- Here we filter by the datacenter chosen by the user
+    v3_4_configuration_history_hosts.cluster_id IN (
+        SELECT cluster_id
+        FROM v3_4_configuration_history_clusters
+        WHERE
+            datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
+    )
+    -- Here we filter by the cluster chosen by the user
+    AND v3_4_configuration_history_hosts.cluster_id =
+        CASE $P{P_Cluster_ID}
+            WHEN NULL
+                THEN v3_4_configuration_history_hosts.cluster_id
+            WHEN '11111111-1111-1111-1111-111111111111'
+                THEN v3_4_configuration_history_hosts.cluster_id
+            ELSE CAST ( $P{P_Cluster_ID} AS uuid )
+        END
+    -- Here we filter by the host type chosen by the user
+    AND v3_4_configuration_history_hosts.host_type =
+        CASE $P{P_Host_Type}
+            WHEN -1
+                THEN v3_4_configuration_history_hosts.host_type
+            ELSE $P{P_Host_Type}
+        END
+    -- Here we get the latest host configurations
+    AND v3_4_configuration_history_hosts.history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_hosts a
+        GROUP BY a.host_id
+    )
+    AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+    AND history_datetime <
+        CASE
+            WHEN $P{P_Period} = 0
+                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
+            WHEN $P{P_Period} = 1
+                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
+            WHEN $P{P_Period} = 2
+                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
+            WHEN $P{P_Period} = 3
+                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
+        END
+    -- Here we get or remove deleted entities according to what the user chose
+    -- in the "is_deleted" parameter.
+    $P!{is_deleted}
+GROUP BY
+    v3_4_configuration_history_hosts.host_id,
+    v3_4_configuration_history_hosts.host_name,
+    (
+        CASE
+            WHEN v3_4_configuration_history_hosts.delete_date IS NULL
+                THEN 0
+            ELSE 1
+        END
+    ),
+    v3_4_configuration_history_hosts.delete_date
+HAVING
+    ROUND (
+        CAST (
+            SUM (
+                CASE
+                    WHEN stats_hosts.host_status = 1
+                        THEN
+                            COALESCE (
+                                stats_hosts.minutes_in_status,
+                                0
+                            )
+                    ELSE 0
+                END
+            ) / 60
+            AS float
+        ) ::numeric ,
+        1
+    ) > 0
 ORDER BY
-cast(SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) as float)/cast(SUM(coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0)) as float) DESC, is_deleted ASC
+    CAST (
+        SUM (
+            CASE
+                WHEN stats_hosts.host_status = 3
+                    THEN
+                        COALESCE (
+                            stats_hosts.minutes_in_status,
+                            0
+                        )
+                ELSE 0
+            END
+        )
+        AS float
+    ) /
+    CAST (
+        SUM (
+            COALESCE (
+                stats_hosts.minutes_in_status,
+                0
+            )
+        )
+        AS float
+    ) DESC,
+    is_deleted ASC
 LIMIT 10]]>
-    </queryString>
-    <field name="host_id" class="java.lang.Object"/>
-    <field name="host_name" class="java.lang.String"/>
-    <field name="delete_date" class="java.sql.Date"/>
-    <field name="is_deleted" class="java.lang.Integer"/>
-    <field name="planned_downtime_mins" class="java.math.BigDecimal"/>
-    <field name="unplanned_downtime_mins" class="java.math.BigDecimal"/>
-    <field name="uptime_mins" class="java.math.BigDecimal"/>
-    <field name="total" class="java.math.BigDecimal"/>
-    <sortField name="is_deleted"/>
-    <sortField name="uptime_mins"/>
-    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-        <initialValueExpression><![CDATA[]]></initialValueExpression>
-    </variable>
-    <group name="Host">
-        <groupExpression><![CDATA[$F{host_id}.toString()]]></groupExpression>
-    </group>
-    <title>
-        <band height="135" splitType="Stretch">
-            <subreport>
-                <reportElement x="2" y="45" width="830" height="89"/>
-                <subreportParameter name="P_Cluster_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="is_deleted">
-                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Period">
-                    <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_DataCenter_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="REPORT_NAME">
-                    <subreportParameterExpression><![CDATA[$P{REPORT_NAME}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Start_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Host_Type">
-                    <subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
-                </subreportParameter>
-                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:br7b full details.jrxml"]]></subreportExpression>
-            </subreport>
-            <line>
-                <reportElement x="0" y="43" width="832" height="1"/>
-            </line>
-            <textField pattern="">
-                <reportElement x="521" y="27" width="311" height="15"/>
-                <textElement textAlignment="Right">
-                    <font fontName="SansSerif" size="11" isBold="false"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-            </textField>
-            <image>
-                <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
-            </image>
-        </band>
-    </title>
-    <columnHeader>
-        <band height="40" splitType="Stretch">
-            <frame>
-                <reportElement mode="Opaque" x="0" y="0" width="834" height="40" backcolor="#D8E2FF"/>
-                <textField>
-                    <reportElement mode="Opaque" x="14" y="0" width="248" height="39" backcolor="#D8E2FF"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                        <font fontName="SansSerif" size="11" isBold="true"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7b.table.host.name}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement mode="Opaque" x="383" y="0" width="114" height="39" backcolor="#D8E2FF"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                        <font fontName="SansSerif" size="11" isBold="true"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7b.table.planned.downtime}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement mode="Opaque" x="505" y="0" width="114" height="40" backcolor="#D8E2FF"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                        <font fontName="SansSerif" size="11" isBold="true"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7b.table.unplanned.downtime}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement mode="Opaque" x="262" y="0" width="114" height="39" backcolor="#D8E2FF"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                        <font fontName="SansSerif" size="11" isBold="true"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7b.table.uptime}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement mode="Opaque" x="619" y="0" width="70" height="40" backcolor="#D8E2FF"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                        <font fontName="SansSerif" size="11" isBold="true"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$R{br7b.table.short.delete.date}]]></textFieldExpression>
-                </textField>
-            </frame>
-        </band>
-    </columnHeader>
-    <detail>
-        <band height="18" splitType="Stretch">
-            <frame>
-                <reportElement style="Line Style" x="0" y="0" width="834" height="18"/>
-                <textField pattern="#,##0">
-                    <reportElement x="14" y="0" width="248" height="18"/>
-                    <textElement verticalAlignment="Middle">
-                        <font fontName="SansSerif"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$F{host_name}]]></textFieldExpression>
-                </textField>
-                <stackedBarChart>
-                    <chart isShowLegend="false" evaluationTime="Group" evaluationGroup="Host" customizerClass="com.ovirt.reports.jasper.HorizontalStackedBarChart">
-                        <reportElement x="689" y="0" width="145" height="18"/>
-                        <chartTitle/>
-                        <chartSubtitle/>
-                        <chartLegend/>
-                    </chart>
-                    <categoryDataset>
-                        <dataset resetType="Group" resetGroup="Host"/>
-                        <categorySeries>
-                            <seriesExpression><![CDATA["Uptime"]]></seriesExpression>
-                            <categoryExpression><![CDATA[$F{host_id}.toString()]]></categoryExpression>
-                            <valueExpression><![CDATA[$F{uptime_mins}]]></valueExpression>
-                        </categorySeries>
-                        <categorySeries>
-                            <seriesExpression><![CDATA["Planned Downtime"]]></seriesExpression>
-                            <categoryExpression><![CDATA[$F{host_id}.toString()]]></categoryExpression>
-                            <valueExpression><![CDATA[$F{planned_downtime_mins}]]></valueExpression>
-                        </categorySeries>
-                        <categorySeries>
-                            <seriesExpression><![CDATA["Unplanned Downtime"]]></seriesExpression>
-                            <categoryExpression><![CDATA[$F{host_id}.toString()]]></categoryExpression>
-                            <valueExpression><![CDATA[$F{unplanned_downtime_mins}]]></valueExpression>
-                        </categorySeries>
-                    </categoryDataset>
-                    <barPlot isShowLabels="false" isShowTickLabels="false" isShowTickMarks="false">
-                        <plot orientation="Horizontal">
-                            <seriesColor seriesOrder="0" color="#6EC000"/>
-                            <seriesColor seriesOrder="1" color="#FFFF33"/>
-                            <seriesColor seriesOrder="2" color="#FF0000"/>
-                        </plot>
-                        <itemLabel color="#000000" backgroundColor="#FFFFFF"/>
-                        <categoryAxisFormat>
-                            <axisFormat>
-                                <labelFont/>
-                                <tickLabelFont/>
-                            </axisFormat>
-                        </categoryAxisFormat>
-                        <valueAxisFormat>
-                            <axisFormat>
-                                <labelFont/>
-                                <tickLabelFont/>
-                            </axisFormat>
-                        </valueAxisFormat>
-                        <rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
-                        <rangeAxisMaxValueExpression><![CDATA[$F{planned_downtime_mins}+$F{unplanned_downtime_mins}+$F{uptime_mins}+1]]></rangeAxisMaxValueExpression>
-                    </barPlot>
-                </stackedBarChart>
-                <textField pattern="" isBlankWhenNull="true">
-                    <reportElement x="619" y="0" width="70" height="18"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="SansSerif"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{delete_date})]]></textFieldExpression>
-                </textField>
-                <image>
-                    <reportElement x="3" y="3" width="10" height="11">
-                        <printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
-                    </reportElement>
-                    <imageExpression class="java.lang.String"><![CDATA["repo:trash-icon"]]></imageExpression>
-                </image>
-                <frame>
-                    <reportElement x="262" y="0" width="114" height="18"/>
-                    <textField>
-                        <reportElement x="0" y="0" width="24" height="18">
-                            <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="26" y="0" width="20" height="18">
-                            <printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0 || (($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="48" y="0" width="24" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="74" y="0" width="40" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (100-(($F{planned_downtime_mins}/$F{total})*100).intValue()-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
-                    </textField>
-                </frame>
-                <frame>
-                    <reportElement x="383" y="0" width="114" height="18"/>
-                    <textField>
-                        <reportElement x="0" y="0" width="24" height="18">
-                            <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="26" y="0" width="20" height="18">
-                            <printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0 || (($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="48" y="0" width="24" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{planned_downtime_mins} - ((($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{planned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="74" y="0" width="40" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{planned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
-                    </textField>
-                </frame>
-                <frame>
-                    <reportElement x="505" y="0" width="114" height="18"/>
-                    <textField>
-                        <reportElement x="0" y="0" width="24" height="18">
-                            <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="26" y="0" width="20" height="18">
-                            <printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0 || (($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="48" y="0" width="24" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                    </textField>
-                    <textField pattern="">
-                        <reportElement x="74" y="0" width="40" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif" isBold="true"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
-                    </textField>
-                </frame>
-            </frame>
-        </band>
-    </detail>
-    <pageFooter>
-        <band height="15">
-            <textField evaluationTime="Auto">
-                <reportElement x="292" y="0" width="250" height="15"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
-    <summary>
-        <band height="14">
-            <subreport>
-                <reportElement x="539" y="0" width="295" height="14"/>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:report5.jrxml"]]></subreportExpression>
-            </subreport>
-        </band>
-    </summary>
+	</queryString>
+	<field name="host_id" class="java.lang.Object"/>
+	<field name="host_name" class="java.lang.String"/>
+	<field name="delete_date" class="java.sql.Date"/>
+	<field name="is_deleted" class="java.lang.Integer"/>
+	<field name="planned_downtime_mins" class="java.math.BigDecimal"/>
+	<field name="unplanned_downtime_mins" class="java.math.BigDecimal"/>
+	<field name="uptime_mins" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<sortField name="is_deleted"/>
+	<sortField name="uptime_mins"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="Host">
+		<groupExpression><![CDATA[$F{host_id}.toString()]]></groupExpression>
+	</group>
+	<title>
+		<band height="135" splitType="Stretch">
+			<subreport>
+				<reportElement x="2" y="45" width="830" height="89" uuid="98bbfe28-e4ec-449f-8042-8aa2d8450268"/>
+				<subreportParameter name="P_Cluster_ID">
+					<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="is_deleted">
+					<subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Period">
+					<subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DataCenter_ID">
+					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_NAME">
+					<subreportParameterExpression><![CDATA[$P{REPORT_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Start_Date">
+					<subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Host_Type">
+					<subreportParameterExpression><![CDATA[$P{P_Host_Type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["repo:br7b full details.jrxml"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="0" y="43" width="832" height="1" uuid="2f9e523c-ca3a-4475-922c-298f5d6b945c"/>
+			</line>
+			<textField pattern="">
+				<reportElement x="521" y="27" width="311" height="15" uuid="8485e003-1728-4396-a374-d6364875ab4a"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="228" height="42" uuid="68f35956-9cc5-4a1f-aa23-3896536fc3a5"/>
+				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="834" height="40" backcolor="#D8E2FF" uuid="2c8ce5b3-b792-4553-8ef5-ba6d269ce366"/>
+				<textField>
+					<reportElement mode="Opaque" x="14" y="0" width="248" height="39" backcolor="#D8E2FF" uuid="57349067-e1f5-4997-b61e-736f408a041e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{br7b.table.host.name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="383" y="0" width="114" height="39" backcolor="#D8E2FF" uuid="ca13850a-d11b-4560-9bde-62fd968d81de"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{br7b.table.planned.downtime}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="505" y="0" width="114" height="40" backcolor="#D8E2FF" uuid="ad501d6b-ea80-444f-828f-633ece9b56d5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{br7b.table.unplanned.downtime}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="262" y="0" width="114" height="39" backcolor="#D8E2FF" uuid="bd8f3016-5afd-4bcd-96c6-dd0c8d836d71"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{br7b.table.uptime}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="619" y="0" width="70" height="40" backcolor="#D8E2FF" uuid="9f5c31ce-329a-4a89-b5a3-b54a0f6cd725"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{br7b.table.short.delete.date}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Line Style" x="0" y="0" width="834" height="18" uuid="9f2b1133-366a-4a6b-b6b5-2d03d2787d36"/>
+				<textField pattern="#,##0">
+					<reportElement x="14" y="0" width="248" height="18" uuid="d5ed41af-7152-4afc-8fb4-94ec5c19d74b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{host_name}]]></textFieldExpression>
+				</textField>
+				<stackedBarChart>
+					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="Host" customizerClass="com.ovirt.reports.jasper.HorizontalStackedBarChart">
+						<reportElement x="689" y="0" width="145" height="18" uuid="468ff02c-d5ee-4ded-86ff-42c49ebfe9df"/>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="Host"/>
+						<categorySeries>
+							<seriesExpression><![CDATA["Uptime"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{host_id}.toString()]]></categoryExpression>
+							<valueExpression><![CDATA[$F{uptime_mins}]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["Planned Downtime"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{host_id}.toString()]]></categoryExpression>
+							<valueExpression><![CDATA[$F{planned_downtime_mins}]]></valueExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA["Unplanned Downtime"]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{host_id}.toString()]]></categoryExpression>
+							<valueExpression><![CDATA[$F{unplanned_downtime_mins}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot isShowLabels="false" isShowTickLabels="false" isShowTickMarks="false">
+						<plot orientation="Horizontal">
+							<seriesColor seriesOrder="0" color="#6EC000"/>
+							<seriesColor seriesOrder="1" color="#FFFF33"/>
+							<seriesColor seriesOrder="2" color="#FF0000"/>
+						</plot>
+						<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+						<categoryAxisFormat>
+							<axisFormat/>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat/>
+						</valueAxisFormat>
+						<rangeAxisMinValueExpression><![CDATA[0]]></rangeAxisMinValueExpression>
+						<rangeAxisMaxValueExpression><![CDATA[$F{planned_downtime_mins}+$F{unplanned_downtime_mins}+$F{uptime_mins}+1]]></rangeAxisMaxValueExpression>
+					</barPlot>
+				</stackedBarChart>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="619" y="0" width="70" height="18" uuid="6124cd69-3ab9-4b59-92d3-e334caa9b3d4"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{delete_date})]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="3" y="3" width="10" height="11" uuid="e5ad3871-1e77-4ba1-981a-2c90e0d2da2a">
+						<printWhenExpression><![CDATA[$F{delete_date} != null]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+				</image>
+				<frame>
+					<reportElement x="262" y="0" width="114" height="18" uuid="a3556c53-c14e-4c2d-bdc9-b61c7f71da78"/>
+					<textField>
+						<reportElement x="0" y="0" width="24" height="18" uuid="6ee79540-ee5e-43b1-b792-9611a0a12b71">
+							<printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="26" y="0" width="20" height="18" uuid="85c07e73-0c00-4bc5-9182-f28a0a64b301">
+							<printWhenExpression><![CDATA[((($F{uptime_mins}/60)/24).intValue()) != 0 || (($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[(($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="48" y="0" width="24" height="18" uuid="53f2c929-df2b-420f-9f81-1b322e1fe74d"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[($F{uptime_mins} - ((($F{uptime_mins}/60).intValue()-(((($F{uptime_mins}/60)/24).intValue())*24))*60)-(((($F{uptime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="74" y="0" width="40" height="18" uuid="efbff0ba-8eb4-49d8-8b5f-301fd1de2f45"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA["(" + (100-(($F{planned_downtime_mins}/$F{total})*100).intValue()-(($F{unplanned_downtime_mins}/$F{total})*100).intValue()).toString() + "%)"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="383" y="0" width="114" height="18" uuid="da209095-6c39-41bd-a7a6-6cc881c175bf"/>
+					<textField>
+						<reportElement x="0" y="0" width="24" height="18" uuid="7aad353e-d910-4439-8881-f499225389c3">
+							<printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="26" y="0" width="20" height="18" uuid="8cac80a8-c740-41a2-8458-2ebc3df8ad07">
+							<printWhenExpression><![CDATA[((($F{planned_downtime_mins}/60)/24).intValue()) != 0 || (($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[(($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="48" y="0" width="24" height="18" uuid="57889180-4918-422a-b3d3-99627bd1b987"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[($F{planned_downtime_mins} - ((($F{planned_downtime_mins}/60).intValue()-(((($F{planned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{planned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="74" y="0" width="40" height="18" uuid="70c02705-9bee-4613-954f-9c5db7b39d31"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA["(" + (($F{planned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="505" y="0" width="114" height="18" uuid="143de5fb-6a80-464e-b058-c38612c6b168"/>
+					<textField>
+						<reportElement x="0" y="0" width="24" height="18" uuid="fe089355-26b1-47a6-bc0a-dd92f8ea16cb">
+							<printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="26" y="0" width="20" height="18" uuid="5e5f785c-29f6-4740-aef1-8b5d793117bd">
+							<printWhenExpression><![CDATA[((($F{unplanned_downtime_mins}/60)/24).intValue()) != 0 || (($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[(($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="48" y="0" width="24" height="18" uuid="f6653923-4737-4711-9e53-44900669c05a"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[($F{unplanned_downtime_mins} - ((($F{unplanned_downtime_mins}/60).intValue()-(((($F{unplanned_downtime_mins}/60)/24).intValue())*24))*60)-(((($F{unplanned_downtime_mins}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					</textField>
+					<textField pattern="">
+						<reportElement x="74" y="0" width="40" height="18" uuid="d01766b4-be4c-443b-a2a5-b63af3f7f86d"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["(" + (($F{unplanned_downtime_mins}/$F{total})*100).intValue().toString() + "%)"]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="15">
+			<textField evaluationTime="Auto">
+				<reportElement x="292" y="0" width="250" height="15" uuid="651e41aa-8dca-42c9-9ede-c7cbd8735609"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="14">
+			<subreport>
+				<reportElement x="539" y="0" width="295" height="14" uuid="3d5648a5-d2aa-4c3a-b989-4e35c348cde5"/>
+				<subreportExpression><![CDATA["repo:report5.jrxml"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>
