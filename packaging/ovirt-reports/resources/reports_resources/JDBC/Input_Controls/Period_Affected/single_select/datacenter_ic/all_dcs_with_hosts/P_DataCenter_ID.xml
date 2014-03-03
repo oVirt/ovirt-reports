@@ -4,8 +4,8 @@
     <name>P_DataCenter_ID</name>
     <version>28</version>
     <label>$R{ic.dc}</label>
-    <creationDate>2013-01-09T15:03:24.737+02:00</creationDate>
-    <updateDate>2013-01-16T15:50:09.852+02:00</updateDate>
+    <creationDate>2014-03-03T10:44:51.429+02:00</creationDate>
+    <updateDate>2014-03-03T12:17:32.252+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,94 +17,233 @@
             <name>Data_Centers</name>
             <version>1</version>
             <label>Data_Centers</label>
-            <creationDate>2013-01-16T15:50:09.852+02:00</creationDate>
-            <updateDate>2013-01-16T15:50:09.852+02:00</updateDate>
+            <creationDate>2014-03-03T12:17:32.252+02:00</creationDate>
+            <updateDate>2014-03-03T12:17:32.252+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT cast(datacenter_id as varchar), delete_date, CASE
-                                                                       WHEN delete_date IS NULL THEN datacenter_name
-                                                                       ELSE datacenter_name || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
-                                                                 END as combo_name
-from v3_4_configuration_history_datacenters
-              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
-                                        FROM enum_translator as enum_translator_default
-                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                                                                FROM enum_translator
-                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-                                                  WHERE enum_translator_default.language_code = 'en_US'
-                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
-WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                                     FROM v3_4_configuration_history_clusters
-                                     WHERE history_id in (SELECT max(a.history_id)
-                                                                    FROM v3_4_configuration_history_clusters a
-                                                                    GROUP BY a.cluster_id)
-                                                AND create_date &lt;= CASE
-                                                                                      WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                      WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                      WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                      WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                               END
-                                                AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-                                               $P!{is_deleted}
-                                               AND cluster_id in (SELECT DISTINCT cluster_id
-                                                                          FROM v3_4_configuration_history_hosts
-                                                                          WHERE history_id in (SELECT max(a.history_id)
-                                                                                                         FROM v3_4_configuration_history_hosts a
-                                                                                                         GROUP BY a.host_id)
-                                                                                     AND create_date &lt;= CASE
-                                                                                                                           WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                           WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                           WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                           WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                     END
-                                                                                     AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-                                                                                   $P!{is_deleted}))
-          AND history_id in (SELECT max(a.history_id)
-                                     FROM v3_4_configuration_history_datacenters a
-                                     GROUP BY a.datacenter_id)
-          AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-           $P!{is_deleted}
+            <queryString>-- all_dcs_with_hosts - datacenters
+
+-- This query will return datacenters list, along with their delete date if they were deleted.
+-- The datacenters list will only include datacenters that have hosts.
+
+-- The list will include deleted clusters according to what the user chose in the
+-- "is_deleted" parameter.
+
+SELECT DISTINCT
+    CAST ( datacenter_id AS varchar ),
+    delete_date,
+    CASE
+        WHEN delete_date IS NULL
+            THEN datacenter_name
+        ELSE
+            datacenter_name
+            ||
+            ' ('
+            ||
+            loc_removed_on.removed_on
+            ||
+            ' '
+            ||
+            to_char ( delete_date, $P{datetimelocalepattern} )
+            ||
+            ')'
+    END AS combo_name
+FROM v3_4_configuration_history_datacenters
+    LEFT OUTER JOIN (
+        SELECT DISTINCT
+            COALESCE (
+                enum_translator_localized.value_localized,
+                enum_translator_default.value
+            )
+            AS removed_on
+        FROM enum_translator AS enum_translator_default
+            LEFT OUTER JOIN (
+                SELECT
+                    enum_type,
+                    enum_key,
+                    value AS value_localized
+                FROM enum_translator
+                WHERE language_code = $P{userlocale}
+            )
+            AS enum_translator_localized
+                ON (
+                    enum_translator_localized.enum_type =
+                    enum_translator_default.enum_type
+                    AND enum_translator_localized.enum_key =
+                    enum_translator_default.enum_key
+                )
+        WHERE enum_translator_default.language_code = 'en_US'
+            AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON'
+    )
+    AS loc_removed_on
+        ON ( 0 = 0 )
+WHERE
+    datacenter_id IN (
+        SELECT DISTINCT datacenter_id
+        FROM v3_4_configuration_history_clusters
+        WHERE
+            history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_configuration_history_clusters a
+                GROUP BY a.cluster_id
+            )
+            AND create_date &lt;=
+                CASE
+                    WHEN $P{P_Period} = 0
+                        THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                    WHEN $P{P_Period} = 1
+                        THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                    WHEN $P{P_Period} = 2
+                        THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                    WHEN $P{P_Period} = 3
+                        THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+                END
+            AND (
+                delete_date IS NULL
+                OR
+                delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+            )
+            -- This will determine if deleted entities will be included in the report,
+            -- according to the user selection for "is_deleted" parameter
+            $P!{is_deleted}
+            AND cluster_id IN (
+                SELECT DISTINCT cluster_id
+                FROM v3_4_configuration_history_hosts
+                WHERE history_id IN (
+                    SELECT MAX ( a.history_id )
+                    FROM v3_4_configuration_history_hosts a
+                    GROUP BY a.host_id
+                )
+                AND create_date &lt;=
+                CASE
+                        WHEN $P{P_Period} = 0
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                        WHEN $P{P_Period} = 1
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                        WHEN $P{P_Period} = 2
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                        WHEN $P{P_Period} = 3
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+                END
+                AND (
+                    delete_date IS NULL
+                    OR
+                    delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+                )
+                $P!{is_deleted}
+            )
+    )
+    AND history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_datacenters a
+        GROUP BY a.datacenter_id
+    )
+    AND (
+        delete_date IS NULL
+        OR
+        delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+    )
+    $P!{is_deleted}
+
 UNION ALL
-SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
-FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                  FROM enum_translator
-                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
-           AND NOT EXISTS (Select 1
-                             from v3_4_configuration_history_datacenters
-                             WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                                                                  FROM v3_4_configuration_history_clusters
-                                                                  WHERE history_id in (SELECT max(a.history_id)
-                                                                                                 FROM v3_4_configuration_history_clusters a
-                                                                                                 GROUP BY a.cluster_id)
-                                                                             AND create_date &lt;= CASE
-                                                                                                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                            END
-                                                                             AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-                                                                            $P!{is_deleted}
-                                                                            AND cluster_id in (SELECT DISTINCT cluster_id
-                                                                                                       FROM v3_4_configuration_history_hosts
-                                                                                                       WHERE history_id in (SELECT max(a.history_id)
-                                                                                                                                      FROM v3_4_configuration_history_hosts a
-                                                                                                                                      GROUP BY a.host_id)
-                                                                                                                  AND create_date &lt;= CASE
-                                                                                                                                                        WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                                                                        WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                                                                        WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                                                                        WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                                                                                  END
-                                                                                                                  AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-                                                                                                                $P!{is_deleted}))
-                                       AND history_id in (SELECT max(a.history_id)
-                                                                  FROM v3_4_configuration_history_datacenters a
-                                                                  GROUP BY a.datacenter_id)
-                                       AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-                                        $P!{is_deleted})
-order by delete_date DESC, combo_name
+
+-- If there are no datacenters with hosts the list will include
+-- "None Available" value,localized according to the session
+SELECT DISTINCT
+    '00000000-0000-0000-0000-000000000000',
+    CAST ( NULL AS timestamp ),
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+FROM enum_translator AS enum_translator_default
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    )
+    AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
+WHERE
+    language_code = 'en_US'
+    AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
+    AND NOT EXISTS (
+        SELECT 1
+        FROM v3_4_configuration_history_datacenters
+        WHERE datacenter_id IN (
+            SELECT DISTINCT datacenter_id
+            FROM v3_4_configuration_history_clusters
+            WHERE
+                history_id IN (
+                    SELECT MAX ( a.history_id )
+                    FROM v3_4_configuration_history_clusters a
+                    GROUP BY a.cluster_id
+                )
+                AND create_date &lt;=
+                    CASE
+                        WHEN $P{P_Period} = 0
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                        WHEN $P{P_Period} = 1
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                        WHEN $P{P_Period} = 2
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                        WHEN $P{P_Period} = 3
+                            THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+                    END
+                AND (
+                    delete_date IS NULL
+                    OR
+                    delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+                )
+                $P!{is_deleted}
+                AND cluster_id IN (
+                    SELECT DISTINCT cluster_id
+                    FROM v3_4_configuration_history_hosts
+                    WHERE
+                        history_id IN (
+                            SELECT MAX ( a.history_id )
+                            FROM v3_4_configuration_history_hosts a
+                            GROUP BY a.host_id
+                        )
+                    AND create_date &lt;=
+                        CASE
+                            WHEN $P{P_Period} = 0
+                                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                            WHEN $P{P_Period} = 1
+                                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                            WHEN $P{P_Period} = 2
+                                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                            WHEN $P{P_Period} = 3
+                                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+                        END
+                    AND (
+                        delete_date IS NULL
+                        OR
+                        delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+                    )
+                    $P!{is_deleted}
+                )
+            )
+            AND history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_configuration_history_datacenters a
+                GROUP BY a.datacenter_id
+            )
+            AND (
+                delete_date IS NULL
+                OR
+                delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+            )
+            $P!{is_deleted}
+    )
+ORDER BY delete_date DESC, combo_name
 </queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
