@@ -1,7 +1,9 @@
 %global product_name Reports package for oVirt Virtualization Management
 %global product_description oVirt virtualization reports
 
+%global engine_name ovirt-engine
 %global reports_name ovirt-engine-reports
+%global reports_jasper_suffix %{nil}
 %global reports_java %{_javadir}/%{reports_name}
 %global engine_group ovirt
 %global engine_user ovirt
@@ -34,9 +36,9 @@ Summary:	%{product_name}
 Group:		Virtualization/Management
 URL:		http://www.ovirt.org
 BuildArch:	noarch
-Source:		http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
+Source0:	http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 
-BuildRequires:	jasperreports-server >= 5.5.0-6
+BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-6
 BuildRequires:	java-devel
 BuildRequires:	jpackage-utils
 BuildRequires:	log4j
@@ -44,12 +46,12 @@ BuildRequires:	make
 BuildRequires:	ant
 
 Requires:	%{name}-setup >= %{version}-%{release}
-Requires:	jasperreports-server < 5.6.0
-Requires:	jasperreports-server >= 5.5.0-6
+Requires:	jasperreports-server%{reports_jasper_suffix} < 5.6.0
+Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-6
 Requires:	java
 Requires:	jpackage-utils
 Requires:	m2crypto
-Requires:	ovirt-engine >= 3.4.0
+Requires:	%{engine_name} >= 3.4.0
 Requires:	patch
 
 # bug#862355
@@ -67,15 +69,15 @@ Summary:	%{product_name} setup
 Group:		Virtualization/Management
 Requires:	cracklib-python
 Requires:	libxml2-python
-Requires:	ovirt-engine-dwh-setup
-Requires:	ovirt-engine-setup-plugin-ovirt-engine-common
+Requires:	%{engine_name}-dwh-setup
+Requires:	%{engine_name}-setup-plugin-ovirt-engine-common
 Requires:	python
 
 %description setup
 %{product_description} setup package.
 
 %prep
-%setup -c -q
+%setup -c -T -a 0 -n ovirt-reports
 
 %build
 make %{make_common_opts}
