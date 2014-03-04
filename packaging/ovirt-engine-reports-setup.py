@@ -1033,6 +1033,7 @@ def main(options):
                         )
                     )
                     utils.updateDbOwner(db_dict)
+                utils.storeConf(db_dict)
             else:
                 # remote
                 if hasData:
