@@ -21,6 +21,8 @@ from StringIO import StringIO
 
 from decorators import transactionDisplay
 
+from ovirt_engine import configfile
+
 #text colors
 RED = "\033[0;31m"
 GREEN = "\033[92m"
@@ -291,10 +293,13 @@ class TextConfigFileHandler(ConfigFileHandler):
         self.data = []
         self.sep = sep
 
-    def open(self):
+    def open(self, useconfigfile=False):
         fd = file(self.filepath)
         self.data = fd.readlines()
         fd.close()
+        self._useconfigfile = useconfigfile
+        if self._useconfigfile:
+            self._configfile = configfile.ConfigFile([self.filepath])
 
     def close(self):
         fd = file(self.filepath, 'w')
@@ -304,11 +309,14 @@ class TextConfigFileHandler(ConfigFileHandler):
 
     def getParam(self, param):
         value = None
-        for line in self.data:
-            if not re.match("\s*#", line):
-                found = re.match("\s*%s\s*\%s\s*(.+)$" % (param, self.sep), line)
-                if found:
-                    value = found.group(1)
+        if self._useconfigfile:
+            value = self._configfile.get(param)
+        else:
+            for line in self.data:
+                if not re.match("\s*#", line):
+                    found = re.match("\s*%s\s*\%s\s*(.+)$" % (param, self.sep), line)
+                    if found:
+                        value = found.group(1)
         return value
 
     def editParam(self, param, value):
@@ -1287,6 +1295,13 @@ def updateDbOwner(db_dict):
         database=db_dict['dbname'],
     )
 
+def escape(s, chars):
+    ret = ''
+    for c in s:
+        if c in chars:
+            ret += '\\'
+        ret += c
+    return ret
 
 def storeConf(db_dict):
     if not os.path.exists(DIR_DATABASE_REPORTS_CONFIG):
@@ -1302,11 +1317,11 @@ def storeConf(db_dict):
             (
                 'REPORTS_DB_DATABASE={database}\n'
                 'REPORTS_DB_USER={user}\n'
-                'REPORTS_DB_PASSWORD={password}'
+                'REPORTS_DB_PASSWORD="{password}"'
             ).format(
                 database=db_dict['dbname'],
                 user=db_dict['username'],
-                password=db_dict['password'],
+                password=escape(db_dict['password'], '"\\$'),
             )
         )
 

@@ -350,7 +350,7 @@ def getDbDictFromOptions():
 
         if os.path.exists(file):
             handler = utils.TextConfigFileHandler(file)
-            handler.open()
+            handler.open(useconfigfile=True)
 
             for k, v in (
                 ('dbname', 'REPORTS_DB_DATABASE'),
@@ -367,7 +367,7 @@ def getDbDictFromOptions():
             ):
                 s = handler.getParam(v)
                 if s is not None:
-                    db_dict[k] = s.strip('"')
+                    db_dict[k] = s
             handler.close()
 
     return db_dict
