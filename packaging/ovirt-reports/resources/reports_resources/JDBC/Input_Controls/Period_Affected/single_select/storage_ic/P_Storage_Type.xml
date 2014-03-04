@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/storage_ic</folder>
     <name>P_Storage_Type</name>
-    <version>27</version>
+    <version>50</version>
     <label>$R{ic.storage.domain.type}</label>
-    <creationDate>2013-01-09T15:03:28.095+02:00</creationDate>
-    <updateDate>2013-01-16T11:28:06.758+02:00</updateDate>
+    <creationDate>2014-03-16T15:51:11.147+02:00</creationDate>
+    <updateDate>2014-03-16T16:02:43.953+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,49 +17,132 @@
             <name>Storage_type</name>
             <version>1</version>
             <label>Storage_type</label>
-            <creationDate>2013-01-16T11:28:06.758+02:00</creationDate>
-            <updateDate>2013-01-16T11:28:06.758+02:00</updateDate>
+            <creationDate>2014-03-16T16:02:43.953+02:00</creationDate>
+            <updateDate>2014-03-16T16:02:43.953+02:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, enum_translator_default.enum_key,  0 as sort
-FROM enum_translator as enum_translator_default
-              LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                            FROM enum_translator
-                                             WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-              INNER JOIN v3_4_configuration_history_storage_domains ON (v3_4_configuration_history_storage_domains.storage_domain_type = enum_translator_default.enum_key
-                                                                                                          AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE')
-                  INNER JOIN v3_4_map_history_datacenters_storage_domains ON (v3_4_map_history_datacenters_storage_domains.storage_domain_id = v3_4_configuration_history_storage_domains.storage_domain_id
-                                                                                                                    AND v3_4_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-WHERE  enum_translator_default.language_code = 'en_US'
-          AND v3_4_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                                                                                          FROM v3_4_configuration_history_storage_domains a
-                                                                                          GROUP BY a.storage_domain_id)
-          AND v3_4_map_history_datacenters_storage_domains.history_id in (SELECT max(b.history_id)
-                                                                                              FROM v3_4_map_history_datacenters_storage_domains b
-                                                                                              GROUP BY b.storage_domain_id, b.datacenter_id)
-           AND create_date &lt;= CASE
-                                                 WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                 WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                 WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                 WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                           END
-           AND (delete_date IS NULL OR delete_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-           AND attach_date &lt;= CASE
-                                                 WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                 WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                 WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                 WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                           END
-           AND (detach_date IS NULL OR detach_date &gt;= CAST($P{P_Start_Date} as TIMESTAMP))
-          $P!{is_deleted}
+            <queryString>-- This query will return the storage types list,
+-- in localized session language
+-- according to the datacenter that was chosen by the user
+
+SELECT DISTINCT
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+    AS value,
+    enum_translator_default.enum_key,
+    0 AS sort
+FROM enum_translator AS enum_translator_default
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    )
+    AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
+    INNER JOIN v3_4_configuration_history_storage_domains
+        ON (
+            v3_4_configuration_history_storage_domains.storage_domain_type =
+            enum_translator_default.enum_key
+            AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE'
+        )
+    -- Filter storage domain list according to the datacenter that was chosen by the user
+    INNER JOIN v3_4_map_history_datacenters_storage_domains
+        ON (
+            v3_4_map_history_datacenters_storage_domains.storage_domain_id =
+            v3_4_configuration_history_storage_domains.storage_domain_id
+            AND v3_4_map_history_datacenters_storage_domains.datacenter_id =
+            CAST ( $P{P_DataCenter_ID} AS uuid )
+        )
+WHERE
+    enum_translator_default.language_code = 'en_US'
+    -- Latest storage domain configuration
+    AND v3_4_configuration_history_storage_domains.history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_storage_domains a
+        GROUP BY a.storage_domain_id
+    )
+    -- Latest datacenter_storage domains map configuration
+    AND v3_4_map_history_datacenters_storage_domains.history_id IN (
+        SELECT MAX ( b.history_id )
+        FROM v3_4_map_history_datacenters_storage_domains b
+        GROUP BY b.storage_domain_id, b.datacenter_id
+    )
+    AND create_date &lt;=
+    CASE
+            WHEN $P{P_Period} = 0
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+            WHEN $P{P_Period} = 1
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+            WHEN $P{P_Period} = 2
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+            WHEN $P{P_Period} = 3
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+        END
+    AND (
+        delete_date IS NULL
+        OR
+        delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+    )
+    AND attach_date &lt;=
+    CASE
+            WHEN $P{P_Period} = 0
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+            WHEN $P{P_Period} = 1
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+            WHEN $P{P_Period} = 2
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+            WHEN $P{P_Period} = 3
+                THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+        END
+    AND (
+        delete_date IS NULL
+        OR
+        delete_date &gt;= CAST ( $P{P_Start_Date} AS timestamp )
+    )
+    -- This will determine if deleted entities will be included in the report,
+    -- according to the user selection for "is_deleted" parameter
+    $P!{is_deleted}
+
 UNION ALL
-SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, -1, 1
-FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                  FROM enum_translator
-                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-WHERE language_code = 'en_US'
-             AND enum_translator_default.enum_type = 'REPORTS_ALL'
-             AND enum_translator_default.enum_key = 0
+
+-- Adding to the storage types list the "All" as the first option in the select list.
+SELECT DISTINCT
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+    AS value,
+    -1,
+    1
+FROM enum_translator AS enum_translator_default
+LEFT OUTER JOIN (
+    SELECT
+        enum_type,
+        enum_key,
+        value AS value_localized
+    FROM enum_translator
+    WHERE language_code = $P{userlocale}
+)
+AS enum_translator_localized
+    ON (
+        enum_translator_localized.enum_type =
+        enum_translator_default.enum_type
+        AND enum_translator_localized.enum_key =
+        enum_translator_default.enum_key
+    )
+WHERE
+    language_code = 'en_US'
+    AND enum_translator_default.enum_type = 'REPORTS_ALL'
+    AND enum_translator_default.enum_key = 0
 ORDER BY sort DESC, value
 </queryString>
             <dataSource>
