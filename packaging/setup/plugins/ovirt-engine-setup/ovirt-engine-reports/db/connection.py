@@ -24,9 +24,6 @@ import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
-import psycopg2
-
-
 from otopi import constants as otopicons
 from otopi import transaction
 from otopi import util
@@ -301,22 +298,16 @@ class Plugin(plugin.PluginBase):
         ),
     )
     def _connection(self):
-        # must be here as we do not have database at validation
-        self.environment[
-            oreportscons.DBEnv.CONNECTION
-        ] = psycopg2.connect(
-            host=self.environment[oreportscons.DBEnv.HOST],
-            port=self.environment[oreportscons.DBEnv.PORT],
-            user=self.environment[oreportscons.DBEnv.USER],
-            password=self.environment[oreportscons.DBEnv.PASSWORD],
-            database=self.environment[oreportscons.DBEnv.DATABASE],
-        )
         self.environment[
             oreportscons.DBEnv.STATEMENT
         ] = database.Statement(
             environment=self.environment,
             dbenvkeys=oreportscons.Const.REPORTS_DB_ENV_KEYS,
         )
+        # must be here as we do not have database at validation
+        self.environment[
+            oreportscons.DBEnv.CONNECTION
+        ] = self.environment[oreportscons.DBEnv.STATEMENT].connect()
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
