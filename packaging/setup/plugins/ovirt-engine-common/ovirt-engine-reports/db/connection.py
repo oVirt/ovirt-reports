@@ -48,9 +48,14 @@ class Plugin(plugin.PluginBase):
     )
     def _boot(self):
         self.environment[
-            otopicons.BaseEnv.SUPPRESS_ENVIRONMENT_KEYS
+            otopicons.CoreEnv.LOG_FILTER_KEYS
         ].append(
             oreportscons.DBEnv.PASSWORD
+        )
+        self.environment[
+            otopicons.CoreEnv.LOG_FILTER_KEYS
+        ].append(
+            oreportscons.DWHDBEnv.PASSWORD
         )
 
     @plugin.event(
@@ -160,10 +165,6 @@ class Plugin(plugin.PluginBase):
                 ] = dbenv[
                     oreportscons.DBEnv.SECURED_HOST_VALIDATION
                 ] = False
-
-                self.environment[otopicons.CoreEnv.LOG_FILTER].append(
-                    dbenv[oreportscons.DBEnv.PASSWORD]
-                )
 
                 dbovirtutils = database.OvirtUtils(
                     plugin=self,

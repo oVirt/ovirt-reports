@@ -37,15 +37,22 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
+        stage=plugin.Stages.STAGE_BOOT,
+    )
+    def _boot(self):
+        self.environment[
+            otopicons.CoreEnv.LOG_FILTER_KEYS
+        ].append(
+            oreportscons.ConfigEnv.ADMIN_PASSWORD
+        )
+
+    @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
     )
     def _init(self):
         self.environment.setdefault(
             oreportscons.ConfigEnv.ADMIN_PASSWORD,
             None
-        )
-        self.environment[otopicons.CoreEnv.LOG_FILTER_KEYS].append(
-            oreportscons.ConfigEnv.ADMIN_PASSWORD
         )
 
     @plugin.event(
@@ -119,10 +126,6 @@ class Plugin(plugin.PluginBase):
                         )
 
             self.environment[oreportscons.ConfigEnv.ADMIN_PASSWORD] = password
-
-        self.environment[otopicons.CoreEnv.LOG_FILTER].append(
-            self.environment[oreportscons.ConfigEnv.ADMIN_PASSWORD]
-        )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
