@@ -2,10 +2,10 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts</folder>
     <name>P_Cluster_ID</name>
-    <version>28</version>
+    <version>29</version>
     <label>$R{ic.cluster}</label>
-    <creationDate>2013-01-09T15:03:26.689+02:00</creationDate>
-    <updateDate>2013-01-16T15:12:23.064+02:00</updateDate>
+    <creationDate>2014-03-04T11:36:45.369+02:00</creationDate>
+    <updateDate>2014-03-04T14:12:31.919+02:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,37 +17,116 @@
             <name>Cluster</name>
             <version>1</version>
             <label>Cluster</label>
-            <creationDate>2013-01-16T15:12:23.064+02:00</creationDate>
-            <updateDate>2013-01-16T15:12:23.064+02:00</updateDate>
+            <creationDate>2014-03-04T14:12:31.919+02:00</creationDate>
+            <updateDate>2014-03-04T14:12:31.919+02:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct cast(cluster_id as varchar), delete_date, CASE
-            WHEN delete_date IS NULL THEN RTrim(cast(cluster_name  as varchar))
-            ELSE cluster_name || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
-                           END as combo_name, 0 as sort
-from v3_4_configuration_history_clusters
-              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
-                                        FROM enum_translator as enum_translator_default
-                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                                                                FROM enum_translator
-                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-                                                  WHERE enum_translator_default.language_code = 'en_US'
-                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
-WHERE cluster_id in (SELECT DISTINCT cluster_id
-                  FROM v3_4_configuration_history_hosts)
-              AND datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-              AND history_id in (SELECT max(a.history_id)
-         FROM v3_4_configuration_history_clusters a
-         GROUP BY a.cluster_id)
-$P!{active_hosts_select}
+            <queryString>-- This query will return only clusters that have hosts
+-- for the datacenter chosen by the user.
+
+SELECT DISTINCT
+    CAST ( cluster_id AS varchar ),
+    delete_date,
+    CASE
+        WHEN delete_date IS NULL
+            THEN RTRIM ( CAST ( cluster_name  AS varchar ) )
+        ELSE
+            cluster_name
+            ||
+            ' ('
+            ||
+            loc_removed_on.removed_on
+            ||
+            ' '
+            ||
+            to_char(
+                delete_date,
+                $P{datetimelocalepattern}
+            )
+            ||
+            ')'
+    END AS combo_name,
+    0 AS sort
+FROM v3_4_configuration_history_clusters
+    LEFT OUTER JOIN (
+        SELECT DISTINCT
+            COALESCE (
+                    enum_translator_localized.value_localized,
+                    enum_translator_default.value
+            )
+            AS removed_on
+        FROM enum_translator AS enum_translator_default
+            LEFT OUTER JOIN (
+                SELECT
+                    enum_type,
+                    enum_key,
+                    value AS value_localized
+                FROM enum_translator
+                WHERE language_code = $P{userlocale}
+            )
+            AS enum_translator_localized
+                ON (
+                    enum_translator_localized.enum_type =
+                    enum_translator_default.enum_type
+                    AND enum_translator_localized.enum_key =
+                    enum_translator_default.enum_key
+                )
+        WHERE
+            enum_translator_default.language_code = 'en_US'
+            AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON'
+    )
+    AS loc_removed_on
+        ON ( 0 = 0 )
+WHERE
+    -- Here we get only clusters that have hosts
+    cluster_id IN (
+        SELECT DISTINCT cluster_id
+        FROM v3_4_configuration_history_hosts
+    )
+    -- Filter clusters list according to the datacenter that was chosen by the user
+    AND datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
+    -- Here we get the latest cluster configuration
+    AND history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_clusters a
+        GROUP BY a.cluster_id
+    )
+    -- This will determine if deleted entities will be included in the report,
+    -- according to the user selection for "active_hosts_select" parameter
+    $P!{active_hosts_select}
+
 UNION ALL
-SELECT distinct '11111111-1111-1111-1111-111111111111', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, 1
-FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                  FROM enum_translator
-                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-WHERE enum_translator_default.language_code = 'en_US'
-           AND enum_translator_default.enum_type = 'REPORTS_ALL'
-           AND enum_translator_default.enum_key = 0
+
+-- Here we add the "All" option to the select list.
+-- The value is localized according to the session language.
+SELECT DISTINCT
+    '11111111-1111-1111-1111-111111111111',
+    CAST ( NULL AS timestamp ),
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+    AS value,
+    1
+FROM enum_translator AS enum_translator_default
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    )
+    AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
+WHERE
+    enum_translator_default.language_code = 'en_US'
+    AND enum_translator_default.enum_type = 'REPORTS_ALL'
+    AND enum_translator_default.enum_key = 0
 ORDER BY sort DESC, delete_date DESC, combo_name</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
