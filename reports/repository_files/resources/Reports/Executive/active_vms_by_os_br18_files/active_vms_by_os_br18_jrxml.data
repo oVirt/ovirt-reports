@@ -142,7 +142,7 @@ ORDER BY $P!{calendar_column},
 -- VMs Count by OS (Windows vs Windows)
 SELECT DISTINCT $P!{calendar_column} as the_date, coalesce(os_type, max(os_type) over (partition by 1),'') as os_type, vm_count
 FROM (SELECT distinct CASE
-                          WHEN UPPER(coalesce(enum_os_type.value,'Other OS')) = 'OTHER OS' THEN 'Unknown OS'
+                          WHEN COALESCE( enum_os_type.enum_key, 0 ) IN ( 0 ) THEN 'Unknown OS'
                           ELSE 'Known OS'
                        END AS os_type,
                        history_datetime AS time,
