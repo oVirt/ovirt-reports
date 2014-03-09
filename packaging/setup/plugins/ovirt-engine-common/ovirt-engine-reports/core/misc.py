@@ -81,7 +81,7 @@ class Plugin(plugin.PluginBase):
                 dialog=self.dialog,
                 name='OVESETUP_REPORTS_ENABLE',
                 note=_(
-                    'Install Reports on this host '
+                    'Configure Reports on this host '
                     '(@VALUES@) [@DEFAULT@]: '
                 ),
                 prompt=True,
