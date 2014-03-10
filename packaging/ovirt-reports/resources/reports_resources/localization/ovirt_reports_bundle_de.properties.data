@@ -1,700 +1,700 @@
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 footer.pagination=Seite {0} von {1}
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.rhel.vs.other.linuxs=RHEL gegen andere Linux Betriebssysteme
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.date=Datum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.number.of.vms=\#VMs
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.rhel.vs.windows=RHEL gegen Windows Betriebssystem
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.windows.distribution=Verteilung der Windows Versionen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.known.vs.unknown.os=Virtuelle Maschinen mit bekanntem Betriebssystem gegen Unbekanntem Betriebssystem
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.title=Aktive Virtuelle Maschinen nach Betriebssystem in <b>{0}</b> von<b> Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.clusters=Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.cluster.and.name=Cluster {0}
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.criteria=Kriterien
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.datacenter=Datenzentrum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.date.range=Wertebereich
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.vm.type=VM Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.cluster=Cluster
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document adhoc_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.all=Alle
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.period=Dauer
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.show.deleted.vms=Gel\u00F6schte Virtuelle Maschinen Anzeigen
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document querybuilder_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.yes=Ja
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document querybuilder_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.no=Nein
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter.and.cluster=Das Datenzentrum wurde am {0} gel\u00F6scht und der Cluster wurde am {1} gel\u00F6scht. 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.cluster=Der Cluster wurde am {0} gel\u00F6scht. 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter=Das Datenzentrum wurde am {0} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.host.name=Host Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.host.address=Host Adresse
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.os=Betriebssystem
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.number.of.cores=\#Cores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.cpu.type=CPU Typ
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br1.table.host.type=Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.short.memory.size=Speicher Gr\u00F6\u00DFe
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.short.create.date=Erstellungsdatum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.short.delete.date=L\u00F6schdatum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.table.gb=GB
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br1.title=Hosts Bestandsaufnahme in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.show.deleted.hosts=Anzeige Gel\u00F6schte Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.host.type=Host Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.vm.name=VM Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.template.name=Vorlage Name
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br9.table.vm.type=Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.os=Betriebssystem
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.short.memory.size=Speicher Gr\u00F6\u00DFe
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.number.of.cores=\#vCores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.create.date=Erstellungsdatum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.delete.date=L\u00F6schdatum 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.table.gb=GB
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br9.title=Virtuelle Maschinen Bestandsaufnahme in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.number.of.host.cores=\#Cores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.number.of.vm.cores=\#vCores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.memory.size.gb=Arbeitsspeicher Gr\u00F6\u00DFe (GB)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br19.chart.cores=Durchschnittliche Anzahl von Host Cores gg. Virtuelle Maschinen vCores (im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br19.chart.memory.size=Durchschnittliche Host gg. Virtuelle Maschinen Arbeitsspeicher Gr\u00F6\u00DFe (im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.show.deleted.entities=Gel\u00F6schte Einheiten Anzeigen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br19.title=Cluster Kapazit\u00E4t gg. Auslastung in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br22.table.date=Datum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br22.table.host.os=Host Betriebssystem Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br22.host.count=Host Anzahl
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br22.chart.title.os.break.down=Aufgliederung Betriebssystem der laufenden Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.number.of.running.hosts=\#Laufende Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br22.title=Host Betriebssystem Aufgliederung in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.cpu.usage.percent=CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.memory.usage.percent=Arbeitsspeicherauslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br17.chart.cpu=CPU
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br17.chart.memory=Arbeitsspeicher
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br17.chart.active.hosts=Aktive Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br17.chart.deleted.hosts=Gel\u00F6schte Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br17.title=Zusammenfassung der Host Auslastung in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.storage.domain.size.gb=Speicherplatz (GB)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br21.chart.size.of.storage.domain=Gr\u00F6\u00DFe der Speicherdom\u00E4ne (im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br21.chart.available.size=Verf\u00FCgbarer Speicherplatz
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br21.chart.used.size=Benutzter Speicherplatz
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.storage.type=Speicher Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br21.title=Gr\u00F6\u00DFe (im Zeitablauf) der <b>Speicherdom\u00E4ne {0}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter.and.storage=Das Datenzentrum wurde am {0} gel\u00F6scht und die Speicherdom\u00E4ne wurde am {1} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.storage=Die Speicherdom\u00E4ne wurde am {0} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.chart.cpu=CPU
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.chart.memory=Arbeitsspeicher
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br5.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br5.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br5.title=F\u00FCnf am wenigsten genutzte Hosts in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br4.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br4.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br4.title=F\u00FCnf am meisten genutzte Hosts in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br3.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br3.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br3.title=Ressourcenauslastung von mehrfachen Hosts (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.hosts.names=Host Namen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2a.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2a.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2a.chart.network.usage=Auslastung der f\u00FCnf verkehrsreichsten Netzwerkschnittstellen (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2a.chart.active.vms=Anzahl der Aktiven Virtuellen Maschinen (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.network.usage.percent=Netzwerkauslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.cpu.usage=CPU Auslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.cpu.peak=CPU Spitzenwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.memory.usage=Arbeitsspeicherauslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.memory.peak=Arbeitsspeicher Spitzenwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.number.of.vms=\#VMs
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.peak.number.of.vms=\#VMs Spitzenwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.rx=/Rx
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.tx=/Tx
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.series.tooltip.network={0}{1}, {2}
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.host=Der Host wurde am {0} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter.and.host=Das Datenzentrum wurde am {0} gel\u00F6scht und der Host wurde am {1} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.cluster.and.host=Der Cluster wurde am {0} gel\u00F6scht und der Host wurde am {1} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter.cluster.and.host=Das Datenzentrum wurde am {0} gel\u00F6scht, der Cluster wurde am {1} gel\u00F6scht und der Host wurde am {2} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.host.address=Host Adresse
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.memory.size=Arbeitsspeichergr\u00F6\u00DFe
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.gb=GB
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.create.date=Erstellungsdatum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.delete.date=L\u00F6schdatum 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.cpu.model=CPU Modell
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.number.of.cpu.cores=\#CPU-Cores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2a.title=Ressourcenauslastung von <b>Host {0}</b> (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.host.details=Host Details
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2a.chart.network.subtitle.lines=Empfangsrate in fortlaufender Linie; \u00DCbertragungsrate in gestrichelter Linie
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2.chart.network.subtitle.deleted=Gel\u00F6schte Schnittstellen sind mit Sternen gekennzeichnet
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2b.title=Ressourcenauslastung von <b>Host {0}</b> nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2c.title=Ressourcenauslastung von <b>Host {0}</b> nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2b.chart.cpu.usage=CPU Auslastung nach Wochentagen
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document adhoc_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.day=Tag
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2b.chart.memory.usage=Arbeitsspeicherauslastung nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2b.chart.active.vms=Anzahl der Aktiven Virtuellen Maschinen nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2b.chart.network.usage=Auslastung der drei verkehrsreichsten Netzwerkschnittstellen nach Wochentagen 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.hour.of.day=Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2c.chart.active.vms=Anzahl der Aktiven Virtuellen Maschinen nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2c.chart.cpu.usage=CPU Auslastung nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2c.chart.memory.usage=Arbeitsspeicherauslastung nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br2c.chart.network.usage=Auslastung der drei verkehrsreichsten Netzwerkschnittstellen nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br12.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br12.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br12.title=F\u00FCnf am wenigsten genutzte Virtuelle Maschinen in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br11.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br11.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br11.title=F\u00FCnf am meisten genutzte Virtuelle Maschinen in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br16.title=Ressourcenauslastung von mehrfachen Virtuellen Maschinen (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br16.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br16.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
 # translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
-br16.more.than.five.warning=In diesem Bericht werden Daten f\u00FCr bis zu f\u00FCnf Virtuelle Maschinen angezeigt. Bitte dr\u00FCcken Sie auf "Parameter bearbeiten" und w\u00E4hlen f\u00FCnf oder weniger Virtuelle Maschinen aus.
+br16.more.than.five.warning=In diesem Bericht werden Daten f\u00FCr bis zu f\u00FCnf Virtuelle Maschinen angezeigt. Bitte dr\u00FCcken Sie auf "Optionen" und w\u00E4hlen f\u00FCnf oder weniger Virtuelle Maschinen aus.
 # translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
-br3.more.than.five.warning=In diesem Bericht werden Daten f\u00FCr bis zu f\u00FCnf Hosts angezeigt. Bitte dr\u00FCcken Sie auf "Parameter bearbeiten" und w\u00E4hlen f\u00FCnf oder weniger Hosts aus.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+br3.more.than.five.warning=In diesem Bericht werden Daten f\u00FCr bis zu f\u00FCnf Hosts angezeigt. Bitte dr\u00FCcken Sie auf "Optionen" und w\u00E4hlen f\u00FCnf oder weniger Hosts aus.
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.vms.names=Namen der Virtuellen Maschinen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.title=Ressourceauslastung der <b>Virtuellen Maschine {0}</b> (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.chart.network.usage=Auslastung der f\u00FCnf verkehrsreichsten Netzwerkschnittstellen (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.chart.disks.usage=Auslastung der f\u00FCnf verkehrsreichsten Datentr\u00E4ger (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10b.title=Ressourceauslastung der <b>Virtuellen Maschine {0}</b> nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10c.title=Ressourceauslastung der <b>Virtuellen Maschine {0}</b> nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10b.chart.network.usage=Auslastung der drei verkehrsreichsten Netzwerkschnittstellen nach Wochentagen 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10c.chart.network.usage=Auslastung der drei verkehrsreichsten Netzwerkschnittstellen nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10b.chart.memory.usage=Arbeitsspeicherauslastung nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10c.chart.memory.usage=Arbeitsspeicherauslastung nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10b.chart.disks.usage=Auslastung der f\u00FCnf verkehrsreichsten Datentr\u00E4ger nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10c.chart.disks.usage=Auslastung der f\u00FCnf verkehrsreichsten Datentr\u00E4ger nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10b.chart.cpu.usage=CPU Auslastung nach Wochentagen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10c.chart.cpu.usage=CPU Auslastung nach Tageszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.network.subtitle.deleted=Gel\u00F6schte Schnittstellen sind mit Sternen gekennzeichnet
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.chart.network.subtitle.lines=Empfangsrate in fortlaufender Linie; \u00DCbertragungsrate in gestrichelter Linie
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.disks.subtitle.deleted=Gel\u00F6schte Datentr\u00E4ger sind mit Sternen gekennzeichnet
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10a.chart.disks.subtitle.lines=Leserate in fortlaufender Linie; Schreibrate in gestrichelter Linie
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.disks.usage.mb.pre.second=Datentr\u00E4gerauslastung MB/s
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.cpu.peak=CPU Spitzenwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.cpu.usage=CPU Auslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.memory.peak=Arbeitsspeicher Spitzenwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.memory.usage=Arbeitsspeicherauslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.rx=/Rx
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.tx=/Tx
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.tooltip.network={0}{1}, {2}
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.write=/Schreiben
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.read=/Lesen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br10.chart.series.tooltip.disks={0}{1}, {2}
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.cluster.and.vm=Der Cluster wurde am {0} gel\u00F6scht und die Virtuelle Maschine wurde am {1} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter.and.vm=Das Datenzentrum wurde am {0} gel\u00F6scht und die Virtuelle Maschine wurde am {1} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.datacenter.cluster.and.vm=Das Datenzentrum wurde am {0} gel\u00F6scht, der Cluster wurde am {1} gel\u00F6scht und die Virtuelle Maschine wurde am {2} gel\u00F6scht
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.deleted.comment.vm=Die Virtuelle Maschine wurde am {0{} gel\u00F6scht.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.vm.details=Virtuelle Maschine Details
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.number.of.vm.cores=\#vCores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.vm.high.availability=Hohe Verf\u00FCgbarkeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.os=Betriebssystem
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br7.meter.title=Gesamte Betriebszeit der Hosts des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.meter.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.meter.planned.downtime=Geplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.meter.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br7.table.title=Aufgliederung der Stillstandszeit der Hosts des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.table.host.name=Host Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.table.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.table.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.table.planned.downtime=Geplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7.title=Betriebszeit de Hosts in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br8.meter.title=Host Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br8.meter.planned.downtime=Geplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br8.meter.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br8.meter.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br8.title=Betriebszeit von <b>Host {0}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7b.table.host.name=Host Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7b.table.planned.downtime=Geplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7b.table.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7b.table.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7b.table.short.delete.date=L\u00F6schdatum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7b.title=Hosts mit den 10 l\u00E4ngsten Stillstandszeiten in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.table.host.name=Host Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.table.time.above.cpu.threshold=Zeit \u00FCber CPU Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.table.time.above.memory.threshold=Zeit \u00FCber Arbeitsspeicher Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.table.delete.date=L\u00F6schdatum 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 b6.table.cluster.average=Cluster Durchschnitt
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.pie.average.time.below.threshold=Durchschnittliche Zeit unter dem Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.pie.average.time.above.threshold=Durchschnittliche Zeit \u00FCber dem Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6.title=Servicequalit\u00E4t der Hosts in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.cpu.threshold=CPU Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.memory.threshold=Arbeitsspeichergrenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.chart.cpu=CPU
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.chart.memory=Arbeitsspeicher
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.pie.average.time.above.threshold=Durchschnittliche Zeit \u00FCber dem Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.pie.average.time.below.threshold=Durchschnittliche Zeit unter dem Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.table.delete.date=L\u00F6schdatum 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.table.vm.name=Name der virtuellen Maschine
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.table.time.above.cpu.threshold=Zeit \u00FCber CPU Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.table.time.above.memory.threshold=Zeit \u00FCber Arbeitsspeicher Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br13.title=Servicequalit\u00E4t der Virtuellen Maschinen in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.short.show.deleted.vms=Gel\u00F6schte VMs anzeigen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br14.meter.title=Gesamte Betriebszeit der Virtuellen Maschinen des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14.meter.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14.meter.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14.table.vm.name=Name der virtuellen Maschine
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br14.table.title=Aufgliederung der Stillstandszeit des Clusters High Availability Virtual Servers
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14.table.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14.table.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14.title=High Availability Virtual Servers Betriebszeit in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br18a.chart.active.vms.os=Betriesbsystem der Virtuellen Maschinen (im Zeitablauf)
-# translation auto-copied from project oVirt Engine jrs Branding, version master, document jasperserver_messages
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18a.table.date=Datum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18a.table.os.version=Betriebssystem Version
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18a.table.number.of.vms=\#VMs
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br7a.title=Betriebszeit der Hosts des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7a.table.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7a.table.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7a.table.planned.downtime=Geplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br7a.table.cluster.name=Cluster Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.title=Servicequalit\u00E4t der Hosts nach Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.table.cluster.name=Cluster Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.table.sample.time.below.cpu.threshold=Messzeit Unterhalb CPU Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.table.sample.time.above.cpu.threshold=Messzeit Oberhalb CPU Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.table.sample.time.below.memory.threshold=Messzeit Unterhalb Arbeitsspeicher Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.table.sample.time.above.memory.threshold=Messzeit Oberhalb Arbeitsspeicher Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.table.delete.date=L\u00F6schdatum 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.legend.below.threshold=Unterhalb Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br6b.legend.above.threshold=Oberhalb Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br4b.title=F\u00FCnf am h\u00E4ufigsten verwendete Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br4b.chart.hosts.cpu.usage=Hosts CPU Auslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br4b.chart.hosts.memory.usage=Hosts Arbeitspeicher Auslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br11b.title=F\u00FCnf am h\u00E4ufigsten verwendete Virtuelle Maschinen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br11b.chart.vms.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br11b.chart.vms.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br22b.title=Aufteilung Host Betriebssysteme
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br23.title=Durchschnittliche Nutzung der Datentr\u00E4ger der Speicherdom\u00E4ne
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.storage.domain.names=Speicherdom\u00E4nen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br17b.title=\u00DCbersicht der Hostressourcen Auslastung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14a.title=Betriebszeit der High Availability Virtual Servers des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14a.table.cluster.name=Cluster Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14a.table.unplanned.downtime=Ungeplante Stillstandszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br14a.table.uptime=Betriebszeit
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.removed.on.message=Entfernt auf {0}
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 b13.table.cluster.average=Cluster Durchschnitt
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr29.title=Cluster Kapazit\u00E4t gg. Auslastung - Cores
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr30.title=Cluster Kapazit\u00E4t gg. Auslastung - Arbeitsspeicher
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr.count.list.vms=Virtuelle Maschinen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr.count.list.hosts=Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr13.text=High Availability <b>Virtuelle Maschinen</b> Betriebszeitstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr12.text=<b>Hosts</b> Ressourcenstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr6.text=<b>Hosts</b> Betriebszeitstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr28.title=\u00DCbersicht Ressourcenauslastung von Hosts 
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr23.title=F\u00FCnf verkehrsreichste Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 axis.hosts.names=Namen der Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.resources.usage=Ressourcenauslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr24.title=F\u00FCnf am wenigsten ausgelastete Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr14.text=<b>Virtuelle Maschinen</b> Overcommitmentstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr20.title=F\u00FCnf h\u00F6chste Stillstandszeiten der High Availability Virtual Server
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 axis.vms.names=Namen der Virtuellen Maschinen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.time.percent=Zeit %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr19.title=F\u00FCnf h\u00F6chste Betriebszeiten der High Availability Virtual Server
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr18.title=F\u00FCnf h\u00F6chste Stillstandszeiten der Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr17.title=F\u00FCnf h\u00F6chste Betriebszeiten der Hosts
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr21.title=F\u00FCnf verkehrsreichste Cluster
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 axis.clusters.names=Clusters Namen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr22.title=F\u00FCnf am wenigsten ausgelastete Cluster
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr.count.list.clusters=Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr11.text=<b>Hosts</b> Ressourcenstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr5.text=<b>Hosts</b> Betriebszeitstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr8.text=<b>Speicherdom\u00E4nen</b> Speicherplatzstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr27.title=\u00DCbersicht Ressourcenauslastung der Hosts des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.used.free.storage.size.percent=Vorhandene/Verwendete Speichergr\u00F6\u00DFe %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr26.title=F\u00FCnf verkehrsreichste Speicherdom\u00E4nen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr26.chart.available.size.percent=Vorhandene Gr\u00F6\u00DFe %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr26.chart.used.size.percent=Verwendete Gr\u00F6\u00DFe %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr25.title=F\u00FCnf gr\u00F6\u00DFte Overcommitments von Virtuellen Maschinen des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.over.commit.percent=Overcommitment %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr15.title=F\u00FCnf beste Betriebszeiten von Hosts des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr16.title=F\u00FCnf schlechteste Stillstandszeiten von Hosts des Clusters
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr.count.list.dcs=Datenzentren
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr10.text=<b>Hosts</b> Ressourcenstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr4.text=<b>Hosts</b> Betriebszeitstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 dr7.text=<b>Speicherdom\u00E4nen</b> Speicherplatzstatus
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.table.vm.description=VM Beschreibung
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.table.number.of.sockets=\#Sockets
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.table.cores.per.socket=\#Cores pro Socket
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.table.existence.time.hours=Existenzdauer (Stunden)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.table.vm.uptime.hours=VM Betriebszeit (Stunden)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.table.vm.uuid=VM UUID
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.title=Cloud Provider Virtual Machine Bestandsaufnahme in <b>{0}</b> von <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.user.name=Benutzername
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.vm.name=Name der virtuellen Maschine
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.session.time.in.hours=Sitzungsdauer (Stunden)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.average.cpu.usage.percent=Durchschnittliche CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.average.user.cpu.usage.percent=Durchschnittliche Nutzer CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.average.system.cpu.usage.percent=Durchschnittliche System CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.peak.cpu.usage.percent=Spitzen CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.peak.system.cpu.usage.percent=Maximale System CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.peak.user.cpu.usage.percent=Maximale Nutzer CPU Auslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.average.memory.usage.percent=Durchschnittliche Arbeitsspeicherauslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.peak.memory.usage.percent=Maximale Arbeitsspeicherauslastung %
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.title=Spice Sessions Aktivit\u00E4t des Nutzers in <b>{0}</b> of <b>Datenzentrum {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 dr.count.list.storage.domains=Storage Domains
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br46.title=Betriebszeit von <b>Virtueller Maschine {0}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br46.meter.title=Betriebszeit von Virtuelle Maschine
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 full.details.storage.domain.type=Storage-Domain Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 full.details.show.deleted.storage.domains=Gel\u00F6schte Storage Domains anzeigen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.title=Storage Domains Bestandsaufnahme von <b>Datenzentrum {0}</b>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.storage.domain.name=Storage-Domain Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.storage.domain.type=Storage-Domain Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.storage.type=Storage-Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.free.space.gb=Freier Speicherplatz (GB)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.used.space.gb=Benutzter Platz (GB)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.total.space.gb=Gesamtspeicherplatz (GB)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.cluster=Cluster
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.is.deleted=Gel\u00F6schte Einheiten anzeigen?
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.cpu.threshold=CPU Grenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.memory.threshold=Arbeitsspeichergrenzwert
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.period.range=Dauerbereich
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.dates=Daten
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.dc=Datenzentrum
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.host.name=Host Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.hosts.list=Hosts-Liste
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.host.type=Host Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.storage.domain.type=Storage-Domain Typ
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.storage.domain.name=Storage-Domain Name
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.vm.name=Name der virtuellen Maschine
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.vm.list=Liste der Virtuelle Maschinen
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.vm.type=Typ der Virtuellen Maschine
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.is.deleted.detached=DeletedDetached Einheiten anzeigen?
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 inventory.dashboard.title=Bestands-Dashboard des <font color\="\#333333">Datenzentrums {0}</font>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 system.overview.dashboard.title=System\u00FCbersichts-Dashboard des <font color\="\#333333">Datenzentrums {0}</font>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 trends.dashboard.title=Tendenzen-Dashboard des <font color\="\#333333">Datenzentrums {0}</font>
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author rgromans
+# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 uptime.dashboard.title=Betriebszeiten-Dashboard des <font color\="\#333333">Datenzentrums {0}</font>
