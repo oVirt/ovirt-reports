@@ -142,6 +142,10 @@ fi
 %endif
 
 %changelog
+* Tue Mar 11 2014 Yaniv Dary <ydary@redhat.com> - 3.3.5
+Fixed issue:
+1074909 - setup error on a system installed in Brazilian Portuguese
+
 * Mon Mar 10 2014 Yaniv Dary <ydary@redhat.com> - 3.3.5
 Fixes issues:
 1059268 - BR18 - the numbers of OSs are incorrect
