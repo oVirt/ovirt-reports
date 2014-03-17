@@ -1,672 +1,801 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR13" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isTitleNewPage="true" resourceBundle="ovirt_reports_bundle">
-    <property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/VMs/cluster_quality_of_service_vms_br13"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <style name="Line Style">
-        <conditionalStyle>
-            <conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
-            <style mode="Opaque" backcolor="#EFF3FF"/>
-        </conditionalStyle>
-    </style>
-    <subDataset name="pies">
-        <parameter name="is_deleted" class="java.lang.String">
-            <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Period" class="java.lang.Short">
-            <parameterDescription><![CDATA[Period]]></parameterDescription>
-            <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Start_Date" class="java.util.Date">
-            <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_DataCenter_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_Cluster_ID" class="java.lang.String">
-            <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-            <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_VM_Type" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
-            <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_CPU_Threshold" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Set a CPU Threshold]]></parameterDescription>
-            <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-        </parameter>
-        <parameter name="P_MEM_Threshold" class="java.lang.Integer">
-            <parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
-            <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-        </parameter>
-            <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-            <![CDATA[-- Cluster aggregation level
---------
--- BR13 - VMs performance above thresholds
-SELECT COALESCE(avg(cpu_below),0) as cpu_below, COALESCE(avg(cpu_above),0) as cpu_above, COALESCE(avg(mem_below),0) as mem_below, COALESCE(avg(mem_above),0) as mem_above
-FROM (SELECT sum(CASE
-                     WHEN cpu_usage_percent < $P{P_CPU_Threshold} THEN minutes_in_status
-                     ELSE 0
-                 END) as cpu_below,
-             sum(CASE
-                     WHEN cpu_usage_percent >= $P{P_CPU_Threshold} THEN minutes_in_status
-                     ELSE 0
-                 END) as cpu_above,
-             sum(CASE
-                     WHEN memory_usage_percent < $P{P_MEM_Threshold} THEN minutes_in_status
-                     ELSE 0
-                 END) as mem_below,
-             sum(CASE
-                     WHEN memory_usage_percent >= $P{P_MEM_Threshold} THEN minutes_in_status
-                     ELSE 0
-                 END) as mem_above
-      FROM   (SELECT DISTINCT v3_4_configuration_history_vms.vm_id,
-                              history_datetime,
-                              cpu_usage_percent,
-                              memory_usage_percent,
-                              minutes_in_status
-              FROM v3_4_statistics_vms_resources_usage_hourly
-                   INNER JOIN v3_4_configuration_history_vms ON (v3_4_configuration_history_vms.vm_id = v3_4_statistics_vms_resources_usage_hourly.vm_id)
-              WHERE v3_4_statistics_vms_resources_usage_hourly.vm_status = 1
-                    AND v3_4_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                                  FROM v3_4_configuration_history_clusters
-                                                                  WHERE datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-                                                                        AND v3_4_configuration_history_vms.cluster_id = CASE $P{P_Cluster_ID}
-                                                                                                                        WHEN NULL THEN v3_4_configuration_history_vms.cluster_id
-                                                                                                                        WHEN '11111111-1111-1111-1111-111111111111' THEN v3_4_configuration_history_vms.cluster_id
-                                                                                                                        ELSE cast($P{P_Cluster_ID} as uuid)
-                                                                                                                    END
-                                                                        AND v3_4_configuration_history_vms.vm_type = CASE $P{P_VM_Type}
-                                                                                                                     WHEN -1 THEN v3_4_configuration_history_vms.vm_type
-                                                                                                                     ELSE $P{P_VM_Type}
-                                                                                                                 END
-                                                                        AND v3_4_configuration_history_vms.history_id in (SELECT max(a.history_id)
-                                                                                                                      FROM v3_4_configuration_history_vms a
-                                                                                                                      GROUP BY a.vm_id)
-                                                                        AND history_datetime >= cast($P{P_Start_Date} as timestamp)
-                                                                        AND history_datetime <= CASE
-                                                                                                   WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                                                   WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                                                   WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                                                   WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                                               END
-                                                                        $P!{is_deleted}) a
-      GROUP BY vm_id) as t]]>
-        </queryString>
-        <field name="cpu_below" class="java.math.BigDecimal"/>
-        <field name="cpu_above" class="java.math.BigDecimal"/>
-        <field name="mem_below" class="java.math.BigDecimal"/>
-        <field name="mem_above" class="java.math.BigDecimal"/>
-    </subDataset>
-    <parameter name="is_deleted" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Period" class="java.lang.Short">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.util.Date">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Cluster_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_VM_Type" class="java.lang.Integer">
-        <parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
-        <defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_CPU_Threshold" class="java.lang.Integer">
-        <parameterDescription><![CDATA[Set a CPU Threshold]]></parameterDescription>
-        <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_MEM_Threshold" class="java.lang.Integer">
-        <parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
-        <defaultValueExpression><![CDATA[60]]></defaultValueExpression>
-    </parameter>
-    <parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
-    <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-        <defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
-    </parameter>
-        <parameter name="table_name" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
-    </parameter>
-        <parameter name="calendar_column" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-        <![CDATA[SELECT *
-FROM   (SELECT cluster_id,
-               vm_id,
-               vm_name,
-               is_delete,
-               vm_delete_only_date,
-               SUM(CASE
-                       WHEN cpu_usage_percent >= $P{P_CPU_Threshold} THEN minutes_in_status
-                       ELSE 0
-                   END) as time_above_cpu_threshold,
-               SUM (CASE
-                        WHEN memory_usage_percent >= $P{P_MEM_Threshold} THEN minutes_in_status
-                        ELSE 0
-                    END) as time_above_mem_threshold,
-               SUM(coalesce(minutes_in_status, 0)) as overall_vm_time
-         FROM (SELECT DISTINCT v3_4_configuration_history_vms.cluster_id,
-                               v3_4_configuration_history_vms.vm_id,
-                               v3_4_configuration_history_vms.vm_name,
-                               (CASE WHEN v3_4_configuration_history_vms.delete_date IS NULL THEN FALSE ELSE TRUE END) as is_delete,
-                               cast(v3_4_configuration_history_vms.delete_date as date) as vm_delete_only_date,
-                               v3_4_statistics_vms_resources_usage_hourly.history_datetime,
-                               cpu_usage_percent,
-                               memory_usage_percent,
-                               minutes_in_status
-               FROM v3_4_statistics_vms_resources_usage_hourly
-                        INNER JOIN v3_4_configuration_history_vms
-               ON (v3_4_statistics_vms_resources_usage_hourly.vm_id = v3_4_configuration_history_vms.vm_id)
-               WHERE v3_4_statistics_vms_resources_usage_hourly.vm_status = 1
-                     AND v3_4_configuration_history_vms.cluster_id in (SELECT cluster_id
-                                                                   FROM v3_4_configuration_history_clusters
-                                                                   WHERE datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-                     AND v3_4_configuration_history_vms.cluster_id = CASE $P{P_Cluster_ID}
-                                                                     WHEN NULL THEN v3_4_configuration_history_vms.cluster_id
-                                                                     WHEN '11111111-1111-1111-1111-111111111111' THEN v3_4_configuration_history_vms.cluster_id
-                                                                     ELSE cast($P{P_Cluster_ID} as uuid)
-                                                                 END
-                     AND v3_4_configuration_history_vms.vm_type = CASE $P{P_VM_Type}
-                                                                  WHEN -1 THEN v3_4_configuration_history_vms.vm_type
-                                                                  ELSE $P{P_VM_Type}
-                                                              END
-                     AND v3_4_configuration_history_vms.history_id in (SELECT max(a.history_id)
-                                                                   FROM v3_4_configuration_history_vms a
-                                                                   GROUP BY a.vm_id)
-                     AND v3_4_statistics_vms_resources_usage_hourly.history_datetime >= cast($P{P_Start_Date} as timestamp)
-                     AND v3_4_statistics_vms_resources_usage_hourly.history_datetime <= CASE
-                                                                            WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'
-                                                                            WHEN $P{P_Period} = 1 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 month'
-                                                                            WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
-                                                                            WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
-                                                                        END
-                     $P!{is_deleted}) as query_run
-         GROUP BY cluster_id,
-                  vm_id,
-                  vm_name,
-                  is_delete,
-                  vm_delete_only_date) as t
-ORDER BY cluster_id, (CASE WHEN time_above_mem_threshold = 0 and time_above_cpu_threshold = 0 THEN 1 ELSE 0 END) ASC, t.is_delete ASC, (cast(t.time_above_cpu_threshold as float)/cast(t.overall_vm_time as float))*100 + (cast(t.time_above_mem_threshold as float)/cast(t.overall_vm_time as float))*100 DESC]]>
-    </queryString>
-    <field name="cluster_id" class="java.lang.Object"/>
-    <field name="vm_id" class="java.lang.Object"/>
-    <field name="vm_name" class="java.lang.String"/>
-    <field name="is_delete" class="java.lang.Boolean"/>
-    <field name="vm_delete_only_date" class="java.sql.Date"/>
-    <field name="time_above_cpu_threshold" class="java.math.BigDecimal"/>
-    <field name="time_above_mem_threshold" class="java.math.BigDecimal"/>
-    <field name="overall_vm_time" class="java.math.BigDecimal"/>
-    <variable name="total_CPU" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
-        <variableExpression><![CDATA[$F{time_above_cpu_threshold}]]></variableExpression>
-    </variable>
-    <variable name="total_MEM" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
-        <variableExpression><![CDATA[$F{time_above_mem_threshold}]]></variableExpression>
-    </variable>
-    <variable name="presentage_avg_cpu" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
-        <variableExpression><![CDATA[(($F{time_above_cpu_threshold}/$F{overall_vm_time})*100).intValue()]]></variableExpression>
-    </variable>
-    <variable name="presentage_avg_mem" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
-        <variableExpression><![CDATA[(($F{time_above_mem_threshold}/$F{overall_vm_time})*100).intValue()]]></variableExpression>
-    </variable>
-    <variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
-        <variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
-        <initialValueExpression><![CDATA[]]></initialValueExpression>
-    </variable>
-    <group name="Cluster">
-        <groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
-        <groupHeader>
-            <band height="20">
-                <subreport>
-                    <reportElement x="0" y="0" width="832" height="18"/>
-                    <subreportParameter name="P_Cluster_ID">
-                        <subreportParameterExpression><![CDATA[$F{cluster_id} == null ? $P{P_Cluster_ID} : $F{cluster_id}.toString()]]></subreportParameterExpression>
-                    </subreportParameter>
-                    <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                    <subreportExpression class="java.lang.String"><![CDATA["repo:header cluster name.jrxml"]]></subreportExpression>
-                </subreport>
-            </band>
-        </groupHeader>
-        <groupFooter>
-            <band height="20">
-                <printWhenExpression><![CDATA[($V{total_CPU} != 0 && $V{total_CPU} != null) || ($V{total_MEM} != 0 && $V{total_MEM} != null)]]></printWhenExpression>
-                <frame>
-                    <reportElement mode="Opaque" x="0" y="0" width="832" height="20" backcolor="#B5C5D5"/>
-                    <box>
-                        <rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
-                    </box>
-                    <textField>
-                        <reportElement x="12" y="0" width="410" height="20" forecolor="#000000"/>
-                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="SansSerif" size="11" isBold="true"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[$R{b13.table.cluster.average}]]></textFieldExpression>
-                    </textField>
-                    <frame>
-                        <reportElement x="449" y="0" width="118" height="20"/>
-                        <textField>
-                            <reportElement x="0" y="0" width="25" height="20">
-                                <printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA[((($V{total_CPU}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                        </textField>
-                        <textField>
-                            <reportElement x="26" y="0" width="25" height="20">
-                                <printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0 || (($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA[(($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                        </textField>
-                        <textField>
-                            <reportElement x="52" y="0" width="25" height="20">
-                                <printWhenExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                        </textField>
-                        <textField>
-                            <reportElement x="78" y="0" width="40" height="20">
-                                <printWhenExpression><![CDATA[$V{presentage_avg_cpu} != null]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA["(" + $V{presentage_avg_cpu}.intValue().toString() + "%)"]]></textFieldExpression>
-                        </textField>
-                    </frame>
-                    <frame>
-                        <reportElement x="600" y="0" width="118" height="20"/>
-                        <textField>
-                            <reportElement x="0" y="0" width="25" height="20">
-                                <printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA[((($V{total_MEM}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                        </textField>
-                        <textField>
-                            <reportElement x="26" y="0" width="25" height="20">
-                                <printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0 || (($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA[(($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                        </textField>
-                        <textField>
-                            <reportElement x="52" y="0" width="25" height="20">
-                                <printWhenExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                        </textField>
-                        <textField>
-                            <reportElement x="78" y="0" width="40" height="20">
-                                <printWhenExpression><![CDATA[$V{presentage_avg_mem} != null]]></printWhenExpression>
-                            </reportElement>
-                            <textElement textAlignment="Right" verticalAlignment="Middle">
-                                <font fontName="SansSerif" size="10" isBold="false"/>
-                            </textElement>
-                            <textFieldExpression class="java.lang.String"><![CDATA["(" + $V{presentage_avg_mem}.intValue().toString() + "%)"]]></textFieldExpression>
-                        </textField>
-                    </frame>
-                </frame>
-            </band>
-        </groupFooter>
-    </group>
-    <group name="Datacenter" isReprintHeaderOnEachPage="true">
-        <groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
-        <groupHeader>
-            <band height="40">
-                <frame>
-                    <reportElement mode="Opaque" x="0" y="0" width="832" height="40" backcolor="#D8E2FF"/>
-                    <box>
-                        <rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
-                    </box>
-                    <textField>
-                        <reportElement x="12" y="0" width="410" height="40" forecolor="#000000"/>
-                        <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                            <font fontName="SansSerif" size="11" isBold="true"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[$R{br13.table.vm.name}]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="743" y="0" width="81" height="40" forecolor="#000000"/>
-                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="SansSerif" size="11" isBold="true" isPdfEmbedded="false"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[$R{br13.table.delete.date}]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="600" y="0" width="118" height="40" forecolor="#000000"/>
-                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="SansSerif" size="11" isBold="true"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[$R{br13.table.time.above.memory.threshold}]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="462" y="0" width="94" height="40" forecolor="#000000"/>
-                        <textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-                            <font fontName="SansSerif" size="11" isBold="true"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[$R{br13.table.time.above.cpu.threshold}]]></textFieldExpression>
-                    </textField>
-                </frame>
-            </band>
-        </groupHeader>
-    </group>
-    <background>
-        <band splitType="Stretch"/>
-    </background>
-    <title>
-        <band height="496" splitType="Stretch">
-            <subreport>
-                <reportElement x="0" y="45" width="832" height="89" isPrintWhenDetailOverflows="true"/>
-                <subreportParameter name="P_Cluster_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="is_deleted">
-                    <subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Period">
-                    <subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_DataCenter_ID">
-                    <subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_MEM_Threshold">
-                    <subreportParameterExpression><![CDATA[$P{P_MEM_Threshold}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_CPU_Threshold">
-                    <subreportParameterExpression><![CDATA[$P{P_CPU_Threshold}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_Start_Date">
-                    <subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
-                </subreportParameter>
-                <subreportParameter name="P_VM_Type">
-                    <subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
-                </subreportParameter>
-                <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                <subreportExpression class="java.lang.String"><![CDATA["repo:full details.jrxml"]]></subreportExpression>
-            </subreport>
-            <pieChart>
-                <chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
-                    <reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="137" width="410" height="355" forecolor="#000000"/>
-                    <box>
-                        <pen lineWidth="1.0" lineColor="#3C617F"/>
-                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                    </box>
-                    <chartTitle color="#3A5E75">
-                        <font fontName="SansSerif" size="13"/>
-                        <titleExpression><![CDATA[$R{br13.chart.cpu}]]></titleExpression>
-                    </chartTitle>
-                    <chartSubtitle>
-                        <font fontName="Arial" size="8"/>
-                    </chartSubtitle>
-                    <chartLegend position="Bottom">
-                        <font fontName="SansSerif"/>
-                    </chartLegend>
-                </chart>
-                <pieDataset>
-                    <dataset>
-                        <datasetRun subDataset="pies">
-                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                        </datasetRun>
-                    </dataset>
-                    <pieSeries>
-                        <keyExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+<!-- Created with Jaspersoft Studio version 5.5.0-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR13" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isTitleNewPage="true" resourceBundle="ovirt_reports_bundle" uuid="05120021-3d36-4bdd-bec9-8bb29d701a2f">
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/VMs/cluster_quality_of_service_vms_br13"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Service_level/VMs/cluster_quality_of_service_vms_br13_files/cluster_quality_of_service_vms_br13_jrxml"/>
+	<style name="Line Style">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EFF3FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="pies" uuid="0ab995b6-787c-4683-b627-237e5b948b22">
+		<parameter name="is_deleted" class="java.lang.String">
+			<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Period" class="java.lang.Short">
+			<parameterDescription><![CDATA[Period]]></parameterDescription>
+			<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Start_Date" class="java.util.Date">
+			<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_DataCenter_ID" class="java.lang.String">
+			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_Cluster_ID" class="java.lang.String">
+			<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+			<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_VM_Type" class="java.lang.Integer">
+			<parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
+			<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_CPU_Threshold" class="java.lang.Integer">
+			<parameterDescription><![CDATA[Set a CPU Threshold]]></parameterDescription>
+			<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+		</parameter>
+		<parameter name="P_MEM_Threshold" class="java.lang.Integer">
+			<parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
+			<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+		</parameter>
+		<parameter name="table_name" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="calendar_column" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[-- BR13 - VMs cpu and memory performance
+-- in relation to the thresholds set by the user
+
+SELECT
+    COALESCE ( AVG ( cpu_below ), 0 ) AS  cpu_below,
+    COALESCE ( AVG ( cpu_above ), 0 ) AS  cpu_above,
+    COALESCE ( AVG ( mem_below ), 0 ) AS  mem_below,
+    COALESCE ( AVG ( mem_above ), 0 ) AS  mem_above
+FROM (
+    SELECT
+        SUM (
+            CASE
+                WHEN cpu_usage_percent < $P{P_CPU_Threshold}
+                    THEN minutes_in_status
+                ELSE 0
+            END
+        ) AS  cpu_below,
+        SUM (
+            CASE
+                WHEN cpu_usage_percent >= $P{P_CPU_Threshold}
+                    THEN minutes_in_status
+                ELSE 0
+            END
+        ) AS  cpu_above,
+        SUM (
+            CASE
+                WHEN memory_usage_percent < $P{P_MEM_Threshold}
+                    THEN minutes_in_status
+                ELSE 0
+            END
+        ) AS  mem_below,
+        SUM (
+            CASE
+                WHEN memory_usage_percent >= $P{P_MEM_Threshold}
+                    THEN minutes_in_status
+                ELSE 0
+            END
+        ) AS  mem_above
+    FROM (
+        SELECT DISTINCT
+            v3_4_configuration_history_vms.vm_id,
+            history_datetime,
+            cpu_usage_percent,
+            memory_usage_percent,
+            minutes_in_status
+        FROM v3_4_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_4_configuration_history_vms
+                ON (
+                    v3_4_configuration_history_vms.vm_id =
+                    v3_4_statistics_vms_resources_usage_hourly.vm_id
+                )
+        WHERE
+            -- Here we get only vms in active status
+            v3_4_statistics_vms_resources_usage_hourly.vm_status = 1
+            -- Here we filter by the datacenter chosen by the user
+            AND v3_4_configuration_history_vms.cluster_id IN (
+                SELECT cluster_id
+                FROM v3_4_configuration_history_clusters
+                WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS  uuid )
+            )
+            -- Here we filter by the cluster chosen by the user.
+            -- Can be more than one cluster.
+            AND v3_4_configuration_history_vms.cluster_id =
+            CASE $P{P_Cluster_ID}
+                WHEN NULL
+                    THEN v3_4_configuration_history_vms.cluster_id
+                WHEN '11111111-1111-1111-1111-111111111111'
+                    THEN v3_4_configuration_history_vms.cluster_id
+                ELSE CAST ( $P{P_Cluster_ID} AS  uuid )
+            END
+            -- Here we filter by the vm type chosen by the user.
+            -- Can be more than one type.
+            AND v3_4_configuration_history_vms.vm_type =
+            CASE $P{P_VM_Type}
+                WHEN -1
+                    THEN v3_4_configuration_history_vms.vm_type
+                ELSE $P{P_VM_Type}
+            END
+            -- Here we get the latest vm configurations
+            AND v3_4_configuration_history_vms.history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_configuration_history_vms a
+                GROUP BY a.vm_id
+            )
+            AND history_datetime >= CAST ( $P{P_Start_Date} AS  timestamp )
+            AND history_datetime <=
+            CASE
+                WHEN $P{P_Period} = 0
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+            END
+            -- This will determine if deleted entities will be included in the report,
+            -- according to the user selection for "is_deleted" parameter
+            $P!{is_deleted}
+    ) a
+    GROUP BY vm_id
+) AS  t]]>
+		</queryString>
+		<field name="cpu_below" class="java.math.BigDecimal"/>
+		<field name="cpu_above" class="java.math.BigDecimal"/>
+		<field name="mem_below" class="java.math.BigDecimal"/>
+		<field name="mem_above" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="is_deleted" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.Short">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.util.Date">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_VM_Type" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Select VM Type]]></parameterDescription>
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_CPU_Threshold" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Set a CPU Threshold]]></parameterDescription>
+		<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_MEM_Threshold" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Set a Memory Threshold]]></parameterDescription>
+		<defaultValueExpression><![CDATA[60]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\jasperserver-3.7\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="table_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="calendar_column" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- BR13 - Cluster Quality of Service - Virtual Machines
+-- This query returns for each vm in the specific datacenter,
+-- the  "time_above_cpu_threshold", the "time_above_mem_threshold"
+-- and the "overall_vm_time".
+
+SELECT *
+FROM (
+    SELECT
+        cluster_id,
+        vm_id,
+        vm_name,
+        is_delete,
+        vm_delete_only_date,
+        SUM (
+            CASE
+                WHEN cpu_usage_percent >= $P{P_CPU_Threshold}
+                    THEN minutes_in_status
+                ELSE 0
+            END
+        ) AS time_above_cpu_threshold,
+        SUM (
+            CASE
+                WHEN memory_usage_percent >= $P{P_MEM_Threshold}
+                    THEN minutes_in_status
+                ELSE 0
+            END
+        ) AS time_above_mem_threshold,
+        SUM (
+            COALESCE ( minutes_in_status, 0 )
+        ) AS overall_vm_time
+    FROM (
+        SELECT DISTINCT
+            v3_4_configuration_history_vms.cluster_id,
+            v3_4_configuration_history_vms.vm_id,
+            v3_4_configuration_history_vms.vm_name,
+            (
+                CASE
+                    WHEN v3_4_configuration_history_vms.delete_date IS NULL
+                        THEN FALSE
+                    ELSE TRUE
+                END
+            ) AS is_delete,
+            CAST (
+                v3_4_configuration_history_vms.delete_date AS date
+            ) AS vm_delete_only_date,
+            v3_4_statistics_vms_resources_usage_hourly.history_datetime,
+            cpu_usage_percent,
+            memory_usage_percent,
+            minutes_in_status
+        FROM v3_4_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_4_configuration_history_vms
+                ON (
+                    v3_4_statistics_vms_resources_usage_hourly.vm_id =
+                    v3_4_configuration_history_vms.vm_id
+                )
+        WHERE
+            -- Here we get only vms in active status
+            v3_4_statistics_vms_resources_usage_hourly.vm_status = 1
+            -- Here we filter by the datacenter chosen by the user
+            AND v3_4_configuration_history_vms.cluster_id IN (
+                SELECT cluster_id
+                FROM v3_4_configuration_history_clusters
+                WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
+            )
+            -- Here we filter by the cluster chosen by the user.
+            -- Can be more than one cluster.
+            AND v3_4_configuration_history_vms.cluster_id =
+            CASE $P{P_Cluster_ID}
+                WHEN NULL
+                    THEN v3_4_configuration_history_vms.cluster_id
+                WHEN '11111111-1111-1111-1111-111111111111'
+                    THEN v3_4_configuration_history_vms.cluster_id
+                ELSE CAST ( $P{P_Cluster_ID} AS uuid )
+                END
+            -- Here we filter by the vm type chosen by the user.
+            -- Can be more than one type.
+            AND v3_4_configuration_history_vms.vm_type =
+            CASE $P{P_VM_Type}
+                WHEN -1
+                    THEN v3_4_configuration_history_vms.vm_type
+                ELSE $P{P_VM_Type}
+            END
+            -- Here we get the latest vm configurations
+            AND v3_4_configuration_history_vms.history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_configuration_history_vms a
+                GROUP BY a.vm_id
+            )
+            AND v3_4_statistics_vms_resources_usage_hourly.history_datetime >=
+            CAST ( $P{P_Start_Date} AS timestamp )
+            AND v3_4_statistics_vms_resources_usage_hourly.history_datetime <=
+            CASE
+                WHEN $P{P_Period} = 0
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
+                WHEN $P{P_Period} = 1
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 month'
+                WHEN $P{P_Period} = 2
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '3 month'
+                WHEN $P{P_Period} = 3
+                    THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
+            END
+            -- This will determine if deleted entities will be included in the report,
+            -- according to the user selection for "is_deleted" parameter
+            $P!{is_deleted}
+    ) AS query_run
+    GROUP BY
+        cluster_id,
+        vm_id,
+        vm_name,
+        is_delete,
+        vm_delete_only_date
+) AS t
+ORDER BY
+    cluster_id,
+    (
+        CASE
+            WHEN
+                time_above_mem_threshold = 0
+                AND time_above_cpu_threshold = 0
+                THEN 1 -- Memory and cpu are below the threshold
+            ELSE 0 -- Memory and / or cpu are above threshold
+        END
+    ) ASC,
+    t.is_delete ASC,
+    -- This will order the vms based on the time the memory and cpu
+    -- where above the threshold out of the overall vm time.
+    (
+        CAST ( t.time_above_cpu_threshold AS float ) /
+        CAST ( t.overall_vm_time AS float )
+    ) * 100 +
+    (
+        CAST ( t.time_above_mem_threshold AS float ) /
+        CAST ( t.overall_vm_time AS float )
+    ) *100 DESC]]>
+	</queryString>
+	<field name="cluster_id" class="java.lang.Object"/>
+	<field name="vm_id" class="java.lang.Object"/>
+	<field name="vm_name" class="java.lang.String"/>
+	<field name="is_delete" class="java.lang.Boolean"/>
+	<field name="vm_delete_only_date" class="java.sql.Date"/>
+	<field name="time_above_cpu_threshold" class="java.math.BigDecimal"/>
+	<field name="time_above_mem_threshold" class="java.math.BigDecimal"/>
+	<field name="overall_vm_time" class="java.math.BigDecimal"/>
+	<variable name="total_CPU" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
+		<variableExpression><![CDATA[$F{time_above_cpu_threshold}]]></variableExpression>
+	</variable>
+	<variable name="total_MEM" class="java.math.BigDecimal" resetType="Group" resetGroup="Cluster" calculation="Average">
+		<variableExpression><![CDATA[$F{time_above_mem_threshold}]]></variableExpression>
+	</variable>
+	<variable name="presentage_avg_cpu" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
+		<variableExpression><![CDATA[(($F{time_above_cpu_threshold}/$F{overall_vm_time})*100).intValue()]]></variableExpression>
+	</variable>
+	<variable name="presentage_avg_mem" class="java.lang.Integer" resetType="Group" resetGroup="Cluster" calculation="Average">
+		<variableExpression><![CDATA[(($F{time_above_mem_threshold}/$F{overall_vm_time})*100).intValue()]]></variableExpression>
+	</variable>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<group name="Cluster">
+		<groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<subreport>
+					<reportElement x="0" y="0" width="832" height="18" uuid="ab4b0879-2b43-4114-85cd-b2c7863e6d6e"/>
+					<subreportParameter name="P_Cluster_ID">
+						<subreportParameterExpression><![CDATA[$F{cluster_id} == null ? $P{P_Cluster_ID} : $F{cluster_id}.toString()]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["repo:header cluster name.jrxml"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<printWhenExpression><![CDATA[($V{total_CPU} != 0 && $V{total_CPU} != null) || ($V{total_MEM} != 0 && $V{total_MEM} != null)]]></printWhenExpression>
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="832" height="20" backcolor="#B5C5D5" uuid="693ce76a-5457-4525-a559-19b4b0d1db8c"/>
+					<box>
+						<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					</box>
+					<textField>
+						<reportElement x="12" y="0" width="410" height="20" forecolor="#000000" uuid="fd5c5190-5ae7-45d8-93b1-5ad351e7e4fb"/>
+						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+							<font fontName="SansSerif" size="11" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$R{b13.table.cluster.average}]]></textFieldExpression>
+					</textField>
+					<frame>
+						<reportElement x="449" y="0" width="118" height="20" uuid="3814c74f-428b-490e-97d4-ac0c62ea14b8"/>
+						<textField>
+							<reportElement x="0" y="0" width="25" height="20" uuid="6a2212c3-a1db-43a8-8528-90212e04940c">
+								<printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="26" y="0" width="25" height="20" uuid="bc5a7f15-36b5-42a9-94dd-f032b3d00bc1">
+								<printWhenExpression><![CDATA[((($V{total_CPU}/60)/24).intValue()) != 0 || (($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[(($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="52" y="0" width="25" height="20" uuid="0379b220-a98a-44fb-a2b9-f1ac9232cfff">
+								<printWhenExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[($V{total_CPU} - ((($V{total_CPU}/60).intValue()-(((($V{total_CPU}/60)/24).intValue())*24))*60)-(((($V{total_CPU}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="78" y="0" width="40" height="20" uuid="270055a1-af4a-426c-b207-59aef2b5bb6a">
+								<printWhenExpression><![CDATA[$V{presentage_avg_cpu} != null]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA["(" + $V{presentage_avg_cpu}.intValue().toString() + "%)"]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement x="600" y="0" width="118" height="20" uuid="0fbdc3d0-48f7-4ea4-8c52-9fab7fac0a58"/>
+						<textField>
+							<reportElement x="0" y="0" width="25" height="20" uuid="03f9b213-4860-4393-b559-c84bf39e211a">
+								<printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="26" y="0" width="25" height="20" uuid="4cd1d754-6ea9-4078-9b63-2c27b34c2eab">
+								<printWhenExpression><![CDATA[((($V{total_MEM}/60)/24).intValue()) != 0 || (($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[(($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="52" y="0" width="25" height="20" uuid="e798a38c-b9f4-4cee-b57c-b5ec1f234ebb">
+								<printWhenExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue() != null]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[($V{total_MEM} - ((($V{total_MEM}/60).intValue()-(((($V{total_MEM}/60)/24).intValue())*24))*60)-(((($V{total_MEM}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="78" y="0" width="40" height="20" uuid="23665e2d-7b91-4707-ad79-ac55237afd76">
+								<printWhenExpression><![CDATA[$V{presentage_avg_mem} != null]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="SansSerif" size="10" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA["(" + $V{presentage_avg_mem}.intValue().toString() + "%)"]]></textFieldExpression>
+						</textField>
+					</frame>
+				</frame>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Datacenter" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$P{P_DataCenter_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="832" height="40" backcolor="#D8E2FF" uuid="5e334536-4b02-4f82-9958-01f398c688ca"/>
+					<box>
+						<rightPen lineWidth="1.0" lineColor="#FFFFFF"/>
+					</box>
+					<textField>
+						<reportElement x="12" y="0" width="410" height="40" forecolor="#000000" uuid="211e5dd0-fd8b-4f4c-a1e0-b06b9efa89ab"/>
+						<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+							<font fontName="SansSerif" size="11" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$R{br13.table.vm.name}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="743" y="0" width="81" height="40" forecolor="#000000" uuid="4a19a47e-df12-4f40-a780-ad292898c1a4"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="SansSerif" size="11" isBold="true" isPdfEmbedded="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$R{br13.table.delete.date}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="600" y="0" width="118" height="40" forecolor="#000000" uuid="4145bdbc-5e52-439b-87bc-6f0094e43312"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="SansSerif" size="11" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$R{br13.table.time.above.memory.threshold}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="462" y="0" width="94" height="40" forecolor="#000000" uuid="3bf4eb91-6c3c-45b5-aae5-65838e66dfe5"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="SansSerif" size="11" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$R{br13.table.time.above.cpu.threshold}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="496" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="45" width="832" height="89" isPrintWhenDetailOverflows="true" uuid="f28290af-4a85-4b10-affe-e695e00d6fcb"/>
+				<subreportParameter name="P_Cluster_ID">
+					<subreportParameterExpression><![CDATA[$P{P_Cluster_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="is_deleted">
+					<subreportParameterExpression><![CDATA[$P{is_deleted}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Period">
+					<subreportParameterExpression><![CDATA[$P{P_Period}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DataCenter_ID">
+					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_MEM_Threshold">
+					<subreportParameterExpression><![CDATA[$P{P_MEM_Threshold}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_CPU_Threshold">
+					<subreportParameterExpression><![CDATA[$P{P_CPU_Threshold}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Start_Date">
+					<subreportParameterExpression><![CDATA[$P{P_Start_Date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_VM_Type">
+					<subreportParameterExpression><![CDATA[$P{P_VM_Type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["repo:full details.jrxml"]]></subreportExpression>
+			</subreport>
+			<pieChart>
+				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
+					<reportElement isPrintRepeatedValues="false" mode="Opaque" x="0" y="137" width="410" height="355" forecolor="#000000" uuid="13f531b7-a5a1-4753-b5a5-680bee12f5ce"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3C617F"/>
+						<topPen lineWidth="1.0" lineColor="#3C617F"/>
+						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+					</box>
+					<chartTitle color="#3A5E75">
+						<font fontName="SansSerif" size="13"/>
+						<titleExpression><![CDATA[$R{br13.chart.cpu}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="Arial" size="8"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="SansSerif"/>
+					</chartLegend>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="pies" uuid="a572544c-d0f6-4d79-aa4e-62adcf0938a3">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<pieSeries>
+						<keyExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.above.threshold} + ": " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-                        <valueExpression><![CDATA[$F{cpu_above}]]></valueExpression>
-                        <sectionHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						<valueExpression><![CDATA[$F{cpu_above}]]></valueExpression>
+						<sectionHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[(($F{cpu_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{cpu_above}/60)/24).intValue()).toString() + "d " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + (($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.above.threshold} + ": " + ($F{cpu_above} - ((($F{cpu_above}/60).intValue()-(((($F{cpu_above}/60)/24).intValue())*24))*60)-(((($F{cpu_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-                        </sectionHyperlink>
-                    </pieSeries>
-                    <pieSeries>
-                        <keyExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						</sectionHyperlink>
+					</pieSeries>
+					<pieSeries>
+						<keyExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.below.threshold} + ": " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-                        <valueExpression><![CDATA[$F{cpu_below}]]></valueExpression>
-                        <sectionHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						<valueExpression><![CDATA[$F{cpu_below}]]></valueExpression>
+						<sectionHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[(($F{cpu_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{cpu_below}/60)/24).intValue()).toString() + "d " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + (($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24)).toString() + "h " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.below.threshold} + ": " + ($F{cpu_below} - ((($F{cpu_below}/60).intValue()-(((($F{cpu_below}/60)/24).intValue())*24))*60)-(((($F{cpu_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-                        </sectionHyperlink>
-                    </pieSeries>
-                </pieDataset>
-                <piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
-                    <plot>
-                        <seriesColor seriesOrder="0" color="#6EC000"/>
-                        <seriesColor seriesOrder="1" color="#FF0000"/>
-                    </plot>
-                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="SansSerif"/>
-                    </itemLabel>
-                </piePlot>
-            </pieChart>
-            <pieChart>
-                <chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
-                    <reportElement isPrintRepeatedValues="false" mode="Opaque" x="422" y="137" width="410" height="355"/>
-                    <box>
-                        <pen lineWidth="1.0" lineColor="#3C617F"/>
-                        <topPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <leftPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <bottomPen lineWidth="1.0" lineColor="#3C617F"/>
-                        <rightPen lineWidth="1.0" lineColor="#3C617F"/>
-                    </box>
-                    <chartTitle color="#3A5E75">
-                        <font fontName="SansSerif" size="13"/>
-                        <titleExpression><![CDATA[$R{br13.chart.memory}]]></titleExpression>
-                    </chartTitle>
-                    <chartSubtitle>
-                        <font fontName="Arial" size="8"/>
-                    </chartSubtitle>
-                    <chartLegend position="Bottom">
-                        <font fontName="SansSerif"/>
-                    </chartLegend>
-                </chart>
-                <pieDataset>
-                    <dataset>
-                        <datasetRun subDataset="pies">
-                            <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-                            <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-                        </datasetRun>
-                    </dataset>
-                    <pieSeries>
-                        <keyExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						</sectionHyperlink>
+					</pieSeries>
+				</pieDataset>
+				<piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
+					<plot>
+						<seriesColor seriesOrder="0" color="#6EC000"/>
+						<seriesColor seriesOrder="1" color="#FF0000"/>
+					</plot>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF">
+						<font fontName="SansSerif"/>
+					</itemLabel>
+				</piePlot>
+			</pieChart>
+			<pieChart>
+				<chart isShowLegend="false" evaluationTime="Report" customizerClass="com.ovirt.reports.jasper.TimePieChartCustomizer" renderType="draw" theme="ReportsPieChartTheme">
+					<reportElement isPrintRepeatedValues="false" mode="Opaque" x="422" y="137" width="410" height="355" uuid="51db6b4a-ca48-48ce-b087-4148fd4390d1"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#3C617F"/>
+						<topPen lineWidth="1.0" lineColor="#3C617F"/>
+						<leftPen lineWidth="1.0" lineColor="#3C617F"/>
+						<bottomPen lineWidth="1.0" lineColor="#3C617F"/>
+						<rightPen lineWidth="1.0" lineColor="#3C617F"/>
+					</box>
+					<chartTitle color="#3A5E75">
+						<font fontName="SansSerif" size="13"/>
+						<titleExpression><![CDATA[$R{br13.chart.memory}]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="Arial" size="8"/>
+					</chartSubtitle>
+					<chartLegend position="Bottom">
+						<font fontName="SansSerif"/>
+					</chartLegend>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="pies" uuid="3e1767c1-7165-414b-9ccd-c4e316f88d66">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<pieSeries>
+						<keyExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.above.threshold} + ": " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-                        <valueExpression><![CDATA[$F{mem_above}]]></valueExpression>
-                        <sectionHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						<valueExpression><![CDATA[$F{mem_above}]]></valueExpression>
+						<sectionHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[(($F{mem_above}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + ((($F{mem_above}/60)/24).intValue()).toString() + "d " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.above.threshold} + ": " + (($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.above.threshold} + ": " + ($F{mem_above} - ((($F{mem_above}/60).intValue()-(((($F{mem_above}/60)/24).intValue())*24))*60)-(((($F{mem_above}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-                        </sectionHyperlink>
-                    </pieSeries>
-                    <pieSeries>
-                        <keyExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						</sectionHyperlink>
+					</pieSeries>
+					<pieSeries>
+						<keyExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></keyExpression>
-                        <valueExpression><![CDATA[$F{mem_below}]]></valueExpression>
-                        <sectionHyperlink>
-                            <hyperlinkTooltipExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
+						<valueExpression><![CDATA[$F{mem_below}]]></valueExpression>
+						<sectionHyperlink>
+							<hyperlinkTooltipExpression><![CDATA[(($F{mem_below}/60)/24).intValue() != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + ((($F{mem_below}/60)/24).intValue()).toString() + "d " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)) != 0 ? $R{br13.pie.average.time.below.threshold} + ": " + (($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24)).toString() + "h " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m" :
 $R{br13.pie.average.time.below.threshold} + ": " + ($F{mem_below} - ((($F{mem_below}/60).intValue()-(((($F{mem_below}/60)/24).intValue())*24))*60)-(((($F{mem_below}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></hyperlinkTooltipExpression>
-                        </sectionHyperlink>
-                    </pieSeries>
-                </pieDataset>
-                <piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
-                    <plot>
-                        <seriesColor seriesOrder="0" color="#6EC000"/>
-                        <seriesColor seriesOrder="1" color="#FF0000"/>
-                    </plot>
-                    <itemLabel color="#000000" backgroundColor="#FFFFFF">
-                        <font fontName="SansSerif"/>
-                    </itemLabel>
-                </piePlot>
-            </pieChart>
-            <line>
-                <reportElement x="0" y="43" width="832" height="1"/>
-            </line>
-            <textField pattern="">
-                <reportElement x="577" y="27" width="255" height="15"/>
-                <textElement textAlignment="Right">
-                    <font fontName="SansSerif" size="11" isBold="false"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
-            </textField>
-            <image>
-                <reportElement x="0" y="0" width="228" height="42"/>
-                <imageExpression class="java.lang.String"><![CDATA["repo:ovirt-icon"]]></imageExpression>
-            </image>
-        </band>
-    </title>
-    <detail>
-        <band height="18" splitType="Immediate">
-            <printWhenExpression><![CDATA[$F{time_above_cpu_threshold} != 0 || $F{time_above_mem_threshold} != 0]]></printWhenExpression>
-            <frame>
-                <reportElement style="Line Style" x="0" y="0" width="832" height="18"/>
-                <textField>
-                    <reportElement x="12" y="0" width="410" height="18"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font fontName="SansSerif" size="10"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[$F{vm_name}]]></textFieldExpression>
-                </textField>
-                <textField isBlankWhenNull="true">
-                    <reportElement x="743" y="0" width="81" height="18"/>
-                    <box>
-                        <rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
-                    </box>
-                    <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="SansSerif" size="10"/>
-                    </textElement>
-                    <textFieldExpression class="java.lang.String"><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{vm_delete_only_date})]]></textFieldExpression>
-                </textField>
-                <image>
-                    <reportElement x="0" y="3" width="10" height="11">
-                        <printWhenExpression><![CDATA[$F{is_delete}]]></printWhenExpression>
-                    </reportElement>
-                    <imageExpression class="java.lang.String"><![CDATA["repo:trash-icon"]]></imageExpression>
-                </image>
-                <frame>
-                    <reportElement x="433" y="0" width="134" height="18"/>
-                    <textField>
-                        <reportElement x="0" y="0" width="40" height="18">
-                            <printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="41" y="0" width="25" height="18">
-                            <printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0 || (($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="67" y="0" width="25" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                    </textField>
-                    <textField pattern="">
-                        <reportElement x="93" y="0" width="40" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{time_above_cpu_threshold}/$F{overall_vm_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
-                    </textField>
-                </frame>
-                <frame>
-                    <reportElement x="589" y="0" width="134" height="18"/>
-                    <textField>
-                        <reportElement x="0" y="0" width="40" height="18">
-                            <printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="41" y="0" width="25" height="18">
-                            <printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0 || (($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
-                        </reportElement>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
-                    </textField>
-                    <textField>
-                        <reportElement x="67" y="0" width="25" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
-                    </textField>
-                    <textField pattern="">
-                        <reportElement x="93" y="0" width="40" height="18"/>
-                        <textElement textAlignment="Right" verticalAlignment="Middle">
-                            <font fontName="SansSerif"/>
-                        </textElement>
-                        <textFieldExpression class="java.lang.String"><![CDATA["(" + (($F{time_above_mem_threshold}/$F{overall_vm_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
-                    </textField>
-                </frame>
-            </frame>
-        </band>
-    </detail>
-    <columnFooter>
-        <band splitType="Stretch"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="15">
-            <textField evaluationTime="Auto">
-                <reportElement x="291" y="0" width="250" height="15"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String"><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
+						</sectionHyperlink>
+					</pieSeries>
+				</pieDataset>
+				<piePlot isCircular="true" labelFormat="{0}: {1} ({2})">
+					<plot>
+						<seriesColor seriesOrder="0" color="#6EC000"/>
+						<seriesColor seriesOrder="1" color="#FF0000"/>
+					</plot>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF">
+						<font fontName="SansSerif"/>
+					</itemLabel>
+				</piePlot>
+			</pieChart>
+			<line>
+				<reportElement x="0" y="43" width="832" height="1" uuid="fe4a79da-c81a-4f31-938e-103e3ac15ad9"/>
+			</line>
+			<textField pattern="">
+				<reportElement x="577" y="27" width="255" height="15" uuid="a16df41c-f72d-4b00-a647-6db8ac6ba93b"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="228" height="42" uuid="f296000f-6513-4061-a1de-e8375edf32a4"/>
+				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="18" splitType="Immediate">
+			<printWhenExpression><![CDATA[$F{time_above_cpu_threshold} != 0 || $F{time_above_mem_threshold} != 0]]></printWhenExpression>
+			<frame>
+				<reportElement style="Line Style" x="0" y="0" width="832" height="18" uuid="77fda74a-661b-4e3b-a4f6-faff4e09c50e"/>
+				<textField>
+					<reportElement x="12" y="0" width="410" height="18" uuid="4e6b559f-7d2f-444d-b3bd-5a24b1765c43"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vm_name}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="743" y="0" width="81" height="18" uuid="d9212be0-8df7-4232-aa54-06ce09cd6015"/>
+					<box>
+						<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{vm_delete_only_date})]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="0" y="3" width="10" height="11" uuid="4acca213-537f-454c-b348-e6e03f9580cc">
+						<printWhenExpression><![CDATA[$F{is_delete}]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+				</image>
+				<frame>
+					<reportElement x="433" y="0" width="134" height="18" uuid="30fab70e-14f1-4a03-bd35-e99d874df378"/>
+					<textField>
+						<reportElement x="0" y="0" width="40" height="18" uuid="c135e3b9-2a28-43e9-914a-e46de53a88b5">
+							<printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="41" y="0" width="25" height="18" uuid="943e97f9-390b-499a-ac45-6ed7ea926205">
+							<printWhenExpression><![CDATA[((($F{time_above_cpu_threshold}/60)/24).intValue()) != 0 || (($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[(($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="67" y="0" width="25" height="18" uuid="0d4808be-2522-4f31-b04d-73735e2d3326"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[($F{time_above_cpu_threshold} - ((($F{time_above_cpu_threshold}/60).intValue()-(((($F{time_above_cpu_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_cpu_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					</textField>
+					<textField pattern="">
+						<reportElement x="93" y="0" width="40" height="18" uuid="7c264486-58cd-4a0d-b1a2-f21a1cb18408"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA["(" + (($F{time_above_cpu_threshold}/$F{overall_vm_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="589" y="0" width="134" height="18" uuid="a35501f0-e58f-4855-8c5a-68541f9ba4ab"/>
+					<textField>
+						<reportElement x="0" y="0" width="40" height="18" uuid="7adbd315-a09d-4ad2-86a9-1737d4552791">
+							<printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()).toString() + "d"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="41" y="0" width="25" height="18" uuid="d6e77008-28a8-4781-9b91-e571c7d3726f">
+							<printWhenExpression><![CDATA[((($F{time_above_mem_threshold}/60)/24).intValue()) != 0 || (($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)) != 0]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[(($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24)).toString() + "h"]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="67" y="0" width="25" height="18" uuid="8a015a20-c2e9-4321-b7e3-cf60da24f5cc"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA[($F{time_above_mem_threshold} - ((($F{time_above_mem_threshold}/60).intValue()-(((($F{time_above_mem_threshold}/60)/24).intValue())*24))*60)-(((($F{time_above_mem_threshold}/60)/24).intValue())*60*24)).intValue().toString() + "m"]]></textFieldExpression>
+					</textField>
+					<textField pattern="">
+						<reportElement x="93" y="0" width="40" height="18" uuid="572e52f7-a953-44ee-bd77-9f16be5cb99c"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="SansSerif"/>
+						</textElement>
+						<textFieldExpression><![CDATA["(" + (($F{time_above_mem_threshold}/$F{overall_vm_time})*100).intValue().toString() + "%)"]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15">
+			<textField evaluationTime="Auto">
+				<reportElement x="291" y="0" width="250" height="15" uuid="8748ec92-4889-4d99-8592-d4277d5e1385"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>
