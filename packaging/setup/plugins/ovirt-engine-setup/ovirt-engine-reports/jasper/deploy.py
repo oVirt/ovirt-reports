@@ -158,7 +158,7 @@ class Plugin(plugin.PluginBase):
                 if os.path.exists(entry['dst']):
                     shutil.rmtree(entry['dst'])
 
-    def _buildJs(self, cmd, config):
+    def _buildJs(self, cmd, config, noSuffix=False):
 
         try:
             myumask = os.umask(0o022)
@@ -167,11 +167,14 @@ class Plugin(plugin.PluginBase):
                 args=(
                     './js-ant',
                     '-DmasterPropsSource=%s' % config,
-                    '%s-%s' % (
-                        cmd,
-                        self.environment[
-                            oreportscons.JasperEnv.JASPER_NAME
-                        ],
+                    (
+                        cmd if noSuffix
+                        else '%s-%s' % (
+                            cmd,
+                            self.environment[
+                                oreportscons.JasperEnv.JASPER_NAME
+                            ],
+                        )
                     ),
                 ),
                 envAppend={
@@ -545,8 +548,6 @@ class Plugin(plugin.PluginBase):
     )
     def _export(self):
         config = self._jasperConfiguration()
-
-        self.logger.info(_('Exporting data out of Jasper'))
         self._quartzprops = os.path.join(self._temproot, 'quartzprops')
 
         if (
@@ -572,15 +573,18 @@ class Plugin(plugin.PluginBase):
                 self._quartzprops,
             )
 
-            self.logger.info(
-                _("Regenerating Jasper's build configuration files")
-            )
-
-            self._buildJs(config=config, cmd='gen-config')
         else:
             raise RuntimeError(
                 _('Could not detect Jasper war folder')
             )
+
+        self.logger.info(
+            _("Regenerating Jasper's build configuration files")
+        )
+
+        self._buildJs(config=config, cmd='gen-config', noSuffix=True)
+
+        self.logger.info(_('Exporting data out of Jasper'))
 
         if (
             self.environment[oreportscons.JasperEnv.JASPER_NAME] == 'pro'
