@@ -160,12 +160,6 @@ class FileLocations(object):
         'ovirt-engine-reports.war',
     )
 
-    LEGACY_OVIRT_ENGINE_REPORTS_JASPER_QUARTZ = os.path.join(
-        LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR,
-        'WEB-INF',
-        'js.quartz.properties',
-    )
-
     LEGACY_OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG = os.path.join(
         'buildomatic',
         'build_conf',
@@ -217,6 +211,8 @@ class ConfigEnv(object):
     )
     def ADMIN_PASSWORD(self):
         return 'OVESETUP_REPORTS_CONFIG/adminPassword'
+
+    LEGACY_REPORTS_WAR = 'OVESETUP_REPORTS_CONFIG/legacyReportsWar'
 
 
 @util.export

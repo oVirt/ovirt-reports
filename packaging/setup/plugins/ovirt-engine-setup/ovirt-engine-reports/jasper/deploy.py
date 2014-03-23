@@ -463,6 +463,10 @@ class Plugin(plugin.PluginBase):
             oreportscons.JasperEnv.THEME,
             'ovirt-reports-theme'
         )
+        self.environment.setdefault(
+            oreportscons.ConfigEnv.LEGACY_REPORTS_WAR,
+            oreportscons.FileLocations.LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR
+        )
 
     @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,
@@ -561,14 +565,16 @@ class Plugin(plugin.PluginBase):
             )
         elif (
             os.path.exists(
-                oreportscons.FileLocations.
-                LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR
+                self.environment[oreportscons.ConfigEnv.LEGACY_REPORTS_WAR]
             )
         ):
             shutil.copyfile(
-                (
-                    oreportscons.FileLocations.
-                    LEGACY_OVIRT_ENGINE_REPORTS_JASPER_QUARTZ
+                os.path.join(
+                    self.environment[
+                        oreportscons.ConfigEnv.LEGACY_REPORTS_WAR
+                    ],
+                    'WEB-INF',
+                    'js.quartz.properties'
                 ),
                 self._quartzprops,
             )
@@ -1041,7 +1047,7 @@ class Plugin(plugin.PluginBase):
     )
     def _closeup(self):
         for d in (
-            oreportscons.FileLocations.LEGACY_OVIRT_ENGINE_REPORTS_JASPER_WAR,
+            self.environment[oreportscons.ConfigEnv.LEGACY_REPORTS_WAR],
             os.path.join(
                 self.environment[oreportscons.ConfigEnv.JASPER_HOME],
                 (
