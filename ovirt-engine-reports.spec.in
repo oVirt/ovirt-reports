@@ -125,6 +125,11 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Mon Mar 24 2014 Yaniv Dary <ydary@redhat.com> - 3.4.0
+Fixed issues:
+- 'Install' is now 'Configure' in DWH/Reports questions (#1064876)
+- fix typo in manual instructions (#1067548)
+
 * Tue Mar 11 2014 Yaniv Dary <ydary@redhat.com> - 3.4.0
 oVirt 3.4.0 GA release.
 
