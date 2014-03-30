@@ -1,0 +1,14 @@
+@PKG_LOG_DIR@/jasperserver.log {
+	size 10M
+	missingok
+	copytruncate
+	rotate 5
+	compress
+}
+@PKG_LOG_DIR@/jasperanalysis.log {
+	size 10M
+	missingok
+	copytruncate
+	rotate 5
+	compress
+}

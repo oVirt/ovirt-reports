@@ -1,13 +1,30 @@
 --- a/WEB-INF/log4j.properties
 +++ b/WEB-INF/log4j.properties
-@@ -139,8 +139,8 @@ log4j.logger.IntrusionDetector=ERROR
+@@ -40,7 +40,6 @@ log4j.appender.stdout.layout.conversionPattern=%d{ISO8601} %5p %c{1},%t:%L - %m%
+ # JasperServer Professional users should look for jasperserver-pro.root lower in this file.
+ log4j.appender.fileout=org.apache.log4j.RollingFileAppender
+ log4j.appender.fileout.File=${jasperserver.root}/WEB-INF/logs/jasperserver.log
+-log4j.appender.fileout.MaxFileSize=1024KB
+ log4j.appender.fileout.MaxBackupIndex=1
+ log4j.appender.fileout.layout=org.apache.log4j.PatternLayout
+ # Valid date format specifiers for the conversionPattern include "ABSOLUTE", "DATE" and "ISO8601"
+@@ -65,7 +64,6 @@ log4j.appender.fileout.layout.conversionPattern=%d{ISO8601} %5p %c{1},%t:%L - %m
+ # JasperServer Professional users should look for jasperserver-pro.root lower in this file.
+ log4j.appender.jasperanalysis=org.apache.log4j.RollingFileAppender
+ log4j.appender.jasperanalysis.File=${jasperserver.root}/WEB-INF/logs/jasperanalysis.log
+-log4j.appender.jasperanalysis.MaxFileSize=1024KB
+ log4j.appender.jasperanalysis.MaxBackupIndex=1
+ log4j.appender.jasperanalysis.layout=org.apache.log4j.PatternLayout
+ # Valid date format specifiers for the conversionPattern include "ABSOLUTE", "DATE" and "ISO8601"
+@@ -139,8 +137,8 @@ log4j.logger.IntrusionDetector=ERROR
  #log4j.logger.com.jaspersoft.jasperserver.jaxrs.importexport.ImportJaxrsService=DEBUG# overriding fileout location
  # jasperserver-pro.root is used only by JasperServer Professional.
  # JasperServer Community Edition users should look for jasperserver.root above in this file.
--log4j.appender.fileout.File=${ovirt-engine-reports.root}/WEB-INF/logs/jasperserver.log
--log4j.appender.jasperanalysis.File=${ovirt-engine-reports.root}/WEB-INF/logs/jasperanalysis.log
+-log4j.appender.fileout.File=${jasperserver-pro.root}/WEB-INF/logs/jasperserver.log
+-log4j.appender.jasperanalysis.File=${jasperserver-pro.root}/WEB-INF/logs/jasperanalysis.log
 +log4j.appender.fileout.File=@PKG_LOG_DIR@/jasperserver.log
 +log4j.appender.jasperanalysis.File=@PKG_LOG_DIR@/jasperanalysis.log
  
  ## Show some audit related warnings
  log4j.logger.com.jaspersoft.ji.logging.context=warn
+ 

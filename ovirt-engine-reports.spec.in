@@ -50,6 +50,7 @@ Requires:	jasperreports-server%{reports_jasper_suffix} < 5.6.0
 Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-6
 Requires:	java
 Requires:	jpackage-utils
+Requires:	logrotate
 Requires:	m2crypto
 Requires:	%{engine_name} >= 3.4.0
 Requires:	patch
@@ -110,6 +111,7 @@ if [ "$1" -eq 0 ]; then
 fi
 
 %files
+%config(noreplace) %{_sysconfdir}/logrotate.d/ovirt-engine-reports
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{reports_name}
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}
 %{_localstatedir}/lib/ovirt-engine-reports/backups/
