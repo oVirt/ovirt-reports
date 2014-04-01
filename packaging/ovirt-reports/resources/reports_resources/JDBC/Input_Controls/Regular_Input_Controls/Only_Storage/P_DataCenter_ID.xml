@@ -2,10 +2,11 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
     <name>P_DataCenter_ID</name>
-    <version>28</version>
+    <version>59</version>
     <label>$R{ic.dc}</label>
-    <creationDate>2013-01-09T15:03:31.170+02:00</creationDate>
-    <updateDate>2013-01-16T15:52:42.206+02:00</updateDate>
+    <description></description>
+    <creationDate>2014-04-09T15:31:06.114+03:00</creationDate>
+    <updateDate>2014-04-09T16:59:50.602+03:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,48 +18,131 @@
             <name>Data_Centers</name>
             <version>1</version>
             <label>Data_Centers</label>
-            <creationDate>2013-01-16T15:52:42.206+02:00</creationDate>
-            <updateDate>2013-01-16T15:52:42.206+02:00</updateDate>
+            <description></description>
+            <creationDate>2014-04-09T16:59:50.602+03:00</creationDate>
+            <updateDate>2014-04-09T16:59:50.602+03:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct cast(datacenter_id as varchar), delete_date, CASE
-                WHEN delete_date IS NULL THEN RTrim(cast(datacenter_name  as varchar))
-                ELSE RTrim(cast(datacenter_name as varchar)) || ' (' || loc_removed_on.removed_on || ' ' || to_char(delete_date, $P{datetimelocalepattern}) || ')'
-                  END as combo_name
-from v3_4_configuration_history_datacenters
-              LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as removed_on
-                                        FROM enum_translator as enum_translator_default
-                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                                                                FROM enum_translator
-                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-                                                  WHERE enum_translator_default.language_code = 'en_US'
-                                                             AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON') as loc_removed_on ON (0=0)
-WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-        FROM v3_4_configuration_history_clusters
-        WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-                         FROM v3_4_configuration_history_hosts a))
-              AND history_id in (SELECT max(a.history_id)
-         FROM v3_4_configuration_history_datacenters a
-         GROUP BY a.datacenter_id)
-              $P!{active_storage}
+            <queryString>-- This query will return a list of datacenters,
+-- only ones that ever had storage domain attached.
+-- If the datacenter is deleted then the datacener name
+-- will be concatenated along with the delete date.
+
+SELECT DISTINCT
+    CAST ( datacenter_id AS varchar ),
+    delete_date,
+    CASE
+        WHEN delete_date IS NULL
+            THEN RTRIM (
+                CAST ( datacenter_name  AS varchar )
+            )
+        ELSE
+            RTRIM (
+                CAST ( datacenter_name AS varchar )
+            )
+            ||
+            ' ('
+            ||
+            loc_removed_on.removed_on
+            ||
+            ' '
+            ||
+            to_char ( delete_date, $P{datetimelocalepattern} )
+            ||
+            ')'
+    END AS combo_name
+FROM v3_4_configuration_history_datacenters
+    LEFT OUTER JOIN (
+        SELECT DISTINCT
+            COALESCE (
+                enum_translator_localized.value_localized,
+                enum_translator_default.value
+            ) AS removed_on
+        FROM enum_translator AS enum_translator_default
+            LEFT OUTER JOIN (
+                SELECT
+                    enum_type,
+                    enum_key,
+                    value AS value_localized
+                FROM enum_translator
+                WHERE language_code = $P{userlocale}
+            ) AS enum_translator_localized
+                ON (
+                    enum_translator_localized.enum_type =
+                    enum_translator_default.enum_type
+                    AND enum_translator_localized.enum_key =
+                    enum_translator_default.enum_key
+                )
+        WHERE enum_translator_default.language_code = 'en_US'
+            AND enum_translator_default.enum_type =
+            'REPORTS_REMOVED_ON'
+    ) AS loc_removed_on
+        ON ( 0 = 0 )
+WHERE
+    -- Here we filter the datacenters list so it will include
+    -- only the ones that ever had storage domain attached.
+    datacenter_id IN (
+        SELECT DISTINCT datacenter_id
+        FROM  v3_4_map_history_datacenters_storage_domains
+    )
+    -- Here we get the latest datacenter configuration
+    AND history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_datacenters a
+        GROUP BY a.datacenter_id
+    )
+    -- Here we filter deleted entities according to the users choice
+    $P!{active_storage}
+
 UNION ALL
-SELECT distinct '00000000-0000-0000-0000-000000000000', cast(null as timestamp), coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
-FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                  FROM enum_translator
-                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+
+-- Here we add to the datacenters the "None available" option in case
+-- that there are no datacenters with hosts, localized according to the
+-- session language.
+SELECT DISTINCT
+    '00000000-0000-0000-0000-000000000000',
+    CAST ( NULL AS TIMESTAMP ),
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    )
+FROM enum_translator AS enum_translator_default
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    ) AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
-           AND NOT EXISTS     (Select distinct datacenter_id
-          from v3_4_configuration_history_datacenters
-          WHERE datacenter_id in (SELECT DISTINCT datacenter_id
-                  FROM v3_4_configuration_history_clusters
-                   WHERE cluster_id in (SELECT DISTINCT a.cluster_id
-                                    FROM v3_4_configuration_history_hosts a))
-                                        AND history_id in (SELECT max(a.history_id)
-                  FROM v3_4_configuration_history_datacenters a
-                  GROUP BY a.datacenter_id)
-          $P!{active_storage})
-order by delete_date DESC, combo_name</queryString>
+    AND enum_translator_default.enum_type =
+    'REPORTS_NONE_AVAILABLE'
+    AND NOT EXISTS (
+        SELECT DISTINCT datacenter_id
+        FROM v3_4_configuration_history_datacenters
+        WHERE
+            -- Here we filter the datacenters list so it will include
+            -- only the ones that ever had storage domain attached.
+            datacenter_id IN (
+                SELECT DISTINCT datacenter_id
+                FROM  v3_4_map_history_datacenters_storage_domains
+            )
+            -- Here we get the latest datacenter configuration
+            AND history_id IN (
+                SELECT MAX ( a.history_id )
+                FROM v3_4_configuration_history_datacenters a
+                GROUP BY a.datacenter_id
+            )
+            $P!{active_storage}
+    )
+ORDER BY delete_date DESC, combo_name
+</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
