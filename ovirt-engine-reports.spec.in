@@ -127,6 +127,11 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Tue Apr 1 2014 Yaniv Dary <ydary@redhat.com> - 3.4.1
+Fixed issues:
+- Added strandard logrotate config file for JRS log.
+- set legacy reports war from env (#1077775)
+
 * Mon Mar 24 2014 Yaniv Dary <ydary@redhat.com> - 3.4.0
 Fixed issues:
 - 'Install' is now 'Configure' in DWH/Reports questions (#1064876)
