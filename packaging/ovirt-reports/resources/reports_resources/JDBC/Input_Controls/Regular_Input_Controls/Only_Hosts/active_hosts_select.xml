@@ -2,10 +2,11 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts</folder>
     <name>active_hosts_select</name>
-    <version>26</version>
+    <version>51</version>
     <label>$R{ic.is.deleted}</label>
-    <creationDate>2013-01-09T15:03:26.345+02:00</creationDate>
-    <updateDate>2013-01-16T11:41:28.521+02:00</updateDate>
+    <description></description>
+    <creationDate>2014-04-01T10:15:54.490+03:00</creationDate>
+    <updateDate>2014-04-01T11:31:04.911+03:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,26 +18,70 @@
             <name>active</name>
             <version>1</version>
             <label>active</label>
-            <creationDate>2013-01-16T11:41:28.521+02:00</creationDate>
-            <updateDate>2013-01-16T11:41:28.521+02:00</updateDate>
+            <description></description>
+            <creationDate>2014-04-01T11:31:04.911+03:00</creationDate>
+            <updateDate>2014-04-01T11:31:04.911+03:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as display, 'AND delete_date IS NULL' as value
-FROM enum_translator as enum_translator_default
-                LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                           FROM enum_translator
-                                           WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+            <queryString>-- This query will return for the "active_hosts_select" parameter the
+-- "Yes" and "No" options localized according to the session language
+-- in the input control display list and return the corresponding value to
+-- the report query
+
+SELECT DISTINCT
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    ) AS display,
+    'AND delete_date IS NULL' AS value
+FROM
+    enum_translator AS enum_translator_default
+        LEFT OUTER JOIN (
+            SELECT
+                enum_type,
+                enum_key,
+                value AS value_localized
+            FROM enum_translator
+            WHERE language_code = $P{userlocale}
+        ) AS enum_translator_localized
+            ON (
+                enum_translator_localized.enum_type =
+                enum_translator_default.enum_type
+                AND enum_translator_localized.enum_key =
+                enum_translator_default.enum_key
+            )
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_key = 0
-           AND enum_translator_default.enum_type = 'REPORTS_SHOW_DELETED'
+    AND enum_translator_default.enum_key = 0
+    AND enum_translator_default.enum_type =
+        'REPORTS_SHOW_DELETED'
+
 UNION ALL
-SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as display, '' as value
-FROM enum_translator as enum_translator_default
-                LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                           FROM enum_translator
-                                           WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+
+SELECT DISTINCT
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    ) AS display,
+    '' AS value
+FROM enum_translator AS enum_translator_default
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    ) AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
 WHERE language_code = 'en_US'
-           AND enum_translator_default.enum_key = 1
-           AND enum_translator_default.enum_type = 'REPORTS_SHOW_DELETED'</queryString>
+    AND enum_translator_default.enum_key = 1
+    AND
+        enum_translator_default.enum_type =
+        'REPORTS_SHOW_DELETED'</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
