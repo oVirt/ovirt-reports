@@ -2,10 +2,11 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
     <name>P_Storage_Type</name>
-    <version>36</version>
+    <version>50</version>
     <label>$R{ic.storage.domain.type}</label>
-    <creationDate>2013-01-09T15:03:31.342+02:00</creationDate>
-    <updateDate>2013-01-16T12:09:05.812+02:00</updateDate>
+    <description></description>
+    <creationDate>2014-04-01T10:15:56.545+03:00</creationDate>
+    <updateDate>2014-04-01T15:44:28.701+03:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -17,31 +18,84 @@
             <name>Storage_type</name>
             <version>1</version>
             <label>Storage_type</label>
-            <creationDate>2013-01-16T12:09:05.812+02:00</creationDate>
-            <updateDate>2013-01-16T12:09:05.812+02:00</updateDate>
+            <description></description>
+            <creationDate>2014-04-01T15:44:28.701+03:00</creationDate>
+            <updateDate>2014-04-01T15:44:28.701+03:00</updateDate>
             <language>sql</language>
-            <queryString>SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value,
-                          enum_translator_default.enum_key,
-                          0 as sort
-FROM enum_translator as enum_translator_default
-               LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                             FROM enum_translator
-                                             WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-               INNER JOIN v3_4_configuration_history_storage_domains ON (v3_4_configuration_history_storage_domains.storage_domain_type = enum_translator_default.enum_key
-                                                                                                            AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE')
-                   INNER JOIN v3_4_map_history_datacenters_storage_domains ON (v3_4_map_history_datacenters_storage_domains.storage_domain_id = v3_4_configuration_history_storage_domains.storage_domain_id
-                                                                                                                      AND v3_4_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-WHERE enum_translator_default.language_code = 'en_US'
-             $P!{active_storage}
+            <queryString>-- This query returns the storage domains types,
+-- in localized session language.
+
+SELECT DISTINCT
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    ) AS value,
+    enum_translator_default.enum_key,
+    0 AS sort
+FROM enum_translator AS enum_translator_default
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    ) AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
+    INNER JOIN v3_4_configuration_history_storage_domains
+        ON (
+            v3_4_configuration_history_storage_domains.storage_domain_type =
+            enum_translator_default.enum_key
+            AND enum_translator_default.enum_type =
+            'STORAGE_DOMAIN_TYPE'
+        )
+        -- Here we filter by the datacenter chosen by the user
+    INNER JOIN v3_4_map_history_datacenters_storage_domains
+        ON (
+            v3_4_map_history_datacenters_storage_domains.storage_domain_id =
+            v3_4_configuration_history_storage_domains.storage_domain_id
+            AND v3_4_map_history_datacenters_storage_domains.datacenter_id =
+            CAST ( $P{P_DataCenter_ID} as uuid )
+        )
+WHERE
+    enum_translator_default.language_code = 'en_US'
+    -- Here we filter deleted entities according to what the user chose
+    $P!{active_storage}
+
 UNION ALL
-SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as value, -1, 1
+
+-- Here we add the "All" to the storage types list,
+-- in localized session language
+SELECT DISTINCT
+    COALESCE (
+        enum_translator_localized.value_localized,
+        enum_translator_default.value
+    ) AS value,
+    -1,
+    1
 FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                  FROM enum_translator
-                                  WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+    LEFT OUTER JOIN (
+        SELECT
+            enum_type,
+            enum_key,
+            value AS value_localized
+        FROM enum_translator
+        WHERE language_code = $P{userlocale}
+    ) AS enum_translator_localized
+        ON (
+            enum_translator_localized.enum_type =
+            enum_translator_default.enum_type
+            AND enum_translator_localized.enum_key =
+            enum_translator_default.enum_key
+        )
 WHERE language_code = 'en_US'
-             AND enum_translator_default.enum_type = 'REPORTS_ALL'
-             AND enum_translator_default.enum_key = 0
+    AND enum_translator_default.enum_type = 'REPORTS_ALL'
+    AND enum_translator_default.enum_key = 0
 ORDER BY sort DESC, value</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
