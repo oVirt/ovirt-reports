@@ -2,11 +2,11 @@
 <inputControl>
     <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Storage</folder>
     <name>P_StorageDomain_ID</name>
-    <version>23</version>
+    <version>50</version>
     <label>$R{ic.storage.domain.name}</label>
     <description>Storage Domain Name</description>
-    <creationDate>2013-01-09T15:04:16.006+02:00</creationDate>
-    <updateDate>2013-01-16T15:35:23.744+02:00</updateDate>
+    <creationDate>2014-04-01T10:16:12.756+03:00</creationDate>
+    <updateDate>2014-04-01T15:26:02.945+03:00</updateDate>
     <type>4</type>
     <mandatory>true</mandatory>
     <readOnly>false</readOnly>
@@ -19,40 +19,114 @@
             <version>1</version>
             <label>Storage_Domain_Name</label>
             <description>Storage Domain Query</description>
-            <creationDate>2013-01-16T15:35:23.744+02:00</creationDate>
-            <updateDate>2013-01-16T15:35:23.744+02:00</updateDate>
+            <creationDate>2014-04-01T15:26:02.945+03:00</creationDate>
+            <updateDate>2014-04-01T15:26:02.945+03:00</updateDate>
             <language>sql</language>
-            <queryString>Select distinct cast(v3_4_configuration_history_storage_domains.storage_domain_id as varchar), detach_date, CASE
-                WHEN detach_date IS NULL THEN storage_domain_name
-                ELSE storage_domain_name || ' (' || loc_detached_on.detached_on || ' ' || to_char(detach_date, $P{datetimelocalepattern}) || ')'
-                           END as combo_name
-from v3_4_configuration_history_storage_domains
-            INNER JOIN v3_4_map_history_datacenters_storage_domains ON (v3_4_map_history_datacenters_storage_domains.storage_domain_id = v3_4_configuration_history_storage_domains.storage_domain_id
-                                                                                                           AND v3_4_map_history_datacenters_storage_domains.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-            LEFT OUTER JOIN (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value) as detached_on
-                                      FROM enum_translator as enum_translator_default
-                                                     LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                                                                FROM enum_translator
-                                                                                WHERE language_code = $P{userlocale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
-                                      WHERE enum_translator_default.language_code = 'en_US'
-                                                 AND enum_translator_default.enum_type = 'REPORTS_DETACHED_ON') as loc_detached_on ON (0=0)
-WHERE  v3_4_configuration_history_storage_domains.storage_domain_type = CASE cast($P{P_Storage_Type} as int)
-                            WHEN NULL THEN  v3_4_configuration_history_storage_domains.storage_domain_type
-                            WHEN -1 THEN v3_4_configuration_history_storage_domains.storage_domain_type
-                            ELSE cast($P{P_Storage_Type} as int)
-                                      END
-       AND v3_4_map_history_datacenters_storage_domains.history_id in (SELECT max(a.history_id)
-                         FROM v3_4_map_history_datacenters_storage_domains a
-                         GROUP BY a.storage_domain_id, a.datacenter_id)
-       AND v3_4_configuration_history_storage_domains.history_id in (SELECT max(a.history_id)
-                    FROM v3_4_configuration_history_storage_domains a
-                    GROUP BY a.storage_domain_id)
-       AND CASE
-        WHEN $P{active_storage} like 'AND%' THEN detach_date IS NULL
-        ELSE detach_date IS NULL OR detach_date IS NOT NULL
-           END
-$P!{active_storage}
-order by detach_date DESC, combo_name</queryString>
+            <queryString>-- This query will return storage domain list.
+-- For deleted storage domains the query will return the storage domain name
+-- concatenated with the delete date.
+
+SELECT DISTINCT
+    CAST (
+        v3_4_configuration_history_storage_domains.storage_domain_id AS varchar
+    ),
+    detach_date,
+    CASE
+        WHEN detach_date IS NULL
+            THEN storage_domain_name
+        ELSE
+            storage_domain_name
+            ||
+            ' ('
+            ||
+            loc_detached_on.detached_on
+            ||
+            ' '
+            ||
+            to_char (
+                detach_date, $P{datetimelocalepattern}
+            )
+            ||
+            ')'
+    END AS combo_name
+FROM
+    -- Here we join storage domain config table with
+    -- the storage domains and datacenter map table.
+    -- We also filter by the datacenter chosen by the user
+    v3_4_configuration_history_storage_domains
+        INNER JOIN v3_4_map_history_datacenters_storage_domains
+            ON (
+                v3_4_map_history_datacenters_storage_domains.storage_domain_id =
+                v3_4_configuration_history_storage_domains.storage_domain_id
+                AND v3_4_map_history_datacenters_storage_domains.datacenter_id =
+                CAST ( $P{P_DataCenter_ID} AS uuid )
+            )
+        LEFT OUTER JOIN (
+            SELECT DISTINCT
+                COALESCE (
+                    enum_translator_localized.value_localized,
+                    enum_translator_default.value
+                ) AS detached_on
+            FROM enum_translator AS enum_translator_default
+                LEFT OUTER JOIN (
+                    SELECT
+                        enum_type,
+                        enum_key,
+                        value AS value_localized
+                    FROM enum_translator
+                    WHERE language_code = $P{userlocale}
+                ) AS enum_translator_localized
+                    ON (
+                        enum_translator_localized.enum_type =
+                        enum_translator_default.enum_type
+                        AND enum_translator_localized.enum_key =
+                        enum_translator_default.enum_key
+                    )
+            WHERE enum_translator_default.language_code = 'en_US'
+                AND enum_translator_default.enum_type =
+                    'REPORTS_DETACHED_ON'
+        ) AS loc_detached_on
+            ON ( 0 = 0 )
+WHERE
+    --Here we filter by the storage type chosen by the user
+    v3_4_configuration_history_storage_domains.storage_domain_type =
+        CASE CAST ( $P{P_Storage_Type} AS int )
+            WHEN NULL
+                THEN v3_4_configuration_history_storage_domains.storage_domain_type
+            WHEN -1
+                THEN v3_4_configuration_history_storage_domains.storage_domain_type
+            ELSE CAST ( $P{P_Storage_Type} AS int )
+        END
+    --Here we get the latest configurations of the datacenters_storage_domains map
+    AND v3_4_map_history_datacenters_storage_domains.history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_map_history_datacenters_storage_domains a
+        GROUP BY a.storage_domain_id, a.datacenter_id
+    )
+    --Here we get the latest configurations of the storage_domains
+    AND v3_4_configuration_history_storage_domains.history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_storage_domains a
+        GROUP BY a.storage_domain_id
+    )
+    -- Here we get if to filter detached storage domains or not
+    -- according to what the user chose
+    AND
+        CASE
+            WHEN $P{active_storage} LIKE 'AND%'
+                THEN detach_date IS NULL
+            ELSE
+                detach_date IS NULL
+                OR
+                detach_date IS NOT NULL
+        END
+    -- Here we get if to filter deleted entities or not
+    -- according to what the user chose
+    $P!{active_storage}
+ORDER BY
+    detach_date DESC,
+    combo_name
+</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
             </dataSource>
