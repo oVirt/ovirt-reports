@@ -1,168 +1,230 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.5.0-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="830" pageHeight="111" orientation="Landscape" columnWidth="830" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" uuid="46c69b58-f070-46b3-96e9-be95d4327d94">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/VMs/virtual_servers_uptime_br14"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <parameter name="is_deleted" class="java.lang.String">
-        <defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Period" class="java.lang.Short">
-        <parameterDescription><![CDATA[Period]]></parameterDescription>
-        <defaultValueExpression><![CDATA[0]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Start_Date" class="java.util.Date">
-        <defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_DataCenter_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Cluster_ID" class="java.lang.String">
-        <parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
-        <defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
-    </parameter>
-    <parameter name="P_Locale" class="java.lang.String">
-        <defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
-    </parameter>
-    <queryString>
-        <![CDATA[SELECT    v3_4_configuration_history_datacenters.datacenter_name as datacenter_name,
-         v3_4_configuration_history_datacenters.delete_date as datacenter_delete_date,
-          coalesce((SELECT ' ' || RTrim(cast(v3_4_configuration_history_clusters.cluster_name as varchar))
-          FROM v3_4_configuration_history_clusters
-              WHERE v3_4_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
-                and v3_4_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                       FROM v3_4_configuration_history_clusters as a
-                                       GROUP BY a.cluster_id)), 'all') as cluster_name,
-        (SELECT v3_4_configuration_history_clusters.delete_date
-         FROM v3_4_configuration_history_clusters
-         WHERE v3_4_configuration_history_clusters.cluster_id = cast($P{P_Cluster_ID} as uuid)
-          and v3_4_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                    FROM v3_4_configuration_history_clusters as a
-                                    GROUP BY a.cluster_id)) as cluster_delete_date,
-        CASE
-            WHEN $P{P_Period} = 1 THEN CAST(cast($P{P_Start_Date} as date) + interval '1 month' - interval '1 day' as date)
-            WHEN $P{P_Period} = 2 THEN CAST(cast($P{P_Start_Date} as date) + interval '3 month' - interval '1 day' as date)
-            WHEN $P{P_Period} = 3 THEN CAST(cast($P{P_Start_Date} as date) + interval '1 year' - interval '1 day' as date)
-        END as end_date,
-       (SELECT DISTINCT coalesce(enum_translator_localized.value_localized,enum_translator_default.value)
-        FROM enum_translator as enum_translator_default
-                 LEFT OUTER JOIN (SELECT enum_type, enum_key, value as value_localized
-                                  FROM enum_translator
-                                  WHERE language_code = $P{P_Locale})  as enum_translator_localized ON (enum_translator_localized.enum_type = enum_translator_default.enum_type AND enum_translator_localized.enum_key = enum_translator_default.enum_key)
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/VMs/virtual_servers_uptime_br14"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Service_level/VMs/virtual_servers_uptime_br14_files/br14 full details.jrxml"/>
+	<parameter name="is_deleted" class="java.lang.String">
+		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Period" class="java.lang.Short">
+		<parameterDescription><![CDATA[Period]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Start_Date" class="java.util.Date">
+		<defaultValueExpression><![CDATA["01/01/2000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_DataCenter_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Cluster_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[Select a Cluster]]></parameterDescription>
+		<defaultValueExpression><![CDATA["00000000-0000-0000-0000-000000000000"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_Locale" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{REPORT_LOCALE}.toString()]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- BR14 - Header Details
+
+SELECT
+    v3_4_configuration_history_datacenters.datacenter_name
+        AS datacenter_name,
+    v3_4_configuration_history_datacenters.delete_date
+        AS datacenter_delete_date,
+    COALESCE (
+        (
+            SELECT
+                ' '
+                ||
+                RTRIM (
+                    CAST (
+                        v3_4_configuration_history_clusters.cluster_name AS varchar
+                    )
+                )
+            FROM v3_4_configuration_history_clusters
+            WHERE v3_4_configuration_history_clusters.cluster_id =
+                CAST ( $P{P_Cluster_ID} AS uuid )
+                AND v3_4_configuration_history_clusters.history_id IN (
+                    SELECT MAX (a.history_id)
+                    FROM v3_4_configuration_history_clusters AS a
+                    GROUP BY a.cluster_id
+                )
+        ),
+        'all'
+    ) AS cluster_name,
+    (
+        SELECT v3_4_configuration_history_clusters.delete_date
+        FROM v3_4_configuration_history_clusters
+        WHERE v3_4_configuration_history_clusters.cluster_id =
+            CAST ( $P{P_Cluster_ID} AS uuid )
+            AND v3_4_configuration_history_clusters.history_id IN (
+                SELECT MAX (a.history_id)
+                FROM v3_4_configuration_history_clusters AS a
+                GROUP BY a.cluster_id
+            )
+    ) AS cluster_delete_date,
+    CASE
+        WHEN $P{P_Period} = 1
+            THEN
+                CAST (
+                    CAST ($P{P_Start_Date} AS  date ) +
+                    interval '1 month' - interval '1 day' AS  date
+                )
+        WHEN $P{P_Period} = 2
+            THEN
+                CAST (
+                    CAST ($P{P_Start_Date} AS  date ) +
+                    interval '3 month' - interval '1 day' AS  date
+                )
+        WHEN $P{P_Period} = 3
+            THEN
+                CAST (
+                    CAST ($P{P_Start_Date} AS  date ) +
+                    interval '1 year' - interval '1 day' AS  date)
+    END AS  end_date,
+    (
+        SELECT DISTINCT
+            COALESCE (
+                enum_translator_localized.value_localized,
+                enum_translator_default.value
+            )
+        FROM enum_translator AS enum_translator_default
+            LEFT OUTER JOIN (
+                SELECT
+                    enum_type,
+                    enum_key,
+                    value AS value_localized
+                FROM enum_translator
+                WHERE language_code = $P{P_Locale}
+            ) AS enum_translator_localized
+                ON (
+                    enum_translator_localized.enum_type =
+                    enum_translator_default.enum_type
+                    AND enum_translator_localized.enum_key =
+                    enum_translator_default.enum_key
+                )
         WHERE language_code = 'en_US'
-              AND enum_translator_default.enum_key = $P{P_Period}
-              AND enum_translator_default.enum_type = 'REPORTS_PERIOD') as period
+            AND enum_translator_default.enum_key = $P{P_Period}
+            AND enum_translator_default.enum_type =
+                'REPORTS_PERIOD'
+    ) AS period
 FROM v3_4_configuration_history_datacenters
-WHERE     v3_4_configuration_history_datacenters.datacenter_id = cast($P{P_DataCenter_ID} as uuid)
-    and v3_4_configuration_history_datacenters.history_id in (SELECT max(a.history_id)
-                                 FROM v3_4_configuration_history_datacenters as a
-                                 GROUP BY a.datacenter_id)]]>
-    </queryString>
-    <field name="datacenter_name" class="java.lang.String"/>
-    <field name="datacenter_delete_date" class="java.sql.Timestamp"/>
-    <field name="cluster_name" class="java.lang.String"/>
-    <field name="cluster_delete_date" class="java.sql.Timestamp"/>
-    <field name="end_date" class="java.sql.Date"/>
-    <field name="period" class="java.lang.String"/>
-    <variable name="datacenter_star" class="java.lang.String" resetType="None">
-        <variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
-    </variable>
-    <variable name="cluster_star" class="java.lang.String" resetType="None">
-        <variableExpression><![CDATA[$F{cluster_delete_date} != null ? "*" : ""]]></variableExpression>
-    </variable>
-    <title>
-        <band height="88" splitType="Stretch">
-            <frame>
-                <reportElement uuid="db14f41d-4a7b-4114-b517-5baa5ee29785" mode="Opaque" x="0" y="30" width="828" height="40"/>
-                <box>
-                    <pen lineWidth="1.0" lineColor="#CCCCCC"/>
-                    <topPen lineWidth="1.0" lineColor="#CCCCCC"/>
-                    <leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
-                    <bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
-                    <rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
-                </box>
-                <textField>
-                    <reportElement uuid="af28741c-2b38-4d65-af82-eac007b2e46d" x="88" y="0" width="393" height="20"/>
-                    <textElement verticalAlignment="Middle" markup="html">
-                        <font fontName="SansSerif" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-                    </textElement>
-                    <textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
-                </textField>
-                <textField>
-                    <reportElement uuid="7c8b4d58-e159-4cd0-97cb-6af84392142a" positionType="Float" x="88" y="20" width="393" height="20"/>
-                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="SansSerif" size="11" isBold="false"/>
-                    </textElement>
-                    <textFieldExpression><![CDATA[$F{cluster_name} != "all" ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + $V{cluster_star} : "<b>" + $R{full.details.cluster} + ":</b> "+ $R{full.details.all}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "all" ? $F{cluster_name} + $V{cluster_star} : $R{full.details.all}]]></hyperlinkTooltipExpression>
-                </textField>
-                <textField>
-                    <reportElement uuid="ca37aad5-5531-4624-8f64-86987e1a0767" positionType="Float" x="603" y="0" width="225" height="20"/>
-                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="SansSerif" size="11" isBold="false"/>
-                    </textElement>
-                    <textFieldExpression><![CDATA[$P{P_Period} == 0 ? "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$P{P_Period} == 0 ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></hyperlinkTooltipExpression>
-                </textField>
-                <textField>
-                    <reportElement uuid="9664eeff-c05d-49d4-9873-2e0e991ce341" positionType="Float" x="491" y="0" width="108" height="20"/>
-                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="SansSerif" size="11" isBold="false"/>
-                    </textElement>
-                    <textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $F{period}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$F{period}]]></hyperlinkTooltipExpression>
-                </textField>
-                <textField>
-                    <reportElement uuid="25d9df3b-842d-40ae-96d8-000f00132add" mode="Opaque" x="2" y="2" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
-                        <font fontName="SansSerif" size="13" isBold="true"/>
-                    </textElement>
-                    <textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement uuid="c1c90400-6de2-4e78-8e8f-38546714d3dd" positionType="Float" x="491" y="20" width="273" height="20"/>
-                    <textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
-                        <font fontName="SansSerif" size="11" isBold="false"/>
-                    </textElement>
-                    <textFieldExpression><![CDATA[$P{is_deleted} == "" ? "<b>" + $R{full.details.show.deleted.vms} + ":</b> " + $R{full.details.yes} : "<b>" + $R{full.details.show.deleted.vms} + ":</b> " + $R{full.details.no}]]></textFieldExpression>
-                    <hyperlinkTooltipExpression><![CDATA[$P{is_deleted} == "" ? $R{full.details.yes} : $R{full.details.no}]]></hyperlinkTooltipExpression>
-                </textField>
-            </frame>
-            <textField evaluationTime="Report" isBlankWhenNull="false">
-                <reportElement uuid="865b6f6f-1410-4dba-8f68-facaa4014018" x="0" y="0" width="830" height="25" forecolor="#666666"/>
-                <textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-                    <font fontName="SansSerif" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA[msg($R{br14.title}, $F{cluster_name} == "all" ? $R{full.details.clusters} : msg($R{full.details.cluster.and.name}, $F{cluster_name}) + $V{cluster_star}, $F{datacenter_name} + $V{datacenter_star})]]></textFieldExpression>
-            </textField>
-            <image>
-                <reportElement uuid="a9a09bd7-68ad-4da0-b152-d89446e59695" x="12" y="74" width="10" height="11">
-                    <printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
-                </reportElement>
-                <imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-            </image>
-            <staticText>
-                <reportElement uuid="d0be100a-f81f-4894-b903-09810d50f744" x="5" y="74" width="5" height="14" forecolor="#666666">
-                    <printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
-                </reportElement>
-                <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif" size="12"/>
-                </textElement>
-                <text><![CDATA[*]]></text>
-            </staticText>
-            <textField>
-                <reportElement uuid="0c80d45d-8074-4766-b438-45a2b7163ce4" x="29" y="74" width="735" height="14" forecolor="#666666"/>
-                <textElement markup="html">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{cluster_delete_date} != null ?
+WHERE v3_4_configuration_history_datacenters.datacenter_id =
+    CAST ( $P{P_DataCenter_ID} AS uuid )
+    AND v3_4_configuration_history_datacenters.history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_4_configuration_history_datacenters AS a
+        GROUP BY a.datacenter_id
+    )]]>
+	</queryString>
+	<field name="datacenter_name" class="java.lang.String"/>
+	<field name="datacenter_delete_date" class="java.sql.Timestamp"/>
+	<field name="cluster_name" class="java.lang.String"/>
+	<field name="cluster_delete_date" class="java.sql.Timestamp"/>
+	<field name="end_date" class="java.sql.Date"/>
+	<field name="period" class="java.lang.String"/>
+	<variable name="datacenter_star" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{datacenter_delete_date} != null ? "*" : ""]]></variableExpression>
+	</variable>
+	<variable name="cluster_star" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[$F{cluster_delete_date} != null ? "*" : ""]]></variableExpression>
+	</variable>
+	<title>
+		<band height="88" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="30" width="828" height="40" uuid="db14f41d-4a7b-4114-b517-5baa5ee29785"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textField>
+					<reportElement x="88" y="0" width="393" height="20" uuid="af28741c-2b38-4d65-af82-eac007b2e46d"/>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font fontName="SansSerif" size="11" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.datacenter} + ": </b>" + $F{datacenter_name} + $V{datacenter_star}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{datacenter_name} + $V{datacenter_star}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="88" y="20" width="393" height="20" uuid="7c8b4d58-e159-4cd0-97cb-6af84392142a"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="SansSerif" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cluster_name} != "all" ? "<b>" + $R{full.details.cluster} + ":</b> " + $F{cluster_name} + $V{cluster_star} : "<b>" + $R{full.details.cluster} + ":</b> "+ $R{full.details.all}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} != "all" ? $F{cluster_name} + $V{cluster_star} : $R{full.details.all}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="603" y="0" width="225" height="20" uuid="ca37aad5-5531-4624-8f64-86987e1a0767"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="SansSerif" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{P_Period} == 0 ? "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : "<b>" + $R{full.details.date.range} + ": </b>" + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$P{P_Period} == 0 ? DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) : DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($P{P_Start_Date}) + " - " + DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{end_date})]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="491" y="0" width="108" height="20" uuid="9664eeff-c05d-49d4-9873-2e0e991ce341"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="SansSerif" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>" + $R{full.details.period} + ":</b> " + $F{period}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$F{period}]]></hyperlinkTooltipExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="2" y="2" width="69" height="36" forecolor="#666666" backcolor="#E6E6E6" uuid="25d9df3b-842d-40ae-96d8-000f00132add"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+						<font fontName="SansSerif" size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{full.details.criteria} + ":"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="491" y="20" width="273" height="20" uuid="c1c90400-6de2-4e78-8e8f-38546714d3dd"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html">
+						<font fontName="SansSerif" size="11" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{is_deleted} == "" ? "<b>" + $R{full.details.show.deleted.vms} + ":</b> " + $R{full.details.yes} : "<b>" + $R{full.details.show.deleted.vms} + ":</b> " + $R{full.details.no}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA[$P{is_deleted} == "" ? $R{full.details.yes} : $R{full.details.no}]]></hyperlinkTooltipExpression>
+				</textField>
+			</frame>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement x="0" y="0" width="830" height="25" forecolor="#666666" uuid="865b6f6f-1410-4dba-8f68-facaa4014018"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
+					<font fontName="SansSerif" size="17" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{br14.title}, $F{cluster_name} == "all" ? $R{full.details.clusters} : msg($R{full.details.cluster.and.name}, $F{cluster_name}) + $V{cluster_star}, $F{datacenter_name} + $V{datacenter_star})]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="12" y="74" width="10" height="11" uuid="a9a09bd7-68ad-4da0-b152-d89446e59695">
+					<printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="5" y="74" width="5" height="14" forecolor="#666666" uuid="d0be100a-f81f-4894-b903-09810d50f744">
+					<printWhenExpression><![CDATA[$F{cluster_delete_date} != null || $F{datacenter_delete_date} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[*]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="29" y="74" width="735" height="14" forecolor="#666666" uuid="0c80d45d-8074-4766-b438-45a2b7163ce4"/>
+				<textElement markup="html">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cluster_delete_date} != null ?
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter.and.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date}), DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :
 msg($R{full.details.deleted.comment.cluster}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{cluster_delete_date})) :
 $F{datacenter_delete_date} != null ? msg($R{full.details.deleted.comment.datacenter}, DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{datacenter_delete_date})) : ""]]></textFieldExpression>
-            </textField>
-        </band>
-    </title>
+			</textField>
+		</band>
+	</title>
 </jasperReport>
