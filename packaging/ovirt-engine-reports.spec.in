@@ -142,6 +142,10 @@ fi
 %endif
 
 %changelog
+* Wed Apr 9 2014 Yaniv Dary <ydary@redhat.com> - 3.3.5
+Fixed issue:
+- less strict parsing of pg_hba.conf (#1085374)
+
 * Tue Mar 11 2014 Yaniv Dary <ydary@redhat.com> - 3.3.5
 Fixed issue:
 1074909 - setup error on a system installed in Brazilian Portuguese
