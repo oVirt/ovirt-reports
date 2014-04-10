@@ -11,6 +11,8 @@ import logging
 import os
 import sys
 import traceback
+import pwd
+import grp
 import getpass
 import shutil
 import cracklib
@@ -40,6 +42,7 @@ JRS_APP_NAME = "ovirt-engine-reports"
 JRS_DB_NAME = "ovirtenginereports"
 JRS_PACKAGE_NAME = "jasperreports-server"
 DIR_WAR="%s/%s.war" % (DIR_DEPLOY, JRS_APP_NAME)
+FILE_WAR_CONTEXT = '%s/META-INF/context.xml' % DIR_WAR
 FILE_JS_SMTP="%s/WEB-INF/js.quartz.properties" % DIR_WAR
 FILE_APPLICATION_SECURITY_WEB="%s/WEB-INF/applicationContext-security-web.xml" % DIR_WAR
 FILE_JRS_DATASOURCES="%s/WEB-INF/js-jboss7-ds.xml" % DIR_WAR
@@ -55,6 +58,7 @@ REPORTS_SERVER_DIR = "/usr/share/%s"  % JRS_PACKAGE_NAME
 REPORTS_SERVER_BUILDOMATIC_DIR = "%s/buildomatic" % REPORTS_SERVER_DIR
 REPORTS_DB_UPGRADE_SCRIPTS_DIR = "%s/install_resources/sql/postgresql" % REPORTS_SERVER_BUILDOMATIC_DIR
 FILE_JASPER_DB_CONN = "%s/default_master.properties" % REPORTS_SERVER_BUILDOMATIC_DIR
+REPORTS_SERVER_BUILD_CONF_DIR = '%s/build_conf' % REPORTS_SERVER_BUILDOMATIC_DIR
 FILE_DATABASE_ENGINE_CONFIG = "/etc/ovirt-engine/engine.conf.d/10-setup-database.conf"
 FILE_DATABASE_DWH_CONFIG = "/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d/10-setup-database.conf"
 FILE_DATABASE_REPORTS_CONFIG = "/etc/ovirt-engine-reports/ovirt-engine-reports.conf.d/10-setup-database.conf"
@@ -93,6 +97,8 @@ controlled and provisioned setup, one could use the following command: \n\
 For other cases, please ask your DBA to remove the aforementioned DB."
 
 DIR_TEMP_SCHEDULE=tempfile.mkdtemp()
+OVIRT_UID = pwd.getpwnam('ovirt')[2]
+OVIRT_GID = grp.getgrnam('ovirt')[2]
 
 log_file = None
 
@@ -276,6 +282,8 @@ def setDeploymentDetails(db_dict):
     file_handler.editParam("webAppNameCE", JRS_APP_NAME)
     file_handler.editParam("appServerDir", DIR_DEPLOY)
     file_handler.close()
+    os.chown(FILE_JASPER_DB_CONN, 0, OVIRT_GID)
+    os.chmod(FILE_JASPER_DB_CONN, 0o640)
 
 def setReportsDatasource(db_dict):
     logging.debug("editing reports datasource file %s", FILE_DB_DATA_SOURCE)
@@ -285,6 +293,8 @@ def setReportsDatasource(db_dict):
     xml_editor.editParams({'/jdbcDataSource/connectionUser':db_dict["dwh_db_user"]})
     xml_editor.editParams({'/jdbcDataSource/connectionPassword':db_dict["dwh_db_password"]})
     xml_editor.close()
+    os.chown(FILE_DB_DATA_SOURCE, 0, OVIRT_GID)
+    os.chmod(FILE_DB_DATA_SOURCE, 0o640)
 
 def resetReportsDatasourcePassword():
     logging.debug("editing reports datasource file %s", FILE_DB_DATA_SOURCE)
@@ -292,6 +302,8 @@ def resetReportsDatasourcePassword():
     xml_editor.open()
     xml_editor.editParams({'/jdbcDataSource/connectionPassword':""})
     xml_editor.close()
+    os.chown(FILE_DB_DATA_SOURCE, 0, OVIRT_GID)
+    os.chmod(FILE_DB_DATA_SOURCE, 0o640)
 
 @transactionDisplay("Updating Redirect Servlet")
 def updateServletDbRecord(TEMP_PGPASS):
@@ -489,6 +501,8 @@ def editOvirtEngineAdminXml(password):
     node.setContent(password)
     logging.debug("closing file")
     xmlObj.close()
+    os.chown(xmlFile, 0, OVIRT_GID)
+    os.chmod(xmlFile, 0o640)
 
 @transactionDisplay("Customizing Server")
 def customizeJs():
@@ -854,6 +868,8 @@ def updateDsJdbc():
         xml_editor.addNodes("/datasources", newDriver)
     logging.debug("closing file")
     xml_editor.close()
+    os.chown(FILE_JRS_DATASOURCES, 0, OVIRT_GID)
+    os.chmod(FILE_JRS_DATASOURCES, 0o640)
 
 def updateApplicationSecurity():
     """
@@ -1033,7 +1049,12 @@ def main(options):
                         )
                     )
                     utils.updateDbOwner(db_dict)
-                utils.storeConf(db_dict)
+                utils.storeConf(
+                    db_dict,
+                    uid=0,
+                    gid=OVIRT_GID,
+                    perms=0o640,
+                )
             else:
                 # remote
                 if hasData:
@@ -1183,6 +1204,10 @@ def main(options):
                 ):
                     if os.path.exists(path):
                         shutil.rmtree(path)
+                os.chown(REPORTS_SERVER_BUILD_CONF_DIR, 0, OVIRT_GID)
+                os.chmod(REPORTS_SERVER_BUILD_CONF_DIR, 0o750)
+                os.chown(FILE_WAR_CONTEXT, 0, OVIRT_GID)
+                os.chmod(FILE_WAR_CONTEXT, 0o640)
 
             # Restore previous version
             except:
@@ -1199,7 +1224,12 @@ def main(options):
 
             # Restart the httpd service
             utils.restartHttpd()
-            utils.storeConf(db_dict)
+            utils.storeConf(
+                db_dict,
+                uid=0,
+                gid=OVIRT_GID,
+                perms=0o640,
+            )
             print "Succesfully installed %s." % JRS_APP_NAME
             print "The installation log file is available at: %s" % log_file
 

@@ -80,8 +80,9 @@ def _maskString(string, maskList=[]):
     in utils
     """
     maskedStr = string
-    for maskItem in maskList:
-        maskedStr = maskedStr.replace(maskItem, "*"*8)
+    if maskList:
+        for maskItem in maskList:
+            maskedStr = maskedStr.replace(maskItem, "*"*8)
 
     return maskedStr
 
@@ -1102,10 +1103,16 @@ def runPostgresSuCommand(command, failOnError=True, output=None):
         stdOut=output,
     )
 
-def runPostgresSuQuery(query, database=None, failOnError=True):
+def runPostgresSuQuery(query, database=None, failOnError=True, maskList=None):
+    logged_query = _maskString(
+        '\n'.join(query)
+        if isinstance(query, list) or isinstance(query, tuple)
+        else query,
+        maskList
+    )
     logging.debug("starting runPostgresSuQuery database: %s query: %s" %
                   (database,
-                   query))
+                   logged_query))
     command = [
         EXEC_PSQL,
         '--pset=tuples_only=on',
@@ -1141,6 +1148,7 @@ def runPostgresSuQuery(query, database=None, failOnError=True):
         cmdList=cmd,
         failOnError=failOnError,
         stdIn=stdIn,
+        maskList=maskList,
     )
 
 _RE_POSTGRES_PGHBA_LOCAL = re.compile(
@@ -1228,7 +1236,8 @@ def createUser(user, password):
         ).format(
             user=user,
             password=password,
-        )
+        ),
+        maskList=[password],
     )
 
 
@@ -1299,16 +1308,14 @@ def escape(s, chars):
         ret += c
     return ret
 
-def storeConf(db_dict):
+def storeConf(db_dict, uid, gid, perms):
     if not os.path.exists(DIR_DATABASE_REPORTS_CONFIG):
         os.makedirs(DIR_DATABASE_REPORTS_CONFIG)
-    with open(
-        os.path.join(
-            DIR_DATABASE_REPORTS_CONFIG,
-            FILE_DATABASE_REPORTS_CONFIG
-        ),
-        'w'
-    ) as rf:
+    configFile = os.path.join(
+        DIR_DATABASE_REPORTS_CONFIG,
+        FILE_DATABASE_REPORTS_CONFIG
+    )
+    with open(configFile, 'w') as rf:
         rf.write(
             (
                 'REPORTS_DB_DATABASE={database}\n'
@@ -1320,7 +1327,8 @@ def storeConf(db_dict):
                 password=escape(db_dict['password'], '"\\$'),
             )
         )
-
+    os.chown(configFile, uid, gid)
+    os.chmod(configFile, perms)
 
 def userExists(user):
     sql_query = '"select 1 from pg_roles where rolname=\'{user}\';"'.format(
