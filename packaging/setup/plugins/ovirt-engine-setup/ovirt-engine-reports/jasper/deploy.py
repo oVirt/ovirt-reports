@@ -982,18 +982,16 @@ class Plugin(plugin.PluginBase):
                         addition = libxml2.parseDoc(
                             '''
                                 <folder>%s</folder>
-                            ''' % (
-                            self.environment[
+                            ''' % self.environment[
                                 oreportscons.JasperEnv.THEME
                             ]
-                            )
                         )
                         xml.xpath.xpathEval('/folder')[0].addChild(
                             addition.getRootElement()
                         )
                     finally:
                         # do not free, cause segmentation fault
-                        #addition.freeDoc()
+                        # addition.freeDoc()
                         pass
 
         self._oreportsutil.jsimport(everything)
