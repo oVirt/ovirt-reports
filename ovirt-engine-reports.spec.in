@@ -127,6 +127,9 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Wed Apr 23 2014 Yaniv Dary <ydary@redhat.com> - 3.4.1
+fixed issue with log4j JRS patch (#1083501)
+
 * Tue Apr 1 2014 Yaniv Dary <ydary@redhat.com> - 3.4.1
 Fixed issues:
 - Added strandard logrotate config file for JRS log.
