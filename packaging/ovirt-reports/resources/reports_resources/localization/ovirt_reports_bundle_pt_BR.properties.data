@@ -501,7 +501,7 @@ br11b.chart.vms.cpu.usage=Uso da CPU (Excede o Per\u00EDodo)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br22b.title=Falha do SO do Host
 # translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
-br23.title=Uso de Disco de Dom\u00EDnio da M\u00E9dia do Storage
+br23.title=Uso de Disco de Domain da M\u00E9dia do Storage
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 axis.storage.domain.names=Storage Domains
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
