@@ -1000,6 +1000,7 @@ class Plugin(plugin.PluginBase):
         stage=plugin.Stages.STAGE_MISC,
         after=(
             oreportscons.Stages.DB_SCHEMA,
+            oreportscons.Stages.JASPER_DEPLOY_IMPORT,
         ),
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
     )
