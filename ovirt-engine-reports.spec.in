@@ -38,7 +38,7 @@ URL:		http://www.ovirt.org
 BuildArch:	noarch
 Source0:	http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 
-BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-6
+BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
 BuildRequires:	java-devel
 BuildRequires:	jpackage-utils
 BuildRequires:	log4j
@@ -47,7 +47,7 @@ BuildRequires:	ant
 
 Requires:	%{name}-setup >= %{version}-%{release}
 Requires:	jasperreports-server%{reports_jasper_suffix} < 5.6.0
-Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-6
+Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
 Requires:	java
 Requires:	jpackage-utils
 Requires:	logrotate
