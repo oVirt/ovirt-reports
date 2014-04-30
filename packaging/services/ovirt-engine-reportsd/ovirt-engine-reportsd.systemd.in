@@ -1,0 +1,14 @@
+[Unit]
+Description=oVirt Engine Reports
+After=network.service postgresql.service
+
+[Service]
+Type=notify
+User=@PKG_USER@
+Group=@PKG_GROUP@
+LimitNOFILE=65535
+ExecStart=@PKG_DATA_DIR@/services/ovirt-engine-reportsd/ovirt-engine-reportsd.py --redirect-output --systemd=notify $EXTRA_ARGS start
+EnvironmentFile=-/etc/sysconfig/ovirt-engine-reportsd
+
+[Install]
+WantedBy=multi-user.target

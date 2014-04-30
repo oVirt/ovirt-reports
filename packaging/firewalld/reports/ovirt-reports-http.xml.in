@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>ovirt-reports-http</short>
+  <description>oVirt Reports configured http service</description>
+  <port protocol="tcp" port="@REPORTS_HTTP_PORT@"/>
+</service>

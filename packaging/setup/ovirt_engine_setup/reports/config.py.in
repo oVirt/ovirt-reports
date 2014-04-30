@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,10 @@
 """Config."""
 
 
+SERVICE_DEFAULTS = '@SERVICE_DEFAULTS@'
+SERVICE_VARS = '@SERVICE_VARS@'
 PKG_SYSCONF_DIR = '@PKG_SYSCONF_DIR@'
+PKG_PKI_DIR = '@PKG_PKI_DIR@'
 PKG_STATE_DIR = '@PKG_STATE_DIR@'
 PKG_DATA_DIR = '@PKG_DATA_DIR@'
 PKG_JAVA_DIR = '@PKG_JAVA_DIR@'

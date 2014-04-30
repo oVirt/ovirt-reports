@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2014 Red Hat, Inc.
+# Copyright (C) 2013-2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@
 #
 
 
+"""
+Firewall configuration plugin for Reports.
+"""
+
 import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
@@ -26,42 +30,47 @@ from otopi import plugin
 
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup.reports import constants as oreportscons
-from ovirt_engine_setup.engine_common import constants as oengcommcons
-from ovirt_engine_setup import dialog
 
 
 @util.export
 class Plugin(plugin.PluginBase):
+    """
+    Firewall configuration plugin for Engine
+    """
 
     def __init__(self, context):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
         stage=plugin.Stages.STAGE_CUSTOMIZATION,
-        name=oreportscons.Stages.CORE_ENABLE,
-        before=(
-            osetupcons.Stages.DIALOG_TITLES_E_PRODUCT_OPTIONS,
-            oreportscons.Stages.DB_CONNECTION_CUSTOMIZATION,
-        ),
         after=(
-            osetupcons.Stages.DIALOG_TITLES_S_PRODUCT_OPTIONS,
+            osetupcons.Stages.NET_FIREWALL_MANAGER_AVAILABLE,
         ),
     )
-    def _customization(self):
-        if self.environment[oreportscons.CoreEnv.ENABLE] is None:
-            self.environment[
-                oreportscons.CoreEnv.ENABLE
-            ] = dialog.queryBoolean(
-                dialog=self.dialog,
-                name='OVESETUP_REPORTS_ENABLE',
-                note=_(
-                    'Configure Reports on this host '
-                    '(@VALUES@) [@DEFAULT@]: '
-                ),
-                prompt=True,
-                default=True,
-            )
-        if self.environment[oreportscons.CoreEnv.ENABLE]:
-            self.environment[oengcommcons.ApacheEnv.ENABLE] = True
+    def _configuration(self):
+        self.environment[
+            osetupcons.NetEnv.FIREWALLD_SUBST
+        ].update({
+            '@REPORTS_HTTP_PORT@': self.environment[
+                oreportscons.ConfigEnv.JBOSS_DIRECT_HTTP_PORT
+            ],
+            '@REPORTS_HTTPS_PORT@': self.environment[
+                oreportscons.ConfigEnv.JBOSS_DIRECT_HTTPS_PORT
+            ],
+        })
+        if self.environment[
+            oreportscons.ConfigEnv.JBOSS_DIRECT_HTTP_PORT
+        ] is not None:
+            self.environment[osetupcons.NetEnv.FIREWALLD_SERVICES].extend([
+                {
+                    'name': 'ovirt-reports-http',
+                    'directory': 'reports'
+                },
+                {
+                    'name': 'ovirt-reports-https',
+                    'directory': 'reports'
+                },
+            ])
+
 
 # vim: expandtab tabstop=4 shiftwidth=4

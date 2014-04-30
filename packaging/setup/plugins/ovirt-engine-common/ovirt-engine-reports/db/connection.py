@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -94,6 +94,72 @@ class Plugin(plugin.PluginBase):
         self.environment[oreportscons.DBEnv.CONNECTION] = None
         self.environment[oreportscons.DBEnv.STATEMENT] = None
         self.environment[oreportscons.DBEnv.NEW_DATABASE] = True
+
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.HOST,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.PORT,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.SECURED,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.SECURED_HOST_VALIDATION,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.USER,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.PASSWORD,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.EngineDBEnv.DATABASE,
+            None
+        )
+
+        self.environment[oreportscons.EngineDBEnv.CONNECTION] = None
+        self.environment[oreportscons.EngineDBEnv.STATEMENT] = None
+        self.environment[oreportscons.EngineDBEnv.NEW_DATABASE] = True
+
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.HOST,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.PORT,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.SECURED,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.SECURED_HOST_VALIDATION,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.USER,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.PASSWORD,
+            None
+        )
+        self.environment.setdefault(
+            oreportscons.DWHDBEnv.DATABASE,
+            None
+        )
+
+        self.environment[oreportscons.DWHDBEnv.CONNECTION] = None
+        self.environment[oreportscons.DWHDBEnv.STATEMENT] = None
+        self.environment[oreportscons.DWHDBEnv.NEW_DATABASE] = True
 
     @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,

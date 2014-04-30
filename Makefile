@@ -41,11 +41,16 @@ MAN_DIR=$(DATAROOT_DIR)/man
 DOC_DIR=$(DATAROOT_DIR)/doc
 PKG_DATA_DIR=$(DATAROOT_DIR)/ovirt-engine-reports
 JAVA_DIR=$(DATAROOT_DIR)/java
+SYS_JAVA_DIR=/usr/share/java
+ENGINE_DATA_DIR=$(DATAROOT_DIR)/$(ENGINE_NAME)
 PKG_JAVA_DIR=$(JAVA_DIR)/ovirt-engine-reports
 PKG_SYSCONF_DIR=$(SYSCONF_DIR)/ovirt-engine-reports
+PKG_PKI_DIR=$(SYSCONF_DIR)/pki/$(ENGINE_NAME)
 PKG_LOG_DIR=$(LOCALSTATE_DIR)/log/ovirt-engine-reports
 PKG_STATE_DIR=$(LOCALSTATE_DIR)/lib/ovirt-engine-reports
 ENGINE_STATE_DIR=$(LOCALSTATE_DIR)/lib/$(ENGINE_NAME)
+PKG_TMP_DIR=$(LOCALSTATE_DIR)/tmp/ovirt-engine-reports
+JBOSS_HOME=/usr/share/jboss-as
 PYTHON_DIR=$(PYTHON_SYS_DIR)
 DEV_PYTHON_DIR=
 PKG_USER=ovirt
@@ -75,14 +80,18 @@ BUILD_TARGET=install
 
 .in:
 	sed \
+	-e "s|@SERVICE_DEFAULTS@|$(DATA_DIR)/services/ovirt-engine-reportsd/ovirt-engine-reportsd.conf|g" \
+	-e "s|@SERVICE_VARS@|$(PKG_SYSCONF_DIR)/$(PACKAGE_NAME).conf|g" \
 	-e "s|@PKG_USER@|$(PKG_USER)|g" \
 	-e "s|@PKG_GROUP@|$(PKG_GROUP)|g" \
 	-e "s|@DATAROOT_DIR@|$(DATAROOT_DIR)|g" \
 	-e "s|@PKG_SYSCONF_DIR@|$(PKG_SYSCONF_DIR)|g" \
+	-e "s|@PKG_PKI_DIR@|$(PKG_PKI_DIR)|g" \
 	-e "s|@PKG_DATA_DIR@|$(PKG_DATA_DIR)|g" \
 	-e "s|@PKG_JAVA_DIR@|$(PKG_JAVA_DIR)|g" \
 	-e "s|@PKG_LOG_DIR@|$(PKG_LOG_DIR)|g" \
 	-e "s|@PKG_STATE_DIR@|$(PKG_STATE_DIR)|g" \
+	-e "s|@PKG_TMP_DIR@|$(PKG_TMP_DIR)|g" \
 	-e "s|@DEV_PYTHON_DIR@|$(DEV_PYTHON_DIR)|g" \
 	-e "s|@RPM_VERSION@|$(RPM_VERSION)|g" \
 	-e "s|@RPM_RELEASE@|$(RPM_RELEASE)|g" \
@@ -90,6 +99,7 @@ BUILD_TARGET=install
 	-e "s|@PACKAGE_VERSION@|$(PACKAGE_VERSION)|g" \
 	-e "s|@DISPLAY_VERSION@|$(DISPLAY_VERSION)|g" \
 	-e "s|@ENGINE_VAR@|$(ENGINE_STATE_DIR)|g" \
+	-e "s|@JBOSS_HOME@|$(JBOSS_HOME)|g" \
 	-e "s|@PEP8@|$(PEP8)|g" \
 	-e "s|@PYFLAKES@|$(PYFLAKES)|g" \
 	$< > $@
@@ -102,7 +112,10 @@ GENERATED = \
 	packaging/jasper-war-patches/pro/900_004_props_change_logs_location.patch \
 	packaging/setup/ovirt_engine_setup/reports/config.py \
 	packaging/sys-etc/logrotate.d/ovirt-engine-reports \
-	packaging/sys-etc/ovirt-engine/engine.conf.d/20-ovirt-engine-reports.conf \
+	packaging/services/ovirt-engine-reportsd/config.py \
+	packaging/services/ovirt-engine-reportsd/ovirt-engine-reportsd.conf \
+	packaging/services/ovirt-engine-reportsd/ovirt-engine-reportsd.systemd \
+	packaging/services/ovirt-engine-reportsd/ovirt-engine-reportsd.sysv \
 	$(NULL)
 
 all:	\
@@ -113,6 +126,8 @@ all:	\
 
 generated-files:	$(GENERATED)
 	chmod a+x build/python-check.sh
+	chmod a+x packaging/services/ovirt-engine-reportsd/ovirt-engine-reportsd.py
+	chmod a+x packaging/services/ovirt-engine-reportsd/ovirt-engine-reportsd.sysv
 
 $(BUILD_FILE):
 	$(ANT) $(BUILD_FLAGS) all
@@ -128,6 +143,7 @@ install: \
 	all \
 	install-artifacts \
 	install-layout \
+	install-jdbc \
 	$(NULL)
 
 .PHONY: ovirt-engine-reports.spec.in
@@ -188,9 +204,11 @@ install-packaging-files: \
 		$(GENERATED) \
 		$(NULL)
 	$(MAKE) copy-recursive SOURCEDIR=packaging/sys-etc TARGETDIR="$(DESTDIR)$(SYSCONF_DIR)" EXCLUDE_GEN="$(GENERATED)"
-	$(MAKE) copy-recursive SOURCEDIR=packaging/setup TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/../ovirt-engine/setup" EXCLUDE_GEN="$(GENERATED)"
-	for d in conf etc jasper-customizations jasper-war-patches ovirt-reports; do \
+	for d in conf etc jasper-customizations jasper-war-patches ovirt-reports services; do \
 		$(MAKE) copy-recursive SOURCEDIR="packaging/$${d}" TARGETDIR="$(DESTDIR)$(PKG_DATA_DIR)/$${d}" EXCLUDE_GEN="$(GENERATED)"; \
+	done
+	for d in firewalld setup; do \
+		$(MAKE) copy-recursive SOURCEDIR="packaging/$${d}" TARGETDIR="$(DESTDIR)$(ENGINE_DATA_DIR)/$${d}" EXCLUDE_GEN="$(GENERATED)"; \
 	done
 
 install-layout: \
@@ -199,6 +217,13 @@ install-layout: \
 
 	ln -sf ovirt_reports_bundle_en_US.properties.data "$(DESTDIR)$(PKG_DATA_DIR)/ovirt-reports/resources/reports_resources/localization/ovirt_reports_bundle.properties.data"
 	install -dm 755 "$(DESTDIR)$(PKG_STATE_DIR)/backups"
+
+install-jdbc: \
+		ovirt-engine-reports/postgres/module.xml \
+		$(NULL)
+	install -dm 755 "$(DESTDIR)$(PKG_DATA_DIR)/modules/org/postgresql/main"
+	ln -sf "$(SYS_JAVA_DIR)/postgresql-jdbc.jar" "$(DESTDIR)$(PKG_DATA_DIR)/modules/org/postgresql/main/postgresql.jar"
+	install -m 0644 ovirt-engine-reports/postgres/module.xml "$(DESTDIR)$(PKG_DATA_DIR)/modules/org/postgresql/main/"
 
 all-dev:
 	rm -f $(GENERATED)

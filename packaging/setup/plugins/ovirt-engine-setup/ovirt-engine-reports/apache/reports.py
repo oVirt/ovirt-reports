@@ -80,7 +80,7 @@ class Plugin(plugin.PluginBase):
                     ),
                     subst={
                         '@JBOSS_AJP_PORT@': self.environment[
-                            oengcommcons.ConfigEnv.JBOSS_AJP_PORT
+                            oreportscons.ConfigEnv.JBOSS_AJP_PORT
                         ],
                     },
                 ),

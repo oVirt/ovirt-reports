@@ -19,22 +19,16 @@
 from otopi import util
 
 
-from . import admin
-from . import engine
-from . import firewall
-from . import jasper
-from . import protocols
-from . import sso
+from . import apache
+from . import jboss
+from . import misc
 
 
 @util.export
 def createPlugins(context):
-    admin.Plugin(context=context)
-    engine.Plugin(context=context)
-    firewall.Plugin(context=context)
-    jasper.Plugin(context=context)
-    protocols.Plugin(context=context)
-    sso.Plugin(context=context)
+    apache.Plugin(context=context)
+    jboss.Plugin(context=context)
+    misc.Plugin(context=context)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

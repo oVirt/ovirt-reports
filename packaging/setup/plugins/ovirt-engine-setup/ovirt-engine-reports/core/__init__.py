@@ -23,11 +23,13 @@ from otopi import util
 
 
 from . import misc
+from . import service
 
 
 @util.export
 def createPlugins(context):
     misc.Plugin(context=context)
+    service.Plugin(context=context)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

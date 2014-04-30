@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013-2014 Red Hat, Inc.
+# Copyright (C) 2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,22 +19,12 @@
 from otopi import util
 
 
-from . import admin
-from . import engine
-from . import firewall
-from . import jasper
-from . import protocols
-from . import sso
+from . import service
 
 
 @util.export
 def createPlugins(context):
-    admin.Plugin(context=context)
-    engine.Plugin(context=context)
-    firewall.Plugin(context=context)
-    jasper.Plugin(context=context)
-    protocols.Plugin(context=context)
-    sso.Plugin(context=context)
+    service.Plugin(context=context)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

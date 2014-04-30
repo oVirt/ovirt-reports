@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2014 Red Hat, Inc.
+# Copyright (C) 2013 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,8 +26,6 @@ from otopi import plugin
 
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup.reports import constants as oreportscons
-from ovirt_engine_setup.engine_common import constants as oengcommcons
-from ovirt_engine_setup import dialog
 
 
 @util.export
@@ -37,31 +35,21 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
-        stage=plugin.Stages.STAGE_CUSTOMIZATION,
-        name=oreportscons.Stages.CORE_ENABLE,
+        stage=plugin.Stages.STAGE_TRANSACTION_BEGIN,
         before=(
-            osetupcons.Stages.DIALOG_TITLES_E_PRODUCT_OPTIONS,
-            oreportscons.Stages.DB_CONNECTION_CUSTOMIZATION,
+            osetupcons.Stages.SYSTEM_HOSTILE_SERVICES_DETECTION,
         ),
-        after=(
-            osetupcons.Stages.DIALOG_TITLES_S_PRODUCT_OPTIONS,
-        ),
+        condition=lambda self: not self.environment[
+            osetupcons.CoreEnv.DEVELOPER_MODE
+        ],
     )
-    def _customization(self):
-        if self.environment[oreportscons.CoreEnv.ENABLE] is None:
-            self.environment[
-                oreportscons.CoreEnv.ENABLE
-            ] = dialog.queryBoolean(
-                dialog=self.dialog,
-                name='OVESETUP_REPORTS_ENABLE',
-                note=_(
-                    'Configure Reports on this host '
-                    '(@VALUES@) [@DEFAULT@]: '
-                ),
-                prompt=True,
-                default=True,
+    def _transactionBegin(self):
+        if self.services.exists(name=oreportscons.Const.SERVICE_NAME):
+            self.logger.info(_('Stopping reports service'))
+            self.services.state(
+                name=oreportscons.Const.SERVICE_NAME,
+                state=False
             )
-        if self.environment[oreportscons.CoreEnv.ENABLE]:
-            self.environment[oengcommcons.ApacheEnv.ENABLE] = True
+
 
 # vim: expandtab tabstop=4 shiftwidth=4

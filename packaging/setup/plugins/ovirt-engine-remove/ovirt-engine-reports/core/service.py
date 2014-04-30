@@ -35,32 +35,19 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
-        stage=plugin.Stages.STAGE_INIT,
+        stage=plugin.Stages.STAGE_MISC,
+        condition=lambda self: not self.environment[
+            osetupcons.CoreEnv.DEVELOPER_MODE
+        ],
     )
-    def _init(self):
-        self.environment.setdefault(oreportscons.CoreEnv.ENABLE, None)
-        self.environment.setdefault(oreportscons.EngineCoreEnv.ENABLE, None)
-
-    @plugin.event(
-        stage=plugin.Stages.STAGE_SETUP,
-    )
-    def _setup(self):
-        self.environment[
-            osetupcons.CoreEnv.REGISTER_UNINSTALL_GROUPS
-        ].createGroup(
-            group='ovirt_reports_files',
-            description='Reports files',
-            optional=True,
-        )
-        self.environment[
-            osetupcons.CoreEnv.SETUP_ATTRS_MODULES
-        ].append(oreportscons)
-        self.logger.debug(
-            'reports version: %s-%s (%s)\n',
-            oreportscons.Const.PACKAGE_NAME,
-            oreportscons.Const.PACKAGE_VERSION,
-            oreportscons.Const.DISPLAY_VERSION,
-        )
+    def _misc(self):
+        if self.services.exists(
+            name=oreportscons.Const.SERVICE_NAME
+        ):
+            self.services.startup(
+                name=oreportscons.Const.SERVICE_NAME,
+                state=False,
+            )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

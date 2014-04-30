@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
+from ovirt_engine_setup.engine_common import database
 from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.engine_common \
     import constants as oengcommcons
@@ -69,6 +70,61 @@ class Plugin(plugin.PluginBase):
                     modifiedList=uninstall_files,
                 )
             )
+
+        statement = database.Statement(
+            dbenvkeys=oreportscons.Const.ENGINE_DB_ENV_KEYS,
+            environment=self.environment,
+        )
+
+        result = statement.execute(
+            statement="""
+                update vdc_options
+                set
+                    option_value=%(value)s
+                where
+                    option_name=%(name)s and
+                    version=%(version)s
+            """,
+            args=dict(
+                name='RedirectServletReportsPage',
+                value='https://{fqdn}:{port}/ovirt-engine-reports'.format(
+                    fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
+                    port=self.environment[
+                        oreportscons.ConfigEnv.PUBLIC_HTTPS_PORT
+                    ],
+                ),
+                version='general',
+            ),
+            ownConnection=True,
+        )
+
+    @plugin.event(
+        stage=plugin.Stages.STAGE_CLOSEUP,
+        condition=lambda self: (
+            self.environment[
+                oreportscons.CoreEnv.ENABLE
+            ] and
+            # If on same host as engine, engine setup restarts it
+            not self.environment[
+                oreportscons.EngineCoreEnv.ENABLE
+            ]
+        ),
+        before=(
+            osetupcons.Stages.DIALOG_TITLES_E_SUMMARY,
+        ),
+        after=(
+            osetupcons.Stages.DIALOG_TITLES_S_SUMMARY,
+        ),
+    )
+    def _closeup(self):
+        self.dialog.note(
+            text=_(
+                'To update the Reports link on the main web interface page, '
+                'please restart the engine service, '
+                'by running the following command on the engine host:\n'
+                '# service ovirt-engine restart'
+            ),
+        )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

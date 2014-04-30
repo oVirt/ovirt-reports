@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,6 +47,10 @@ class Const(object):
     OVIRT_ENGINE_REPORTS_PACKAGE_NAME = 'ovirt-engine-reports'
     OVIRT_ENGINE_REPORTS_SETUP_PACKAGE_NAME = 'ovirt-engine-reports-setup'
 
+    # sync with engine
+    PKI_REPORTS_JBOSS_CERT_NAME = 'reports'
+    PKI_REPORTS_APACHE_CERT_NAME = 'apache-reports'
+
     @classproperty
     def REPORTS_DB_ENV_KEYS(self):
         return {
@@ -59,6 +63,74 @@ class Const(object):
             'database': DBEnv.DATABASE,
             'connection': DBEnv.CONNECTION,
             'pgpassfile': DBEnv.PGPASS_FILE,
+            'newDatabase': DBEnv.NEW_DATABASE,
+        }
+
+    @classproperty
+    def DEFAULT_REPORTS_DB_ENV_KEYS(self):
+        return {
+            'host': Defaults.DEFAULT_DB_HOST,
+            'port': Defaults.DEFAULT_DB_PORT,
+            'secured': Defaults.DEFAULT_DB_SECURED,
+            'hostValidation': Defaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
+            'user': Defaults.DEFAULT_DB_USER,
+            'password': Defaults.DEFAULT_DB_PASSWORD,
+            'database': Defaults.DEFAULT_DB_DATABASE,
+        }
+
+    @classproperty
+    def DWH_DB_ENV_KEYS(self):
+        return {
+            'host': DWHDBEnv.HOST,
+            'port': DWHDBEnv.PORT,
+            'secured': DWHDBEnv.SECURED,
+            'hostValidation': DWHDBEnv.SECURED_HOST_VALIDATION,
+            'user': DWHDBEnv.USER,
+            'password': DWHDBEnv.PASSWORD,
+            'database': DWHDBEnv.DATABASE,
+            'connection': DWHDBEnv.CONNECTION,
+            'pgpassfile': DWHDBEnv.PGPASS_FILE,
+            'newDatabase': DWHDBEnv.NEW_DATABASE,
+        }
+
+    @classproperty
+    def DEFAULT_DWH_DB_ENV_KEYS(self):
+        return {
+            'host': DWHDefaults.DEFAULT_DB_HOST,
+            'port': DWHDefaults.DEFAULT_DB_PORT,
+            'secured': DWHDefaults.DEFAULT_DB_SECURED,
+            'hostValidation': DWHDefaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
+            'user': DWHDefaults.DEFAULT_DB_USER,
+            'password': DWHDefaults.DEFAULT_DB_PASSWORD,
+            'database': DWHDefaults.DEFAULT_DB_DATABASE,
+        }
+
+    @classproperty
+    def ENGINE_DB_ENV_KEYS(self):
+        return {
+            'host': EngineDBEnv.HOST,
+            'port': EngineDBEnv.PORT,
+            'secured': EngineDBEnv.SECURED,
+            'hostValidation': EngineDBEnv.SECURED_HOST_VALIDATION,
+            'user': EngineDBEnv.USER,
+            'password': EngineDBEnv.PASSWORD,
+            'database': EngineDBEnv.DATABASE,
+            'connection': EngineDBEnv.CONNECTION,
+            'pgpassfile': EngineDBEnv.PGPASS_FILE,
+            'newDatabase': EngineDBEnv.NEW_DATABASE,
+        }
+
+    @classproperty
+    def DEFAULT_ENGINE_DB_ENV_KEYS(self):
+        return {
+            'host': EngineDefaults.DEFAULT_DB_HOST,
+            'port': EngineDefaults.DEFAULT_DB_PORT,
+            'secured': EngineDefaults.DEFAULT_DB_SECURED,
+            'hostValidation':
+            EngineDefaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
+            'user': EngineDefaults.DEFAULT_DB_USER,
+            'password': EngineDefaults.DEFAULT_DB_PASSWORD,
+            'database': EngineDefaults.DEFAULT_DB_DATABASE,
         }
 
 
@@ -72,6 +144,38 @@ class Defaults(object):
     DEFAULT_DB_PASSWORD = ''
     DEFAULT_DB_SECURED = False
     DEFAULT_DB_SECURED_HOST_VALIDATION = False
+    DEFAULT_KEY_SIZE = 2048
+
+    DEFAULT_NETWORK_HTTP_PORT = 80
+    DEFAULT_NETWORK_HTTPS_PORT = 443
+    DEFAULT_NETWORK_JBOSS_HTTP_PORT = 8090
+    DEFAULT_NETWORK_JBOSS_HTTPS_PORT = 8453
+    DEFAULT_NETWORK_JBOSS_AJP_PORT = 8712
+    DEFAULT_NETWORK_JBOSS_DEBUG_ADDRESS = '127.0.0.1:8797'
+
+
+@util.export
+@util.codegen
+class DWHDefaults(object):
+    DEFAULT_DB_HOST = ''
+    DEFAULT_DB_PORT = 5432
+    DEFAULT_DB_DATABASE = 'ovirt_engine_history'
+    DEFAULT_DB_USER = 'ovirt_engine_history'
+    DEFAULT_DB_PASSWORD = ''
+    DEFAULT_DB_SECURED = False
+    DEFAULT_DB_SECURED_HOST_VALIDATION = False
+
+
+@util.export
+@util.codegen
+class EngineDefaults(object):
+    DEFAULT_DB_HOST = ''
+    DEFAULT_DB_PORT = 5432
+    DEFAULT_DB_DATABASE = 'engine'
+    DEFAULT_DB_USER = 'engine'
+    DEFAULT_DB_PASSWORD = ''
+    DEFAULT_DB_SECURED = False
+    DEFAULT_DB_SECURED_HOST_VALIDATION = False
 
 
 @util.export
@@ -80,6 +184,13 @@ class FileLocations(object):
     SYSCONFDIR = '/etc'
     DATADIR = '/usr/share'
     PKG_SYSCONF_DIR = config.PKG_SYSCONF_DIR
+    SERVICE_DEFAULTS = config.SERVICE_DEFAULTS
+    SERVICE_VARS = config.SERVICE_VARS
+    SERVICE_VARS_D = '%s.d' % config.SERVICE_VARS
+    REPORTS_CONFIG_PROTOCOLS = os.path.join(
+        SERVICE_VARS_D,
+        '10-setup-protocols.conf',
+    )
     PKG_STATE_DIR = config.PKG_STATE_DIR
     PKG_DATA_DIR = config.PKG_DATA_DIR
     PKG_JAVA_DIR = config.PKG_JAVA_DIR
@@ -174,6 +285,57 @@ class FileLocations(object):
 
     OVIRT_ENGINE_LOCALSTATEDIR = config.ENGINE_LOCALSTATEDIR
 
+    OVIRT_ENGINE_PKIDIR = config.PKG_PKI_DIR
+
+    OVIRT_ENGINE_PKIKEYSDIR = os.path.join(
+        OVIRT_ENGINE_PKIDIR,
+        'keys',
+    )
+    OVIRT_ENGINE_PKICERTSDIR = os.path.join(
+        OVIRT_ENGINE_PKIDIR,
+        'certs',
+    )
+
+    # These are generated by engine ca.py. If not found we do that
+    # ourselves.
+    OVIRT_ENGINE_PKI_REPORTS_JBOSS_KEY = os.path.join(
+        OVIRT_ENGINE_PKIKEYSDIR,
+        '%s.key.nopass' % Const.PKI_REPORTS_JBOSS_CERT_NAME,
+    )
+    OVIRT_ENGINE_PKI_REPORTS_JBOSS_CERT = os.path.join(
+        OVIRT_ENGINE_PKICERTSDIR,
+        '%s.cer' % Const.PKI_REPORTS_JBOSS_CERT_NAME,
+    )
+
+    # These are generated by engine ca.py. Never by us.
+    OVIRT_ENGINE_PKI_APACHE_KEY = os.path.join(
+        OVIRT_ENGINE_PKIKEYSDIR,
+        'apache.key.nopass',
+    )
+    OVIRT_ENGINE_PKI_APACHE_CA_CERT = os.path.join(
+        OVIRT_ENGINE_PKIDIR,
+        'apache-ca.pem',
+    )
+    OVIRT_ENGINE_PKI_APACHE_CERT = os.path.join(
+        OVIRT_ENGINE_PKICERTSDIR,
+        'apache.cer',
+    )
+
+    # These are generated and used in case the engine-generated
+    # apache pki is not found.
+    OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY = os.path.join(
+        OVIRT_ENGINE_PKIKEYSDIR,
+        '%s.key.nopass' % Const.PKI_REPORTS_APACHE_CERT_NAME,
+    )
+    OVIRT_ENGINE_PKI_REPORTS_APACHE_CA_CERT = os.path.join(
+        OVIRT_ENGINE_PKIDIR,
+        '%s-ca.pem' % Const.PKI_REPORTS_APACHE_CERT_NAME,
+    )
+    OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT = os.path.join(
+        OVIRT_ENGINE_PKICERTSDIR,
+        '%s.cer' % Const.PKI_REPORTS_APACHE_CERT_NAME,
+    )
+
 
 @util.export
 class Stages(object):
@@ -186,6 +348,11 @@ class Stages(object):
     JASPER_DEPLOY_EXPORT = 'osetup.reports.jasper.deploy.export'
     JASPER_DEPLOY_IMPORT = 'osetup.reports.jasper.deploy.import'
     JASPER_NAME_SET = 'osetup.reports.jasper.name.set'
+    CA_AVAILABLE = 'osetup.pki.ca.available'
+    PKI_MISC = 'osetup.pki.misc'
+
+    # sync with engine
+    ENGINE_CORE_ENABLE = 'osetup.engine.core.enable'
 
 
 @util.export
@@ -217,6 +384,37 @@ class ConfigEnv(object):
         return 'OVESETUP_REPORTS_CONFIG/adminPassword'
 
     LEGACY_REPORTS_WAR = 'OVESETUP_REPORTS_CONFIG/legacyReportsWar'
+
+    KEY_SIZE = 'OVESETUP_REPORTS_CONFIG/keySize'
+    JBOSS_CERTIFICATE_CHAIN = 'OVESETUP_REPORTS_CONFIG/jbossCertificateChain'
+    APACHE_CERTIFICATE = 'OVESETUP_REPORTS_CONFIG/apacheCertificate'
+    APACHE_CA_CERTIFICATE = 'OVESETUP_REPORTS_CONFIG/apacheCACertificate'
+
+    # Eventual public http/s ports - either apache or jboss
+    # Commented 'internal use' in engine, perhaps it means they should not
+    # be set from answer file.
+    PUBLIC_HTTP_PORT = 'OVESETUP_REPORTS_CONFIG/publicHttpPort'
+    PUBLIC_HTTPS_PORT = 'OVESETUP_REPORTS_CONFIG/publicHttpsPort'
+
+    # Proxy (apache) ports
+    HTTP_PORT = 'OVESETUP_REPORTS_CONFIG/httpPort'
+    HTTPS_PORT = 'OVESETUP_REPORTS_CONFIG/httpsPort'
+
+    # jboss ports - used if proxy is not used
+    JBOSS_HTTP_PORT = 'OVESETUP_REPORTS_CONFIG/jbossHttpPort'
+    JBOSS_HTTPS_PORT = 'OVESETUP_REPORTS_CONFIG/jbossHttpsPort'
+
+    # jboss AJP port - apache communicates with it over this one
+    JBOSS_AJP_PORT = 'OVESETUP_REPORTS_CONFIG/jbossAjpPort'
+
+    # Set to JBOSS_HTTP_PORT if developer mode, otherwise default to None.
+    # Perhaps can be set and thus enable direct http/s access to jboss
+    # even if proxy/ajp is enabled, didn't check that.
+    JBOSS_DIRECT_HTTP_PORT = 'OVESETUP_REPORTS_CONFIG/jbossDirectHttpPort'
+    JBOSS_DIRECT_HTTPS_PORT = 'OVESETUP_REPORTS_CONFIG/jbossDirectHttpsPort'
+
+    JBOSS_DEBUG_ADDRESS = 'OVESETUP_REPORTS_CONFIG/jbossDebugAddress'
+    JBOSS_NEEDED = 'OVESETUP_REPORTS_CONFIG/jbossNeeded'
 
 
 @util.export
@@ -338,15 +536,145 @@ class ApacheEnv(object):
         'OVESETUP_REPORTS_APACHE/configFileOvirtEngineReports'
 
 
+@util.export
+@util.codegen
+@osetupattrsclass
 class DWHDBEnv(object):
     """Sync with ovirt-dwh"""
-    HOST = 'OVESETUP_DWH_DB/host'
-    PORT = 'OVESETUP_DWH_DB/port'
-    SECURED = 'OVESETUP_DWH_DB/secured'
-    SECURED_HOST_VALIDATION = 'OVESETUP_DWH_DB/securedHostValidation'
-    DATABASE = 'OVESETUP_DWH_DB/database'
-    USER = 'OVESETUP_DWH_DB/user'
-    PASSWORD = 'OVESETUP_DWH_DB/password'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('DWH database host'),
+    )
+    def HOST(self):
+        return 'OVESETUP_DWH_DB/host'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('DWH database port'),
+    )
+    def PORT(self):
+        return 'OVESETUP_DWH_DB/port'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('DWH database secured connection'),
+    )
+    def SECURED(self):
+        return 'OVESETUP_DWH_DB/secured'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('DWH database host name validation'),
+    )
+    def SECURED_HOST_VALIDATION(self):
+        return 'OVESETUP_DWH_DB/securedHostValidation'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('DWH database name'),
+    )
+    def DATABASE(self):
+        return 'OVESETUP_DWH_DB/database'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('DWH database user name'),
+    )
+    def USER(self):
+        return 'OVESETUP_DWH_DB/user'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def PASSWORD(self):
+        return 'OVESETUP_DWH_DB/password'
+
+    CONNECTION = 'OVESETUP_DWH_DB/connection'
+    STATEMENT = 'OVESETUP_DWH_DB/statement'
+    PGPASS_FILE = 'OVESETUP_DWH_DB/pgPassFile'
+    NEW_DATABASE = 'OVESETUP_DWH_DB/newDatabase'
+
+
+@util.export
+@util.codegen
+@osetupattrsclass
+class EngineDBEnv(object):
+    """Sync with ovirt-engine"""
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine database host'),
+    )
+    def HOST(self):
+        return 'OVESETUP_DB/host'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine database port'),
+    )
+    def PORT(self):
+        return 'OVESETUP_DB/port'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine database secured connection'),
+    )
+    def SECURED(self):
+        return 'OVESETUP_DB/secured'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine database host name validation'),
+    )
+    def SECURED_HOST_VALIDATION(self):
+        return 'OVESETUP_DB/securedHostValidation'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine database name'),
+    )
+    def DATABASE(self):
+        return 'OVESETUP_DB/database'
+
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine database user name'),
+    )
+    def USER(self):
+        return 'OVESETUP_DB/user'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def PASSWORD(self):
+        return 'OVESETUP_DB/password'
+
+    CONNECTION = 'OVESETUP_DB/connection'
+    STATEMENT = 'OVESETUP_DB/statement'
+    PGPASS_FILE = 'OVESETUP_DB/pgPassFile'
+    NEW_DATABASE = 'OVESETUP_DB/newDatabase'
+
+
+@util.export
+@util.codegen
+@osetupattrsclass
+class EngineCoreEnv(object):
+    """Sync with ovirt-engine"""
+
+    ENABLE = 'OVESETUP_ENGINE_CORE/enable'
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

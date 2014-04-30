@@ -1,9 +1,21 @@
 %if 0%{?fedora}
 %global java_devel java-devel
+%global ovirt_install_systemd 1
+%global ovirt_install_systemv 0
+%if %{fedora} >= 20
+%global ovirt_provides_jboss 1
+%global jboss ovirt-engine-jboss-as >= 7.1.1
+%else
+%global ovirt_provides_jboss 0
+%global jboss jboss-as >= 7.1.1-9.3
+%endif
 %endif
 
 %if 0%{?rhel}
 %global java_devel java7-devel
+%global ovirt_install_systemd 0
+%global ovirt_install_systemv 1
+%global jboss ovirt-engine-jboss-as >= 7.1.1
 %endif
 
 %global product_name Reports package for oVirt Virtualization Management
@@ -15,6 +27,24 @@
 %global reports_java %{_javadir}/%{reports_name}
 %global engine_group ovirt
 %global engine_user ovirt
+%global engine_gid 108
+%global engine_uid 108
+
+# Macro to create a user:
+#
+# %1 user name
+# %2 user id
+# %3 primary group name
+# %4 primary group id
+# %5 description
+# %6 home directory
+#
+%global _ovirt_create_user() \
+getent group %3 >/dev/null || groupadd -r -g %4 %3; \
+getent passwd %1 >/dev/null || useradd -r -u %2 -g %3 -c %5 -s /sbin/nologin -d %6 %1
+
+%global ovirt_create_user_engine \
+%_ovirt_create_user %{engine_user} %{engine_uid} %{engine_group} %{engine_gid} "%{ovirt_user_description}" %{engine_state}
 
 %global make_common_opts \\\
 	-j1 \\\
@@ -44,7 +74,7 @@ Summary:	%{product_name}
 Group:		Virtualization/Management
 URL:		http://www.ovirt.org
 BuildArch:	noarch
-Source0:	http://resources.ovirt.org/pub/src/@PACKAGE_NAME@/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
+Source0:	http://resources.ovirt.org/pub/ovirt-master-snapshot/src/@PACKAGE_NAME@/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 
 BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
 BuildRequires:	%{java_devel}
@@ -53,6 +83,11 @@ BuildRequires:	log4j
 BuildRequires:	make
 BuildRequires:	ant
 
+%if %{ovirt_install_systemd}
+BuildRequires:	systemd
+%endif
+
+Requires:	%{jboss}
 Requires:	%{name}-setup >= %{version}-%{release}
 Requires:	jasperreports-server%{reports_jasper_suffix} < 5.6.0
 Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
@@ -60,11 +95,23 @@ Requires:	java
 Requires:	jpackage-utils
 Requires:	logrotate
 Requires:	m2crypto
-Requires:	%{engine_name} >= 3.5.0
 Requires:	patch
+Requires:	postgresql-server >= 8.4.7
+Requires:	python-cheetah
+Requires:	mod_ssl
+Requires:	httpd
+
+# On CentOS requires jpackage repo to be enabled
+Requires:	postgresql-jdbc
 
 # bug#862355
 Requires:	liberation-mono-fonts
+
+%if %{ovirt_install_systemd}
+Requires(post):		systemd
+Requires(preun):	systemd
+Requires(postun):	systemd
+%endif
 
 %description
 The %{product_description} package provides a suite of
@@ -78,9 +125,9 @@ Summary:	%{product_name} setup
 Group:		Virtualization/Management
 Requires:	cracklib-python
 Requires:	libxml2-python
-Requires:	%{engine_name}-dwh-setup
 Requires:	%{engine_name}-setup-plugin-ovirt-engine-common
 Requires:	python
+Requires:	%{name} >= 3.4.0
 
 %description setup
 %{product_description} setup package.
@@ -112,7 +159,50 @@ install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{reports_name}"
 ln -s "%{reports_name}" "%{buildroot}%{_javadir}/%{name}"
 %endif
 
+#
+# Register services
+#
+%if %{ovirt_install_systemd}
+install -dm 755 "%{buildroot}%{_unitdir}"
+for service in ovirt-engine-reportsd; do
+	cp "%{buildroot}%{_datadir}/%{reports_name}/services/${service}/${service}.systemd" "%{buildroot}%{_unitdir}/${service}.service"
+done
+%endif
+
+%if %{ovirt_install_systemv}
+install -dm 755 "%{buildroot}%{_initddir}"
+for service in ovirt-engine-reportsd; do
+	cp "%{buildroot}%{_datadir}/%{reports_name}/services/${service}/${service}.sysv" "%{buildroot}%{_initddir}/${service}"
+done
+%endif
+
+%pre
+%ovirt_create_user_engine
+
+%post
+%if %{ovirt_install_systemd}
+%systemd_post ovirt-engine-reportsd.service
+%endif
+%if %{ovirt_install_systemv}
+chkconfig --add ovirt-engine-reportsd
+%endif
+
+%preun
+%if %{ovirt_install_systemd}
+%systemd_preun ovirt-engine-reportsd.service
+%endif
+
+%if %{ovirt_install_systemv}
+if [ $1 -eq 0 ]; then
+	service ovirt-engine-reportsd stop > /dev/null 2>&1 || true
+	chkconfig --del ovirt-engine-reportsd
+fi
+%endif
+
 %postun
+%if %{ovirt_install_systemd}
+%systemd_postun ovirt-engine-reportsd.service
+%endif
 if [ "$1" -eq 0 ]; then
 	rm -rf /var/lib/ovirt-engine-reports/%{reports_name}.war
 	rm -f /var/lib/ovirt-engine/reports.xml
@@ -123,16 +213,24 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/lib/%{reports_name}
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}
 %{_localstatedir}/lib/ovirt-engine-reports/backups/
-%{_sysconfdir}/ovirt-engine/engine.conf.d/20-ovirt-engine-reports.conf
+
 %{reports_java}
 %{_datadir}/%{reports_name}
 %if "%{name}" != "%{reports_name}"
 %{_javadir}/%{name}
 %endif
 
+%if %{ovirt_install_systemd}
+%{_unitdir}/ovirt-engine-reportsd.service
+%endif
+%if %{ovirt_install_systemv}
+%{_initddir}/ovirt-engine-reportsd
+%endif
+
 %files setup
 %{_datadir}/ovirt-engine/setup/ovirt_engine_setup/reports/
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
+%{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
 * Thu Jun 5 2014 Shirly Radco <sradco@redhat.com> - 3.5
