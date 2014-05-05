@@ -45,6 +45,7 @@ class Plugin(plugin.PluginBase):
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
         after=(
             osetupcons.Stages.DB_CONNECTION_AVAILABLE,
+            oreportscons.Stages.JASPER_NAME_SET,
         ),
     )
     def misc(self):

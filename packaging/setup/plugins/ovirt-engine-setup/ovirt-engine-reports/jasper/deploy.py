@@ -518,6 +518,12 @@ class Plugin(plugin.PluginBase):
                     )
                 )
 
+    @plugin.event(
+        stage=plugin.Stages.STAGE_MISC,
+        name=oreportscons.Stages.JASPER_NAME_SET,
+        condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
+    )
+    def _jasper_name(self):
         install = glob.glob(
             os.path.join(
                 self.environment[oreportscons.ConfigEnv.JASPER_HOME],
@@ -548,6 +554,9 @@ class Plugin(plugin.PluginBase):
         ),
         before=(
             oreportscons.Stages.DB_SCHEMA,
+        ),
+        after=(
+            oreportscons.Stages.JASPER_NAME_SET,
         ),
     )
     def _export(self):
@@ -675,6 +684,9 @@ class Plugin(plugin.PluginBase):
         stage=plugin.Stages.STAGE_MISC,
         name=oreportscons.Stages.DB_SCHEMA,
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
+        after=(
+            oreportscons.Stages.JASPER_NAME_SET,
+        ),
     )
     def _deploy(self):
         standalone = os.path.join(
@@ -723,6 +735,7 @@ class Plugin(plugin.PluginBase):
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
         after=(
             oreportscons.Stages.DB_SCHEMA,
+            oreportscons.Stages.JASPER_NAME_SET,
         ),
     )
     def _import(self):
