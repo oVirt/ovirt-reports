@@ -182,6 +182,7 @@ class Stages(object):
     DB_SCHEMA = 'osetup.reports.db.schema'
     JASPER_DEPLOY_EXPORT = 'osetup.reports.jasper.deploy.export'
     JASPER_DEPLOY_IMPORT = 'osetup.reports.jasper.deploy.import'
+    JASPER_NAME_SET = 'osetup.reports.jasper.name.set'
 
 
 @util.export

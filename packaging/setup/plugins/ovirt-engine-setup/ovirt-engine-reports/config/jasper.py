@@ -25,6 +25,7 @@ from otopi import util
 from otopi import plugin
 
 
+from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup import reportsconstants as oreportscons
 
 
@@ -45,6 +46,9 @@ class Plugin(plugin.PluginBase):
 
     @plugin.event(
         stage=plugin.Stages.STAGE_VALIDATION,
+        condition=lambda self: self.environment[
+            osetupcons.CoreEnv.DEVELOPER_MODE
+        ],
     )
     def _validation(self):
         if not os.path.exists(
