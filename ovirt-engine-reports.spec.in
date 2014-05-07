@@ -30,7 +30,7 @@
 
 Name:		@PACKAGE_NAME@
 Version:	@RPM_VERSION@
-Release:	@RPM_RELEASE@%{?release_suffix}%{dist}
+Release:	@RPM_RELEASE@%{?release_suffix}%{?dist}
 License:	AGPLv3
 Summary:	%{product_name}
 Group:		Virtualization/Management
