@@ -127,6 +127,12 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Wed May 7 2014 Shirly Radco <sradco@redhat.com> - 3.4.1
+Fixed issues:
+- Removing build-conf files on failure(#1091700 / #1084749)
+- Do not check jasper home existance (#1093360)
+- added leading question mark to dist tag (#1094024)
+
 * Tue Apr 29 2014 Yaniv Dary <ydary@redhat.com> - 3.4.1
 Fixed issues:
 - Ask to config only during setup (#1080431)
