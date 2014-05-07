@@ -1,3 +1,11 @@
+%if 0%{?fedora}
+%global java_devel java-devel
+%endif
+
+%if 0%{?rhel}
+%global java_devel java7-devel
+%endif
+
 %global product_name Reports package for oVirt Virtualization Management
 %global product_description oVirt virtualization reports
 
@@ -39,7 +47,7 @@ BuildArch:	noarch
 Source0:	http://ovirt.org/releases/stable/src/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 
 BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-6
-BuildRequires:	java-devel
+BuildRequires:	%{java_devel}
 BuildRequires:	jpackage-utils
 BuildRequires:	log4j
 BuildRequires:	make
