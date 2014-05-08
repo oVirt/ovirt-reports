@@ -42,19 +42,19 @@
     <queryString>
         <![CDATA[select distinct $P!{calendar_column} as the_date, coalesce(os_type,max(os_type) over (partition by 1),'') as os_type, host_count
 FROM   (SELECT   history_datetime,
-                 coalesce(v3_4_configuration_history_hosts.host_os, 'Unknown') as os_type,
-                 COUNT(DISTINCT v3_4_configuration_history_hosts.host_id) AS host_count
+                 coalesce(v3_5_configuration_history_hosts.host_os, 'Unknown') as os_type,
+                 COUNT(DISTINCT v3_5_configuration_history_hosts.host_id) AS host_count
 
-        FROM    v3_4_statistics_hosts_resources_usage_$P!{table_name}
-                INNER JOIN v3_4_configuration_history_hosts
-                  ON (v3_4_configuration_history_hosts.history_id = v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_configuration_version)
+        FROM    v3_5_statistics_hosts_resources_usage_$P!{table_name}
+                INNER JOIN v3_5_configuration_history_hosts
+                  ON (v3_5_configuration_history_hosts.history_id = v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_configuration_version)
 
         WHERE
-        v3_4_configuration_history_hosts.cluster_id in (SELECT v3_4_configuration_history_clusters.cluster_id
-                                     FROM v3_4_configuration_history_clusters
-                                       WHERE v3_4_configuration_history_clusters.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
-        AND v3_4_configuration_history_hosts.cluster_id = CASE $P{P_Cluster_ID}
-                                 WHEN '11111111-1111-1111-1111-111111111111' then v3_4_configuration_history_hosts.cluster_id
+        v3_5_configuration_history_hosts.cluster_id in (SELECT v3_5_configuration_history_clusters.cluster_id
+                                     FROM v3_5_configuration_history_clusters
+                                       WHERE v3_5_configuration_history_clusters.datacenter_id = cast($P{P_DataCenter_ID} as uuid))
+        AND v3_5_configuration_history_hosts.cluster_id = CASE $P{P_Cluster_ID}
+                                 WHEN '11111111-1111-1111-1111-111111111111' then v3_5_configuration_history_hosts.cluster_id
                                  ELSE cast($P{P_Cluster_ID} as uuid)
                                      END
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
@@ -65,7 +65,7 @@ FROM   (SELECT   history_datetime,
                                    WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
         $P!{is_deleted}
-        GROUP BY history_datetime, coalesce(v3_4_configuration_history_hosts.host_os, 'Unknown')) a right outer join calendar b on (a.history_datetime = b.$P!{calendar_column})
+        GROUP BY history_datetime, coalesce(v3_5_configuration_history_hosts.host_os, 'Unknown')) a right outer join calendar b on (a.history_datetime = b.$P!{calendar_column})
 where $P!{calendar_column} >= cast($P{P_Start_Date} as date)
       AND $P!{calendar_column} <= CASE
                          WHEN $P{P_Period} = 0 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 day'

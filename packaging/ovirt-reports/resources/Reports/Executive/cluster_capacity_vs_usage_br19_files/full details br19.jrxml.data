@@ -30,9 +30,9 @@
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT
-    v3_4_configuration_history_datacenters.datacenter_name
+    v3_5_configuration_history_datacenters.datacenter_name
     as datacenter_name,
-    v3_4_configuration_history_datacenters.delete_date
+    v3_5_configuration_history_datacenters.delete_date
     as datacenter_delete_date,
     coalesce(
         (
@@ -40,15 +40,15 @@
                 ' '
                 ||
                 RTrim(
-                    cast ( v3_4_configuration_history_clusters.cluster_name as varchar )
+                    cast ( v3_5_configuration_history_clusters.cluster_name as varchar )
                 )
-            FROM v3_4_configuration_history_clusters
+            FROM v3_5_configuration_history_clusters
             WHERE
-                v3_4_configuration_history_clusters.cluster_id =
+                v3_5_configuration_history_clusters.cluster_id =
                 cast ( $P{P_Cluster_ID} as uuid )
-            AND v3_4_configuration_history_clusters.history_id in (
+            AND v3_5_configuration_history_clusters.history_id in (
                 SELECT max( a.history_id )
-                FROM v3_4_configuration_history_clusters as a
+                FROM v3_5_configuration_history_clusters as a
                 GROUP BY a.cluster_id
             )
         ),
@@ -56,14 +56,14 @@
     )
     as cluster_name,
     (
-        SELECT v3_4_configuration_history_clusters.delete_date
-        FROM v3_4_configuration_history_clusters
+        SELECT v3_5_configuration_history_clusters.delete_date
+        FROM v3_5_configuration_history_clusters
         WHERE
-            v3_4_configuration_history_clusters.cluster_id =
+            v3_5_configuration_history_clusters.cluster_id =
             cast ( $P{P_Cluster_ID} as uuid )
-        AND v3_4_configuration_history_clusters.history_id in (
+        AND v3_5_configuration_history_clusters.history_id in (
             SELECT max( a.history_id )
-            FROM v3_4_configuration_history_clusters as a
+            FROM v3_5_configuration_history_clusters as a
             GROUP BY a.cluster_id)
     )
     as cluster_delete_date,
@@ -103,13 +103,13 @@
         AND enum_translator_default.enum_type = 'REPORTS_PERIOD'
     )
     as period
-FROM v3_4_configuration_history_datacenters
+FROM v3_5_configuration_history_datacenters
 WHERE
-    v3_4_configuration_history_datacenters.datacenter_id =
+    v3_5_configuration_history_datacenters.datacenter_id =
     cast ( $P{P_DataCenter_ID} as uuid )
-AND v3_4_configuration_history_datacenters.history_id in (
+AND v3_5_configuration_history_datacenters.history_id in (
     SELECT max ( a.history_id )
-    FROM v3_4_configuration_history_datacenters as a
+    FROM v3_5_configuration_history_datacenters as a
     GROUP BY a.datacenter_id
 )]]>
 	</queryString>

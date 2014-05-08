@@ -9,17 +9,17 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT v3_4_latest_configuration_storage_domains.storage_domain_id, v3_4_latest_configuration_storage_domains.storage_domain_name, available_disk_size_gb, used_disk_size_gb, (SUM(cast(available_disk_size_gb as float)) / SUM(cast(used_disk_size_gb as float) + cast(available_disk_size_gb as float))) * 100 as free_disk_size_gb_percent
+		<![CDATA[SELECT v3_5_latest_configuration_storage_domains.storage_domain_id, v3_5_latest_configuration_storage_domains.storage_domain_name, available_disk_size_gb, used_disk_size_gb, (SUM(cast(available_disk_size_gb as float)) / SUM(cast(used_disk_size_gb as float) + cast(available_disk_size_gb as float))) * 100 as free_disk_size_gb_percent
 FROM storage_domain_samples_history
-     INNER JOIN v3_4_latest_map_datacenters_storage_domains
-         ON (storage_domain_samples_history.storage_domain_id = v3_4_latest_map_datacenters_storage_domains.storage_domain_id)
-     INNER JOIN v3_4_latest_configuration_storage_domains
-         ON (storage_domain_samples_history.storage_domain_id = v3_4_latest_configuration_storage_domains.storage_domain_id)
-WHERE v3_4_latest_map_datacenters_storage_domains.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)
+     INNER JOIN v3_5_latest_map_datacenters_storage_domains
+         ON (storage_domain_samples_history.storage_domain_id = v3_5_latest_map_datacenters_storage_domains.storage_domain_id)
+     INNER JOIN v3_5_latest_configuration_storage_domains
+         ON (storage_domain_samples_history.storage_domain_id = v3_5_latest_configuration_storage_domains.storage_domain_id)
+WHERE v3_5_latest_map_datacenters_storage_domains.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)
       AND storage_domain_samples_history.history_id in (SELECT max(a.history_id)
                                                         FROM storage_domain_samples_history AS a
                                                         GROUP BY a.storage_domain_id)
-GROUP BY v3_4_latest_configuration_storage_domains.storage_domain_id, v3_4_latest_configuration_storage_domains.storage_domain_name, available_disk_size_gb, used_disk_size_gb
+GROUP BY v3_5_latest_configuration_storage_domains.storage_domain_id, v3_5_latest_configuration_storage_domains.storage_domain_name, available_disk_size_gb, used_disk_size_gb
 ORDER BY SUM(cast(available_disk_size_gb as float)) / SUM(cast(used_disk_size_gb as float) + cast(available_disk_size_gb as float)) ASC
 LIMIT 5]]>
 	</queryString>

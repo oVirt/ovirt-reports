@@ -13,23 +13,23 @@
         <![CDATA[SELECT avg_host.history_datetime, host_mem_avg, vm_mem_total
 FROM
 (SELECT history_datetime,
-       SUM(coalesce(v3_4_configuration_history_hosts.memory_size_mb,0)) AS host_mem_avg
-FROM v3_4_statistics_hosts_resources_usage_samples
-         INNER JOIN v3_4_configuration_history_hosts
-             ON (v3_4_configuration_history_hosts.history_id = v3_4_statistics_hosts_resources_usage_samples.host_configuration_version)
-         INNER JOIN v3_4_latest_configuration_hosts a
-             ON (a.host_id = v3_4_statistics_hosts_resources_usage_samples.host_id)
-WHERE v3_4_statistics_hosts_resources_usage_samples.host_status = 1
+       SUM(coalesce(v3_5_configuration_history_hosts.memory_size_mb,0)) AS host_mem_avg
+FROM v3_5_statistics_hosts_resources_usage_samples
+         INNER JOIN v3_5_configuration_history_hosts
+             ON (v3_5_configuration_history_hosts.history_id = v3_5_statistics_hosts_resources_usage_samples.host_configuration_version)
+         INNER JOIN v3_5_latest_configuration_hosts a
+             ON (a.host_id = v3_5_statistics_hosts_resources_usage_samples.host_id)
+WHERE v3_5_statistics_hosts_resources_usage_samples.host_status = 1
       AND a.cluster_id = cast($P{P_Cluster_ID} as UUID)
 GROUP BY history_datetime) as avg_host INNER JOIN
 (SELECT history_datetime,
-        SUM(coalesce(v3_4_configuration_history_vms.memory_size_mb,0)) AS vm_mem_total
- FROM v3_4_statistics_vms_resources_usage_samples
-          INNER JOIN v3_4_configuration_history_vms
-              ON (v3_4_configuration_history_vms.history_id = v3_4_statistics_vms_resources_usage_samples.vm_configuration_version)
-          INNER JOIN v3_4_latest_configuration_vms a
-              ON (a.vm_id = v3_4_statistics_vms_resources_usage_samples.vm_id)
- WHERE v3_4_statistics_vms_resources_usage_samples.vm_status = 1
+        SUM(coalesce(v3_5_configuration_history_vms.memory_size_mb,0)) AS vm_mem_total
+ FROM v3_5_statistics_vms_resources_usage_samples
+          INNER JOIN v3_5_configuration_history_vms
+              ON (v3_5_configuration_history_vms.history_id = v3_5_statistics_vms_resources_usage_samples.vm_configuration_version)
+          INNER JOIN v3_5_latest_configuration_vms a
+              ON (a.vm_id = v3_5_statistics_vms_resources_usage_samples.vm_id)
+ WHERE v3_5_statistics_vms_resources_usage_samples.vm_status = 1
        AND a.cluster_id = cast($P{P_Cluster_ID} as UUID)
  GROUP BY history_datetime) as avg_vms ON (avg_vms.history_datetime = avg_host.history_datetime)]]>
     </queryString>

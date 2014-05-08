@@ -51,7 +51,7 @@ SELECT
     MEM_Peak
 FROM (
     SELECT
-        v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         CASE
             WHEN delete_date IS NULL
                 THEN host_name
@@ -65,7 +65,7 @@ FROM (
                 ')'
         END
         AS host_name,
-        v3_4_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
         MAX (
             COALESCE (
                 MAX_cpu_usage,
@@ -78,15 +78,15 @@ FROM (
                 0
             )
         ) AS MEM_Peak
-    FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
-        INNER JOIN v3_4_configuration_history_hosts
+    FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
+        INNER JOIN v3_5_configuration_history_hosts
             ON (
-                v3_4_configuration_history_hosts.host_id =
-                v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id
+                v3_5_configuration_history_hosts.host_id =
+                v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id
             )
     WHERE
         -- Here we filter by the hosts chosen by the user
-        $X{ IN, CAST ( v3_4_configuration_history_hosts.host_id AS varchar ), P_Host_ListID }
+        $X{ IN, CAST ( v3_5_configuration_history_hosts.host_id AS varchar ), P_Host_ListID }
         AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
         AND history_datetime <
         CASE
@@ -100,13 +100,13 @@ FROM (
                 THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
         END
         -- Here we get the latest hosts configuration
-        AND v3_4_configuration_history_hosts.history_id IN (
+        AND v3_5_configuration_history_hosts.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_4_configuration_history_hosts a
+            FROM v3_5_configuration_history_hosts a
             GROUP BY a.host_id
         )
     GROUP BY
-        v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         CASE
             WHEN delete_date IS NULL
                 THEN host_name
@@ -119,7 +119,7 @@ FROM (
                 ||
                 ')'
         END,
-        v3_4_statistics_hosts_resources_usage_$P!{table_name}.history_datetime
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.history_datetime
 ) AS a
     RIGHT OUTER JOIN calendar b
         ON ( time = $P!{calendar_column} )

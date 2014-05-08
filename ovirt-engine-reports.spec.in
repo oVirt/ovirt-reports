@@ -60,7 +60,7 @@ Requires:	java
 Requires:	jpackage-utils
 Requires:	logrotate
 Requires:	m2crypto
-Requires:	%{engine_name} >= 3.4.0
+Requires:	%{engine_name} >= 3.5.0
 Requires:	patch
 
 # bug#862355

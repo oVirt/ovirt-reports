@@ -40,22 +40,22 @@
     avg(unplanned_downtime_mins) as unplanned_downtime_mins,
     avg(uptime_mins) as uptime_mins,
        avg(total) as total
-FROM    (SELECT v3_4_configuration_history_hosts.cluster_id,
-               v3_4_configuration_history_clusters.cluster_name as name,
-               v3_4_configuration_history_clusters.delete_date,
-               v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id,
-               SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS planned_downtime_mins,
-               SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS unplanned_downtime_mins,
-               SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS uptime_mins,
-               Sum(v3_4_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status) as total
-        FROM v3_4_statistics_hosts_resources_usage_$P!{table_name}
-                INNER JOIN v3_4_configuration_history_hosts
-                    ON (v3_4_configuration_history_hosts.host_id = v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id)
-                        INNER JOIN v3_4_configuration_history_clusters
-                            ON (v3_4_configuration_history_clusters.cluster_id = v3_4_configuration_history_hosts.cluster_id)
+FROM    (SELECT v3_5_configuration_history_hosts.cluster_id,
+               v3_5_configuration_history_clusters.cluster_name as name,
+               v3_5_configuration_history_clusters.delete_date,
+               v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+               SUM(CASE WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2 THEN coalesce(v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS planned_downtime_mins,
+               SUM(CASE WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3 THEN coalesce(v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS unplanned_downtime_mins,
+               SUM(CASE WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1 THEN coalesce(v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,0) ELSE 0 END) AS uptime_mins,
+               Sum(v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status) as total
+        FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
+                INNER JOIN v3_5_configuration_history_hosts
+                    ON (v3_5_configuration_history_hosts.host_id = v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id)
+                        INNER JOIN v3_5_configuration_history_clusters
+                            ON (v3_5_configuration_history_clusters.cluster_id = v3_5_configuration_history_hosts.cluster_id)
         WHERE
-        v3_4_configuration_history_hosts.cluster_id in (SELECT cluster_id
-                                 FROM v3_4_configuration_history_clusters
+        v3_5_configuration_history_hosts.cluster_id in (SELECT cluster_id
+                                 FROM v3_5_configuration_history_clusters
                                  Where datacenter_id = cast($P{P_DataCenter_ID} as uuid))
         AND history_datetime >= cast($P{P_Start_Date} as timestamp)
         AND history_datetime <= CASE
@@ -64,21 +64,21 @@ FROM    (SELECT v3_4_configuration_history_hosts.cluster_id,
                                    WHEN $P{P_Period} = 2 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '3 month'
                                    WHEN $P{P_Period} = 3 THEN CAST($P{P_Start_Date} as TIMESTAMP) + interval '1 year'
                                END
-        AND v3_4_configuration_history_clusters.history_id in (SELECT max(a.history_id)
-                                  FROM v3_4_configuration_history_clusters a
+        AND v3_5_configuration_history_clusters.history_id in (SELECT max(a.history_id)
+                                  FROM v3_5_configuration_history_clusters a
                                   GROUP BY a.cluster_id)
-        AND v3_4_configuration_history_hosts.history_id in (SELECT max(b.history_id)
-                                   FROM v3_4_configuration_history_hosts b
+        AND v3_5_configuration_history_hosts.history_id in (SELECT max(b.history_id)
+                                   FROM v3_5_configuration_history_hosts b
                                    GROUP BY b.host_id)
         AND CASE
-            WHEN $P{is_deleted} like 'AND%' THEN v3_4_configuration_history_hosts.delete_date IS NULL
-            ELSE v3_4_configuration_history_hosts.delete_date IS NULL or v3_4_configuration_history_hosts.delete_date IS NOT NULL
+            WHEN $P{is_deleted} like 'AND%' THEN v3_5_configuration_history_hosts.delete_date IS NULL
+            ELSE v3_5_configuration_history_hosts.delete_date IS NULL or v3_5_configuration_history_hosts.delete_date IS NOT NULL
             END
         GROUP BY
-              v3_4_configuration_history_hosts.cluster_id
-              ,v3_4_configuration_history_clusters.cluster_name
-              ,v3_4_configuration_history_clusters.delete_date
-              ,v3_4_statistics_hosts_resources_usage_$P!{table_name}.host_id) a
+              v3_5_configuration_history_hosts.cluster_id
+              ,v3_5_configuration_history_clusters.cluster_name
+              ,v3_5_configuration_history_clusters.delete_date
+              ,v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id) a
 GROUP BY
           cluster_id
           ,name

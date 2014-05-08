@@ -6,8 +6,8 @@
 	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/webadmin_dashboards/ce/system_dashboard"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
 	<queryString>
-		<![CDATA[SELECT (SUM(CASE WHEN v3_4_statistics_hosts_resources_usage_samples.host_status = 1 THEN coalesce(v3_4_statistics_hosts_resources_usage_samples.minutes_in_status,0) ELSE 0 END) / SUM(v3_4_statistics_hosts_resources_usage_samples.minutes_in_status)) * 100 as uptime_mins_percent
-FROM v3_4_statistics_hosts_resources_usage_samples INNER JOIN v3_4_latest_configuration_hosts ON (v3_4_latest_configuration_hosts.host_id = v3_4_statistics_hosts_resources_usage_samples.host_id)]]>
+		<![CDATA[SELECT (SUM(CASE WHEN v3_5_statistics_hosts_resources_usage_samples.host_status = 1 THEN coalesce(v3_5_statistics_hosts_resources_usage_samples.minutes_in_status,0) ELSE 0 END) / SUM(v3_5_statistics_hosts_resources_usage_samples.minutes_in_status)) * 100 as uptime_mins_percent
+FROM v3_5_statistics_hosts_resources_usage_samples INNER JOIN v3_5_latest_configuration_hosts ON (v3_5_latest_configuration_hosts.host_id = v3_5_statistics_hosts_resources_usage_samples.host_id)]]>
 	</queryString>
 	<field name="uptime_mins_percent" class="java.math.BigDecimal"/>
 	<summary>

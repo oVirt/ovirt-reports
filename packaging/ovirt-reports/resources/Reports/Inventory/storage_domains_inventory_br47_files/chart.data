@@ -15,7 +15,7 @@
 -- available disk size, used disk size and total disk size
 
 SELECT
-    v3_4_configuration_history_storage_domains.storage_domain_id,
+    v3_5_configuration_history_storage_domains.storage_domain_id,
    COALESCE (
         samples.available_disk_size_gb,
         daily.available_disk_size_gb
@@ -31,33 +31,33 @@ SELECT
         daily.available_disk_size_gb + daily.used_disk_size_gb
     )
     AS total_size
-FROM v3_4_configuration_history_storage_domains
-    LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_samples AS samples
+FROM v3_5_configuration_history_storage_domains
+    LEFT OUTER JOIN v3_5_statistics_storage_domains_resources_usage_samples AS samples
         ON (
-            v3_4_configuration_history_storage_domains.storage_domain_id =
+            v3_5_configuration_history_storage_domains.storage_domain_id =
             samples.storage_domain_id
             AND samples.history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_4_statistics_storage_domains_resources_usage_samples a
+                FROM v3_5_statistics_storage_domains_resources_usage_samples a
                 GROUP BY a.storage_domain_id
             )
         )
-    LEFT OUTER JOIN v3_4_statistics_storage_domains_resources_usage_daily AS daily
+    LEFT OUTER JOIN v3_5_statistics_storage_domains_resources_usage_daily AS daily
         ON (
-            v3_4_configuration_history_storage_domains.storage_domain_id =
+            v3_5_configuration_history_storage_domains.storage_domain_id =
             daily.storage_domain_id
             AND daily.history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_4_statistics_storage_domains_resources_usage_daily a
+                FROM v3_5_statistics_storage_domains_resources_usage_daily a
                 GROUP BY a.storage_domain_id
             )
         )
 WHERE
-    v3_4_configuration_history_storage_domains.storage_domain_id =
+    v3_5_configuration_history_storage_domains.storage_domain_id =
         CAST ( $P{P_StorageDomain_ID} AS uuid )
-    AND v3_4_configuration_history_storage_domains.history_id IN (
+    AND v3_5_configuration_history_storage_domains.history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_4_configuration_history_storage_domains AS a
+        FROM v3_5_configuration_history_storage_domains AS a
         GROUP BY a.storage_domain_id
     )]]>
 	</queryString>

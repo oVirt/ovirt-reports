@@ -10,9 +10,9 @@
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString>
-			<![CDATA[SELECT count(DISTINCT v3_4_latest_map_datacenters_storage_domains.storage_domain_id) AS storage_count
-FROM v3_4_latest_map_datacenters_storage_domains
-WHERE v3_4_latest_map_datacenters_storage_domains.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
+			<![CDATA[SELECT count(DISTINCT v3_5_latest_map_datacenters_storage_domains.storage_domain_id) AS storage_count
+FROM v3_5_latest_map_datacenters_storage_domains
+WHERE v3_5_latest_map_datacenters_storage_domains.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
 		</queryString>
 		<field name="storage_count" class="java.lang.Long"/>
 	</subDataset>
@@ -20,13 +20,13 @@ WHERE v3_4_latest_map_datacenters_storage_domains.datacenter_id = CAST($P{P_Data
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT count(DISTINCT v3_4_latest_configuration_clusters.cluster_id) AS cluster_count,
-       count(DISTINCT v3_4_latest_configuration_hosts.host_id) AS host_count,
-       count(DISTINCT v3_4_latest_configuration_vms.vm_id) AS vm_count
-FROM v3_4_latest_configuration_clusters
-     LEFT OUTER JOIN v3_4_latest_configuration_hosts ON (v3_4_latest_configuration_clusters.cluster_id = v3_4_latest_configuration_hosts.cluster_id)
-     LEFT OUTER JOIN v3_4_latest_configuration_vms ON (v3_4_latest_configuration_clusters.cluster_id = v3_4_latest_configuration_vms.cluster_id)
-WHERE v3_4_latest_configuration_clusters.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
+		<![CDATA[SELECT count(DISTINCT v3_5_latest_configuration_clusters.cluster_id) AS cluster_count,
+       count(DISTINCT v3_5_latest_configuration_hosts.host_id) AS host_count,
+       count(DISTINCT v3_5_latest_configuration_vms.vm_id) AS vm_count
+FROM v3_5_latest_configuration_clusters
+     LEFT OUTER JOIN v3_5_latest_configuration_hosts ON (v3_5_latest_configuration_clusters.cluster_id = v3_5_latest_configuration_hosts.cluster_id)
+     LEFT OUTER JOIN v3_5_latest_configuration_vms ON (v3_5_latest_configuration_clusters.cluster_id = v3_5_latest_configuration_vms.cluster_id)
+WHERE v3_5_latest_configuration_clusters.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
 	</queryString>
 	<field name="cluster_count" class="java.lang.Long"/>
 	<field name="host_count" class="java.lang.Long"/>

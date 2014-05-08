@@ -86,10 +86,10 @@ FROM (
                 0
             )
         ) AS MEM_Peak
-    FROM v3_4_statistics_vms_resources_usage_hourly
+    FROM v3_5_statistics_vms_resources_usage_hourly
     WHERE
         -- Here we filter by the vm chosen by the user
-        v3_4_statistics_vms_resources_usage_hourly.vm_id =
+        v3_5_statistics_vms_resources_usage_hourly.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -228,11 +228,11 @@ FROM (
                 1
             )
         ) AS Write_Rate
-FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name}
-    INNER JOIN v3_4_configuration_history_vms_disks
+FROM v3_5_statistics_vms_disks_resources_usage_$P!{table_name}
+    INNER JOIN v3_5_configuration_history_vms_disks
         ON (
-            v3_4_configuration_history_vms_disks.vm_disk_id =
-            v3_4_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id
+            v3_5_configuration_history_vms_disks.vm_disk_id =
+            v3_5_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id
         )
     WHERE
         history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
@@ -248,20 +248,20 @@ FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name}
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
         -- Here we get the latest vms disks configuration
-        AND v3_4_configuration_history_vms_disks.history_id IN (
+        AND v3_5_configuration_history_vms_disks.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_4_configuration_history_vms_disks AS a
+            FROM v3_5_configuration_history_vms_disks AS a
             GROUP BY a.vm_disk_id
         )
         -- Here we get the top 5 utilised disks for the vm chosen by the user
-        AND v3_4_configuration_history_vms_disks.vm_disk_id IN (
+        AND v3_5_configuration_history_vms_disks.vm_disk_id IN (
             SELECT c.vm_disk_id
-            FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name} b
-                INNER JOIN v3_4_configuration_history_vms_disks c
+            FROM v3_5_statistics_vms_disks_resources_usage_$P!{table_name} b
+                INNER JOIN v3_5_configuration_history_vms_disks c
                     ON ( c.vm_disk_id = b.vm_disk_id )
             WHERE c.vm_disk_id IN (
                 SELECT device_id
-                FROM v3_4_configuration_history_vms_devices
+                FROM v3_5_configuration_history_vms_devices
                 WHERE
                     -- Here we filter by the vm chosen by the user
                     vm_id =
@@ -293,7 +293,7 @@ FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name}
                     -- Here we get the latest vms devices configuration
                     AND history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_4_configuration_history_vms_devices a
+                        FROM v3_5_configuration_history_vms_devices a
                         GROUP BY a.vm_id, a.device_id
                     )
                     $P!{is_deleted}
@@ -313,7 +313,7 @@ FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name}
             -- Here we get the latest vms disks configuration
             AND c.history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM  v3_4_configuration_history_vms_disks AS d
+                FROM  v3_5_configuration_history_vms_disks AS d
                 GROUP BY d.vm_disk_id
             )
             $P!{is_deleted}
@@ -345,7 +345,7 @@ FROM v3_4_statistics_vms_disks_resources_usage_$P!{table_name}
     )
     $P!{is_deleted}
     GROUP BY
-        v3_4_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id,
+        v3_5_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id,
         disk_name,
         CAST (
             EXTRACT ( HOUR FROM history_datetime ) AS int
@@ -440,12 +440,12 @@ SELECT DISTINCT
 FROM (
     -- VMs Ethernet Interface Tx and Rx Rates
     SELECT
-        v3_4_configuration_history_vms_interfaces.vm_interface_id,
+        v3_5_configuration_history_vms_interfaces.vm_interface_id,
         CASE
             WHEN delete_date IS NULL
-                THEN v3_4_configuration_history_vms_interfaces.vm_interface_name
+                THEN v3_5_configuration_history_vms_interfaces.vm_interface_name
             ELSE
-                v3_4_configuration_history_vms_interfaces.vm_interface_name
+                v3_5_configuration_history_vms_interfaces.vm_interface_name
                 ||
                 '*'
         END AS interface_name,
@@ -464,11 +464,11 @@ FROM (
                 0
             )
         ) AS Tx_rate
-    FROM v3_4_statistics_vms_interfaces_resources_usage_$P!{table_name}
-        INNER JOIN v3_4_configuration_history_vms_interfaces
+    FROM v3_5_statistics_vms_interfaces_resources_usage_$P!{table_name}
+        INNER JOIN v3_5_configuration_history_vms_interfaces
             ON (
-                v3_4_configuration_history_vms_interfaces.vm_interface_id =
-                v3_4_statistics_vms_interfaces_resources_usage_$P!{table_name}.vm_interface_id
+                v3_5_configuration_history_vms_interfaces.vm_interface_id =
+                v3_5_statistics_vms_interfaces_resources_usage_$P!{table_name}.vm_interface_id
             )
     WHERE
         history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
@@ -484,21 +484,21 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
         -- Here we get the latest vms disks configuration
-        AND v3_4_configuration_history_vms_interfaces.history_id IN (
+        AND v3_5_configuration_history_vms_interfaces.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_4_configuration_history_vms_interfaces AS a
+            FROM v3_5_configuration_history_vms_interfaces AS a
             GROUP BY a.vm_interface_id
         )
         $P!{is_deleted}
         -- Here we get the top 3 utilised network interfaces for the vm chosen by the user
-        AND v3_4_configuration_history_vms_interfaces.vm_interface_id IN (
+        AND v3_5_configuration_history_vms_interfaces.vm_interface_id IN (
             SELECT c.vm_interface_id
-            FROM v3_4_statistics_vms_interfaces_resources_usage_$P!{table_name} b
-                INNER JOIN v3_4_configuration_history_vms_interfaces c
+            FROM v3_5_statistics_vms_interfaces_resources_usage_$P!{table_name} b
+                INNER JOIN v3_5_configuration_history_vms_interfaces c
                     ON ( c.vm_interface_id = b.vm_interface_id )
             WHERE c.vm_interface_id IN (
                 SELECT device_id
-                FROM v3_4_configuration_history_vms_devices
+                FROM v3_5_configuration_history_vms_devices
                 WHERE
                     -- Here we filter by the vm chosen by the user
                     vm_id =
@@ -530,7 +530,7 @@ FROM (
                     -- Here we get the latest vms devices configuration
                     AND history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_4_configuration_history_vms_devices a
+                        FROM v3_5_configuration_history_vms_devices a
                         GROUP BY a.vm_id, a.device_id
                     )
                     $P!{is_deleted}
@@ -550,7 +550,7 @@ FROM (
             -- Here we get the latest vms disks configuration
             AND c.history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM  v3_4_configuration_history_vms_interfaces AS d
+                FROM  v3_5_configuration_history_vms_interfaces AS d
                 GROUP BY d.vm_interface_id
             )
             $P!{is_deleted}
@@ -572,7 +572,7 @@ FROM (
     )
     $P!{is_deleted}
     GROUP BY
-        v3_4_configuration_history_vms_interfaces.vm_interface_id,
+        v3_5_configuration_history_vms_interfaces.vm_interface_id,
         interface_name,
         CAST (
             EXTRACT ( HOUR FROM history_datetime ) AS int
@@ -693,10 +693,10 @@ FROM (
                 0
             )
         ) AS CPU_Peak
-    FROM v3_4_statistics_vms_resources_usage_hourly
+    FROM v3_5_statistics_vms_resources_usage_hourly
     WHERE
         -- Here we filter by the vm chosen by the user
-        v3_4_statistics_vms_resources_usage_hourly.vm_id =
+        v3_5_statistics_vms_resources_usage_hourly.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'

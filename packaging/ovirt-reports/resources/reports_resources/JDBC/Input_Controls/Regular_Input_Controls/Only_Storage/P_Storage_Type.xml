@@ -47,19 +47,19 @@ FROM enum_translator AS enum_translator_default
             AND enum_translator_localized.enum_key =
             enum_translator_default.enum_key
         )
-    INNER JOIN v3_4_configuration_history_storage_domains
+    INNER JOIN v3_5_configuration_history_storage_domains
         ON (
-            v3_4_configuration_history_storage_domains.storage_domain_type =
+            v3_5_configuration_history_storage_domains.storage_domain_type =
             enum_translator_default.enum_key
             AND enum_translator_default.enum_type =
             'STORAGE_DOMAIN_TYPE'
         )
         -- Here we filter by the datacenter chosen by the user
-    INNER JOIN v3_4_map_history_datacenters_storage_domains
+    INNER JOIN v3_5_map_history_datacenters_storage_domains
         ON (
-            v3_4_map_history_datacenters_storage_domains.storage_domain_id =
-            v3_4_configuration_history_storage_domains.storage_domain_id
-            AND v3_4_map_history_datacenters_storage_domains.datacenter_id =
+            v3_5_map_history_datacenters_storage_domains.storage_domain_id =
+            v3_5_configuration_history_storage_domains.storage_domain_id
+            AND v3_5_map_history_datacenters_storage_domains.datacenter_id =
             CAST ( $P{P_DataCenter_ID} as uuid )
         )
 WHERE

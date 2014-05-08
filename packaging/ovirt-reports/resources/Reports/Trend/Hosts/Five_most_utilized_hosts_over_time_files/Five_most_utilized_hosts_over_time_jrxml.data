@@ -103,10 +103,10 @@ FROM (
         ) AS MEM_Usage
     -- If "Period" equals to "Daily" then "table_name"
     -- parameter equals to "hourly" else "daily"
-    FROM v3_4_statistics_hosts_resources_usage_$P!{table_name} AS stats_hosts
-        INNER JOIN v3_4_configuration_history_hosts
+    FROM v3_5_statistics_hosts_resources_usage_$P!{table_name} AS stats_hosts
+        INNER JOIN v3_5_configuration_history_hosts
             ON (
-                v3_4_configuration_history_hosts.host_id =
+                v3_5_configuration_history_hosts.host_id =
                 stats_hosts.host_id
             )
     WHERE
@@ -124,23 +124,23 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
         -- Here we get the latest hosts configuration
-        AND v3_4_configuration_history_hosts.history_id IN (
+        AND v3_5_configuration_history_hosts.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_4_configuration_history_hosts AS a
+            FROM v3_5_configuration_history_hosts AS a
             GROUP BY a.host_id
         )
         AND stats_hosts.host_id IN (
             SELECT a.host_id
-            FROM v3_4_statistics_hosts_resources_usage_$P!{table_name} a
-                INNER JOIN v3_4_configuration_history_hosts b
+            FROM v3_5_statistics_hosts_resources_usage_$P!{table_name} a
+                INNER JOIN v3_5_configuration_history_hosts b
                     ON ( a.host_id = b.host_id )
             WHERE
                 -- Here we filter by the datacenter chosen by the user
                 b.cluster_id IN (
-                    SELECT v3_4_configuration_history_clusters.cluster_id
-                    FROM v3_4_configuration_history_clusters
+                    SELECT v3_5_configuration_history_clusters.cluster_id
+                    FROM v3_5_configuration_history_clusters
                     WHERE
-                        v3_4_configuration_history_clusters.datacenter_id =
+                        v3_5_configuration_history_clusters.datacenter_id =
                         CAST ( $P{P_DataCenter_ID} AS uuid )
                 )
                 -- Here we filter by the clusters chosen by the user
@@ -174,7 +174,7 @@ FROM (
                 -- Here we get the latest hosts configuration
                 AND b.history_id IN (
                     SELECT MAX (g.history_id)
-                    FROM v3_4_configuration_history_hosts g
+                    FROM v3_5_configuration_history_hosts g
                     GROUP BY g.host_id
                 )
                 -- The "is_deleted" parameter chosen by the user determines

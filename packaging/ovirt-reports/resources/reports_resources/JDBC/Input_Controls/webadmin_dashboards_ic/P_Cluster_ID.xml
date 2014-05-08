@@ -21,7 +21,7 @@
             <updateDate>2012-02-01T16:04:16.558+02:00</updateDate>
             <language>sql</language>
             <queryString>SELECT distinct cast(cluster_id as varchar), cluster_name
-FROM v3_4_latest_configuration_clusters
+FROM v3_5_latest_configuration_clusters
 ORDER BY cluster_name</queryString>
             <dataSource>
                 <uri>/reports_resources/JDBC/data_sources/ovirt</uri>
