@@ -126,7 +126,7 @@ class FileLocations(object):
     OVIRT_ENGINE_REPORTS_UI = os.path.join(
         PKG_DATA_DIR,
         'conf',
-        'reports.xml.in',
+        'reports.xml',
     )
     JASPER_BUILDOMATIC_CONFIG_TEMPALTE = os.path.join(
         PKG_DATA_DIR,

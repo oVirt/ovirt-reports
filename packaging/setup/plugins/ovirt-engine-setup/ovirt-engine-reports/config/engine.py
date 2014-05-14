@@ -27,9 +27,6 @@ from otopi import filetransaction
 from otopi import plugin
 
 
-from ovirt_engine import util as outil
-
-
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup import reportsconstants as oreportscons
 
@@ -57,29 +54,20 @@ class Plugin(plugin.PluginBase):
             fileList=uninstall_files,
         )
 
-        self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
-            filetransaction.FileTransaction(
-                name=os.path.join(
-                    osetupcons.FileLocations.OVIRT_ENGINE_LOCALSTATEDIR,
-                    'reports.xml',
-                ),
-                content=outil.processTemplate(
-                    template=(
-                        oreportscons.FileLocations.
-                        OVIRT_ENGINE_REPORTS_UI
+        with open(
+            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_UI,
+            "r",
+        ) as content:
+            self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
+                filetransaction.FileTransaction(
+                    name=os.path.join(
+                        osetupcons.FileLocations.OVIRT_ENGINE_LOCALSTATEDIR,
+                        'reports.xml',
                     ),
-                    subst={
-                        '@JASPER_IS_CE@': 'true' if self.environment[
-                            oreportscons.JasperEnv.JASPER_NAME
-                        ] == 'ce' else 'false',
-                        '@JASPER_NAME@': self.environment[
-                            oreportscons.JasperEnv.JASPER_NAME
-                        ],
-                    },
-                ),
-                modifiedList=uninstall_files,
+                    content=content.read(),
+                    modifiedList=uninstall_files,
+                )
             )
-        )
 
         self.environment[osetupcons.DBEnv.STATEMENT].updateVdcOptions(
             options=(
