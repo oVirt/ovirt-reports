@@ -99,7 +99,7 @@ FROM (
                 ELSE cast ( $P{P_Cluster_ID} as uuid )
             END
             AND history_datetime >= cast ( $P{P_Start_Date} as date )
-            AND history_datetime <=
+            AND history_datetime <
                 CASE
                     WHEN $P{P_Period} = 0
                         THEN cast ( $P{P_Start_Date} as TIMESTAMP ) + interval '1 day'
@@ -175,7 +175,7 @@ FROM (
                         ELSE cast ( $P{P_Cluster_ID} as uuid )
                     END
                 AND history_datetime >= cast ( $P{P_Start_Date} as date )
-                AND history_datetime <=
+                AND history_datetime <
                     CASE
                         WHEN $P{P_Period} = 0
                             THEN cast ( $P{P_Start_Date} as TIMESTAMP ) + interval '1 day'
@@ -217,7 +217,7 @@ as query_run
             calendar.$P!{calendar_column}
         )
 WHERE $P!{calendar_column} >= cast ( $P{P_Start_Date} as date )
-AND $P!{calendar_column} <=
+AND $P!{calendar_column} <
     CASE
         WHEN $P{P_Period} = 0
             THEN cast ( $P{P_Start_Date} as TIMESTAMP ) + interval '1 day'

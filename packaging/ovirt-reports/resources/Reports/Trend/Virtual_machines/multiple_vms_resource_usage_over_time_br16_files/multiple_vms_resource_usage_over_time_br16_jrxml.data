@@ -86,7 +86,7 @@ FROM (
         -- This condition will filter the vm's based on the vm list the user chose
         $X{IN, CAST ( v3_5_configuration_history_vms.vm_id AS varchar ), P_VM_ListID}
         AND history_datetime >= CAST ( $P{P_Start_Date} AS timestamp )
-        AND history_datetime <=
+        AND history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
@@ -128,7 +128,7 @@ FROM (
         )
 WHERE
     $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
-    AND $P!{calendar_column} <=
+    AND $P!{calendar_column} <
     CASE
         WHEN $P{P_Period} = 0
             THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'

@@ -121,7 +121,7 @@ FROM (
                 GROUP BY b.vm_id
             )
         AND history_datetime >= CAST ( $P{P_Start_Date} AS date )
-        AND history_datetime <=
+        AND history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
@@ -171,7 +171,7 @@ AS all_query
             all_query.time = calendar.$P!{calendar_column}
         )
 WHERE $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
-    AND $P!{calendar_column} <=
+    AND $P!{calendar_column} <
         CASE
             WHEN $P{P_Period} = 0
                 THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
@@ -291,7 +291,7 @@ FROM (
                 GROUP BY b.vm_id
             )
         AND history_datetime >= CAST ( $P{P_Start_Date} AS date )
-        AND history_datetime <=
+        AND history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
@@ -319,7 +319,7 @@ AS os_query
     RIGHT OUTER JOIN calendar
         ON ( os_query.time = calendar.$P!{calendar_column} )
 WHERE $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
-    AND $P!{calendar_column} <=
+    AND $P!{calendar_column} <
         CASE
             WHEN $P{P_Period} = 0
                 THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
@@ -473,7 +473,7 @@ AS windows_query
             windows_query.time = calendar.$P!{calendar_column}
         )
 WHERE $P!{calendar_column} >= CAST ( $P{P_Start_Date} AS date )
-    AND $P!{calendar_column} <=
+    AND $P!{calendar_column} <
         CASE
             WHEN $P{P_Period} = 0
                 THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'

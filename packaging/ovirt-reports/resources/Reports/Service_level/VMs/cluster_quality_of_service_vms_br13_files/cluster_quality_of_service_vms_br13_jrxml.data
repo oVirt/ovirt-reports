@@ -136,7 +136,7 @@ FROM (
                 GROUP BY a.vm_id
             )
             AND history_datetime >= CAST ( $P{P_Start_Date} AS  timestamp )
-            AND history_datetime <=
+            AND history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
@@ -290,7 +290,7 @@ FROM (
             )
             AND v3_5_statistics_vms_resources_usage_hourly.history_datetime >=
             CAST ( $P{P_Start_Date} AS timestamp )
-            AND v3_5_statistics_vms_resources_usage_hourly.history_datetime <=
+            AND v3_5_statistics_vms_resources_usage_hourly.history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 day'
