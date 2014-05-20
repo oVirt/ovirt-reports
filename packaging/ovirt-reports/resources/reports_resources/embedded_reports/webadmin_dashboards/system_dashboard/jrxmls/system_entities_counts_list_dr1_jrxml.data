@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.5.0-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="system_entities_counts_list_dr1" language="groovy" pageWidth="360" pageHeight="160" columnWidth="360" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="05ddffed-4575-487b-8e3a-3eacdf2a21c7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/webadmin_dashboards/ce/system_dashboard"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/jrxmls/system_entities_counts_list_dr1_jrxml"/>
 	<subDataset name="storage_count" uuid="6b400e6b-94db-4d9e-af5e-48b1d52f3ad3">
-		<queryString>
-			<![CDATA[SELECT count(DISTINCT v3_5_latest_map_datacenters_storage_domains.storage_domain_id) AS storage_count
+		<queryString language="SQL">
+			<![CDATA[-- DR1 - This query returns the total count of storage domains
+
+SELECT
+    COUNT (
+        DISTINCT v3_5_latest_map_datacenters_storage_domains.storage_domain_id
+    ) AS storage_count
 FROM v3_5_latest_map_datacenters_storage_domains]]>
 		</queryString>
 		<field name="storage_count" class="java.lang.Long"/>
 	</subDataset>
-	<queryString>
-		<![CDATA[SELECT (SELECT count(*)
-        FROM v3_5_latest_configuration_datacenters) as datacenter_count,
-       (SELECT count(*)
-        FROM v3_5_latest_configuration_clusters) as cluster_count,
-       (SELECT count(*)
-        FROM v3_5_latest_configuration_hosts) as host_count,
-       (SELECT count(*)
-        FROM v3_5_latest_configuration_vms) as vm_count]]>
+	<queryString language="SQL">
+		<![CDATA[-- DR1 - This query returns entities count per entity
+
+SELECT (
+    SELECT COUNT ( * )
+    FROM v3_5_latest_configuration_datacenters
+) AS datacenter_count,
+(
+    SELECTCOUNT ( * )
+    FROM v3_5_latest_configuration_clusters
+) AS cluster_count,
+(
+    SELECT COUNT ( * )
+    FROM v3_5_latest_configuration_hosts
+) AS host_count,
+(
+    SELECT COUNT ( * )
+    FROM v3_5_latest_configuration_vms
+) AS vm_count]]>
 	</queryString>
 	<field name="datacenter_count" class="java.lang.Long"/>
 	<field name="cluster_count" class="java.lang.Long"/>
@@ -32,67 +48,67 @@ FROM v3_5_latest_map_datacenters_storage_domains]]>
 	<summary>
 		<band height="160" splitType="Stretch">
 			<image>
-				<reportElement uuid="9b3efd99-9293-4137-9520-6103fcc47a9c" x="0" y="0" width="360" height="160"/>
+				<reportElement x="0" y="0" width="360" height="160" uuid="9b3efd99-9293-4137-9520-6103fcc47a9c"/>
 				<imageExpression><![CDATA["repo:statisticBackground.png"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement uuid="d9500157-7619-4087-b69c-8cbff5d32bde" x="72" y="122" width="185" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="72" y="122" width="185" height="29" forecolor="#FFFFFF" uuid="d9500157-7619-4087-b69c-8cbff5d32bde"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dr.count.list.vms} + ":"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="fbf312f1-5432-4d15-a63b-331bb6c21f6d" x="72" y="64" width="185" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="72" y="64" width="185" height="29" forecolor="#FFFFFF" uuid="fbf312f1-5432-4d15-a63b-331bb6c21f6d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dr.count.list.clusters} + ":"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="54570099-b6d1-4e65-b8b9-3baec002d4f8" x="72" y="93" width="185" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="72" y="93" width="185" height="29" forecolor="#FFFFFF" uuid="54570099-b6d1-4e65-b8b9-3baec002d4f8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dr.count.list.hosts} + ":"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="398df013-3a8d-4d7c-ae47-44c32c170961" x="72" y="35" width="185" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="72" y="35" width="185" height="29" forecolor="#FFFFFF" uuid="398df013-3a8d-4d7c-ae47-44c32c170961"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{dr.count.list.dcs} + ":"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="fac2aef7-3c33-4a9e-90b6-8b4847231ac4" x="257" y="122" width="92" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="257" y="122" width="92" height="29" forecolor="#FFFFFF" uuid="fac2aef7-3c33-4a9e-90b6-8b4847231ac4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vm_count}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="fefe9984-7161-4d6b-9f85-9a05a52659bb" x="257" y="93" width="92" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="257" y="93" width="92" height="29" forecolor="#FFFFFF" uuid="fefe9984-7161-4d6b-9f85-9a05a52659bb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{host_count}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="167068e0-f52b-4bd0-93b9-c8ac8d34c994" x="257" y="64" width="92" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="257" y="64" width="92" height="29" forecolor="#FFFFFF" uuid="167068e0-f52b-4bd0-93b9-c8ac8d34c994"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cluster_count}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="32772ecd-411f-4778-a96e-bfb31ee466eb" x="257" y="35" width="92" height="29" forecolor="#FFFFFF"/>
+				<reportElement x="257" y="35" width="92" height="29" forecolor="#FFFFFF" uuid="32772ecd-411f-4778-a96e-bfb31ee466eb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{datacenter_count}.toString()]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement uuid="932508db-67df-4e7b-a749-a06d8d16a5b8" x="72" y="6" width="277" height="29"/>
+				<reportElement x="72" y="6" width="277" height="29" uuid="932508db-67df-4e7b-a749-a06d8d16a5b8"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="storage_count" uuid="c277a795-0665-4798-b54c-e68247c4dd03">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
@@ -100,14 +116,14 @@ FROM v3_5_latest_map_datacenters_storage_domains]]>
 					</datasetRun>
 					<jr:listContents height="29" width="277">
 						<textField>
-							<reportElement uuid="8d6c9321-cc54-4bcb-9c8c-0cbd26f00733" x="0" y="0" width="185" height="29" forecolor="#FFFFFF"/>
+							<reportElement x="0" y="0" width="185" height="29" forecolor="#FFFFFF" uuid="8d6c9321-cc54-4bcb-9c8c-0cbd26f00733"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="SansSerif" size="16" isBold="true"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$R{dr.count.list.storage.domains} + ":"]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement uuid="83d3568a-345e-4e3f-947e-86105f8fb7e3" x="185" y="0" width="92" height="29" forecolor="#FFFFFF"/>
+							<reportElement x="185" y="0" width="92" height="29" forecolor="#FFFFFF" uuid="83d3568a-345e-4e3f-947e-86105f8fb7e3"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="SansSerif" size="16" isBold="true"/>
 							</textElement>
