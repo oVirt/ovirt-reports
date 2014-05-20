@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.5.0-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datacenter_host_uptime_status_dr5" language="groovy" pageWidth="534" pageHeight="35" columnWidth="534" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="b40be4e3-b155-439b-bc9d-fa2f9c37561e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/webadmin_dashboards/ce/datacenter_dashboard"/>
-	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/services/repository"/>
-	<parameter name="P_DataCenter_ID" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<queryString>
-		<![CDATA[SELECT (SUM(CASE WHEN v3_5_statistics_hosts_resources_usage_samples.host_status = 1 THEN coalesce(v3_5_statistics_hosts_resources_usage_samples.minutes_in_status,0) ELSE 0 END) / SUM(v3_5_statistics_hosts_resources_usage_samples.minutes_in_status)) * 100 as uptime_mins_percent
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/jrxmls/dc_host_uptime_status_dr5_jrxml"/>
+	<parameter name="P_DataCenter_ID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[-- DR5 - This query returns the uptime percent
+-- of the hosts in the chosen datacenter
+
+SELECT
+    (
+        SUM (
+            CASE
+                WHEN v3_5_statistics_hosts_resources_usage_samples.host_status = 1
+                    THEN
+                        COALESCE (
+                            v3_5_statistics_hosts_resources_usage_samples.minutes_in_status,
+                            0
+                        )
+                ELSE 0
+            END
+        ) /
+        SUM (
+            v3_5_statistics_hosts_resources_usage_samples.minutes_in_status
+        )
+    ) * 100
+    AS uptime_mins_percent
 FROM v3_5_statistics_hosts_resources_usage_samples
-     INNER JOIN v3_5_latest_configuration_hosts ON (v3_5_latest_configuration_hosts.host_id = v3_5_statistics_hosts_resources_usage_samples.host_id)
-                INNER JOIN v3_5_latest_configuration_clusters ON (v3_5_latest_configuration_hosts.cluster_id = v3_5_latest_configuration_clusters.cluster_id)
-WHERE v3_5_latest_configuration_clusters.datacenter_id = CAST($P{P_DataCenter_ID} as UUID)]]>
+    INNER JOIN v3_5_latest_configuration_hosts
+        ON (
+            v3_5_latest_configuration_hosts.host_id =
+            v3_5_statistics_hosts_resources_usage_samples.host_id
+        )
+    INNER JOIN v3_5_latest_configuration_clusters
+        ON (
+            v3_5_latest_configuration_hosts.cluster_id =
+            v3_5_latest_configuration_clusters.cluster_id
+        )
+WHERE
+    -- Here we filter by the datacenter chosen by the user
+    v3_5_latest_configuration_clusters.datacenter_id =
+    CAST ( $P{P_DataCenter_ID} as UUID )]]>
 	</queryString>
 	<field name="uptime_mins_percent" class="java.math.BigDecimal"/>
 	<summary>
 		<band height="35" splitType="Stretch">
 			<textField>
-				<reportElement uuid="4ccabe9d-6e27-4c32-86eb-ac4000adc105" x="0" y="0" width="370" height="35" forecolor="#333333"/>
+				<reportElement x="0" y="0" width="370" height="35" forecolor="#333333" uuid="4ccabe9d-6e27-4c32-86eb-ac4000adc105"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="SansSerif" size="15"/>
 				</textElement>
@@ -27,14 +57,14 @@ WHERE v3_5_latest_configuration_clusters.datacenter_id = CAST($P{P_DataCenter_ID
 				<hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the selected datacenter."]]></hyperlinkTooltipExpression>
 			</textField>
 			<image>
-				<reportElement uuid="122b9483-0aee-492a-9f7c-f5dcb0c2e585" x="375" y="10" width="17" height="15">
+				<reportElement x="375" y="10" width="17" height="15" uuid="122b9483-0aee-492a-9f7c-f5dcb0c2e585">
 					<printWhenExpression><![CDATA[$F{uptime_mins_percent} == null || $F{uptime_mins_percent} >= 60]]></printWhenExpression>
 				</reportElement>
 				<imageExpression><![CDATA["repo:/reports_resources/check-mark.jpg"]]></imageExpression>
 				<hyperlinkTooltipExpression><![CDATA["Calculates average uptime percent for all hosts. Displays check mark if uptime is over 60%, otherwise displays X mark.\nThis query is calculated from the hosts' statistics samples view for the selected datacenter."]]></hyperlinkTooltipExpression>
 			</image>
 			<image>
-				<reportElement uuid="0b974074-88a5-4448-a156-4439f855b155" x="375" y="10" width="17" height="15">
+				<reportElement x="375" y="10" width="17" height="15" uuid="0b974074-88a5-4448-a156-4439f855b155">
 					<printWhenExpression><![CDATA[$F{uptime_mins_percent} != null && $F{uptime_mins_percent} < 60]]></printWhenExpression>
 				</reportElement>
 				<imageExpression><![CDATA["repo:/reports_resources/x-mark.jpg"]]></imageExpression>
