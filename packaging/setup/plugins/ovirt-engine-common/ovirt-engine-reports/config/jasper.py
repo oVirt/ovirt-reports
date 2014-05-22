@@ -25,7 +25,6 @@ from otopi import util
 from otopi import plugin
 
 
-from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup import reportsconstants as oreportscons
 
 
@@ -36,26 +35,13 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
-        stage=plugin.Stages.STAGE_VALIDATION,
-        condition=lambda self: self.environment[
-            osetupcons.CoreEnv.DEVELOPER_MODE
-        ],
+        stage=plugin.Stages.STAGE_INIT,
     )
-    def _validation(self):
-        if not os.path.exists(
-            self.environment[
-                oreportscons.ConfigEnv.JASPER_HOME
-            ]
-        ):
-            raise RuntimeError(
-                _(
-                    'Cannot find jasper reports server at {path}'
-                ).format(
-                    path=self.environment[
-                        oreportscons.ConfigEnv.JASPER_HOME
-                    ]
-                )
-            )
+    def _init(self):
+        self.environment.setdefault(
+            oreportscons.ConfigEnv.JASPER_HOME,
+            oreportscons.FileLocations.JASPER_HOME
+        )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
