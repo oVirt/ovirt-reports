@@ -281,7 +281,7 @@ FROM (
                                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
                             END
                         AND (
-                            delete_date <= CAST( $P{P_Start_Date} AS TIMESTAMP )
+                            delete_date > CAST( $P{P_Start_Date} AS TIMESTAMP )
                             OR
                             delete_date IS NULL
                         )
@@ -513,7 +513,7 @@ FROM (
                                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
                             END
                         AND (
-                            delete_date <= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                            delete_date > CAST ( $P{P_Start_Date} AS TIMESTAMP )
                             OR
                             delete_date IS NULL
                         )
