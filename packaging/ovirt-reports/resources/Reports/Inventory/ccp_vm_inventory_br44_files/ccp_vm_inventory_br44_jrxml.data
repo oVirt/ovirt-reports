@@ -223,22 +223,8 @@ WHERE
             WHEN $P{P_Period} = 3
                 THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
         END
-    AND (
-        (
-            v3_5_configuration_history_vms.delete_date <
-            CASE
-                WHEN $P{P_Period} = 0
-                    THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
-                WHEN $P{P_Period} = 1
-                    THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
-                WHEN $P{P_Period} = 2
-                    THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
-                WHEN $P{P_Period} = 3
-                    THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
-            END
-            AND v3_5_configuration_history_vms.delete_date >=
-            CAST( $P{P_Start_Date} AS TIMESTAMP )
-        )
+    AND v3_5_configuration_history_vms.delete_date >
+        CAST( $P{P_Start_Date} AS TIMESTAMP )
         OR
         v3_5_configuration_history_vms.delete_date IS NULL
     )
