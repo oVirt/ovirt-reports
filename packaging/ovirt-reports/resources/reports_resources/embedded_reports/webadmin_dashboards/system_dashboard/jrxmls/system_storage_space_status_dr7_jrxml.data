@@ -11,16 +11,22 @@
 -- out of the total storage domains disks space
 
 SELECT
-    (
-        SUM (
-            cast ( available_disk_size_gb as float )
-        ) /
-        SUM (
+    CASE
+        WHEN SUM (
             cast ( used_disk_size_gb as float ) +
             cast ( available_disk_size_gb as float )
-        )
-    ) * 100
-    AS free_disk_size_gb_percent
+        ) != 0
+            THEN (
+                SUM (
+                    cast ( available_disk_size_gb as float )
+                ) /
+                SUM (
+                    cast ( used_disk_size_gb as float ) +
+                    cast ( available_disk_size_gb as float )
+                )
+            ) * 100
+        ELSE NULL
+    END AS free_disk_size_gb_percent
 FROM storage_domain_samples_history
 WHERE
     -- Here we get the latest storage domains configuration
