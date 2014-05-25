@@ -73,8 +73,10 @@ FROM (
             v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id
         )
     WHERE
+        -- Here we filter by active hosts only
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the datacenter chosen by the user
-        v3_5_configuration_history_hosts.cluster_id IN (
+        AND v3_5_configuration_history_hosts.cluster_id IN (
             SELECT cluster_id
                 FROM v3_5_configuration_history_clusters
                 WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )

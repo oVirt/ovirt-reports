@@ -88,8 +88,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_vms_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active vms only
+        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- Here we filter by the vm chosen by the user
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
+        AND v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -252,45 +254,57 @@ FROM (
             SELECT c.vm_disk_id
             FROM v3_5_statistics_vms_disks_resources_usage_$P!{table_name} b
                 INNER JOIN v3_5_configuration_history_vms_disks c
-                    ON ( c.vm_disk_id = b.vm_disk_id )
-            WHERE c.vm_disk_id IN (
-                SELECT device_id
-                FROM v3_5_configuration_history_vms_devices
-                WHERE
-                    -- Here we filter by the vm type chosen by the user
-                    vm_id =
-                        CASE $P{P_VM_ID}
-                            WHEN '00000000-0000-0000-0000-000000000000'
-                                THEN '00000000-0000-0000-0000-000000000000'
-                            WHEN NULL
-                                THEN '00000000-0000-0000-0000-000000000000'
-                            WHEN '11111111-1111-1111-1111-111111111111'
-                                THEN '00000000-0000-0000-0000-000000000000'
-                            ELSE CAST ( $P{P_VM_ID} AS uuid )
-                        END
-                    AND create_date <
-                        CASE
-                            WHEN $P{P_Period} = 0
-                                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
-                            WHEN $P{P_Period} = 1
-                                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
-                            WHEN $P{P_Period} = 2
-                                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
-                            WHEN $P{P_Period} = 3
-                                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
-                        END
-                    AND (
-                        delete_date > CAST ( $P{P_Start_Date} AS TIMESTAMP )
-                        OR
-                        delete_date IS NULL
+                    ON (
+                        c.vm_disk_id = b.vm_disk_id
                     )
-                    -- Here we get the latest vms devices configuration
-                    AND history_id IN (
-                        SELECT MAX ( a.history_id )
-                        FROM v3_5_configuration_history_vms_devices a
-                        GROUP BY a.vm_id, a.device_id
-                    )
-                    $P!{is_deleted}
+            WHERE
+                -- Here we filter by active vms disks only
+                b.vm_disk_status = 1
+                AND c.vm_disk_id IN (
+                    SELECT device_id
+                    FROM v3_5_configuration_history_vms_devices
+                        INNER JOIN v3_5_statistics_vms_resources_usage_$P!{table_name}
+                            ON (
+                                v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version =
+                                v3_5_configuration_history_vms_devices.vm_configuration_version
+                            )
+                    WHERE
+                        -- Here we filter by active vms only
+                        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+                        -- Here we filter by the vm type chosen by the user
+                        AND v3_5_configuration_history_vms_devices.vm_id =
+                            CASE $P{P_VM_ID}
+                                WHEN '00000000-0000-0000-0000-000000000000'
+                                    THEN '00000000-0000-0000-0000-000000000000'
+                                WHEN NULL
+                                    THEN '00000000-0000-0000-0000-000000000000'
+                                WHEN '11111111-1111-1111-1111-111111111111'
+                                    THEN '00000000-0000-0000-0000-000000000000'
+                                ELSE CAST ( $P{P_VM_ID} AS uuid )
+                            END
+                        AND create_date <
+                            CASE
+                                WHEN $P{P_Period} = 0
+                                    THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
+                                WHEN $P{P_Period} = 1
+                                    THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
+                                WHEN $P{P_Period} = 2
+                                    THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
+                                WHEN $P{P_Period} = 3
+                                    THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
+                            END
+                        AND (
+                            delete_date > CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                            OR
+                            delete_date IS NULL
+                        )
+                        -- Here we get the latest vms devices configuration
+                        AND v3_5_configuration_history_vms_devices.history_id IN (
+                            SELECT MAX ( a.history_id )
+                            FROM v3_5_configuration_history_vms_devices a
+                            GROUP BY a.vm_id, a.device_id
+                        )
+                        $P!{is_deleted}
                 )
                 AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
                 AND history_datetime <
@@ -484,9 +498,16 @@ FROM (
                         c.vm_interface_id =
                         b.vm_interface_id
                     )
+                INNER JOIN v3_5_statistics_vms_resources_usage_$P!{table_name} d
+                    ON (
+                        d.vm_configuration_version =
+                        c.vm_configuration_version
+                    )
             WHERE
+                -- Here we filter by active vms only
+                d.vm_status = 1
                 -- Here we filter by the vm chosen by the user
-                c.vm_interface_id IN (
+                AND c.vm_interface_id IN (
                     SELECT device_id
                     FROM v3_5_configuration_history_vms_devices
                     WHERE vm_id =
@@ -525,8 +546,8 @@ FROM (
                         -- in the "is_deleted" parameter.
                         $P!{is_deleted}
                 )
-                AND history_datetime >= CAST ( $P{P_Start_Date} as TIMESTAMP )
-                AND history_datetime <
+                AND b.history_datetime >= CAST ( $P{P_Start_Date} as TIMESTAMP )
+                AND b.history_datetime <
                     CASE
                         WHEN $P{P_Period} = 0
                             THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
@@ -682,8 +703,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_vms_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active vms only
+        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- Here we filter by the vm chosen by the user
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
+        AND v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'

@@ -137,8 +137,10 @@ FROM (
                 INNER JOIN v3_5_configuration_history_hosts b
                     ON ( a.host_id = b.host_id )
             WHERE
+                -- Here we filter by active hosts only
+                a.host_status = 1
                 -- Here we filter by the datacenter chosen by the user
-                b.cluster_id IN (
+                AND b.cluster_id IN (
                     SELECT v3_5_configuration_history_clusters.cluster_id
                     FROM v3_5_configuration_history_clusters
                     WHERE

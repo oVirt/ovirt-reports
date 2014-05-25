@@ -89,8 +89,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active hosts only
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the host chosen by the user
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        AND v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -202,8 +204,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active hosts only
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the host chosen by the user
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        AND v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -361,9 +365,16 @@ FROM (
             FROM v3_5_statistics_hosts_interfaces_resources_usage_$P!{table_name} b
                 INNER JOIN v3_5_configuration_history_hosts_interfaces c
                     ON ( c.host_interface_id = b.host_interface_id )
+                INNER JOIN v3_5_statistics_hosts_resources_usage_$P!{table_name}
+                    ON (
+                        v3_5_statistics_hosts_resources_usage_$P!{table_name}.history_id =
+                        c.host_configuration_version
+                    )
             WHERE
+                -- Here we filter by active hosts only
+                v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
                 -- Here we filter by the host chosen by the user
-                c.host_id =
+                AND c.host_id =
                     CASE $P{P_Host_ID}
                         WHEN '00000000-0000-0000-0000-000000000000'
                             THEN '00000000-0000-0000-0000-000000000000'
@@ -373,8 +384,8 @@ FROM (
                             THEN '00000000-0000-0000-0000-000000000000'
                         ELSE CAST ( $P{P_Host_ID} AS uuid )
                     END
-                AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
-                AND history_datetime <
+                AND b.history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                AND b.history_datetime <
                     CASE
                         WHEN $P{P_Period} = 0
                             THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
@@ -522,8 +533,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active hosts only
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the host chosen by the user
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        AND v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'

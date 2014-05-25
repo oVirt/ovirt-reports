@@ -86,8 +86,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_vms_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active vms only
+        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- Here we filter by the vm chosen by the user
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
+        AND v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -254,12 +256,21 @@ FROM (
                         c.vm_disk_id = b.vm_disk_id
                     )
             WHERE
-                c.vm_disk_id IN (
+                -- Here we filter by active vms disks only
+                b.vm_disk_status = 1
+                AND c.vm_disk_id IN (
                     SELECT device_id
                     FROM v3_5_configuration_history_vms_devices
-                    -- Here we filter by the vm chosen by the user
+                        INNER JOIN v3_5_statistics_vms_resources_usage_$P!{table_name}
+                            ON (
+                                v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version =
+                                v3_5_configuration_history_vms_devices.vm_configuration_version
+                            )
                     WHERE
-                        vm_id =
+                        -- Here we filter by active vms only
+                        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+                        -- Here we filter by the vm chosen by the user
+                        AND v3_5_configuration_history_vms_devices.vm_id =
                             CASE $P{P_VM_ID}
                                 WHEN '00000000-0000-0000-0000-000000000000'
                                     THEN '00000000-0000-0000-0000-000000000000'
@@ -286,7 +297,7 @@ FROM (
                             delete_date IS NULL
                         )
                         -- Here we get the latest vm_devices configuration
-                        AND history_id IN (
+                        AND v3_5_configuration_history_vms_devices.history_id IN (
                             SELECT MAX ( a.history_id )
                             FROM v3_5_configuration_history_vms_devices a
                             GROUP BY
@@ -485,8 +496,15 @@ FROM (
                     ON (
                         c.vm_interface_id = b.vm_interface_id
                     )
+                INNER JOIN v3_5_statistics_vms_resources_usage_$P!{table_name} d
+                    ON (
+                        d.vm_configuration_version =
+                        c.vm_configuration_version
+                    )
             WHERE
-                c.vm_interface_id IN (
+                -- Here we filter by active vms only
+                d.vm_status = 1
+                AND c.vm_interface_id IN (
                     -- Here we filter by the VM chosen by the user
                     SELECT device_id
                     FROM v3_5_configuration_history_vms_devices
@@ -526,8 +544,8 @@ FROM (
                         -- Here we filter deleted vms according to what the user chose
                         $P!{is_deleted}
                 )
-                AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
-                AND history_datetime <
+                AND b.history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                AND b.history_datetime <
                     CASE
                         WHEN $P{P_Period} = 0
                             THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
@@ -677,8 +695,10 @@ FROM (
     -- equals to "hourly" else "daily"
     FROM v3_5_statistics_vms_resources_usage_$P!{table_name}
     WHERE
+        -- Here we filter by active vms only
+        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- Here we filter by the vm chosen by the user
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
+        AND v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id =
             CASE $P{P_VM_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'

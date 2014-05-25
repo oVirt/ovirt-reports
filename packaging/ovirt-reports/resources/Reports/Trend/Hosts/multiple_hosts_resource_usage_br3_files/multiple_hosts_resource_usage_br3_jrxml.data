@@ -85,8 +85,10 @@ FROM (
                 v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id
             )
     WHERE
+        -- Here we filter by active hosts only
+        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the hosts chosen by the user
-        $X{ IN, CAST ( v3_5_configuration_history_hosts.host_id AS varchar ), P_Host_ListID }
+        AND $X{ IN, CAST ( v3_5_configuration_history_hosts.host_id AS varchar ), P_Host_ListID }
         AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
         AND history_datetime <
         CASE

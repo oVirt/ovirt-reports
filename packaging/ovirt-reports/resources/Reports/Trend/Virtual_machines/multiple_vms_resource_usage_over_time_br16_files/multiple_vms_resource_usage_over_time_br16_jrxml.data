@@ -83,8 +83,10 @@ FROM (
                 v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id
             )
     WHERE
+        -- Here we filter by active vms only
+        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- This condition will filter the vm's based on the vm list the user chose
-        $X{IN, CAST ( v3_5_configuration_history_vms.vm_id AS varchar ), P_VM_ListID}
+        AND $X{IN, CAST ( v3_5_configuration_history_vms.vm_id AS varchar ), P_VM_ListID}
         AND history_datetime >= CAST ( $P{P_Start_Date} AS timestamp )
         AND history_datetime <
             CASE

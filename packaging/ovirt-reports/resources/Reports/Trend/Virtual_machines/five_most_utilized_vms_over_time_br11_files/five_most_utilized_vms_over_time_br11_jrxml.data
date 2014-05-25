@@ -112,7 +112,9 @@ FROM (
                 v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id
             )
     WHERE
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.history_datetime >=
+        -- Here we filter by active vms only
+        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+        AND v3_5_statistics_vms_resources_usage_$P!{table_name}.history_datetime >=
         CAST ( $P{P_Start_Date} AS TIMESTAMP )
         AND v3_5_statistics_vms_resources_usage_$P!{table_name}.history_datetime <
             CASE

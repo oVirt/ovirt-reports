@@ -37,8 +37,10 @@ FROM (
                 v3_5_latest_configuration_clusters.cluster_id
             )
     WHERE
+        -- Here we filter by active hosts only
+        v3_5_statistics_hosts_resources_usage_samples.host_status = 1
         -- Here we filter the datacenter chosen by the user
-        v3_5_latest_configuration_clusters.datacenter_id =
+        AND v3_5_latest_configuration_clusters.datacenter_id =
         CAST ( $P{P_DataCenter_ID} AS UUID )
     GROUP BY
         v3_5_latest_configuration_clusters.cluster_id,
