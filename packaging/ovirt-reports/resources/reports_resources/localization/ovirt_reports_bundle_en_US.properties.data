@@ -2,12 +2,16 @@
 #
 footer.pagination=Page {0} of {1}
 br18.chart.rhel.vs.other.linuxs=RHEL vs Other Linux OS
+br18.chart.rhel.vs.other.linuxs.subtitle=active vms
 axis.date=Date
 axis.number.of.vms=#VMs
 br18.chart.rhel.vs.windows=RHEL vs Windows OS
+br18.chart.rhel.vs.windows.subtitle=active vms
 br18.chart.windows.distribution=Distribution of Windows Versions
-br18.chart.known.vs.unknown.os=Virtual Machines With Known OS vs Unknown OS
-br18.title=Active Virtual Machines by OS in <b>{0}</b> of<b> Data Center {1}</b>
+br18.chart.windows.distribution.subtitle=active vms
+br18.chart.known.vs.unknown.os=Known vs Unknown OS
+br18.chart.known.vs.unknown.os.subtitle=active and inactive vms
+br18.title=Virtual Machines by OS in <b>{0}</b> of<b> Data Center {1}</b>
 full.details.clusters=Clusters
 full.details.cluster.and.name=Cluster {0}
 full.details.criteria=Criteria

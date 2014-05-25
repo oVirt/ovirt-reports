@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
+<!-- Created with Jaspersoft Studio version 5.5.0-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="94affc6e-e7dd-42b9-9529-60ec67a6c3e6">
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Executive/active_vms_by_os_br18_files/active_vms_by_os_br18_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Executive/active_vms_by_os_br18"/>
 	<subDataset name="active_vms_by_os_type" uuid="dbe64307-d7db-4ba9-925f-efc01d783cef">
 		<parameter name="is_deleted" class="java.lang.String">
 			<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
@@ -561,8 +564,9 @@ ORDER BY $P!{calendar_column}]]>
 						<font fontName="SansSerif"/>
 						<titleExpression><![CDATA[$R{br18.chart.rhel.vs.other.linuxs}]]></titleExpression>
 					</chartTitle>
-					<chartSubtitle>
-						<font fontName="SansSerif"/>
+					<chartSubtitle color="#3A5E7E">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+						<subtitleExpression><![CDATA[$R{br18.chart.rhel.vs.other.linuxs.subtitle}]]></subtitleExpression>
 					</chartSubtitle>
 					<chartLegend position="Bottom">
 						<font fontName="SansSerif"/>
@@ -625,8 +629,9 @@ ORDER BY $P!{calendar_column}]]>
 						<font fontName="SansSerif"/>
 						<titleExpression><![CDATA[$R{br18.chart.windows.distribution}]]></titleExpression>
 					</chartTitle>
-					<chartSubtitle>
-						<font fontName="SansSerif"/>
+					<chartSubtitle color="#3A5E7E">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+						<subtitleExpression><![CDATA[$R{br18.chart.windows.distribution.subtitle}]]></subtitleExpression>
 					</chartSubtitle>
 					<chartLegend position="Bottom">
 						<font fontName="SansSerif"/>
@@ -691,8 +696,9 @@ ORDER BY $P!{calendar_column}]]>
 						<font fontName="SansSerif"/>
 						<titleExpression><![CDATA[$R{br18.chart.known.vs.unknown.os}]]></titleExpression>
 					</chartTitle>
-					<chartSubtitle>
-						<font fontName="SansSerif"/>
+					<chartSubtitle color="#3A5E7E">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+						<subtitleExpression><![CDATA[$R{br18.chart.known.vs.unknown.os.subtitle}]]></subtitleExpression>
 					</chartSubtitle>
 					<chartLegend position="Bottom">
 						<font fontName="SansSerif"/>
@@ -754,8 +760,9 @@ ORDER BY $P!{calendar_column}]]>
 						<font fontName="SansSerif"/>
 						<titleExpression><![CDATA[$R{br18.chart.rhel.vs.windows}]]></titleExpression>
 					</chartTitle>
-					<chartSubtitle>
-						<font fontName="SansSerif"/>
+					<chartSubtitle color="#3A5E7E">
+						<font fontName="SansSerif" size="9" isBold="false"/>
+						<subtitleExpression><![CDATA[$R{br18.chart.rhel.vs.windows.subtitle}]]></subtitleExpression>
 					</chartSubtitle>
 					<chartLegend position="Bottom">
 						<font fontName="SansSerif"/>
