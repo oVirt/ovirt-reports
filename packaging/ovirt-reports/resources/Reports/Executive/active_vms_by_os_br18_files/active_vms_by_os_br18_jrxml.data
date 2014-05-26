@@ -231,7 +231,7 @@ SELECT DISTINCT
     COALESCE (
         os_type,
         MAX ( os_type ) over ( partition by 1 ),
-        ''
+        'Known OS'
     )
     AS os_type,
     vm_count
@@ -382,7 +382,7 @@ SELECT DISTINCT
     COALESCE(
         os_name,
         MAX ( os_name ) over ( partition by 1 ),
-        ''
+        'Windows'
     )
     AS os_name,
     vm_count
