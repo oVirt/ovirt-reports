@@ -26,7 +26,7 @@ SELECT (
     FROM v3_5_latest_configuration_datacenters
 ) AS datacenter_count,
 (
-    SELECTCOUNT ( * )
+    SELECT COUNT ( * )
     FROM v3_5_latest_configuration_clusters
 ) AS cluster_count,
 (
