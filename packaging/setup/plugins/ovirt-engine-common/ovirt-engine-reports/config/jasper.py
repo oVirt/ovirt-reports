@@ -16,7 +16,6 @@
 #
 
 
-import os
 import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
