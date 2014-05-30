@@ -34,7 +34,8 @@ from otopi import base
 from otopi import util
 
 
-from . import constants as osetupcons
+from ovirt_engine_setup.engine_common \
+    import enginecommonconstants as oengcommcons
 from . import reportsconstants as oreportscons
 
 
@@ -115,7 +116,7 @@ class JasperUtil(base.Base):
             ),
             envAppend={
                 'JAVA_HOME': self.environment[
-                    osetupcons.ConfigEnv.JAVA_HOME
+                    oengcommcons.ConfigEnv.JAVA_HOME
                 ],
                 'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
@@ -141,7 +142,7 @@ class JasperUtil(base.Base):
             ),
             envAppend={
                 'JAVA_HOME': self.environment[
-                    osetupcons.ConfigEnv.JAVA_HOME
+                    oengcommcons.ConfigEnv.JAVA_HOME
                 ],
                 'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (

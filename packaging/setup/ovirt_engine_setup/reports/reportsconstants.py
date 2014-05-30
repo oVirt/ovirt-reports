@@ -27,8 +27,9 @@ _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 from otopi import util
 
 
-from constants import classproperty, osetupattrsclass, osetupattrs
-
+from ovirt_engine_setup.constants import classproperty
+from ovirt_engine_setup.constants import osetupattrsclass
+from ovirt_engine_setup.constants import osetupattrs
 
 from . import reportsconfig
 
@@ -170,6 +171,8 @@ class FileLocations(object):
         'default',
         'master.properties',
     )
+
+    OVIRT_ENGINE_LOCALSTATEDIR = reportsconfig.ENGINE_LOCALSTATEDIR
 
 
 @util.export

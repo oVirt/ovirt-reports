@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013-2014 Red Hat, Inc.
+# Copyright (C) 2013 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,31 +16,19 @@
 #
 
 
-import gettext
-_ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
+"""Config."""
 
 
-from otopi import util
-from otopi import plugin
-
-
-from ovirt_engine_setup.reports import reportsconstants as oreportscons
-
-
-@util.export
-class Plugin(plugin.PluginBase):
-
-    def __init__(self, context):
-        super(Plugin, self).__init__(context=context)
-
-    @plugin.event(
-        stage=plugin.Stages.STAGE_INIT,
-    )
-    def _init(self):
-        self.environment.setdefault(
-            oreportscons.ConfigEnv.JASPER_HOME,
-            oreportscons.FileLocations.JASPER_HOME
-        )
+PKG_SYSCONF_DIR = '@PKG_SYSCONF_DIR@'
+PKG_STATE_DIR = '@PKG_STATE_DIR@'
+PKG_DATA_DIR = '@PKG_DATA_DIR@'
+PKG_JAVA_DIR = '@PKG_JAVA_DIR@'
+PACKAGE_NAME = '@PACKAGE_NAME@'
+PACKAGE_VERSION = '@PACKAGE_VERSION@'
+DISPLAY_VERSION = '@DISPLAY_VERSION@'
+RPM_VERSION = '@RPM_VERSION@'
+RPM_RELEASE = '@RPM_RELEASE@'
+ENGINE_LOCALSTATEDIR = '@ENGINE_VAR@'
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

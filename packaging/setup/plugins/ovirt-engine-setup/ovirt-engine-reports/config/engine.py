@@ -28,7 +28,9 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup import reportsconstants as oreportscons
+from ovirt_engine_setup.reports import reportsconstants as oreportscons
+from ovirt_engine_setup.engine_common \
+    import enginecommonconstants as oengcommcons
 
 
 @util.export
@@ -41,7 +43,7 @@ class Plugin(plugin.PluginBase):
         stage=plugin.Stages.STAGE_MISC,
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
         after=(
-            osetupcons.Stages.DB_CONNECTION_AVAILABLE,
+            oengcommcons.Stages.DB_CONNECTION_AVAILABLE,
             oreportscons.Stages.JASPER_NAME_SET,
         ),
     )
@@ -53,7 +55,6 @@ class Plugin(plugin.PluginBase):
             group='ovirt_reports_files',
             fileList=uninstall_files,
         )
-
         with open(
             oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_UI,
             "r",
@@ -61,22 +62,13 @@ class Plugin(plugin.PluginBase):
             self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
                 filetransaction.FileTransaction(
                     name=os.path.join(
-                        osetupcons.FileLocations.OVIRT_ENGINE_LOCALSTATEDIR,
+                        oreportscons.FileLocations.OVIRT_ENGINE_LOCALSTATEDIR,
                         'reports.xml',
                     ),
                     content=content.read(),
                     modifiedList=uninstall_files,
                 )
             )
-
-        self.environment[osetupcons.DBEnv.STATEMENT].updateVdcOptions(
-            options=(
-                {
-                    'name': 'RedirectServletReportsPage',
-                    'value': '/ovirt-engine-reports',
-                },
-            ),
-        )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

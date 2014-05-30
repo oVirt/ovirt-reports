@@ -41,10 +41,12 @@ from ovirt_engine import util as outil
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup import reportsconstants as oreportscons
-from ovirt_engine_setup import reportsutil as oreportsutil
+from ovirt_engine_setup.reports import reportsconstants as oreportscons
+from ovirt_engine_setup.reports import reportsutil as oreportsutil
 from ovirt_engine_setup import util as osetuputil
-from ovirt_engine_setup import database
+from ovirt_engine_setup.engine_common import database
+from ovirt_engine_setup.engine_common \
+    import enginecommonconstants as oengcommcons
 
 
 @util.export
@@ -179,7 +181,7 @@ class Plugin(plugin.PluginBase):
                 ),
                 envAppend={
                     'JAVA_HOME': self.environment[
-                        osetupcons.ConfigEnv.JAVA_HOME
+                        oengcommcons.ConfigEnv.JAVA_HOME
                     ],
                     'ANT_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 },
@@ -408,26 +410,6 @@ class Plugin(plugin.PluginBase):
                 _(
                     'Cannot upgrade the Reports database schema due to wrong '
                     'ownership of some database entities.\n'
-                    'Please execute: {command}\n'
-                    'Using the password of the "postgres" user.'
-                ).format(
-                    command=(
-                        '{cmd} '
-                        '-s {server} '
-                        '-p {port} '
-                        '-d {db} '
-                        '-f postgres '
-                        '-t {user}'
-                    ).format(
-                        cmd=(
-                            osetupcons.FileLocations.
-                            OVIRT_ENGINE_DB_CHANGE_OWNER
-                        ),
-                        server=self.environment[oreportscons.DBEnv.HOST],
-                        port=self.environment[oreportscons.DBEnv.PORT],
-                        db=self.environment[oreportscons.DBEnv.DATABASE],
-                        user=self.environment[oreportscons.DBEnv.USER],
-                    ),
                 )
             )
 

@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2014 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,18 +16,10 @@
 #
 
 
-"""Config."""
+"""ovirt_engine_setup module."""
 
 
-PKG_SYSCONF_DIR = '@PKG_SYSCONF_DIR@'
-PKG_STATE_DIR = '@PKG_STATE_DIR@'
-PKG_DATA_DIR = '@PKG_DATA_DIR@'
-PKG_JAVA_DIR = '@PKG_JAVA_DIR@'
-PACKAGE_NAME = '@PACKAGE_NAME@'
-PACKAGE_VERSION = '@PACKAGE_VERSION@'
-DISPLAY_VERSION = '@DISPLAY_VERSION@'
-RPM_VERSION = '@RPM_VERSION@'
-RPM_RELEASE = '@RPM_RELEASE@'
+__all__ = []
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

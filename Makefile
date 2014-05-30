@@ -28,6 +28,7 @@ EXTRA_BUILD_FLAGS=
 BUILD_VALIDATION=1
 
 PACKAGE_NAME=ovirt-engine-reports
+ENGINE_NAME=ovirt-engine
 ANT=ant
 PYTHON=python
 PYFLAKES=pyflakes
@@ -44,6 +45,7 @@ PKG_JAVA_DIR=$(JAVA_DIR)/ovirt-engine-reports
 PKG_SYSCONF_DIR=$(SYSCONF_DIR)/ovirt-engine-reports
 PKG_LOG_DIR=$(LOCALSTATE_DIR)/log/ovirt-engine-reports
 PKG_STATE_DIR=$(LOCALSTATE_DIR)/lib/ovirt-engine-reports
+ENGINE_STATE_DIR=$(LOCALSTATE_DIR)/lib/$(ENGINE_NAME)
 PYTHON_DIR=$(PYTHON_SYS_DIR)
 DEV_PYTHON_DIR=
 PKG_USER=ovirt
@@ -87,6 +89,7 @@ BUILD_TARGET=install
 	-e "s|@PACKAGE_NAME@|$(PACKAGE_NAME)|g" \
 	-e "s|@PACKAGE_VERSION@|$(PACKAGE_VERSION)|g" \
 	-e "s|@DISPLAY_VERSION@|$(DISPLAY_VERSION)|g" \
+	-e "s|@ENGINE_VAR@|$(ENGINE_STATE_DIR)|g" \
 	-e "s|@PEP8@|$(PEP8)|g" \
 	-e "s|@PYFLAKES@|$(PYFLAKES)|g" \
 	$< > $@
@@ -97,7 +100,7 @@ GENERATED = \
 	packaging/jasper-customizations/WEB-INF/applicationContext-ovirt-override.xml \
 	packaging/jasper-war-patches/ce/900_004_props_change_logs_location.patch \
 	packaging/jasper-war-patches/pro/900_004_props_change_logs_location.patch \
-	packaging/setup/ovirt_engine_setup/reportsconfig.py \
+	packaging/setup/ovirt_engine_setup/reports/reportsconfig.py \
 	packaging/sys-etc/logrotate.d/ovirt-engine-reports \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/20-ovirt-engine-reports.conf \
 	$(NULL)

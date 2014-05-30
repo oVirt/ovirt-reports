@@ -27,7 +27,9 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup import reportsconstants as oreportscons
+from ovirt_engine_setup.reports import reportsconstants as oreportscons
+from ovirt_engine_setup.engine_common \
+    import enginecommonconstants as oengcommcons
 
 
 @util.export
@@ -58,7 +60,7 @@ class Plugin(plugin.PluginBase):
                     '/get-session-user\n'
                 ) % (
                     self.environment[
-                        osetupcons.ConfigEnv.PUBLIC_HTTPS_PORT
+                        oengcommcons.ConfigEnv.PUBLIC_HTTPS_PORT
                     ],
                 ),
                 modifiedList=uninstall_files,

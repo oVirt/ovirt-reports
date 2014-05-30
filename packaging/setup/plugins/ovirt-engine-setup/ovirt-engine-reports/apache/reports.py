@@ -30,7 +30,9 @@ from ovirt_engine import util as outil
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup import reportsconstants as oreportscons
+from ovirt_engine_setup.reports import reportsconstants as oreportscons
+from ovirt_engine_setup.engine_common \
+    import enginecommonconstants as oengcommcons
 
 
 @util.export
@@ -65,7 +67,7 @@ class Plugin(plugin.PluginBase):
             group='ovirt_reports_files',
             fileList=uninstall_files,
         )
-        self.environment[osetupcons.ApacheEnv.NEED_RESTART] = True
+        self.environment[oengcommcons.ApacheEnv.NEED_RESTART] = True
         self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
             filetransaction.FileTransaction(
                 name=self.environment[
@@ -78,7 +80,7 @@ class Plugin(plugin.PluginBase):
                     ),
                     subst={
                         '@JBOSS_AJP_PORT@': self.environment[
-                            osetupcons.ConfigEnv.JBOSS_AJP_PORT
+                            oengcommcons.ConfigEnv.JBOSS_AJP_PORT
                         ],
                     },
                 ),
