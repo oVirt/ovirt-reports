@@ -2,18 +2,20 @@
 footer.pagination=P\u00E1gina {0} de {1}
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br18.chart.rhel.vs.other.linuxs=RHEL versus Outros SO do Linux
+br18.chart.rhel.vs.other.linuxs.subtitle=mvs ativas
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.date=Data
-# auto translated by TM merge from project: Ovirt Engine Reports, version: master, DocId: ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 axis.number.of.vms=\#MVs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br18.chart.rhel.vs.windows=RHEL versus Windows OS
+br18.chart.rhel.vs.windows.subtitle=mvs ativas
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br18.chart.windows.distribution=Distribui\u00E7\u00E3o das Vers\u00F5es do Windows
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br18.chart.known.vs.unknown.os=M\u00E1quinas Virtuais com SO Conhecidos versus SO Desconhecidos
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br18.title=M\u00E1quinas Virtuais Ativas pelo SO no <b>{0}</b> do <b> Data Center {1}</b>
+br18.chart.windows.distribution.subtitle=mvs ativas
+br18.chart.known.vs.unknown.os=SO Conhecido vs desconhecido
+br18.chart.known.vs.unknown.os.subtitle=mvs ativas e desativas
+br18.title=M\u00E1quinas Virtuais pelo SO no <b>{0}</b> do <b> Data Center {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.clusters=Clusters
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
@@ -24,7 +26,7 @@ full.details.criteria=Crit\u00E9rio
 full.details.datacenter=Centro de Dados
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.date.range=Raz\u00E3o de Dados
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.vm.type=Tipo de MV
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.cluster=Cluster
@@ -32,17 +34,17 @@ full.details.cluster=Cluster
 full.details.all=Todos
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.period=Per\u00EDodo
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.show.deleted.vms=Apresenta as M\u00E1quinas Virtuais Exclu\u00EDdas
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.yes=Sim
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.no=N\u00E3o
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.datacenter.and.cluster=O centro de dados foi exclu\u00EDdo no {0} e o cluster foi exclu\u00EDdo no {1}.
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.cluster=O cluster foi exclu\u00EDdo no {0}.
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.datacenter=O centro de dados foi exclu\u00EDdo no {0}.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br1.table.host.name=Nome do Host
@@ -60,19 +62,19 @@ br1.table.host.type=Tipo
 br1.table.short.memory.size=Tamanho de Mem\u00F3ria
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br1.table.short.create.date=Cria a Data
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br1.table.short.delete.date=Exclui a Data
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br1.table.gb=GB
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br1.title=Invent\u00E1rio dos Hosts <b>{0}</b> do <b>Data Center {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.show.deleted.hosts=Apresenta os Hosts Exclu\u00EDdos
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.host.type=Tipo do Host
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br9.table.vm.name=Nome da MV
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br9.table.template.name=Nome do Template
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br9.table.vm.type=Tipo
@@ -84,11 +86,11 @@ br9.table.short.memory.size=Tamanho de Mem\u00F3ria
 br9.table.number.of.cores=\#vCores
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br9.table.create.date=Cria Data
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br9.table.delete.date=Exclui Data
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br9.table.gb=GB
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br9.title=Invent\u00E1rio das M\u00E1quinas Virtual no <b>{0}</b> do <b>Data Center {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.number.of.host.cores=\#Cores
@@ -100,7 +102,7 @@ axis.memory.size.gb=Tamanho da Mem\u00F3ria (GB)
 br19.chart.cores=N\u00FAmero M\u00E9dio de Hosts Principais versus M\u00E1quinas Virtuais vPrincipais (ao longo do tempo)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br19.chart.memory.size=Host M\u00E9dio versus Tamanho de Mem\u00F3ria das M\u00E1quinas Virtuais (ao longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.show.deleted.entities=Apresenta os Servi\u00E7os Exclu\u00EDdos
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br19.title=Capacidade do Cluster Versus o uso no <b>{0}</b> do <b>Data Center {1}</b>
@@ -142,7 +144,7 @@ br21.chart.used.size=Espa\u00E7o Utilizado
 full.details.storage.type=Tipo de Storage
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br21.title=Tamanho ao longo do tempo do <b>Storage Domain {0}</b>
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.datacenter.and.storage=O centro de dados foi exclu\u00EDdo {0} e o storage domain foi exclu\u00EDdo no {1}.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.storage=O storage domain foi exclu\u00EDdo no {0}.
@@ -174,9 +176,9 @@ full.details.hosts.names=Nomes dos Hosts
 br2a.chart.memory.usage=Uso da Mem\u00F3ria (ao longo do tempo)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2a.chart.cpu.usage=Uso da CPU (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br2a.chart.network.usage=Uso das Cinco Interfaces da Rede Mais Usadas (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br2a.chart.active.vms=N\u00FAmero de M\u00E1quinas Virtuais Ativas (ao longo do tempo)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 axis.network.usage.percent=Uso da Rede %
@@ -190,7 +192,7 @@ br2.chart.series.memory.usage=Uso da Mem\u00F3ria
 br2.chart.series.memory.peak=Hor\u00E1rio de Pico da Mem\u00F3ria
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2.chart.series.number.of.vms=\#MVs
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br2.chart.series.peak.number.of.vms=\#Hor\u00E1rio de Pico das MVs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2.chart.series.rx=/Rx
@@ -200,11 +202,11 @@ br2.chart.series.tx=/Tx
 br2.chart.series.tooltip.network={0}{1}, {2}
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.host=O host foi exclu\u00EDdo no {0}.
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.datacenter.and.host=O centro de dados foi exclu\u00EDdo no {0} e o host foi exclu\u00EDdo no {1}.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.cluster.and.host=O cluster foi excluo no {0} e o host foi exclu\u00EDdo no {1}.
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.deleted.comment.datacenter.cluster.and.host=O centro de dados foi exclu\u00EDdo no {0}, o cluster foi exclu\u00EDdo no {1} e o host foi exclu\u00EDdo no {2}.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.host.address=O endere\u00E7o do Host
@@ -226,53 +228,33 @@ br2a.title=Uso do Recurso do <b>Host {0}</b> (Ao Longo do Tempo)
 full.details.host.details=Detalhes do Host
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2a.chart.network.subtitle.lines=Raz\u00E3o Recebida na Linha Consecutiva, Raz\u00E3o de Transmiss\u00E3o da Linha Tracejada
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br2.chart.network.subtitle.deleted=Interfaces exclu\u00EDdas s\u00E3o marcadas com asterisco
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2b.title=Uso do Recurso <b>Host {0}</b> pelos Dias da Semana
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2c.title=Uso do Recurso <b>Host {0}</b> pela Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br2b.chart.cpu.usage=Uso dos Dias da Semana
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+br2b.chart.cpu.usage=Uso da CPU dos Dias da Semana
 axis.day=Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2b.chart.memory.usage=Uso da Mem\u00F3ria dos Dias da Semana
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2b.chart.active.vms=N\u00FAmero de M\u00E1quinas Virtuais Ativas pelos Dias da Semana
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2b.chart.network.usage=Uso das Tr\u00EAs Interfaces de Rede Mais Ocupadas pelos Dias da Semana
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 axis.hour.of.day=Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2c.chart.active.vms=N\u00FAmero das M\u00E1quinas Virtuais Ativa pela Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2c.chart.cpu.usage=Uso da CPU pela Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2c.chart.memory.usage=Uso da Mem\u00F3ria pela Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br2c.chart.network.usage=Uso das Tr\u00EAs Interfaces da Redes Mais Ocupadas pela Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br12.chart.cpu.usage=Uso da CPU (Ao Longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br12.chart.memory.usage=Uso da Mem\u00F3ria (Ao Longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+br12.chart.cpu.usage=Uso da CPU (ao longo do tempo)
+br12.chart.memory.usage=Uso da Mem\u00F3ria (ao longo do tempo)
 br12.title=As Cinco M\u00E1quinas Virtuais Menos Utilizadas no <b>{0}</b> do <b>Data Center {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br11.chart.cpu.usage=Uso da CPU (Ao Longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br11.chart.memory.usage=Uso da Mem\u00F3ria (Ao Longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+br11.chart.cpu.usage=Uso da CPU (ao longo do tempo)
+br11.chart.memory.usage=Uso da Mem\u00F3ria (ao longo do tempo)
 br11.title=As Cinco M\u00E1quinas Virtuais Mais Usadas no <b>{0}</b> do <b>Data Center {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br16.title=Uso do Recurso das M\u00E1quinas Virtuais M\u00FAltiplas (Ao Longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
-br16.chart.memory.usage=Uso da Mem\u00F3ria (Ao Longo do Tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+br16.chart.memory.usage=Uso da Mem\u00F3ria (ao longo do tempo)
 br16.chart.cpu.usage=Uso da CPU (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br16.more.than.five.warning=Este Relat\u00F3rio Exibe Dados para at\u00E9 Cinco M\u00E1quinas Virtuais. Por favor Clique em "Op\u00E7\u00F5es" e Selecione Cinco M\u00E1quinas Virtuais ou Menos.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br3.more.than.five.warning=Este Relat\u00F3rio Exibe Dados para at\u00E9 Cinco Hosts. Por Favor Clique em 'Op\u00E7\u00F5es' e Selecione Cinco Hosts ou Menos.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.vms.names=Nomes de M\u00E1quinas Virtuais
@@ -280,13 +262,13 @@ full.details.vms.names=Nomes de M\u00E1quinas Virtuais
 br10a.title=Uso do Recursos da <b>M\u00E1quina Virtual {0}</b> (Ao Longo do Tempo)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br10a.chart.cpu.usage=Uso da CPU (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10a.chart.memory.usage=Uso da Mem\u00F3ria (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10a.chart.network.usage=Uso das Cinco Interfaces da Rede Mais Usadas  (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10a.chart.disks.usage=Uso dos Cinco Discos Mais Usados  (ao longo do tempo)
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10b.title=Uso do Recurso da <b>M\u00E1quina Virtual {0}</b> pelos Dias da Semana
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br10c.title=Uso do Recurso da <b>M\u00E1quina Virtual {0}</b> pela Hora do Dia
@@ -306,11 +288,11 @@ br10c.chart.disks.usage=Uso dos Cinco Discos Mais Ocupados por Hora do Dia
 br10b.chart.cpu.usage=Uso da CPU dos Dias da Semana
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br10c.chart.cpu.usage=Uso da CPU pela Hora do Dia
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10.chart.network.subtitle.deleted=Interfaces exclu\u00EDdas s\u00E3o marcadas com asterisco
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br10a.chart.network.subtitle.lines=Raz\u00E3o Recebida na Linha Consecutiva, Raz\u00E3o de Transmiss\u00E3o da Linha Tracejada
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10.chart.disks.subtitle.deleted=Discos exclu\u00EDdos s\u00E3o marcados com asteriscos
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br10a.chart.disks.subtitle.lines=Raz\u00E3o de Leitura em Linha Consecutiva; Raz\u00E3o de Grava\u00E7\u00E3o em Linha Tracejada
@@ -320,7 +302,7 @@ axis.disks.usage.mb.pre.second=Uso do Disco em MB/s
 br10.chart.series.cpu.peak=Hor\u00E1rio de Pico da CPU
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br10.chart.series.cpu.usage=Uso da CPU
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br10.chart.series.memory.peak=Pico da Mem\u00F3ria
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br10.chart.series.memory.usage=Mem\u00F3ria bb
@@ -356,7 +338,7 @@ full.details.os=Sistema Operacional
 br7.meter.title=Tempo de Ativa\u00E7\u00E3o Total dos Hosts do Cluster
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br7.meter.uptime=Tempo de Ativa\u00E7\u00E3o
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br7.meter.planned.downtime=Inatividade Planejada
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br7.meter.unplanned.downtime=Tempo de Inatividade n\u00E3o planejado
@@ -388,9 +370,9 @@ br7b.table.host.name=Nome do Host
 br7b.table.planned.downtime=Per\u00EDodo de Inatividade planejado
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br7b.table.unplanned.downtime=Tempo de Inatividade n\u00E3o planejado
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br7b.table.uptime=Per\u00EDodo de Ativa\u00E7\u00E3o
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br7b.table.short.delete.date=Exclui a Data
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br7b.title=Os 10 Hosts Populares do Per\u00EDodo de Inatividade no <b>{0}</b> do <b>Data Center {1}</b>
@@ -400,7 +382,7 @@ br6.table.host.name=Nome do Host
 br6.table.time.above.cpu.threshold=Per\u00EDodo Acima do Limite da CPU
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br6.table.time.above.memory.threshold=Per\u00EDodo Acima do Limite da Mem\u00F3ria 
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br6.table.delete.date=Excluir Data
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 b6.table.cluster.average=M\u00E9dia do Cluster
@@ -432,7 +414,7 @@ br13.table.time.above.cpu.threshold=Per\u00EDodo Acima do Limite da CPU
 br13.table.time.above.memory.threshold=Per\u00EDodo Acima do Limite da Mem\u00F3ria 
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br13.title=Qualidade de Servi\u00E7os das M\u00E1quinas Virtuais no  <b>{0}</b> do <b>Centro de Dados {1}</b>
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.short.show.deleted.vms=Demonstra MVs Exclu\u00EDdas
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br14.meter.title=Per\u00EDodo de Ativa\u00E7\u00E3o das M\u00E1quinas Virtuais do Total de Cluster
@@ -500,7 +482,7 @@ br11b.chart.vms.memory.usage=Uso da Mem\u00F3ria (Excede o Per\u00EDodo)
 br11b.chart.vms.cpu.usage=Uso da CPU (Excede o Per\u00EDodo)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br22b.title=Falha do SO do Host
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br23.title=Uso de Disco de Domain da M\u00E9dia do Storage
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 axis.storage.domain.names=Storage Domains
@@ -530,7 +512,7 @@ dr.count.list.hosts=Hosts
 dr13.text=Status do Per\u00EDodo de Ativa\u00E7\u00E3o das <b>M\u00E1quinas Virtuais</b> de Alta Disponibilidade
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 dr12.text=Status dos Recursos dos <b>Hosts</b>
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 dr6.text=Status de Ativa\u00E7\u00E3o dos <b>Hosts</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 dr28.title=Sum\u00E1rio do Uso dos Recursos dos Hosts
@@ -606,7 +588,7 @@ br44.table.cores.per.socket=\#Cores por Socket
 br44.table.existence.time.hours=Per\u00EDodo Existente (Horas)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br44.table.vm.uptime.hours=Tempo de Ativa\u00E7\u00E3o da MV (Horas)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br44.table.vm.uuid=MV UUID
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br44.title=Invent\u00E1rio da M\u00E1quina Virtual do Provedor Cloud no <b>{0}</b> do <b>Data Center {1}</b>
@@ -626,7 +608,7 @@ br45.table.average.system.cpu.usage.percent=Uso M\u00E9dio da CPU pelo Sistema %
 br45.table.peak.cpu.usage.percent=Uso em Alta da CPU %
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br45.table.peak.system.cpu.usage.percent=Uso M\u00E1ximo da CPU do Sistema %
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br45.table.peak.user.cpu.usage.percent=Uso M\u00E1ximo da CPU pelo Usu\u00E1rio %
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br45.table.average.memory.usage.percent=Uso M\u00E9dio da Mem\u00F3ria %
@@ -642,9 +624,9 @@ br46.title=Tempo de Ativa\u00E7\u00E3o do <b>Virtual Machine {0}</b>
 br46.meter.title=Tempo de Ativa\u00E7\u00E3o da M\u00E1quina Virtual
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 full.details.storage.domain.type=Tipo do Storage Domain
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 full.details.show.deleted.storage.domains=Apresenta os Storage Domains Exclu\u00EDdos
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 br47.title=Invent\u00E1rio dos Storage Domains do <b>Data Center {0}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br47.table.storage.domain.name=Nome do Storage Domain
@@ -660,7 +642,7 @@ br47.table.used.space.gb=Espa\u00E7o Utilizado (GB)
 br47.table.total.space.gb=Espa\u00E7o Total (GB)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 ic.cluster=Cluster
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author ldelima
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author ldelima
 ic.is.deleted=Demonstrar as Entidades Exclu\u00EDdas?
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 ic.cpu.threshold=Limite da CPU

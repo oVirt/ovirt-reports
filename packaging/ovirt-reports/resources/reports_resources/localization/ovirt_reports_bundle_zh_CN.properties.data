@@ -2,18 +2,20 @@
 footer.pagination=\u7B2C {0} \u9875\uFF0C\u5171 {1} \u9875
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.rhel.vs.other.linuxs=RHEL \u548C\u5176\u4ED6 Linux \u64CD\u4F5C\u7CFB\u7EDF\u7684\u5BF9\u6BD4
+br18.chart.rhel.vs.other.linuxs.subtitle=\u6D3B\u52A8\u7684\u865A\u62DF\u673A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.date=\u65E5\u671F
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.number.of.vms=\#VMs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.rhel.vs.windows=RHEL \u548C Windows \u5BF9\u6BD4
+br18.chart.rhel.vs.windows.subtitle=\u6D3B\u52A8\u7684\u865A\u62DF\u673A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.windows.distribution=Windows \u7248\u672C\u7684\u5206\u5E03
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br18.chart.known.vs.unknown.os=\u5DF2\u77E5\u64CD\u4F5C\u7CFB\u7EDF\u548C\u672A\u77E5\u64CD\u4F5C\u7CFB\u7EDF\u7684\u865A\u62DF\u673A\u6BD4\u8F83
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br18.title=<b>\u6570\u636E\u4E2D\u5FC3 {1}</b> \u91CC\u7684 <b>{0}</b> \u64CD\u4F5C\u7CFB\u7EDF\u7684\u6D3B\u52A8\u865A\u62DF\u673A
+br18.chart.windows.distribution.subtitle=\u6D3B\u52A8\u7684\u865A\u62DF\u673A
+br18.chart.known.vs.unknown.os=\u5DF2\u77E5\u64CD\u4F5C\u7CFB\u7EDF\u548C\u672A\u77E5\u64CD\u4F5C\u7CFB\u7EDF\u7684\u6BD4\u8F83
+br18.chart.known.vs.unknown.os.subtitle=\u6D3B\u52A8\u7684\u865A\u62DF\u673A\u548C\u4E0D\u6D3B\u52A8\u7684\u865A\u62DF\u673A\u7684\u6BD4\u8F83
+br18.title=<b>\u6570\u636E\u4E2D\u5FC3 {1}</b> \u91CC\u7684 <b>{0}</b> \u64CD\u4F5C\u7CFB\u7EDF\u7684\u865A\u62DF\u673A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.clusters=\u7FA4\u96C6
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
@@ -270,9 +272,9 @@ br16.title=\u591A\u4E2A\u865A\u62DF\u673A\u7684\u8D44\u6E90\u4F7F\u7528\u7387\uF
 br16.chart.memory.usage=\u5185\u5B58\u4F7F\u7528\u7387\uFF08\u968F\u7740\u65F6\u95F4\u63A8\u79FB\uFF09
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br16.chart.cpu.usage=CPU \u4F7F\u7528\u7387\uFF08\u968F\u7740\u65F6\u95F4\u63A8\u79FB\uFF09
-# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author xhuang
 br16.more.than.five.warning=\u8FD9\u4E2A\u62A5\u544A\u663E\u793A\u4E86\u6700\u591A 5 \u4E2A\u865A\u62DF\u673A\u7684\u6570\u636E\uFF0C\u8BF7\u6309 'Options' \u5E76\u9009\u62E9 5 \u4E2A\u6216\u66F4\u5C11\u7684\u865A\u62DF\u673A\u3002
-# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author xhuang
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author xhuang
 br3.more.than.five.warning=\u8FD9\u4E2A\u62A5\u544A\u663E\u793A\u4E86\u6700\u591A 5 \u4E2A\u4E3B\u673A\u7684\u6570\u636E\uFF0C\u8BF7\u6309 'Options' \u5E76\u9009\u62E9 5 \u4E2A\u6216\u66F4\u5C11\u7684\u4E3B\u673A\u3002
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.vms.names=\u865A\u62DF\u673A\u7684\u540D\u79F0

@@ -2,18 +2,20 @@
 footer.pagination=Page {0} sur {1}
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.rhel.vs.other.linuxs=RHEL vs Autres SE Linux
+br18.chart.rhel.vs.other.linuxs.subtitle=vms active
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.date=Date
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.number.of.vms=Nbre VMs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.rhel.vs.windows=SE RHEL vs Windows
+br18.chart.rhel.vs.windows.subtitle=vms active
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.windows.distribution=Distribution des version Windows
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br18.chart.known.vs.unknown.os=Machines virtuelles avec des SE connus vs inconnus
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br18.title=Machines virtuelles actives par SE dans <b>{0}</b> du <b> Centre de donn\u00E9es {1}</b>
+br18.chart.windows.distribution.subtitle=vms active
+br18.chart.known.vs.unknown.os=SE Connu vs Inconnu
+br18.chart.known.vs.unknown.os.subtitle=vms actives et inactives
+br18.title=Machines virtuelles par SE dans <b>{0}</b> de <b> Data Center {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.clusters=Clusters
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
@@ -270,9 +272,9 @@ br16.title=Utilisation des ressources sur plusieurs machines virtuelles (sur la 
 br16.chart.memory.usage=Utilisation M\u00E9moire (sur la dur\u00E9e)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br16.chart.cpu.usage=Utilisation CPU (sur la dur\u00E9e)
-# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author croe
 br16.more.than.five.warning=Ce rapport affiche les donn\u00E9es pour un maximum de cinq machines virtuelles. Veuillez appuyer sur \u00ABOptions\u00BB et s\u00E9lectionner cinq machines virtuelles ou moins.
-# translation auto-copied from project Ovirt Engine Reports, version master, document reports/repository_files/resources/reports_resources/localization/ovirt_reports_bundle, author croe
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author croe
 br3.more.than.five.warning=Ce rapport affiche les donn\u00E9es pour un maximum de cinq h\u00F4tes. Veuillez appuyer sur \u00ABOptions\u00BB et s\u00E9lectionner cinq machines virtuelles ou moins.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.vms.names=Noms des machines virtuelles

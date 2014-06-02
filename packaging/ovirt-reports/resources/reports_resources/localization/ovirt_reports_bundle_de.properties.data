@@ -2,18 +2,20 @@
 footer.pagination=Seite {0} von {1}
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.rhel.vs.other.linuxs=RHEL gegen andere Linux Betriebssysteme
+br18.chart.rhel.vs.other.linuxs.subtitle=aktive vms
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.date=Datum
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 axis.number.of.vms=\#VMs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.rhel.vs.windows=RHEL gegen Windows Betriebssystem
+br18.chart.rhel.vs.windows.subtitle=aktive vms
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br18.chart.windows.distribution=Verteilung der Windows Versionen
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
-br18.chart.known.vs.unknown.os=Virtuelle Maschinen mit bekanntem Betriebssystem gegen Unbekanntem Betriebssystem
-# translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
-br18.title=Aktive Virtuelle Maschinen nach Betriebssystem in <b>{0}</b> von<b> Datenzentrum {1}</b>
+br18.chart.windows.distribution.subtitle=aktive vms
+br18.chart.known.vs.unknown.os=Bekanntes vs unbekanntes Betriebssystem
+br18.chart.known.vs.unknown.os.subtitle=aktive und inaktive vms
+br18.title=Virtuelle Maschinen nach Betriebssystem in <b>{0}</b> von<b> Datenzentrum {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.clusters=Clusters
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
@@ -270,9 +272,9 @@ br16.title=Ressourcenauslastung von mehrfachen Virtuellen Maschinen (Im Zeitabla
 br16.chart.memory.usage=Arbeitsspeicherauslastung (Im Zeitablauf)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 br16.chart.cpu.usage=CPU Auslastung (Im Zeitablauf)
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author Jasna
 br16.more.than.five.warning=In diesem Bericht werden Daten f\u00FCr bis zu f\u00FCnf Virtuelle Maschinen angezeigt. Bitte dr\u00FCcken Sie auf "Optionen" und w\u00E4hlen f\u00FCnf oder weniger Virtuelle Maschinen aus.
-# translation auto-copied from project Ovirt Engine Reports, version master, document ovirt_reports_bundle, author Jasna
+# translation auto-copied from project Ovirt Engine Reports, version 3.4, document ovirt_reports_bundle, author Jasna
 br3.more.than.five.warning=In diesem Bericht werden Daten f\u00FCr bis zu f\u00FCnf Hosts angezeigt. Bitte dr\u00FCcken Sie auf "Optionen" und w\u00E4hlen f\u00FCnf oder weniger Hosts aus.
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author rgromans
 full.details.vms.names=Namen der Virtuellen Maschinen
