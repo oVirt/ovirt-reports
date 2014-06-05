@@ -135,6 +135,21 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Thu Jun 5 2014 Shirly Radco <sradco@redhat.com> - 3.5
+Fixed issues:
+- require newer jasperreports (#1086003)
+- Ask only during setup (#1080431)
+- Removing build-conf files on failure (#1091700 / 1084749)
+- added leading question mark to dist tag (#1091700)
+- moved to using only ce edition dashboards in webadmin (#1096841)
+- Fixed date range in reports queries (#1085820)
+- Move JASPER_HOME init to common (#1098149)
+- fixed system dashboard error on a clean system (#1073340)
+- added a condition vms / hosts are active (#1085874)
+- updated br18 title and subtitles (#1083636)
+- Fixed empty legend in br18 (#1045103)
+- removed unused import causing build failure
+
 * Tue Apr 1 2014 Yaniv Dary <ydary@redhat.com> - 3.4.1
 Fixed issues:
 - Added strandard logrotate config file for JRS log.
