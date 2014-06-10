@@ -74,7 +74,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{cpu_usage_percent_avg}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + $F{cpu_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name} + ": " + $F{cluster_name} + "\n" + $R{br10.chart.series.cpu.usage} + ": " + $F{cpu_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 					<categorySeries>
@@ -82,7 +82,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{cpu_usage_percent_max}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + $F{cpu_usage_percent_max}.toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name} + ": " + $F{cluster_name} + "\n" + $R{br10.chart.series.cpu.peak} + ": " + $F{cpu_usage_percent_max}.toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 					<categorySeries>
@@ -90,7 +90,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{memory_usage_percent_avg}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + $F{memory_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name} + ": " + $F{cluster_name} + "\n" + $R{br10.chart.series.memory.usage} + ": " + $F{memory_usage_percent_avg}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 					<categorySeries>
@@ -98,7 +98,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{memory_usage_percent_max}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + $F{memory_usage_percent_max}.toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name} + ": " + $F{cluster_name} + "\n" + $R{br10.chart.series.memory.peak} + ": " + $F{memory_usage_percent_max}.toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 				</categoryDataset>

@@ -116,7 +116,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{uptime_percent}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + $F{uptime_percent}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name} + ": " + $F{cluster_name} + "\n" + $R{br7a.table.uptime} + ": " + $F{uptime_percent}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 					<categorySeries>
@@ -124,7 +124,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{planned_downtime_percent}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + $F{planned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name}+ ": " + $F{cluster_name} + "\n" + $R{br7a.table.planned.downtime} + ": " + $F{planned_downtime_percent}.setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 					<categorySeries>
@@ -132,7 +132,7 @@ LIMIT 5]]>
 						<categoryExpression><![CDATA[$F{cluster_name}]]></categoryExpression>
 						<valueExpression><![CDATA[100 - $F{uptime_percent} - $F{planned_downtime_percent}]]></valueExpression>
 						<itemHyperlink>
-							<hyperlinkTooltipExpression><![CDATA[$F{cluster_name} + ", " + (100 - $F{uptime_percent} - $F{planned_downtime_percent}).setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
+							<hyperlinkTooltipExpression><![CDATA[$R{br14a.table.cluster.name} + ": " + $F{cluster_name} + "\n" + $R{br7a.table.unplanned.downtime} + ": " + (100 - $F{uptime_percent} - $F{planned_downtime_percent}).setScale(2, RoundingMode.HALF_UP).toString() + "%"]]></hyperlinkTooltipExpression>
 						</itemHyperlink>
 					</categorySeries>
 				</categoryDataset>
