@@ -31,17 +31,17 @@ from ovirt_engine_setup.constants import classproperty
 from ovirt_engine_setup.constants import osetupattrsclass
 from ovirt_engine_setup.constants import osetupattrs
 
-from . import reportsconfig
+from . import config
 
 
 @util.export
 @util.codegen
 class Const(object):
-    PACKAGE_NAME = reportsconfig.PACKAGE_NAME
-    PACKAGE_VERSION = reportsconfig.PACKAGE_VERSION
-    DISPLAY_VERSION = reportsconfig.DISPLAY_VERSION
-    RPM_VERSION = reportsconfig.RPM_VERSION
-    RPM_RELEASE = reportsconfig.RPM_RELEASE
+    PACKAGE_NAME = config.PACKAGE_NAME
+    PACKAGE_VERSION = config.PACKAGE_VERSION
+    DISPLAY_VERSION = config.DISPLAY_VERSION
+    RPM_VERSION = config.RPM_VERSION
+    RPM_RELEASE = config.RPM_RELEASE
     SERVICE_NAME = 'ovirt-engine-reportsd'
     OVIRT_ENGINE_REPORTS_DB_BACKUP_PREFIX = 'reports'
     OVIRT_ENGINE_REPORTS_PACKAGE_NAME = 'ovirt-engine-reports'
@@ -79,10 +79,10 @@ class Defaults(object):
 class FileLocations(object):
     SYSCONFDIR = '/etc'
     DATADIR = '/usr/share'
-    PKG_SYSCONF_DIR = reportsconfig.PKG_SYSCONF_DIR
-    PKG_STATE_DIR = reportsconfig.PKG_STATE_DIR
-    PKG_DATA_DIR = reportsconfig.PKG_DATA_DIR
-    PKG_JAVA_DIR = reportsconfig.PKG_JAVA_DIR
+    PKG_SYSCONF_DIR = config.PKG_SYSCONF_DIR
+    PKG_STATE_DIR = config.PKG_STATE_DIR
+    PKG_DATA_DIR = config.PKG_DATA_DIR
+    PKG_JAVA_DIR = config.PKG_JAVA_DIR
     SSO_CONFIGURATION = os.path.join(
         PKG_SYSCONF_DIR,
         'sso.properties',
@@ -172,7 +172,7 @@ class FileLocations(object):
         'master.properties',
     )
 
-    OVIRT_ENGINE_LOCALSTATEDIR = reportsconfig.ENGINE_LOCALSTATEDIR
+    OVIRT_ENGINE_LOCALSTATEDIR = config.ENGINE_LOCALSTATEDIR
 
 
 @util.export

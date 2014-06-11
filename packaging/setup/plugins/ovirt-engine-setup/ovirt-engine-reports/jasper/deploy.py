@@ -41,12 +41,12 @@ from ovirt_engine import util as outil
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup.reports import reportsconstants as oreportscons
+from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.reports import reportsutil as oreportsutil
 from ovirt_engine_setup import util as osetuputil
 from ovirt_engine_setup.engine_common import database
 from ovirt_engine_setup.engine_common \
-    import enginecommonconstants as oengcommcons
+    import constants as oengcommcons
 
 
 @util.export

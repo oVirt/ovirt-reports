@@ -100,7 +100,7 @@ GENERATED = \
 	packaging/jasper-customizations/WEB-INF/applicationContext-ovirt-override.xml \
 	packaging/jasper-war-patches/ce/900_004_props_change_logs_location.patch \
 	packaging/jasper-war-patches/pro/900_004_props_change_logs_location.patch \
-	packaging/setup/ovirt_engine_setup/reports/reportsconfig.py \
+	packaging/setup/ovirt_engine_setup/reports/config.py \
 	packaging/sys-etc/logrotate.d/ovirt-engine-reports \
 	packaging/sys-etc/ovirt-engine/engine.conf.d/20-ovirt-engine-reports.conf \
 	$(NULL)

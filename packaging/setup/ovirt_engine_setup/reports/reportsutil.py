@@ -35,8 +35,8 @@ from otopi import util
 
 
 from ovirt_engine_setup.engine_common \
-    import enginecommonconstants as oengcommcons
-from . import reportsconstants as oreportscons
+    import constants as oengcommcons
+from . import constants as oreportscons
 
 
 class XMLDoc(base.Base):

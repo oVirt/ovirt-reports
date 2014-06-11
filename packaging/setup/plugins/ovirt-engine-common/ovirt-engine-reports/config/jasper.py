@@ -24,7 +24,7 @@ from otopi import util
 from otopi import plugin
 
 
-from ovirt_engine_setup.reports import reportsconstants as oreportscons
+from ovirt_engine_setup.reports import constants as oreportscons
 
 
 @util.export
