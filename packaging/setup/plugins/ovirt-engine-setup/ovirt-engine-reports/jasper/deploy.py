@@ -465,9 +465,6 @@ class Plugin(plugin.PluginBase):
         condition=lambda self: (
             self.environment[oreportscons.CoreEnv.ENABLE]
         ),
-        after=(
-            oreportscons.Stages.DB_CREDENTIALS_AVAILABLE,
-        ),
     )
     def _validation(self):
         if not self.environment[
