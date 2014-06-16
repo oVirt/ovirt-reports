@@ -227,7 +227,6 @@ WHERE
         CAST( $P{P_Start_Date} AS TIMESTAMP )
         OR
         v3_5_configuration_history_vms.delete_date IS NULL
-    )
 GROUP BY
     v3_5_configuration_history_vms.cluster_id,
     v3_5_configuration_history_clusters.cluster_name,
