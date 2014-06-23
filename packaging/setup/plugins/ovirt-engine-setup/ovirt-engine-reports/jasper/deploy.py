@@ -81,6 +81,9 @@ class Plugin(plugin.PluginBase):
                     dst = '%s.%s' % (src, suffix)
                     self._restore.append(dict(src=src, dst=dst))
                     os.rename(src, dst)
+                else:
+                    dst = None
+                    self._restore.append(dict(src=src, dst=dst))
 
             if not self._parent.environment[
                 oreportscons.DBEnv.NEW_DATABASE
@@ -132,9 +135,10 @@ class Plugin(plugin.PluginBase):
             self._parent.logger.info(_('Rolling back Reports files'))
             for entry in self._restore:
                 try:
-                    if os.path.exists(entry['src']):
-                        shutil.rmtree(entry['src'])
-                    os.rename(entry['dst'], entry['src'])
+                    if entry['dst'] is not None:
+                        if os.path.exists(entry['src']):
+                            shutil.rmtree(entry['src'])
+                        os.rename(entry['dst'], entry['src'])
                 except Exception as e:
                     self._parent.logger.debug(
                         'Exception during rename %s->%s',
@@ -155,7 +159,7 @@ class Plugin(plugin.PluginBase):
 
         def commit(self):
             for entry in self._restore:
-                if os.path.exists(entry['dst']):
+                if entry['dst'] is not None and os.path.exists(entry['dst']):
                     shutil.rmtree(entry['dst'])
 
     def _buildJs(self, cmd, config, noSuffix=False):
