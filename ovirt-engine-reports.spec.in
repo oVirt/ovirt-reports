@@ -135,6 +135,10 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Tue Jun 24 2014 Shirly Radco <sradco@redhat.com> - 3.4.2
+Fixed issues:
+- remove war file for new db (#1072357)
+
 * Mon Jun 9 2014 Shirly Radco <sradco@redhat.com> - 3.4.2
 oVirt 3.4.2 GA release.
 
