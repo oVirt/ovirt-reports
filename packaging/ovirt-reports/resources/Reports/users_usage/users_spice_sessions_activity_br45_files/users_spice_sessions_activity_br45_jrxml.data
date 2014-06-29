@@ -69,7 +69,7 @@ SELECT DISTINCT
     v3_5_configuration_history_clusters.cluster_name,
     v3_5_configuration_history_clusters.delete_date AS cluster_delete,
     history_datetime,
-    user_name,
+    username AS user_name,
     v3_5_statistics_vms_users_usage_$P!{table_name}.vm_id,
     v3_5_configuration_history_vms.vm_name,
     v3_5_configuration_history_vms.delete_date,
@@ -98,6 +98,11 @@ FROM v3_5_statistics_vms_users_usage_$P!{table_name}
                 FROM v3_5_configuration_history_clusters a
                 GROUP BY a.cluster_id
             )
+        )
+    LEFT OUTER JOIN v3_5_users_details_history
+        ON (
+            v3_5_statistics_vms_users_usage_hourly.user_id =
+            v3_5_users_details_history.user_id
         )
 WHERE
     -- Here we filter by the datacenter chosen by the user
@@ -153,7 +158,7 @@ WHERE
 ORDER BY
     v3_5_configuration_history_clusters.cluster_id,
     history_datetime,
-    user_name,
+    username,
     session_time_in_hours DESC]]>
 		</queryString>
 		<field name="cluster_id" class="java.lang.Object"/>
