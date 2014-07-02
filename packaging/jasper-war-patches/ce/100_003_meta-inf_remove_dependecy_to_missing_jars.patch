@@ -1,0 +1,15 @@
+--- a/META-INF/jboss-deployment-structure.xml
++++ b/META-INF/jboss-deployment-structure.xml
+@@ -169,12 +169,6 @@
+                    Add JDBC jars for UI DataSource drop down here
+             -->
+             <resource-root path="WEB-INF/lib/mariadb-java-client-1.1.2.jar" use-physical-code-source="true"/>
+-            <resource-root path="WEB-INF/lib/ingres-jdbc-9.2.0.jar" use-physical-code-source="true"/>
+-         	<resource-root path="WEB-INF/lib/ojdbc6-11.2.0.2.jar" use-physical-code-source="true"/>
+-         	<resource-root path="WEB-INF/lib/db2jcc-9.7.jar" use-physical-code-source="true"/>
+-         	<resource-root path="WEB-INF/lib/sqljdbc-1.6-2206.100.jar" use-physical-code-source="true"/>
+-         	<resource-root path="WEB-INF/lib/vertica_4.1.19_jdk_5.jar" use-physical-code-source="true"/>
+-
+ 
+             <!-- 2013-07-15 thorick
+                             http://bugzilla.jaspersoft.com/show_bug.cgi?id=33137
