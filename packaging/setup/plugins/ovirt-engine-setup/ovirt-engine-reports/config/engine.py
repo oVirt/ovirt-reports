@@ -95,7 +95,7 @@ class Plugin(plugin.PluginBase):
                 ),
                 version='general',
             ),
-            ownConnection=True,
+            ownConnection=False,
         )
 
     @plugin.event(
