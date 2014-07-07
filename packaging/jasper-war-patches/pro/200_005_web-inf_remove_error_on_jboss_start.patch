@@ -22,6 +22,6 @@ This removed the problemtic servlet.
 -    <servlet-name>JasperXmlaServlet</servlet-name>
 -    <url-pattern>/xmla</url-pattern>
 -  </servlet-mapping>
-   <!-- Status Servlet -->
+   <!-- Reports Servlet -->
    <servlet>
-     <servlet-name>StatusServlet</servlet-name>
+     <servlet-name>reports-interface</servlet-name>

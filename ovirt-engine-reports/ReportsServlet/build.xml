@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="ReportsStatus" default="all">
 	<property name="build.output" location="lib"/>
-	<property name="local.output" value="${build.output}/ReportsStatus.jar"/>
+	<property name="local.output" value="${build.output}/ReportsServlet.jar"/>
 
 	<path id="local.classpath">
 		<fileset dir="${jasper.lib}"><filename name="servlet-api-*.jar"/></fileset>

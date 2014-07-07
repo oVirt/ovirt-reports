@@ -56,8 +56,8 @@
 		<ant dir="ovirt-engine-reports/ReportsLineBarChartTheme" target="${target}"/>
 		<echo message="ReportsPieChartTheme"/>
 		<ant dir="ovirt-engine-reports/ReportsPieChartTheme" target="${target}"/>
-		<echo message="ReportsStatus"/>
-		<ant dir="ovirt-engine-reports/ReportsStatus" target="${target}"/>
+		<echo message="ReportsServlet"/>
+		<ant dir="ovirt-engine-reports/ReportsServlet" target="${target}"/>
 		<echo message="WebadminLineBarChartTheme"/>
 		<ant dir="ovirt-engine-reports/WebadminLineBarChartTheme" target="${target}"/>
 	</target>

@@ -4,15 +4,15 @@
      <servlet-name>JasperXmlaServlet</servlet-name>
      <url-pattern>/xmla</url-pattern>
    </servlet-mapping>
-+  <!-- Status Servlet -->
++  <!-- Reports Servlet -->
 +  <servlet>
-+    <servlet-name>StatusServlet</servlet-name>
-+    <servlet-class>org.ovirt.status.StatusServlet</servlet-class>
++    <servlet-name>reports-interface</servlet-name>
++    <servlet-class>org.ovirt.servlet.ReportsServlet</servlet-class>
 +  </servlet>
 +
 +  <servlet-mapping>
-+    <servlet-name>StatusServlet</servlet-name>
-+    <url-pattern>/Status</url-pattern>
++    <servlet-name>reports-interface</servlet-name>
++    <url-pattern>/ovirt/reports-interface</url-pattern>
 +  </servlet-mapping>
    <!--for drillthrough-->
    <servlet>
