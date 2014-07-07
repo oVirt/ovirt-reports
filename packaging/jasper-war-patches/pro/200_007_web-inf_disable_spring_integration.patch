@@ -1,0 +1,13 @@
+--- a/WEB-INF/web.xml
++++ b/WEB-INF/web.xml
+@@ -18,6 +18,10 @@
+     <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+     <param-value>true</param-value>
+   </context-param>
++  <context-param>
++    <param-name>org.jboss.as.jaxrs.disableSpringIntegration</param-name>
++    <param-value>true</param-value>
++  </context-param>
+   <!--listener to load the root application context-->
+   <listener>
+     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
