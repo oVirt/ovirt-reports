@@ -76,7 +76,7 @@ class Plugin(plugin.PluginBase):
             environment=self.environment,
         )
 
-        result = statement.execute(
+        statement.execute(
             statement="""
                 update vdc_options
                 set
