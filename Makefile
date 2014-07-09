@@ -51,6 +51,7 @@ PKG_STATE_DIR=$(LOCALSTATE_DIR)/lib/ovirt-engine-reports
 ENGINE_STATE_DIR=$(LOCALSTATE_DIR)/lib/$(ENGINE_NAME)
 PKG_TMP_DIR=$(LOCALSTATE_DIR)/tmp/ovirt-engine-reports
 JBOSS_HOME=/usr/share/jboss-as
+JBOSS_RUNTIME=$(PKG_STATE_DIR)/jboss_runtime
 PYTHON_DIR=$(PYTHON_SYS_DIR)
 DEV_PYTHON_DIR=
 PKG_USER=ovirt
@@ -100,6 +101,7 @@ BUILD_TARGET=install
 	-e "s|@DISPLAY_VERSION@|$(DISPLAY_VERSION)|g" \
 	-e "s|@ENGINE_VAR@|$(ENGINE_STATE_DIR)|g" \
 	-e "s|@JBOSS_HOME@|$(JBOSS_HOME)|g" \
+	-e "s|@JBOSS_RUNTIME@|$(JBOSS_RUNTIME)|g" \
 	-e "s|@PEP8@|$(PEP8)|g" \
 	-e "s|@PYFLAKES@|$(PYFLAKES)|g" \
 	$< > $@
