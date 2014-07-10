@@ -420,6 +420,15 @@ class ConfigEnv(object):
     JBOSS_DEBUG_ADDRESS = 'OVESETUP_REPORTS_CONFIG/jbossDebugAddress'
     JBOSS_NEEDED = 'OVESETUP_REPORTS_CONFIG/jbossNeeded'
 
+    @osetupattrs(
+        answerfile=True,
+        summary=True,
+        description=_('Engine Host FQDN'),
+        postinstallfile=True,
+    )
+    def ENGINE_FQDN(self):
+        return 'OVESETUP_REPORTS_CONFIG/engineFqdn'
+
 
 @util.export
 @util.codegen
