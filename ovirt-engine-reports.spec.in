@@ -233,7 +233,21 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
-* Thu Jun 5 2014 Shirly Radco <sradco@redhat.com> - 3.5
+* Sun Jul 13 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+Fixed issues:
+- disable Spring integration in JRS pro (#1115569)
+- deleted references to missing resources (#1114652)
+- filter engine db password
+- allow reports on separate host (#1080998)
+- updated br45 report query (#1112612)
+- fix logical loop in deps
+- remove war file for new db (#1072357)
+- fix bug in br44- redundant bracket
+- added to bar tooltip series value (#1016353)
+- reorg the per component directory
+- split of engine-setup-plugin
+
+* Thu Jun 5 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 Fixed issues:
 - require newer jasperreports (#1086003)
 - Ask only during setup (#1080431)
