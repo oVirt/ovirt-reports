@@ -23,6 +23,7 @@ from . import admin
 from . import engine
 from . import firewall
 from . import jasper
+from . import jboss
 from . import protocols
 from . import sso
 
@@ -33,6 +34,7 @@ def createPlugins(context):
     engine.Plugin(context=context)
     firewall.Plugin(context=context)
     jasper.Plugin(context=context)
+    jboss.Plugin(context=context)
     protocols.Plugin(context=context)
     sso.Plugin(context=context)
 

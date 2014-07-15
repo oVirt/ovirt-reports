@@ -191,6 +191,10 @@ class FileLocations(object):
         SERVICE_VARS_D,
         '10-setup-protocols.conf',
     )
+    REPORTS_SERVICE_CONFIG_JBOSS = os.path.join(
+        SERVICE_VARS_D,
+        '10-setup-jboss.conf',
+    )
     PKG_STATE_DIR = config.PKG_STATE_DIR
     PKG_DATA_DIR = config.PKG_DATA_DIR
     PKG_JAVA_DIR = config.PKG_JAVA_DIR

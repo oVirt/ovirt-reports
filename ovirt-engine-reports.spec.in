@@ -3,10 +3,8 @@
 %global ovirt_install_systemd 1
 %global ovirt_install_systemv 0
 %if %{fedora} >= 20
-%global ovirt_provides_jboss 1
 %global jboss ovirt-engine-jboss-as >= 7.1.1
 %else
-%global ovirt_provides_jboss 0
 %global jboss jboss-as >= 7.1.1-9.3
 %endif
 %endif
