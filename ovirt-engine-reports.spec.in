@@ -231,6 +231,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Tue Jul 22 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+Fixed issues:
+- fixed centos install with ovirt provided jboss
+
 * Sun Jul 13 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 Fixed issues:
 - disable Spring integration in JRS pro (#1115569)
