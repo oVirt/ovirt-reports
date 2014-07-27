@@ -231,6 +231,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Mon Jul 28 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+Fixed issues:
+- removed default theme that caused input control to become unusable (#1112641)
+
 * Tue Jul 22 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 Fixed issues:
 - fixed centos install with ovirt provided jboss
