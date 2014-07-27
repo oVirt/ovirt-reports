@@ -203,6 +203,7 @@ fi
 %endif
 if [ "$1" -eq 0 ]; then
 	rm -rf /var/lib/ovirt-engine-reports/%{reports_name}.war
+	rm -f /var/lib/ovirt-engine/reports.xml
 fi
 
 %files

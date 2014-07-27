@@ -63,10 +63,7 @@ class Plugin(plugin.PluginBase):
             self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
                 filetransaction.FileTransaction(
                     name=os.path.join(
-                        (
-                            oreportscons.FileLocations.
-                            OVIRT_ENGINE_REPORTS_JASPER_WAR
-                        ),
+                        oreportscons.FileLocations.OVIRT_ENGINE_LOCALSTATEDIR,
                         'reports.xml',
                     ),
                     content=content.read(),
