@@ -135,6 +135,10 @@ fi
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 
 %changelog
+* Wed Jul 30 2014 Shirly Radco <sradco@redhat.com> - 3.4.3
+Fixed issues:
+- do not provide default theme (#1112641)
+
 * Tue Jul 8 2014 Shirly Radco <sradco@redhat.com> - 3.4.2
 Fixed issues:
 - disable Spring integration in JRS pro (#1117190)
