@@ -135,9 +135,9 @@ class Plugin(plugin.PluginBase):
             self._parent.logger.info(_('Rolling back Reports files'))
             for entry in self._restore:
                 try:
+                    if os.path.exists(entry['src']):
+                        shutil.rmtree(entry['src'])
                     if entry['dst'] is not None:
-                        if os.path.exists(entry['src']):
-                            shutil.rmtree(entry['src'])
                         os.rename(entry['dst'], entry['src'])
                 except Exception as e:
                     self._parent.logger.debug(
