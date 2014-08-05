@@ -74,17 +74,21 @@ class Plugin(plugin.PluginBase):
         )
 
         if self.environment[oreportscons.CoreEnv.ENABLE]:
+            packages = tolist(
+                self.environment[
+                    oreportscons.RPMDistroEnv.PACKAGES
+                ]
+            )
             self.environment[
                 osetupcons.RPMDistroEnv.PACKAGES_UPGRADE_LIST
             ].append(
                 {
-                    'packages': tolist(
-                        self.environment[
-                            oreportscons.RPMDistroEnv.PACKAGES
-                        ]
-                    ),
+                    'packages': packages,
                 },
             )
+            self.environment[
+                osetupcons.RPMDistroEnv.VERSION_LOCK_APPLY
+            ].extend(packages)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
