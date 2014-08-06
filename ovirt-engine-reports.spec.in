@@ -138,6 +138,7 @@ fi
 * Wed Aug 8 2014 Shirly Radco <sradco@redhat.com> - 3.4.3
 Fixed issues:
 - remove war file for new db (#1124383)
+- add reports to versionlock
 
 * Wed Jul 30 2014 Shirly Radco <sradco@redhat.com> - 3.4.3
 Fixed issues:
