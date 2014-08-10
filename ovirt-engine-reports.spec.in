@@ -231,6 +231,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Sun Aug 10 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+Fixed issues:
+- add reports to versionlock
+
 * Mon Aug 04 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 Fixed issues:
 - remove war file for new db (#1072357)
