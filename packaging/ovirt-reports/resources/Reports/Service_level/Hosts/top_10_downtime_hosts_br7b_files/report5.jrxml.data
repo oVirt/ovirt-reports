@@ -1,42 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="295" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="295" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <title>
-        <band height="14" splitType="Stretch">
-            <rectangle>
-                <reportElement x="55" y="3" width="8" height="8" backcolor="#FFFFAA"/>
-            </rectangle>
-            <rectangle>
-                <reportElement x="0" y="3" width="8" height="8" backcolor="#6EC000"/>
-            </rectangle>
-            <textField>
-                <reportElement x="176" y="0" width="119" height="14"/>
-                <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$R{br7b.table.unplanned.downtime}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="66" y="0" width="95" height="14"/>
-                <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$R{br7b.table.planned.downtime}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="11" y="0" width="42" height="14"/>
-                <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$R{br7b.table.uptime}]]></textFieldExpression>
-            </textField>
-            <rectangle>
-                <reportElement x="165" y="3" width="8" height="8" backcolor="#FF0000"/>
-            </rectangle>
-        </band>
-    </title>
+<!-- Created with Jaspersoft Studio version 5.5.0-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="315" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="315" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="776ed311-a899-4ef9-a0db-e3385d445b39">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Service_level/Hosts/top_10_downtime_hosts_br7b_files/report5.jrxml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HistoryDB"/>
+	<title>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement x="65" y="3" width="8" height="8" backcolor="#FFFFAA" uuid="0cb68089-da48-4bca-b7af-8e92de359f0a">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="3" width="8" height="8" backcolor="#6EC000" uuid="b28aab9c-23a6-490f-aee1-7d33743b5e0a"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="196" y="0" width="119" height="14" uuid="ea067af7-f380-4c13-8b8b-3a46ac98d75b">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br7b.table.unplanned.downtime}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br7b.table.unplanned.downtime}]]></hyperlinkTooltipExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="76" y="0" width="105" height="14" uuid="047d821f-3e90-45f9-9540-2f4c79c0dfe6">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br7b.table.planned.downtime}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br7b.table.planned.downtime}]]></hyperlinkTooltipExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="11" y="0" width="50" height="14" uuid="03b56239-eeaf-40ab-869d-edd69354cb31">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br7b.table.uptime}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br7b.table.uptime}]]></hyperlinkTooltipExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="185" y="3" width="8" height="8" backcolor="#FF0000" uuid="0712807a-a023-4af7-b7f0-9df8c2314693">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</rectangle>
+		</band>
+	</title>
 </jasperReport>

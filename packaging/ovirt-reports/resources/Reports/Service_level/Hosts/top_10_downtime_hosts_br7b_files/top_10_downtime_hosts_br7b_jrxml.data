@@ -497,7 +497,12 @@ LIMIT 10]]>
 	<summary>
 		<band height="14">
 			<subreport>
-				<reportElement x="539" y="0" width="295" height="14" uuid="3d5648a5-d2aa-4c3a-b989-4e35c348cde5"/>
+				<reportElement x="519" y="0" width="315" height="14" uuid="3d5648a5-d2aa-4c3a-b989-4e35c348cde5">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
 				<subreportExpression><![CDATA["repo:report5.jrxml"]]></subreportExpression>
 			</subreport>
 		</band>
