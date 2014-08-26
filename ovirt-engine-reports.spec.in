@@ -231,6 +231,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Tue Aug 26 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+Fixed issues:
+- updated br7b legend (#1031757)
+
 * Sun Aug 10 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 Fixed issues:
 - add reports to versionlock
