@@ -20,6 +20,7 @@
 
 
 import os
+import tempfile
 
 
 import gettext
@@ -38,6 +39,7 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
+from ovirt_engine_setup.engine_common import constants as oengcommcons
 from ovirt_engine_setup.reports import constants as oreportscons
 
 
@@ -58,7 +60,7 @@ class Plugin(plugin.PluginBase):
         req = X509.Request()
         req.set_pubkey(evp)
         req.sign(evp, 'sha1')
-        return rsapem, req.as_pem()
+        return rsapem, req.as_pem(), req.get_pubkey().as_pem(cipher=None)
 
     def __init__(self, context):
         super(Plugin, self).__init__(context=context)
@@ -66,6 +68,7 @@ class Plugin(plugin.PluginBase):
         self._need_key = False
         self._need_cert = False
         self._on_separate_h = False
+        self._csr_file = None
 
     @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
@@ -75,12 +78,20 @@ class Plugin(plugin.PluginBase):
             oreportscons.ConfigEnv.JBOSS_CERTIFICATE_CHAIN,
             None
         )
+        self.environment.setdefault(
+            oreportscons.ConfigEnv.PKI_JBOSS_CSR_FILENAME,
+            None
+        )
 
     @plugin.event(
         stage=plugin.Stages.STAGE_CUSTOMIZATION,
+        before=(
+            oengcommcons.Stages.DIALOG_TITLES_E_PKI,
+        ),
         after=(
             oreportscons.Stages.CORE_ENABLE,
             oreportscons.Stages.ENGINE_CORE_ENABLE,
+            oengcommcons.Stages.DIALOG_TITLES_S_PKI,
         ),
         condition=lambda self: (
             self.environment[
@@ -106,7 +117,8 @@ class Plugin(plugin.PluginBase):
         )
 
         if self._need_key:
-            self._key, req = self._genReq()
+            self._key, req, my_pubk = self._genReq()
+            self._need_cert = True
 
         if (
             self._need_cert and
@@ -114,55 +126,101 @@ class Plugin(plugin.PluginBase):
                 oreportscons.ConfigEnv.JBOSS_CERTIFICATE_CHAIN
             ] is None
         ):
-            self.dialog.displayMultiString(
-                name='REPORTS_JBOSS_CERTIFICATE_REQUEST',
-                value=req.splitlines(),
-                note=_(
-                    '\n\nPlease issue Reports certificate based '
-                    'on this certificate request\n\n'
-                ),
+            csr_fname = self.environment[
+                oreportscons.ConfigEnv.PKI_JBOSS_CSR_FILENAME
+            ]
+            with (
+                open(csr_fname, 'w') if csr_fname
+                else tempfile.NamedTemporaryFile(mode='w', delete=False)
+            ) as self._csr_file:
+                self._csr_file.write(req)
+
+            remote_name = '{name}-{fqdn}'.format(
+                name=oreportscons.Const.PKI_REPORTS_JBOSS_CERT_NAME,
+                fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
+            )
+            enroll_command = (
+                " /usr/share/ovirt-engine/bin/pki-enroll-request.sh \\\n"
+                "     --name={remote_name} \\\n"
+                "     --subject=\""
+                "$(openssl x509 -in {pkidir}/ca.pem -noout "
+                "-subject | sed 's;subject= \(/C=[^/]*/O=[^/]*\)/.*;\\1;')"
+                "/CN={fqdn}\""
+            ).format(
+                remote_name=remote_name,
+                pkidir=oreportscons.FileLocations.OVIRT_ENGINE_PKIDIR,
+                fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
             )
 
             self.dialog.note(
                 text=_(
-                    "Enroll SSL certificate for the Reports service.\n"
-                    "It can be done using engine internal CA, if no 3rd "
-                    "party CA is available, with this sequence:\n"
-
-                    "1. Copy and save certificate request at\n"
-                    "    /etc/pki/ovirt-engine/requests/{name}.req\n"
-                    "on the engine server\n\n"
-                    "2. execute, on the engine host, this command "
-                    "to enroll the cert:\n"
-                    " /usr/share/ovirt-engine/bin/pki-enroll-request.sh \\\n"
-                    "     --name={name} \\\n"
-                    "     --subject=\"/C=<country>/O=<organization>/"
-                    "CN={fqdn}\"\n"
-                    "Substitute <country>, <organization> to suite your "
-                    "environment\n"
-                    "(i.e. the values must match values in the "
-                    "certificate authority of your engine)\n\n"
-
-                    "3. Certificate will be available at\n"
-                    "    /etc/pki/ovirt-engine/certs/{name}.cer\n"
-                    "on the engine host, please copy that content here "
-                    "when required\n"
+                    "\nTo sign the Reports certificate on the engine server, "
+                    "please:\n\n"
+                    "1. Copy {tmpcsr} from here to {enginecsr} on the engine "
+                    "server.\n\n"
+                    "2. Run on the engine server:\n\n"
+                    "{enroll_command}\n\n"
+                    "3. Copy {enginecert} from the engine server to some file "
+                    "here. Provide the file name below.\n\n"
+                    "See {url} for more details, including using an external "
+                    "certificate authority."
                 ).format(
-                    fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
-                    name=oreportscons.Const.PKI_REPORTS_JBOSS_CERT_NAME,
+                    tmpcsr=self._csr_file.name,
+                    enginecsr='{pkireqdir}/{remote_name}.req'.format(
+                        pkireqdir=oreportscons.FileLocations.
+                            OVIRT_ENGINE_PKIREQUESTSDIR,
+                        remote_name=remote_name,
+                    ),
+                    enroll_command=enroll_command,
+                    enginecert='{pkicertdir}/{remote_name}.cer'.format(
+                        pkicertdir=oreportscons.FileLocations.
+                            OVIRT_ENGINE_PKICERTSDIR,
+                        remote_name=remote_name,
+                    ),
+                    url="http://www.ovirt.org/Features/Separate-Reports-Host",
                 ),
             )
 
-            self.environment[
-                oreportscons.ConfigEnv.JBOSS_CERTIFICATE_CHAIN
-            ] = self.dialog.queryMultiString(
-                name='REPORTS_JBOSS_CERTIFICATE_CHAIN',
-                note=_(
-                    '\n\nPlease input Reports certificate chain that '
-                    'matches certificate request, (issuer is not '
-                    'mandatory, from intermediate and upper)\n\n'
-                ),
-            )
+            goodcert = False
+            while not goodcert:
+                filename = self.dialog.queryString(
+                    name='REPORTS_JBOSS_CERT_FILENAME',
+                    note=_(
+                        '\nPlease input the location of the file where you '
+                        'copied the signed certificate in step 3 above: '
+                    ),
+                    prompt=True,
+                )
+                try:
+                    with open(filename) as f:
+                        cert = f.read()
+                    goodcert = my_pubk == X509.load_cert_string(
+                        cert
+                    ).get_pubkey().as_pem(cipher=None)
+                    self.environment[
+                        oreportscons.ConfigEnv.JBOSS_CERTIFICATE_CHAIN
+                    ] = cert
+                    if not goodcert:
+                        self.logger.error(
+                            _(
+                                'The certificate in {cert} does not match '
+                                'the request in {req}. Please try again.'
+                            ).format(
+                                cert=filename,
+                                req=self._csr_file.name,
+                            )
+                        )
+                except:
+                    self.logger.error(
+                        _(
+                            'Error while reading or parsing {cert}. '
+                            'Please try again.'
+                        ).format(
+                            cert=filename,
+                        )
+                    )
+                    self.logger.debug('Error reading cert', exc_info=True)
+            self.logger.info(_('Reports certificate read successfully'))
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
@@ -214,6 +272,20 @@ class Plugin(plugin.PluginBase):
                     modifiedList=uninstall_files,
                 )
             )
+
+    @plugin.event(
+        stage=plugin.Stages.STAGE_CLEANUP,
+    )
+    def _cleanup(self):
+        if self._csr_file is not None:
+            try:
+                os.unlink(self._csr_file.name)
+            except OSError as e:
+                self.logger.debug(
+                    "Failed to delete '%s'",
+                    self._csr_file.name,
+                    exc_info=True,
+                )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
