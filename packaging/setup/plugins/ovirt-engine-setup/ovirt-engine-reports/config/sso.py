@@ -27,6 +27,7 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
+from ovirt_engine_setup import hostname as osetuphostname
 from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.engine_common \
     import constants as oengcommcons
@@ -43,51 +44,29 @@ class Plugin(plugin.PluginBase):
     )
     def _init(self):
         self.environment.setdefault(
-            oreportscons.ConfigEnv.ENGINE_FQDN,
+            oreportscons.EngineConfigEnv.ENGINE_FQDN,
             None
         )
 
     @plugin.event(
         stage=plugin.Stages.STAGE_CUSTOMIZATION,
         after=(
-            oreportscons.Stages.CORE_ENABLE,
+            osetupcons.Stages.DIALOG_TITLES_S_NETWORK,
+            oengcommcons.Stages.NETWORK_OWNERS_CONFIG_CUSTOMIZED,
+        ),
+        before=(
+            osetupcons.Stages.DIALOG_TITLES_E_NETWORK,
         ),
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
     )
     def _customization(self):
-        if self.environment[oreportscons.EngineCoreEnv.ENABLE]:
-            self.environment[
-                oreportscons.ConfigEnv.ENGINE_FQDN
-            ] = self.environment[osetupcons.ConfigEnv.FQDN]
-        else:
-            interactive = self.environment[
-                oreportscons.ConfigEnv.ENGINE_FQDN
-            ] is None
-            validFQDN = False
-            while not validFQDN:
-                if interactive:
-                    self.environment[
-                        oreportscons.ConfigEnv.ENGINE_FQDN
-                    ] = self.dialog.queryString(
-                        name='OVESETUP_REPORTS_ENGINE_FQDN',
-                        note=_(
-                            'Fully qualified DNS name of the engine host: '
-                        ),
-                        prompt=True,
-                    )
-                # TODO do some real validation -
-                # either syntactic/dns lookup/etc or just try to connect to it
-                validFQDN = self.environment[
-                    oreportscons.ConfigEnv.ENGINE_FQDN
-                ] != ''
-                if not validFQDN:
-                    self.logger.error(
-                        _('Host name is not valid: {error}').format(
-                            error='Cannot be empty',
-                        ),
-                    )
-                    if not interactive:
-                        break
+        osetuphostname.Hostname(
+            plugin=self,
+        ).getHostname(
+            envkey=oreportscons.EngineConfigEnv.ENGINE_FQDN,
+            whichhost=_('the engine'),
+            supply_default=False,
+        )
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
@@ -110,7 +89,9 @@ class Plugin(plugin.PluginBase):
                     'https://{host}:{port}/ovirt-engine/services'
                     '/get-session-user\n'
                 ).format(
-                    host=self.environment[oreportscons.ConfigEnv.ENGINE_FQDN],
+                    host=self.environment[
+                        oreportscons.EngineConfigEnv.ENGINE_FQDN
+                    ],
                     # TODO - this should be customizable as well, but default
                     # works (443).
                     port=self.environment[
