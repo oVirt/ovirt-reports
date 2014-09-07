@@ -230,6 +230,9 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Sun Sep 07 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+-  provide reports.xml to engine over http (#1116851)
+
 * Tue Aug 26 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 Fixed issues:
 - updated br7b legend (#1031757)
