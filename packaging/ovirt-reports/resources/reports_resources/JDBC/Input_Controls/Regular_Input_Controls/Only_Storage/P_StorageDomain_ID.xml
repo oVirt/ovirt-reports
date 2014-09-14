@@ -28,7 +28,7 @@
 
 SELECT DISTINCT
     CAST (
-        v3_5_configuration_history_storage_domains.storage_domain_id AS varchar
+        v3_6_configuration_history_storage_domains.storage_domain_id AS varchar
     ),
     detach_date,
     CASE
@@ -53,12 +53,12 @@ FROM
     -- Here we join storage domain config table with
     -- the storage domains and datacenter map table.
     -- We also filter by the datacenter chosen by the user
-    v3_5_configuration_history_storage_domains
-        INNER JOIN v3_5_map_history_datacenters_storage_domains
+    v3_6_configuration_history_storage_domains
+        INNER JOIN v3_6_map_history_datacenters_storage_domains
             ON (
-                v3_5_map_history_datacenters_storage_domains.storage_domain_id =
-                v3_5_configuration_history_storage_domains.storage_domain_id
-                AND v3_5_map_history_datacenters_storage_domains.datacenter_id =
+                v3_6_map_history_datacenters_storage_domains.storage_domain_id =
+                v3_6_configuration_history_storage_domains.storage_domain_id
+                AND v3_6_map_history_datacenters_storage_domains.datacenter_id =
                 CAST ( $P{P_DataCenter_ID} AS uuid )
             )
         LEFT OUTER JOIN (
@@ -89,24 +89,24 @@ FROM
             ON ( 0 = 0 )
 WHERE
     --Here we filter by the storage type chosen by the user
-    v3_5_configuration_history_storage_domains.storage_domain_type =
+    v3_6_configuration_history_storage_domains.storage_domain_type =
         CASE CAST ( $P{P_Storage_Type} AS int )
             WHEN NULL
-                THEN v3_5_configuration_history_storage_domains.storage_domain_type
+                THEN v3_6_configuration_history_storage_domains.storage_domain_type
             WHEN -1
-                THEN v3_5_configuration_history_storage_domains.storage_domain_type
+                THEN v3_6_configuration_history_storage_domains.storage_domain_type
             ELSE CAST ( $P{P_Storage_Type} AS int )
         END
     --Here we get the latest configurations of the datacenters_storage_domains map
-    AND v3_5_map_history_datacenters_storage_domains.history_id IN (
+    AND v3_6_map_history_datacenters_storage_domains.history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_map_history_datacenters_storage_domains a
+        FROM v3_6_map_history_datacenters_storage_domains a
         GROUP BY a.storage_domain_id, a.datacenter_id
     )
     --Here we get the latest configurations of the storage_domains
-    AND v3_5_configuration_history_storage_domains.history_id IN (
+    AND v3_6_configuration_history_storage_domains.history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_configuration_history_storage_domains a
+        FROM v3_6_configuration_history_storage_domains a
         GROUP BY a.storage_domain_id
     )
     -- Here we get if to filter detached storage domains or not

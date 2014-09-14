@@ -48,32 +48,32 @@ FROM enum_translator AS enum_translator_default
             AND enum_translator_localized.enum_key =
             enum_translator_default.enum_key
         )
-    INNER JOIN v3_5_configuration_history_storage_domains
+    INNER JOIN v3_6_configuration_history_storage_domains
         ON (
-            v3_5_configuration_history_storage_domains.storage_domain_type =
+            v3_6_configuration_history_storage_domains.storage_domain_type =
             enum_translator_default.enum_key
             AND enum_translator_default.enum_type = 'STORAGE_DOMAIN_TYPE'
         )
     -- Filter storage domain list according to the datacenter that was chosen by the user
-    INNER JOIN v3_5_map_history_datacenters_storage_domains
+    INNER JOIN v3_6_map_history_datacenters_storage_domains
         ON (
-            v3_5_map_history_datacenters_storage_domains.storage_domain_id =
-            v3_5_configuration_history_storage_domains.storage_domain_id
-            AND v3_5_map_history_datacenters_storage_domains.datacenter_id =
+            v3_6_map_history_datacenters_storage_domains.storage_domain_id =
+            v3_6_configuration_history_storage_domains.storage_domain_id
+            AND v3_6_map_history_datacenters_storage_domains.datacenter_id =
             CAST ( $P{P_DataCenter_ID} AS uuid )
         )
 WHERE
     enum_translator_default.language_code = 'en_US'
     -- Latest storage domain configuration
-    AND v3_5_configuration_history_storage_domains.history_id IN (
+    AND v3_6_configuration_history_storage_domains.history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_configuration_history_storage_domains a
+        FROM v3_6_configuration_history_storage_domains a
         GROUP BY a.storage_domain_id
     )
     -- Latest datacenter_storage domains map configuration
-    AND v3_5_map_history_datacenters_storage_domains.history_id IN (
+    AND v3_6_map_history_datacenters_storage_domains.history_id IN (
         SELECT MAX ( b.history_id )
-        FROM v3_5_map_history_datacenters_storage_domains b
+        FROM v3_6_map_history_datacenters_storage_domains b
         GROUP BY b.storage_domain_id, b.datacenter_id
     )
     AND create_date &lt;=

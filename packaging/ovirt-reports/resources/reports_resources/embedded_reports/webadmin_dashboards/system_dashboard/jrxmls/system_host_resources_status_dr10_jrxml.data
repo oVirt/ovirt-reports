@@ -22,15 +22,15 @@ FROM (
     SELECT
         AVG ( cpu_usage_percent ) AS cpu_usage_percent_avg,
         AVG ( memory_usage_percent ) AS memory_usage_percent_avg
-    FROM v3_5_statistics_hosts_resources_usage_samples
-        INNER JOIN v3_5_latest_configuration_hosts
+    FROM v3_6_statistics_hosts_resources_usage_samples
+        INNER JOIN v3_6_latest_configuration_hosts
             ON (
-                v3_5_latest_configuration_hosts.host_id =
-                v3_5_statistics_hosts_resources_usage_samples.host_id
+                v3_6_latest_configuration_hosts.host_id =
+                v3_6_statistics_hosts_resources_usage_samples.host_id
             )
     WHERE
         -- Here we filter only active hosts
-        v3_5_statistics_hosts_resources_usage_samples.host_status = 1
+        v3_6_statistics_hosts_resources_usage_samples.host_status = 1
 ) AS average_resources]]>
 	</queryString>
 	<field name="average_resources_not_used" class="java.math.BigDecimal"/>

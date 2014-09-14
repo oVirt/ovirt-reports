@@ -85,12 +85,12 @@ FROM (
         ) AS MEM_Peak
     -- If "Period" equals to "Daily" then "table_name" parameter
     -- equals to "hourly" else "daily"
-    FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
+    FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
         -- Here we filter by active hosts only
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the host chosen by the user
-        AND v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        AND v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -218,12 +218,12 @@ FROM (
         ) AS VMS_Peak
     -- If "Period" equals to "Daily" then "table_name" parameter
     -- equals to "hourly" else "daily"
-    FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
+    FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
         -- Here we filter by active hosts only
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the host chosen by the user
-        AND v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        AND v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -320,13 +320,13 @@ SELECT DISTINCT
     Tx_rate
 FROM (
     SELECT
-        v3_5_configuration_history_hosts_interfaces.host_interface_id,
+        v3_6_configuration_history_hosts_interfaces.host_interface_id,
         CASE
             WHEN delete_date IS NULL
                 THEN
-                    v3_5_configuration_history_hosts_interfaces.host_interface_name
+                    v3_6_configuration_history_hosts_interfaces.host_interface_name
             ELSE
-                v3_5_configuration_history_hosts_interfaces.host_interface_name
+                v3_6_configuration_history_hosts_interfaces.host_interface_name
                 ||
                 '*'
         END AS interface_name,
@@ -339,16 +339,16 @@ FROM (
         ) AS Tx_rate
     -- If "Period" equals to "Daily" then "table_name" parameter
     -- equals to "hourly" else "daily"
-    FROM v3_5_statistics_hosts_interfaces_resources_usage_$P!{table_name}
+    FROM v3_6_statistics_hosts_interfaces_resources_usage_$P!{table_name}
         AS statistics
-        INNER JOIN v3_5_configuration_history_hosts_interfaces
+        INNER JOIN v3_6_configuration_history_hosts_interfaces
             ON (
-                v3_5_configuration_history_hosts_interfaces.host_interface_id =
+                v3_6_configuration_history_hosts_interfaces.host_interface_id =
                 statistics.host_interface_id
             )
     WHERE
         -- Here we filter by the host chosen by the user
-        v3_5_configuration_history_hosts_interfaces.host_id =
+        v3_6_configuration_history_hosts_interfaces.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'
@@ -370,29 +370,29 @@ FROM (
                 WHEN $P{P_Period} = 3
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
-        AND v3_5_configuration_history_hosts_interfaces.history_id IN (
+        AND v3_6_configuration_history_hosts_interfaces.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_5_configuration_history_hosts_interfaces AS a
+            FROM v3_6_configuration_history_hosts_interfaces AS a
             GROUP BY a.host_interface_id
         )
-        AND v3_5_configuration_history_hosts_interfaces.history_id IN (
+        AND v3_6_configuration_history_hosts_interfaces.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_5_configuration_history_hosts_interfaces AS a
+            FROM v3_6_configuration_history_hosts_interfaces AS a
             GROUP BY a.host_interface_id
         )
-        AND v3_5_configuration_history_hosts_interfaces.host_interface_id IN (
+        AND v3_6_configuration_history_hosts_interfaces.host_interface_id IN (
             SELECT c.host_interface_id
-            FROM v3_5_statistics_hosts_interfaces_resources_usage_$P!{table_name} b
-                INNER JOIN v3_5_configuration_history_hosts_interfaces c
+            FROM v3_6_statistics_hosts_interfaces_resources_usage_$P!{table_name} b
+                INNER JOIN v3_6_configuration_history_hosts_interfaces c
                     ON ( c.host_interface_id = b.host_interface_id )
-                INNER JOIN v3_5_statistics_hosts_resources_usage_$P!{table_name}
+                INNER JOIN v3_6_statistics_hosts_resources_usage_$P!{table_name}
                     ON (
-                        v3_5_statistics_hosts_resources_usage_$P!{table_name}.history_id =
+                        v3_6_statistics_hosts_resources_usage_$P!{table_name}.history_id =
                         c.host_configuration_version
                     )
             WHERE
                 -- Here we filter by active hosts only
-                v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+                v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
                 AND c.host_id =
                     CASE $P{P_Host_ID}
                         WHEN '00000000-0000-0000-0000-000000000000'
@@ -405,7 +405,7 @@ FROM (
                     END
                 AND c.history_id IN (
                     SELECT MAX ( d.history_id )
-                    FROM v3_5_configuration_history_hosts_interfaces AS d
+                    FROM v3_6_configuration_history_hosts_interfaces AS d
                     GROUP BY d.host_interface_id
                 )
                 -- Here we get or remove deleted entities according to what the user chose
@@ -425,7 +425,7 @@ FROM (
         -- in the "is_deleted" parameter.
         $P!{is_deleted}
     GROUP BY
-        v3_5_configuration_history_hosts_interfaces.host_interface_id,
+        v3_6_configuration_history_hosts_interfaces.host_interface_id,
         interface_name,
         statistics.history_datetime
 ) AS a
@@ -536,12 +536,12 @@ FROM (
         ) AS CPU_Peak
     -- If "Period" equals to "Daily" then "table_name" parameter
     -- equals to "hourly" else "daily"
-    FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
+    FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
     WHERE
         -- Here we filter by active hosts only
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the host chosen by the user
-        AND v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+        AND v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id =
             CASE $P{P_Host_ID}
                 WHEN '00000000-0000-0000-0000-000000000000'
                     THEN '00000000-0000-0000-0000-000000000000'

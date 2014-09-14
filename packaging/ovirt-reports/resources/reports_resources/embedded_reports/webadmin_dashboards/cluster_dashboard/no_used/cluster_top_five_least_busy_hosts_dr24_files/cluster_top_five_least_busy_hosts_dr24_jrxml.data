@@ -10,19 +10,19 @@
         <defaultValueExpression><![CDATA[]]></defaultValueExpression>
     </parameter>
     <queryString>
-        <![CDATA[SELECT v3_5_latest_configuration_hosts.host_id, v3_5_latest_configuration_hosts.host_name, AVG(cpu_usage_percent) AS cpu_usage_percent_avg, MAX(cpu_usage_percent) AS cpu_usage_percent_max, AVG(memory_usage_percent) AS memory_usage_percent_avg, MAX(memory_usage_percent) AS memory_usage_percent_max
-FROM v3_5_statistics_hosts_resources_usage_samples
-    INNER JOIN v3_5_latest_configuration_hosts ON (v3_5_latest_configuration_hosts.host_id = v3_5_statistics_hosts_resources_usage_samples.host_id)
-WHERE v3_5_statistics_hosts_resources_usage_samples.host_status = 1
-      AND v3_5_latest_configuration_hosts.cluster_id = cast($P{P_Cluster_ID} as UUID)
-GROUP BY v3_5_latest_configuration_hosts.host_id, v3_5_latest_configuration_hosts.host_name
+        <![CDATA[SELECT v3_6_latest_configuration_hosts.host_id, v3_6_latest_configuration_hosts.host_name, AVG(cpu_usage_percent) AS cpu_usage_percent_avg, MAX(cpu_usage_percent) AS cpu_usage_percent_max, AVG(memory_usage_percent) AS memory_usage_percent_avg, MAX(memory_usage_percent) AS memory_usage_percent_max
+FROM v3_6_statistics_hosts_resources_usage_samples
+    INNER JOIN v3_6_latest_configuration_hosts ON (v3_6_latest_configuration_hosts.host_id = v3_6_statistics_hosts_resources_usage_samples.host_id)
+WHERE v3_6_statistics_hosts_resources_usage_samples.host_status = 1
+      AND v3_6_latest_configuration_hosts.cluster_id = cast($P{P_Cluster_ID} as UUID)
+GROUP BY v3_6_latest_configuration_hosts.host_id, v3_6_latest_configuration_hosts.host_name
 ORDER BY AVG(cpu_usage_percent) + MAX(cpu_usage_percent) + AVG(memory_usage_percent) + MAX(memory_usage_percent) ASC
 LIMIT (SELECT CASE
                   WHEN count(distinct a.host_id) <= 5 THEN 0
                   WHEN count(distinct a.host_id) <= 10 THEN count(distinct a.host_id) - 5
                   ELSE 5
               END
-       FROM v3_5_latest_configuration_hosts as a
+       FROM v3_6_latest_configuration_hosts as a
        WHERE a.cluster_id = cast($P{P_Cluster_ID} as UUID))]]>
     </queryString>
     <field name="host_id" class="java.lang.Object"/>

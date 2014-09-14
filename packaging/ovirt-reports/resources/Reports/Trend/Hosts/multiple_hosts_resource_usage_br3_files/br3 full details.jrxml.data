@@ -50,16 +50,16 @@ SELECT DISTINCT
             SELECT
                 ' '
                 ||
-                v3_5_configuration_history_clusters.cluster_name
-            FROM v3_5_configuration_history_clusters
+                v3_6_configuration_history_clusters.cluster_name
+            FROM v3_6_configuration_history_clusters
             WHERE
                 -- Here we filter by the cluster chosen by the user
-                v3_5_configuration_history_clusters.cluster_id =
+                v3_6_configuration_history_clusters.cluster_id =
                     CAST ( $P{P_Cluster_ID} AS uuid )
                 -- Here we get the latest cluster configuration
                 AND history_id IN (
                     SELECT MAX ( b.history_id )
-                    FROM v3_5_configuration_history_clusters AS b
+                    FROM v3_6_configuration_history_clusters AS b
                     GROUP BY b.cluster_id
                 )
         ),
@@ -67,16 +67,16 @@ SELECT DISTINCT
     ) AS cluster_name,
     (
         SELECT
-            CAST ( v3_5_configuration_history_clusters.delete_date AS date )
-        FROM v3_5_configuration_history_clusters
+            CAST ( v3_6_configuration_history_clusters.delete_date AS date )
+        FROM v3_6_configuration_history_clusters
         WHERE
             -- Here we filter by the cluster chosen by the user
-            v3_5_configuration_history_clusters.cluster_id =
+            v3_6_configuration_history_clusters.cluster_id =
             CAST ( $P{P_Cluster_ID} AS uuid )
             -- Here we get the latest cluster configuration
             AND history_id IN (
                 SELECT MAX ( c.history_id )
-                FROM v3_5_configuration_history_clusters AS c
+                FROM v3_6_configuration_history_clusters AS c
                 GROUP BY c.cluster_id
             )
     ) AS cluster_delete_date,
@@ -113,31 +113,31 @@ SELECT DISTINCT
     ) AS host_type,
     (
         SELECT
-            v3_5_configuration_history_datacenters.datacenter_name
-        FROM v3_5_configuration_history_datacenters
+            v3_6_configuration_history_datacenters.datacenter_name
+        FROM v3_6_configuration_history_datacenters
         WHERE
             -- Here we filter by the datacenter chosen by the user
-            v3_5_configuration_history_datacenters.datacenter_id =
+            v3_6_configuration_history_datacenters.datacenter_id =
             CAST ( $P{P_DataCenter_ID} AS uuid )
             -- Here we get the latest datacenter configuration
             AND history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM v3_5_configuration_history_datacenters AS d
+                FROM v3_6_configuration_history_datacenters AS d
                 GROUP BY d.datacenter_id
             )
     ) AS datacenter_name,
     (
         SELECT
-            CAST ( v3_5_configuration_history_datacenters.delete_date AS date )
-        FROM v3_5_configuration_history_datacenters
+            CAST ( v3_6_configuration_history_datacenters.delete_date AS date )
+        FROM v3_6_configuration_history_datacenters
         WHERE
             -- Here we filter by the datacenter chosen by the user
-            v3_5_configuration_history_datacenters.datacenter_id =
+            v3_6_configuration_history_datacenters.datacenter_id =
             CAST ( $P{P_DataCenter_ID} AS uuid )
             AND history_id IN (
                 -- Here we get the latest datacenter configuration
                 SELECT MAX ( d.history_id )
-                FROM v3_5_configuration_history_datacenters AS d
+                FROM v3_6_configuration_history_datacenters AS d
                 GROUP BY d.datacenter_id
             )
     ) AS datacenter_delete_date,
@@ -189,14 +189,14 @@ SELECT DISTINCT
             AND enum_translator_default.enum_type =
                 'REPORTS_PERIOD'
     ) AS period
-FROM v3_5_configuration_history_hosts
+FROM v3_6_configuration_history_hosts
 WHERE
     -- Here we filter by the hosts chosen by the user
-    $X{ IN, CAST ( v3_5_configuration_history_hosts.host_id AS varchar ), P_Host_ListID }
+    $X{ IN, CAST ( v3_6_configuration_history_hosts.host_id AS varchar ), P_Host_ListID }
     -- Here we get the latest hosts configuration
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_configuration_history_hosts AS a
+        FROM v3_6_configuration_history_hosts AS a
         GROUP BY a.host_id
     )
 ORDER BY

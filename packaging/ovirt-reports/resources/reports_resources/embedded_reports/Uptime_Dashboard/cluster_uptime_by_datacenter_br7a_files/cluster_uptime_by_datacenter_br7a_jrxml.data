@@ -49,16 +49,16 @@ SELECT
     AVG ( total ) AS total
 FROM (
     SELECT
-        v3_5_configuration_history_hosts.cluster_id,
-        v3_5_configuration_history_clusters.cluster_name AS name,
-        v3_5_configuration_history_clusters.delete_date,
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v3_6_configuration_history_hosts.cluster_id,
+        v3_6_configuration_history_clusters.cluster_name AS name,
+        v3_6_configuration_history_clusters.delete_date,
+        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         SUM (
             CASE
-                WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2
+                WHEN v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2
                     THEN
                         COALESCE (
-                            v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                            v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                             0
                         )
                 ELSE 0
@@ -66,10 +66,10 @@ FROM (
         ) AS planned_downtime_mins,
         SUM (
             CASE
-                WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3
+                WHEN v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3
                     THEN
                         COALESCE (
-                            v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                            v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                             0
                         )
                 ELSE 0
@@ -77,35 +77,35 @@ FROM (
         ) AS unplanned_downtime_mins,
         SUM (
             CASE
-                WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+                WHEN v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
                     THEN
                         COALESCE (
-                            v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                            v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                             0
                         )
                 ELSE 0
             END
         ) AS uptime_mins,
         SUM (
-            v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status
+            v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status
         ) AS total
     -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
-    FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
-        INNER JOIN v3_5_configuration_history_hosts
+    FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
+        INNER JOIN v3_6_configuration_history_hosts
             ON (
-                v3_5_configuration_history_hosts.host_id =
-                v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id
+                v3_6_configuration_history_hosts.host_id =
+                v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id
             )
-        INNER JOIN v3_5_configuration_history_clusters
+        INNER JOIN v3_6_configuration_history_clusters
             ON (
-                v3_5_configuration_history_clusters.cluster_id =
-                v3_5_configuration_history_hosts.cluster_id
+                v3_6_configuration_history_clusters.cluster_id =
+                v3_6_configuration_history_hosts.cluster_id
             )
     WHERE
         -- Here we filter by the datacenter chosen by the user
-        v3_5_configuration_history_hosts.cluster_id IN (
+        v3_6_configuration_history_hosts.cluster_id IN (
             SELECT cluster_id
-             FROM v3_5_configuration_history_clusters
+             FROM v3_6_configuration_history_clusters
              WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
          )
         AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
@@ -121,15 +121,15 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
         -- Here we get the latest clusters configuration
-        AND v3_5_configuration_history_clusters.history_id IN (
+        AND v3_6_configuration_history_clusters.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_5_configuration_history_clusters AS a
+            FROM v3_6_configuration_history_clusters AS a
             GROUP BY a.cluster_id
         )
         -- Here we get the latest hosts configuration
-        AND v3_5_configuration_history_hosts.history_id IN (
+        AND v3_6_configuration_history_hosts.history_id IN (
             SELECT MAX ( b.history_id )
-            FROM v3_5_configuration_history_hosts AS b
+            FROM v3_6_configuration_history_hosts AS b
             GROUP BY b.host_id
         )
         -- This will determine if deleted hosts will be included in the report,
@@ -137,17 +137,17 @@ FROM (
         AND
             CASE
                 WHEN $P{is_deleted} LIKE 'AND%'
-                    THEN v3_5_configuration_history_hosts.delete_date IS NULL
+                    THEN v3_6_configuration_history_hosts.delete_date IS NULL
                 ELSE
-                    v3_5_configuration_history_hosts.delete_date IS NULL
+                    v3_6_configuration_history_hosts.delete_date IS NULL
                     OR
-                    v3_5_configuration_history_hosts.delete_date IS NOT NULL
+                    v3_6_configuration_history_hosts.delete_date IS NOT NULL
             END
     GROUP BY
-        v3_5_configuration_history_hosts.cluster_id,
-        v3_5_configuration_history_clusters.cluster_name,
-        v3_5_configuration_history_clusters.delete_date,
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id
+        v3_6_configuration_history_hosts.cluster_id,
+        v3_6_configuration_history_clusters.cluster_name,
+        v3_6_configuration_history_clusters.delete_date,
+        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id
 ) AS a
 GROUP BY
     cluster_id,

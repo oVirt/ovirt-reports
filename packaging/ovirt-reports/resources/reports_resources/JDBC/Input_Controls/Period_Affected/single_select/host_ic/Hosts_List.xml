@@ -32,7 +32,7 @@ SELECT DISTINCT
             ')'
     END AS combo_name,
     CAST ( host_id AS varchar )
-FROM v3_5_configuration_history_hosts
+FROM v3_6_configuration_history_hosts
     LEFT OUTER JOIN (
         SELECT DISTINCT
             COALESCE (
@@ -56,9 +56,9 @@ FROM v3_5_configuration_history_hosts
                 AND enum_translator_localized.enum_key =
                 enum_translator_default.enum_key
             )
-            INNER JOIN v3_5_configuration_history_hosts
+            INNER JOIN v3_6_configuration_history_hosts
                 ON (
-                    v3_5_configuration_history_hosts.host_type =
+                    v3_6_configuration_history_hosts.host_type =
                     enum_translator_default.enum_key
                     AND enum_translator_default.enum_type = 'HOST_TYPE'
                 )
@@ -68,33 +68,33 @@ FROM v3_5_configuration_history_hosts
     AS loc_removed_on
         ON ( 0 = 0 )
 -- Filter hosts list according to the datacenter that was chosen by the user
-WHERE v3_5_configuration_history_hosts.cluster_id IN (
-    SELECT v3_5_configuration_history_clusters.cluster_id
-    FROM v3_5_configuration_history_clusters
+WHERE v3_6_configuration_history_hosts.cluster_id IN (
+    SELECT v3_6_configuration_history_clusters.cluster_id
+    FROM v3_6_configuration_history_clusters
     WHERE
-        v3_5_configuration_history_clusters.datacenter_id =
+        v3_6_configuration_history_clusters.datacenter_id =
         CAST ( $P{P_DataCenter_ID} AS uuid )
 )
 -- Filter hosts list according to the cluster that was chosen by the user
-AND v3_5_configuration_history_hosts.cluster_id =
+AND v3_6_configuration_history_hosts.cluster_id =
     CASE  $P{P_Cluster_ID}
         WHEN  '11111111-1111-1111-1111-111111111111'
-            THEN v3_5_configuration_history_hosts.cluster_id
+            THEN v3_6_configuration_history_hosts.cluster_id
         ELSE CAST ( $P{P_Cluster_ID} AS uuid )
     END
 -- Filter hosts list according to the host type that was chosen by the user
-AND v3_5_configuration_history_hosts.host_type =
+AND v3_6_configuration_history_hosts.host_type =
     CASE CAST ( $P{P_Host_Type} as int )
         WHEN -1
-            THEN v3_5_configuration_history_hosts.host_type
+            THEN v3_6_configuration_history_hosts.host_type
         WHEN NULL
-            THEN v3_5_configuration_history_hosts.host_type
+            THEN v3_6_configuration_history_hosts.host_type
         ELSE CAST ( $P{P_Host_Type} as int )
     END
 -- Latest host configuration
 AND history_id IN (
     SELECT MAX ( a.history_id )
-    FROM v3_5_configuration_history_hosts a
+    FROM v3_6_configuration_history_hosts a
     GROUP BY a.host_id
 )
 AND create_date &lt;=

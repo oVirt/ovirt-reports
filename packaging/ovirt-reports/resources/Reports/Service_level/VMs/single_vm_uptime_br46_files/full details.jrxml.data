@@ -77,7 +77,7 @@ SELECT
                 )
         WHERE language_code = 'en_US'
             AND enum_translator_default.enum_key =
-                v3_5_configuration_history_vms.operating_system
+                v3_6_configuration_history_vms.operating_system
             AND enum_translator_default.enum_type = 'OS_TYPE'
     ) AS operating_system,
     COALESCE (
@@ -85,14 +85,14 @@ SELECT
             SELECT
                 ' '
                 ||
-                v3_5_configuration_history_clusters.cluster_name
-            FROM v3_5_configuration_history_clusters
+                v3_6_configuration_history_clusters.cluster_name
+            FROM v3_6_configuration_history_clusters
             WHERE
-                v3_5_configuration_history_clusters.cluster_id =
+                v3_6_configuration_history_clusters.cluster_id =
                     CAST ( $P{P_Cluster_ID} AS uuid )
                 AND history_id IN (
                     SELECT MAX ( b.history_id )
-                    FROM v3_5_configuration_history_clusters AS b
+                    FROM v3_6_configuration_history_clusters AS b
                     GROUP BY b.cluster_id
                 )
         ),
@@ -100,14 +100,14 @@ SELECT
     ) AS cluster_name,
     (
         SELECT
-            CAST ( v3_5_configuration_history_clusters.delete_date AS date )
-        FROM v3_5_configuration_history_clusters
+            CAST ( v3_6_configuration_history_clusters.delete_date AS date )
+        FROM v3_6_configuration_history_clusters
         WHERE
-            v3_5_configuration_history_clusters.cluster_id =
+            v3_6_configuration_history_clusters.cluster_id =
                 CAST ( $P{P_Cluster_ID} AS uuid )
             AND history_id IN (
                 SELECT MAX ( c.history_id )
-                FROM v3_5_configuration_history_clusters AS c
+                FROM v3_6_configuration_history_clusters AS c
                 GROUP BY c.cluster_id
             )
     ) AS cluster_delete_date,
@@ -135,34 +135,34 @@ SELECT
                     )
             WHERE language_code = 'en_US'
                 AND enum_translator_default.enum_key =
-                    v3_5_configuration_history_vms.vm_type
+                    v3_6_configuration_history_vms.vm_type
                 AND enum_translator_default.enum_type = 'VM_TYPE'
         ),
         'All'
     ) AS vm_type,
     (
         SELECT
-            v3_5_configuration_history_datacenters.datacenter_name
-        FROM v3_5_configuration_history_datacenters
+            v3_6_configuration_history_datacenters.datacenter_name
+        FROM v3_6_configuration_history_datacenters
         WHERE
-            v3_5_configuration_history_datacenters.datacenter_id =
+            v3_6_configuration_history_datacenters.datacenter_id =
                 CAST ( $P{P_DataCenter_ID} AS uuid )
             AND history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM v3_5_configuration_history_datacenters AS d
+                FROM v3_6_configuration_history_datacenters AS d
                 GROUP BY d.datacenter_id
             )
     ) AS datacenter_name,
     (
         SELECT
-            CAST ( v3_5_configuration_history_datacenters.delete_date AS date )
-        FROM v3_5_configuration_history_datacenters
+            CAST ( v3_6_configuration_history_datacenters.delete_date AS date )
+        FROM v3_6_configuration_history_datacenters
         WHERE
-            v3_5_configuration_history_datacenters.datacenter_id =
+            v3_6_configuration_history_datacenters.datacenter_id =
                 CAST ( $P{P_DataCenter_ID} AS uuid )
             AND history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM v3_5_configuration_history_datacenters AS d
+                FROM v3_6_configuration_history_datacenters AS d
                 GROUP BY d.datacenter_id
             )
     ) AS datacenter_delete_date,
@@ -208,11 +208,11 @@ SELECT
             AND enum_translator_default.enum_key = $P{P_Period}
             AND enum_translator_default.enum_type = 'REPORTS_PERIOD'
     ) AS period
-FROM v3_5_configuration_history_vms
+FROM v3_6_configuration_history_vms
 WHERE vm_id = CAST ( $P{P_VM_ID} AS uuid )
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_configuration_history_vms AS a
+        FROM v3_6_configuration_history_vms AS a
         GROUP BY a.vm_id
     )]]>
 	</queryString>

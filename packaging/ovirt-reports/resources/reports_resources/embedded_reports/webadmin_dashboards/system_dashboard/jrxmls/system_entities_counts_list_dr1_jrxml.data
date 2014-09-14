@@ -12,9 +12,9 @@
 
 SELECT
     COUNT (
-        DISTINCT v3_5_latest_map_datacenters_storage_domains.storage_domain_id
+        DISTINCT v3_6_latest_map_datacenters_storage_domains.storage_domain_id
     ) AS storage_count
-FROM v3_5_latest_map_datacenters_storage_domains]]>
+FROM v3_6_latest_map_datacenters_storage_domains]]>
 		</queryString>
 		<field name="storage_count" class="java.lang.Long"/>
 	</subDataset>
@@ -23,19 +23,19 @@ FROM v3_5_latest_map_datacenters_storage_domains]]>
 
 SELECT (
     SELECT COUNT ( * )
-    FROM v3_5_latest_configuration_datacenters
+    FROM v3_6_latest_configuration_datacenters
 ) AS datacenter_count,
 (
     SELECT COUNT ( * )
-    FROM v3_5_latest_configuration_clusters
+    FROM v3_6_latest_configuration_clusters
 ) AS cluster_count,
 (
     SELECT COUNT ( * )
-    FROM v3_5_latest_configuration_hosts
+    FROM v3_6_latest_configuration_hosts
 ) AS host_count,
 (
     SELECT COUNT ( * )
-    FROM v3_5_latest_configuration_vms
+    FROM v3_6_latest_configuration_vms
 ) AS vm_count]]>
 	</queryString>
 	<field name="datacenter_count" class="java.lang.Long"/>

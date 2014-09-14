@@ -42,7 +42,7 @@ SELECT DISTINCT
             ||
             ')'
     END AS combo_name
-FROM v3_5_configuration_history_datacenters
+FROM v3_6_configuration_history_datacenters
     LEFT OUTER JOIN (
         SELECT DISTINCT
             COALESCE (
@@ -74,11 +74,11 @@ FROM v3_5_configuration_history_datacenters
 WHERE
     datacenter_id IN (
         SELECT DISTINCT datacenter_id
-        FROM v3_5_configuration_history_clusters
+        FROM v3_6_configuration_history_clusters
         WHERE
             history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_5_configuration_history_clusters a
+                FROM v3_6_configuration_history_clusters a
                 GROUP BY a.cluster_id
             )
             AND create_date &lt;=
@@ -102,11 +102,11 @@ WHERE
             $P!{is_deleted}
             AND cluster_id IN (
                 SELECT DISTINCT cluster_id
-                FROM v3_5_configuration_history_hosts
+                FROM v3_6_configuration_history_hosts
                 WHERE
                     history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_5_configuration_history_hosts a
+                        FROM v3_6_configuration_history_hosts a
                         GROUP BY a.host_id
                     )
                     AND create_date &lt;=
@@ -131,21 +131,21 @@ WHERE
     OR datacenter_id IN (
         SELECT DISTINCT datacenter_id
         FROM
-            v3_5_map_history_datacenters_storage_domains,
-            v3_5_configuration_history_storage_domains
+            v3_6_map_history_datacenters_storage_domains,
+            v3_6_configuration_history_storage_domains
         WHERE
-            v3_5_map_history_datacenters_storage_domains.storage_domain_id =
-            v3_5_configuration_history_storage_domains.storage_domain_id
+            v3_6_map_history_datacenters_storage_domains.storage_domain_id =
+            v3_6_configuration_history_storage_domains.storage_domain_id
             -- Latest configuration of datacenters_storage_domains map
-            AND v3_5_map_history_datacenters_storage_domains.history_id IN (
+            AND v3_6_map_history_datacenters_storage_domains.history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_5_map_history_datacenters_storage_domains a
+                FROM v3_6_map_history_datacenters_storage_domains a
                 GROUP BY a.storage_domain_id, a.datacenter_id
             )
             -- Latest configuration of storage domains
-            AND v3_5_configuration_history_storage_domains.history_id IN (
+            AND v3_6_configuration_history_storage_domains.history_id IN (
                 SELECT MAX ( b.history_id )
-                FROM v3_5_configuration_history_storage_domains b
+                FROM v3_6_configuration_history_storage_domains b
                 GROUP BY b.storage_domain_id
             )
             AND create_date &lt;=
@@ -184,7 +184,7 @@ WHERE
     )
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_configuration_history_datacenters a
+        FROM v3_6_configuration_history_datacenters a
         GROUP BY a.datacenter_id
     )
     AND (
@@ -226,15 +226,15 @@ WHERE
     AND enum_translator_default.enum_type = 'REPORTS_NONE_AVAILABLE'
     AND NOT EXISTS (
         SELECT 1
-        FROM v3_5_configuration_history_datacenters
+        FROM v3_6_configuration_history_datacenters
         WHERE
             datacenter_id IN (
                 SELECT DISTINCT datacenter_id
-                FROM v3_5_configuration_history_clusters
+                FROM v3_6_configuration_history_clusters
                 WHERE
                     history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_5_configuration_history_clusters a
+                        FROM v3_6_configuration_history_clusters a
                         GROUP BY a.cluster_id
                     )
                 AND create_date &lt;=
@@ -256,11 +256,11 @@ WHERE
                 $P!{is_deleted}
                 AND cluster_id IN (
                     SELECT DISTINCT cluster_id
-                    FROM v3_5_configuration_history_hosts
+                    FROM v3_6_configuration_history_hosts
                     WHERE
                         history_id IN (
                             SELECT MAX ( a.history_id )
-                            FROM v3_5_configuration_history_hosts a
+                            FROM v3_6_configuration_history_hosts a
                             GROUP BY a.host_id
                         )
                         AND create_date &lt;=
@@ -286,21 +286,21 @@ WHERE
             datacenter_id IN (
                 SELECT DISTINCT datacenter_id
                 FROM
-                    v3_5_map_history_datacenters_storage_domains,
-                    v3_5_configuration_history_storage_domains
+                    v3_6_map_history_datacenters_storage_domains,
+                    v3_6_configuration_history_storage_domains
                 WHERE
-                    v3_5_map_history_datacenters_storage_domains.storage_domain_id =
-                    v3_5_configuration_history_storage_domains.storage_domain_id
+                    v3_6_map_history_datacenters_storage_domains.storage_domain_id =
+                    v3_6_configuration_history_storage_domains.storage_domain_id
                     -- Latest configuration of datacenters_storage_domains map
-                    AND v3_5_map_history_datacenters_storage_domains.history_id IN (
+                    AND v3_6_map_history_datacenters_storage_domains.history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_5_map_history_datacenters_storage_domains a
+                        FROM v3_6_map_history_datacenters_storage_domains a
                         GROUP BY a.storage_domain_id, a.datacenter_id
                     )
                     -- Latest configuration of storage domains
-                    AND v3_5_configuration_history_storage_domains.history_id IN (
+                    AND v3_6_configuration_history_storage_domains.history_id IN (
                         SELECT MAX ( b.history_id )
-                        FROM v3_5_configuration_history_storage_domains b
+                        FROM v3_6_configuration_history_storage_domains b
                         GROUP BY b.storage_domain_id
                     )
                     AND create_date &lt;=
@@ -339,7 +339,7 @@ WHERE
             )
             AND history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_5_configuration_history_datacenters a
+                FROM v3_6_configuration_history_datacenters a
                 GROUP BY a.datacenter_id
             )
             AND (

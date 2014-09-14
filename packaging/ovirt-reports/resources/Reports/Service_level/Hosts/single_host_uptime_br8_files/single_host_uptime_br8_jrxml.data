@@ -46,11 +46,11 @@
 SELECT
     SUM (
         CASE
-            WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2
+            WHEN v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 2
                 /* If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily" */
                 THEN
                     COALESCE (
-                        v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status, 0
+                        v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status, 0
                     )
             ELSE 0
         END
@@ -58,10 +58,10 @@ SELECT
     AS planned_downtime_mins,
     SUM (
         CASE
-            WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3
+            WHEN v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 3
                 THEN
                     COALESCE (
-                        v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status, 0
+                        v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status, 0
                     )
             ELSE 0
         END
@@ -69,21 +69,21 @@ SELECT
     AS unplanned_downtime_mins,
     SUM (
         CASE
-            WHEN v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+            WHEN v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
                 THEN
                     COALESCE (
-                        v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status, 0
+                        v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status, 0
                     )
             ELSE 0
         END
     )
     AS uptime_mins,
     SUM (
-        v3_5_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status
+        v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status
     ) AS total
-FROM v3_5_statistics_hosts_resources_usage_$P!{table_name}
+FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
 WHERE
-    v3_5_statistics_hosts_resources_usage_$P!{table_name}.host_id =
+    v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id =
     CASE $P{P_Host_ID}
         WHEN '00000000-0000-0000-0000-000000000000'
             THEN '00000000-0000-0000-0000-000000000000'

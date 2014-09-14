@@ -54,7 +54,7 @@ SELECT DISTINCT
 FROM (
     SELECT
         -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+        v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id,
         CASE
             WHEN delete_date IS NULL
                 THEN vm_name
@@ -67,7 +67,7 @@ FROM (
                 ||
                 ')'
         END AS vm_name,
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.history_datetime AS time,
+        v3_6_statistics_vms_resources_usage_$P!{table_name}.history_datetime AS time,
         MAX (
             COALESCE ( max_cpu_usage, 0 )
         )
@@ -76,17 +76,17 @@ FROM (
             COALESCE ( max_memory_usage, 0 )
         )
         AS MEM_Peak
-    FROM v3_5_statistics_vms_resources_usage_$P!{table_name}
-        INNER JOIN v3_5_configuration_history_vms
+    FROM v3_6_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v3_6_configuration_history_vms
               ON (
-                v3_5_configuration_history_vms.vm_id =
-                v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id
+                v3_6_configuration_history_vms.vm_id =
+                v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id
             )
     WHERE
         -- Here we filter by active vms only
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+        v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- This condition will filter the vm's based on the vm list the user chose
-        AND $X{IN, CAST ( v3_5_configuration_history_vms.vm_id AS varchar ), P_VM_ListID}
+        AND $X{IN, CAST ( v3_6_configuration_history_vms.vm_id AS varchar ), P_VM_ListID}
         AND history_datetime >= CAST ( $P{P_Start_Date} AS timestamp )
         AND history_datetime <
             CASE
@@ -100,16 +100,16 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
             END
         -- Here we get the latest vm configurations
-        AND v3_5_configuration_history_vms.history_id in (
+        AND v3_6_configuration_history_vms.history_id in (
             SELECT MAX ( a.history_id )
-            FROM v3_5_configuration_history_vms a
+            FROM v3_6_configuration_history_vms a
             GROUP BY a.vm_id
         )
         -- This will determine if deleted entities will be included in the report,
         -- according to the user selection for "is_deleted" parameter
         $P!{is_deleted}
     GROUP BY
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+        v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id,
         CASE
             WHEN delete_date IS NULL
                 THEN vm_name
@@ -122,7 +122,7 @@ FROM (
                 ||
                 ')'
         END,
-        v3_5_statistics_vms_resources_usage_$P!{table_name}.history_datetime
+        v3_6_statistics_vms_resources_usage_$P!{table_name}.history_datetime
 ) AS a
     RIGHT OUTER JOIN calendar b
         ON (

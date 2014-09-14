@@ -19,7 +19,7 @@ SELECT
     'avg_host' AS entity,
     SUM (
         COALESCE (
-            v3_5_configuration_history_hosts.number_of_cores,
+            v3_6_configuration_history_hosts.number_of_cores,
             0
         ) *
         minutes_in_status
@@ -30,7 +30,7 @@ SELECT
     AS cpu_cores,
     SUM (
         COALESCE (
-            v3_5_configuration_history_hosts.memory_size_mb,
+            v3_6_configuration_history_hosts.memory_size_mb,
             0
         ) *
         minutes_in_status
@@ -38,20 +38,20 @@ SELECT
     SUM (
         minutes_in_status
     ) AS mem_avg
-FROM v3_5_statistics_hosts_resources_usage_samples
-    INNER JOIN v3_5_configuration_history_hosts
+FROM v3_6_statistics_hosts_resources_usage_samples
+    INNER JOIN v3_6_configuration_history_hosts
         ON (
-            v3_5_configuration_history_hosts.history_id =
-            v3_5_statistics_hosts_resources_usage_samples.host_configuration_version
+            v3_6_configuration_history_hosts.history_id =
+            v3_6_statistics_hosts_resources_usage_samples.host_configuration_version
         )
-    INNER JOIN v3_5_latest_configuration_hosts AS a
+    INNER JOIN v3_6_latest_configuration_hosts AS a
         ON (
             a.host_id =
-            v3_5_statistics_hosts_resources_usage_samples.host_id
+            v3_6_statistics_hosts_resources_usage_samples.host_id
         )
 WHERE
     -- Here we get only active hosts
-    v3_5_statistics_hosts_resources_usage_samples.host_status = 1
+    v3_6_statistics_hosts_resources_usage_samples.host_status = 1
     -- Here we filter by the cluster chosen by the user
     AND a.cluster_id = CAST ( $P{P_Cluster_ID} AS UUID )
 
@@ -71,11 +71,11 @@ FROM (
         a.vm_id,
         SUM (
             COALESCE (
-                v3_5_configuration_history_vms.cpu_per_socket,
+                v3_6_configuration_history_vms.cpu_per_socket,
                 0
             ) *
             COALESCE (
-                v3_5_configuration_history_vms.number_of_sockets,
+                v3_6_configuration_history_vms.number_of_sockets,
                 0
             ) *
             minutes_in_status
@@ -83,7 +83,7 @@ FROM (
         SUM ( minutes_in_status ) AS cpu_cores,
         SUM (
             COALESCE (
-                v3_5_configuration_history_vms.memory_size_mb,
+                v3_6_configuration_history_vms.memory_size_mb,
                 0
             ) *
             minutes_in_status
@@ -91,20 +91,20 @@ FROM (
         SUM (
             minutes_in_status
         ) AS mem_avg
-    FROM v3_5_statistics_vms_resources_usage_samples
-        INNER JOIN v3_5_configuration_history_vms
+    FROM v3_6_statistics_vms_resources_usage_samples
+        INNER JOIN v3_6_configuration_history_vms
             ON (
-                v3_5_configuration_history_vms.history_id =
-                v3_5_statistics_vms_resources_usage_samples.vm_configuration_version
+                v3_6_configuration_history_vms.history_id =
+                v3_6_statistics_vms_resources_usage_samples.vm_configuration_version
             )
-        INNER JOIN v3_5_latest_configuration_vms AS a
+        INNER JOIN v3_6_latest_configuration_vms AS a
             ON (
                 a.vm_id =
-                v3_5_statistics_vms_resources_usage_samples.vm_id
+                v3_6_statistics_vms_resources_usage_samples.vm_id
             )
     WHERE
         -- Here we get only active vms
-        v3_5_statistics_vms_resources_usage_samples.vm_status = 1
+        v3_6_statistics_vms_resources_usage_samples.vm_status = 1
         -- Here we filter by the cluster chosen by the user
         AND a.cluster_id = CAST ( $P{P_Cluster_ID} AS uuid )
        GROUP BY a.vm_id

@@ -50,7 +50,7 @@ SELECT DISTINCT
             ||
             ')'
     END AS combo_name
-FROM v3_5_configuration_history_datacenters
+FROM v3_6_configuration_history_datacenters
     LEFT OUTER JOIN (
         SELECT DISTINCT
             COALESCE (
@@ -82,12 +82,12 @@ WHERE
     -- only the ones that ever had storage domain attached.
     datacenter_id IN (
         SELECT DISTINCT datacenter_id
-        FROM  v3_5_map_history_datacenters_storage_domains
+        FROM  v3_6_map_history_datacenters_storage_domains
     )
     -- Here we get the latest datacenter configuration
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_5_configuration_history_datacenters a
+        FROM v3_6_configuration_history_datacenters a
         GROUP BY a.datacenter_id
     )
     -- Here we filter deleted entities according to the users choice
@@ -125,18 +125,18 @@ WHERE language_code = 'en_US'
     'REPORTS_NONE_AVAILABLE'
     AND NOT EXISTS (
         SELECT DISTINCT datacenter_id
-        FROM v3_5_configuration_history_datacenters
+        FROM v3_6_configuration_history_datacenters
         WHERE
             -- Here we filter the datacenters list so it will include
             -- only the ones that ever had storage domain attached.
             datacenter_id IN (
                 SELECT DISTINCT datacenter_id
-                FROM  v3_5_map_history_datacenters_storage_domains
+                FROM  v3_6_map_history_datacenters_storage_domains
             )
             -- Here we get the latest datacenter configuration
             AND history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_5_configuration_history_datacenters a
+                FROM v3_6_configuration_history_datacenters a
                 GROUP BY a.datacenter_id
             )
             $P!{active_storage}
