@@ -354,9 +354,6 @@ class ConfigEnv(object):
     LEGACY_REPORTS_WAR = 'OVESETUP_REPORTS_CONFIG/legacyReportsWar'
 
     KEY_SIZE = 'OVESETUP_REPORTS_CONFIG/keySize'
-    JBOSS_CERTIFICATE_CHAIN = 'OVESETUP_REPORTS_CONFIG/jbossCertificateChain'
-    APACHE_CERTIFICATE = 'OVESETUP_REPORTS_CONFIG/apacheCertificate'
-    APACHE_CA_CERTIFICATE = 'OVESETUP_REPORTS_CONFIG/apacheCACertificate'
 
     # Eventual public http/s ports - either apache or jboss
     # Commented 'internal use' in engine, perhaps it means they should not

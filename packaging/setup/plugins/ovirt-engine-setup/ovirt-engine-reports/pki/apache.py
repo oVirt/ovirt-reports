@@ -21,8 +21,8 @@
 
 import contextlib
 import os
-import tempfile
 import urllib2
+import time
 
 
 import gettext
@@ -41,6 +41,7 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
+from ovirt_engine_setup import remote_engine
 from ovirt_engine_setup.engine_common import constants as oengcommcons
 from ovirt_engine_setup.reports import constants as oreportscons
 
@@ -49,41 +50,17 @@ from ovirt_engine_setup.reports import constants as oreportscons
 class Plugin(plugin.PluginBase):
     """apache pki plugin."""
 
-    def _genReq(self):
-
-        rsa = RSA.gen_key(
-            self.environment[oreportscons.ConfigEnv.KEY_SIZE],
-            65537,
-        )
-        rsapem = rsa.as_pem(cipher=None)
-        evp = EVP.PKey()
-        evp.assign_rsa(rsa)
-        rsa = None  # should not be freed here
-        req = X509.Request()
-        req.set_pubkey(evp)
-        req.sign(evp, 'sha1')
-        return rsapem, req.as_pem(), req.get_pubkey().as_pem(cipher=None)
-
     def __init__(self, context):
         super(Plugin, self).__init__(context=context)
         self._enabled = False
-        self._need_key = False
-        self._need_cert = False
+        self._enrolldata = None
         self._need_ca_cert = False
-        self._csr_file = None
+        self._apache_ca_cert = None
 
     @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
     )
     def _init(self):
-        self.environment.setdefault(
-            oreportscons.ConfigEnv.APACHE_CERTIFICATE,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.ConfigEnv.APACHE_CA_CERTIFICATE,
-            None
-        )
         self.environment.setdefault(
             oreportscons.ConfigEnv.PKI_APACHE_CSR_FILENAME,
             None
@@ -123,130 +100,41 @@ class Plugin(plugin.PluginBase):
         )
 
         if not engine_apache_pki_found:
-            self._need_cert = not os.path.exists(
-                oreportscons.FileLocations.
-                OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT
+            self._enrolldata = remote_engine.EnrollCert(
+                remote_engine=self.environment[osetupcons.CoreEnv.REMOTE_ENGINE],
+                engine_fqdn=self.environment[
+                    oreportscons.EngineConfigEnv.ENGINE_FQDN
+                ],
+                base_name=oreportscons.Const.PKI_REPORTS_APACHE_CERT_NAME,
+                base_touser=_('Apache'),
+                key_file=oreportscons.FileLocations.
+                    OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
+                cert_file=oreportscons.FileLocations.
+                    OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT,
+                csr_fname_envkey=oreportscons.ConfigEnv.PKI_APACHE_CSR_FILENAME,
+                engine_ca_cert_file=os.path.join(
+                    oreportscons.FileLocations.OVIRT_ENGINE_PKIDIR,
+                    'ca.pem'
+                ),
+                engine_pki_requests_dir=oreportscons.FileLocations.
+                    OVIRT_ENGINE_PKIREQUESTSDIR,
+                engine_pki_certs_dir=oreportscons.FileLocations.
+                    OVIRT_ENGINE_PKICERTSDIR,
+                key_size=self.environment[oreportscons.ConfigEnv.KEY_SIZE],
+                url="http://www.ovirt.org/Features/Separate-Reports-Host",
             )
-            self._need_key = not os.path.exists(
-                oreportscons.FileLocations.
-                OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY
-            )
+            self._enrolldata.enroll_cert()
+
             self._need_ca_cert = not os.path.exists(
                 oreportscons.FileLocations.
                 OVIRT_ENGINE_PKI_REPORTS_APACHE_CA_CERT
             )
 
-        if self._need_key:
-            self._key, req, my_pubk = self._genReq()
-            self._need_cert = True
-
-        if (
-            self._need_cert and
-            self.environment[
-                oreportscons.ConfigEnv.APACHE_CERTIFICATE
-            ] is None
-        ):
-            csr_fname = self.environment[
-                oreportscons.ConfigEnv.PKI_APACHE_CSR_FILENAME
-            ]
-            with (
-                open(csr_fname, 'w') if csr_fname
-                else tempfile.NamedTemporaryFile(mode='w', delete=False)
-            ) as self._csr_file:
-                self._csr_file.write(req)
-
-            remote_name = '{name}-{fqdn}'.format(
-                name=oreportscons.Const.PKI_REPORTS_APACHE_CERT_NAME,
-                fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
-            )
-            enroll_command = (
-                " /usr/share/ovirt-engine/bin/pki-enroll-request.sh \\\n"
-                "     --name={remote_name} \\\n"
-                "     --subject=\""
-                "$(openssl x509 -in {pkidir}/ca.pem -noout "
-                "-subject | sed 's;subject= \(/C=[^/]*/O=[^/]*\)/.*;\\1;')"
-                "/CN={fqdn}\""
-            ).format(
-                remote_name=remote_name,
-                pkidir=oreportscons.FileLocations.OVIRT_ENGINE_PKIDIR,
-                fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
-            )
-
-            self.dialog.note(
-                text=_(
-                    "\nTo sign the Apache certificate on the engine server, "
-                    "please:\n\n"
-                    "1. Copy {tmpcsr} from here to {enginecsr} on the engine "
-                    "server.\n\n"
-                    "2. Run on the engine server:\n\n"
-                    "{enroll_command}\n\n"
-                    "3. Copy {enginecert} from the engine server to some file "
-                    "here. Provide the file name below.\n\n"
-                    "See {url} for more details, including using an external "
-                    "certificate authority."
-                ).format(
-                    tmpcsr=self._csr_file.name,
-                    enginecsr='{pkireqdir}/{remote_name}.req'.format(
-                        pkireqdir=oreportscons.FileLocations.
-                            OVIRT_ENGINE_PKIREQUESTSDIR,
-                        remote_name=remote_name,
-                    ),
-                    enroll_command=enroll_command,
-                    enginecert='{pkicertdir}/{remote_name}.cer'.format(
-                        pkicertdir=oreportscons.FileLocations.
-                            OVIRT_ENGINE_PKICERTSDIR,
-                        remote_name=remote_name,
-                    ),
-                    url="http://www.ovirt.org/Features/Separate-Reports-Host",
-                ),
-            )
-
-            goodcert = False
-            while not goodcert:
-                filename = self.dialog.queryString(
-                    name='REPORTS_APACHE_CERT_FILENAME',
-                    note=_(
-                        '\nPlease input the location of the file where you '
-                        'copied the signed certificate in step 3 above: '
-                    ),
-                    prompt=True,
-                )
-                try:
-                    with open(filename) as f:
-                        cert = f.read()
-                    goodcert = my_pubk == X509.load_cert_string(
-                        cert
-                    ).get_pubkey().as_pem(cipher=None)
-                    self.environment[
-                        oreportscons.ConfigEnv.APACHE_CERTIFICATE
-                    ] = cert
-                    if not goodcert:
-                        self.logger.error(
-                            _(
-                                'The certificate in {cert} does not match '
-                                'the request in {req}. Please try again.'
-                            ).format(
-                                cert=filename,
-                                req=self._csr_file.name,
-                            )
-                        )
-                except:
-                    self.logger.error(
-                        _(
-                            'Error while reading or parsing {cert}. '
-                            'Please try again.'
-                        ).format(
-                            cert=filename,
-                        )
-                    )
-                    self.logger.debug('Error reading cert', exc_info=True)
-            self.logger.info(_('Apache certificate read successfully'))
-
+        tries_left = 30
         while (
             self._need_ca_cert and
-            self.environment[
-                oreportscons.ConfigEnv.APACHE_CA_CERTIFICATE
-            ] is None
+            self._apache_ca_cert is None and
+            tries_left > 0
         ):
             remote_engine_host = self.environment[
                 oreportscons.EngineConfigEnv.ENGINE_FQDN
@@ -263,16 +151,19 @@ class Plugin(plugin.PluginBase):
             ) as urlObj:
                 engine_ca_cert = urlObj.read()
                 if engine_ca_cert:
-                    self.environment[
-                        oreportscons.ConfigEnv.APACHE_CA_CERTIFICATE
-                    ] = engine_ca_cert
+                    self._apache_ca_cert = engine_ca_cert
                 else:
                     self.logger.error(
                         _(
                             'Failed to get CA Certificate from engine. '
-                            'Please try again.'
+                            'Please check access to the engine and its '
+                            'status.'
                         )
                     )
+                    time.sleep(10)
+                    tries_left -= 1
+        if self._need_ca_cert and self._apache_ca_cert is None:
+            raise RuntimeError(_('Failed to get CA Certificate from engine'))
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
@@ -285,6 +176,10 @@ class Plugin(plugin.PluginBase):
         ),
     )
     def _misc_pki(self):
+        self._enrolldata.add_to_transaction(
+            uninstall_group_name='ca_pki_reports',
+            uninstall_group_desc='Reports PKI keys',
+        )
         uninstall_files = []
         self.environment[
             osetupcons.CoreEnv.REGISTER_UNINSTALL_GROUPS
@@ -296,41 +191,9 @@ class Plugin(plugin.PluginBase):
             group='ca_pki_reports',
             fileList=uninstall_files,
         )
-
-        if self._need_key:
-            self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
-                filetransaction.FileTransaction(
-                    name=oreportscons.FileLocations.
-                    OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
-                    mode=0o600,
-                    owner=self.environment[osetupcons.SystemEnv.USER_ENGINE],
-                    enforcePermissions=True,
-                    content=self._key,
-                    modifiedList=uninstall_files,
-                )
-            )
-            os.symlink(
-                oreportscons.FileLocations.OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
-                oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_KEY
-            )
-            uninstall_files.append(
-                oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_KEY
-            )
-
-        if self._need_cert:
-            self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
-                filetransaction.FileTransaction(
-                    name=oreportscons.FileLocations.
-                    OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT,
-                    mode=0o600,
-                    owner=self.environment[osetupcons.SystemEnv.USER_ENGINE],
-                    enforcePermissions=True,
-                    content=self.environment[
-                        oreportscons.ConfigEnv.APACHE_CERTIFICATE
-                    ],
-                    modifiedList=uninstall_files,
-                )
-            )
+        if not os.path.exists(
+            oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_CERT
+        ):
             os.symlink(
                 oreportscons.FileLocations.
                 OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT,
@@ -338,6 +201,16 @@ class Plugin(plugin.PluginBase):
             )
             uninstall_files.append(
                 oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_CERT
+            )
+        if not os.path.exists(
+            oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_KEY
+        ):
+            os.symlink(
+                oreportscons.FileLocations.OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
+                oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_KEY
+            )
+            uninstall_files.append(
+                oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_KEY
             )
 
         if self._need_ca_cert:
@@ -348,9 +221,7 @@ class Plugin(plugin.PluginBase):
                     mode=0o600,
                     owner=self.environment[osetupcons.SystemEnv.USER_ENGINE],
                     enforcePermissions=True,
-                    content=self.environment[
-                        oreportscons.ConfigEnv.APACHE_CA_CERTIFICATE
-                    ],
+                    content=self._apache_ca_cert,
                     modifiedList=uninstall_files,
                 )
             )
@@ -365,17 +236,12 @@ class Plugin(plugin.PluginBase):
 
     @plugin.event(
         stage=plugin.Stages.STAGE_CLEANUP,
+        condition=lambda self: (
+            self._enabled
+        ),
     )
     def _cleanup(self):
-        if self._csr_file is not None:
-            try:
-                os.unlink(self._csr_file.name)
-            except OSError as e:
-                self.logger.debug(
-                    "Failed to delete '%s'",
-                    self._csr_file.name,
-                    exc_info=True,
-                )
+        self._enrolldata.cleanup()
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
