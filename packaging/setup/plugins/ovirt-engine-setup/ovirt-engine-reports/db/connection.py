@@ -111,17 +111,7 @@ class Plugin(plugin.PluginBase):
             oengcommcons.Stages.DB_OWNERS_CONNECTIONS_CUSTOMIZED,
         ),
     )
-    def _engine_and_dwh_customization(self):
-        database.OvirtUtils(
-            plugin=self,
-            dbenvkeys=oreportscons.Const.ENGINE_DB_ENV_KEYS,
-        ).getCredentials(
-            name='Engine',
-            queryprefix='OVESETUP_ENGINE_DB_',
-            defaultdbenvkeys=oreportscons.Const.DEFAULT_ENGINE_DB_ENV_KEYS,
-            show_create_msg=False,
-        )
-
+    def _dwh_customization(self):
         database.OvirtUtils(
             plugin=self,
             dbenvkeys=oreportscons.Const.DWH_DB_ENV_KEYS,

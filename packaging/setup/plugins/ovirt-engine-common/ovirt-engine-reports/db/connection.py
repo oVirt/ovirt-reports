@@ -57,11 +57,6 @@ class Plugin(plugin.PluginBase):
         ].append(
             oreportscons.DWHDBEnv.PASSWORD
         )
-        self.environment[
-            otopicons.CoreEnv.LOG_FILTER_KEYS
-        ].append(
-            oreportscons.EngineDBEnv.PASSWORD
-        )
 
     @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
@@ -99,39 +94,6 @@ class Plugin(plugin.PluginBase):
         self.environment[oreportscons.DBEnv.CONNECTION] = None
         self.environment[oreportscons.DBEnv.STATEMENT] = None
         self.environment[oreportscons.DBEnv.NEW_DATABASE] = True
-
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.HOST,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.PORT,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.SECURED,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.SECURED_HOST_VALIDATION,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.USER,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.PASSWORD,
-            None
-        )
-        self.environment.setdefault(
-            oreportscons.EngineDBEnv.DATABASE,
-            None
-        )
-
-        self.environment[oreportscons.EngineDBEnv.CONNECTION] = None
-        self.environment[oreportscons.EngineDBEnv.STATEMENT] = None
-        self.environment[oreportscons.EngineDBEnv.NEW_DATABASE] = True
 
         self.environment.setdefault(
             oreportscons.DWHDBEnv.HOST,

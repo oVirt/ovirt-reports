@@ -105,34 +105,6 @@ class Const(object):
             'database': DWHDefaults.DEFAULT_DB_DATABASE,
         }
 
-    @classproperty
-    def ENGINE_DB_ENV_KEYS(self):
-        return {
-            'host': EngineDBEnv.HOST,
-            'port': EngineDBEnv.PORT,
-            'secured': EngineDBEnv.SECURED,
-            'hostValidation': EngineDBEnv.SECURED_HOST_VALIDATION,
-            'user': EngineDBEnv.USER,
-            'password': EngineDBEnv.PASSWORD,
-            'database': EngineDBEnv.DATABASE,
-            'connection': EngineDBEnv.CONNECTION,
-            'pgpassfile': EngineDBEnv.PGPASS_FILE,
-            'newDatabase': EngineDBEnv.NEW_DATABASE,
-        }
-
-    @classproperty
-    def DEFAULT_ENGINE_DB_ENV_KEYS(self):
-        return {
-            'host': EngineDefaults.DEFAULT_DB_HOST,
-            'port': EngineDefaults.DEFAULT_DB_PORT,
-            'secured': EngineDefaults.DEFAULT_DB_SECURED,
-            'hostValidation':
-            EngineDefaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
-            'user': EngineDefaults.DEFAULT_DB_USER,
-            'password': EngineDefaults.DEFAULT_DB_PASSWORD,
-            'database': EngineDefaults.DEFAULT_DB_DATABASE,
-        }
-
 
 @util.export
 @util.codegen
@@ -161,18 +133,6 @@ class DWHDefaults(object):
     DEFAULT_DB_PORT = 5432
     DEFAULT_DB_DATABASE = 'ovirt_engine_history'
     DEFAULT_DB_USER = 'ovirt_engine_history'
-    DEFAULT_DB_PASSWORD = ''
-    DEFAULT_DB_SECURED = False
-    DEFAULT_DB_SECURED_HOST_VALIDATION = False
-
-
-@util.export
-@util.codegen
-class EngineDefaults(object):
-    DEFAULT_DB_HOST = ''
-    DEFAULT_DB_PORT = 5432
-    DEFAULT_DB_DATABASE = 'engine'
-    DEFAULT_DB_USER = 'engine'
     DEFAULT_DB_PASSWORD = ''
     DEFAULT_DB_SECURED = False
     DEFAULT_DB_SECURED_HOST_VALIDATION = False
@@ -616,76 +576,26 @@ class DWHDBEnv(object):
 @util.export
 @util.codegen
 @osetupattrsclass
-class EngineDBEnv(object):
-    """Sync with ovirt-engine"""
-
-    @osetupattrs(
-        answerfile=True,
-        summary=True,
-        description=_('Engine database host'),
-    )
-    def HOST(self):
-        return 'OVESETUP_DB/host'
-
-    @osetupattrs(
-        answerfile=True,
-        summary=True,
-        description=_('Engine database port'),
-    )
-    def PORT(self):
-        return 'OVESETUP_DB/port'
-
-    @osetupattrs(
-        answerfile=True,
-        summary=True,
-        description=_('Engine database secured connection'),
-    )
-    def SECURED(self):
-        return 'OVESETUP_DB/secured'
-
-    @osetupattrs(
-        answerfile=True,
-        summary=True,
-        description=_('Engine database host name validation'),
-    )
-    def SECURED_HOST_VALIDATION(self):
-        return 'OVESETUP_DB/securedHostValidation'
-
-    @osetupattrs(
-        answerfile=True,
-        summary=True,
-        description=_('Engine database name'),
-    )
-    def DATABASE(self):
-        return 'OVESETUP_DB/database'
-
-    @osetupattrs(
-        answerfile=True,
-        summary=True,
-        description=_('Engine database user name'),
-    )
-    def USER(self):
-        return 'OVESETUP_DB/user'
-
-    @osetupattrs(
-        answerfile=True,
-    )
-    def PASSWORD(self):
-        return 'OVESETUP_DB/password'
-
-    CONNECTION = 'OVESETUP_DB/connection'
-    STATEMENT = 'OVESETUP_DB/statement'
-    PGPASS_FILE = 'OVESETUP_DB/pgPassFile'
-    NEW_DATABASE = 'OVESETUP_DB/newDatabase'
-
-
-@util.export
-@util.codegen
-@osetupattrsclass
 class EngineCoreEnv(object):
     """Sync with ovirt-engine"""
 
     ENABLE = 'OVESETUP_ENGINE_CORE/enable'
+
+
+@util.export
+@util.codegen
+class EngineFileLocations(object):
+    """Sync with ovirt-engine"""
+
+    OVIRT_ENGINE_SERVICE_CONFIGD = os.path.join(
+        FileLocations.SYSCONFDIR,
+        'ovirt-engine',
+        'engine.conf.d'
+    )
+    OVIRT_ENGINE_SERVICE_CONFIG_REPORTS = os.path.join(
+        OVIRT_ENGINE_SERVICE_CONFIGD,
+        '10-setup-reports-access.conf'
+    )
 
 
 @util.export
