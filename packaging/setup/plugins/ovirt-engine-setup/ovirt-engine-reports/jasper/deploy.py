@@ -712,6 +712,14 @@ class Plugin(plugin.PluginBase):
         ):
             os.unlink(f)
 
+        shutil.copyfile(
+            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_UI,
+            os.path.join(
+                oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR,
+                'reports.xml',
+            )
+        )
+
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
         name=oreportscons.Stages.JASPER_DEPLOY_IMPORT,

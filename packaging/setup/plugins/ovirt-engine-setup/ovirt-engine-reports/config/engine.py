@@ -28,7 +28,7 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup.engine_common import database
+from ovirt_engine_setup import remote_engine
 from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.engine_common \
     import constants as oengcommcons
@@ -41,65 +41,54 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
-        stage=plugin.Stages.STAGE_MISC,
+        stage=plugin.Stages.STAGE_CUSTOMIZATION,
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
         after=(
-            oengcommcons.Stages.DB_CONNECTION_AVAILABLE,
-            oreportscons.Stages.JASPER_NAME_SET,
+            oreportscons.Stages.CORE_ENABLE,
+            oreportscons.Stages.ENGINE_CORE_ENABLE,
         ),
     )
-    def misc(self):
-        uninstall_files = []
-        self.environment[
-            osetupcons.CoreEnv.REGISTER_UNINSTALL_GROUPS
-        ].addFiles(
-            group='ovirt_reports_files',
-            fileList=uninstall_files,
+    def _customization(self):
+        reports_conf_content = (
+            'ENGINE_REPORTS_BASE_URL='
+                'https://{fqdn}/ovirt-engine-reports\n'
+            'ENGINE_REPORTS_DASHBOARD_URL='
+                '${{ENGINE_REPORTS_BASE_URL}}'
+                '/flow.html?_flowId=viewReportFlow\n'
+            'ENGINE_REPORTS_PROXY_URL='
+                '${{ENGINE_REPORTS_BASE_URL}}/ovirt/reports-interface\n'
+            'ENGINE_REPORTS_VERIFY_HOST=true\n'
+            'ENGINE_REPORTS_VERIFY_CHAIN=true\n'
+            'ENGINE_REPORTS_READ_TIMEOUT=\n'
+        ).format(
+            fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
         )
-        with open(
-            oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_UI,
-            "r",
-        ) as content:
+
+        if self.environment[oreportscons.EngineCoreEnv.ENABLE]:
             self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
                 filetransaction.FileTransaction(
-                    name=os.path.join(
-                        (
-                            oreportscons.FileLocations.
-                            OVIRT_ENGINE_REPORTS_JASPER_WAR
-                        ),
-                        'reports.xml',
-                    ),
-                    content=content.read(),
-                    modifiedList=uninstall_files,
+                    name=oreportscons.EngineFileLocations.
+                        OVIRT_ENGINE_SERVICE_CONFIG_REPORTS,
+                    content=reports_conf_content,
+                    modifiedList=self.environment[
+                        otopicons.CoreEnv.MODIFIED_FILES
+                    ],
                 )
             )
-
-        statement = database.Statement(
-            dbenvkeys=oreportscons.Const.ENGINE_DB_ENV_KEYS,
-            environment=self.environment,
-        )
-
-        statement.execute(
-            statement="""
-                update vdc_options
-                set
-                    option_value=%(value)s
-                where
-                    option_name=%(name)s and
-                    version=%(version)s
-            """,
-            args=dict(
-                name='RedirectServletReportsPage',
-                value='https://{fqdn}:{port}/ovirt-engine-reports'.format(
-                    fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
-                    port=self.environment[
-                        oreportscons.ConfigEnv.PUBLIC_HTTPS_PORT
-                    ],
-                ),
-                version='general',
-            ),
-            ownConnection=True,
-        )
+        else:
+            self._remote_engine = self.environment[
+                osetupcons.CoreEnv.REMOTE_ENGINE
+            ]
+            self._remote_engine.configure(
+                fqdn=self.environment[
+                    oreportscons.EngineConfigEnv.ENGINE_FQDN
+                ],
+            )
+            self._remote_engine.copy_to_engine(
+                file_name=oreportscons.EngineFileLocations.
+                    OVIRT_ENGINE_SERVICE_CONFIG_REPORTS,
+                content=reports_conf_content,
+            )
 
     @plugin.event(
         stage=plugin.Stages.STAGE_CLOSEUP,
@@ -120,9 +109,11 @@ class Plugin(plugin.PluginBase):
         ),
     )
     def _closeup(self):
-        self.dialog.note(
+        self._remote_engine.execute_on_engine(
+            cmd='service ovirt-engine restart',
+            timeout=120,
             text=_(
-                'To update the Reports link on the main web interface page, '
+                'To update the connections to Reports on the engine, '
                 'please restart the engine service, '
                 'by running the following command on the engine host:\n'
                 '# service ovirt-engine restart'
