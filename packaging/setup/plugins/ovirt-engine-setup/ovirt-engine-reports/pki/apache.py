@@ -29,11 +29,6 @@ import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
-from M2Crypto import X509
-from M2Crypto import EVP
-from M2Crypto import RSA
-
-
 from otopi import constants as otopicons
 from otopi import filetransaction
 from otopi import util
@@ -101,7 +96,9 @@ class Plugin(plugin.PluginBase):
 
         if not engine_apache_pki_found:
             self._enrolldata = remote_engine.EnrollCert(
-                remote_engine=self.environment[osetupcons.CoreEnv.REMOTE_ENGINE],
+                remote_engine=self.environment[
+                    osetupcons.CoreEnv.REMOTE_ENGINE
+                ],
                 engine_fqdn=self.environment[
                     oreportscons.EngineConfigEnv.ENGINE_FQDN
                 ],
@@ -111,7 +108,9 @@ class Plugin(plugin.PluginBase):
                     OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
                 cert_file=oreportscons.FileLocations.
                     OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT,
-                csr_fname_envkey=oreportscons.ConfigEnv.PKI_APACHE_CSR_FILENAME,
+                csr_fname_envkey=(
+                    oreportscons.ConfigEnv.PKI_APACHE_CSR_FILENAME
+                ),
                 engine_ca_cert_file=os.path.join(
                     oreportscons.FileLocations.OVIRT_ENGINE_PKIDIR,
                     'ca.pem'
