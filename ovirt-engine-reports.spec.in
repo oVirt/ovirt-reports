@@ -231,6 +231,12 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Tue Sep 23 2014 Yaniv Dary <ydary@redhat.com> - 3.5.0
+Fixed issues:
+- Make pki interaction easier (#1118328\1118330)
+- Config engine to access reports on local setup (#1144079)
+- Require openjdk 1.7.0 (#1140746)
+
 * Sun Sep 07 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 -  provide reports.xml to engine over http (#1116851)
 
