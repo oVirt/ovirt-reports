@@ -251,6 +251,6 @@
             <referenceUri>/reports_resources/embedded_reports/webadmin_dashboards/dc_dashboard/jrxmls/dc_host_uptime_status_dr5_jrxml</referenceUri>
         </localResource>
     </resource>
-    <alwaysPromptControls>true</alwaysPromptControls>
+    <alwaysPromptControls>false</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>

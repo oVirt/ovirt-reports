@@ -264,6 +264,6 @@
             <referenceUri>/reports_resources/embedded_reports/webadmin_dashboards/cluster_dashboard/jrxmls/top_five_hosts_downtime_dr18_jrxml</referenceUri>
         </localResource>
     </resource>
-    <alwaysPromptControls>true</alwaysPromptControls>
+    <alwaysPromptControls>false</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>
