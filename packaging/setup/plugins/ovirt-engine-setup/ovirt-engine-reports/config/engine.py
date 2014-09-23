@@ -16,7 +16,6 @@
 #
 
 
-import os
 import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
@@ -28,10 +27,7 @@ from otopi import plugin
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup import remote_engine
 from ovirt_engine_setup.reports import constants as oreportscons
-from ovirt_engine_setup.engine_common \
-    import constants as oengcommcons
 
 
 @util.export

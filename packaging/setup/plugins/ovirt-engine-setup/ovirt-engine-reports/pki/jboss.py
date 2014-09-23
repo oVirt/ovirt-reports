@@ -26,8 +26,6 @@ import gettext
 _ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
-from otopi import constants as otopicons
-from otopi import filetransaction
 from otopi import util
 from otopi import plugin
 
