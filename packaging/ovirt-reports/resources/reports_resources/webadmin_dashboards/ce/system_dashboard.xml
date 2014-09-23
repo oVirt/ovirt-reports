@@ -196,6 +196,6 @@
             <referenceUri>/reports_resources/embedded_reports/webadmin_dashboards/system_dashboard/jrxmls/system_host_uptime_status_dr4_jrxml</referenceUri>
         </localResource>
     </resource>
-    <alwaysPromptControls>true</alwaysPromptControls>
+    <alwaysPromptControls>false</alwaysPromptControls>
     <controlsLayout>1</controlsLayout>
 </reportUnit>
