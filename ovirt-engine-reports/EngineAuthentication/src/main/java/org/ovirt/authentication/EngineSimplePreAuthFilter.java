@@ -168,7 +168,14 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
                     // Checking if we need to re-check the session, and acting accordingly
                     if (userDetails.isRecheckSessionIdNeeded()) {
                         logger.debug("Rechecking session is needed");
-                        UsernamePasswordAuthenticationToken token = getAuthRequest(request, userDetails.getUserSessionID());
+                        // if the sessionID has changed
+                        String reqSessionID = request.getParameter("sessionID");
+                        String sessionID = userDetails.getUserSessionID();
+                        if (reqSessionID != null && !sessionID.equals(reqSessionID)) {
+                            logger.debug("sessionID has changed, using new sessionID.");
+                            sessionID = reqSessionID;
+                        }
+                        UsernamePasswordAuthenticationToken token = getAuthRequest(request, sessionID);
                         // if the token is null then it means we failed authentication
                         if (token == null) {
                             logger.debug("Returned token is null. Session was not valid. Setting authenticated to false");
