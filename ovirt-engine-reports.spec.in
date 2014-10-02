@@ -231,6 +231,13 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Thu Oct 02 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+- Use common code for remote engine pki (#1142267)
+- fix link to dashboard (#1144079)
+- do not display input control in ce dashboards
+- pep8 fixes
+- Reports should use current sessionID (#1116851)
+
 * Tue Sep 23 2014 Yaniv Dary <ydary@redhat.com> - 3.5.0
 Fixed issues:
 - Make pki interaction easier (#1118328\1118330)
