@@ -82,8 +82,6 @@ class Plugin(plugin.PluginBase):
         ),
     )
     def _customization(self):
-        self._enabled = True
-
         engine_apache_pki_found = (
             os.path.exists(
                 oreportscons.FileLocations.OVIRT_ENGINE_PKI_APACHE_KEY
@@ -95,6 +93,7 @@ class Plugin(plugin.PluginBase):
         )
 
         if not engine_apache_pki_found:
+            self._enabled = True
             self._enrolldata = remote_engine.EnrollCert(
                 remote_engine=self.environment[
                     osetupcons.CoreEnv.REMOTE_ENGINE
@@ -105,9 +104,9 @@ class Plugin(plugin.PluginBase):
                 base_name=oreportscons.Const.PKI_REPORTS_APACHE_CERT_NAME,
                 base_touser=_('Apache'),
                 key_file=oreportscons.FileLocations.
-                    OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
+                OVIRT_ENGINE_PKI_REPORTS_APACHE_KEY,
                 cert_file=oreportscons.FileLocations.
-                    OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT,
+                OVIRT_ENGINE_PKI_REPORTS_APACHE_CERT,
                 csr_fname_envkey=(
                     oreportscons.ConfigEnv.PKI_APACHE_CSR_FILENAME
                 ),
@@ -116,9 +115,9 @@ class Plugin(plugin.PluginBase):
                     'ca.pem'
                 ),
                 engine_pki_requests_dir=oreportscons.FileLocations.
-                    OVIRT_ENGINE_PKIREQUESTSDIR,
+                OVIRT_ENGINE_PKIREQUESTSDIR,
                 engine_pki_certs_dir=oreportscons.FileLocations.
-                    OVIRT_ENGINE_PKICERTSDIR,
+                OVIRT_ENGINE_PKICERTSDIR,
                 key_size=self.environment[oreportscons.ConfigEnv.KEY_SIZE],
                 url="http://www.ovirt.org/Features/Separate-Reports-Host",
             )

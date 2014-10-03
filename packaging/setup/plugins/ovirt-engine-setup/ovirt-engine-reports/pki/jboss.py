@@ -84,18 +84,18 @@ class Plugin(plugin.PluginBase):
             base_name=oreportscons.Const.PKI_REPORTS_JBOSS_CERT_NAME,
             base_touser=_('Reports'),
             key_file=oreportscons.FileLocations.
-                OVIRT_ENGINE_PKI_REPORTS_JBOSS_KEY,
+            OVIRT_ENGINE_PKI_REPORTS_JBOSS_KEY,
             cert_file=oreportscons.FileLocations.
-                OVIRT_ENGINE_PKI_REPORTS_JBOSS_CERT,
+            OVIRT_ENGINE_PKI_REPORTS_JBOSS_CERT,
             csr_fname_envkey=oreportscons.ConfigEnv.PKI_JBOSS_CSR_FILENAME,
             engine_ca_cert_file=os.path.join(
                 oreportscons.FileLocations.OVIRT_ENGINE_PKIDIR,
                 'ca.pem'
             ),
             engine_pki_requests_dir=oreportscons.FileLocations.
-                OVIRT_ENGINE_PKIREQUESTSDIR,
+            OVIRT_ENGINE_PKIREQUESTSDIR,
             engine_pki_certs_dir=oreportscons.FileLocations.
-                OVIRT_ENGINE_PKICERTSDIR,
+            OVIRT_ENGINE_PKICERTSDIR,
             key_size=self.environment[oreportscons.ConfigEnv.KEY_SIZE],
             url="http://www.ovirt.org/Features/Separate-Reports-Host",
         )
