@@ -82,7 +82,7 @@ BUILD_TARGET=install
 .in:
 	sed \
 	-e "s|@SERVICE_DEFAULTS@|$(DATA_DIR)/services/ovirt-engine-reportsd/ovirt-engine-reportsd.conf|g" \
-	-e "s|@SERVICE_VARS@|$(PKG_SYSCONF_DIR)/$(PACKAGE_NAME).conf|g" \
+	-e "s|@SERVICE_VARS@|$(PKG_SYSCONF_DIR)/ovirt-engine-reports.conf|g" \
 	-e "s|@PKG_USER@|$(PKG_USER)|g" \
 	-e "s|@PKG_GROUP@|$(PKG_GROUP)|g" \
 	-e "s|@DATAROOT_DIR@|$(DATAROOT_DIR)|g" \
