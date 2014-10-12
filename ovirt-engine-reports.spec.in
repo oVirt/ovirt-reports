@@ -127,6 +127,7 @@ Requires:	libxml2-python
 Requires:	%{engine_name}-setup-plugin-ovirt-engine-common
 Requires:	python
 Requires:	%{name} >= 3.4.0
+Requires:	java-1.7.0-openjdk >= 1:1.7.0.9-2.3.3.2
 
 %description setup
 %{product_description} setup package.
