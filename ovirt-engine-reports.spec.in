@@ -232,6 +232,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Mon Oct 13 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
+- fixing remote engine pki common code usage on upgrades (#1150116)
+- make setup require openjdk 1.7.0 (#1140746)
+
 * Mon Oct 06 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 - Fix service conf location (#1149446)
 
