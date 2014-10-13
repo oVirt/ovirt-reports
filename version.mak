@@ -21,7 +21,7 @@ VERSION=3.5.1
 # - master
 # - <none>
 #
-MILESTONE=rc5
+MILESTONE=master
 
 # RPM release is manually specified,
 # For pre-release:
@@ -32,4 +32,4 @@ MILESTONE=rc5
 # RPM_RELEASE=N
 # while N is incremented each re-release
 #
-RPM_RELEASE=0.1
+RPM_RELEASE=0.2.$(MILESTONE).$(shell date -u +%Y%m%d%H%M%S)
