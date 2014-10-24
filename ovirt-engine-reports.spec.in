@@ -1,5 +1,5 @@
 %if 0%{?fedora}
-%global java_devel java-devel
+%global java_devel java-devel >= 1.7.0
 %global ovirt_install_systemd 1
 %global ovirt_install_systemv 0
 %if %{fedora} >= 20
