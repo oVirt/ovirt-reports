@@ -232,6 +232,9 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Sun Oct 26 2014 Shirly Radco <sradco@redhat.com> - 3.5.1
+- require java detection
+
 * Mon Oct 13 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 - fixing remote engine pki common code usage on upgrades (#1150116)
 - make setup require openjdk 1.7.0 (#1140746)
