@@ -26,6 +26,7 @@ from . import jasper
 from . import jboss
 from . import protocols
 from . import sso
+from . import database
 
 
 @util.export
@@ -37,6 +38,7 @@ def createPlugins(context):
     jboss.Plugin(context=context)
     protocols.Plugin(context=context)
     sso.Plugin(context=context)
+    database.Plugin(context=context)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

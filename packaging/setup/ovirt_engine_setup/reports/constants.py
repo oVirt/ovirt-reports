@@ -155,6 +155,10 @@ class FileLocations(object):
         SERVICE_VARS_D,
         '10-setup-jboss.conf',
     )
+    REPORTS_SERVICE_CONFIG_DATABASE = os.path.join(
+        SERVICE_VARS_D,
+        '10-setup-database.conf',
+    )
     PKG_STATE_DIR = config.PKG_STATE_DIR
     PKG_DATA_DIR = config.PKG_DATA_DIR
     PKG_JAVA_DIR = config.PKG_JAVA_DIR
@@ -609,6 +613,15 @@ class EngineConfigEnv(object):
     )
     def ENGINE_FQDN(self):
         return 'OVESETUP_ENGINE_CONFIG/fqdn'
+
+
+@util.export
+@util.codegen
+@osetupattrsclass
+class DWHCoreEnv(object):
+    """Sync with ovirt-dwh"""
+
+    ENABLE = 'OVESETUP_DWH_CORE/enable'
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
