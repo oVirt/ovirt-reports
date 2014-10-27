@@ -31,6 +31,9 @@ from otopi import util
 from otopi import plugin
 
 
+from ovirt_engine import configfile
+
+
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.engine_common import database
@@ -223,6 +226,73 @@ class Plugin(plugin.PluginBase):
                     port=dbenv[oreportscons.DBEnv.PORT],
                     database=dbenv[oreportscons.DBEnv.DATABASE],
                     user=dbenv[oreportscons.DBEnv.USER],
+                )
+                if self.environment[
+                    osetupcons.CoreEnv.ACTION
+                ] == osetupcons.Const.ACTION_REMOVE:
+                    self.logger.warning(msg)
+                else:
+                    raise RuntimeError(msg)
+
+    @plugin.event(
+        stage=plugin.Stages.STAGE_SETUP,
+        condition=lambda self: (
+            self.environment[oreportscons.CoreEnv.ENABLE] and
+            # If dwh is enabled, let it check its own stuff
+            not self.environment.get(oreportscons.DWHCoreEnv.ENABLE)
+        ),
+    )
+    def _dwh_setup(self):
+        config = configfile.ConfigFile([
+            oreportscons.FileLocations.SERVICE_DEFAULTS,
+            oreportscons.FileLocations.SERVICE_VARS,
+        ])
+        if config.get('DWH_DB_PASSWORD'):
+            try:
+                dbenv = {}
+                for e, k in (
+                    (oreportscons.DWHDBEnv.HOST, 'DWH_DB_HOST'),
+                    (oreportscons.DWHDBEnv.PORT, 'DWH_DB_PORT'),
+                    (oreportscons.DWHDBEnv.USER, 'DWH_DB_USER'),
+                    (oreportscons.DWHDBEnv.PASSWORD, 'DWH_DB_PASSWORD'),
+                    (oreportscons.DWHDBEnv.DATABASE, 'DWH_DB_DATABASE'),
+                ):
+                    dbenv[e] = (
+                        self.environment.get(e)
+                        if self.environment.get(e) is not None
+                        else config.get(k)
+                    )
+                for e, k in (
+                    (oreportscons.DWHDBEnv.SECURED, 'DWH_DB_SECURED'),
+                    (
+                        oreportscons.DWHDBEnv.SECURED_HOST_VALIDATION,
+                        'DWH_DB_SECURED_VALIDATION'
+                    )
+                ):
+                    dbenv[e] = config.getboolean(k)
+
+                dbovirtutils = database.OvirtUtils(
+                    plugin=self,
+                    dbenvkeys=oreportscons.Const.DWH_DB_ENV_KEYS,
+                )
+                dbovirtutils.tryDatabaseConnect(dbenv)
+                self.environment.update(dbenv)
+                self.environment[
+                    oreportscons.DWHDBEnv.NEW_DATABASE
+                ] = dbovirtutils.isNewDatabase()
+            except RuntimeError as e:
+                self.logger.debug(
+                    'Existing credential use failed',
+                    exc_info=True,
+                )
+                msg = _(
+                    'Cannot connect to DWH database using existing '
+                    'credentials: {user}@{host}:{port}'
+                ).format(
+                    host=dbenv[oreportscons.DWHDBEnv.HOST],
+                    port=dbenv[oreportscons.DWHDBEnv.PORT],
+                    database=dbenv[oreportscons.DWHDBEnv.DATABASE],
+                    user=dbenv[oreportscons.DWHDBEnv.USER],
                 )
                 if self.environment[
                     osetupcons.CoreEnv.ACTION
