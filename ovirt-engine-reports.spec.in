@@ -232,6 +232,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Tue Oct 28 2014 Shirly Radco <sradco@redhat.com> - 3.5.1
+- force java-1.7 source and target (#1157753)
+- keep and use dwh db credentials (#1118322)
+
 * Sun Oct 26 2014 Shirly Radco <sradco@redhat.com> - 3.5.1
 - require java detection
 
