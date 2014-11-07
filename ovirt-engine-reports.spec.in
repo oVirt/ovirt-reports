@@ -10,9 +10,15 @@
 %endif
 
 %if 0%{?rhel}
+%if 0%{?rhel} >= 7
+%global java_devel java-devel >= 1.7.0
+%global ovirt_install_systemd 1
+%global ovirt_install_systemv 0
+%else
 %global java_devel java7-devel
 %global ovirt_install_systemd 0
 %global ovirt_install_systemv 1
+%endif
 %global jboss ovirt-engine-jboss-as >= 7.1.1
 %endif
 
@@ -89,7 +95,6 @@ Requires:	%{jboss}
 Requires:	%{name}-setup >= %{version}-%{release}
 Requires:	jasperreports-server%{reports_jasper_suffix} < 5.6.0
 Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
-Requires:	java
 Requires:	java-1.7.0-openjdk >= 1:1.7.0.9-2.3.3.2
 Requires:	jpackage-utils
 Requires:	logrotate
