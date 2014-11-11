@@ -157,7 +157,13 @@ class FileLocations(object):
     )
     REPORTS_SERVICE_CONFIG_DATABASE = os.path.join(
         SERVICE_VARS_D,
-        '10-setup-database.conf',
+        '10-setup-database.conf'
+    )
+    # sync with dwh
+    DWH_SERVICE_VARS_D = '/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d'
+    DWH_SERVICE_CONFIG_DATABASE = os.path.join(
+        DWH_SERVICE_VARS_D,
+        '10-setup-database.conf'
     )
     PKG_STATE_DIR = config.PKG_STATE_DIR
     PKG_DATA_DIR = config.PKG_DATA_DIR
