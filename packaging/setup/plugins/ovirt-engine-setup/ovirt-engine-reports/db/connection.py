@@ -120,6 +120,7 @@ class Plugin(plugin.PluginBase):
             queryprefix='OVESETUP_DWH_DB_',
             defaultdbenvkeys=oreportscons.Const.DEFAULT_DWH_DB_ENV_KEYS,
             show_create_msg=False,
+            credsfile=oreportscons.FileLocations.DWH_SERVICE_CONFIG_DATABASE,
         )
 
     @plugin.event(
