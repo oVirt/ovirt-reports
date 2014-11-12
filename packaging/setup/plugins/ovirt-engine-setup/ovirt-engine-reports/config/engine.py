@@ -47,16 +47,16 @@ class Plugin(plugin.PluginBase):
     def _customization(self):
         reports_conf_content = (
             'ENGINE_REPORTS_BASE_URL='
-                'https://{fqdn}/ovirt-engine-reports\n'
+            'https://{fqdn}/ovirt-engine-reports\n'
             'ENGINE_REPORTS_DASHBOARD_URL='
-                '${{ENGINE_REPORTS_BASE_URL}}'
-                '/flow.html?_flowId=viewReportFlow'
-                '&viewAsDashboardFrame=true\n'
+            '${{ENGINE_REPORTS_BASE_URL}}'
+            '/flow.html?_flowId=viewReportFlow'
+            '&viewAsDashboardFrame=true\n'
             'ENGINE_REPORTS_RIGHTCLICK_URL='
-                '${{ENGINE_REPORTS_BASE_URL}}'
-                '/flow.html?_flowId=viewReportFlow\n'
+            '${{ENGINE_REPORTS_BASE_URL}}'
+            '/flow.html?_flowId=viewReportFlow\n'
             'ENGINE_REPORTS_PROXY_URL='
-                '${{ENGINE_REPORTS_BASE_URL}}/ovirt/reports-interface\n'
+            '${{ENGINE_REPORTS_BASE_URL}}/ovirt/reports-interface\n'
             'ENGINE_REPORTS_VERIFY_HOST=true\n'
             'ENGINE_REPORTS_VERIFY_CHAIN=true\n'
             'ENGINE_REPORTS_READ_TIMEOUT=\n'
@@ -68,7 +68,7 @@ class Plugin(plugin.PluginBase):
             self.environment[otopicons.CoreEnv.MAIN_TRANSACTION].append(
                 filetransaction.FileTransaction(
                     name=oreportscons.EngineFileLocations.
-                        OVIRT_ENGINE_SERVICE_CONFIG_REPORTS,
+                    OVIRT_ENGINE_SERVICE_CONFIG_REPORTS,
                     content=reports_conf_content,
                     modifiedList=self.environment[
                         otopicons.CoreEnv.MODIFIED_FILES
@@ -86,7 +86,7 @@ class Plugin(plugin.PluginBase):
             )
             self._remote_engine.copy_to_engine(
                 file_name=oreportscons.EngineFileLocations.
-                    OVIRT_ENGINE_SERVICE_CONFIG_REPORTS,
+                OVIRT_ENGINE_SERVICE_CONFIG_REPORTS,
                 content=reports_conf_content,
             )
 
