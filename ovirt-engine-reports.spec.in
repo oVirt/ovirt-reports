@@ -237,6 +237,9 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Wed Nov 12 2014 Shirly Radco <sradco@redhat.com> - 3.5.1
+- show note about dwh db credentials (#1162549)
+
 * Tue Nov 11 2014 Shirly Radco <sradco@redhat.com> - 3.5.1
 - add support for EL7 builds (#1159293)
 
