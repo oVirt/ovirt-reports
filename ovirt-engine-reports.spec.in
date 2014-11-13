@@ -83,7 +83,6 @@ Source0:	http://resources.ovirt.org/pub/ovirt-master-snapshot/src/@PACKAGE_NAME@
 BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
 BuildRequires:	%{java_devel}
 BuildRequires:	jpackage-utils
-BuildRequires:	log4j
 BuildRequires:	make
 BuildRequires:	ant
 
