@@ -342,6 +342,7 @@ class CoreEnv(object):
         answerfile=True,
         postinstallfile=True,
         summary=True,
+        reconfigurable=True,
         description=_('Reports installation'),
     )
     def ENABLE(self):
