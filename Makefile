@@ -34,8 +34,11 @@ PYTHON=python
 PYFLAKES=pyflakes
 PEP8=pep8
 PREFIX=/usr/local
+ENGINE_PREFIX=$(PREFIX)
 LOCALSTATE_DIR=$(PREFIX)/var
 SYSCONF_DIR=$(PREFIX)/etc
+ENGINE_SYSCONF_DIR=$(ENGINE_PREFIX)/etc
+ENGINE_VARS=$(ENGINE_SYSCONF_DIR)/$(ENGINE_NAME)/engine.conf
 DATAROOT_DIR=$(PREFIX)/share
 MAN_DIR=$(DATAROOT_DIR)/man
 DOC_DIR=$(DATAROOT_DIR)/doc
@@ -83,6 +86,7 @@ BUILD_TARGET=install
 	sed \
 	-e "s|@SERVICE_DEFAULTS@|$(PKG_DATA_DIR)/services/ovirt-engine-reportsd/ovirt-engine-reportsd.conf|g" \
 	-e "s|@SERVICE_VARS@|$(PKG_SYSCONF_DIR)/ovirt-engine-reports.conf|g" \
+	-e "s|@ENGINE_VARS@|$(ENGINE_VARS)|g" \
 	-e "s|@PKG_USER@|$(PKG_USER)|g" \
 	-e "s|@PKG_GROUP@|$(PKG_GROUP)|g" \
 	-e "s|@DATAROOT_DIR@|$(DATAROOT_DIR)|g" \

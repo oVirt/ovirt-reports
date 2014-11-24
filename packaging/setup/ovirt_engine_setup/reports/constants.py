@@ -595,11 +595,8 @@ class EngineCoreEnv(object):
 class EngineFileLocations(object):
     """Sync with ovirt-engine"""
 
-    OVIRT_ENGINE_SERVICE_CONFIGD = os.path.join(
-        FileLocations.SYSCONFDIR,
-        'ovirt-engine',
-        'engine.conf.d'
-    )
+    ENGINE_VARS = config.ENGINE_VARS
+    OVIRT_ENGINE_SERVICE_CONFIGD = '%s.d' % config.ENGINE_VARS
     OVIRT_ENGINE_SERVICE_CONFIG_REPORTS = os.path.join(
         OVIRT_ENGINE_SERVICE_CONFIGD,
         '10-setup-reports-access.conf'

@@ -47,7 +47,7 @@ class Plugin(plugin.PluginBase):
     def _customization(self):
         reports_conf_content = (
             'ENGINE_REPORTS_BASE_URL='
-            'https://{fqdn}/ovirt-engine-reports\n'
+            'https://{fqdn}:{port}/ovirt-engine-reports\n'
             'ENGINE_REPORTS_DASHBOARD_URL='
             '${{ENGINE_REPORTS_BASE_URL}}'
             '/flow.html?_flowId=viewReportFlow'
@@ -62,6 +62,7 @@ class Plugin(plugin.PluginBase):
             'ENGINE_REPORTS_READ_TIMEOUT=\n'
         ).format(
             fqdn=self.environment[osetupcons.ConfigEnv.FQDN],
+            port=self.environment[oreportscons.ConfigEnv.PUBLIC_HTTPS_PORT],
         )
 
         if self.environment[oreportscons.EngineCoreEnv.ENABLE]:

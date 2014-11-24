@@ -59,6 +59,7 @@ getent passwd %1 >/dev/null || useradd -r -u %2 -g %3 -c %5 -s /sbin/nologin -d 
 	OVIRT_REPORTS_NAME=%{reports_name} \\\
 	PREFIX=%{_prefix} \\\
 	SYSCONF_DIR=%{_sysconfdir} \\\
+	ENGINE_SYSCONF_DIR=%{_sysconfdir} \\\
 	LOCALSTATE_DIR=%{_localstatedir} \\\
 	DATAROOT_DIR=%{_datadir} \\\
 	PYTHON=%{__python} \\\
