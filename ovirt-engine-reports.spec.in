@@ -237,6 +237,9 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Wed Jan 14 2015 Shirly Radco <sradco@redhat.com> - 3.5.1
+- rename: change reports fqdn on engine conf
+
 * Wed Nov 12 2014 Shirly Radco <sradco@redhat.com> - 3.5.1
 - show note about dwh db credentials (#1162549)
 
