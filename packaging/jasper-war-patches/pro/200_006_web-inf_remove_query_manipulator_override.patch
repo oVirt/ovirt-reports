@@ -23,12 +23,12 @@ applicationContext file.
          <property name="override">
 --- a/WEB-INF/applicationContext.xml
 +++ b/WEB-INF/applicationContext.xml
-@@ -470,7 +470,7 @@
-       <ref bean="${bean.engineService.compiledReportsCache}"/>
-     </property>
-     <property name="queryManipulator">
--      <ref bean="CascadeQueryManipulator"/>
-+      <ref bean="CustomOvirtReportsQueryManipulator"/>
-     </property>
-     <property name="securityContextProvider" ref="${bean.securityContextProvider}"/>
-     <property name="builtInParameterProviders" ref="builtInParameterProviders"/>
+@@ -633,7 +633,7 @@
+             <ref bean="${bean.engineService.compiledReportsCache}"/>
+         </property>
+         <property name="queryManipulator">
+-            <ref bean="CascadeQueryManipulator"/>
++            <ref bean="CustomOvirtReportsQueryManipulator"/>
+         </property>
+         <property name="securityContextProvider" ref="${bean.securityContextProvider}"/>
+         <property name="builtInParameterProviders" ref="builtInParameterProviders"/>
