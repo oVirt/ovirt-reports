@@ -237,6 +237,9 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Wed Jan 21 2015 Shirly Radco <sradco@redhat.com> - 3.5.1
+- fixed bug in br45 report query (#1184420)
+
 * Wed Jan 14 2015 Shirly Radco <sradco@redhat.com> - 3.5.1
 - rename: change reports fqdn on engine conf
 
