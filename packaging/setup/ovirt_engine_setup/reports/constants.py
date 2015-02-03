@@ -159,6 +159,10 @@ class FileLocations(object):
         SERVICE_VARS_D,
         '10-setup-database.conf'
     )
+    REPORTS_SERVICE_CONFIG_JAVA = os.path.join(
+        SERVICE_VARS_D,
+        '10-setup-java.conf'
+    )
     # sync with dwh
     DWH_SERVICE_VARS_D = '/etc/ovirt-engine-dwh/ovirt-engine-dwhd.conf.d'
     DWH_SERVICE_CONFIG_DATABASE = os.path.join(
@@ -393,6 +397,18 @@ class ConfigEnv(object):
 
     PKI_JBOSS_CSR_FILENAME = 'OVESETUP_REPORTS_CONFIG/pkiJbossCSRFilename'
     PKI_APACHE_CSR_FILENAME = 'OVESETUP_REPORTS_CONFIG/pkiApacheCSRFilename'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def HEAP_MIN(self):
+        return 'OVESETUP_REPORTS_CONFIG/heapMin'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def HEAP_MAX(self):
+        return 'OVESETUP_REPORTS_CONFIG/heapMax'
 
 
 @util.export

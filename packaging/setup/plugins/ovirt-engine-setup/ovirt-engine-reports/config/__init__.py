@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013-2014 Red Hat, Inc.
+# Copyright (C) 2013-2015 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ from . import engine
 from . import firewall
 from . import jasper
 from . import jboss
+from . import java
 from . import protocols
 from . import sso
 from . import database
@@ -36,6 +37,7 @@ def createPlugins(context):
     firewall.Plugin(context=context)
     jasper.Plugin(context=context)
     jboss.Plugin(context=context)
+    java.Plugin(context=context)
     protocols.Plugin(context=context)
     sso.Plugin(context=context)
     database.Plugin(context=context)
