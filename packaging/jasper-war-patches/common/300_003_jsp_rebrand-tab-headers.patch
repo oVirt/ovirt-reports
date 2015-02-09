@@ -4,11 +4,14 @@
  
  <html>
      <head>
--        <title>Jaspersoft: <decorator:title /></title>
+-        <title>TIBCO Jaspersoft: <decorator:title /></title>
 +        <title>oVirt Engine Reports: <decorator:title /></title>
          <meta http-equiv="Content-Type" content="text/html; charset=${requestScope['com.jaspersoft.ji.characterEncoding']}">
  
          <!--
+-- 
+1.9.3
+
 --- a/WEB-INF/decorators/minimalDecorator.jsp
 +++ b/WEB-INF/decorators/minimalDecorator.jsp
 @@ -33,7 +33,7 @@

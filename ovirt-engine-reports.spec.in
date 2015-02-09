@@ -81,7 +81,7 @@ URL:		http://www.ovirt.org
 BuildArch:	noarch
 Source0:	http://resources.ovirt.org/pub/ovirt-master-snapshot/src/@PACKAGE_NAME@/@PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 
-BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
+BuildRequires:	jasperreports-server%{reports_jasper_suffix} >= 6.0.1
 BuildRequires:	%{java_devel}
 BuildRequires:	jpackage-utils
 BuildRequires:	make
@@ -93,8 +93,8 @@ BuildRequires:	systemd
 
 Requires:	%{jboss}
 Requires:	%{name}-setup >= %{version}-%{release}
-Requires:	jasperreports-server%{reports_jasper_suffix} < 5.6.0
-Requires:	jasperreports-server%{reports_jasper_suffix} >= 5.5.0-7
+Requires:	jasperreports-server%{reports_jasper_suffix} < 6.1.0
+Requires:	jasperreports-server%{reports_jasper_suffix} >= 6.0.1
 Requires:	java-1.7.0-openjdk >= 1:1.7.0.9-2.3.3.2
 Requires:	jpackage-utils
 Requires:	logrotate

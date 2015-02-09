@@ -1,0 +1,20 @@
+--- a/WEB-INF/applicationContext.xml
++++ b/WEB-INF/applicationContext.xml
+@@ -678,7 +678,7 @@
+             <ref bean="${bean.engineService.compiledReportsCache}"/>
+         </property>
+         <property name="queryManipulator">
+-            <ref bean="CascadeQueryManipulator"/>
++            <ref bean="CustomOvirtReportsQueryManipulator"/>
+         </property>
+         <property name="securityContextProvider" ref="${bean.securityContextProvider}"/>
+         <property name="builtInParameterProviders" ref="builtInParameterProviders"/>
+@@ -1432,7 +1432,7 @@
+         <property name="removeEmptySpaceBetweenRows" value="true"/>
+         <property name="removeEmptySpaceBetweenColumns" value="true"/>
+         <property name="whitePageBackground" value="false"/>
+-        <property name="ignoreGraphics" value="true"/>
++        <property name="ignoreGraphics" value="false"/>
+         <property name="collapseRowSpan" value="true"/>
+         <property name="ignoreCellBorder" value="true"/>
+         <property name="fontSizeFixEnabled" value="true"/>
