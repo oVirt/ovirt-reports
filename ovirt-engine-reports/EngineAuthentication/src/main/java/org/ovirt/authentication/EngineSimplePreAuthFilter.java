@@ -19,7 +19,9 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 
@@ -32,20 +34,21 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.ui.AuthenticationDetailsSource;
-import org.springframework.security.ui.FilterChainOrder;
-import org.springframework.security.ui.WebAuthenticationDetailsSource;
-import org.springframework.security.ui.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 import com.jaspersoft.jasperserver.api.metadata.user.domain.impl.client.MetadataUserDetails;
 
@@ -106,7 +109,7 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         super.afterPropertiesSet();
 
         if (authenticationProperties != null) {
@@ -127,10 +130,18 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
                     sslInsecure = Boolean.valueOf(props.getProperty("sslInsecure", Boolean.toString(sslInsecure)));
                     sslNoHostVerification = Boolean.valueOf(props.getProperty("sslNoHostVerification", Boolean.toString(sslNoHostVerification)));
                 }
+                catch (IOException exception) {
+                    logger.error("can't load authentication properties file '" + authenticationPropertiesFile.getAbsolutePath() + "'", exception);
+                }
             }
         }
 
-        setupSSLContext();
+        try {
+            setupSSLContext();
+        }
+        catch (Exception exception) {
+            logger.error("can't setup SSL context", exception);
+        }
     }
 
     @Override
@@ -144,12 +155,12 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
     }
 
     @Override
-    public int getOrder() {
-        return FilterChainOrder.PRE_AUTH_FILTER;
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        doFilterHttp((HttpServletRequest) request, (HttpServletResponse) response, chain);
     }
 
-    @Override
-    public void doFilterHttp(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    private void doFilterHttp(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || (authentication != null && !authentication.isAuthenticated())) {
@@ -301,8 +312,8 @@ public class EngineSimplePreAuthFilter extends AbstractPreAuthenticatedProcessin
             String password = "";
 
             userName = userName.trim();
-            GrantedAuthority[] grantedAuthorities = new GrantedAuthority[1];
-            grantedAuthorities[0] = new GrantedAuthorityImpl("ROLE_USER");
+            Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(1);
+            grantedAuthorities.add(new GrantedAuthorityImpl("ROLE_USER"));
 
             Calendar recheckOn = Calendar.getInstance();
             recheckOn.setTime(new Date());

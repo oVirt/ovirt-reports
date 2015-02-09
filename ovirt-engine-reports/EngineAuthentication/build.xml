@@ -5,14 +5,16 @@
 
 	<path id="local.classpath">
 		<fileset dir="${jasper.lib}"><filename name="commons-logging-*.jar"/></fileset>
-                <fileset dir="${jasper.lib}"><filename name="jasperserver-api-common-*.jar"/></fileset>
-                <fileset dir="${jasper.lib}"><filename name="jasperserver-api-metadata-*.jar"/></fileset>
 		<fileset dir="${jasper.lib}"><filename name="jasperserver-api-metadata-impl-*.jar"/></fileset>
 		<fileset dir="${jasper.lib}"><filename name="servlet-api-*.jar"/></fileset>
-		<fileset dir="${jasper.lib}"><filename name="spring-core-*.jar"/></fileset>
-		<fileset dir="${jasper.lib}"><filename name="spring-context-*.jar"/></fileset>
 		<fileset dir="${jasper.lib}"><filename name="spring-beans-*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="spring-context-*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="spring-core-*.jar"/></fileset>
 		<fileset dir="${jasper.lib}"><filename name="spring-security-core-*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="spring-security-web-*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="spring-web-*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="jasperserver-api-common-*.jar"/></fileset>
+		<fileset dir="${jasper.lib}"><filename name="jasperserver-api-metadata-*.jar"/></fileset>
 	</path>
 
 	<target name="all">

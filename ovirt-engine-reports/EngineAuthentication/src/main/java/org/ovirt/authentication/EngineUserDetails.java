@@ -1,16 +1,17 @@
 package org.ovirt.authentication;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class EngineUserDetails implements UserDetails {
 
     public EngineUserDetails(String userName,
             String password,
-            GrantedAuthority[] authorities,
+            Collection<GrantedAuthority> authorities,
             String userSessionID,
             Calendar recheckSessionIdOn,
             boolean isAccountNonExpired,
@@ -33,7 +34,7 @@ public class EngineUserDetails implements UserDetails {
 
     private String userName;
     private String password;
-    private GrantedAuthority[] authorities;
+    private Collection<GrantedAuthority> authorities;
     private String userSessionID;
     private Calendar recheckSessionIdOn;
     private boolean isAccountNonExpired;
@@ -42,7 +43,7 @@ public class EngineUserDetails implements UserDetails {
     private boolean isEnabled;
 
     @Override
-    public GrantedAuthority[] getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
