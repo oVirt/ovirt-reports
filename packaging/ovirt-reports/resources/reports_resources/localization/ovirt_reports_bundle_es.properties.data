@@ -13,9 +13,9 @@ br18.chart.rhel.vs.windows.subtitle=activar mvs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.windows.distribution=Distribuci\u00F3n de versiones Windows
 br18.chart.windows.distribution.subtitle=mvs activas
-br18.chart.known.vs.unknown.os=SO conocido vs desconocido
+br18.chart.known.vs.unknown.os=SO conocido vs SO desconocido
 br18.chart.known.vs.unknown.os.subtitle=mvs activas e inactivas
-br18.title=M\u00E1quinas virtuales por SO en <b>{0}</b> de<b> centro de datos {1}</b>
+br18.title=M\u00E1quinas virtuales por SO en <b>{0}</b> de<b> Centro de datos {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.clusters=Cl\u00FAsters
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
