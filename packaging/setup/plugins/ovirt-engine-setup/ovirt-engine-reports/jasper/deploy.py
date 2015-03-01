@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2015 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -91,10 +91,10 @@ class Plugin(plugin.PluginBase):
                 oreportscons.DBEnv.NEW_DATABASE
             ]:
                 self._backup = self._dbovirtutils.backup(
-                    dir=(
-                        oreportscons.FileLocations.
+                    dir=self._parent.environment[
+                        oreportscons.ConfigEnv.
                         OVIRT_ENGINE_REPORTS_DB_BACKUP_DIR
-                    ),
+                    ],
                     prefix=(
                         oreportscons.Const.
                         OVIRT_ENGINE_REPORTS_DB_BACKUP_PREFIX

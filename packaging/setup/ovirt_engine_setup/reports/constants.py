@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013-2014 Red Hat, Inc.
+# Copyright (C) 2013-2015 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -176,7 +176,7 @@ class FileLocations(object):
         PKG_SYSCONF_DIR,
         'sso.properties',
     )
-    OVIRT_ENGINE_REPORTS_DB_BACKUP_DIR = os.path.join(
+    OVIRT_ENGINE_DEFAULT_REPORTS_DB_BACKUP_DIR = os.path.join(
         PKG_STATE_DIR,
         'backups',
     )
@@ -410,6 +410,12 @@ class ConfigEnv(object):
     )
     def HEAP_MAX(self):
         return 'OVESETUP_REPORTS_CONFIG/heapMax'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def OVIRT_ENGINE_REPORTS_DB_BACKUP_DIR(self):
+        return 'OVESETUP_REPORTS_CONFIG/reportsDbBackupDir'
 
 
 @util.export
