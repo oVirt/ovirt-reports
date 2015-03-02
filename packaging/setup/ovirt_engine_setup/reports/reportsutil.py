@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2015 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -129,6 +129,12 @@ class JasperUtil(base.Base):
                     oreportscons.FileLocations.
                     OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
                 ),
+                'ANT_OPTS': '-DmasterPropsSource={master}'.format(
+                    master=(
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+                    ),
+                ),
             },
         )
         return dest
@@ -154,6 +160,12 @@ class JasperUtil(base.Base):
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
                     OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
+                ),
+                'ANT_OPTS': '-DmasterPropsSource={master}'.format(
+                    master=(
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+                    ),
                 ),
             },
         )
