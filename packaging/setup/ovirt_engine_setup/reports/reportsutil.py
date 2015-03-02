@@ -98,12 +98,18 @@ class JasperUtil(base.Base):
         self._javatmp = os.path.join(self._temproot, 'tmp')
         os.mkdir(self._javatmp)
 
+    def _execute(self, *eargs, **kwargs):
+        rc, stdout, stderr = self._plugin.execute(*eargs, **kwargs)
+        if rc != 0 or stderr:
+            self._plugin.logger.error('JasperUtil execute failed')
+            raise RuntimeError('JasperUtil execute failed')
+
     def jsexport(self, what, args):
         dest = os.path.join(
             self._temproot,
             what,
         )
-        self._plugin.execute(
+        self._execute(
             args=(
                 './js-export.sh',
                 '--output-dir', dest,
@@ -128,7 +134,7 @@ class JasperUtil(base.Base):
         return dest
 
     def jsimport(self, src):
-        self._plugin.execute(
+        self._execute(
             args=(
                 './js-import.sh',
                 '--input-dir', src,
