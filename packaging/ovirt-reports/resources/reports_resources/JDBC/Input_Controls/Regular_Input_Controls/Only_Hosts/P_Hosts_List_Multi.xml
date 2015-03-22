@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl exportedWithPermissions="true">
+    <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts</folder>
+    <name>P_Hosts_List_Multi</name>
+    <version>2</version>
+    <label>$R{ic.hosts.list.multi}</label>
+    <creationDate>2015-05-18T15:35:04.716+03:00</creationDate>
+    <updateDate>2015-05-18T15:38:21.355+03:00</updateDate>
+    <type>7</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <query>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="query">
+            <folder>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts/P_Hosts_List_Multi_files</folder>
+            <name>hosts_list_multi</name>
+            <version>0</version>
+            <label>hosts_list_multi</label>
+            <creationDate>2015-05-18T15:35:04.716+03:00</creationDate>
+            <updateDate>2015-05-18T15:35:04.716+03:00</updateDate>
+            <language>sql</language>
+            <queryString>-- This query will return hosts ids list
+
+SELECT DISTINCT
+    delete_date,
+    CASE
+        WHEN delete_date IS NULL
+            THEN host_name
+        ELSE
+            host_name
+            ||
+            ' ('
+            ||
+            loc_removed_on.removed_on
+            ||
+            ' '
+            ||
+            to_char(
+                delete_date,
+                $P{datetimelocalepattern}
+            )
+            ||
+            ')'
+    END AS combo_name,
+    CAST ( host_id AS varchar )
+FROM v3_6_configuration_history_hosts
+    LEFT OUTER JOIN (
+        SELECT DISTINCT
+            COALESCE (
+                    enum_translator_localized.value_localized,
+                    enum_translator_default.value
+            )
+            AS removed_on
+        FROM enum_translator AS enum_translator_default
+            LEFT OUTER JOIN (
+                SELECT
+                    enum_type,
+                    enum_key,
+                    value AS value_localized
+                FROM enum_translator
+                WHERE language_code = $P{userlocale}
+            )
+            AS enum_translator_localized
+                ON (
+                    enum_translator_localized.enum_type =
+                    enum_translator_default.enum_type
+                    AND enum_translator_localized.enum_key =
+                    enum_translator_default.enum_key
+                )
+        WHERE
+            enum_translator_default.language_code = 'en_US'
+            AND enum_translator_default.enum_type = 'REPORTS_REMOVED_ON'
+    )
+    AS loc_removed_on
+        ON ( 0 = 0 )
+-- Here we get the latest hosts configuration
+WHERE history_id IN (
+        SELECT MAX ( a.history_id )
+        FROM v3_6_configuration_history_hosts AS a
+        GROUP BY a.host_id
+    )
+    -- This will determine if deleted entities will be included in the report,
+    -- according to the user selection for "active_hosts_select" parameter
+    $P!{active_hosts_select}
+ORDER BY delete_date DESC, combo_name</queryString>
+        </localResource>
+    </query>
+    <queryVisibleColumn>combo_name</queryVisibleColumn>
+    <queryValueColumn>host_id</queryValueColumn>
+</inputControl>

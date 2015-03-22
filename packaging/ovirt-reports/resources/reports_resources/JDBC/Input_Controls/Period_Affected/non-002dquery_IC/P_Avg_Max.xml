@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl exportedWithPermissions="true">
+    <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
+    <name>P_Avg_Max</name>
+    <version>14</version>
+    <label>$R{ic.avg.max}</label>
+    <creationDate>2015-05-18T15:02:28.220+03:00</creationDate>
+    <updateDate>2015-05-19T15:58:29.341+03:00</updateDate>
+    <type>3</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <listOfValues>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="listOfValues">
+            <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Avg_Max_files</folder>
+            <name>ListOfValues</name>
+            <version>1</version>
+            <label>ListOfValues</label>
+            <creationDate>2015-05-19T15:58:29.341+03:00</creationDate>
+            <updateDate>2015-05-19T15:58:29.341+03:00</updateDate>
+            <item>
+                <itemLabel>$R{full.details.max}</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">1</itemValue>
+            </item>
+            <item>
+                <itemLabel>$R{full.details.avg}</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">0</itemValue>
+            </item>
+        </localResource>
+    </listOfValues>
+</inputControl>

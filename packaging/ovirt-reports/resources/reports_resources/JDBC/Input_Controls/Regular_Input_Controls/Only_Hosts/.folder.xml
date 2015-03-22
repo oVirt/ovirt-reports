@@ -11,4 +11,5 @@
     <resource>P_Host_ID</resource>
     <resource>P_Host_ListID</resource>
     <resource>P_Host_Type</resource>
+    <resource>P_Hosts_List_Multi</resource>
 </folder>

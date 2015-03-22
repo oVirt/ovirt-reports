@@ -9,4 +9,5 @@
     <resource>cluster_uptime_br7</resource>
     <resource>single_host_uptime_br8</resource>
     <resource>top_10_downtime_hosts_br7b</resource>
+    <resource>heatmap_report_cpu_usage_br49</resource>
 </folder>

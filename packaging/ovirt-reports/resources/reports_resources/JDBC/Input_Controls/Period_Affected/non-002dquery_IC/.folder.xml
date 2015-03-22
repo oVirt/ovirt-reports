@@ -10,4 +10,6 @@
     <resource>P_MEM_Threshold</resource>
     <resource>P_Period</resource>
     <resource>P_Start_Date</resource>
+    <resource>P_Avg_Max</resource>
+    <resource>P_Utilization_Measure</resource>
 </folder>
