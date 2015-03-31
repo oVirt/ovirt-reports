@@ -11,7 +11,7 @@ axis.number.of.vms=\u4EEE\u60F3\u30DE\u30B7\u30F3\u6570
 br18.chart.rhel.vs.windows=RHEL vs Windows OS
 br18.chart.rhel.vs.windows.subtitle=\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30B7\u30F3
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br18.chart.windows.distribution=Distribution of Windows \u30D0\u30FC\u30B8\u30E7\u30F3\u306E\u5206\u5E03
+br18.chart.windows.distribution=Windows \u30D0\u30FC\u30B8\u30E7\u30F3\u306E\u5206\u5E03
 br18.chart.windows.distribution.subtitle=\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30B7\u30F3
 br18.chart.known.vs.unknown.os=\u65E2\u77E5\u306E OS vs \u672A\u77E5\u306E OS
 br18.chart.known.vs.unknown.os.subtitle=\u30A2\u30AF\u30C6\u30A3\u30D6\u304A\u3088\u3073\u975E\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30B7\u30F3

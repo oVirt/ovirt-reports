@@ -13,9 +13,9 @@ br18.chart.rhel.vs.windows.subtitle=vms active
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.windows.distribution=Distribution des version Windows
 br18.chart.windows.distribution.subtitle=vms active
-br18.chart.known.vs.unknown.os=SE Connu vs Inconnu
+br18.chart.known.vs.unknown.os=SE Connu vs SE Inconnu
 br18.chart.known.vs.unknown.os.subtitle=vms actives et inactives
-br18.title=Machines virtuelles par SE dans <b>{0}</b> de <b> Data Center {1}</b>
+br18.title=Machines virtuelles par SE dans <b>{0}</b> du <b> Data Center {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.clusters=Clusters
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle

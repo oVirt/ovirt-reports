@@ -13,9 +13,9 @@ br18.chart.rhel.vs.windows.subtitle=mvs ativas
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
 br18.chart.windows.distribution=Distribui\u00E7\u00E3o das Vers\u00F5es do Windows
 br18.chart.windows.distribution.subtitle=mvs ativas
-br18.chart.known.vs.unknown.os=SO Conhecido vs SO desconhecido
+br18.chart.known.vs.unknown.os=SO Conhecido vs SO Desconhecido
 br18.chart.known.vs.unknown.os.subtitle=mvs ativas e desativas
-br18.title=M\u00E1quinas Virtuais pelo SO no <b>{0}</b> do<b> Data Center {1}</b>
+br18.title=M\u00E1quinas Virtuais Ativas pelo SO no <b>{0}</b> do<b> Data Center {1}</b>
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.clusters=Clusters
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ldelima
