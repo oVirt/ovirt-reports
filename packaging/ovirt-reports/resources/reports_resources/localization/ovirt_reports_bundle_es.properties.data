@@ -9,7 +9,7 @@ axis.date=Fecha
 axis.number.of.vms=\#MVs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.rhel.vs.windows=RHEL vs SO Windows
-br18.chart.rhel.vs.windows.subtitle=mvs activas
+br18.chart.rhel.vs.windows.subtitle=activar mvs
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.windows.distribution=Distribuci\u00F3n de versiones Windows
 br18.chart.windows.distribution.subtitle=mvs activas
