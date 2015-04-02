@@ -96,6 +96,18 @@ class Plugin(plugin.PluginBase):
             oreportscons.DBEnv.DATABASE,
             None
         )
+        self.environment.setdefault(
+            oreportscons.DBEnv.DUMPER,
+            oreportscons.Defaults.DEFAULT_DB_DUMPER
+        )
+        self.environment.setdefault(
+            oreportscons.DBEnv.FILTER,
+            oreportscons.Defaults.DEFAULT_DB_FILTER
+        )
+        self.environment.setdefault(
+            oreportscons.DBEnv.RESTORE_JOBS,
+            oreportscons.Defaults.DEFAULT_DB_RESTORE_JOBS
+        )
 
         self.environment[oreportscons.DBEnv.CONNECTION] = None
         self.environment[oreportscons.DBEnv.STATEMENT] = None

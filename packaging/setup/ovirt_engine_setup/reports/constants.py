@@ -29,8 +29,13 @@ from otopi import util
 from ovirt_engine_setup.constants import classproperty
 from ovirt_engine_setup.constants import osetupattrs
 from ovirt_engine_setup.constants import osetupattrsclass
+from ovirt_engine_setup.engine_common import constants as oengcommcons
+
 
 from . import config
+
+
+DEK = oengcommcons.DBEnvKeysConst
 
 
 def _(m):
@@ -57,55 +62,65 @@ class Const(object):
     @classproperty
     def REPORTS_DB_ENV_KEYS(self):
         return {
-            'host': DBEnv.HOST,
-            'port': DBEnv.PORT,
-            'secured': DBEnv.SECURED,
-            'hostValidation': DBEnv.SECURED_HOST_VALIDATION,
-            'user': DBEnv.USER,
-            'password': DBEnv.PASSWORD,
-            'database': DBEnv.DATABASE,
-            'connection': DBEnv.CONNECTION,
-            'pgpassfile': DBEnv.PGPASS_FILE,
-            'newDatabase': DBEnv.NEW_DATABASE,
+            DEK.HOST: DBEnv.HOST,
+            DEK.PORT: DBEnv.PORT,
+            DEK.SECURED: DBEnv.SECURED,
+            DEK.HOST_VALIDATION: DBEnv.SECURED_HOST_VALIDATION,
+            DEK.USER: DBEnv.USER,
+            DEK.PASSWORD: DBEnv.PASSWORD,
+            DEK.DATABASE: DBEnv.DATABASE,
+            DEK.CONNECTION: DBEnv.CONNECTION,
+            DEK.PGPASSFILE: DBEnv.PGPASS_FILE,
+            DEK.NEW_DATABASE: DBEnv.NEW_DATABASE,
+            DEK.DUMPER: DBEnv.DUMPER,
+            DEK.FILTER: DBEnv.FILTER,
+            DEK.RESTORE_JOBS: DBEnv.RESTORE_JOBS,
         }
 
     @classproperty
     def DEFAULT_REPORTS_DB_ENV_KEYS(self):
         return {
-            'host': Defaults.DEFAULT_DB_HOST,
-            'port': Defaults.DEFAULT_DB_PORT,
-            'secured': Defaults.DEFAULT_DB_SECURED,
-            'hostValidation': Defaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
-            'user': Defaults.DEFAULT_DB_USER,
-            'password': Defaults.DEFAULT_DB_PASSWORD,
-            'database': Defaults.DEFAULT_DB_DATABASE,
+            DEK.HOST: Defaults.DEFAULT_DB_HOST,
+            DEK.PORT: Defaults.DEFAULT_DB_PORT,
+            DEK.SECURED: Defaults.DEFAULT_DB_SECURED,
+            DEK.HOST_VALIDATION: Defaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
+            DEK.USER: Defaults.DEFAULT_DB_USER,
+            DEK.PASSWORD: Defaults.DEFAULT_DB_PASSWORD,
+            DEK.DATABASE: Defaults.DEFAULT_DB_DATABASE,
+            DEK.DUMPER: Defaults.DEFAULT_DB_DUMPER,
+            DEK.FILTER: Defaults.DEFAULT_DB_FILTER,
+            DEK.RESTORE_JOBS: Defaults.DEFAULT_DB_RESTORE_JOBS,
         }
 
     @classproperty
     def DWH_DB_ENV_KEYS(self):
         return {
-            'host': DWHDBEnv.HOST,
-            'port': DWHDBEnv.PORT,
-            'secured': DWHDBEnv.SECURED,
-            'hostValidation': DWHDBEnv.SECURED_HOST_VALIDATION,
-            'user': DWHDBEnv.USER,
-            'password': DWHDBEnv.PASSWORD,
-            'database': DWHDBEnv.DATABASE,
-            'connection': DWHDBEnv.CONNECTION,
-            'pgpassfile': DWHDBEnv.PGPASS_FILE,
-            'newDatabase': DWHDBEnv.NEW_DATABASE,
+            DEK.HOST: DWHDBEnv.HOST,
+            DEK.PORT: DWHDBEnv.PORT,
+            DEK.SECURED: DWHDBEnv.SECURED,
+            DEK.HOST_VALIDATION: DWHDBEnv.SECURED_HOST_VALIDATION,
+            DEK.USER: DWHDBEnv.USER,
+            DEK.PASSWORD: DWHDBEnv.PASSWORD,
+            DEK.DATABASE: DWHDBEnv.DATABASE,
+            DEK.CONNECTION: DWHDBEnv.CONNECTION,
+            DEK.PGPASSFILE: DWHDBEnv.PGPASS_FILE,
+            DEK.NEW_DATABASE: DWHDBEnv.NEW_DATABASE,
+            DEK.DUMPER: DWHDBEnv.DUMPER,
+            DEK.FILTER: DWHDBEnv.FILTER,
+            DEK.RESTORE_JOBS: DWHDBEnv.RESTORE_JOBS,
         }
 
     @classproperty
     def DEFAULT_DWH_DB_ENV_KEYS(self):
         return {
-            'host': DWHDefaults.DEFAULT_DB_HOST,
-            'port': DWHDefaults.DEFAULT_DB_PORT,
-            'secured': DWHDefaults.DEFAULT_DB_SECURED,
-            'hostValidation': DWHDefaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
-            'user': DWHDefaults.DEFAULT_DB_USER,
-            'password': DWHDefaults.DEFAULT_DB_PASSWORD,
-            'database': DWHDefaults.DEFAULT_DB_DATABASE,
+            DEK.HOST: DWHDefaults.DEFAULT_DB_HOST,
+            DEK.PORT: DWHDefaults.DEFAULT_DB_PORT,
+            DEK.SECURED: DWHDefaults.DEFAULT_DB_SECURED,
+            DEK.HOST_VALIDATION:
+                DWHDefaults.DEFAULT_DB_SECURED_HOST_VALIDATION,
+            DEK.USER: DWHDefaults.DEFAULT_DB_USER,
+            DEK.PASSWORD: DWHDefaults.DEFAULT_DB_PASSWORD,
+            DEK.DATABASE: DWHDefaults.DEFAULT_DB_DATABASE,
         }
 
 
@@ -119,6 +134,9 @@ class Defaults(object):
     DEFAULT_DB_PASSWORD = ''
     DEFAULT_DB_SECURED = False
     DEFAULT_DB_SECURED_HOST_VALIDATION = False
+    DEFAULT_DB_DUMPER = 'pg_custom'
+    DEFAULT_DB_RESTORE_JOBS = 2
+    DEFAULT_DB_FILTER = None
     DEFAULT_KEY_SIZE = 2048
 
     DEFAULT_NETWORK_HTTP_PORT = 80
@@ -490,6 +508,24 @@ class DBEnv(object):
     def PASSWORD(self):
         return 'OVESETUP_REPORTS_DB/password'
 
+    @osetupattrs(
+        answerfile=True,
+    )
+    def DUMPER(self):
+        return 'OVESETUP_REPORTS_DB/dumper'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def FILTER(self):
+        return 'OVESETUP_REPORTS_DB/filter'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def RESTORE_JOBS(self):
+        return 'OVESETUP_REPORTS_DB/restoreJobs'
+
     CONNECTION = 'OVESETUP_REPORTS_DB/connection'
     STATEMENT = 'OVESETUP_REPORTS_DB/statement'
     PGPASS_FILE = 'OVESETUP_REPORTS_DB/pgPassFile'
@@ -604,6 +640,24 @@ class DWHDBEnv(object):
     STATEMENT = 'OVESETUP_DWH_DB/statement'
     PGPASS_FILE = 'OVESETUP_DWH_DB/pgPassFile'
     NEW_DATABASE = 'OVESETUP_DWH_DB/newDatabase'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def DUMPER(self):
+        return 'OVESETUP_DWH_DB/dumper'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def FILTER(self):
+        return 'OVESETUP_DWH_DB/filter'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def RESTORE_JOBS(self):
+        return 'OVESETUP_DWH_DB/restoreJobs'
 
 
 @util.export
