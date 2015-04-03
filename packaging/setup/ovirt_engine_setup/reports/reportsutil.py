@@ -20,11 +20,10 @@
 
 
 import atexit
+import gettext
 import os
 import shutil
 import tempfile
-import gettext
-_ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
 import libxml2
@@ -37,6 +36,10 @@ from otopi import util
 from ovirt_engine_setup.engine_common \
     import constants as oengcommcons
 from . import constants as oreportscons
+
+
+def _(m):
+    return gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
 class XMLDoc(base.Base):

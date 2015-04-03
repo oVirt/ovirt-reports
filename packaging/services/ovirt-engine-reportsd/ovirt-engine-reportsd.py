@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Copyright 2014 Red Hat
+# Copyright 2014-2015 Red Hat
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,12 +15,11 @@
 # limitations under the License.
 
 
+import gettext
 import os
-import sys
 import re
 import shlex
-import gettext
-_ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
+import sys
 
 
 from Cheetah.Template import Template
@@ -30,8 +29,12 @@ import config
 
 
 from ovirt_engine import configfile
-from ovirt_engine import service
 from ovirt_engine import java
+from ovirt_engine import service
+
+
+def _(m):
+    return gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
 class Daemon(service.Daemon):

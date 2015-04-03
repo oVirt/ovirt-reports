@@ -19,19 +19,22 @@
 """Constants."""
 
 
-import os
 import gettext
-_ = lambda m: gettext.dgettext(message=m, domain='ovirt-engine-reports')
+import os
 
 
 from otopi import util
 
 
 from ovirt_engine_setup.constants import classproperty
-from ovirt_engine_setup.constants import osetupattrsclass
 from ovirt_engine_setup.constants import osetupattrs
+from ovirt_engine_setup.constants import osetupattrsclass
 
 from . import config
+
+
+def _(m):
+    return gettext.dgettext(message=m, domain='ovirt-engine-reports')
 
 
 @util.export
