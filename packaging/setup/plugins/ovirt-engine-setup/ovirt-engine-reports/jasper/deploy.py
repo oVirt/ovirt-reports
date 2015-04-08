@@ -549,23 +549,23 @@ class Plugin(plugin.PluginBase):
     )
     def _export(self):
         config = self._jasperConfiguration()
-        self._quartzprops = os.path.join(self._temproot, 'quartzprops')
 
         if (
             os.path.exists(
                 oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_WAR
             )
         ):
-            shutil.copyfile(
+            with open(
                 oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_QUARTZ,
-                self._quartzprops,
-            )
+                'r'
+            ) as f:
+                self._quartzprops = f.read().splitlines()
         elif (
             os.path.exists(
                 self.environment[oreportscons.ConfigEnv.LEGACY_REPORTS_WAR]
             )
         ):
-            shutil.copyfile(
+            with open(
                 os.path.join(
                     self.environment[
                         oreportscons.ConfigEnv.LEGACY_REPORTS_WAR
@@ -573,8 +573,9 @@ class Plugin(plugin.PluginBase):
                     'WEB-INF',
                     'js.quartz.properties'
                 ),
-                self._quartzprops,
-            )
+                'r'
+            ) as f:
+                self._quartzprops = f.read().splitlines()
 
         else:
             raise RuntimeError(
@@ -725,6 +726,12 @@ class Plugin(plugin.PluginBase):
             )
         )
 
+    QUARTZ_NEEDED_PROPS = {
+        'report.quartz.misfirepolicy.singlesimplejob': 'SMART_POLICY',
+        'report.quartz.misfirepolicy.repeatingsimplejob': 'SMART_POLICY',
+        'report.quartz.misfirepolicy.calendarjob': 'SMART_POLICY',
+    }
+
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
         name=oreportscons.Stages.JASPER_DEPLOY_IMPORT,
@@ -739,10 +746,22 @@ class Plugin(plugin.PluginBase):
         self.logger.info(_('Importing data into Jasper'))
 
         if self._quartzprops:
-            shutil.copyfile(
-                self._quartzprops,
+            with open(
                 oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_QUARTZ,
-            )
+                'w'
+            ) as f:
+                f.write(
+                    '\n'.join(
+                        osetuputil.editConfigContent(
+                            content=self._quartzprops,
+                            params=self.QUARTZ_NEEDED_PROPS,
+                            keep_existing=True,
+                            param_re='(\w|\.)+',
+                            new_line_tpl='{spaces}{param}={value}',
+                        )
+                    )
+                )
+
             os.chmod(
                 oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_JASPER_QUARTZ,
                 0o644,
