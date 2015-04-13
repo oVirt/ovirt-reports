@@ -310,6 +310,7 @@ br44.table.existence.time.hours=Existence Time (Hours)
 br44.table.vm.uptime.hours=VM Uptime (Hours)
 br44.table.vm.uuid=VM UUID
 br44.title=Cloud Provider Virtual Machine Inventory in <b>{0}</b> of <b>Data Center {1}</b>
+br44.table.vm.created.by=Created By
 br45.table.user.name=User Name
 br45.table.vm.name=Virtual Machine Name
 br45.table.session.time.in.hours=Session Time (Hours)

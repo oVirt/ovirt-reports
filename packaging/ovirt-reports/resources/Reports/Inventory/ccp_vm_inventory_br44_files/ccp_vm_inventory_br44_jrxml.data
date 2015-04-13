@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-04-13T10:29:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR9" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="49dfbaac-af3c-4c9d-b3a5-261464e93c36">
 	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/ccp_vm_inventory_br44"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/ccp_vm_inventory_br44_files/ccp_vm_inventory_br44_jrxml"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<style name="Line Style">
 		<conditionalStyle>
@@ -113,7 +116,8 @@ SELECT
         0
     )
     AS vm_uptime,
-    v3_6_configuration_history_vms.vm_id
+    v3_6_configuration_history_vms.vm_id,
+    v3_6_users_details_history.username
 FROM v3_6_configuration_history_vms
     LEFT OUTER JOIN (
         SELECT
@@ -171,6 +175,11 @@ FROM v3_6_configuration_history_vms
                     WHEN $P{P_Period} = 3
                         THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
                 END
+        )
+    LEFT OUTER JOIN v3_6_users_details_history
+        ON (
+            v3_6_configuration_history_vms.created_by_user_id =
+            v3_6_users_details_history.user_id
         )
 WHERE
     -- Here we filter by the datacenter chosen by the user
@@ -256,7 +265,8 @@ GROUP BY
         ),
         2
     ),
-    v3_6_configuration_history_vms.vm_id
+    v3_6_configuration_history_vms.vm_id,
+    v3_6_users_details_history.username
 ORDER BY
     v3_6_configuration_history_vms.cluster_id,
     COALESCE (
@@ -282,6 +292,7 @@ ORDER BY
 		<field name="existence_time_hours" class="java.math.BigDecimal"/>
 		<field name="vm_uptime" class="java.math.BigDecimal"/>
 		<field name="vm_id" class="java.lang.Object"/>
+		<field name="username" class="java.lang.String"/>
 		<group name="cluster_group">
 			<groupExpression><![CDATA[$F{cluster_id}]]></groupExpression>
 		</group>
@@ -559,26 +570,6 @@ ORDER BY
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="56" uuid="0e90c706-4f55-48c1-8b0a-8ef1f32385f3">
-							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
-								<textField>
-									<reportElement x="0" y="0" width="56" height="35" uuid="cbd1ca33-7eb4-4e79-bc11-dc5f6bf7074d"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-										<font size="10" isBold="true"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.number.of.sockets}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.number.of.sockets}]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:columnHeader>
-							<jr:detailCell style="table_TD" height="18" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="28" height="18" uuid="76296d5e-bf6d-4e1d-b2c6-6ee21ab38faf"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{number_of_sockets}]]></textFieldExpression>
-									<hyperlinkTooltipExpression><![CDATA[$F{number_of_sockets}.toString()]]></hyperlinkTooltipExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
 						<jr:column width="65" uuid="7da7eafb-23fc-4590-afa1-290b2d246c21">
 							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
 								<textField>
@@ -586,15 +577,15 @@ ORDER BY
 									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 										<font size="10" isBold="true"/>
 									</textElement>
-									<textFieldExpression><![CDATA[$R{br44.table.cores.per.socket}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$R{br44.table.vm.created.by}]]></textFieldExpression>
 									<hyperlinkTooltipExpression><![CDATA[$R{br44.table.cores.per.socket}]]></hyperlinkTooltipExpression>
 								</textField>
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="18" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="33" height="18" uuid="1b011caf-2206-4ac8-ad48-7e18668a658f"/>
-									<textElement textAlignment="Right" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{cpu_per_socket}]]></textFieldExpression>
+									<reportElement x="0" y="0" width="65" height="18" uuid="1b011caf-2206-4ac8-ad48-7e18668a658f"/>
+									<textElement textAlignment="Left" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
 									<hyperlinkTooltipExpression><![CDATA[$F{cpu_per_socket}.toString()]]></hyperlinkTooltipExpression>
 								</textField>
 							</jr:detailCell>
@@ -612,7 +603,7 @@ ORDER BY
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="18" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="27" height="18" uuid="71149980-31ae-4bd9-bf97-eaeb47bfc8ab"/>
+									<reportElement x="0" y="0" width="55" height="18" uuid="71149980-31ae-4bd9-bf97-eaeb47bfc8ab"/>
 									<textElement textAlignment="Right" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{vm_cpucores}]]></textFieldExpression>
 									<hyperlinkTooltipExpression><![CDATA[$F{vm_cpucores}.toString()]]></hyperlinkTooltipExpression>
@@ -659,10 +650,10 @@ ORDER BY
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="33" uuid="7da7eafb-23fc-5550-afa1-29044d246c21">
+						<jr:column width="89" uuid="7da7eafb-23fc-5550-afa1-29044d246c21">
 							<jr:columnHeader style="table_CH" height="35" rowSpan="1">
 								<textField>
-									<reportElement x="0" y="0" width="33" height="35" uuid="c25306d3-4058-43e1-afe9-bd46f82a7205"/>
+									<reportElement x="0" y="0" width="88" height="35" uuid="c25306d3-4058-43e1-afe9-bd46f82a7205"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 										<font size="10" isBold="true"/>
 									</textElement>
@@ -672,7 +663,7 @@ ORDER BY
 							</jr:columnHeader>
 							<jr:detailCell style="table_TD" height="18" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement x="0" y="0" width="33" height="18" uuid="2f3f0415-6aa6-4ae8-96c1-ac2eb7893be0"/>
+									<reportElement x="0" y="0" width="88" height="18" uuid="2f3f0415-6aa6-4ae8-96c1-ac2eb7893be0"/>
 									<textElement verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[""+$F{vm_id}]]></textFieldExpression>
 									<hyperlinkTooltipExpression><![CDATA["" + $F{vm_id}]]></hyperlinkTooltipExpression>
