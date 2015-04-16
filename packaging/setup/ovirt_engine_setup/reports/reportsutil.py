@@ -22,6 +22,7 @@
 import atexit
 import gettext
 import os
+import re
 import shutil
 import tempfile
 
@@ -101,9 +102,24 @@ class JasperUtil(base.Base):
         self._javatmp = os.path.join(self._temproot, 'tmp')
         os.mkdir(self._javatmp)
 
+    _IGNORED_ERRORS = (
+        '.*This normal shutdown operation.*',
+    )
+
+    _RE_IGNORED_ERRORS = re.compile(
+        pattern='|'.join(_IGNORED_ERRORS),
+    )
+
     def _execute(self, *eargs, **kwargs):
         rc, stdout, stderr = self._plugin.execute(*eargs, **kwargs)
-        if rc != 0 or stderr:
+
+        if stderr:
+            errors = [
+                l for l in stderr
+                if l and not self._RE_IGNORED_ERRORS.match(l)
+            ]
+
+        if rc != 0 or errors:
             self._plugin.logger.error('JasperUtil execute failed')
             raise RuntimeError('JasperUtil execute failed')
 
