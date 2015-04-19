@@ -169,8 +169,13 @@ class Plugin(plugin.PluginBase):
                 if entry['dst'] is not None and os.path.exists(entry['dst']):
                     shutil.rmtree(entry['dst'])
 
+    def _check_master_props(self):
+        conf = oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+        self.logger.debug('conf %s found: %s' % (conf, os.path.exists(conf)))
+
     def _buildJs(self, cmd, config, noSuffix=False):
 
+        self._check_master_props()
         try:
             myumask = os.umask(0o022)
 
@@ -237,6 +242,7 @@ class Plugin(plugin.PluginBase):
                     ),
                     0o700,
                 )
+        self._check_master_props()
 
     def _workaroundUsersNullPaswords(self, src):
         for f in glob.glob(os.path.join(src, 'users', '*.xml')):
