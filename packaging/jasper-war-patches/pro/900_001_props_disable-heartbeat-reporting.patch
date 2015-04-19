@@ -1,16 +1,3 @@
---- a/WEB-INF/classes/js.config.properties
-+++ b/WEB-INF/classes/js.config.properties
-@@ -6,8 +6,8 @@ audit.enabled=false
- monitoring.enabled=false
- 
- # Enable or disable HeartBeat
--heartbeat.enabled=true
--heartbeat.askForPermission.enabled=true
-+heartbeat.enabled=false
-+heartbeat.askForPermission.enabled=false
- heartbeat.permissionGranted.enabled=false
- 
- # Max upload file size across application in bytes
 --- a/WEB-INF/js.config.properties
 +++ b/WEB-INF/js.config.properties
 @@ -6,8 +6,8 @@ audit.enabled=false
