@@ -143,6 +143,12 @@ class JasperUtil(base.Base):
                 'JAVA_HOME': self.environment[
                     oengcommcons.ConfigEnv.JAVA_HOME
                 ],
+                'PATH': '{java_home}/bin:{cur_path}'.format(
+                    java_home=self.environment[
+                        oengcommcons.ConfigEnv.JAVA_HOME
+                    ],
+                    cur_path=os.environ['PATH'],
+                ),
                 'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
@@ -175,6 +181,12 @@ class JasperUtil(base.Base):
                 'JAVA_HOME': self.environment[
                     oengcommcons.ConfigEnv.JAVA_HOME
                 ],
+                'PATH': '{java_home}/bin:{cur_path}'.format(
+                    java_home=self.environment[
+                        oengcommcons.ConfigEnv.JAVA_HOME
+                    ],
+                    cur_path=os.environ['PATH'],
+                ),
                 'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
                 'ADDITIONAL_CONFIG_DIR': (
                     oreportscons.FileLocations.
