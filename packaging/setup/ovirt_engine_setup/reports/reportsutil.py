@@ -113,6 +113,7 @@ class JasperUtil(base.Base):
     def _execute(self, *eargs, **kwargs):
         rc, stdout, stderr = self._plugin.execute(*eargs, **kwargs)
 
+        errors = []
         if stderr:
             errors = [
                 l for l in stderr
