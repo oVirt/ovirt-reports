@@ -519,7 +519,7 @@ class Plugin(plugin.PluginBase):
                 )
 
     @plugin.event(
-        stage=plugin.Stages.STAGE_MISC,
+        stage=plugin.Stages.STAGE_EARLY_MISC,
         name=oreportscons.Stages.JASPER_NAME_SET,
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
     )
@@ -546,7 +546,7 @@ class Plugin(plugin.PluginBase):
         ).lower()
 
     @plugin.event(
-        stage=plugin.Stages.STAGE_MISC,
+        stage=plugin.Stages.STAGE_EARLY_MISC,
         name=oreportscons.Stages.JASPER_DEPLOY_EXPORT,
         condition=lambda self: (
             self.environment[oreportscons.CoreEnv.ENABLE] and
