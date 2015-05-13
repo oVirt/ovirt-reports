@@ -237,6 +237,9 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Wed May 13 2015 Shirly Radco <sradco@redhat.com> - 3.5.3
+- Prepend $JAVA_HOME/bin to path
+
 * Tue Feb 24 2015 Shirly Radco <sradco@redhat.com> - 3.5.1
 - updated jasper war pro addition patches
 
