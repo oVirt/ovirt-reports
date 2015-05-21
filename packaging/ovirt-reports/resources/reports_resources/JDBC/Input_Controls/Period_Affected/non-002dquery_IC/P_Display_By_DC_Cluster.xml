@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl exportedWithPermissions="true">
+    <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
+    <name>P_Display_By_DC_Cluster</name>
+    <version>2</version>
+    <label>$R{ic.display.by}</label>
+    <creationDate>2015-05-14T12:54:57.820+03:00</creationDate>
+    <updateDate>2015-05-18T11:15:21.087+03:00</updateDate>
+    <type>3</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <listOfValues>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="listOfValues">
+            <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Display_By_DC_Cluster_files</folder>
+            <name>ListOfValues</name>
+            <version>1</version>
+            <label>ListOfValues</label>
+            <creationDate>2015-05-18T11:15:21.087+03:00</creationDate>
+            <updateDate>2015-05-18T11:15:21.087+03:00</updateDate>
+            <item>
+                <itemLabel>$R{ic.dc}</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">1</itemValue>
+            </item>
+            <item>
+                <itemLabel>$R{ic.cluster}</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">0</itemValue>
+            </item>
+        </localResource>
+    </listOfValues>
+</inputControl>

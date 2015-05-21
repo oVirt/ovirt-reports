@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder exportedWithPermissions="true">
+    <parent>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls</parent>
+    <name>all_dcs_with_hosts_multi_select</name>
+    <label>All Datacenters with Hosts Multi Select</label>
+    <description></description>
+    <creationDate>2015-03-22T14:16:00.359+02:00</creationDate>
+    <updateDate>2015-01-28T14:49:16.095+02:00</updateDate>
+    <resource>P_DataCenter_ID</resource>
+</folder>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-05-25T11:33:09 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="br48_legend" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" uuid="776ed311-a899-4ef9-a0db-e3385d445b39">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/capacity_planing_br48"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/capacity_planing_br48_files/br48_legend.jrxml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HistoryDB"/>
+	<title>
+		<band height="67" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="10" y="30" width="8" height="8" forecolor="#F8FC00" backcolor="#F8FC00" uuid="0cb68089-da48-4bca-b7af-8e92de359f0a">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="227" y="30" width="8" height="8" forecolor="#853D0B" backcolor="#853D0B" uuid="b28aab9c-23a6-490f-aee1-7d33743b5e0a">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="240" y="10" width="177" height="14" uuid="ea067af7-f380-4c13-8b8b-3a46ac98d75b">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br48.legend.high.allocated.percent}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br48.legend.high.allocated.percent}]]></hyperlinkTooltipExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="23" y="45" width="177" height="14" uuid="047d821f-3e90-45f9-9540-2f4c79c0dfe6">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br48.legend.medium.allocated.percent}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br48.legend.medium.allocated.percent}]]></hyperlinkTooltipExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="240" y="27" width="177" height="14" uuid="03b56239-eeaf-40ab-869d-edd69354cb31">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br48.legend.exact.allocation}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br48.legend.exact.allocation}]]></hyperlinkTooltipExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="227" y="13" width="8" height="8" forecolor="#CF8817" backcolor="#CF8817" uuid="0712807a-a023-4af7-b7f0-9df8c2314693">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="240" y="45" width="177" height="14" uuid="659c2ec8-35b4-422c-899b-4d9ae9589665">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br48.legend.usage.over.allocation}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br48.legend.usage.over.allocation}]]></hyperlinkTooltipExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="227" y="47" width="8" height="8" forecolor="#FC3200" backcolor="#FC3200" uuid="01a21e3d-db99-43e4-81ed-50fb9e73bb6a">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="23" y="27" width="177" height="14" uuid="0d336a08-e9d2-406f-b7ae-8c745eb2a7fe">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br48.legend.no.allocation}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br48.legend.no.allocation}]]></hyperlinkTooltipExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="23" y="10" width="177" height="14" uuid="1144fdd5-551b-4a2d-8b84-0d9daf74fc87">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br48.legend.low.allocated.percent}]]></textFieldExpression>
+				<hyperlinkTooltipExpression><![CDATA[$R{br48.legend.low.allocated.percent}]]></hyperlinkTooltipExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="47" width="8" height="8" forecolor="#FC9800" backcolor="#FC9800" uuid="86c0a835-62e2-4da3-83fd-c3ee1c4ce843">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="13" width="8" height="8" forecolor="#D8E2FF" backcolor="#D8E2FF" uuid="9bfc5f36-7dd1-4aa0-89d1-3ceca8aee4c9">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+		</band>
+	</title>
+</jasperReport>

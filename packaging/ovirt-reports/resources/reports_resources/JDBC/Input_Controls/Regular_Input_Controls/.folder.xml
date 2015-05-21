@@ -9,4 +9,5 @@
     <folder>Only_Hosts</folder>
     <folder>Only_Storage</folder>
     <folder>Only_VMs</folder>
+    <folder>all_dcs_with_hosts_multi_select</folder>
 </folder>

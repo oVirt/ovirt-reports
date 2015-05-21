@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inputControl exportedWithPermissions="true">
+    <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC</folder>
+    <name>P_Group_By_Tag</name>
+    <version>14</version>
+    <label>$R{ic.group.by.tag}</label>
+    <creationDate>2015-05-21T16:39:41.233+03:00</creationDate>
+    <updateDate>2015-05-25T12:04:18.355+03:00</updateDate>
+    <type>3</type>
+    <mandatory>true</mandatory>
+    <readOnly>false</readOnly>
+    <visible>true</visible>
+    <listOfValues>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="listOfValues">
+            <folder>/reports_resources/JDBC/Input_Controls/Period_Affected/non-query_IC/P_Group_By_Tag_files</folder>
+            <name>ListOfValues</name>
+            <version>2</version>
+            <label>ListOfValues</label>
+            <creationDate>2015-05-25T10:28:25.804+03:00</creationDate>
+            <updateDate>2015-05-25T10:28:25.804+03:00</updateDate>
+            <item>
+                <itemLabel>$R{full.details.no}</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">0</itemValue>
+            </item>
+            <item>
+                <itemLabel>$R{full.details.yes}</itemLabel>
+                <itemValue xsi:type="java:java.lang.String">1</itemValue>
+            </item>
+        </localResource>
+    </listOfValues>
+</inputControl>

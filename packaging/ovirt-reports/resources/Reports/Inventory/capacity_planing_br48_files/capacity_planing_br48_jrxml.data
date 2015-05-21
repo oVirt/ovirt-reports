@@ -1,0 +1,3290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-05-26T11:20:18 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capacity Planing" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="24ea2f96-883c-4654-b650-7b261e63fb92">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="47"/>
+	<property name="ireport.y" value="451"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/capacity_planing_br48_files/capacity_planing_br48_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/capacity_planing_br48"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HistoryDB"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#0000FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFBFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#D8E2FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TH" mode="Opaque" backcolor="#0000FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_CH" mode="Opaque" backcolor="#BFBFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="CPU" backcolor="#FFFFFF" fill="Solid" pattern="">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}>= 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC3200"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}>= 0.85, $F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}<0.95)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC9800"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}>= 0.95, $F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}<1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CF8817"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{total_vms_cpu_cores} == null]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F8FC00" fill="Solid"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}.doubleValue() == 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#853D0B"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}> 0, $F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}<0.85)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D8E2FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="CPU_Running" pattern="">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{cpu_cores_running}/$F{total_hosts_num_of_cpus}>= 1]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC3200"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{cpu_cores_running}/$F{total_hosts_num_of_cpus}>= 0.85, $F{cpu_cores_running}/$F{total_hosts_num_of_cpus}<0.95)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC9800" scaleImage="Clip"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{cpu_cores_running}/$F{total_hosts_num_of_cpus}>= 0.95, $F{cpu_cores_running}/$F{total_hosts_num_of_cpus}<1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CF8817"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{cpu_cores_running} == null]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F8FC00" fill="Solid"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{cpu_cores_running}/$F{total_hosts_num_of_cpus}.doubleValue() == 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#853D0B"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{cpu_cores_running}/$F{total_hosts_num_of_cpus}> 0, $F{cpu_cores_running}/$F{total_hosts_num_of_cpus}<0.85)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D8E2FF" scaleImage="Clip"/>
+		</conditionalStyle>
+	</style>
+	<style name="MEM" backcolor="#FFFFFF" fill="Solid" pattern="">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{total_vms_mem}/$F{memory_size_mb}>= 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC3200"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{total_vms_mem}/$F{memory_size_mb}>= 0.95, $F{total_vms_mem}/$F{memory_size_mb}<1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CF8817"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{total_vms_mem}/$F{memory_size_mb}>= 0.85, $F{total_vms_mem}/$F{memory_size_mb}<0.95)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC9800"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{total_vms_mem} == null]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F8FC00" fill="Solid"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{total_vms_mem}/$F{memory_size_mb}.doubleValue() == 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#853D0B"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{total_vms_mem}/$F{memory_size_mb}> 0, $F{total_vms_mem}/$F{memory_size_mb}<0.85)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D8E2FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="MEM_Runing" backcolor="#FFFFFF" fill="Solid" pattern="">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{mem_running}/$F{memory_size_mb}>= 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC3200"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{mem_running}/$F{memory_size_mb}>= 0.95, $F{mem_running}/$F{memory_size_mb}<1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CF8817"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{mem_running}/$F{memory_size_mb}>= 0.85, $F{mem_running}/$F{memory_size_mb}<0.95)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC9800"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{mem_running}== null]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F8FC00" fill="Solid"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{mem_running}/$F{memory_size_mb}.doubleValue() == 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#853D0B"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{mem_running}/$F{memory_size_mb}>0, $F{mem_running}/$F{memory_size_mb}<0.85)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D8E2FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="DiskUsage-Allocated VM" backcolor="#FFFFFF" fill="Solid" pattern="">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()> 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC3200"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue() == 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#853D0B"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()>= 0.85, $F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()<0.95)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC9800"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{vms_allocated_disk_size_gb} == null]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F8FC00" fill="Solid"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()>= 0.95, $F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()<1.0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CF8817"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()>0, $F{vms_allocated_disk_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()<0.85)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D8E2FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="DiskUsage-Actual used disk in VMs">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()> 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC3200"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue() == 1.0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#853D0B"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()>= 0.85, $F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()<0.95)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FC9800"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{vm_disk_actual_size_gb} == null]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F8FC00" fill="Solid"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()>= 0.95, $F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()<1)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CF8817"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[AND($F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()>0, $F{vm_disk_actual_size_gb}.doubleValue()/$F{dc_total_disk_size_gb}.doubleValue()<0.85)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D8E2FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="DC Table" uuid="1d00f5f8-2aed-4d50-ba2f-4ea2739cd2c6">
+		<parameter name="P_Group_By_Tag" class="java.lang.Integer">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+		</parameter>
+		<parameter name="P_DataCenter_ID" class="java.util.Collection">
+			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[-- This query returns the
+-- average number of CPU Cores and Physical Memory
+-- for the vms in the specific cluster.
+
+
+SELECT
+    COALESCE(
+        tag_name,
+        'Unknown'
+    ) AS tag_name,
+    datacenter_name,
+    datacenter_description,
+    COUNT( DISTINCT host_id ) AS number_of_hosts,
+    SUM (
+        COALESCE (
+            v3_6_latest_configuration_hosts.number_of_cores,
+            0
+        ) *
+        COALESCE (
+            v3_6_latest_configuration_hosts.number_of_sockets,
+            0
+        )
+    ) AS total_hosts_num_of_cpus,
+    SUM (
+        COALESCE (
+            v3_6_latest_configuration_hosts.memory_size_mb,
+            0
+        ) * 0.000976562
+    ) AS memory_size_mb,
+    num_of_vms.num_of_running_vms,
+    num_of_vms.total_configured_vms,
+    cpu_memory_allocation.total_vms_cpu_cores,
+    cpu_memory_allocation.cpu_cores_running,
+    cpu_memory_allocation.total_vms_mem,
+    cpu_memory_allocation.mem_running,
+    dc_storage.dc_used_disk_size_gb,
+    dc_storage.dc_available_disk_size_gb,
+    dc_storage.dc_total_disk_size_gb,
+    vms_storage.vms_allocated_disk_size_gb,
+    vms_storage.vm_disk_actual_size_gb
+FROM  v3_6_latest_configuration_datacenters
+    INNER JOIN v3_6_latest_configuration_clusters
+        ON (
+            v3_6_latest_configuration_datacenters.datacenter_id =
+            v3_6_latest_configuration_clusters.datacenter_id
+        )
+    INNER JOIN v3_6_latest_configuration_hosts 
+        ON (
+            v3_6_latest_configuration_clusters.cluster_id =
+            v3_6_latest_configuration_hosts.cluster_id
+        )
+    LEFT OUTER JOIN v3_6_latest_tags_relations
+        ON (
+            v3_6_latest_configuration_hosts.host_id =
+            v3_6_latest_tags_relations.entity_id
+            AND v3_6_latest_tags_relations.entity_type = 3           
+        )
+    LEFT OUTER JOIN v3_6_latest_tags_details
+        ON (
+            v3_6_latest_tags_relations.parent_id =
+            v3_6_latest_tags_details.tag_id            
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            vm_count.cluster_id,
+            SUM (
+                CASE
+                    WHEN vm_count.vm_status = 1
+                        THEN vm_count.num_of_vms
+                    ELSE 0
+                END
+            ) AS num_of_running_vms,
+            SUM ( vm_count.num_of_vms ) AS total_configured_vms
+        FROM (
+        SELECT
+            a.cluster_id AS cluster_id,
+            v3_6_statistics_vms_resources_usage_hourly.vm_status as vm_status,
+            COUNT( DISTINCT a.vm_id ) AS num_of_vms
+        FROM v3_6_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_6_latest_configuration_vms a
+                ON (
+                    a.vm_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                )
+        WHERE
+            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+                SELECT MAX ( history_id )
+                FROM v3_6_statistics_vms_resources_usage_hourly b
+                GROUP BY vm_id
+            )
+        GROUP BY
+            a.cluster_id, v3_6_statistics_vms_resources_usage_hourly.vm_status
+        ) AS vm_count
+        GROUP BY cluster_id
+    ) AS num_of_vms
+        ON (
+            num_of_vms.cluster_id =
+            v3_6_latest_configuration_clusters.cluster_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            a.cluster_id,
+            SUM (
+                COALESCE (
+                    v3_6_configuration_history_vms.cpu_per_socket,
+                    0
+                )*
+                COALESCE (
+                    v3_6_configuration_history_vms.number_of_sockets,
+                    0
+                )
+            )
+            AS total_vms_cpu_cores,
+            SUM (
+                CASE
+                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                        THEN
+                            COALESCE (
+                                v3_6_configuration_history_vms.cpu_per_socket,
+                                0
+                            ) *
+                            COALESCE (
+                                v3_6_configuration_history_vms.number_of_sockets,
+                                0
+                            )
+                    ELSE 0
+                END
+            )
+            AS cpu_cores_running,
+            SUM (
+                COALESCE (
+                    v3_6_configuration_history_vms.memory_size_mb,
+                    0
+                )
+            ) *0.000976562
+            AS total_vms_mem,
+            SUM (
+                CASE
+                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                        THEN
+                            COALESCE (
+                                v3_6_configuration_history_vms.memory_size_mb,
+                                0
+                            )
+                    ELSE 0
+                END
+            ) * 0.000976562
+            AS mem_running
+        FROM v3_6_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_6_configuration_history_vms
+                ON (
+                    v3_6_configuration_history_vms.history_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_configuration_version                            
+                )
+            INNER JOIN v3_6_latest_configuration_vms a
+                ON (
+                    a.vm_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                )
+        WHERE
+            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+                SELECT MAX ( history_id )
+                FROM v3_6_statistics_vms_resources_usage_hourly b
+                GROUP BY vm_id
+            )
+        GROUP BY
+            a.cluster_id
+    ) AS cpu_memory_allocation
+        ON (
+            cpu_memory_allocation.cluster_id =
+            v3_6_latest_configuration_clusters.cluster_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            datacenter_id,
+            SUM (samples.used_disk_size_gb)
+            AS dc_used_disk_size_gb,
+            SUM (samples.available_disk_size_gb)
+            AS dc_available_disk_size_gb,
+            SUM (samples.available_disk_size_gb + samples.used_disk_size_gb)
+            AS dc_total_disk_size_gb
+        FROM v3_6_latest_configuration_storage_domains
+            INNER JOIN v3_6_latest_map_datacenters_storage_domains
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    v3_6_latest_map_datacenters_storage_domains.storage_domain_id
+                )
+            LEFT OUTER JOIN v3_6_statistics_storage_domains_resources_usage_samples AS samples
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    samples.storage_domain_id
+                    AND samples.history_id IN (
+                        SELECT MAX ( a.history_id )
+                        FROM v3_6_statistics_storage_domains_resources_usage_samples a
+                        GROUP BY a.storage_domain_id
+                    )
+                )            
+        WHERE
+            -- Here we filter by the "Data" storage type
+            storage_domain_type IN ( 0, 1 )
+        GROUP BY datacenter_id
+    ) AS dc_storage
+        ON (
+            dc_storage.datacenter_id =
+            v3_6_latest_configuration_datacenters.datacenter_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            datacenter_id,
+            SUM (
+                v3_6_latest_configuration_vms_disks.vm_disk_size_mb
+            ) * 0.0009765625
+            AS vms_allocated_disk_size_gb,
+            SUM (samples.vm_disk_actual_size_mb) * 0.0009765625
+            AS vm_disk_actual_size_gb
+        FROM v3_6_latest_configuration_storage_domains
+            INNER JOIN v3_6_latest_map_datacenters_storage_domains
+                ON (
+                    v3_6_latest_map_datacenters_storage_domains.storage_domain_id =
+                    v3_6_latest_configuration_storage_domains.storage_domain_id
+                )
+            INNER JOIN v3_6_latest_configuration_vms_disks
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    v3_6_latest_configuration_vms_disks.storage_domain_id
+                )
+            LEFT OUTER JOIN v3_6_statistics_vms_disks_resources_usage_samples AS samples
+                ON (
+                    v3_6_latest_configuration_vms_disks.vm_disk_id =
+                    samples.vm_disk_id
+                    AND samples.history_id IN (
+                        SELECT MAX ( a.history_id )
+                        FROM v3_6_statistics_vms_disks_resources_usage_samples a
+                        GROUP BY a.vm_disk_id
+                    )
+                )
+        WHERE
+            -- Here we filter by the "Data" storage type
+            storage_domain_type IN ( 0, 1 )
+        GROUP BY datacenter_id
+    ) AS vms_storage
+        ON (
+            vms_storage.datacenter_id =
+            v3_6_latest_configuration_datacenters.datacenter_id
+        )
+WHERE $X{ IN, CAST ( v3_6_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
+GROUP BY
+    tag_name,
+    datacenter_name,
+    datacenter_description,
+    num_of_vms.num_of_running_vms,
+    num_of_vms.total_configured_vms,
+    cpu_memory_allocation.total_vms_cpu_cores,
+    cpu_memory_allocation.cpu_cores_running,
+    cpu_memory_allocation.total_vms_mem,
+    cpu_memory_allocation.mem_running,
+    dc_storage.dc_used_disk_size_gb,
+    dc_storage.dc_available_disk_size_gb,
+    dc_storage.dc_total_disk_size_gb,
+    vms_storage.vms_allocated_disk_size_gb,
+    vms_storage.vm_disk_actual_size_gb]]>
+		</queryString>
+		<field name="tag_name" class="java.lang.String"/>
+		<field name="datacenter_name" class="java.lang.String"/>
+		<field name="number_of_hosts" class="java.lang.Long"/>
+		<field name="total_hosts_num_of_cpus" class="java.lang.Long"/>
+		<field name="memory_size_mb" class="java.lang.Long"/>
+		<field name="num_of_running_vms" class="java.lang.Long"/>
+		<field name="total_configured_vms" class="java.lang.Long"/>
+		<field name="total_vms_cpu_cores" class="java.lang.Long"/>
+		<field name="cpu_cores_running" class="java.lang.Long"/>
+		<field name="total_vms_mem" class="java.lang.Long"/>
+		<field name="mem_running" class="java.lang.Long"/>
+		<field name="dc_used_disk_size_gb" class="java.lang.Long"/>
+		<field name="dc_total_disk_size_gb" class="java.lang.Long"/>
+		<field name="vms_allocated_disk_size_gb" class="java.lang.Long"/>
+		<field name="dc_available_disk_size_gb" class="java.lang.Long"/>
+		<field name="datacenter_description" class="java.lang.String"/>
+		<field name="vm_disk_actual_size_gb" class="java.lang.Long"/>
+		<variable name="hosts_total" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{number_of_hosts}]]></variableExpression>
+		</variable>
+		<variable name="number_of_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_configured_vms}]]></variableExpression>
+		</variable>
+		<variable name="number_of_vms_running" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{num_of_running_vms}]]></variableExpression>
+		</variable>
+		<variable name="number_of_cpus_hosts" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_hosts_num_of_cpus}]]></variableExpression>
+		</variable>
+		<variable name="number_of_cpus_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_vms_cpu_cores}]]></variableExpression>
+		</variable>
+		<variable name="total_ram_hosts" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{memory_size_mb}]]></variableExpression>
+		</variable>
+		<variable name="total_ram_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_vms_mem}]]></variableExpression>
+		</variable>
+		<variable name="total_ram_vms_running" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{mem_running}]]></variableExpression>
+		</variable>
+		<variable name="total_disks_hosts" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{dc_total_disk_size_gb}]]></variableExpression>
+		</variable>
+		<variable name="total_disks_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{vms_allocated_disk_size_gb}]]></variableExpression>
+		</variable>
+		<variable name="total_disks_vms_used" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{vm_disk_actual_size_gb}]]></variableExpression>
+		</variable>
+		<variable name="number_of_cpus_vms_running" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{cpu_cores_running}]]></variableExpression>
+		</variable>
+		<group name="Group1">
+			<groupExpression><![CDATA[$P{P_Group_By_Tag} == 1 ? $F{tag_name} : " "]]></groupExpression>
+		</group>
+		<group name="Group2" isReprintHeaderOnEachPage="true" keepTogether="true">
+			<groupExpression><![CDATA[$F{datacenter_name}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Clusters Table" uuid="cda48ae1-12a3-43c9-8133-324fc36f3d51">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HistoryDB"/>
+		<parameter name="P_Group_By_Tag" class="java.lang.Integer">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+		</parameter>
+		<parameter name="P_DataCenter_ID" class="java.util.Collection">
+			<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[-- This query returns the
+-- average number of CPU Cores and Physical Memory
+-- for the vms in the specific cluster.
+
+
+SELECT
+    COALESCE(
+        tag_name,
+        'Unknown'
+    ) AS tag_name,
+    datacenter_name,
+    datacenter_description,
+    cluster_name,
+    cluster_description,
+    COUNT( DISTINCT host_id ) AS number_of_hosts,
+    SUM (
+        COALESCE (
+            v3_6_latest_configuration_hosts.number_of_cores,
+            0
+        ) *
+        COALESCE (
+            v3_6_latest_configuration_hosts.number_of_sockets,
+            0
+        )
+    ) AS total_hosts_num_of_cpus,
+    SUM (
+        COALESCE (
+            v3_6_latest_configuration_hosts.memory_size_mb,
+            0
+        ) * 0.000976562
+    ) AS memory_size_mb,
+    num_of_vms.num_of_running_vms,
+    num_of_vms.total_configured_vms,
+    cpu_memory_allocation.total_vms_cpu_cores,
+    cpu_memory_allocation.cpu_cores_running,
+    cpu_memory_allocation.total_vms_mem,
+    cpu_memory_allocation.mem_running
+FROM  v3_6_latest_configuration_datacenters
+    INNER JOIN v3_6_latest_configuration_clusters
+        ON (
+            v3_6_latest_configuration_datacenters.datacenter_id =
+            v3_6_latest_configuration_clusters.datacenter_id
+        )
+    INNER JOIN v3_6_latest_configuration_hosts 
+        ON (
+            v3_6_latest_configuration_clusters.cluster_id =
+            v3_6_latest_configuration_hosts.cluster_id
+        )
+    LEFT OUTER JOIN v3_6_latest_tags_relations
+        ON (
+            v3_6_latest_configuration_hosts.host_id =
+            v3_6_latest_tags_relations.entity_id
+            AND v3_6_latest_tags_relations.entity_type = 3           
+        )
+    LEFT OUTER JOIN v3_6_latest_tags_details
+        ON (
+            v3_6_latest_tags_relations.parent_id =
+            v3_6_latest_tags_details.tag_id            
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            vm_count.datacenter_id,
+            SUM (
+                CASE
+                    WHEN vm_count.vm_status = 1
+                        THEN vm_count.num_of_vms
+                    ELSE 0
+                END
+            ) AS num_of_running_vms,
+            SUM ( vm_count.num_of_vms ) AS total_configured_vms
+        FROM (
+        SELECT
+            b.datacenter_id AS datacenter_id,
+            v3_6_statistics_vms_resources_usage_hourly.vm_status as vm_status,
+            COUNT( DISTINCT a.vm_id ) AS num_of_vms
+        FROM v3_6_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_6_latest_configuration_vms a
+                ON (
+                    a.vm_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                )
+            INNER JOIN v3_6_latest_configuration_clusters b
+                ON (
+                    a.cluster_id =
+                    b.cluster_id
+                )
+        WHERE
+            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+                SELECT MAX ( history_id )
+                FROM v3_6_statistics_vms_resources_usage_hourly
+                GROUP BY vm_id
+            )
+        GROUP BY
+            b.datacenter_id, v3_6_statistics_vms_resources_usage_hourly.vm_status
+        ) AS vm_count
+        GROUP BY datacenter_id
+    ) AS num_of_vms
+        ON (
+            num_of_vms.datacenter_id =
+            v3_6_latest_configuration_datacenters.datacenter_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            a.cluster_id,
+            SUM (
+                COALESCE (
+                    v3_6_configuration_history_vms.cpu_per_socket,
+                    0
+                )*
+                COALESCE (
+                    v3_6_configuration_history_vms.number_of_sockets,
+                    0
+                )
+            )
+            AS total_vms_cpu_cores,
+            SUM (
+                CASE
+                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                        THEN
+                            COALESCE (
+                                v3_6_configuration_history_vms.cpu_per_socket,
+                                0
+                            ) *
+                            COALESCE (
+                                v3_6_configuration_history_vms.number_of_sockets,
+                                0
+                            )
+                    ELSE 0
+                END
+            )
+            AS cpu_cores_running,
+            SUM (
+                COALESCE (
+                    v3_6_configuration_history_vms.memory_size_mb,
+                    0
+                )
+            ) *0.000976562
+            AS total_vms_mem,
+            SUM (
+                CASE
+                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                        THEN
+                            COALESCE (
+                                v3_6_configuration_history_vms.memory_size_mb,
+                                0
+                            )
+                    ELSE 0
+                END
+            ) * 0.000976562
+            AS mem_running
+        FROM v3_6_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_6_configuration_history_vms
+                ON (
+                    v3_6_configuration_history_vms.history_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_configuration_version                            
+                )
+            INNER JOIN v3_6_latest_configuration_vms a
+                ON (
+                    a.vm_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                )
+        WHERE
+            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+                SELECT MAX ( history_id )
+                FROM v3_6_statistics_vms_resources_usage_hourly b
+                GROUP BY vm_id
+            )
+        GROUP BY
+            a.cluster_id
+    ) AS cpu_memory_allocation
+        ON (
+            cpu_memory_allocation.cluster_id =
+            v3_6_latest_configuration_clusters.cluster_id
+        )
+WHERE $X{ IN, CAST ( v3_6_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
+GROUP BY
+    tag_name,
+    datacenter_name,
+    datacenter_description,
+    cluster_name,
+    cluster_description,
+    num_of_vms.num_of_running_vms,
+    num_of_vms.total_configured_vms,
+    cpu_memory_allocation.total_vms_cpu_cores,
+    cpu_memory_allocation.cpu_cores_running,
+    cpu_memory_allocation.total_vms_mem,
+    cpu_memory_allocation.mem_running]]>
+		</queryString>
+		<field name="tag_name" class="java.lang.String"/>
+		<field name="datacenter_name" class="java.lang.String"/>
+		<field name="cluster_name" class="java.lang.String"/>
+		<field name="cluster_description" class="java.lang.String"/>
+		<field name="number_of_hosts" class="java.lang.Long"/>
+		<field name="total_hosts_num_of_cpus" class="java.lang.Long"/>
+		<field name="memory_size_mb" class="java.lang.Long"/>
+		<field name="num_of_running_vms" class="java.lang.Long"/>
+		<field name="total_configured_vms" class="java.lang.Long"/>
+		<field name="total_vms_cpu_cores" class="java.lang.Long"/>
+		<field name="cpu_cores_running" class="java.lang.Long"/>
+		<field name="total_vms_mem" class="java.lang.Long"/>
+		<field name="mem_running" class="java.lang.Long"/>
+		<field name="datacenter_description" class="java.lang.String"/>
+		<variable name="hosts_total" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{number_of_hosts}]]></variableExpression>
+		</variable>
+		<variable name="number_of_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_configured_vms}]]></variableExpression>
+		</variable>
+		<variable name="number_of_vms_running" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{num_of_running_vms}]]></variableExpression>
+		</variable>
+		<variable name="number_of_cpus_hosts" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_hosts_num_of_cpus}]]></variableExpression>
+		</variable>
+		<variable name="number_of_cpus_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_vms_cpu_cores}]]></variableExpression>
+		</variable>
+		<variable name="total_ram_hosts" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{memory_size_mb}]]></variableExpression>
+		</variable>
+		<variable name="total_ram_vms" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{total_vms_mem}]]></variableExpression>
+		</variable>
+		<variable name="total_ram_vms_running" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{mem_running}]]></variableExpression>
+		</variable>
+		<variable name="number_of_cpus_vms_running" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{cpu_cores_running}]]></variableExpression>
+		</variable>
+		<group name="Group1">
+			<groupExpression><![CDATA[$P{P_Group_By_Tag} == 1 ? $F{tag_name} : $F{datacenter_name}]]></groupExpression>
+		</group>
+		<group name="Group2" isReprintHeaderOnEachPage="true" keepTogether="true">
+			<groupExpression><![CDATA[$P{P_Group_By_Tag} == 1 ? $F{datacenter_name} : " "]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="P_DataCenter_ID" class="java.util.Collection">
+		<parameterDescription><![CDATA[Select a DataCenter]]></parameterDescription>
+	</parameter>
+	<parameter name="P_Group_By_Tag" class="java.lang.Integer"/>
+	<parameter name="P_Display_By_DC_Cluster" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Display reports by Cluster or Datacenter level?]]></parameterDescription>
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[-- This query returns the
+-- average number of CPU Cores and Physical Memory
+-- for the vms in the specific cluster.
+
+
+SELECT
+    COALESCE(
+        tag_name,
+        'Unknown'
+    ) AS tag_name,
+    datacenter_name,
+    datacenter_description,
+    cluster_name,
+    cluster_description,
+    COUNT( DISTINCT host_id ) AS number_of_hosts,
+    SUM (
+        COALESCE (
+            v3_6_latest_configuration_hosts.number_of_cores,
+            0
+        ) *
+        COALESCE (
+            v3_6_latest_configuration_hosts.number_of_sockets,
+            0
+        )
+    ) AS total_hosts_num_of_cpus,
+    SUM (
+        COALESCE (
+            v3_6_latest_configuration_hosts.memory_size_mb,
+            0
+        ) * 0.000976562
+    ) AS memory_size_mb,
+    num_of_vms.num_of_running_vms,
+    num_of_vms.total_configured_vms,
+    cpu_memory_allocation.total_vms_cpu_cores,
+    cpu_memory_allocation.cpu_cores_running,
+    cpu_memory_allocation.total_vms_mem,
+    cpu_memory_allocation.mem_running,
+    dc_storage.dc_used_disk_size_gb,
+    dc_storage.dc_available_disk_size_gb,
+    dc_storage.dc_total_disk_size_gb,
+    vms_storage.vms_allocated_disk_size_gb,
+    vms_storage.vm_disk_actual_size_gb
+FROM  v3_6_latest_configuration_datacenters
+    INNER JOIN v3_6_latest_configuration_clusters
+        ON (
+            v3_6_latest_configuration_datacenters.datacenter_id =
+            v3_6_latest_configuration_clusters.datacenter_id
+        )
+    INNER JOIN v3_6_latest_configuration_hosts 
+        ON (
+            v3_6_latest_configuration_clusters.cluster_id =
+            v3_6_latest_configuration_hosts.cluster_id
+        )
+    LEFT OUTER JOIN v3_6_latest_tags_relations
+        ON (
+            v3_6_latest_configuration_hosts.host_id =
+            v3_6_latest_tags_relations.entity_id
+            AND v3_6_latest_tags_relations.entity_type = 3           
+        )
+    LEFT OUTER JOIN v3_6_latest_tags_details
+        ON (
+            v3_6_latest_tags_relations.parent_id =
+            v3_6_latest_tags_details.tag_id            
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            vm_count.cluster_id,
+            SUM (
+                CASE
+                    WHEN vm_count.vm_status = 1
+                        THEN vm_count.num_of_vms
+                    ELSE 0
+                END
+            ) AS num_of_running_vms,
+            SUM ( vm_count.num_of_vms ) AS total_configured_vms
+        FROM (
+        SELECT
+            a.cluster_id AS cluster_id,
+            v3_6_statistics_vms_resources_usage_hourly.vm_status as vm_status,
+            COUNT( DISTINCT a.vm_id ) AS num_of_vms
+        FROM v3_6_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_6_latest_configuration_vms a
+                ON (
+                    a.vm_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                )
+        WHERE
+            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+                SELECT MAX ( history_id )
+                FROM v3_6_statistics_vms_resources_usage_hourly b
+                GROUP BY vm_id
+            )
+        GROUP BY
+            a.cluster_id, v3_6_statistics_vms_resources_usage_hourly.vm_status
+        ) AS vm_count
+        GROUP BY cluster_id
+    ) AS num_of_vms
+        ON (
+            num_of_vms.cluster_id =
+            v3_6_latest_configuration_clusters.cluster_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            a.cluster_id,
+            SUM (
+                COALESCE (
+                    v3_6_configuration_history_vms.cpu_per_socket,
+                    0
+                )*
+                COALESCE (
+                    v3_6_configuration_history_vms.number_of_sockets,
+                    0
+                )
+            )
+            AS total_vms_cpu_cores,
+            SUM (
+                CASE
+                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                        THEN
+                            COALESCE (
+                                v3_6_configuration_history_vms.cpu_per_socket,
+                                0
+                            ) *
+                            COALESCE (
+                                v3_6_configuration_history_vms.number_of_sockets,
+                                0
+                            )
+                    ELSE 0
+                END
+            )
+            AS cpu_cores_running,
+            SUM (
+                COALESCE (
+                    v3_6_configuration_history_vms.memory_size_mb,
+                    0
+                )
+            ) *0.000976562
+            AS total_vms_mem,
+            SUM (
+                CASE
+                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                        THEN
+                            COALESCE (
+                                v3_6_configuration_history_vms.memory_size_mb,
+                                0
+                            )
+                    ELSE 0
+                END
+            ) * 0.000976562
+            AS mem_running
+        FROM v3_6_statistics_vms_resources_usage_hourly
+            INNER JOIN v3_6_configuration_history_vms
+                ON (
+                    v3_6_configuration_history_vms.history_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_configuration_version                            
+                )
+            INNER JOIN v3_6_latest_configuration_vms a
+                ON (
+                    a.vm_id =
+                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                )
+        WHERE
+            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+                SELECT MAX ( history_id )
+                FROM v3_6_statistics_vms_resources_usage_hourly b
+                GROUP BY vm_id
+            )
+        GROUP BY
+            a.cluster_id
+    ) AS cpu_memory_allocation
+        ON (
+            cpu_memory_allocation.cluster_id =
+            v3_6_latest_configuration_clusters.cluster_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            datacenter_id,
+            SUM (
+                COALESCE (
+                    samples.used_disk_size_gb,
+                    daily.used_disk_size_gb
+                )
+            )
+            AS dc_used_disk_size_gb,
+            SUM (
+                COALESCE (
+                    samples.available_disk_size_gb,
+                    daily.available_disk_size_gb
+                )
+            )
+            AS dc_available_disk_size_gb,
+            SUM (
+                COALESCE (
+                    samples.available_disk_size_gb + samples.used_disk_size_gb,
+                    daily.available_disk_size_gb + daily.used_disk_size_gb
+                )
+            )
+            AS dc_total_disk_size_gb
+        FROM v3_6_latest_configuration_storage_domains
+            INNER JOIN v3_6_latest_map_datacenters_storage_domains
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    v3_6_latest_map_datacenters_storage_domains.storage_domain_id
+                )
+            LEFT OUTER JOIN v3_6_statistics_storage_domains_resources_usage_samples AS samples
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    samples.storage_domain_id
+                    AND samples.history_id IN (
+                        SELECT MAX ( a.history_id )
+                        FROM v3_6_statistics_storage_domains_resources_usage_samples a
+                        GROUP BY a.storage_domain_id
+                    )
+                )
+            LEFT OUTER JOIN v3_6_statistics_storage_domains_resources_usage_daily AS daily
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    daily.storage_domain_id
+                    AND daily.history_id IN (
+                        SELECT MAX ( a.history_id )
+                        FROM v3_6_statistics_storage_domains_resources_usage_daily a
+                        GROUP BY a.storage_domain_id
+                    )
+                )
+        WHERE
+            -- Here we filter by the "Data" storage type
+            storage_domain_type IN ( 0, 1 )
+        GROUP BY datacenter_id
+    ) AS dc_storage
+        ON (
+            dc_storage.datacenter_id =
+            v3_6_latest_configuration_datacenters.datacenter_id
+        )
+    LEFT OUTER JOIN (
+        SELECT
+            datacenter_id,
+            SUM (
+                v3_6_latest_configuration_vms_disks.vm_disk_size_mb
+            ) * 0.0009765625
+            AS vms_allocated_disk_size_gb,
+            SUM (
+                COALESCE (
+                    samples.vm_disk_actual_size_mb,
+                    daily.vm_disk_actual_size_mb
+                ) * 0.0009765625
+            )
+            AS vm_disk_actual_size_gb
+        FROM v3_6_latest_configuration_storage_domains
+            INNER JOIN v3_6_latest_map_datacenters_storage_domains
+                ON (
+                    v3_6_latest_map_datacenters_storage_domains.storage_domain_id =
+                    v3_6_latest_configuration_storage_domains.storage_domain_id
+                )
+            INNER JOIN v3_6_latest_configuration_vms_disks
+                ON (
+                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    v3_6_latest_configuration_vms_disks.storage_domain_id
+                )
+            LEFT OUTER JOIN v3_6_statistics_vms_disks_resources_usage_samples AS samples
+                ON (
+                    v3_6_latest_configuration_vms_disks.vm_disk_id =
+                    samples.vm_disk_id
+                    AND samples.history_id IN (
+                        SELECT MAX ( a.history_id )
+                        FROM v3_6_statistics_vms_disks_resources_usage_samples a
+                        GROUP BY a.vm_disk_id
+                    )
+                )
+            LEFT OUTER JOIN v3_6_statistics_vms_disks_resources_usage_daily AS daily
+                ON (
+                    v3_6_latest_configuration_vms_disks.vm_disk_id =
+                    daily.vm_disk_id
+                    AND daily.history_id IN (
+                        SELECT MAX ( a.history_id )
+                        FROM v3_6_statistics_vms_disks_resources_usage_daily a
+                        GROUP BY a.vm_disk_id
+                    )
+                )
+        WHERE
+            -- Here we filter by the "Data" storage type
+            storage_domain_type IN ( 0, 1 )
+        GROUP BY datacenter_id
+    ) AS vms_storage
+        ON (
+            vms_storage.datacenter_id =
+            v3_6_latest_configuration_datacenters.datacenter_id
+        )
+WHERE $X{ IN, CAST ( v3_6_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
+GROUP BY
+    tag_name,
+    datacenter_name,
+    datacenter_description,
+    cluster_name,
+    cluster_description,
+    num_of_vms.num_of_running_vms,
+    num_of_vms.total_configured_vms,
+    cpu_memory_allocation.total_vms_cpu_cores,
+    cpu_memory_allocation.cpu_cores_running,
+    cpu_memory_allocation.total_vms_mem,
+    cpu_memory_allocation.mem_running,
+    dc_storage.dc_used_disk_size_gb,
+    dc_storage.dc_available_disk_size_gb,
+    dc_storage.dc_total_disk_size_gb,
+    vms_storage.vms_allocated_disk_size_gb,
+    vms_storage.vm_disk_actual_size_gb]]>
+	</queryString>
+	<field name="tag_name" class="java.lang.String"/>
+	<field name="datacenter_name" class="java.lang.String"/>
+	<field name="cluster_name" class="java.lang.String"/>
+	<field name="cluster_description" class="java.lang.String"/>
+	<field name="number_of_hosts" class="java.lang.Long"/>
+	<field name="total_hosts_num_of_cpus" class="java.lang.Long"/>
+	<field name="memory_size_mb" class="java.lang.Long"/>
+	<field name="num_of_running_vms" class="java.lang.Long"/>
+	<field name="total_configured_vms" class="java.lang.Long"/>
+	<field name="total_vms_cpu_cores" class="java.lang.Long"/>
+	<field name="cpu_cores_running" class="java.lang.Long"/>
+	<field name="total_vms_mem" class="java.lang.Long"/>
+	<field name="mem_running" class="java.lang.Long"/>
+	<field name="dc_used_disk_size_gb" class="java.lang.Long"/>
+	<field name="dc_total_disk_size_gb" class="java.lang.Long"/>
+	<field name="vms_allocated_disk_size_gb" class="java.lang.Long"/>
+	<field name="dc_available_disk_size_gb" class="java.lang.Long"/>
+	<field name="datacenter_description" class="java.lang.String"/>
+	<field name="vm_disk_actual_size_gb" class="java.lang.Long"/>
+	<variable name="CURRENT_PAGE_NUMBER" class="java.lang.Integer" resetType="None" incrementType="Page">
+		<variableExpression><![CDATA[$V{PAGE_NUMBER}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="133" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<line>
+				<reportElement x="0" y="43" width="832" height="1" uuid="44ce704d-72ee-4eb6-8af1-7cab0f436d4b"/>
+			</line>
+			<textField pattern="">
+				<reportElement x="561" y="27" width="270" height="15" uuid="3a57d276-8aa9-4c5d-997a-1b44ccbe1b5b">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.LONG, $P{REPORT_LOCALE}).format(new Date())]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="228" height="42" uuid="eee400a3-ac2d-4475-9aa2-b4835e500375"/>
+				<imageExpression><![CDATA["repo:ovirt-icon"]]></imageExpression>
+			</image>
+			<subreport>
+				<reportElement x="0" y="45" width="831" height="86" uuid="3e73a4b9-a4bf-47a4-b042-d0fb5542d2c9">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<subreportParameter name="P_DataCenter_ID">
+					<subreportParameterExpression><![CDATA[$P{P_DataCenter_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Group_By_Tag">
+					<subreportParameterExpression><![CDATA[$P{P_Group_By_Tag}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_Display_By_DC_Cluster">
+					<subreportParameterExpression><![CDATA[$P{P_Display_By_DC_Cluster}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["repo:br48 full details.jrxml"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="95">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="0" y="0" width="831" height="75" uuid="95f623f3-0394-4c2d-a167-8900d4862df9">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="P_Display_By_DC_Cluster">
+					<subreportParameterExpression><![CDATA[$P{P_Display_By_DC_Cluster}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA["repo:br48_legend.jrxml"]]></subreportExpression>
+			</subreport>
+			<textField evaluationTime="Auto">
+				<reportElement x="220" y="80" width="391" height="15" uuid="2492e057-5d8c-4355-81ed-c318d109b49a">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{footer.pagination}, $V{CURRENT_PAGE_NUMBER}, $V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="210">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<componentElement>
+				<reportElement x="0" y="20" width="600" height="110" uuid="466a3055-a52f-4089-8164-9ceec900c95c">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="net.sf.jasperreports.export.headertoolbar.table.name" value="Clusters"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{P_Display_By_DC_Cluster} != 1]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Clusters Table" uuid="f537f4eb-d3ca-45c4-b9e5-39a93cac2f4a">
+						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="760" uuid="e7933cd9-efe1-450a-b19b-769869e87360">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<jr:tableHeader height="20">
+							<textField>
+								<reportElement x="100" y="0" width="160" height="20" backcolor="#FFFFFF" uuid="b0c07c32-e65b-49d1-98f5-5f1ca606933f">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.number.of}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.number.of}]]></hyperlinkTooltipExpression>
+							</textField>
+							<textField>
+								<reportElement x="260" y="0" width="250" height="20" backcolor="#FFFFFF" uuid="128395c5-e2ff-4b3f-b350-95ccb5899ac6">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.total.cpu}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.total.cpu}]]></hyperlinkTooltipExpression>
+							</textField>
+							<textField>
+								<reportElement x="510" y="0" width="250" height="20" backcolor="#FFFFFF" uuid="3ec2f1cc-4a5c-4461-8581-2a32c7cad75b">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.total.ram}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.total.ram}]]></hyperlinkTooltipExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:groupHeader groupName="Group1">
+							<jr:cell height="20">
+								<textField isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="760" height="20" isRemoveLineWhenBlank="true" uuid="d24b5bb7-caf5-414e-b5a9-ad9bcb8f5f50">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement verticalAlignment="Middle" markup="html">
+										<font size="12" isBold="false"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{P_Group_By_Tag} == 1 ? "<b>" + "Tag Name" + ":</b>" + $F{tag_name} : ""]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:groupHeader groupName="Group2">
+							<jr:cell height="20">
+								<textField>
+									<reportElement x="0" y="0" width="760" height="20" isRemoveLineWhenBlank="true" uuid="dbc823ed-7f72-47ac-8f50-1f4322b0a732">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement verticalAlignment="Middle" markup="html"/>
+									<textFieldExpression><![CDATA["<b>" + $R{br48.table.dc} + ": </b>" + $F{datacenter_name} + " - " + $F{datacenter_description}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:columnHeader height="0"/>
+						<jr:column width="100" uuid="c09935b2-a7f7-4bb6-98fd-bcba9d8ac692">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="local_mesure_unitheight" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField>
+									<reportElement x="0" y="20" width="100" height="20" uuid="c8a87770-2456-45b5-bca7-190d010f83ab">
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.totals}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement style="Table 1_TH" x="0" y="0" width="100" height="30" uuid="d73f625b-ee88-4d28-aef6-6edb58f33eec"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.cluster.name}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.cluster.name}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="100" height="20" uuid="8b6f7747-6469-42c1-bdb5-04daec64efae">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Left" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{cluster_name}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="50" uuid="aff3c35f-51d9-4a8d-8a6f-3df034ee0882">
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="50" height="20" uuid="bbdea1a6-be43-450a-9d8f-a37d784bc86a">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{hosts_total}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader height="30">
+								<textField pattern="">
+									<reportElement style="Table 1_TH" x="0" y="0" width="50" height="30" uuid="3417fc41-bc91-482c-9e68-d6477030c4a6"/>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.hosts}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.hosts}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField>
+									<reportElement x="0" y="0" width="50" height="20" uuid="2066e244-8b48-4cff-819d-73c96479f9b8"/>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled"/>
+									<textFieldExpression><![CDATA[$F{number_of_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="9cbe0a1e-513d-4829-b6b6-3222c78986ca">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="60" height="20" uuid="91fc9b0b-8607-4f26-a90c-52b7853de8c2">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField pattern="">
+									<reportElement style="Table 1_TH" x="0" y="0" width="60" height="30" uuid="26f671d7-38af-46a2-af62-68a7eff4b092"/>
+									<box>
+										<leftPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="60" height="20" uuid="d98dc54f-8287-45a1-a321-584f7b58c114">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<leftPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{total_configured_vms}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="50" uuid="c8bf8679-94a2-4110-b0ac-e60b75834e80">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="50" height="20" uuid="6a9c02d1-99e3-4e9a-a88c-415e9114e36b">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_vms_running}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement style="Table 1_TH" x="0" y="0" width="50" height="30" uuid="c3a7c941-633e-4efa-8e2d-c340e641c77d"/>
+									<box>
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.running.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.running.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="50" height="20" uuid="9e734d51-2d9b-4cb3-ab4c-da34a3f0cebc">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{num_of_running_vms}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="080d64b8-2115-4dd6-a201-08f1ce6b6667">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="60" height="20" uuid="c6afe73a-934c-4dea-b86e-b2a8aca0e55a">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_cpus_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField pattern="">
+									<reportElement style="Table 1_TH" x="0" y="0" width="60" height="30" uuid="7298556b-ba7c-4218-9c1d-50f2f698a5b3">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.hosts}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.hosts}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="60" height="20" uuid="c2c9e337-53e7-42b4-b1d8-75ab0e0052d8">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{total_hosts_num_of_cpus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="5b0d0036-de88-4aad-b4a4-4dba22ba2e22">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="60" height="20" uuid="f9e2348c-cc0d-40ad-b55a-3e431c187213">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_cpus_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement style="Table 1_TH" x="0" y="0" width="60" height="30" uuid="4bbcc715-3a9d-4b02-b402-9da244e9b30b"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="60" height="20" uuid="c3c8f496-3284-4013-afdd-e920b5f59054">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{total_vms_cpu_cores}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="40" uuid="81e8f211-5ca3-4ec5-ac95-8dad31625d55">
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="40" height="30" uuid="b75846a4-320c-43e7-93c1-057f10faf36e">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.commit.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.commit.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="CPU" x="0" y="0" width="40" height="20" uuid="91719086-971a-454c-8ae2-5d6b9b9d9dd7">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_vms_cpu_cores} == null ? "-" : $F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="50" uuid="4c8fb284-d8ca-4ef7-8271-0edf8a041728">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="50" height="20" uuid="215e1bf8-e58b-4bb1-85bb-f02831e9299b">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_cpus_vms_running}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement style="Table 1_TH" x="0" y="0" width="50" height="30" uuid="f737b680-5497-4533-991d-8a2aede0e1ca"/>
+									<box>
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.running.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.running.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="50" height="20" uuid="5f972898-cebe-49a3-8857-998c3f0327ba">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{cpu_cores_running}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="40" uuid="4f87161c-a18f-4f29-8ea5-1ba5de4fd826">
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="40" height="30" uuid="7902b53e-4c15-4e01-936c-7e8ba494a817">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.usage.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.usage.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="CPU_Running" x="0" y="0" width="40" height="20" uuid="d248fd0e-8ab9-4ad1-abfc-8be70873babd">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{cpu_cores_running} == null ? "-" : $F{cpu_cores_running}/$F{total_hosts_num_of_cpus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="50" uuid="4abf05d2-a2e4-4586-9d36-9cd16d3f9432">
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="50" height="20" uuid="ba2e2333-7d2e-4d19-a098-d5a36b320fd3">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_ram_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField pattern="">
+									<reportElement style="Table 1_TH" x="0" y="0" width="50" height="30" uuid="5ee8433f-d7d4-44de-90c6-5568d2c992cc">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.hosts}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.hosts}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="50" height="20" uuid="ff303e4b-8c46-4f5b-b397-825fe7ee228b"/>
+									<box rightPadding="3">
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{memory_size_mb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="b783d948-7d51-48f6-8308-632e4ca8e373">
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="60" height="20" uuid="ff597729-ef1b-47a0-9228-d72c94c54636">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_ram_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement style="Table 1_TH" x="0" y="0" width="60" height="30" uuid="09a9154c-f97c-486a-99bc-85d562dde856"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="60" height="20" uuid="c61d5657-c7d4-43ba-87bc-c200afc4af3c"/>
+									<box rightPadding="3"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{total_vms_mem}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="40" uuid="b6c8c475-fc84-477d-9a07-2291c35cca0e">
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="40" height="30" uuid="acd03289-8bca-40bd-b19a-99f6d6d3a8a5">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.commit.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.commit.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="MEM" x="0" y="0" width="40" height="20" uuid="5a150050-ad2a-4422-9f35-623d0e3c4b44">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_vms_mem} == null ? "-" : $F{total_vms_mem}/$F{memory_size_mb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="60" uuid="60c75347-b1c9-4a92-ab81-5a4c2a9890c3">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="60" height="20" uuid="55444ef9-b547-44ca-9b7c-3560d9ae728c">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_ram_vms_running}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement style="Table 1_TH" x="0" y="0" width="60" height="30" uuid="32eeb364-c913-4d2d-ac23-608784a6386e">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.running.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.running.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="60" height="20" uuid="68c0ab1e-2189-41ac-a053-05b40e51db62">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{mem_running}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="40" uuid="42ac1e66-5c0c-44e6-8a95-622f25a63d24">
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="40" height="30" uuid="b6e11a26-0493-44c8-8c9c-db00de1e0cb7">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.usage.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.usage.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="MEM_Runing" x="0" y="0" width="40" height="20" uuid="85e69d8a-2ec8-4698-b058-2c4ac5496f62">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{mem_running} == null ? "-" : $F{mem_running}/$F{memory_size_mb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement x="0" y="0" width="810" height="180" uuid="88fc239c-c5fb-479d-94a3-51abf54b1d1a">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="net.sf.jasperreports.export.headertoolbar.table.name" value="DC"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{P_Display_By_DC_Cluster} == 1]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DC Table" uuid="6a5e6e7d-37c1-4c5f-9e00-bf6773d799e6">
+						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="804" uuid="2cf74ad8-f18a-45f6-b5ee-0b4d805b5f72">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<jr:tableHeader height="20">
+							<textField>
+								<reportElement x="0" y="0" width="144" height="20" backcolor="#FFFFFF" uuid="9e9a5924-8e7a-46ca-a955-ea2612848d0a">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.number.of}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.number.of}]]></hyperlinkTooltipExpression>
+							</textField>
+							<textField>
+								<reportElement x="144" y="0" width="220" height="20" backcolor="#FFFFFF" uuid="803a9db8-dfe2-48c9-9a48-5ae155cb7e09">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.total.cpu}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.total.cpu}]]></hyperlinkTooltipExpression>
+							</textField>
+							<textField>
+								<reportElement x="364" y="0" width="220" height="20" backcolor="#FFFFFF" uuid="ff8ac117-5719-4e6d-a88a-0e58ce0c0471">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.total.ram}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.total.ram}]]></hyperlinkTooltipExpression>
+							</textField>
+							<textField>
+								<reportElement x="584" y="0" width="220" height="20" backcolor="#FFFFFF" uuid="d15e586a-c267-4f08-8c30-50aa4c11952f">
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									<property name="local_mesure_unity" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+								</reportElement>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.5" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$R{br48.table.disk}]]></textFieldExpression>
+								<hyperlinkTooltipExpression><![CDATA[$R{br48.table.disk}]]></hyperlinkTooltipExpression>
+							</textField>
+						</jr:tableHeader>
+						<jr:tableFooter height="0"/>
+						<jr:groupHeader groupName="Group1">
+							<jr:cell height="20">
+								<textField isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="804" height="20" isRemoveLineWhenBlank="true" uuid="1960cb26-32d1-45ee-8281-c7db5b7a562d">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement verticalAlignment="Middle" markup="html">
+										<font size="12" isBold="false"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$P{P_Group_By_Tag} == 1 ? "<b>" + "Tag Name" + ":</b>" + $F{tag_name} : ""]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:groupHeader groupName="Group2">
+							<jr:cell height="20">
+								<textField>
+									<reportElement key="" style="Table 1_TD" x="0" y="0" width="804" height="20" isRemoveLineWhenBlank="true" uuid="db87d09b-07bc-4d6b-8f68-c8c24061a592">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement verticalAlignment="Middle" markup="html"/>
+									<textFieldExpression><![CDATA["<b>" + $R{br48.table.dc} + ": </b>" + $F{datacenter_name} + " - " + $F{datacenter_description}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupHeader>
+						<jr:columnHeader height="0"/>
+						<jr:columnFooter height="20"/>
+						<jr:column width="48" uuid="c0473f2e-cc0e-4559-9498-0534ea8601e7">
+							<property name="local_mesure_unitheight" value="pixel"/>
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField>
+									<reportElement x="0" y="0" width="48" height="20" uuid="d9b8835c-60ea-41df-a245-a1447287e36e">
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+									</reportElement>
+									<textElement verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.totals}]]></textFieldExpression>
+								</textField>
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="26c04975-2a22-49c1-b839-ca7b6b7d9c8c">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{hosts_total}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader height="30">
+								<textField pattern="">
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="66adce80-eaff-4d09-86b6-4c057e8b6a30">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.hosts}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.hosts}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField>
+									<reportElement x="0" y="0" width="48" height="20" uuid="af335a13-a8d2-4a45-85de-660f31097867">
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{number_of_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="1f4835e9-d948-4e2b-8198-54f6a5f21d7c">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="636a8090-363b-42c9-a36c-7b55548be848">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField pattern="">
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="97ae3179-7a43-4eba-aa3a-8a996bd24add">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="21d9a78d-7a0c-4c34-8b17-0aa19fc44b83">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_configured_vms}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="84ae8891-2ee3-4954-881a-ed29dce0f6fd">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="79bf99e4-6069-4acc-877b-01541cc5fcb6">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_vms_running}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="6433b9b9-2023-444a-88e8-cbb1d1ea6149">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.running.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.running.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement key="" x="0" y="0" width="48" height="20" uuid="1d1790b1-7191-407f-86d8-e319871bb992">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="0.5"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{num_of_running_vms}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="513f975c-d205-43fb-915e-e03abf4c89b4">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="5743b250-361c-4214-8f9b-5491c1b5beac">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_cpus_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField pattern="">
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="effdca12-e87a-4c8b-abce-432a1607178f">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.hosts}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.hosts}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="4ec30e34-576f-440e-a4f8-0e92aa8a2041">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="2.0"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_hosts_num_of_cpus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="86b5a730-08bf-4558-9107-7bbdce87ae63">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="7921755d-5d73-4586-afbf-dcfd63c4ca75">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_cpus_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="af5f5eec-e9e5-4eff-add0-952a462c3fb0">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="4e134f20-45fb-4059-9c1e-7701d9514eaf">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_vms_cpu_cores}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="38" uuid="ee7d24b1-850f-4ab9-8b17-15315aec8bf4">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<property name="local_mesure_unitheight" value="pixel"/>
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="38" height="30" uuid="f9fadc5f-948d-4d63-b8ca-2afd7f274f57">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.commit.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.commit.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="CPU" x="0" y="0" width="38" height="20" uuid="6a0ae5fe-a3c2-4ebc-b6e5-3a4320844e14">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_vms_cpu_cores} == null ? "-" : $F{total_vms_cpu_cores}/$F{total_hosts_num_of_cpus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="073ea384-e6c6-4e27-b248-d8427068aac9">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="1943f390-cc2c-4d80-883c-d98cb8b0e312">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{number_of_cpus_vms_running}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="7c64e4eb-06f7-4bac-93d1-b794dec24664">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.running.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.running.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="30911fbe-16d1-4e00-9d86-b27c07aa9027">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{cpu_cores_running}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="38" uuid="3bf3dbfd-d27f-4113-b224-3a437b67b6c7">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="38" height="30" uuid="d1ff3229-8b75-461a-8b1b-898117feda05">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.usage.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.usage.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="CPU_Running" x="0" y="0" width="38" height="20" uuid="5259ad7b-debe-4a76-b8d7-f012bcc602ed">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{cpu_cores_running} == null ? "-" : $F{cpu_cores_running}/$F{total_hosts_num_of_cpus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="9d4ebdaa-898e-49f0-bf57-f1a7c7b7c5b4">
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="a80b347e-59d4-45e1-978e-51a0ffb7aeea">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_ram_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField pattern="">
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="7ee855b5-4c42-432a-9ae2-f623f4ac4507">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.hosts}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.hosts}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="ccb7c4d0-481f-4875-85cb-825edc81158d">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="2.0"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{memory_size_mb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="f8d7898c-8a32-44c5-b0d8-c2446185ffbd">
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="68c68c49-2c29-46dc-baae-45e0451147cb">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_ram_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="88337a38-68c4-4271-9700-89ce5fe9480d">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="61a15640-0bcb-46eb-8ce9-5598d75d3d4f">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_vms_mem}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="38" uuid="7e6300ff-33be-48e6-9bac-107b18266c73">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="38" height="30" uuid="ea9a462e-51f8-4d8d-9ff9-e940841a9e85">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.commit.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.commit.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="MEM" x="0" y="0" width="38" height="20" uuid="38fc9c06-8117-4181-a1a6-fd13618a6b59">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_vms_mem} == null ? "-" : $F{total_vms_mem}/$F{memory_size_mb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="99acea85-f33b-4c7e-9028-d3572de0628b">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="2e7a19c9-6ced-4550-95bd-af067d37ce53">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_ram_vms_running}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="b033a5d7-c2bd-4de1-8298-b4dd257a793f">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.running.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.running.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="97417008-ced2-4731-b991-1dcb5ffe621b">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{mem_running}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="38" uuid="ea611da2-8bb4-4476-a884-e2f6be5bc72a">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="38" height="30" uuid="7e3a1e91-5eae-4234-8110-2c5f2d8c5da4">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<rightPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.usage.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.usage.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="MEM_Runing" x="0" y="0" width="38" height="20" uuid="39958a93-c4fa-4a3e-b24e-ca47a04c3796">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{mem_running} == null ? "-" : $F{mem_running}/$F{memory_size_mb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="b84fbffd-d2c3-4780-824a-20cf79034f87">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="2a68c4fb-5efd-418c-bbe3-6d2e5d278f97">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_disks_hosts}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="37f76e60-48ef-4bfe-bc37-de919d34c8fa">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<leftPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.datacenter}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.datacenter}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="f6e958d1-3f6d-41dc-88ec-73b8bd60784f">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5"/>
+										<leftPen lineWidth="2.0"/>
+										<bottomPen lineWidth="0.5"/>
+										<rightPen lineWidth="0.5"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{dc_total_disk_size_gb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="66e8886e-c4ee-440b-b012-201e65dfe4cc">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="d1ba48a5-8ceb-4a89-89b0-409942b41d75">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_disks_vms}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="b8ee27f6-308d-4ab7-9304-03b6c56ce14b">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="67147f29-81d9-4fa1-af08-8b1729da3630">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{vms_allocated_disk_size_gb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="38" uuid="15a487d8-9e9c-4a75-b0c3-a84b10d7659e">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="38" height="30" uuid="0d4fb272-695e-4242-a41c-bef309151b7e">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.commit.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.commit.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="DiskUsage-Allocated VM" x="0" y="0" width="38" height="20" uuid="7611f312-a453-46c5-b202-8b3f2f4711fb">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{vms_allocated_disk_size_gb} == null ? "-" : $F{vms_allocated_disk_size_gb}/$F{dc_total_disk_size_gb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="b88fa8ce-cc44-4d61-81c7-f76db98f9017">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40">
+								<textField evaluationTime="Report" pattern="#,##0.###;#,-##0.###" isBlankWhenNull="true">
+									<reportElement x="0" y="20" width="48" height="20" uuid="42487d61-9664-4419-8088-5a28a4b26ed4">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{total_disks_vms_used}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:columnHeader style="Table 1_CH" height="30">
+								<textField>
+									<reportElement key="" style="Table 1_TH" x="0" y="0" width="48" height="30" uuid="03368d93-8755-4609-b6bf-cae0d87de284">
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box>
+										<rightPen lineWidth="1.5"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.vms.used.disk}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.vms.used.disk}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell style="Table 1_TD" height="20">
+								<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="48" height="20" uuid="dce8dcca-bb9a-4e90-b2c0-57eb6419dbad">
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{vm_disk_actual_size_gb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="38" uuid="f624d503-4c79-4ac4-bb83-1a4aa1b2fa1a">
+							<property name="local_mesure_unitwidth" value="pixel"/>
+							<jr:tableFooter height="40"/>
+							<jr:columnHeader height="30">
+								<textField>
+									<reportElement style="Table 1_CH" x="0" y="0" width="38" height="30" uuid="c0782dc8-4be3-4637-855c-6d5470dc1070">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box>
+										<rightPen lineWidth="2.0"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$R{br48.table.usage.percent}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$R{br48.table.usage.percent}]]></hyperlinkTooltipExpression>
+								</textField>
+							</jr:columnHeader>
+							<jr:detailCell height="20">
+								<textField pattern="#,##0%" isBlankWhenNull="true">
+									<reportElement style="DiskUsage-Actual used disk in VMs" x="0" y="0" width="38" height="20" uuid="df7fb261-3056-48f6-8260-13487b9441c1">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<property name="local_mesure_unitwidth" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="px"/>
+										<property name="local_mesure_unitheight" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									</reportElement>
+									<box rightPadding="3">
+										<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{vm_disk_actual_size_gb} == null ? "-" :$F{vm_disk_actual_size_gb}/$F{dc_total_disk_size_gb}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
