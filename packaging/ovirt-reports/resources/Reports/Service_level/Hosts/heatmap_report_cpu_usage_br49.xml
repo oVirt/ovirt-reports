@@ -151,15 +151,14 @@
     </resource>
     <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            exportedWithPermissions="false" dataFile="trash-icon.data" xsi:type="fileResource">
-            <folder>/Reports/Service_level/Hosts/heatmap_report_cpu_usage_br49_files</folder>
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6_files</folder>
             <name>trash-icon</name>
-            <version>0</version>
+            <version>1</version>
             <label>trash-icon</label>
-            <creationDate>2015-05-19T13:37:20.605+03:00</creationDate>
-            <updateDate>2015-05-19T13:37:20.605+03:00</updateDate>
-            <fileType>img</fileType>
+            <creationDate>2012-03-30T08:51:18.171+03:00</creationDate>
+            <updateDate>2012-03-30T08:51:18.171+03:00</updateDate>
+            <referenceUri>/reports_resources/trash-icon</referenceUri>
         </localResource>
     </resource>
     <resource>
