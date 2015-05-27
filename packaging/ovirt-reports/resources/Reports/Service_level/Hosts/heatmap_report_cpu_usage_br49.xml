@@ -151,8 +151,9 @@
     </resource>
     <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/Reports/Service_level/Hosts/cluster_quality_of_service_hosts_br6_files</folder>
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/Reports/Service_level/Hosts/heatmap_report_cpu_usage_br49_files</folder>
             <name>trash-icon</name>
             <version>1</version>
             <label>trash-icon</label>
