@@ -105,3 +105,7 @@ width: 20px;
 .menu.primaryNav .wrap.over, .menu.primaryNav .wrap.pressed {
     background: url("images/menu_primaryNav_sprite.png") repeat-x scroll center top #82aa32;
 }
+
+.button.capsule {
+    background: none !important;
+}
