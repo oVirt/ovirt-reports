@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013-2015 Red Hat, Inc.
+# Copyright (C) 2015 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@
 import gettext
 
 
+from otopi import constants as otopicons
 from otopi import plugin
 from otopi import util
 
 
-from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup.reports import constants as oreportscons
 
 
@@ -38,32 +38,23 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
+        stage=plugin.Stages.STAGE_BOOT,
+    )
+    def _boot(self):
+        self.environment[
+            otopicons.CoreEnv.LOG_FILTER_KEYS
+        ].append(
+            oreportscons.ConfigEnv.ADMIN_PASSWORD
+        )
+
+    @plugin.event(
         stage=plugin.Stages.STAGE_INIT,
     )
     def _init(self):
         self.environment.setdefault(
-            oreportscons.ConfigEnv.REPORTS_SERVICE_STOP_NEEDED,
-            False
+            oreportscons.ConfigEnv.ADMIN_PASSWORD,
+            None
         )
-
-    @plugin.event(
-        stage=plugin.Stages.STAGE_TRANSACTION_BEGIN,
-        before=(
-            osetupcons.Stages.SYSTEM_HOSTILE_SERVICES_DETECTION,
-        ),
-        condition=lambda self: not self.environment[
-            osetupcons.CoreEnv.DEVELOPER_MODE
-        ] and self.environment[
-            oreportscons.ConfigEnv.REPORTS_SERVICE_STOP_NEEDED
-        ],
-    )
-    def _transactionBegin(self):
-        if self.services.exists(name=oreportscons.Const.SERVICE_NAME):
-            self.logger.info(_('Stopping reports service'))
-            self.services.state(
-                name=oreportscons.Const.SERVICE_NAME,
-                state=False
-            )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

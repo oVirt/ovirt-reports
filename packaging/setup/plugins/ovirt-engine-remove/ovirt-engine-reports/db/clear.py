@@ -86,6 +86,10 @@ class Plugin(plugin.PluginBase):
                 false=_('No'),
                 default=False,
             )
+        if self.environment[oreportscons.RemoveEnv.REMOVE_DATABASE]:
+            self.environment[
+                oreportscons.ConfigEnv.REPORTS_SERVICE_STOP_NEEDED
+            ] = True
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,

@@ -68,5 +68,8 @@ class Plugin(plugin.PluginBase):
             )
         if self.environment[oreportscons.CoreEnv.ENABLE]:
             self.environment[oengcommcons.ApacheEnv.ENABLE] = True
+            self.environment[
+                oreportscons.ConfigEnv.REPORTS_SERVICE_STOP_NEEDED
+            ] = True
 
 # vim: expandtab tabstop=4 shiftwidth=4

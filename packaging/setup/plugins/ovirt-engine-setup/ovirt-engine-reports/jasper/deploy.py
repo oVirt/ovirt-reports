@@ -170,7 +170,10 @@ class Plugin(plugin.PluginBase):
                     shutil.rmtree(entry['dst'])
 
     def _check_master_props(self):
-        conf = oreportscons.FileLocations.OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+        conf = (
+            oreportscons.FileLocations.
+            OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+        )
         self.logger.debug('conf %s found: %s' % (conf, os.path.exists(conf)))
 
     def _buildJs(self, cmd, config, noSuffix=False):
@@ -524,26 +527,7 @@ class Plugin(plugin.PluginBase):
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
     )
     def _jasper_name(self):
-        install = glob.glob(
-            os.path.join(
-                self.environment[oreportscons.ConfigEnv.JASPER_HOME],
-                'buildomatic',
-                'conf_source',
-                'ie*',
-            )
-        )
-        if len(install) != 1:
-            raise RuntimeError(
-                _(
-                    'Unexpected jasper installation, '
-                    'buildomatic lib folder is missing'
-                )
-            )
-        self.environment[
-            oreportscons.JasperEnv.JASPER_NAME
-        ] = os.path.basename(install[0]).replace(
-            'ie', ''
-        ).lower()
+        self._oreportsutil.set_jasper_name()
 
     @plugin.event(
         stage=plugin.Stages.STAGE_EARLY_MISC,

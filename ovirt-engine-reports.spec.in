@@ -157,6 +157,7 @@ make %{make_common_opts} install DESTDIR="%{buildroot}"
 #
 install -dm 755 "%{buildroot}/%{_localstatedir}/lib/%{reports_name}"
 install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{reports_name}"
+install -dm 755 "%{buildroot}/%{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool"
 
 #
 # Packaging branding
@@ -236,6 +237,9 @@ fi
 %{_datadir}/ovirt-engine/setup/ovirt_engine_setup/reports/
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 %{_datadir}/ovirt-engine/firewalld/reports/
+%{_datadir}/ovirt-engine/setup/bin/ovirt-engine-reports-tool.*
+%{_bindir}/ovirt-engine-reports-tool
+%dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
 * Sun Sep 07 2014 Shirly Radco <sradco@redhat.com> - 3.5.0

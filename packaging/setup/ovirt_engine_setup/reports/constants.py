@@ -123,6 +123,12 @@ class Const(object):
             DEK.DATABASE: DWHDefaults.DEFAULT_DB_DATABASE,
         }
 
+    ACTION_REPORTS_TOOL = 'ovirt-engine-reports-tool'
+
+    TOOL_ACTION_EXPORT_SAVED_REPORTS = 'exportSavedReports'
+    TOOL_ACTION_IMPORT_SAVED_REPORTS = 'importSavedReports'
+    TOOL_ACTION_CHANGE_ADMIN_PASSWORD = 'changeAdminPassword'
+
 
 @util.export
 @util.codegen
@@ -338,6 +344,12 @@ class FileLocations(object):
         OVIRT_ENGINE_PKICERTSDIR,
         '%s.cer' % Const.PKI_REPORTS_APACHE_CERT_NAME,
     )
+    OVIRT_REPORTS_TOOL_LOG_PREFIX = 'ovirt-engine-reports-tool'
+    OVIRT_REPORTS_LOG_DIR = config.PKG_LOG_DIR
+    OVIRT_REPORTS_TOOL_LOG_DIR = os.path.join(
+        config.PKG_LOG_DIR,
+        'ovirt-engine-reports-tool'
+    )
 
 
 @util.export
@@ -356,6 +368,8 @@ class Stages(object):
 
     # sync with engine
     ENGINE_CORE_ENABLE = 'osetup.engine.core.enable'
+
+    TOOL_ACTION_SELECTED = 'osetup.reports.tool.action.selected'
 
 
 @util.export
@@ -437,6 +451,9 @@ class ConfigEnv(object):
     )
     def OVIRT_ENGINE_REPORTS_DB_BACKUP_DIR(self):
         return 'OVESETUP_REPORTS_CONFIG/reportsDbBackupDir'
+
+    REPORTS_SERVICE_STOP_NEEDED = \
+        'OVESETUP_REPORTS_CONFIG/reportsServiceStopNeeded'
 
 
 @util.export
@@ -705,6 +722,26 @@ class DWHCoreEnv(object):
     """Sync with ovirt-dwh"""
 
     ENABLE = 'OVESETUP_DWH_CORE/enable'
+
+
+@util.export
+@util.codegen
+@osetupattrsclass
+class ToolEnv(object):
+
+    AVAILABLE_ACTIONS = 'OVESETUP_REPORTS_TOOL/availableActions'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def ACTION(self):
+        return 'OVESETUP_REPORTS_TOOL/action'
+
+    @osetupattrs(
+        answerfile=True,
+    )
+    def FILE(self):
+        return 'OVESETUP_REPORTS_TOOL/file'
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

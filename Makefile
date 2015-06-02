@@ -36,6 +36,7 @@ PEP8=pep8
 PREFIX=/usr/local
 ENGINE_PREFIX=$(PREFIX)
 LOCALSTATE_DIR=$(PREFIX)/var
+BIN_DIR=$(PREFIX)/bin
 SYSCONF_DIR=$(PREFIX)/etc
 ENGINE_SYSCONF_DIR=$(ENGINE_PREFIX)/etc
 ENGINE_VARS=$(ENGINE_SYSCONF_DIR)/$(ENGINE_NAME)/engine.conf
@@ -224,6 +225,9 @@ install-layout: \
 	ln -sf ovirt_reports_bundle_en_US.properties.data "$(DESTDIR)$(PKG_DATA_DIR)/ovirt-reports/resources/reports_resources/localization/ovirt_reports_bundle.properties.data"
 	install -dm 755 "$(DESTDIR)$(PKG_STATE_DIR)/backups"
 
+	install -d -m 755 "$(DESTDIR)$(BIN_DIR)"
+	ln -sf "$(ENGINE_DATA_DIR)/setup/bin/ovirt-engine-reports-tool.sh" "$(DESTDIR)$(BIN_DIR)/ovirt-engine-reports-tool"
+
 install-jdbc: \
 		ovirt-engine-reports/postgres/module.xml \
 		$(NULL)
@@ -259,5 +263,6 @@ install-dev:	\
 	cp tmp.dev.flist "$(DESTDIR)$(PREFIX)/dev.$(PACKAGE_NAME).flist"
 
 	install -d "$(DESTDIR)$(PKG_LOG_DIR)"
+	install -d "$(DESTDIR)$(PKG_LOG_DIR)/ovirt-engine-reports-tool"
 	install -d "$(DESTDIR)$(PKG_STATE_DIR)"
 	install -d "$(DESTDIR)$(PKG_SYSCONF_DIR)"

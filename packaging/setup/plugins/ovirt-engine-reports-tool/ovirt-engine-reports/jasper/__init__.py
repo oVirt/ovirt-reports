@@ -1,6 +1,6 @@
 #
 # ovirt-engine-setup -- ovirt engine setup
-# Copyright (C) 2013-2015 Red Hat, Inc.
+# Copyright (C) 2015 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,24 +16,22 @@
 #
 
 
-"""Config."""
+"""Reports setup core plugin."""
 
 
-SERVICE_DEFAULTS = '@SERVICE_DEFAULTS@'
-SERVICE_VARS = '@SERVICE_VARS@'
-ENGINE_VARS = '@ENGINE_VARS@'
-PKG_SYSCONF_DIR = '@PKG_SYSCONF_DIR@'
-PKG_PKI_DIR = '@PKG_PKI_DIR@'
-PKG_STATE_DIR = '@PKG_STATE_DIR@'
-PKG_DATA_DIR = '@PKG_DATA_DIR@'
-PKG_LOG_DIR = '@PKG_LOG_DIR@'
-PKG_JAVA_DIR = '@PKG_JAVA_DIR@'
-PACKAGE_NAME = '@PACKAGE_NAME@'
-PACKAGE_VERSION = '@PACKAGE_VERSION@'
-DISPLAY_VERSION = '@DISPLAY_VERSION@'
-RPM_VERSION = '@RPM_VERSION@'
-RPM_RELEASE = '@RPM_RELEASE@'
-ENGINE_LOCALSTATEDIR = '@ENGINE_VAR@'
+from otopi import util
+
+
+from . import change_admin_password
+from . import export_saved_reports
+from . import import_saved_reports
+
+
+@util.export
+def createPlugins(context):
+    change_admin_password.Plugin(context=context)
+    export_saved_reports.Plugin(context=context)
+    import_saved_reports.Plugin(context=context)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

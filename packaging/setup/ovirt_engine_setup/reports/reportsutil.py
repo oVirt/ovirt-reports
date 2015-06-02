@@ -21,6 +21,7 @@
 
 import atexit
 import gettext
+import glob
 import os
 import re
 import shutil
@@ -110,8 +111,38 @@ class JasperUtil(base.Base):
         pattern='|'.join(_IGNORED_ERRORS),
     )
 
-    def _execute(self, *eargs, **kwargs):
-        rc, stdout, stderr = self._plugin.execute(*eargs, **kwargs)
+    def execute(self, args):
+        rc, stdout, stderr = self._plugin.execute(
+            args=args,
+            cwd=os.path.join(
+                self.environment[
+                    oreportscons.ConfigEnv.JASPER_HOME
+                ],
+                'buildomatic',
+            ),
+            envAppend={
+                'JAVA_HOME': self.environment[
+                    oengcommcons.ConfigEnv.JAVA_HOME
+                ],
+                'PATH': '{java_home}/bin:{cur_path}'.format(
+                    java_home=self.environment[
+                        oengcommcons.ConfigEnv.JAVA_HOME
+                    ],
+                    cur_path=os.environ['PATH'],
+                ),
+                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
+                'ADDITIONAL_CONFIG_DIR': (
+                    oreportscons.FileLocations.
+                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
+                ),
+                'ANT_OPTS': '-DmasterPropsSource={master}'.format(
+                    master=(
+                        oreportscons.FileLocations.
+                        OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
+                    ),
+                ),
+            },
+        )
 
         errors = []
         if stderr:
@@ -129,78 +160,45 @@ class JasperUtil(base.Base):
             self._temproot,
             what,
         )
-        self._execute(
-            args=(
+        self.execute(
+            (
                 './js-export.sh',
                 '--output-dir', dest,
-            ) + args,
-            cwd=os.path.join(
-                self.environment[
-                    oreportscons.ConfigEnv.JASPER_HOME
-                ],
-                'buildomatic',
-            ),
-            envAppend={
-                'JAVA_HOME': self.environment[
-                    oengcommcons.ConfigEnv.JAVA_HOME
-                ],
-                'PATH': '{java_home}/bin:{cur_path}'.format(
-                    java_home=self.environment[
-                        oengcommcons.ConfigEnv.JAVA_HOME
-                    ],
-                    cur_path=os.environ['PATH'],
-                ),
-                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
-                'ADDITIONAL_CONFIG_DIR': (
-                    oreportscons.FileLocations.
-                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
-                ),
-                'ANT_OPTS': '-DmasterPropsSource={master}'.format(
-                    master=(
-                        oreportscons.FileLocations.
-                        OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
-                    ),
-                ),
-            },
+            ) + args
         )
         return dest
 
     def jsimport(self, src):
-        self._execute(
-            args=(
+        self.execute(
+            (
                 './js-import.sh',
                 '--input-dir', src,
                 '--update',
-            ),
-            cwd=os.path.join(
-                self.environment[
-                    oreportscons.ConfigEnv.JASPER_HOME
-                ],
-                'buildomatic',
-            ),
-            envAppend={
-                'JAVA_HOME': self.environment[
-                    oengcommcons.ConfigEnv.JAVA_HOME
-                ],
-                'PATH': '{java_home}/bin:{cur_path}'.format(
-                    java_home=self.environment[
-                        oengcommcons.ConfigEnv.JAVA_HOME
-                    ],
-                    cur_path=os.environ['PATH'],
-                ),
-                'JAVA_OPTS': '-Djava.io.tmpdir=%s' % self._javatmp,
-                'ADDITIONAL_CONFIG_DIR': (
-                    oreportscons.FileLocations.
-                    OVIRT_ENGINE_REPORTS_BUILDOMATIC_CONFIG
-                ),
-                'ANT_OPTS': '-DmasterPropsSource={master}'.format(
-                    master=(
-                        oreportscons.FileLocations.
-                        OVIRT_ENGINE_REPORTS_BUILDOMATIC_DBPROP
-                    ),
-                ),
-            },
+            )
         )
+
+    def set_jasper_name(self):
+        if not self.environment.get(oreportscons.JasperEnv.JASPER_NAME):
+            install = glob.glob(
+                os.path.join(
+                    self.environment[oreportscons.ConfigEnv.JASPER_HOME],
+                    'buildomatic',
+                    'conf_source',
+                    'ie*',
+                )
+            )
+            if len(install) != 1:
+                raise RuntimeError(
+                    _(
+                        'Unexpected jasper installation, '
+                        'buildomatic lib folder is missing'
+                    )
+                )
+            self.environment[
+                oreportscons.JasperEnv.JASPER_NAME
+            ] = os.path.basename(install[0]).replace(
+                'ie', ''
+            ).lower()
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
