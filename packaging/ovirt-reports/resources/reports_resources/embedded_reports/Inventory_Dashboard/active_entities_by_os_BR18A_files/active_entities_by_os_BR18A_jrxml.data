@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 5.5.0-->
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-06-08T16:10:32 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR18A" language="groovy" pageWidth="540" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="d7d6c16e-a751-4e69-aef9-1f2272082c97">
 	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/Inventory_Dashboard/active_entities_by_os_BR18A"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
@@ -7,6 +8,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports_resources/embedded_reports/Inventory_Dashboard/active_entities_by_os_BR18A_files/active_entities_by_os_BR18A_jrxml"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
 	<style name="style1">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[($V{Date_group} % 2) == 0]]></conditionExpression>
@@ -335,7 +337,8 @@ ORDER BY $P!{calendar_column}]]>
 					<textElement verticalAlignment="Middle">
 						<font fontName="SansSerif" size="11" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{P_Period} == 0 ? DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date}) :
+DateFormat.getDateInstance(DateFormat.SHORT, $P{REPORT_LOCALE}).format($F{the_date})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="409" y="1" width="82" height="18" isRemoveLineWhenBlank="true" uuid="365dc174-34fc-48d3-abd7-7dc62f1b9350"/>
