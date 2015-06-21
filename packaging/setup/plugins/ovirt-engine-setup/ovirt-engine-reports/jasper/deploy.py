@@ -601,15 +601,16 @@ class Plugin(plugin.PluginBase):
                 '--everything',
             ),
         )
+        saved_reports = self.environment[
+            oreportscons.JasperEnv.SAVED_REPORTS_URI
+        ].strip('/')
         if os.path.exists(
             os.path.join(
                 everything,
                 os.path.join(
                     'resources',
                     self._reportsProRelativePath,
-                    self.environment[
-                        oreportscons.JasperEnv.SAVED_REPORTS_URI
-                    ],
+                    saved_reports,
                 )
             )
         ):
@@ -620,9 +621,7 @@ class Plugin(plugin.PluginBase):
                     os.path.join(
                         '/',
                         self._reportsProRelativePath,
-                        self.environment[
-                            oreportscons.JasperEnv.SAVED_REPORTS_URI
-                        ],
+                        saved_reports,
                     ),
                 ),
             )
