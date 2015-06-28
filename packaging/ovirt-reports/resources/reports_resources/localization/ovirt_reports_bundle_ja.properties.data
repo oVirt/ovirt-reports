@@ -13,7 +13,7 @@ br18.chart.rhel.vs.windows.subtitle=\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br18.chart.windows.distribution=Windows \u30D0\u30FC\u30B8\u30E7\u30F3\u306E\u5206\u5E03
 br18.chart.windows.distribution.subtitle=\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30B7\u30F3
-br18.chart.known.vs.unknown.os=\u65E2\u77E5\u306E OS vs \u672A\u77E5\u306E OS
+br18.chart.known.vs.unknown.os=\u65E2\u77E5\u306E OS vs \u4E0D\u660E\u306A OS
 br18.chart.known.vs.unknown.os.subtitle=\u30A2\u30AF\u30C6\u30A3\u30D6\u304A\u3088\u3073\u975E\u30A2\u30AF\u30C6\u30A3\u30D6\u306A\u4EEE\u60F3\u30DE\u30B7\u30F3
 br18.title=<b> \u30C7\u30FC\u30BF\u30FC\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3 (OS \u5225)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
@@ -67,7 +67,7 @@ br1.table.short.delete.date=\u524A\u9664\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br1.table.gb=GB
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br1.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC{1}</b> \u306E <b>{0}</b> \u5185\u306E\u30DB\u30B9\u30C8\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br1.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC{1}</b> \u306E <b>{0}</b> \u5185\u306E\u30DB\u30B9\u30C8\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 full.details.show.deleted.hosts=\u524A\u9664\u6E08\u307F\u306E\u30DB\u30B9\u30C8\u3092\u8868\u793A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
@@ -91,7 +91,7 @@ br9.table.delete.date=\u524A\u9664\u65E5
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br9.table.gb=GB
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-br9.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br9.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 axis.number.of.host.cores=\u30B3\u30A2\u6570
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
@@ -103,7 +103,7 @@ br19.chart.cores=\u30DB\u30B9\u30C8\u306E\u30B3\u30A2\u6570\u5E73\u5747 vs \u4EE
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br19.chart.memory.size=\u30DB\u30B9\u30C8\u306E\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA\u5E73\u5747 vs \u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30E1\u30E2\u30EA\u30FC\u30B5\u30A4\u30BA\u5E73\u5747 (\u7D4C\u6642\u5909\u5316)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
-full.details.show.deleted.entities=\u524A\u9664\u6E08\u307F\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u3092\u8868\u793A
+full.details.show.deleted.entities=\u524A\u9664\u6E08\u307F\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u30FC\u3092\u8868\u793A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
 br19.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u30AF\u30E9\u30B9\u30BF\u30FC\u5BB9\u91CF vs \u4F7F\u7528\u72B6\u6CC1
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle
@@ -611,7 +611,8 @@ br44.table.vm.uptime.hours=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30A2\u30C3\u30D
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 br44.table.vm.uuid=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E UUID
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
-br44.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br44.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {1}</b> \u306E <b>{0}</b> \u5185\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30FC
+br44.table.vm.created.by=\u4F5C\u6210\u8005
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 br45.table.user.name=\u30E6\u30FC\u30B6\u30FC\u540D
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
@@ -647,7 +648,7 @@ full.details.storage.domain.type=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 full.details.show.deleted.storage.domains=\u524A\u9664\u6E08\u307F\u306E\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u3092\u8868\u793A
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
-br47.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</b> \u306E\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA
+br47.title=<b>\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</b> \u306E\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 br47.table.storage.domain.name=\u30B9\u30C8\u30EC\u30FC\u30B8\u30C9\u30E1\u30A4\u30F3\u540D
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
@@ -660,10 +661,50 @@ br47.table.free.space.gb=\u7A7A\u304D\u9818\u57DF (GB)
 br47.table.used.space.gb=\u4F7F\u7528\u6E08\u307F\u9818\u57DF (GB)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 br47.table.total.space.gb=\u9818\u57DF\u306E\u5408\u8A08 (GB)
+br49.title=\u30DB\u30B9\u30C8\u306E\u30D2\u30FC\u30C8\u30DE\u30C3\u30D7\u30EC\u30DD\u30FC\u30C8
+br49.table.cluster.name=\u30AF\u30E9\u30B9\u30BF\u30FC\u540D
+br49.table.host.name=\u30DB\u30B9\u30C8\u540D
+br49.table.missing.data=\u4E0D\u660E\u306E\u30C7\u30FC\u30BF
+full.details.measure=\u30E1\u30B8\u30E3\u30FC
+full.details.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1
+full.details.memory.usage=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1
+full.details.avg.max=\u5E73\u5747/\u6700\u5927
+full.details.avg=\u5E73\u5747
+full.details.max=\u6700\u5927
+ic.utilization.measure=\u4F7F\u7528\u72B6\u6CC1\u306E\u30E1\u30B8\u30E3\u30FC
+ic.utilization.measure.cpu.usage=CPU \u4F7F\u7528\u72B6\u6CC1
+ic.utilization.measure.memory=\u30E1\u30E2\u30EA\u30FC\u4F7F\u7528\u72B6\u6CC1
+ic.avg.max=\u5E73\u5747/\u6700\u5927
+ic.hosts.list.multi=\u30DB\u30B9\u30C8
+br48.title=\u30AD\u30E3\u30D1\u30B7\u30C6\u30A3\u30FC\u30D7\u30E9\u30F3\u30CB\u30F3\u30B0
+br48.legend.no.allocation=\u5272\u308A\u5F53\u3066\u306A\u3057 / \u4F7F\u7528\u7387
+br48.legend.low.allocated.percent=\u5272\u308A\u5F53\u3066 85% \u672A\u6E80 / \u4F7F\u7528\u7387
+br48.legend.medium.allocated.percent=\u5272\u308A\u5F53\u3066 85% \u8D85 / \u4F7F\u7528\u7387
+br48.legend.high.allocated.percent=\u5272\u308A\u5F53\u3066 95% \u8D85 / \u4F7F\u7528\u7387
+br48.legend.exact.allocation=\u5272\u308A\u5F53\u3066\u5B8C\u5168\u4E00\u81F4 / \u4F7F\u7528\u7387
+br48.legend.usage.over.allocation=\u904E\u5270\u5272\u308A\u5F53\u3066 / \u4F7F\u7528\u7387
+br48.table.number.of=\u6570
+br48.table.total.cpu=CPU \u306E\u5408\u8A08\u6570
+br48.table.total.ram=RAM \u306E\u5408\u8A08 (GB)
+br48.table.disk=\u30C7\u30A3\u30B9\u30AF\u9818\u57DF\u306E\u5408\u8A08 (GB)
+br48.table.hosts=\u30DB\u30B9\u30C8
+br48.table.vms=\u4EEE\u60F3\u30DE\u30B7\u30F3
+br48.table.running.vms=\u5B9F\u884C\u4E2D\u306E\u4EEE\u60F3\u30DE\u30B7\u30F3
+br48.table.datacenter=\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC
+br48.table.datacenter.used.disk=\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC - \u4F7F\u7528\u4E2D
+br48.table.vms.allocated.disk=\u4EEE\u60F3\u30DE\u30B7\u30F3 - \u5272\u308A\u5F53\u3066\u6E08\u307F
+br48.table.vms.used.disk=\u4EEE\u60F3\u30DE\u30B7\u30F3 - \u4F7F\u7528\u4E2D
+br48.table.cluster.name=\u30AF\u30E9\u30B9\u30BF\u30FC\u540D
+br48.table.totals=\u5408\u8A08
+br48.table.usage.percent=\u4F7F\u7528\u7387 (%)
+br48.table.commit.percent=\u30B3\u30DF\u30C3\u30C8\u7387 (%)
+br48.table.dc=\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC
+ic.display.by=\u9805\u76EE\u5225\u306B\u8868\u793A
+ic.group.by.tag=\u30BF\u30B0\u3067\u5206\u985E
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 ic.cluster=\u30AF\u30E9\u30B9\u30BF\u30FC
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
-ic.is.deleted=\u524A\u9664\u6E08\u307F\u306E\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u3092\u8868\u793A\u3057\u307E\u3059\u304B\uFF1F
+ic.is.deleted=\u524A\u9664\u6E08\u307F\u306E\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u30FC\u3092\u8868\u793A\u3057\u307E\u3059\u304B\uFF1F
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 ic.cpu.threshold=CPU \u306E\u95BE\u5024
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
@@ -691,9 +732,9 @@ ic.vm.list=\u4EEE\u60F3\u30DE\u30B7\u30F3\u4E00\u89A7
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 ic.vm.type=\u4EEE\u60F3\u30DE\u30B7\u30F3\u306E\u30BF\u30A4\u30D7
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
-ic.is.deleted.detached=\u524A\u9664\u6E08\u307F/\u30C7\u30BF\u30C3\u30C1\u6E08\u307F\u306E\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u3092\u8868\u793A\u3057\u307E\u3059\u304B\uFF1F
+ic.is.deleted.detached=\u524A\u9664\u6E08\u307F/\u30C7\u30BF\u30C3\u30C1\u6E08\u307F\u306E\u30A8\u30F3\u30C6\u30A3\u30C6\u30A3\u30FC\u3092\u8868\u793A\u3057\u307E\u3059\u304B\uFF1F
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
-inventory.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
+inventory.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\u30FC\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam
 system.overview.dashboard.title=<font color\="\#333333">\u30C7\u30FC\u30BF\u30BB\u30F3\u30BF\u30FC {0}</font> \u306E\u30B7\u30B9\u30C6\u30E0\u6982\u8981\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author ykatabam

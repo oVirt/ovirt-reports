@@ -612,6 +612,7 @@ br44.table.vm.uptime.hours=Tiempo ejecutando MV (horas)
 br44.table.vm.uuid=UUID MV
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author angelagarcia
 br44.title=Inventorio de la m\u00E1quina virtual del proveedor nube en <b>{0}</b> of <b>Data Center {1}</b>
+br44.table.vm.created.by=Creado por
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author angelagarcia
 br45.table.user.name=Nombre de usuario
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author angelagarcia
@@ -660,6 +661,46 @@ br47.table.free.space.gb=Espacio libre (GB)
 br47.table.used.space.gb=Espacio utilizado (GB)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author angelagarcia
 br47.table.total.space.gb=Espacio total (GB)
+br49.title=Informe heatmap de los hosts
+br49.table.cluster.name=Nombre del cl\u00FAster
+br49.table.host.name=Nombre del host
+br49.table.missing.data=Faltan datos
+full.details.measure=Medida
+full.details.cpu.usage=Uso de la CPU
+full.details.memory.usage=Uso de la memoria
+full.details.avg.max=Promedio/m\u00E1x
+full.details.avg=Promedio
+full.details.max=M\u00E1ximo
+ic.utilization.measure=Medida de uso
+ic.utilization.measure.cpu.usage=Uso de la CPU
+ic.utilization.measure.memory=Uso de la memoria
+ic.avg.max=Promedio/m\u00E1x
+ic.hosts.list.multi=Hosts
+br48.title=Planeaci\u00F3n de capacidad
+br48.legend.no.allocation=No asignaci\u00F3n /uso
+br48.legend.low.allocated.percent=Asignado por debajo del 85% / uso
+br48.legend.medium.allocated.percent=Asignado por encima del 85% / uso
+br48.legend.high.allocated.percent=Asignado por encima del 95% / uso
+br48.legend.exact.allocation=Asignaci\u00F3n exacta / uso
+br48.legend.usage.over.allocation=Sobreasignaci\u00F3n / uso
+br48.table.number.of=N\u00FAmero de
+br48.table.total.cpu=Total de CPUs
+br48.table.total.ram=RAM total en GB
+br48.table.disk=Disco total en GB
+br48.table.hosts=Hosts
+br48.table.vms=MVs
+br48.table.running.vms=MVs en ejecuci\u00F3n
+br48.table.datacenter=Centros de datos
+br48.table.datacenter.used.disk=CD - utilizado
+br48.table.vms.allocated.disk=MVs - asignadas
+br48.table.vms.used.disk=MVs - utilizadas
+br48.table.cluster.name=Nombre del cl\u00FAster
+br48.table.totals=Total
+br48.table.usage.percent=Uso %
+br48.table.commit.percent=Guadar cambios %
+br48.table.dc=CD
+ic.display.by=Mostrar por
+ic.group.by.tag=\u00BFEtiqueta de agrupar por?
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author angelagarcia
 ic.cluster=Cl\u00FAster
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author angelagarcia

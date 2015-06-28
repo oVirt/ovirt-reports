@@ -612,6 +612,7 @@ br44.table.vm.uptime.hours=\u865A\u62DF\u673A\u8FD0\u884C\u65F6\u95F4\uFF08\u5C0
 br44.table.vm.uuid=VM UUID
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author xhuang
 br44.title=<b>{1} \u6570\u636E\u4E2D\u5FC3</b>\u7684<b>{0}</b>\u4E2D\u4E91\u4F9B\u5E94\u5546\u865A\u62DF\u673A\u7684\u8BE6\u7EC6\u76EE\u5F55
+br44.table.vm.created.by=\u521B\u5EFA\u8005
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author xhuang
 br45.table.user.name=\u7528\u6237\u540D
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author xhuang
@@ -660,6 +661,46 @@ br47.table.free.space.gb=\u7A7A\u95F2\u7A7A\u95F4\uFF08GB\uFF09
 br47.table.used.space.gb=\u5DF2\u7528\u7A7A\u95F4\uFF08GB\uFF09
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author xhuang
 br47.table.total.space.gb=\u7A7A\u95F4\u603B\u91CF\uFF08GB\uFF09
+br49.title=\u4E3B\u673A Heatmap \u62A5\u544A
+br49.table.cluster.name=\u96C6\u7FA4\u540D
+br49.table.host.name=\u4E3B\u673A\u540D
+br49.table.missing.data=\u7F3A\u5931\u7684\u6570\u636E
+full.details.measure=\u5EA6\u91CF
+full.details.cpu.usage=CPU \u7528\u5EA6
+full.details.memory.usage=\u5185\u5B58\u7528\u5EA6
+full.details.avg.max=\u5E73\u5747/\u6700\u5927
+full.details.avg=\u5E73\u5747
+full.details.max=\u6700\u5927
+ic.utilization.measure=\u5229\u7528\u7387\u5EA6\u91CF
+ic.utilization.measure.cpu.usage=CPU \u7528\u5EA6
+ic.utilization.measure.memory=\u5185\u5B58\u7528\u5EA6
+ic.avg.max=\u5E73\u5747/\u6700\u5927
+ic.hosts.list.multi=\u4E3B\u673A
+br48.title=\u80FD\u529B\u8BA1\u5212
+br48.legend.no.allocation=\u672A\u5206\u914D/\u4F7F\u7528
+br48.legend.low.allocated.percent=\u672A\u5206\u914D/\u4F7F\u7528\u503C\u4F4E\u4E8E 85%
+br48.legend.medium.allocated.percent=\u672A\u5206\u914D/\u4F7F\u7528\u503C\u9AD8\u4E8E 85%
+br48.legend.high.allocated.percent=\u672A\u5206\u914D/\u4F7F\u7528\u503C\u9AD8\u4E8E 95%
+br48.legend.exact.allocation=\u51C6\u786E\u5206\u914D/\u4F7F\u7528
+br48.legend.usage.over.allocation=\u8FC7\u5EA6\u5206\u914D/\u4F7F\u7528
+br48.table.number.of=\u6570\u91CF
+br48.table.total.cpu=\u603B CPU \u6570
+br48.table.total.ram=\u603B\u5185\u5B58\u6570\uFF08GB\uFF09
+br48.table.disk=\u603B\u78C1\u76D8\u5BB9\u91CF\uFF08GB\uFF09
+br48.table.hosts=\u4E3B\u673A
+br48.table.vms=\u865A\u62DF\u673A
+br48.table.running.vms=\u8FD0\u884C\u7684\u865A\u62DF\u673A
+br48.table.datacenter=\u6570\u636E\u4E2D\u5FC3
+br48.table.datacenter.used.disk=DC - \u5DF2\u4F7F\u7528
+br48.table.vms.allocated.disk=VM - \u5DF2\u5206\u914D
+br48.table.vms.used.disk=VM - \u5DF2\u4F7F\u7528
+br48.table.cluster.name=\u96C6\u7FA4\u540D
+br48.table.totals=\u603B\u548C
+br48.table.usage.percent=\u4F7F\u7528 %
+br48.table.commit.percent=\u627F\u8BFA %
+br48.table.dc=DC
+ic.display.by=\u663E\u793A
+ic.group.by.tag=\u6839\u636E\u6807\u7B7E\u5206\u7EC4\uFF1F
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author xhuang
 ic.cluster=\u96C6\u7FA4
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author xhuang

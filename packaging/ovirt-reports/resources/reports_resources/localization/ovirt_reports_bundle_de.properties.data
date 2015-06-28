@@ -612,6 +612,7 @@ br44.table.vm.uptime.hours=VM-Betriebszeit (Stunden)
 br44.table.vm.uuid=VM-UUID
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br44.title=Cloud Provider Bestandsaufnahme virtueller Maschinen in <b>{0}</b> von <b>Datacenter {1}</b>
+br44.table.vm.created.by=Erstellt von
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br45.table.user.name=Benutzername
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
@@ -660,6 +661,46 @@ br47.table.free.space.gb=Freier Speicherplatz (GB)
 br47.table.used.space.gb=Belegter Platz (GB)
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 br47.table.total.space.gb=Gesamtspeicherplatz (GB)
+br49.title=Hosts-Heatmap-Bericht
+br49.table.cluster.name=Cluster-Name
+br49.table.host.name=Host-Name
+br49.table.missing.data=Fehlende Daten
+full.details.measure=Ma\u00DF
+full.details.cpu.usage=CPU-Auslastung
+full.details.memory.usage=Arbeitsspeicherauslastung
+full.details.avg.max=Durchschn./Max.
+full.details.avg=Durchschnitt
+full.details.max=Maximum
+ic.utilization.measure=Verbrauchsma\u00DF
+ic.utilization.measure.cpu.usage=CPU-Auslastung
+ic.utilization.measure.memory=Arbeitsspeicherauslastung
+ic.avg.max=Durchschn./Max.
+ic.hosts.list.multi=Hosts
+br48.title=Kapazit\u00E4tenplanung
+br48.legend.no.allocation=Keine Zuordnung / Verbrauch
+br48.legend.low.allocated.percent=Unter 85% Zuordnung / Verbrauch
+br48.legend.medium.allocated.percent=\u00DCber 85% Zuordnung / Verbrauch
+br48.legend.high.allocated.percent=\u00DCber 95% Zuordnung / Verbrauch
+br48.legend.exact.allocation=Genaue Zuordnung / Verbrauch
+br48.legend.usage.over.allocation=\u00DCber Zuordnung / Verbrauch
+br48.table.number.of=Anzahl von
+br48.table.total.cpu=CPUs insgesamt
+br48.table.total.ram=RAM in GB insgesamt
+br48.table.disk=Disk in GB insgesamt
+br48.table.hosts=Hosts
+br48.table.vms=VMs
+br48.table.running.vms=Laufende VMs
+br48.table.datacenter=Data-Center
+br48.table.datacenter.used.disk=DC - Verwendet
+br48.table.vms.allocated.disk=VMs - Zugeordnet
+br48.table.vms.used.disk=VMs - Verwendet
+br48.table.cluster.name=Cluster-Name
+br48.table.totals=Gesamt
+br48.table.usage.percent=Verbrauch %
+br48.table.commit.percent=Commit %
+br48.table.dc=DC
+ic.display.by=Anzeigen nach
+ic.group.by.tag=Nach Tag gruppieren?
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
 ic.cluster=Cluster
 # translation auto-copied from project Ovirt Engine Reports, version 3.3, document ovirt_reports_bundle, author Jasna
