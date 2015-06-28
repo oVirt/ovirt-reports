@@ -350,6 +350,7 @@ class FileLocations(object):
         config.PKG_LOG_DIR,
         'ovirt-engine-reports-tool'
     )
+    OVIRT_REPORTS_DEFAULT_JBOSS_HOME = config.OVIRT_REPORTS_DEFAULT_JBOSS_HOME
 
 
 @util.export
@@ -454,6 +455,8 @@ class ConfigEnv(object):
 
     REPORTS_SERVICE_STOP_NEEDED = \
         'OVESETUP_REPORTS_CONFIG/reportsServiceStopNeeded'
+
+    OVIRT_REPORTS_JBOSS_HOME = 'OVESETUP_REPORTS_CONFIG/jbossHome'
 
 
 @util.export

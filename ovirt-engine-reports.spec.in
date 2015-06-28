@@ -3,8 +3,10 @@
 %global ovirt_install_systemd 1
 %global ovirt_install_systemv 0
 %if %{fedora} >= 20
+%global ovirt_provides_jboss 1
 %global jboss ovirt-engine-jboss-as >= 7.1.1
 %else
+%global ovirt_provides_jboss 0
 %global jboss jboss-as >= 7.1.1-9.3
 %endif
 %endif
@@ -20,6 +22,7 @@
 %global ovirt_install_systemv 1
 %endif
 %global jboss ovirt-engine-jboss-as >= 7.1.1
+%global ovirt_provides_jboss 1
 %endif
 
 %global product_name Reports package for oVirt Virtualization Management
@@ -183,6 +186,17 @@ for service in ovirt-engine-reportsd; do
 done
 %endif
 
+#
+# Package customization
+#
+install -d "%{buildroot}%{_sysconfdir}/ovirt-engine-setup.conf.d"
+%if %{ovirt_provides_jboss}
+cat > "%{buildroot}%{_sysconfdir}/ovirt-engine-setup.conf.d/10-packaging-reports-jboss.conf" << __EOF__
+[environment:default]
+OVESETUP_REPORTS_CONFIG/jbossHome=str:/usr/share/ovirt-engine-jboss-as
+__EOF__
+%endif
+
 %pre
 %ovirt_create_user_engine
 
@@ -234,6 +248,7 @@ fi
 %endif
 
 %files setup
+%config %{_sysconfdir}/ovirt-engine-setup.conf.d/10-packaging-reports-jboss.conf
 %{_datadir}/ovirt-engine/setup/ovirt_engine_setup/reports/
 %{_datadir}/ovirt-engine/setup/plugins/*/ovirt-engine-reports/
 %{_datadir}/ovirt-engine/firewalld/reports/

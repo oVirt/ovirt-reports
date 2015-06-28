@@ -121,7 +121,7 @@ class Daemon(service.Daemon):
     ):
         # Check the required JBoss directories and files:
         self.check(
-            name=self._config.get('JBOSS_HOME'),
+            name=self._config.get('OVIRT_REPORTS_JBOSS_HOME'),
             directory=True,
         )
         self.check(
@@ -229,7 +229,7 @@ class Daemon(service.Daemon):
         )
 
         jbossModulesJar = os.path.join(
-            self._config.get('JBOSS_HOME'),
+            self._config.get('OVIRT_REPORTS_JBOSS_HOME'),
             'jboss-modules.jar',
         )
 
@@ -264,7 +264,7 @@ class Daemon(service.Daemon):
             '%s:%s' % (
                 self._config.get('JAVA_MODULEPATH'),
                 os.path.join(
-                    self._config.get('JBOSS_HOME'),
+                    self._config.get('OVIRT_REPORTS_JBOSS_HOME'),
                     'modules',
                 ),
             ),
@@ -353,7 +353,7 @@ class Daemon(service.Daemon):
             '-Djboss.modules.write-indexes=false',
             '-Djboss.server.default.config=ovirt-engine-reportsd',
             '-Djboss.home.dir=%s' % self._config.get(
-                'JBOSS_HOME'
+                'OVIRT_REPORTS_JBOSS_HOME'
             ),
             '-Djboss.server.base.dir=%s' % self._config.get(
                 'PKG_DATA_DIR'

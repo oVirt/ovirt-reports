@@ -20,6 +20,7 @@
 
 
 import gettext
+import os
 
 
 from otopi import constants as otopicons
@@ -48,17 +49,44 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(context=context)
 
     @plugin.event(
+        stage=plugin.Stages.STAGE_INIT,
+    )
+    def _init(self):
+        self.environment.setdefault(
+            oreportscons.ConfigEnv.OVIRT_REPORTS_JBOSS_HOME,
+            oreportscons.FileLocations.OVIRT_REPORTS_DEFAULT_JBOSS_HOME
+        )
+
+    @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,
     )
     def _setup(self):
         self.environment[oengcommcons.ConfigEnv.JAVA_NEEDED] = True
-        self.environment[oengcommcons.ConfigEnv.JBOSS_NEEDED] = True
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
         condition=lambda self: self.environment[oreportscons.CoreEnv.ENABLE],
     )
     def _misc(self):
+        """
+        Check JBOSS_HOME after ovirt-engine upgrade since jboss may be
+        upgraded as well and JBOSS_HOME may become invalid.
+        This can't be done at package stage since yum transaction is committed
+        as last action in that stage.
+        """
+        if not os.path.exists(
+            self.environment[
+                oreportscons.ConfigEnv.OVIRT_REPORTS_JBOSS_HOME
+            ]
+        ):
+            raise RuntimeError(
+                _('Cannot find Jboss at {jbossHome}').format(
+                    jbossHome=self.environment[
+                        oreportscons.ConfigEnv.OVIRT_REPORTS_JBOSS_HOME
+                    ],
+                )
+            )
+
         for f in (
             (
                 oreportscons.FileLocations.
@@ -66,9 +94,9 @@ class Plugin(plugin.PluginBase):
             ),
         ):
             content = [
-                'JBOSS_HOME="{jbossHome}"'.format(
+                'OVIRT_REPORTS_JBOSS_HOME="{jbossHome}"'.format(
                     jbossHome=self.environment[
-                        oengcommcons.ConfigEnv.JBOSS_HOME
+                        oreportscons.ConfigEnv.OVIRT_REPORTS_JBOSS_HOME
                     ],
                 ),
             ]

@@ -15,7 +15,7 @@ SENSITIVE_KEYS=""
 #
 # The location of the application server:
 #
-JBOSS_HOME="@JBOSS_HOME@"
+OVIRT_REPORTS_JBOSS_HOME="@OVIRT_REPORTS_JBOSS_HOME@"
 JBOSS_RUNTIME="@JBOSS_RUNTIME@"
 
 #
@@ -115,6 +115,7 @@ JVM_ARGS="${JVM_ARGS} -XX:HeapDumpPath=\"${PKG_LOG_DIR}/dump\""
 # JBoss is always appended, cannot be appended here
 # as it may be resolved to different value.
 #
+# TODO Need to add JBOSS_HOME/modules ?
 JAVA_MODULEPATH="${PKG_STATE_DIR}/modules:${PKG_DATA_DIR}/modules"
 
 #
