@@ -324,70 +324,50 @@ class Plugin(plugin.PluginBase):
             'data_sources',
             'ovirt.xml',
         )
-        if self._dwhdatasource:
-            shutil.copyfile(
-                self._dwhdatasource,
-                dwhdatasource,
-            )
-            if (
-                self.environment[oreportscons.JasperEnv.JASPER_NAME] == 'pro'
-            ):
-                with oreportsutil.XMLDoc(dwhdatasource) as xml:
-                    node = xml.xpath.xpathEval('/jdbcDataSource/folder')[0]
-                    nodeContent = node.getContent()
-                    nodeContent = nodeContent.replace(
-                        os.path.join(
-                            '/',
-                            self._reportsProRelativePath,
-                        ),
-                        ''
-                    )
-                    node.setContent(nodeContent)
-        else:
-            with oreportsutil.XMLDoc(dwhdatasource) as xml:
-                xml.setNodesContent(
-                    '/jdbcDataSource/connectionUrl',
-                    'jdbc:postgresql://%s:%s/%s?%s' % (
-                        self.environment[
-                            oreportscons.DWHDBEnv.HOST
-                        ],
-                        self.environment[
-                            oreportscons.DWHDBEnv.PORT
-                        ],
-                        self.environment[
-                            oreportscons.DWHDBEnv.DATABASE
-                        ],
-                        '&'.join(
-                            s for s in (
-                                'ssl=true'
-                                if self.environment[
-                                    oreportscons.DWHDBEnv.SECURED
-                                ] else '',
+        with oreportsutil.XMLDoc(dwhdatasource) as xml:
+            xml.setNodesContent(
+                '/jdbcDataSource/connectionUrl',
+                'jdbc:postgresql://%s:%s/%s?%s' % (
+                    self.environment[
+                        oreportscons.DWHDBEnv.HOST
+                    ],
+                    self.environment[
+                        oreportscons.DWHDBEnv.PORT
+                    ],
+                    self.environment[
+                        oreportscons.DWHDBEnv.DATABASE
+                    ],
+                    '&'.join(
+                        s for s in (
+                            'ssl=true'
+                            if self.environment[
+                                oreportscons.DWHDBEnv.SECURED
+                            ] else '',
 
-                                (
-                                    'sslfactory='
-                                    'org.postgresql.ssl.NonValidatingFactory'
-                                )
-                                if not self.environment[
-                                    oreportscons.DWHDBEnv.
-                                    SECURED_HOST_VALIDATION
-                                ] else ''
-                            ) if s
-                        ),
+                            (
+                                'sslfactory='
+                                'org.postgresql.ssl.NonValidatingFactory'
+                            )
+                            if not self.environment[
+                                oreportscons.DWHDBEnv.
+                                SECURED_HOST_VALIDATION
+                            ] else ''
+                        ) if s
                     ),
-                )
-                xml.setNodesContent(
-                    '/jdbcDataSource/connectionUser',
-                    self.environment[
-                        oreportscons.DWHDBEnv.USER
-                    ],
-                )
-                xml.setNodesContent(
-                    '/jdbcDataSource/connectionPassword',
-                    self.environment[
-                        oreportscons.DWHDBEnv.PASSWORD
-                    ],
-                )
+                ),
+            )
+            xml.setNodesContent(
+                '/jdbcDataSource/connectionUser',
+                self.environment[
+                    oreportscons.DWHDBEnv.USER
+                ],
+            )
+            xml.setNodesContent(
+                '/jdbcDataSource/connectionPassword',
+                self.environment[
+                    oreportscons.DWHDBEnv.PASSWORD
+                ],
+            )
 
         return reportsImport
 
@@ -444,7 +424,6 @@ class Plugin(plugin.PluginBase):
         self._quartzprops = None
         self._users = None
         self._jobs = None
-        self._dwhdatasource = None
         self._savedReports = None
         self._reportsProRelativePath = ''
 
@@ -633,33 +612,6 @@ class Plugin(plugin.PluginBase):
                 '--users',
                 '--roles',
             ),
-        )
-        dwhdatasourceexport = self._oreportsutil.jsexport(
-            what='dwhdatasourceexport',
-            args=(
-                '--uris',
-                os.path.join(
-                    '/',
-                    self._reportsProRelativePath,
-                    'reports_resources',
-                    'JDBC',
-                    'data_sources',
-                    'ovirt',
-                ),
-            ),
-        )
-        #
-        # due to os.path.join considering any path starting with '/'
-        # to be a new absulote path, had to concat the path strings.
-        #
-        self._dwhdatasource = os.path.join(
-            dwhdatasourceexport,
-            'resources',
-            self._reportsProRelativePath,
-            'reports_resources',
-            'JDBC',
-            'data_sources',
-            'ovirt.xml',
         )
 
         self._workaroundUsersNullPaswords(self._users)
