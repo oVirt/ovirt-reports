@@ -91,7 +91,7 @@ class Plugin(plugin.PluginBase):
         ] == oreportscons.Const.TOOL_ACTION_CHANGE_ADMIN_PASSWORD,
     )
     def _misc_reports_admin_password(self):
-        self.logger.info(_('Exporting users from Jasperreports'))
+        self.logger.info(_('Exporting users from JasperReports-Server'))
         users = self._oreportsutil.jsexport(
             what='users',
             args=(
