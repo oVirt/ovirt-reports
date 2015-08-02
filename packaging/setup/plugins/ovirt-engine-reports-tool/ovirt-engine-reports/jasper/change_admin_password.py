@@ -25,6 +25,7 @@ import os
 from otopi import plugin, util
 
 from ovirt_engine_setup import dialog
+from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.reports import reportsutil as oreportsutil
 
@@ -134,6 +135,32 @@ class Plugin(plugin.PluginBase):
 
         self.logger.info(_('Importing users to Jasperreports'))
         self._oreportsutil.jsimport(users)
+
+    @plugin.event(
+        stage=plugin.Stages.STAGE_CLOSEUP,
+        before=(
+            osetupcons.Stages.DIALOG_TITLES_E_SUMMARY,
+        ),
+        after=(
+            osetupcons.Stages.DIALOG_TITLES_S_SUMMARY,
+        ),
+        condition=lambda (self): self.environment[
+            oreportscons.ToolEnv.ACTION
+        ] == oreportscons.Const.TOOL_ACTION_CHANGE_ADMIN_PASSWORD,
+    )
+    def _closeup(self):
+        self.dialog.note(
+            _(
+                'Reports admin password was changed. Please restart the '
+                'Reports service, using the following command, to make the '
+                'change effective:\n'
+                '# {cmd}\n'
+            ).format(
+                cmd='service {service} restart'.format(
+                    service=oreportscons.Const.SERVICE_NAME,
+                ),
+            )
+        )
 
 
 # vim: expandtab tabstop=4 shiftwidth=4
