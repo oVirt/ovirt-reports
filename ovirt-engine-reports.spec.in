@@ -257,6 +257,22 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Tue Aug 11 2015 Yaniv Dary <ydary@redhat.com> - 3.6.0
+Fixed issues:
+- Bug 1187502 - In Active Entities by OS (BR18A) report
+  hours are not shown in the Date for Daily period
+- Bug 1209022 - Handling new Wildfly application server
+  in engine so it will not affect reports
+- Bug 1209556 - Fix UI for the new jasperserver 6.0.1
+  package
+- Bug 1225045 - Heatmap Report BR49 title is incorrect -
+  BR49 should be in capital letters - not "Heatmap Report
+  (br49)"
+- Bug 1234821 - Error after adding Virtual Machines to
+  Statistics Daily domain in ad-hoc reports
+- Bug 1231509 - Update reports 3.6 localizations
+- Bug 1229725 - Update reports 3.6 Topics
+
 * Sun Sep 07 2014 Shirly Radco <sradco@redhat.com> - 3.5.0
 -  provide reports.xml to engine over http (#1116851)
 
