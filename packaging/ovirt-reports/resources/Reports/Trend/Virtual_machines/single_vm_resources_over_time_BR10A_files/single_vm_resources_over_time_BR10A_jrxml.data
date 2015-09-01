@@ -362,20 +362,29 @@ FROM (
         v3_6_statistics_vms_disks_resources_usage_$P!{table_name}.vm_disk_id,
         disk_name, history_datetime
 ) AS a
-    RIGHT OUTER JOIN calendar
-        ON ( $P!{calendar_column} = time )
-WHERE $P!{calendar_column} >= CAST ($P{P_Start_Date} AS date)
-    AND $P!{calendar_column} <
-        CASE
-            WHEN $P{P_Period} = 0
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
-            WHEN $P{P_Period} = 1
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
-            WHEN $P{P_Period} = 2
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
-            WHEN $P{P_Period} = 3
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
-        END
+    RIGHT OUTER JOIN
+        (
+            SELECT
+                 MIN ( $P!{calendar_column} ) AS the_datetime,
+                 the_date
+            FROM calendar
+            WHERE the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                AND the_datetime <
+                    CASE
+                        WHEN $P{P_Period} = 0
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
+                        WHEN $P{P_Period} = 1
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
+                        WHEN $P{P_Period} = 2
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
+                        WHEN $P{P_Period} = 3
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
+                    END
+            GROUP BY $P!{calendar_column}
+        ) as b
+            ON (
+                b.$P!{calendar_column} = a.time
+            )
 GROUP BY
     $P!{calendar_column},
     disk_name
@@ -500,6 +509,9 @@ FROM (
                     ON (
                         d.vm_configuration_version =
                         c.vm_configuration_version
+                        AND
+                        d.history_datetime =
+                        b.history_datetime
                     )
             WHERE
                 -- Here we filter by active vms only
@@ -584,22 +596,29 @@ FROM (
         interface_name,
         history_datetime
 ) AS a
-    RIGHT OUTER JOIN calendar AS b
-        ON (
-            a.time = $P!{calendar_column}
-        )
-WHERE b.$P!{calendar_column} >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
-    AND b.$P!{calendar_column} <
-        CASE
-            WHEN $P{P_Period} = 0
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
-            WHEN $P{P_Period} = 1
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
-            WHEN $P{P_Period} = 2
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
-            WHEN $P{P_Period} = 3
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
-        END
+    RIGHT OUTER JOIN
+         (
+            SELECT
+                 MIN ( $P!{calendar_column} ) AS the_datetime,
+                 the_date
+            FROM calendar
+            WHERE the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                AND the_datetime <
+                    CASE
+                        WHEN $P{P_Period} = 0
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
+                        WHEN $P{P_Period} = 1
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
+                        WHEN $P{P_Period} = 2
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
+                        WHEN $P{P_Period} = 3
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
+                    END
+            GROUP BY $P!{calendar_column}
+        ) AS b
+            ON (
+               a.time = $P!{calendar_column}
+            )
 GROUP BY
     $P!{calendar_column},
     interface_name
