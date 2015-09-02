@@ -93,7 +93,7 @@ class Plugin(plugin.PluginBase):
             tests=(
                 {
                     'test': lambda(f): (
-                        '' if os.path.exists(f)
+                        '' if os.path.exists(self.resolveFile(f))
                         else _('File {f} not found'.format(f=f))
                     ),
                 },
@@ -110,7 +110,11 @@ class Plugin(plugin.PluginBase):
         ] == oreportscons.Const.TOOL_ACTION_IMPORT_SAVED_REPORTS,
     )
     def _misc_import(self):
-        f = self.environment[oreportscons.ToolEnv.FILE]
+        f = self.resolveFile(
+            self.environment[
+                oreportscons.ToolEnv.FILE
+            ]
+        )
         self.logger.info(_('Importing saved reports from {f}').format(f=f))
         self._oreportsutil.execute(
             args=(

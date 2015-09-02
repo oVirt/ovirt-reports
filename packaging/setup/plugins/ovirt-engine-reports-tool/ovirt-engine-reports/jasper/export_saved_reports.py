@@ -96,7 +96,9 @@ class Plugin(plugin.PluginBase):
                 {
                     'test': lambda(f): _(
                         'File {f} exists'
-                    ).format(f=f) if os.path.exists(f) else '',
+                    ).format(f=f) if os.path.exists(
+                        self.resolveFile(f)
+                    ) else '',
                     'is_error': False,
                     'warn_note': 'Overwrite? ',
                 },
@@ -114,7 +116,11 @@ class Plugin(plugin.PluginBase):
     )
     def _misc_export(self):
         self._oreportsutil.set_jasper_name()
-        f = self.environment[oreportscons.ToolEnv.FILE]
+        f = self.resolveFile(
+            self.environment[
+                oreportscons.ToolEnv.FILE
+            ]
+        )
         self.logger.info(_('Exporting saved reports to {f}').format(f=f))
         self._oreportsutil.execute(
             args=(
