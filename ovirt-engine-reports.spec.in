@@ -237,6 +237,11 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Thu Sep 24 2015 Yaniv Dary <ydary@redhat.com> - 3.5.5
+Fixed issue:
+- fixed issues with network interfaces chart in br2a.
+  Also fixed disk\nics charts in br10a (#1209999).
+
 * Wed May 13 2015 Shirly Radco <sradco@redhat.com> - 3.5.3
 - Prepend $JAVA_HOME/bin to path
 
