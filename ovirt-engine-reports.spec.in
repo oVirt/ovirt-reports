@@ -257,6 +257,11 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Sun Oct 11 2015 Yaniv Dary <ydary@redhat.com> - 3.6.0
+Refixed issues:
+- Bug 1209999 - fixed issues with network interfaces chart
+  in br2a. Also fixed disk/nics charts in br10a.
+
 * Wed Sep 02 2015 Yaniv Dary <ydary@redhat.com> - 3.6.0
 Fixed issues:
 - Bug 1209999 - fixed issues with network interfaces chart
