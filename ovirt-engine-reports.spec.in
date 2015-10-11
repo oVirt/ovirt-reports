@@ -237,6 +237,11 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Sun Oct 11 2015 Yaniv Dary <ydary@redhat.com> - 3.5.5
+Refixed issue:
+- fixed issues with network interfaces chart in br2a.
+  Also fixed disk\nics charts in br10a (#1209999).
+
 * Thu Sep 24 2015 Yaniv Dary <ydary@redhat.com> - 3.5.5
 Fixed issue:
 - fixed issues with network interfaces chart in br2a.
