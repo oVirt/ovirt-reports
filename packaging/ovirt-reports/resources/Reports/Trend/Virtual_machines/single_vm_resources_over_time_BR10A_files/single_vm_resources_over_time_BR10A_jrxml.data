@@ -366,7 +366,7 @@ FROM (
         (
             SELECT
                  MIN ( $P!{calendar_column} ) AS the_datetime,
-                 the_date
+                 MIN ( the_date ) AS the_date
             FROM calendar
             WHERE the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
                 AND the_datetime <
@@ -600,7 +600,7 @@ FROM (
          (
             SELECT
                  MIN ( $P!{calendar_column} ) AS the_datetime,
-                 the_date
+                 MIN ( the_date ) AS the_date
             FROM calendar
             WHERE the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
                 AND the_datetime <
