@@ -1,0 +1,12 @@
+--- a/WEB-INF/classes/esapi/validation.properties
++++ b/WEB-INF/classes/esapi/validation.properties
+@@ -29,7 +29,7 @@ Validator.AlphaNumUnderscoreEtc=^[\\p{L}\\p{M}\\p{N}%_\\|\\.\\/\\-\\?\\=\\&\\s\\
+ # p{Sc} = currency symbols
+ 
+ # This rule allows most chars, and should prevent < and >
+-Validator.AlphaNumPunctuation=^[\\u0080\\u0099\\u2019\\p{L}\\p{M}\\p{N}\\p{Pd}\\p{Pi}\\p{Pf}\\p{Pc}\\p{Po}\\p{Sc}\\p{So}\\p{Sm}\\p{Cf}\\p{Z}\\s\\=\\(\\)\\[\\]\\~\\|\\{\\}\\`\\^\\+&&[^<>]]*$
++Validator.AlphaNumPunctuation=^[\\uFF08\\uFF09\\u0080\\u0099\\u2019\\p{L}\\p{M}\\p{N}\\p{Pd}\\p{Pi}\\p{Pf}\\p{Pc}\\p{Po}\\p{Sc}\\p{So}\\p{Sm}\\p{Cf}\\p{Z}\\s\\=\\(\\)\\[\\]\\~\\|\\{\\}\\`\\^\\+&&[^<>]]*$
+ 
+ # This rule allows almost every char.  Not recommended.
+ Validator.AlphaNumPunctuationBrackets=^[\\p{L}\\p{M}\\p{N}\\p{P}\\p{S}\\p{Cf}\\p{Cc}\\p{Z}\\s]*$
+
