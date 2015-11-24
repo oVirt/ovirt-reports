@@ -257,6 +257,10 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Tue Nov 24 2015 Shirly Radco <sradco@redhat.com> - 3.6.1
+Fixed issues:
+- Bug 1258789 - reports-tool: Absolute path on export/import
+
 * Sun Oct 11 2015 Yaniv Dary <ydary@redhat.com> - 3.6.0
 Refixed issues:
 - Bug 1209999 - fixed issues with network interfaces chart
