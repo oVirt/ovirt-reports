@@ -76,7 +76,7 @@ class Plugin(plugin.PluginBase):
         def writable(f):
             res = ''
             try:
-                with open(f, 'a'):
+                with open(self.resolveFile(f), 'a'):
                     pass
                 res = ''
             except IOError:

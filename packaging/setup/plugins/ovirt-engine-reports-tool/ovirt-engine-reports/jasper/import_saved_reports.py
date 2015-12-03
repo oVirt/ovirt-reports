@@ -76,7 +76,7 @@ class Plugin(plugin.PluginBase):
         def readable(f):
             res = ''
             try:
-                with open(f, 'r'):
+                with open(self.resolveFile(f), 'r'):
                     pass
                 res = ''
             except IOError:
