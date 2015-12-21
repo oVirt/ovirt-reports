@@ -257,6 +257,11 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Mon Dec 21 2015 Shirly Radco <sradco@redhat.com> - 3.6.2
+Fixed issues:
+- Bug 1286419 - recreate dashboards with new framwork
+- Bug 1259356 - fix bug in heatmap report(br49)
+
 * Mon Dec 7 2015 Shirly Radco <sradco@redhat.com> - 3.6.1
 Fixed issues:
 - Bug 1211052 - fix problem with chinese translations
