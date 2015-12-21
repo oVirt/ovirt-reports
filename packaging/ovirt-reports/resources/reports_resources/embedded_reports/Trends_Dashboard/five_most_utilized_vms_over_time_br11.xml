@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<reportUnit>
+<reportUnit exportedWithPermissions="true">
     <folder>/reports_resources/embedded_reports/Trends_Dashboard</folder>
     <name>five_most_utilized_vms_over_time_br11</name>
-    <version>3</version>
+    <version>13</version>
     <label>Five Most Utilized Virtual Machines (Over Time) (BR11B)</label>
     <description>This report contains charts displaying weighted average daily peak of CPU and Memory usage for the top five busiest Virtual Machines of a selected cluster and within a given period month.</description>
-    <creationDate>2012-05-13T17:07:26.378+03:00</creationDate>
-    <updateDate>2012-05-16T17:50:47.536+03:00</updateDate>
+    <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+    <updateDate>2015-12-20T14:04:57.411+02:00</updateDate>
     <mainReport>
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false"
             dataFile="five_most_utilized_vms_over_time_br11_jrxml.data" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
             <name>five_most_utilized_vms_over_time_br11_jrxml</name>
-            <version>2</version>
+            <version>5</version>
             <label>Main jrxml</label>
             <description>Main jrxml</description>
-            <creationDate>2012-05-13T17:11:45.452+03:00</creationDate>
-            <updateDate>2012-05-13T17:11:45.452+03:00</updateDate>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2015-12-20T14:04:57.290+02:00</updateDate>
             <fileType>jrxml</fileType>
         </localResource>
     </mainReport>
@@ -41,110 +42,119 @@
     </inputControl>
     <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>ovirt_reports_bundle.properties</name>
-            <version>1</version>
-            <label>ovirt_reports_bundle.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
-            <referenceUri>/reports_resources/localization/ovirt_reports_bundle.properties</referenceUri>
-        </localResource>
-    </resource>
-	<resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>ovirt_reports_bundle_de.properties</name>
-            <version>1</version>
-            <label>ovirt_reports_bundle_de.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
-            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_de.properties</referenceUri>
-        </localResource>
-    </resource>
-	<resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
             <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_en_US.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>ovirt_reports_bundle_es.properties</name>
-            <version>1</version>
-            <label>ovirt_reports_bundle_es.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
-            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_es.properties</referenceUri>
-        </localResource>
-    </resource>
-	<resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>ovirt_reports_bundle_fr.properties</name>
-            <version>1</version>
-            <label>ovirt_reports_bundle_fr.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
-            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_fr.properties</referenceUri>
-        </localResource>
-    </resource>
-	<resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>ovirt_reports_bundle_ja.properties</name>
-            <version>1</version>
-            <label>ovirt_reports_bundle_ja.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
-            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_ja.properties</referenceUri>
-        </localResource>
-    </resource>
-	<resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
-            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
-            <name>ovirt_reports_bundle_pt_BR.properties</name>
-            <version>1</version>
-            <label>ovirt_reports_bundle_pt_BR.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
-            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
-            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_pt_BR.properties</referenceUri>
-        </localResource>
-    </resource>
-	<resource>
-        <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
             <name>ovirt_reports_bundle_zh_CN.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_zh_CN.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
             <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_CN.properties</referenceUri>
         </localResource>
     </resource>
-	<resource>
+    <resource>
         <localResource
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="fileResource">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
             <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
             <name>ovirt_reports_bundle_zh_TW.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_zh_TW.properties</label>
-            <creationDate>2012-03-30T08:51:12.530+03:00</creationDate>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
             <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
             <referenceUri>/reports_resources/localization/ovirt_reports_bundle_zh_TW.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_pt_BR.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_pt_BR.properties</label>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_pt_BR.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_fr.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_fr.properties</label>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_fr.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_ja.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_ja.properties</label>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_ja.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle.properties</label>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_es.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_es.properties</label>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_es.properties</referenceUri>
+        </localResource>
+    </resource>
+    <resource>
+        <localResource
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            exportedWithPermissions="false" xsi:type="fileResource">
+            <folder>/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files</folder>
+            <name>ovirt_reports_bundle_de.properties</name>
+            <version>1</version>
+            <label>ovirt_reports_bundle_de.properties</label>
+            <creationDate>2015-12-09T15:16:37.737+02:00</creationDate>
+            <updateDate>2012-03-30T08:51:12.530+03:00</updateDate>
+            <referenceUri>/reports_resources/localization/ovirt_reports_bundle_de.properties</referenceUri>
         </localResource>
     </resource>
     <inputControlRenderingView></inputControlRenderingView>

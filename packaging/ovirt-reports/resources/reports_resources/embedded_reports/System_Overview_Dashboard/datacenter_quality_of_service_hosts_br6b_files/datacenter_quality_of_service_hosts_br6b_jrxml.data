@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 5.5.0-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR6B" language="groovy" pageWidth="946" pageHeight="832" whenNoDataType="AllSectionsNoDetail" columnWidth="946" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="ac839c4c-6bc2-4511-9946-a59f29086500">
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-12-15T12:30:57 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR6B" language="groovy" pageWidth="946" pageHeight="96" whenNoDataType="AllSectionsNoDetail" columnWidth="946" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="ac839c4c-6bc2-4511-9946-a59f29086500">
 	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/System_Overview_Dashboard/datacenter_quality_of_service_hosts_br6b"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports_resources/embedded_reports/System_Overview_Dashboard/datacenter_quality_of_service_hosts_br6b_files/datacenter_quality_of_service_hosts_br6b_jrxml"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="style1">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[($V{REPORT_COUNT} % 2) == 0]]></conditionExpression>
@@ -284,10 +295,13 @@ ORDER BY
 	</columnHeader>
 	<detail>
 		<band height="36" splitType="Immediate">
+			<property name="local_mesure_unitheight" value="pixel"/>
 			<frame>
 				<reportElement style="style1" x="0" y="0" width="945" height="36" uuid="1f342ab4-40ef-4f36-8d7c-4608bc85518f"/>
 				<textField hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
-					<reportElement x="12" y="0" width="274" height="36" uuid="1e399aff-4460-4966-9021-6ca2170b3d9c"/>
+					<reportElement x="12" y="0" width="274" height="36" uuid="1e399aff-4460-4966-9021-6ca2170b3d9c">
+						<property name="local_mesure_unitheight" value="pixel"/>
+					</reportElement>
 					<textElement verticalAlignment="Middle">
 						<font fontName="SansSerif"/>
 					</textElement>
@@ -321,7 +335,9 @@ ORDER BY
 					</hyperlinkParameter>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="860" y="0" width="78" height="36" uuid="03d789d3-6025-4a71-bf4c-bc40b324ae5f"/>
+					<reportElement x="860" y="0" width="78" height="36" uuid="03d789d3-6025-4a71-bf4c-bc40b324ae5f">
+						<property name="local_mesure_unitheight" value="pixel"/>
+					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="SansSerif"/>
 					</textElement>
@@ -368,6 +384,7 @@ ORDER BY
 					<reportElement x="579" y="0" width="114" height="18" uuid="d62b52b7-ff94-4a2a-91d2-9c5c591527fd"/>
 					<textField>
 						<reportElement x="0" y="0" width="24" height="18" uuid="75ce95c7-4c73-480d-a006-567ffc816309">
+							<property name="local_mesure_unitheight" value="pixel"/>
 							<printWhenExpression><![CDATA[((($F{time_below_mem_threshold}/60)/24).intValue()) != 0]]></printWhenExpression>
 						</reportElement>
 						<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -552,13 +569,12 @@ ORDER BY
 	</detail>
 	<summary>
 		<band height="14">
-			<textField>
-				<reportElement x="500" y="0" width="76" height="14" uuid="9509da81-5e4b-403c-8c0f-7efebac5d39c"/>
-				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="SansSerif" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{br6b.legend.below.threshold}]]></textFieldExpression>
-			</textField>
+			<rectangle>
+				<reportElement x="580" y="2" width="8" height="8" backcolor="#FF0000" uuid="5edd8a5c-962f-4feb-a1e3-08a97704953f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="490" y="2" width="8" height="8" backcolor="#6EC000" uuid="6326d58a-9d92-43e1-81da-7ef338a6fd49"/>
+			</rectangle>
 			<textField>
 				<reportElement x="591" y="0" width="76" height="14" uuid="33eeb372-1bcd-4d68-bf2a-69af2a979a9a"/>
 				<textElement verticalAlignment="Middle" markup="none">
@@ -566,12 +582,13 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$R{br6b.legend.above.threshold}]]></textFieldExpression>
 			</textField>
-			<rectangle>
-				<reportElement x="490" y="2" width="8" height="8" backcolor="#6EC000" uuid="6326d58a-9d92-43e1-81da-7ef338a6fd49"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="580" y="2" width="8" height="8" backcolor="#FF0000" uuid="5edd8a5c-962f-4feb-a1e3-08a97704953f"/>
-			</rectangle>
+			<textField>
+				<reportElement x="500" y="0" width="76" height="14" uuid="9509da81-5e4b-403c-8c0f-7efebac5d39c"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br6b.legend.below.threshold}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

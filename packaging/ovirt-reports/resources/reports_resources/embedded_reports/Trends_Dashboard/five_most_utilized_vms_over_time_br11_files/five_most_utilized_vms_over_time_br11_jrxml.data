@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 5.5.0-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR11B" language="groovy" pageWidth="832" pageHeight="585" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="2e32e352-cf44-4a9f-830f-f04834f90aa4">
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-12-20T14:04:57 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR11B" language="groovy" pageWidth="832" pageHeight="220" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="2e32e352-cf44-4a9f-830f-f04834f90aa4">
 	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.jasperserver.report.resource" value="/reports_resources/embedded_reports/Trends_Dashboard/five_most_utilized_vms_over_time_br11_files/five_most_utilized_vms_over_time_br11_jrxml"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="is_deleted" class="java.lang.String">
 		<defaultValueExpression><![CDATA["AND delete_date IS NULL"]]></defaultValueExpression>
 	</parameter>
@@ -247,10 +258,17 @@ ORDER BY $P!{calendar_column}]]>
 	<group name="Cluster">
 		<groupExpression><![CDATA[$P{P_Cluster_ID}]]></groupExpression>
 		<groupFooter>
-			<band height="202">
+			<band height="200">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<timeSeriesChart>
 					<chart evaluationTime="Report" hyperlinkType="ReportExecution" hyperlinkTarget="Blank" customizerClass="com.ovirt.reports.jasper.PercentTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-						<reportElement mode="Opaque" x="2" y="1" width="410" height="200" uuid="62de6abe-8985-4ba1-b296-dbfaf53fcf6f"/>
+						<reportElement mode="Opaque" x="0" y="0" width="410" height="200" uuid="62de6abe-8985-4ba1-b296-dbfaf53fcf6f">
+							<property name="local_mesure_unitx" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="local_mesure_unity" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
 						<box>
 							<pen lineWidth="1.0" lineColor="#3C617F"/>
 							<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -321,7 +339,12 @@ ORDER BY $P!{calendar_column}]]>
 				</timeSeriesChart>
 				<timeSeriesChart>
 					<chart evaluationTime="Report" hyperlinkType="ReportExecution" hyperlinkTarget="Blank" customizerClass="com.ovirt.reports.jasper.PercentTimelineChartCustomizer" theme="ReportsLineBarChartTheme">
-						<reportElement mode="Opaque" x="421" y="1" width="410" height="200" uuid="0d1475a1-bb3b-40e5-a6ff-10b0d66f3cdd"/>
+						<reportElement mode="Opaque" x="420" y="0" width="410" height="200" uuid="0d1475a1-bb3b-40e5-a6ff-10b0d66f3cdd">
+							<property name="local_mesure_unitx" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="local_mesure_unity" value="pixel"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
 						<box>
 							<pen lineWidth="1.0" lineColor="#3C617F"/>
 							<topPen lineWidth="1.0" lineColor="#3C617F"/>
@@ -396,7 +419,10 @@ ORDER BY $P!{calendar_column}]]>
 	<title>
 		<band height="20">
 			<textField>
-				<reportElement x="1" y="0" width="831" height="20" forecolor="#3A5E75" uuid="5b3598c8-4ead-4513-8052-bfd3803dde65"/>
+				<reportElement x="0" y="0" width="831" height="20" forecolor="#3A5E75" uuid="5b3598c8-4ead-4513-8052-bfd3803dde65">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>

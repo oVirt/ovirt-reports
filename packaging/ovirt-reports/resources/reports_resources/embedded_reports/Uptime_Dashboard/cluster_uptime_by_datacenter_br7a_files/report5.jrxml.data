@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="295" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="295" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/cluster_uptime_by_datacenter_br7a"/>
-    <property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
-    <title>
-        <band height="14" splitType="Stretch">
-            <rectangle>
-                <reportElement x="55" y="3" width="8" height="8" backcolor="#FFFF33"/>
-            </rectangle>
-            <rectangle>
-                <reportElement x="0" y="3" width="8" height="8" backcolor="#6EC000"/>
-            </rectangle>
-            <textField>
-                <reportElement x="176" y="0" width="119" height="14"/>
-                <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$R{br7a.table.unplanned.downtime}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="66" y="0" width="95" height="14"/>
-                <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$R{br7a.table.planned.downtime}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="11" y="0" width="42" height="14"/>
-                <textElement verticalAlignment="Middle" markup="none">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$R{br7a.table.uptime}]]></textFieldExpression>
-            </textField>
-            <rectangle>
-                <reportElement x="165" y="3" width="8" height="8" backcolor="#FF0000"/>
-            </rectangle>
-        </band>
-    </title>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-12-20T14:09:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="295" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="295" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="78745b38-ab2e-4037-a689-37d6f931a3a8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports_resources/embedded_reports/Uptime_Dashboard/cluster_uptime_by_datacenter_br7a"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports_resources/embedded_reports/Uptime_Dashboard/cluster_uptime_by_datacenter_br7a_files/report5.jrxml"/>
+	<title>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement x="55" y="3" width="8" height="8" backcolor="#FFFF33" uuid="40bad311-3061-463c-82c0-87b9579e1bec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="3" width="8" height="8" backcolor="#6EC000" uuid="204e1a34-6c72-40f6-9892-22b3e3fb8481"/>
+			</rectangle>
+			<textField>
+				<reportElement x="176" y="0" width="119" height="14" uuid="49c279d8-5c48-4537-8785-5b80014c6ab8"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br7a.table.unplanned.downtime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="0" width="95" height="14" uuid="f32e5867-96c7-4259-94ce-67a693b91227"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br7a.table.planned.downtime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="0" width="42" height="14" uuid="85b66e3b-f82a-4877-a712-457c8bb0d53d"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{br7a.table.uptime}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="165" y="3" width="8" height="8" backcolor="#FF0000" uuid="4589cf5a-2203-429d-ba43-9a67138202f2"/>
+			</rectangle>
+		</band>
+	</title>
 </jasperReport>

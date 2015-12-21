@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="185" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="185" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <title>
-        <band height="14" splitType="Stretch">
-            <rectangle>
-                <reportElement x="0" y="3" width="8" height="8" backcolor="#6EC000"/>
-            </rectangle>
-            <staticText>
-                <reportElement x="66" y="0" width="119" height="14"/>
-                <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <text><![CDATA[Unplanned Downtime]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="11" y="0" width="42" height="14"/>
-                <textElement verticalAlignment="Middle">
-                    <font fontName="SansSerif"/>
-                </textElement>
-                <text><![CDATA[Uptime]]></text>
-            </staticText>
-            <rectangle>
-                <reportElement x="55" y="3" width="8" height="8" backcolor="#FF0000"/>
-            </rectangle>
-        </band>
-    </title>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-12-20T14:18:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="185" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="185" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e555e11d-426c-4f7b-810b-515df9134113">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<title>
+		<band height="14" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="3" width="8" height="8" backcolor="#6EC000" uuid="3a4e37a4-cbbe-482e-9ade-6c3a53016f56"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="66" y="0" width="119" height="14" uuid="d8e3bd48-24e6-4e52-8b9a-78b5e8fce285"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Unplanned Downtime]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="0" width="42" height="14" uuid="d753aea1-eda3-4596-8203-dd6c4995da0a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Uptime]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="55" y="3" width="8" height="8" backcolor="#FF0000" uuid="3075f188-8fa5-430d-8a19-5986247e3df6"/>
+			</rectangle>
+		</band>
+	</title>
 </jasperReport>

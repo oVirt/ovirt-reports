@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<folder>
+<folder exportedWithPermissions="true">
     <parent>/reports_resources</parent>
     <name>embedded_reports</name>
     <label>Embedded Dashboards Reports</label>
-    <creationDate>2012-05-13T17:07:21.178+03:00</creationDate>
+    <creationDate>2015-11-10T15:06:28.642+02:00</creationDate>
     <updateDate>2011-06-20T17:29:08.000+03:00</updateDate>
     <folder>Inventory_Dashboard</folder>
     <folder>System_Overview_Dashboard</folder>
