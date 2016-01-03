@@ -390,14 +390,16 @@ FROM (
                     ON (
                         c.host_interface_id = b.host_interface_id
                     )
-                INNER JOIN v3_4_statistics_hosts_resources_usage_hourly
+                INNER JOIN v3_5_statistics_hosts_resources_usage_hourly
                     ON (
-                        v3_4_statistics_hosts_resources_usage_hourly.history_id =
-                        c.host_configuration_version
+                        v3_5_statistics_hosts_resources_usage_hourly.history_datetime =
+                        b.history_datetime AND
+                        v3_5_statistics_hosts_resources_usage_hourly.host_id =
+                        CAST ( $P{P_Host_ID} AS uuid )
                     )
             WHERE
                 -- Here we filter by active hosts only
-                v3_4_statistics_hosts_resources_usage_hourly.host_status = 1
+                v3_5_statistics_hosts_resources_usage_hourly.host_status = 1
                 AND c.host_id =
                     CASE $P{P_Host_ID}
                         WHEN '00000000-0000-0000-0000-000000000000'
@@ -446,21 +448,26 @@ FROM (
         interface_name,
         statistics.history_datetime
 ) AS a
-    RIGHT OUTER JOIN calendar AS b
-        ON ( a.time = b.the_datetime )
-WHERE
-    b.the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
-    AND b.the_datetime <
-        CASE
-            WHEN $P{P_Period} = 0
-                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
-            WHEN $P{P_Period} = 1
-                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
-            WHEN $P{P_Period} = 2
-                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
-            WHEN $P{P_Period} = 3
-                THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
-        END
+    RIGHT OUTER JOIN
+        (
+            SELECT
+                 MIN ( the_datetime ) AS the_datetime
+            FROM calendar
+            WHERE the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                AND the_datetime <
+                    CASE
+                        WHEN $P{P_Period} = 0
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
+                        WHEN $P{P_Period} = 1
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
+                        WHEN $P{P_Period} = 2
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
+                        WHEN $P{P_Period} = 3
+                            THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
+                    END
+            GROUP BY the_datetime
+        ) AS b
+            ON ( a.time = b.the_datetime )
 GROUP BY
     CAST (
         EXTRACT ( HOUR from the_datetime ) AS int
