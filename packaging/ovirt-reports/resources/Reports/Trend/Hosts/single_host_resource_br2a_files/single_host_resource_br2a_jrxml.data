@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 5.5.0-->
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2016-01-03T09:33:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BR2A" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="7e9c3c49-fab7-4946-9ada-bbf2fafdf7dc">
 	<property name="ireport.jasperserver.reportUnit" value="/Reports/Trend/Hosts/single_host_resource_br2a"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
@@ -248,20 +249,27 @@ FROM (
     GROUP BY
         history_datetime
 ) AS a
-    RIGHT OUTER JOIN calendar
-        ON ( the_datetime= time )
-WHERE the_datetime >= CAST ( $P{P_Start_Date} AS date )
-    AND the_datetime <
-        CASE
-            WHEN $P{P_Period} = 0
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
-            WHEN $P{P_Period} = 1
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
-            WHEN $P{P_Period} = 2
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
-            WHEN $P{P_Period} = 3
-                THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
-        END
+    RIGHT OUTER JOIN
+        (
+            SELECT
+                 MIN ($P!{calendar_column} ) AS the_datetime,
+                 MIN ( the_date ) AS the_date
+            FROM calendar
+            WHERE the_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
+                AND the_datetime <
+                    CASE
+                        WHEN $P{P_Period} = 0
+                            THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
+                        WHEN $P{P_Period} = 1
+                            THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 month'
+                        WHEN $P{P_Period} = 2
+                            THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '3 month'
+                        WHEN $P{P_Period} = 3
+                            THEN CAST  ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
+                    END
+            GROUP BY $P!{calendar_column}
+        ) AS b
+            ON ( a.time = b.the_datetime )
 GROUP BY
     $P!{calendar_column},
     VMS,
