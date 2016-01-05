@@ -257,6 +257,11 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Tue Jan 5 2016 Shirly Radco <sradco@redhat.com> - 3.6.2
+Fixed issues:
+- Fixed issues with network interface usage in br2b and br2c
+  and with number of active vms in br2a.
+
 * Mon Dec 21 2015 Shirly Radco <sradco@redhat.com> - 3.6.2
 Fixed issues:
 - Bug 1286419 - recreate dashboards with new framwork
