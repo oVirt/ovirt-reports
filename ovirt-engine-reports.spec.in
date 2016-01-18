@@ -237,6 +237,10 @@ fi
 %{_datadir}/ovirt-engine/firewalld/reports/
 
 %changelog
+* Mon Jan 18 2016 Shirly Radco <sradco@redhat.com> - 3.5.8
+Fixed issue:
+- fixed bugs in br2a br2b and br2c (#1289811)
+
 * Sun Oct 11 2015 Yaniv Dary <ydary@redhat.com> - 3.5.5
 Refixed issue:
 - fixed issues with network interfaces chart in br2a.
