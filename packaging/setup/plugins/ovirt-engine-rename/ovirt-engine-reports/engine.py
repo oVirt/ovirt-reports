@@ -47,7 +47,8 @@ class Plugin(plugin.PluginBase):
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,
         condition=lambda self: (
-            self.environment[oreportscons.EngineCoreEnv.ENABLE]
+            self.environment[oreportscons.EngineCoreEnv.ENABLE] and
+            self.environment[oreportscons.CoreEnv.ENABLE]
         ),
     )
     def _misc(self):
