@@ -257,6 +257,10 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Tue Jan 19 2016 Shirly Radco <sradco@redhat.com> - 3.6.2
+Fixed issues:
+- Bug 1299431 - rename: Do not fail if reports is not set up
+
 * Tue Jan 12 2016 Shirly Radco <sradco@redhat.com> - 3.6.2
 Fixed issues:
 - Bug 1259363 - fixed visual flaws in br49 reports
