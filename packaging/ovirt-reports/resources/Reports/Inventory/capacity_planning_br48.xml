@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <reportUnit exportedWithPermissions="true">
     <folder>/Reports/Inventory</folder>
-    <name>capacity_planing_br48</name>
+    <name>capacity_planning_br48</name>
     <version>29</version>
-    <label>Capacity Planing (BR48)</label>
+    <label>Capacity Planning (BR48)</label>
     <description></description>
     <creationDate>2015-05-21T16:39:41.349+03:00</creationDate>
     <updateDate>2015-05-25T12:04:33.761+03:00</updateDate>
@@ -11,9 +11,9 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false"
-            dataFile="capacity_planing_br48_jrxml.data" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
-            <name>capacity_planing_br48_jrxml</name>
+            dataFile="capacity_planning_br48_jrxml.data" xsi:type="fileResource">
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
+            <name>capacity_planning_br48_jrxml</name>
             <version>45</version>
             <label>Main Jrxml</label>
             <description></description>
@@ -39,7 +39,7 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false"
             dataFile="br48_legend.jrxml.data" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>br48_legend.jrxml</name>
             <version>25</version>
             <label>br48_legend.jrxml</label>
@@ -52,7 +52,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_en_US.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_en_US.properties</label>
@@ -65,7 +65,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_zh_CN.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_zh_CN.properties</label>
@@ -78,7 +78,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_zh_TW.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_zh_TW.properties</label>
@@ -91,7 +91,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_pt_BR.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_pt_BR.properties</label>
@@ -105,7 +105,7 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false"
             dataFile="br48 full details.jrxml.data" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>br48 full details.jrxml</name>
             <version>1</version>
             <label>br48 full details.jrxml</label>
@@ -118,7 +118,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_fr.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_fr.properties</label>
@@ -131,7 +131,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_ja.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_ja.properties</label>
@@ -144,7 +144,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle.properties</label>
@@ -157,7 +157,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_es.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_es.properties</label>
@@ -170,7 +170,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt-icon</name>
             <version>1</version>
             <label>ovirt-icon</label>
@@ -183,7 +183,7 @@
         <localResource
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             exportedWithPermissions="false" xsi:type="fileResource">
-            <folder>/Reports/Inventory/capacity_planing_br48_files</folder>
+            <folder>/Reports/Inventory/capacity_planning_br48_files</folder>
             <name>ovirt_reports_bundle_de.properties</name>
             <version>1</version>
             <label>ovirt_reports_bundle_de.properties</label>

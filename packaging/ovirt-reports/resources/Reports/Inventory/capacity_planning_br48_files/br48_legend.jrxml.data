@@ -5,9 +5,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/capacity_planing_br48"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/capacity_planning_br48"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
-	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/capacity_planing_br48_files/br48_legend.jrxml"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/capacity_planning_br48_files/br48_legend.jrxml"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>

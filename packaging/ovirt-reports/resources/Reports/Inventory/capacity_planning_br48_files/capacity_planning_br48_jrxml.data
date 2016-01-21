@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
 <!-- 2015-05-26T11:20:18 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capacity Planing" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="24ea2f96-883c-4654-b650-7b261e63fb92">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capacity Planning" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Error" uuid="24ea2f96-883c-4654-b650-7b261e63fb92">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="47"/>
 	<property name="ireport.y" value="451"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
-	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/capacity_planing_br48_files/capacity_planing_br48_jrxml"/>
-	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/capacity_planing_br48"/>
+	<property name="ireport.jasperserver.report.resource" value="/Reports/Inventory/capacity_planning_br48_files/capacity_planning_br48_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/Reports/Inventory/capacity_planning_br48"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HistoryDB"/>
 	<property name="ireport.jasperserver.user" value="jasperadmin|organization_1"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
