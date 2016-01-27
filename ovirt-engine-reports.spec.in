@@ -257,6 +257,11 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Wed Jan 27 2016 Shirly Radco <sradco@redhat.com> - 3.6.3
+Fixed issues:
+- Bug 1300240 - fixed typo in capacity planning report br48
+- Bug 1257797 - fixed bug in br48 capacity planning
+
 * Tue Jan 19 2016 Shirly Radco <sradco@redhat.com> - 3.6.2
 Fixed issues:
 - Bug 1299431 - rename: Do not fail if reports is not set up
