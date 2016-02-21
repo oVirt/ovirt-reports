@@ -17,14 +17,14 @@
 SELECT DISTINCT
     cluster_name,
     delete_date
-FROM v3_6_configuration_history_clusters
+FROM v4_0_configuration_history_clusters
 WHERE
     -- Here we filter by the cluster chosen by the user
     cluster_id = CAST ( $P{P_Cluster_ID} AS uuid )
     -- Here we get the latest cluster configuration
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_6_configuration_history_clusters AS a
+        FROM v4_0_configuration_history_clusters AS a
         GROUP BY a.cluster_id
     )]]>
 	</queryString>

@@ -66,7 +66,7 @@ SELECT DISTINCT
     MEM_Usage
 FROM (
     SELECT
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         CASE
             WHEN delete_date IS NULL
                 THEN host_name
@@ -82,50 +82,50 @@ FROM (
                 ||
                 ')'
         END AS host_name,
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
         SUM (
             COALESCE (
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.max_cpu_usage,
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.max_cpu_usage,
                 0
             ) *
             COALESCE (
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) /
         SUM (
             COALESCE (
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) AS CPU_Usage,
         SUM (
             COALESCE (
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.max_memory_usage,
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.max_memory_usage,
                 0
             ) *
             COALESCE (
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) /
         SUM (
             COALESCE (
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) AS MEM_Usage
     -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
-    FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
-        INNER JOIN v3_6_configuration_history_hosts
+    FROM v4_0_statistics_hosts_resources_usage_$P!{table_name}
+        INNER JOIN v4_0_configuration_history_hosts
             ON (
-                v3_6_configuration_history_hosts.host_id =
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id
+                v4_0_configuration_history_hosts.host_id =
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id
             )
     WHERE
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.history_datetime >=
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.history_datetime >=
         CAST ( $P{P_Start_Date} AS TIMESTAMP )
-        AND v3_6_statistics_hosts_resources_usage_$P!{table_name}.history_datetime <
+        AND v4_0_statistics_hosts_resources_usage_$P!{table_name}.history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
@@ -137,25 +137,25 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
         -- Here we get the latest hosts configuration
-        AND v3_6_configuration_history_hosts.history_id IN (
+        AND v4_0_configuration_history_hosts.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_6_configuration_history_hosts AS a
+            FROM v4_0_configuration_history_hosts AS a
             GROUP BY a.host_id
         )
-        AND v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id IN (
+        AND v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id IN (
             SELECT a.host_id
-            FROM v3_6_statistics_hosts_resources_usage_$P!{table_name} AS a
-                INNER JOIN v3_6_configuration_history_hosts b
+            FROM v4_0_statistics_hosts_resources_usage_$P!{table_name} AS a
+                INNER JOIN v4_0_configuration_history_hosts b
                     ON ( a.host_id = b.host_id )
             WHERE
                 -- Here we filter by active hosts only
                 a.host_status = 1
                 -- Here we filter by the datacenter chosen by the user
                 AND b.cluster_id IN (
-                    SELECT v3_6_configuration_history_clusters.cluster_id
-                    FROM v3_6_configuration_history_clusters
+                    SELECT v4_0_configuration_history_clusters.cluster_id
+                    FROM v4_0_configuration_history_clusters
                     WHERE
-                        v3_6_configuration_history_clusters.datacenter_id =
+                        v4_0_configuration_history_clusters.datacenter_id =
                         CAST ( $P{P_DataCenter_ID} AS uuid )
                 )
                 -- Here we filter by the cluster chosen by the user
@@ -189,7 +189,7 @@ FROM (
                 -- Here we get the latest hosts configuration
                 AND b.history_id IN (
                     SELECT MAX ( g.history_id )
-                    FROM v3_6_configuration_history_hosts g
+                    FROM v4_0_configuration_history_hosts g
                     GROUP BY g.host_id
                 )
                 -- This will determine if deleted hosts will be included in the report,
@@ -224,7 +224,7 @@ FROM (
             LIMIT 5
         )
     GROUP BY
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         host_name,
         delete_date,
         history_datetime

@@ -13,23 +13,23 @@
 -- planned and unplanned downtime percent.
 
 SELECT
-    v3_6_latest_configuration_hosts.host_id,
-    v3_6_latest_configuration_hosts.host_name,
+    v4_0_latest_configuration_hosts.host_id,
+    v4_0_latest_configuration_hosts.host_name,
     (
         SUM (
             CASE
                 WHEN
-                    v3_6_statistics_hosts_resources_usage_samples.host_status = 1
+                    v4_0_statistics_hosts_resources_usage_samples.host_status = 1
                     THEN
                         COALESCE (
-                            v3_6_statistics_hosts_resources_usage_samples.minutes_in_status,
+                            v4_0_statistics_hosts_resources_usage_samples.minutes_in_status,
                             0
                         )
                 ELSE 0
             END
         ) /
         SUM (
-            v3_6_statistics_hosts_resources_usage_samples.minutes_in_status
+            v4_0_statistics_hosts_resources_usage_samples.minutes_in_status
         )
     ) * 100
     AS uptime_percent,
@@ -37,17 +37,17 @@ SELECT
         SUM (
             CASE
                 WHEN
-                    v3_6_statistics_hosts_resources_usage_samples.host_status = 2
+                    v4_0_statistics_hosts_resources_usage_samples.host_status = 2
                     THEN
                         COALESCE (
-                            v3_6_statistics_hosts_resources_usage_samples.minutes_in_status,
+                            v4_0_statistics_hosts_resources_usage_samples.minutes_in_status,
                             0
                         )
                 ELSE 0
             END
         ) /
         SUM (
-            v3_6_statistics_hosts_resources_usage_samples.minutes_in_status
+            v4_0_statistics_hosts_resources_usage_samples.minutes_in_status
         )
     ) * 100
     AS planned_downtime_percent,
@@ -55,33 +55,33 @@ SELECT
         SUM (
             CASE
                 WHEN
-                    v3_6_statistics_hosts_resources_usage_samples.host_status = 3
+                    v4_0_statistics_hosts_resources_usage_samples.host_status = 3
                     THEN
                         COALESCE (
-                            v3_6_statistics_hosts_resources_usage_samples.minutes_in_status,
+                            v4_0_statistics_hosts_resources_usage_samples.minutes_in_status,
                             0
                         )
                 ELSE 0
             END
         ) /
         SUM (
-            v3_6_statistics_hosts_resources_usage_samples.minutes_in_status
+            v4_0_statistics_hosts_resources_usage_samples.minutes_in_status
         )
     ) * 100
     AS unplanned_downtime_percent
-FROM v3_6_statistics_hosts_resources_usage_samples
-    INNER JOIN v3_6_latest_configuration_hosts
+FROM v4_0_statistics_hosts_resources_usage_samples
+    INNER JOIN v4_0_latest_configuration_hosts
         ON (
-            v3_6_latest_configuration_hosts.host_id =
-            v3_6_statistics_hosts_resources_usage_samples.host_id
+            v4_0_latest_configuration_hosts.host_id =
+            v4_0_statistics_hosts_resources_usage_samples.host_id
         )
 WHERE
     -- Here we filter by the cluster chosen by the user
-    v3_6_latest_configuration_hosts.cluster_id =
+    v4_0_latest_configuration_hosts.cluster_id =
     CAST ( $P{P_Cluster_ID} as UUID )
 GROUP BY
-    v3_6_latest_configuration_hosts.host_id,
-    v3_6_latest_configuration_hosts.host_name
+    v4_0_latest_configuration_hosts.host_id,
+    v4_0_latest_configuration_hosts.host_name
 ORDER BY
     uptime_percent ASC,
     unplanned_downtime_percent DESC,

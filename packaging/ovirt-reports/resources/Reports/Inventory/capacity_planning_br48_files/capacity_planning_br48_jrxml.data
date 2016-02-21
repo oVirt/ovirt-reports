@@ -299,11 +299,11 @@ FROM (
 	    COUNT( DISTINCT host_id ) AS number_of_hosts,
 	    SUM (
 		COALESCE (
-		    v3_6_latest_configuration_hosts.number_of_cores,
+		    v4_0_latest_configuration_hosts.number_of_cores,
 		    0
 		) *
 		COALESCE (
-		    v3_6_latest_configuration_hosts.number_of_sockets,
+		    v4_0_latest_configuration_hosts.number_of_sockets,
 		    0
 		)
 	    ) AS total_hosts_num_of_cpus,
@@ -311,7 +311,7 @@ FROM (
 		CAST (
 		    SUM (
 		        COALESCE (
-		            v3_6_latest_configuration_hosts.memory_size_mb,
+		            v4_0_latest_configuration_hosts.memory_size_mb,
 		            0.00
 		        )
 		    ) AS float
@@ -332,27 +332,27 @@ FROM (
 	    ROUND (
 	        CAST (vms_storage.vm_disk_actual_size_gb AS float ) ::numeric, 2
 	    ) AS vm_disk_actual_size_gb
-	FROM  v3_6_latest_configuration_datacenters
-	    INNER JOIN v3_6_latest_configuration_clusters
+	FROM  v4_0_latest_configuration_datacenters
+	    INNER JOIN v4_0_latest_configuration_clusters
 		ON (
-		    v3_6_latest_configuration_datacenters.datacenter_id =
-		    v3_6_latest_configuration_clusters.datacenter_id
+		    v4_0_latest_configuration_datacenters.datacenter_id =
+		    v4_0_latest_configuration_clusters.datacenter_id
 		)
-	    INNER JOIN v3_6_latest_configuration_hosts
+	    INNER JOIN v4_0_latest_configuration_hosts
 		ON (
-		    v3_6_latest_configuration_clusters.cluster_id =
-		    v3_6_latest_configuration_hosts.cluster_id
+		    v4_0_latest_configuration_clusters.cluster_id =
+		    v4_0_latest_configuration_hosts.cluster_id
 		)
-	    LEFT OUTER JOIN v3_6_latest_tags_relations
+	    LEFT OUTER JOIN v4_0_latest_tags_relations
 		ON (
-		    v3_6_latest_configuration_hosts.host_id =
-		    v3_6_latest_tags_relations.entity_id
-		    AND v3_6_latest_tags_relations.entity_type = 3
+		    v4_0_latest_configuration_hosts.host_id =
+		    v4_0_latest_tags_relations.entity_id
+		    AND v4_0_latest_tags_relations.entity_type = 3
 		)
-	    LEFT OUTER JOIN v3_6_latest_tags_details
+	    LEFT OUTER JOIN v4_0_latest_tags_details
 		ON (
-		    v3_6_latest_tags_relations.parent_id =
-		    v3_6_latest_tags_details.tag_id
+		    v4_0_latest_tags_relations.parent_id =
+		    v4_0_latest_tags_details.tag_id
 		)
 	    LEFT OUTER JOIN (
 		SELECT
@@ -368,53 +368,53 @@ FROM (
 		FROM (
 		SELECT
 		    a.cluster_id AS cluster_id,
-		    v3_6_statistics_vms_resources_usage_hourly.vm_status as vm_status,
+		    v4_0_statistics_vms_resources_usage_hourly.vm_status as vm_status,
 		    COUNT( DISTINCT a.vm_id ) AS num_of_vms
-		FROM v3_6_statistics_vms_resources_usage_hourly
-		    INNER JOIN v3_6_latest_configuration_vms a
+		FROM v4_0_statistics_vms_resources_usage_hourly
+		    INNER JOIN v4_0_latest_configuration_vms a
 		        ON (
 		            a.vm_id =
-		            v3_6_statistics_vms_resources_usage_hourly.vm_id
+		            v4_0_statistics_vms_resources_usage_hourly.vm_id
 		        )
 		WHERE
-		    v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+		    v4_0_statistics_vms_resources_usage_hourly.history_id IN (
 		        SELECT MAX ( history_id )
-		        FROM v3_6_statistics_vms_resources_usage_hourly b
+		        FROM v4_0_statistics_vms_resources_usage_hourly b
 		        GROUP BY vm_id
 		    )
 		GROUP BY
-		    a.cluster_id, v3_6_statistics_vms_resources_usage_hourly.vm_status
+		    a.cluster_id, v4_0_statistics_vms_resources_usage_hourly.vm_status
 		) AS vm_count
 		GROUP BY cluster_id
 	    ) AS num_of_vms
 		ON (
 		    num_of_vms.cluster_id =
-		    v3_6_latest_configuration_clusters.cluster_id
+		    v4_0_latest_configuration_clusters.cluster_id
 		)
 	    LEFT OUTER JOIN (
 		SELECT
 		    a.cluster_id,
 		    SUM (
 		        COALESCE (
-		            v3_6_configuration_history_vms.cpu_per_socket,
+		            v4_0_configuration_history_vms.cpu_per_socket,
 		            0
 		        )*
 		        COALESCE (
-		            v3_6_configuration_history_vms.number_of_sockets,
+		            v4_0_configuration_history_vms.number_of_sockets,
 		            0
 		        )
 		    )
 		    AS total_vms_cpu_cores,
 		    SUM (
 		        CASE
-		            WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+		            WHEN v4_0_statistics_vms_resources_usage_hourly.vm_status = 1
 		                THEN
 		                    COALESCE (
-		                        v3_6_configuration_history_vms.cpu_per_socket,
+		                        v4_0_configuration_history_vms.cpu_per_socket,
 		                        0
 		                    ) *
 		                    COALESCE (
-		                        v3_6_configuration_history_vms.number_of_sockets,
+		                        v4_0_configuration_history_vms.number_of_sockets,
 		                        0
 		                    )
 		            ELSE 0
@@ -425,7 +425,7 @@ FROM (
 		        CAST (
 		            SUM (
 		                COALESCE (
-		                    v3_6_configuration_history_vms.memory_size_mb,
+		                    v4_0_configuration_history_vms.memory_size_mb,
 		                    0.00
 		                )
 		            )  AS float
@@ -435,31 +435,31 @@ FROM (
 		        CAST (
 		            SUM (
 		                CASE
-		                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+		                    WHEN v4_0_statistics_vms_resources_usage_hourly.vm_status = 1
 		                        THEN
 		                            COALESCE (
-		                                v3_6_configuration_history_vms.memory_size_mb,
+		                                v4_0_configuration_history_vms.memory_size_mb,
 		                                0.00
 		                            )
 		                    ELSE 0.00
 		                END ) AS float
 		        ) ::numeric /1024, 2
 		    ) AS mem_running
-		FROM v3_6_statistics_vms_resources_usage_hourly
-		    INNER JOIN v3_6_configuration_history_vms
+		FROM v4_0_statistics_vms_resources_usage_hourly
+		    INNER JOIN v4_0_configuration_history_vms
 		        ON (
-		            v3_6_configuration_history_vms.history_id =
-		            v3_6_statistics_vms_resources_usage_hourly.vm_configuration_version
+		            v4_0_configuration_history_vms.history_id =
+		            v4_0_statistics_vms_resources_usage_hourly.vm_configuration_version
 		        )
-		    INNER JOIN v3_6_latest_configuration_vms a
+		    INNER JOIN v4_0_latest_configuration_vms a
 		        ON (
 		            a.vm_id =
-		            v3_6_statistics_vms_resources_usage_hourly.vm_id
+		            v4_0_statistics_vms_resources_usage_hourly.vm_id
 		        )
 		WHERE
-		    v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+		    v4_0_statistics_vms_resources_usage_hourly.history_id IN (
 		        SELECT MAX ( history_id )
-		        FROM v3_6_statistics_vms_resources_usage_hourly b
+		        FROM v4_0_statistics_vms_resources_usage_hourly b
 		        GROUP BY vm_id
 		    )
 		GROUP BY
@@ -467,7 +467,7 @@ FROM (
 	    ) AS cpu_memory_allocation
 		ON (
 		    cpu_memory_allocation.cluster_id =
-		    v3_6_latest_configuration_clusters.cluster_id
+		    v4_0_latest_configuration_clusters.cluster_id
 		)
 	    LEFT OUTER JOIN (
 		SELECT
@@ -478,19 +478,19 @@ FROM (
 		    AS dc_available_disk_size_gb,
 		    SUM (samples.available_disk_size_gb + samples.used_disk_size_gb)
 		    AS dc_total_disk_size_gb
-		FROM v3_6_latest_configuration_storage_domains
-		    INNER JOIN v3_6_latest_map_datacenters_storage_domains
+		FROM v4_0_latest_configuration_storage_domains
+		    INNER JOIN v4_0_latest_map_datacenters_storage_domains
 		        ON (
-		            v3_6_latest_configuration_storage_domains.storage_domain_id =
-		            v3_6_latest_map_datacenters_storage_domains.storage_domain_id
+		            v4_0_latest_configuration_storage_domains.storage_domain_id =
+		            v4_0_latest_map_datacenters_storage_domains.storage_domain_id
 		        )
-		    LEFT OUTER JOIN v3_6_statistics_storage_domains_resources_usage_samples AS samples
+		    LEFT OUTER JOIN v4_0_statistics_storage_domains_resources_usage_samples AS samples
 		        ON (
-		            v3_6_latest_configuration_storage_domains.storage_domain_id =
+		            v4_0_latest_configuration_storage_domains.storage_domain_id =
 		            samples.storage_domain_id
 		            AND samples.history_id IN (
 		                SELECT MAX ( a.history_id )
-		                FROM v3_6_statistics_storage_domains_resources_usage_samples a
+		                FROM v4_0_statistics_storage_domains_resources_usage_samples a
 		                GROUP BY a.storage_domain_id
 		            )
 		        )
@@ -501,35 +501,35 @@ FROM (
 	    ) AS dc_storage
 		ON (
 		    dc_storage.datacenter_id =
-		    v3_6_latest_configuration_datacenters.datacenter_id
+		    v4_0_latest_configuration_datacenters.datacenter_id
 		)
 	    LEFT OUTER JOIN (
 		SELECT
 		    datacenter_id,
 		    SUM (
-		        v3_6_latest_configuration_vms_disks.vm_disk_size_mb
+		        v4_0_latest_configuration_vms_disks.vm_disk_size_mb
 		    ) * 0.0009765625
 		    AS vms_allocated_disk_size_gb,
 		    SUM (samples.vm_disk_actual_size_mb) * 0.0009765625
 		    AS vm_disk_actual_size_gb
-		FROM v3_6_latest_configuration_storage_domains
-		    INNER JOIN v3_6_latest_map_datacenters_storage_domains
+		FROM v4_0_latest_configuration_storage_domains
+		    INNER JOIN v4_0_latest_map_datacenters_storage_domains
 		        ON (
-		            v3_6_latest_map_datacenters_storage_domains.storage_domain_id =
-		            v3_6_latest_configuration_storage_domains.storage_domain_id
+		            v4_0_latest_map_datacenters_storage_domains.storage_domain_id =
+		            v4_0_latest_configuration_storage_domains.storage_domain_id
 		        )
-		    INNER JOIN v3_6_latest_configuration_vms_disks
+		    INNER JOIN v4_0_latest_configuration_vms_disks
 		        ON (
-		            v3_6_latest_configuration_storage_domains.storage_domain_id =
-		            v3_6_latest_configuration_vms_disks.storage_domain_id
+		            v4_0_latest_configuration_storage_domains.storage_domain_id =
+		            v4_0_latest_configuration_vms_disks.storage_domain_id
 		        )
-		    LEFT OUTER JOIN v3_6_statistics_vms_disks_resources_usage_samples AS samples
+		    LEFT OUTER JOIN v4_0_statistics_vms_disks_resources_usage_samples AS samples
 		        ON (
-		            v3_6_latest_configuration_vms_disks.vm_disk_id =
+		            v4_0_latest_configuration_vms_disks.vm_disk_id =
 		            samples.vm_disk_id
 		            AND samples.history_id IN (
 		                SELECT MAX ( a.history_id )
-		                FROM v3_6_statistics_vms_disks_resources_usage_samples a
+		                FROM v4_0_statistics_vms_disks_resources_usage_samples a
 		                GROUP BY a.vm_disk_id
 		            )
 		        )
@@ -540,9 +540,9 @@ FROM (
 	    ) AS vms_storage
 		ON (
 		    vms_storage.datacenter_id =
-		    v3_6_latest_configuration_datacenters.datacenter_id
+		    v4_0_latest_configuration_datacenters.datacenter_id
 		)
-	WHERE $X{ IN, CAST ( v3_6_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
+	WHERE $X{ IN, CAST ( v4_0_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
 	GROUP BY
 		tag_name,
 		datacenter_name,
@@ -669,11 +669,11 @@ SELECT
     COUNT( DISTINCT host_id ) AS number_of_hosts,
     SUM (
         COALESCE (
-            v3_6_latest_configuration_hosts.number_of_cores,
+            v4_0_latest_configuration_hosts.number_of_cores,
             0
         ) *
         COALESCE (
-            v3_6_latest_configuration_hosts.number_of_sockets,
+            v4_0_latest_configuration_hosts.number_of_sockets,
             0
         )
     ) AS total_hosts_num_of_cpus,
@@ -681,7 +681,7 @@ SELECT
         CAST (
             SUM (
                 COALESCE (
-                    v3_6_latest_configuration_hosts.memory_size_mb,
+                    v4_0_latest_configuration_hosts.memory_size_mb,
                     0.00
                 )
             ) AS float
@@ -693,27 +693,27 @@ SELECT
     cpu_memory_allocation.cpu_cores_running,
     cpu_memory_allocation.total_vms_mem,
     cpu_memory_allocation.mem_running
-FROM  v3_6_latest_configuration_datacenters
-    INNER JOIN v3_6_latest_configuration_clusters
+FROM  v4_0_latest_configuration_datacenters
+    INNER JOIN v4_0_latest_configuration_clusters
         ON (
-            v3_6_latest_configuration_datacenters.datacenter_id =
-            v3_6_latest_configuration_clusters.datacenter_id
+            v4_0_latest_configuration_datacenters.datacenter_id =
+            v4_0_latest_configuration_clusters.datacenter_id
         )
-    INNER JOIN v3_6_latest_configuration_hosts
+    INNER JOIN v4_0_latest_configuration_hosts
         ON (
-            v3_6_latest_configuration_clusters.cluster_id =
-            v3_6_latest_configuration_hosts.cluster_id
+            v4_0_latest_configuration_clusters.cluster_id =
+            v4_0_latest_configuration_hosts.cluster_id
         )
-    LEFT OUTER JOIN v3_6_latest_tags_relations
+    LEFT OUTER JOIN v4_0_latest_tags_relations
         ON (
-            v3_6_latest_configuration_hosts.host_id =
-            v3_6_latest_tags_relations.entity_id
-            AND v3_6_latest_tags_relations.entity_type = 3           
+            v4_0_latest_configuration_hosts.host_id =
+            v4_0_latest_tags_relations.entity_id
+            AND v4_0_latest_tags_relations.entity_type = 3           
         )
-    LEFT OUTER JOIN v3_6_latest_tags_details
+    LEFT OUTER JOIN v4_0_latest_tags_details
         ON (
-            v3_6_latest_tags_relations.parent_id =
-            v3_6_latest_tags_details.tag_id
+            v4_0_latest_tags_relations.parent_id =
+            v4_0_latest_tags_details.tag_id
         )
     LEFT OUTER JOIN (
 		SELECT
@@ -729,53 +729,53 @@ FROM  v3_6_latest_configuration_datacenters
 		FROM (
 		SELECT
 		    a.cluster_id AS cluster_id,
-		    v3_6_statistics_vms_resources_usage_hourly.vm_status as vm_status,
+		    v4_0_statistics_vms_resources_usage_hourly.vm_status as vm_status,
 		    COUNT( DISTINCT a.vm_id ) AS num_of_vms
-		FROM v3_6_statistics_vms_resources_usage_hourly
-		    INNER JOIN v3_6_latest_configuration_vms a
+		FROM v4_0_statistics_vms_resources_usage_hourly
+		    INNER JOIN v4_0_latest_configuration_vms a
 		        ON (
 		            a.vm_id =
-		            v3_6_statistics_vms_resources_usage_hourly.vm_id
+		            v4_0_statistics_vms_resources_usage_hourly.vm_id
 		        )
 		WHERE
-		    v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+		    v4_0_statistics_vms_resources_usage_hourly.history_id IN (
 		        SELECT MAX ( history_id )
-		        FROM v3_6_statistics_vms_resources_usage_hourly b
+		        FROM v4_0_statistics_vms_resources_usage_hourly b
 		        GROUP BY vm_id
 		    )
 		GROUP BY
-		    a.cluster_id, v3_6_statistics_vms_resources_usage_hourly.vm_status
+		    a.cluster_id, v4_0_statistics_vms_resources_usage_hourly.vm_status
 		) AS vm_count
 		GROUP BY cluster_id
 	    ) AS num_of_vms
 		ON (
 		    num_of_vms.cluster_id =
-		    v3_6_latest_configuration_clusters.cluster_id
+		    v4_0_latest_configuration_clusters.cluster_id
 		)
     LEFT OUTER JOIN (
         SELECT
             a.cluster_id,
             SUM (
                 COALESCE (
-                    v3_6_configuration_history_vms.cpu_per_socket,
+                    v4_0_configuration_history_vms.cpu_per_socket,
                     0
                 )*
                 COALESCE (
-                    v3_6_configuration_history_vms.number_of_sockets,
+                    v4_0_configuration_history_vms.number_of_sockets,
                     0
                 )
             )
             AS total_vms_cpu_cores,
             SUM (
                 CASE
-                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                    WHEN v4_0_statistics_vms_resources_usage_hourly.vm_status = 1
                         THEN
                             COALESCE (
-                                v3_6_configuration_history_vms.cpu_per_socket,
+                                v4_0_configuration_history_vms.cpu_per_socket,
                                 0
                             ) *
                             COALESCE (
-                                v3_6_configuration_history_vms.number_of_sockets,
+                                v4_0_configuration_history_vms.number_of_sockets,
                                 0
                             )
                     ELSE 0
@@ -786,7 +786,7 @@ FROM  v3_6_latest_configuration_datacenters
                 CAST (
                     SUM (
                         COALESCE (
-                            v3_6_configuration_history_vms.memory_size_mb,
+                            v4_0_configuration_history_vms.memory_size_mb,
                             0.00
                         )
                     )  AS float
@@ -796,31 +796,31 @@ FROM  v3_6_latest_configuration_datacenters
                 CAST (
                     SUM (
                         CASE
-                            WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                            WHEN v4_0_statistics_vms_resources_usage_hourly.vm_status = 1
                                 THEN
                                     COALESCE (
-                                        v3_6_configuration_history_vms.memory_size_mb,
+                                        v4_0_configuration_history_vms.memory_size_mb,
                                         0.00
                                     )
                             ELSE 0.00
                         END ) AS float
                 ) ::numeric /1024, 2
             ) AS mem_running
-        FROM v3_6_statistics_vms_resources_usage_hourly
-            INNER JOIN v3_6_configuration_history_vms
+        FROM v4_0_statistics_vms_resources_usage_hourly
+            INNER JOIN v4_0_configuration_history_vms
                 ON (
-                    v3_6_configuration_history_vms.history_id =
-                    v3_6_statistics_vms_resources_usage_hourly.vm_configuration_version
+                    v4_0_configuration_history_vms.history_id =
+                    v4_0_statistics_vms_resources_usage_hourly.vm_configuration_version
                 )
-            INNER JOIN v3_6_latest_configuration_vms a
+            INNER JOIN v4_0_latest_configuration_vms a
                 ON (
                     a.vm_id =
-                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                    v4_0_statistics_vms_resources_usage_hourly.vm_id
                 )
         WHERE
-            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+            v4_0_statistics_vms_resources_usage_hourly.history_id IN (
                 SELECT MAX ( history_id )
-                FROM v3_6_statistics_vms_resources_usage_hourly b
+                FROM v4_0_statistics_vms_resources_usage_hourly b
                 GROUP BY vm_id
             )
         GROUP BY
@@ -828,9 +828,9 @@ FROM  v3_6_latest_configuration_datacenters
     ) AS cpu_memory_allocation
         ON (
             cpu_memory_allocation.cluster_id =
-            v3_6_latest_configuration_clusters.cluster_id
+            v4_0_latest_configuration_clusters.cluster_id
         )
-WHERE $X{ IN, CAST ( v3_6_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
+WHERE $X{ IN, CAST ( v4_0_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
 GROUP BY
     tag_name,
     datacenter_name,
@@ -925,11 +925,11 @@ SELECT
     COUNT( DISTINCT host_id ) AS number_of_hosts,
     SUM (
         COALESCE (
-            v3_6_latest_configuration_hosts.number_of_cores,
+            v4_0_latest_configuration_hosts.number_of_cores,
             0
         ) *
         COALESCE (
-            v3_6_latest_configuration_hosts.number_of_sockets,
+            v4_0_latest_configuration_hosts.number_of_sockets,
             0
         )
     ) AS total_hosts_num_of_cpus,
@@ -937,7 +937,7 @@ SELECT
         CAST (
             SUM (
                 COALESCE (
-                    v3_6_latest_configuration_hosts.memory_size_mb,
+                    v4_0_latest_configuration_hosts.memory_size_mb,
                     0.00
                 )
             ) AS float
@@ -954,27 +954,27 @@ SELECT
     dc_storage.dc_total_disk_size_gb,
     vms_storage.vms_allocated_disk_size_gb,
     vms_storage.vm_disk_actual_size_gb
-FROM  v3_6_latest_configuration_datacenters
-    INNER JOIN v3_6_latest_configuration_clusters
+FROM  v4_0_latest_configuration_datacenters
+    INNER JOIN v4_0_latest_configuration_clusters
         ON (
-            v3_6_latest_configuration_datacenters.datacenter_id =
-            v3_6_latest_configuration_clusters.datacenter_id
+            v4_0_latest_configuration_datacenters.datacenter_id =
+            v4_0_latest_configuration_clusters.datacenter_id
         )
-    INNER JOIN v3_6_latest_configuration_hosts
+    INNER JOIN v4_0_latest_configuration_hosts
         ON (
-            v3_6_latest_configuration_clusters.cluster_id =
-            v3_6_latest_configuration_hosts.cluster_id
+            v4_0_latest_configuration_clusters.cluster_id =
+            v4_0_latest_configuration_hosts.cluster_id
         )
-    LEFT OUTER JOIN v3_6_latest_tags_relations
+    LEFT OUTER JOIN v4_0_latest_tags_relations
         ON (
-            v3_6_latest_configuration_hosts.host_id =
-            v3_6_latest_tags_relations.entity_id
-            AND v3_6_latest_tags_relations.entity_type = 3
+            v4_0_latest_configuration_hosts.host_id =
+            v4_0_latest_tags_relations.entity_id
+            AND v4_0_latest_tags_relations.entity_type = 3
         )
-    LEFT OUTER JOIN v3_6_latest_tags_details
+    LEFT OUTER JOIN v4_0_latest_tags_details
         ON (
-            v3_6_latest_tags_relations.parent_id =
-            v3_6_latest_tags_details.tag_id
+            v4_0_latest_tags_relations.parent_id =
+            v4_0_latest_tags_details.tag_id
         )
     LEFT OUTER JOIN (
         SELECT
@@ -990,53 +990,53 @@ FROM  v3_6_latest_configuration_datacenters
         FROM (
         SELECT
             a.cluster_id AS cluster_id,
-            v3_6_statistics_vms_resources_usage_hourly.vm_status as vm_status,
+            v4_0_statistics_vms_resources_usage_hourly.vm_status as vm_status,
             COUNT( DISTINCT a.vm_id ) AS num_of_vms
-        FROM v3_6_statistics_vms_resources_usage_hourly
-            INNER JOIN v3_6_latest_configuration_vms a
+        FROM v4_0_statistics_vms_resources_usage_hourly
+            INNER JOIN v4_0_latest_configuration_vms a
                 ON (
                     a.vm_id =
-                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                    v4_0_statistics_vms_resources_usage_hourly.vm_id
                 )
         WHERE
-            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+            v4_0_statistics_vms_resources_usage_hourly.history_id IN (
                 SELECT MAX ( history_id )
-                FROM v3_6_statistics_vms_resources_usage_hourly b
+                FROM v4_0_statistics_vms_resources_usage_hourly b
                 GROUP BY vm_id
             )
         GROUP BY
-            a.cluster_id, v3_6_statistics_vms_resources_usage_hourly.vm_status
+            a.cluster_id, v4_0_statistics_vms_resources_usage_hourly.vm_status
         ) AS vm_count
         GROUP BY cluster_id
     ) AS num_of_vms
         ON (
             num_of_vms.cluster_id =
-            v3_6_latest_configuration_clusters.cluster_id
+            v4_0_latest_configuration_clusters.cluster_id
         )
     LEFT OUTER JOIN (
         SELECT
             a.cluster_id,
             SUM (
                 COALESCE (
-                    v3_6_configuration_history_vms.cpu_per_socket,
+                    v4_0_configuration_history_vms.cpu_per_socket,
                     0
                 )*
                 COALESCE (
-                    v3_6_configuration_history_vms.number_of_sockets,
+                    v4_0_configuration_history_vms.number_of_sockets,
                     0
                 )
             )
             AS total_vms_cpu_cores,
             SUM (
                 CASE
-                    WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                    WHEN v4_0_statistics_vms_resources_usage_hourly.vm_status = 1
                         THEN
                             COALESCE (
-                                v3_6_configuration_history_vms.cpu_per_socket,
+                                v4_0_configuration_history_vms.cpu_per_socket,
                                 0
                             ) *
                             COALESCE (
-                                v3_6_configuration_history_vms.number_of_sockets,
+                                v4_0_configuration_history_vms.number_of_sockets,
                                 0
                             )
                     ELSE 0
@@ -1047,7 +1047,7 @@ FROM  v3_6_latest_configuration_datacenters
                 CAST (
                     SUM (
                         COALESCE (
-                            v3_6_configuration_history_vms.memory_size_mb,
+                            v4_0_configuration_history_vms.memory_size_mb,
                             0.00
                         )
                     )  AS float
@@ -1057,31 +1057,31 @@ FROM  v3_6_latest_configuration_datacenters
                 CAST (
                     SUM (
                         CASE
-                            WHEN v3_6_statistics_vms_resources_usage_hourly.vm_status = 1
+                            WHEN v4_0_statistics_vms_resources_usage_hourly.vm_status = 1
                                 THEN
                                     COALESCE (
-                                        v3_6_configuration_history_vms.memory_size_mb,
+                                        v4_0_configuration_history_vms.memory_size_mb,
                                         0.00
                                     )
                             ELSE 0.00
                         END ) AS float
                 ) ::numeric /1024, 2
             ) AS mem_running
-        FROM v3_6_statistics_vms_resources_usage_hourly
-            INNER JOIN v3_6_configuration_history_vms
+        FROM v4_0_statistics_vms_resources_usage_hourly
+            INNER JOIN v4_0_configuration_history_vms
                 ON (
-                    v3_6_configuration_history_vms.history_id =
-                    v3_6_statistics_vms_resources_usage_hourly.vm_configuration_version
+                    v4_0_configuration_history_vms.history_id =
+                    v4_0_statistics_vms_resources_usage_hourly.vm_configuration_version
                 )
-            INNER JOIN v3_6_latest_configuration_vms a
+            INNER JOIN v4_0_latest_configuration_vms a
                 ON (
                     a.vm_id =
-                    v3_6_statistics_vms_resources_usage_hourly.vm_id
+                    v4_0_statistics_vms_resources_usage_hourly.vm_id
                 )
         WHERE
-            v3_6_statistics_vms_resources_usage_hourly.history_id IN (
+            v4_0_statistics_vms_resources_usage_hourly.history_id IN (
                 SELECT MAX ( history_id )
-                FROM v3_6_statistics_vms_resources_usage_hourly b
+                FROM v4_0_statistics_vms_resources_usage_hourly b
                 GROUP BY vm_id
             )
         GROUP BY
@@ -1089,7 +1089,7 @@ FROM  v3_6_latest_configuration_datacenters
     ) AS cpu_memory_allocation
         ON (
             cpu_memory_allocation.cluster_id =
-            v3_6_latest_configuration_clusters.cluster_id
+            v4_0_latest_configuration_clusters.cluster_id
         )
     LEFT OUTER JOIN (
         SELECT
@@ -1115,29 +1115,29 @@ FROM  v3_6_latest_configuration_datacenters
                 )
             )
             AS dc_total_disk_size_gb
-        FROM v3_6_latest_configuration_storage_domains
-            INNER JOIN v3_6_latest_map_datacenters_storage_domains
+        FROM v4_0_latest_configuration_storage_domains
+            INNER JOIN v4_0_latest_map_datacenters_storage_domains
                 ON (
-                    v3_6_latest_configuration_storage_domains.storage_domain_id =
-                    v3_6_latest_map_datacenters_storage_domains.storage_domain_id
+                    v4_0_latest_configuration_storage_domains.storage_domain_id =
+                    v4_0_latest_map_datacenters_storage_domains.storage_domain_id
                 )
-            LEFT OUTER JOIN v3_6_statistics_storage_domains_resources_usage_samples AS samples
+            LEFT OUTER JOIN v4_0_statistics_storage_domains_resources_usage_samples AS samples
                 ON (
-                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    v4_0_latest_configuration_storage_domains.storage_domain_id =
                     samples.storage_domain_id
                     AND samples.history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_6_statistics_storage_domains_resources_usage_samples a
+                        FROM v4_0_statistics_storage_domains_resources_usage_samples a
                         GROUP BY a.storage_domain_id
                     )
                 )
-            LEFT OUTER JOIN v3_6_statistics_storage_domains_resources_usage_daily AS daily
+            LEFT OUTER JOIN v4_0_statistics_storage_domains_resources_usage_daily AS daily
                 ON (
-                    v3_6_latest_configuration_storage_domains.storage_domain_id =
+                    v4_0_latest_configuration_storage_domains.storage_domain_id =
                     daily.storage_domain_id
                     AND daily.history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_6_statistics_storage_domains_resources_usage_daily a
+                        FROM v4_0_statistics_storage_domains_resources_usage_daily a
                         GROUP BY a.storage_domain_id
                     )
                 )
@@ -1148,13 +1148,13 @@ FROM  v3_6_latest_configuration_datacenters
     ) AS dc_storage
         ON (
             dc_storage.datacenter_id =
-            v3_6_latest_configuration_datacenters.datacenter_id
+            v4_0_latest_configuration_datacenters.datacenter_id
         )
     LEFT OUTER JOIN (
         SELECT
             datacenter_id,
             SUM (
-                v3_6_latest_configuration_vms_disks.vm_disk_size_mb
+                v4_0_latest_configuration_vms_disks.vm_disk_size_mb
             ) * 0.0009765625
             AS vms_allocated_disk_size_gb,
             SUM (
@@ -1164,34 +1164,34 @@ FROM  v3_6_latest_configuration_datacenters
                 ) * 0.0009765625
             )
             AS vm_disk_actual_size_gb
-        FROM v3_6_latest_configuration_storage_domains
-            INNER JOIN v3_6_latest_map_datacenters_storage_domains
+        FROM v4_0_latest_configuration_storage_domains
+            INNER JOIN v4_0_latest_map_datacenters_storage_domains
                 ON (
-                    v3_6_latest_map_datacenters_storage_domains.storage_domain_id =
-                    v3_6_latest_configuration_storage_domains.storage_domain_id
+                    v4_0_latest_map_datacenters_storage_domains.storage_domain_id =
+                    v4_0_latest_configuration_storage_domains.storage_domain_id
                 )
-            INNER JOIN v3_6_latest_configuration_vms_disks
+            INNER JOIN v4_0_latest_configuration_vms_disks
                 ON (
-                    v3_6_latest_configuration_storage_domains.storage_domain_id =
-                    v3_6_latest_configuration_vms_disks.storage_domain_id
+                    v4_0_latest_configuration_storage_domains.storage_domain_id =
+                    v4_0_latest_configuration_vms_disks.storage_domain_id
                 )
-            LEFT OUTER JOIN v3_6_statistics_vms_disks_resources_usage_samples AS samples
+            LEFT OUTER JOIN v4_0_statistics_vms_disks_resources_usage_samples AS samples
                 ON (
-                    v3_6_latest_configuration_vms_disks.vm_disk_id =
+                    v4_0_latest_configuration_vms_disks.vm_disk_id =
                     samples.vm_disk_id
                     AND samples.history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_6_statistics_vms_disks_resources_usage_samples a
+                        FROM v4_0_statistics_vms_disks_resources_usage_samples a
                         GROUP BY a.vm_disk_id
                     )
                 )
-            LEFT OUTER JOIN v3_6_statistics_vms_disks_resources_usage_daily AS daily
+            LEFT OUTER JOIN v4_0_statistics_vms_disks_resources_usage_daily AS daily
                 ON (
-                    v3_6_latest_configuration_vms_disks.vm_disk_id =
+                    v4_0_latest_configuration_vms_disks.vm_disk_id =
                     daily.vm_disk_id
                     AND daily.history_id IN (
                         SELECT MAX ( a.history_id )
-                        FROM v3_6_statistics_vms_disks_resources_usage_daily a
+                        FROM v4_0_statistics_vms_disks_resources_usage_daily a
                         GROUP BY a.vm_disk_id
                     )
                 )
@@ -1202,9 +1202,9 @@ FROM  v3_6_latest_configuration_datacenters
     ) AS vms_storage
         ON (
             vms_storage.datacenter_id =
-            v3_6_latest_configuration_datacenters.datacenter_id
+            v4_0_latest_configuration_datacenters.datacenter_id
         )
-WHERE $X{ IN, CAST ( v3_6_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
+WHERE $X{ IN, CAST ( v4_0_latest_configuration_datacenters.datacenter_id AS varchar ), P_DataCenter_ID }
 GROUP BY
     tag_name,
     datacenter_name,

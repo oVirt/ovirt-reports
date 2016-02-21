@@ -59,25 +59,25 @@
 			<![CDATA[--br1 - This report will display a list of all hosts configuration data by Datacenter and Cluster
 
 SELECT
-    v3_6_configuration_history_clusters.cluster_name,
-    v3_6_configuration_history_hosts.host_name,
-    v3_6_configuration_history_hosts.fqdn_or_ip, /* A fully qualified domain name ( fqdn ) */
-    CAST ( v3_6_configuration_history_hosts.create_date AS date ) AS create_date,
-    CAST ( v3_6_configuration_history_hosts.delete_date AS date ) AS delete_date,
-    v3_6_configuration_history_hosts.number_of_cores,
-    v3_6_configuration_history_hosts.vdsm_version,
-    v3_6_configuration_history_hosts.host_os,
-    v3_6_configuration_history_hosts.cluster_id,
-    v3_6_configuration_history_hosts.cpu_model,
+    v4_0_configuration_history_clusters.cluster_name,
+    v4_0_configuration_history_hosts.host_name,
+    v4_0_configuration_history_hosts.fqdn_or_ip, /* A fully qualified domain name ( fqdn ) */
+    CAST ( v4_0_configuration_history_hosts.create_date AS date ) AS create_date,
+    CAST ( v4_0_configuration_history_hosts.delete_date AS date ) AS delete_date,
+    v4_0_configuration_history_hosts.number_of_cores,
+    v4_0_configuration_history_hosts.vdsm_version,
+    v4_0_configuration_history_hosts.host_os,
+    v4_0_configuration_history_hosts.cluster_id,
+    v4_0_configuration_history_hosts.cpu_model,
     COALESCE ( host_type.value_localized, host_type.value ) AS host_type,
-    v3_6_configuration_history_clusters.delete_date AS cluster_delete,
+    v4_0_configuration_history_clusters.delete_date AS cluster_delete,
     ROUND (
     CAST ( COALESCE ( memory_size_mb, 0.00 ) AS float )
     ::
     numeric
     / 1024, 1
     ) AS memory_size_mb
-FROM v3_6_configuration_history_hosts
+FROM v4_0_configuration_history_hosts
     LEFT OUTER JOIN (
         SELECT
             enum_translator_default.enum_type,
@@ -103,42 +103,42 @@ FROM v3_6_configuration_history_hosts
         WHERE language_code = 'en_US'
     ) AS host_type
         ON (
-            v3_6_configuration_history_hosts.host_type =
+            v4_0_configuration_history_hosts.host_type =
             host_type.enum_key
             AND host_type.enum_type = 'HOST_TYPE'
         )
-    LEFT OUTER JOIN v3_6_configuration_history_clusters
+    LEFT OUTER JOIN v4_0_configuration_history_clusters
         ON (
-            v3_6_configuration_history_hosts.cluster_id =
-            v3_6_configuration_history_clusters.cluster_id
-            AND v3_6_configuration_history_clusters.history_id IN (
+            v4_0_configuration_history_hosts.cluster_id =
+            v4_0_configuration_history_clusters.cluster_id
+            AND v4_0_configuration_history_clusters.history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_6_configuration_history_clusters a
+                FROM v4_0_configuration_history_clusters a
                 GROUP BY a.cluster_id
             )
         )
-WHERE v3_6_configuration_history_hosts.cluster_id IN (
+WHERE v4_0_configuration_history_hosts.cluster_id IN (
     SELECT a.cluster_id
-    FROM v3_6_configuration_history_clusters a
+    FROM v4_0_configuration_history_clusters a
     WHERE a.datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
 )
-AND v3_6_configuration_history_hosts.cluster_id =
+AND v4_0_configuration_history_hosts.cluster_id =
     CASE CAST ( $P{P_Cluster_ID} AS uuid )
         WHEN NULL
-            THEN v3_6_configuration_history_hosts.cluster_id
+            THEN v4_0_configuration_history_hosts.cluster_id
         WHEN CAST ( '11111111-1111-1111-1111-111111111111' AS uuid )
-            THEN v3_6_configuration_history_hosts.cluster_id
+            THEN v4_0_configuration_history_hosts.cluster_id
         ELSE CAST ( $P{P_Cluster_ID} AS uuid )
     END
-AND v3_6_configuration_history_hosts.host_type =
+AND v4_0_configuration_history_hosts.host_type =
     CASE $P{P_Host_Type}
         WHEN -1
-            THEN v3_6_configuration_history_hosts.host_type
+            THEN v4_0_configuration_history_hosts.host_type
         ELSE $P{P_Host_Type}
     END
-AND v3_6_configuration_history_hosts.history_id IN (
+AND v4_0_configuration_history_hosts.history_id IN (
     SELECT MAX ( a.history_id )
-    FROM v3_6_configuration_history_hosts a
+    FROM v4_0_configuration_history_hosts a
     GROUP BY a.host_id
 )
 AND
@@ -146,16 +146,16 @@ AND
         /* This will determine whether deleted hosts will be included in the results */
         /* based on what the user chose */
         WHEN $P{active_hosts_select} like '%delete%'
-            THEN v3_6_configuration_history_hosts.delete_date IS NULL
+            THEN v4_0_configuration_history_hosts.delete_date IS NULL
         ELSE
-            v3_6_configuration_history_hosts.delete_date IS NULL
+            v4_0_configuration_history_hosts.delete_date IS NULL
             OR
-            v3_6_configuration_history_hosts.delete_date IS NOT NULL
+            v4_0_configuration_history_hosts.delete_date IS NOT NULL
     END
 ORDER BY
-    v3_6_configuration_history_hosts.cluster_id,
-    v3_6_configuration_history_hosts.delete_date DESC,
-    v3_6_configuration_history_hosts.host_name]]>
+    v4_0_configuration_history_hosts.cluster_id,
+    v4_0_configuration_history_hosts.delete_date DESC,
+    v4_0_configuration_history_hosts.host_name]]>
 		</queryString>
 		<field name="cluster_name" class="java.lang.String"/>
 		<field name="host_name" class="java.lang.String"/>

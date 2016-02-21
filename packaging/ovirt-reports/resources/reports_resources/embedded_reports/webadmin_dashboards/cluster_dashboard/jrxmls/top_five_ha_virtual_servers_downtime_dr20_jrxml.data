@@ -13,56 +13,56 @@
 -- the total uptime and planned downtime percent.
 
 SELECT
-    v3_6_latest_configuration_vms.vm_id, v3_6_latest_configuration_vms.vm_name,
+    v4_0_latest_configuration_vms.vm_id, v4_0_latest_configuration_vms.vm_name,
     (
         SUM (
             CASE
-                WHEN v3_6_statistics_vms_resources_usage_samples.vm_status = 1
+                WHEN v4_0_statistics_vms_resources_usage_samples.vm_status = 1
                     THEN
                         COALESCE (
-                            v3_6_statistics_vms_resources_usage_samples.minutes_in_status,
+                            v4_0_statistics_vms_resources_usage_samples.minutes_in_status,
                             0
                         )
                 ELSE 0
             END
         ) /
         SUM (
-            v3_6_statistics_vms_resources_usage_samples.minutes_in_status
+            v4_0_statistics_vms_resources_usage_samples.minutes_in_status
         )
     ) * 100
     AS uptime_percent,
     (
         SUM (
             CASE
-                WHEN v3_6_statistics_vms_resources_usage_samples.vm_status IN ( 0, 2 )
+                WHEN v4_0_statistics_vms_resources_usage_samples.vm_status IN ( 0, 2 )
                     THEN
                         COALESCE (
-                            v3_6_statistics_vms_resources_usage_samples.minutes_in_status,
+                            v4_0_statistics_vms_resources_usage_samples.minutes_in_status,
                             0
                         )
                 ELSE 0
             END
         ) /
         SUM (
-            v3_6_statistics_vms_resources_usage_samples.minutes_in_status
+            v4_0_statistics_vms_resources_usage_samples.minutes_in_status
         )
     ) * 100
     AS planned_downtime_percent
-FROM v3_6_statistics_vms_resources_usage_samples
-    INNER JOIN v3_6_latest_configuration_vms
+FROM v4_0_statistics_vms_resources_usage_samples
+    INNER JOIN v4_0_latest_configuration_vms
         ON (
-            v3_6_latest_configuration_vms.vm_id =
-            v3_6_statistics_vms_resources_usage_samples.vm_id
+            v4_0_latest_configuration_vms.vm_id =
+            v4_0_statistics_vms_resources_usage_samples.vm_id
         )
 WHERE
     -- Here we filter by the cluster chosen by the user
-    v3_6_latest_configuration_vms.cluster_id =
+    v4_0_latest_configuration_vms.cluster_id =
     CAST ( $P{P_Cluster_ID} as UUID )
     -- Here we get only high availability vms
-    AND v3_6_latest_configuration_vms.high_availability = TRUE
+    AND v4_0_latest_configuration_vms.high_availability = TRUE
 GROUP BY
-    v3_6_latest_configuration_vms.vm_id,
-    v3_6_latest_configuration_vms.vm_name
+    v4_0_latest_configuration_vms.vm_id,
+    v4_0_latest_configuration_vms.vm_name
 ORDER BY uptime_percent ASC
 LIMIT 5]]>
 	</queryString>

@@ -176,7 +176,7 @@ SELECT
 FROM (
     SELECT
         cluster_name,
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         CASE
             WHEN delete_date IS NULL
                 THEN host_name
@@ -190,8 +190,8 @@ FROM (
                 ')'
         END
         AS host_name,
-        CAST ( v3_6_configuration_history_hosts.delete_date AS date ) AS delete_date,
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
+        CAST ( v4_0_configuration_history_hosts.delete_date AS date ) AS delete_date,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.history_datetime AS time,
         MAX(
             COALESCE (
                 max_cpu_usage,
@@ -236,22 +236,22 @@ FROM (
                 0
             )
         ) AS MEM_Usage
-    FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
-        INNER JOIN v3_6_configuration_history_hosts
+    FROM v4_0_statistics_hosts_resources_usage_$P!{table_name}
+        INNER JOIN v4_0_configuration_history_hosts
             ON (
-                v3_6_configuration_history_hosts.host_id =
-                v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id
+                v4_0_configuration_history_hosts.host_id =
+                v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id
             )
-        LEFT OUTER JOIN v3_6_latest_configuration_clusters
+        LEFT OUTER JOIN v4_0_latest_configuration_clusters
             ON (
-                v3_6_configuration_history_hosts.cluster_id =
-	        v3_6_latest_configuration_clusters.cluster_id
+                v4_0_configuration_history_hosts.cluster_id =
+	        v4_0_latest_configuration_clusters.cluster_id
 	    )
     WHERE
         -- Here we filter by active hosts only
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
         -- Here we filter by the hosts chosen by the user
-        AND $X{ IN, CAST ( v3_6_configuration_history_hosts.host_id AS varchar ), P_Hosts_List_Multi }
+        AND $X{ IN, CAST ( v4_0_configuration_history_hosts.host_id AS varchar ), P_Hosts_List_Multi }
         AND history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
         AND history_datetime <
         CASE
@@ -265,14 +265,14 @@ FROM (
                 THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
         END
         -- Here we get the latest hosts configuration
-        AND v3_6_configuration_history_hosts.history_id IN (
+        AND v4_0_configuration_history_hosts.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_6_configuration_history_hosts a
+            FROM v4_0_configuration_history_hosts a
             GROUP BY a.host_id
         )
     GROUP BY
         cluster_name,
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id,
         CASE
             WHEN delete_date IS NULL
                 THEN host_name
@@ -285,8 +285,8 @@ FROM (
                 ||
                 ')'
         END,
-        CAST ( v3_6_configuration_history_hosts.delete_date AS date ) ,
-        v3_6_statistics_hosts_resources_usage_$P!{table_name}.history_datetime
+        CAST ( v4_0_configuration_history_hosts.delete_date AS date ) ,
+        v4_0_statistics_hosts_resources_usage_$P!{table_name}.history_datetime
 ) AS a
     RIGHT OUTER JOIN calendar b
         ON ( time = $P!{calendar_column} )

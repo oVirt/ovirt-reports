@@ -66,7 +66,7 @@ SELECT DISTINCT
     MEM_Usage
 FROM (
     SELECT
-        v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+        v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_id,
         CASE
             WHEN delete_date IS NULL
                 THEN vm_name
@@ -82,51 +82,51 @@ FROM (
                 ||
                 ')'
         END AS vm_name,
-        v3_6_statistics_vms_resources_usage_$P!{table_name}.history_datetime AS time,
+        v4_0_statistics_vms_resources_usage_$P!{table_name}.history_datetime AS time,
         SUM (
             COALESCE (
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.max_cpu_usage,
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.max_cpu_usage,
                 0
             ) *
             COALESCE (
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) /
         SUM (
             COALESCE (
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) AS CPU_Usage,
         SUM (
             COALESCE (
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.max_memory_usage,
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.max_memory_usage,
                 0
             ) *
             COALESCE (
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) /
         SUM (
             COALESCE (
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                 0
             )
         ) AS MEM_Usage
     -- If "Period" equals to "Daily" then "table_name"
     -- parameter equals to "hourly" else "daily"
-    FROM v3_6_statistics_vms_resources_usage_$P!{table_name}
-        INNER JOIN v3_6_configuration_history_vms
+    FROM v4_0_statistics_vms_resources_usage_$P!{table_name}
+        INNER JOIN v4_0_configuration_history_vms
             ON (
-                v3_6_configuration_history_vms.vm_id =
-                v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id
+                v4_0_configuration_history_vms.vm_id =
+                v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_id
             )
     WHERE
-        v3_6_statistics_vms_resources_usage_$P!{table_name}.history_datetime >=
+        v4_0_statistics_vms_resources_usage_$P!{table_name}.history_datetime >=
         CAST ( $P{P_Start_Date} as TIMESTAMP )
-        AND v3_6_statistics_vms_resources_usage_$P!{table_name}.history_datetime <
+        AND v4_0_statistics_vms_resources_usage_$P!{table_name}.history_datetime <
             CASE
                 WHEN $P{P_Period} = 0
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
@@ -138,28 +138,28 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
             END
         -- Here we get the latest vms configuration
-        AND v3_6_configuration_history_vms.history_id IN (
+        AND v4_0_configuration_history_vms.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_6_configuration_history_vms AS a
+            FROM v4_0_configuration_history_vms AS a
             GROUP BY a.vm_id
         )
         -- Here we get only active vms
-        AND v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+        AND v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
         -- Here we get the top 5 most utilized vms
-        AND v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id IN (
+        AND v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_id IN (
             SELECT a.vm_id
-            FROM v3_6_statistics_vms_resources_usage_$P!{table_name} AS a
-                INNER JOIN v3_6_configuration_history_vms AS b
+            FROM v4_0_statistics_vms_resources_usage_$P!{table_name} AS a
+                INNER JOIN v4_0_configuration_history_vms AS b
                     ON ( a.vm_id = b.vm_id )
             WHERE
                 -- Here we get only active vms
                 a.vm_status = 1
                 -- Here we filter by the datacenter chosen by the user
                 AND b.cluster_id IN (
-                    SELECT v3_6_configuration_history_clusters.cluster_id
-                    FROM v3_6_configuration_history_clusters
+                    SELECT v4_0_configuration_history_clusters.cluster_id
+                    FROM v4_0_configuration_history_clusters
                     WHERE
-                        v3_6_configuration_history_clusters.datacenter_id =
+                        v4_0_configuration_history_clusters.datacenter_id =
                         CAST ( $P{P_DataCenter_ID} as uuid )
                 )
                 -- Here we filter by the cluster chosen by the user
@@ -181,7 +181,7 @@ FROM (
                 -- Here we get the latest vms configuration
                 AND b.history_id IN (
                     SELECT MAX ( g.history_id )
-                    FROM v3_6_configuration_history_vms as g
+                    FROM v4_0_configuration_history_vms as g
                     GROUP BY g.vm_id
                 )
                 AND a.history_datetime >= CAST ( $P{P_Start_Date} as TIMESTAMP )
@@ -228,7 +228,7 @@ FROM (
             LIMIT 5
         )
     GROUP BY
-        v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id,
+        v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_id,
         vm_name,
         delete_date,
         history_datetime

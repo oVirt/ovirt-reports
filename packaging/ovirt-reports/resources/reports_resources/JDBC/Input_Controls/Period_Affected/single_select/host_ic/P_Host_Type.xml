@@ -47,29 +47,29 @@ FROM enum_translator AS enum_translator_default
         AND enum_translator_localized.enum_key =
         enum_translator_default.enum_key
     )
-    INNER JOIN v3_6_configuration_history_hosts
+    INNER JOIN v4_0_configuration_history_hosts
         ON (
-            v3_6_configuration_history_hosts.host_type =
+            v4_0_configuration_history_hosts.host_type =
             enum_translator_default.enum_key
             AND enum_translator_default.enum_type = 'HOST_TYPE'
         )
 WHERE enum_translator_default.language_code = 'en_US'
-AND v3_6_configuration_history_hosts.cluster_id IN (
-    SELECT v3_6_configuration_history_clusters.cluster_id
-    FROM v3_6_configuration_history_clusters
+AND v4_0_configuration_history_hosts.cluster_id IN (
+    SELECT v4_0_configuration_history_clusters.cluster_id
+    FROM v4_0_configuration_history_clusters
     WHERE
-        v3_6_configuration_history_clusters.datacenter_id =
+        v4_0_configuration_history_clusters.datacenter_id =
         CAST ( $P{P_DataCenter_ID} AS uuid )
 )
-AND v3_6_configuration_history_hosts.cluster_id =
+AND v4_0_configuration_history_hosts.cluster_id =
     CASE  $P{P_Cluster_ID}
         WHEN  '11111111-1111-1111-1111-111111111111'
-            THEN v3_6_configuration_history_hosts.cluster_id
+            THEN v4_0_configuration_history_hosts.cluster_id
         ELSE CAST ( $P{P_Cluster_ID} AS uuid )
     END
 AND history_id IN (
     SELECT MAX ( a.history_id )
-    FROM v3_6_configuration_history_hosts a
+    FROM v4_0_configuration_history_hosts a
     GROUP BY a.host_id
 )
 AND create_date &lt;=

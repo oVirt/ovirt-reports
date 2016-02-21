@@ -45,7 +45,7 @@ SELECT DISTINCT
             ')'
     END AS combo_name,
     0 AS sort
-FROM v3_6_configuration_history_clusters
+FROM v4_0_configuration_history_clusters
     LEFT OUTER JOIN (
         SELECT DISTINCT
             COALESCE (
@@ -77,7 +77,7 @@ WHERE
     -- Here we filter clusters that have vms.
     cluster_id IN (
         SELECT DISTINCT cluster_id
-        FROM v3_6_configuration_history_vms
+        FROM v4_0_configuration_history_vms
     )
     -- Here we filter by the datacenter chosen by the user
     AND datacenter_id =
@@ -91,7 +91,7 @@ WHERE
     -- Here we get the latest clusters configuration
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_6_configuration_history_clusters a
+        FROM v4_0_configuration_history_clusters a
         GROUP BY a.cluster_id
     )
     -- Here we filter deleted vms according to what the user chose

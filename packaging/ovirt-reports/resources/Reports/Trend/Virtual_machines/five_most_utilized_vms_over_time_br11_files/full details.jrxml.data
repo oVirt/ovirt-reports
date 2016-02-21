@@ -36,23 +36,23 @@
 		<![CDATA[-- BR11 - Header Details
 
 SELECT
-    v3_6_configuration_history_datacenters.datacenter_name AS datacenter_name,
-    v3_6_configuration_history_datacenters.delete_date AS datacenter_delete_date,
+    v4_0_configuration_history_datacenters.datacenter_name AS datacenter_name,
+    v4_0_configuration_history_datacenters.delete_date AS datacenter_delete_date,
     COALESCE (
         (
             SELECT
                 ' '
                 ||
                 RTRIM (
-                    CAST ( v3_6_configuration_history_clusters.cluster_name AS varchar )
+                    CAST ( v4_0_configuration_history_clusters.cluster_name AS varchar )
                 )
-            FROM v3_6_configuration_history_clusters
+            FROM v4_0_configuration_history_clusters
             WHERE
-                v3_6_configuration_history_clusters.cluster_id =
+                v4_0_configuration_history_clusters.cluster_id =
                     CAST ( $P{P_Cluster_ID} AS uuid )
-                AND v3_6_configuration_history_clusters.history_id IN (
+                AND v4_0_configuration_history_clusters.history_id IN (
                     SELECT MAX ( a.history_id )
-                    FROM v3_6_configuration_history_clusters AS a
+                    FROM v4_0_configuration_history_clusters AS a
                     GROUP BY a.cluster_id
                 )
         ),
@@ -60,14 +60,14 @@ SELECT
     )
     AS cluster_name,
     (
-        SELECT v3_6_configuration_history_clusters.delete_date
-        FROM v3_6_configuration_history_clusters
+        SELECT v4_0_configuration_history_clusters.delete_date
+        FROM v4_0_configuration_history_clusters
         WHERE
-            v3_6_configuration_history_clusters.cluster_id =
+            v4_0_configuration_history_clusters.cluster_id =
                 CAST ( $P{P_Cluster_ID} AS uuid )
-            AND v3_6_configuration_history_clusters.history_id IN (
+            AND v4_0_configuration_history_clusters.history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_6_configuration_history_clusters AS a
+                FROM v4_0_configuration_history_clusters AS a
                 GROUP BY a.cluster_id
             )
     )
@@ -148,13 +148,13 @@ SELECT
             AND enum_translator_default.enum_type = 'REPORTS_PERIOD'
     )
     AS period
-FROM v3_6_configuration_history_datacenters
+FROM v4_0_configuration_history_datacenters
 WHERE
-    v3_6_configuration_history_datacenters.datacenter_id =
+    v4_0_configuration_history_datacenters.datacenter_id =
         CAST ( $P{P_DataCenter_ID} AS uuid )
-    AND v3_6_configuration_history_datacenters.history_id IN (
+    AND v4_0_configuration_history_datacenters.history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_6_configuration_history_datacenters AS a
+        FROM v4_0_configuration_history_datacenters AS a
         GROUP BY a.datacenter_id
     )]]>
 	</queryString>

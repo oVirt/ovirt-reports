@@ -62,40 +62,40 @@ FROM (
         SELECT
             history_datetime,
             SUM (
-                coalesce ( v3_6_configuration_history_hosts.number_of_cores , 0 ) *
+                coalesce ( v4_0_configuration_history_hosts.number_of_cores , 0 ) *
                 minutes_in_status
             ) /
             SUM ( minutes_in_status )
             as host_cpu_cores,
             SUM (
-                coalesce ( v3_6_configuration_history_hosts.memory_size_mb , 0 ) *
+                coalesce ( v4_0_configuration_history_hosts.memory_size_mb , 0 ) *
                 minutes_in_status
             ) /
             SUM ( minutes_in_status )
             as host_mem_avg
         /* If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily" */
-        FROM v3_6_statistics_hosts_resources_usage_$P!{table_name}
-            INNER JOIN v3_6_configuration_history_hosts
+        FROM v4_0_statistics_hosts_resources_usage_$P!{table_name}
+            INNER JOIN v4_0_configuration_history_hosts
                 ON (
-                    v3_6_configuration_history_hosts.history_id =
-                    v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_configuration_version
+                    v4_0_configuration_history_hosts.history_id =
+                    v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_configuration_version
                 )
-                    INNER JOIN v3_6_configuration_history_hosts latest
+                    INNER JOIN v4_0_configuration_history_hosts latest
                         ON (
                             latest.host_id =
-                            v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_id
+                            v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id
                         )
-            WHERE v3_6_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
-            AND v3_6_configuration_history_hosts.cluster_id in (
-                SELECT v3_6_configuration_history_clusters.cluster_id
-                FROM v3_6_configuration_history_clusters
-                WHERE v3_6_configuration_history_clusters.datacenter_id =
+            WHERE v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_status = 1
+            AND v4_0_configuration_history_hosts.cluster_id in (
+                SELECT v4_0_configuration_history_clusters.cluster_id
+                FROM v4_0_configuration_history_clusters
+                WHERE v4_0_configuration_history_clusters.datacenter_id =
                 cast ( $P{P_DataCenter_ID} as uuid )
             )
-            AND v3_6_configuration_history_hosts.cluster_id =
+            AND v4_0_configuration_history_hosts.cluster_id =
             CASE $P{P_Cluster_ID}
                 WHEN '11111111-1111-1111-1111-111111111111'
-                    THEN v3_6_configuration_history_hosts.cluster_id
+                    THEN v4_0_configuration_history_hosts.cluster_id
                 ELSE cast ( $P{P_Cluster_ID} as uuid )
             END
             AND history_datetime >= cast ( $P{P_Start_Date} as date )
@@ -112,7 +112,7 @@ FROM (
                 END
             AND latest.history_id in (
                 SELECT max ( b.history_id )
-                FROM v3_6_configuration_history_hosts b
+                FROM v4_0_configuration_history_hosts b
                 GROUP BY b.host_id
             )
             AND
@@ -136,42 +136,42 @@ FROM (
             FROM (
                 SELECT
                     history_datetime,
-                    v3_6_configuration_history_vms.vm_id,
+                    v4_0_configuration_history_vms.vm_id,
                     SUM (
-                        coalesce ( v3_6_configuration_history_vms.cpu_per_socket , 0 ) *
-                        coalesce ( v3_6_configuration_history_vms.number_of_sockets , 0 ) *
+                        coalesce ( v4_0_configuration_history_vms.cpu_per_socket , 0 ) *
+                        coalesce ( v4_0_configuration_history_vms.number_of_sockets , 0 ) *
                         minutes_in_status
                     ) /
                     SUM ( minutes_in_status )
                     as cpu_cores,
                     SUM (
-                        coalesce ( v3_6_configuration_history_vms.memory_size_mb , 0 ) *
+                        coalesce ( v4_0_configuration_history_vms.memory_size_mb , 0 ) *
                         minutes_in_status
                     ) /
                     SUM ( minutes_in_status )
                     as mem_total
-                FROM v3_6_statistics_vms_resources_usage_$P!{table_name}
-                            INNER JOIN v3_6_configuration_history_vms
+                FROM v4_0_statistics_vms_resources_usage_$P!{table_name}
+                            INNER JOIN v4_0_configuration_history_vms
                                 ON (
-                                    v3_6_configuration_history_vms.history_id =
-                                    v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version
+                                    v4_0_configuration_history_vms.history_id =
+                                    v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_configuration_version
                                 )
-                                INNER JOIN v3_6_configuration_history_vms latest
+                                INNER JOIN v4_0_configuration_history_vms latest
                                     ON (
                                         latest.vm_id =
-                                        v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id
+                                        v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_id
                                     )
-                WHERE v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
-                AND v3_6_configuration_history_vms.cluster_id in (
-                    SELECT v3_6_configuration_history_clusters.cluster_id
-                    FROM v3_6_configuration_history_clusters
-                    WHERE v3_6_configuration_history_clusters.datacenter_id =
+                WHERE v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_status = 1
+                AND v4_0_configuration_history_vms.cluster_id in (
+                    SELECT v4_0_configuration_history_clusters.cluster_id
+                    FROM v4_0_configuration_history_clusters
+                    WHERE v4_0_configuration_history_clusters.datacenter_id =
                     cast ( $P{P_DataCenter_ID} as uuid )
                 )
-                AND v3_6_configuration_history_vms.cluster_id =
+                AND v4_0_configuration_history_vms.cluster_id =
                     CASE $P{P_Cluster_ID}
                         WHEN '11111111-1111-1111-1111-111111111111'
-                            THEN v3_6_configuration_history_vms.cluster_id
+                            THEN v4_0_configuration_history_vms.cluster_id
                         ELSE cast ( $P{P_Cluster_ID} as uuid )
                     END
                 AND history_datetime >= cast ( $P{P_Start_Date} as date )
@@ -188,7 +188,7 @@ FROM (
                     END
                 AND latest.history_id in (
                     SELECT max ( b.history_id )
-                    FROM v3_6_configuration_history_vms b
+                    FROM v4_0_configuration_history_vms b
                     GROUP BY b.vm_id
                 )
                 AND
@@ -200,7 +200,7 @@ FROM (
                             OR
                             latest.delete_date IS NOT NULL
                     END
-                GROUP BY history_datetime, v3_6_configuration_history_vms.vm_id
+                GROUP BY history_datetime, v4_0_configuration_history_vms.vm_id
             )
             as nested_query
             GROUP BY nested_query.history_datetime

@@ -73,17 +73,17 @@
 -- grouped by clusters and then by OS type .
 
 SELECT
-    v3_6_configuration_history_vms.cluster_id,
-    v3_6_configuration_history_clusters.cluster_name,
-    v3_6_configuration_history_clusters.delete_date AS cluster_delete,
+    v4_0_configuration_history_vms.cluster_id,
+    v4_0_configuration_history_clusters.cluster_name,
+    v4_0_configuration_history_clusters.delete_date AS cluster_delete,
     COALESCE ( b.value_localized,b.value ) AS os_version,
-    v3_6_configuration_history_vms.vm_name,
-    v3_6_configuration_history_vms.vm_description,
-    v3_6_configuration_history_vms.template_name,
-    v3_6_configuration_history_vms.create_date,
-    v3_6_configuration_history_vms.delete_date,
-    v3_6_configuration_history_vms.number_of_sockets,
-    v3_6_configuration_history_vms.cpu_per_socket,
+    v4_0_configuration_history_vms.vm_name,
+    v4_0_configuration_history_vms.vm_description,
+    v4_0_configuration_history_vms.template_name,
+    v4_0_configuration_history_vms.create_date,
+    v4_0_configuration_history_vms.delete_date,
+    v4_0_configuration_history_vms.number_of_sockets,
+    v4_0_configuration_history_vms.cpu_per_socket,
     COALESCE ( cpu_per_socket, 0 ) *
     COALESCE ( number_of_sockets, 0 ) AS vm_cpucores,
     ROUND (
@@ -91,10 +91,10 @@ SELECT
             EXTRACT ( epoch
                 FROM
                     COALESCE (
-                        v3_6_configuration_history_vms.delete_date,
+                        v4_0_configuration_history_vms.delete_date,
                         CURRENT_TIMESTAMP
                     ) -
-                    v3_6_configuration_history_vms.create_date
+                    v4_0_configuration_history_vms.create_date
             ) /
             3600
             AS numeric
@@ -116,9 +116,9 @@ SELECT
         0
     )
     AS vm_uptime,
-    v3_6_configuration_history_vms.vm_id,
-    v3_6_users_details_history.username
-FROM v3_6_configuration_history_vms
+    v4_0_configuration_history_vms.vm_id,
+    v4_0_users_details_history.username
+FROM v4_0_configuration_history_vms
     LEFT OUTER JOIN (
         SELECT
             enum_translator_default.enum_type,
@@ -145,23 +145,23 @@ FROM v3_6_configuration_history_vms
     )
     AS b
         ON (
-            v3_6_configuration_history_vms.operating_system =
+            v4_0_configuration_history_vms.operating_system =
             b.enum_key
             AND b.enum_type = 'OS_TYPE'
         )
-    LEFT OUTER JOIN v3_6_configuration_history_clusters
+    LEFT OUTER JOIN v4_0_configuration_history_clusters
         ON (
-            v3_6_configuration_history_vms.cluster_id =
-            v3_6_configuration_history_clusters.cluster_id
-            AND v3_6_configuration_history_clusters.history_id IN (
+            v4_0_configuration_history_vms.cluster_id =
+            v4_0_configuration_history_clusters.cluster_id
+            AND v4_0_configuration_history_clusters.history_id IN (
                 SELECT MAX ( a.history_id )
-                FROM v3_6_configuration_history_clusters a
+                FROM v4_0_configuration_history_clusters a
                 GROUP BY a.cluster_id
             )
         )
-    LEFT OUTER JOIN v3_6_statistics_vms_resources_usage_$P!{table_name} AS c
+    LEFT OUTER JOIN v4_0_statistics_vms_resources_usage_$P!{table_name} AS c
         ON (
-            v3_6_configuration_history_vms.vm_id = c.vm_id
+            v4_0_configuration_history_vms.vm_id = c.vm_id
             AND c.vm_status = 1
             AND c.history_datetime >= CAST ( $P{P_Start_Date} AS TIMESTAMP )
             AND c.history_datetime <
@@ -176,38 +176,38 @@ FROM v3_6_configuration_history_vms
                         THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
                 END
         )
-    LEFT OUTER JOIN v3_6_users_details_history
+    LEFT OUTER JOIN v4_0_users_details_history
         ON (
-            v3_6_configuration_history_vms.created_by_user_id =
-            v3_6_users_details_history.user_id
+            v4_0_configuration_history_vms.created_by_user_id =
+            v4_0_users_details_history.user_id
         )
 WHERE
     -- Here we filter by the datacenter chosen by the user
-    v3_6_configuration_history_vms.cluster_id IN (
+    v4_0_configuration_history_vms.cluster_id IN (
         SELECT cluster_id
-        FROM v3_6_configuration_history_clusters
+        FROM v4_0_configuration_history_clusters
         WHERE datacenter_id = CAST ( $P{P_DataCenter_ID} AS uuid )
     )
     -- Here we filter by the cluster chosen by the user
-    AND v3_6_configuration_history_vms.cluster_id =
+    AND v4_0_configuration_history_vms.cluster_id =
         CASE CAST ( $P{P_Cluster_ID} AS uuid )
             WHEN NULL
-                THEN v3_6_configuration_history_vms.cluster_id
+                THEN v4_0_configuration_history_vms.cluster_id
             WHEN CAST ( '11111111-1111-1111-1111-111111111111' AS uuid )
-                THEN v3_6_configuration_history_vms.cluster_id
+                THEN v4_0_configuration_history_vms.cluster_id
             ELSE CAST ( $P{P_Cluster_ID} AS uuid )
         END
     -- Here we filter by the vm type chosen by the user
-    AND v3_6_configuration_history_vms.vm_type =
+    AND v4_0_configuration_history_vms.vm_type =
         CASE $P{P_VM_Type}
             WHEN -1
-                THEN v3_6_configuration_history_vms.vm_type
+                THEN v4_0_configuration_history_vms.vm_type
             ELSE $P{P_VM_Type}
         END
     -- Here we get the latest vm configurations
-    AND v3_6_configuration_history_vms.history_id IN (
+    AND v4_0_configuration_history_vms.history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_6_configuration_history_vms a
+        FROM v4_0_configuration_history_vms a
         GROUP BY a.vm_id
     )
     AND
@@ -215,13 +215,13 @@ WHERE
     -- chose in the "is_deleted" parameter.
         CASE
             WHEN $P{is_deleted} LIKE '%delete%'
-                THEN v3_6_configuration_history_vms.delete_date IS NULL
+                THEN v4_0_configuration_history_vms.delete_date IS NULL
             ELSE
-                v3_6_configuration_history_vms.delete_date IS NULL
+                v4_0_configuration_history_vms.delete_date IS NULL
                 OR
-                v3_6_configuration_history_vms.delete_date IS NOT NULL
+                v4_0_configuration_history_vms.delete_date IS NOT NULL
         END
-    AND v3_6_configuration_history_vms.create_date <
+    AND v4_0_configuration_history_vms.create_date <
         CASE
             WHEN $P{P_Period} = 0
                 THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 day'
@@ -232,22 +232,22 @@ WHERE
             WHEN $P{P_Period} = 3
                 THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
         END
-    AND v3_6_configuration_history_vms.delete_date >
+    AND v4_0_configuration_history_vms.delete_date >
         CAST( $P{P_Start_Date} AS TIMESTAMP )
         OR
-        v3_6_configuration_history_vms.delete_date IS NULL
+        v4_0_configuration_history_vms.delete_date IS NULL
 GROUP BY
-    v3_6_configuration_history_vms.cluster_id,
-    v3_6_configuration_history_clusters.cluster_name,
-    v3_6_configuration_history_clusters.delete_date,
+    v4_0_configuration_history_vms.cluster_id,
+    v4_0_configuration_history_clusters.cluster_name,
+    v4_0_configuration_history_clusters.delete_date,
     COALESCE ( b.value_localized,b.value ),
-    v3_6_configuration_history_vms.vm_name,
-    v3_6_configuration_history_vms.vm_description,
-    v3_6_configuration_history_vms.template_name,
-    v3_6_configuration_history_vms.create_date,
-    v3_6_configuration_history_vms.delete_date,
-    v3_6_configuration_history_vms.number_of_sockets,
-    v3_6_configuration_history_vms.cpu_per_socket,
+    v4_0_configuration_history_vms.vm_name,
+    v4_0_configuration_history_vms.vm_description,
+    v4_0_configuration_history_vms.template_name,
+    v4_0_configuration_history_vms.create_date,
+    v4_0_configuration_history_vms.delete_date,
+    v4_0_configuration_history_vms.number_of_sockets,
+    v4_0_configuration_history_vms.cpu_per_socket,
     COALESCE ( cpu_per_socket, 0 ) *
     COALESCE ( number_of_sockets, 0 ),
     ROUND (
@@ -255,25 +255,25 @@ GROUP BY
             EXTRACT ( epoch
                 FROM
                     COALESCE (
-                        v3_6_configuration_history_vms.delete_date,
+                        v4_0_configuration_history_vms.delete_date,
                         CURRENT_TIMESTAMP
                     ) -
-                    v3_6_configuration_history_vms.create_date
+                    v4_0_configuration_history_vms.create_date
             ) /
             3600
             AS numeric
         ),
         2
     ),
-    v3_6_configuration_history_vms.vm_id,
-    v3_6_users_details_history.username
+    v4_0_configuration_history_vms.vm_id,
+    v4_0_users_details_history.username
 ORDER BY
-    v3_6_configuration_history_vms.cluster_id,
+    v4_0_configuration_history_vms.cluster_id,
     COALESCE (
         b.value_localized,
         b.value
     ),
-    v3_6_configuration_history_vms.delete_date DESC,
+    v4_0_configuration_history_vms.delete_date DESC,
     vm_uptime DESC,
     existence_time_hours DESC]]>
 		</queryString>

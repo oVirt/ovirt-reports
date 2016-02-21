@@ -54,14 +54,14 @@ SELECT
             SELECT
                 ' '
                 ||
-                v3_6_configuration_history_clusters.cluster_name
-            FROM v3_6_configuration_history_clusters
+                v4_0_configuration_history_clusters.cluster_name
+            FROM v4_0_configuration_history_clusters
             WHERE
-                v3_6_configuration_history_clusters.cluster_id =
+                v4_0_configuration_history_clusters.cluster_id =
                     CAST ( $P{P_Cluster_ID} AS uuid )
                 AND history_id IN (
                     SELECT MAX ( b.history_id )
-                    FROM v3_6_configuration_history_clusters AS b
+                    FROM v4_0_configuration_history_clusters AS b
                     GROUP BY b.cluster_id
                 )
         ),
@@ -69,14 +69,14 @@ SELECT
     ) AS cluster_name,
     (
         SELECT
-            CAST ( v3_6_configuration_history_clusters.delete_date AS date )
-        FROM v3_6_configuration_history_clusters
+            CAST ( v4_0_configuration_history_clusters.delete_date AS date )
+        FROM v4_0_configuration_history_clusters
         WHERE
-            v3_6_configuration_history_clusters.cluster_id =
+            v4_0_configuration_history_clusters.cluster_id =
                 CAST ( $P{P_Cluster_ID} AS uuid )
             AND history_id IN (
                 SELECT MAX ( c.history_id )
-                FROM v3_6_configuration_history_clusters AS c
+                FROM v4_0_configuration_history_clusters AS c
                 GROUP BY c.cluster_id
             )
     ) AS cluster_delete_date,
@@ -104,33 +104,33 @@ SELECT
                     )
             WHERE language_code = 'en_US'
                 AND enum_translator_default.enum_key =
-                    v3_6_configuration_history_hosts.host_type
+                    v4_0_configuration_history_hosts.host_type
                 AND enum_translator_default.enum_type = 'HOST_TYPE'
         ),
         'All'
     ) AS host_type,
     (
-        SELECT v3_6_configuration_history_datacenters.datacenter_name
-        FROM v3_6_configuration_history_datacenters
+        SELECT v4_0_configuration_history_datacenters.datacenter_name
+        FROM v4_0_configuration_history_datacenters
         WHERE
-            v3_6_configuration_history_datacenters.datacenter_id =
+            v4_0_configuration_history_datacenters.datacenter_id =
                 CAST ( $P{P_DataCenter_ID} AS uuid )
             AND history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM v3_6_configuration_history_datacenters AS d
+                FROM v4_0_configuration_history_datacenters AS d
                 GROUP BY d.datacenter_id
             )
     ) AS datacenter_name,
     (
         SELECT
-            CAST ( v3_6_configuration_history_datacenters.delete_date AS date )
-        FROM v3_6_configuration_history_datacenters
+            CAST ( v4_0_configuration_history_datacenters.delete_date AS date )
+        FROM v4_0_configuration_history_datacenters
         WHERE
-            v3_6_configuration_history_datacenters.datacenter_id =
+            v4_0_configuration_history_datacenters.datacenter_id =
                 CAST ( $P{P_DataCenter_ID} AS uuid )
             AND history_id IN (
                 SELECT MAX ( d.history_id )
-                FROM v3_6_configuration_history_datacenters AS d
+                FROM v4_0_configuration_history_datacenters AS d
                 GROUP BY d.datacenter_id
             )
     ) AS datacenter_delete_date,
@@ -179,11 +179,11 @@ SELECT
             AND enum_translator_default.enum_key = $P{P_Period}
             AND enum_translator_default.enum_type = 'REPORTS_PERIOD'
     ) AS period
-FROM v3_6_configuration_history_hosts
+FROM v4_0_configuration_history_hosts
 WHERE host_id = CAST ( $P{P_Host_ID} AS uuid )
     AND history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_6_configuration_history_hosts AS a
+        FROM v4_0_configuration_history_hosts AS a
         GROUP BY a.host_id
     )]]>
 	</queryString>

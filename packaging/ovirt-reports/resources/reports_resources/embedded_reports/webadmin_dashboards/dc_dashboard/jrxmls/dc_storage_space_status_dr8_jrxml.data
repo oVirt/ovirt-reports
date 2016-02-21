@@ -23,14 +23,14 @@ SELECT
     ) * 100
     AS free_disk_size_gb_percent
 FROM storage_domain_samples_history
-    INNER JOIN v3_6_latest_map_datacenters_storage_domains
+    INNER JOIN v4_0_latest_map_datacenters_storage_domains
         ON (
             storage_domain_samples_history.storage_domain_id =
-            v3_6_latest_map_datacenters_storage_domains.storage_domain_id
+            v4_0_latest_map_datacenters_storage_domains.storage_domain_id
         )
 WHERE
     -- Here we filter the datacenter chosen by the user
-    v3_6_latest_map_datacenters_storage_domains.datacenter_id =
+    v4_0_latest_map_datacenters_storage_domains.datacenter_id =
     CAST ( $P{P_DataCenter_ID} AS UUID )
     -- Here we get the latest storage domains configuration
     AND storage_domain_samples_history.history_id IN (

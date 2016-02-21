@@ -52,20 +52,20 @@ SELECT DISTINCT
     used_disk_size
 FROM (
     SELECT
-        v3_6_configuration_history_storage_domains.storage_domain_name,
+        v4_0_configuration_history_storage_domains.storage_domain_name,
         history_datetime,
         AVG ( available_disk_size_gb ) AS available_disk_size,
         AVG ( used_disk_size_gb ) AS used_disk_size
     FROM
         -- If "Period" equals to "Daily" then "table_name" parameter equals to "hourly" else "daily"
-        v3_6_statistics_storage_domains_resources_usage_$P!{table_name},
-        v3_6_configuration_history_storage_domains
+        v4_0_statistics_storage_domains_resources_usage_$P!{table_name},
+        v4_0_configuration_history_storage_domains
     WHERE
         -- Here we join the the storage domain configurations table with the statistics table
-        v3_6_configuration_history_storage_domains.storage_domain_id =
-        v3_6_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id
+        v4_0_configuration_history_storage_domains.storage_domain_id =
+        v4_0_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id
         -- Here we filter by the storage domain chosen by the user
-        AND v3_6_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id =
+        AND v4_0_statistics_storage_domains_resources_usage_$P!{table_name}.storage_domain_id =
             CASE $P{P_StorageDomain_ID}
                 WHEN NULL
                     THEN NULL
@@ -86,13 +86,13 @@ FROM (
                     THEN CAST ( $P{P_Start_Date} AS timestamp ) + interval '1 year'
             END
         -- Here we get the latest storage domain configurations
-        AND v3_6_configuration_history_storage_domains.history_id IN (
+        AND v4_0_configuration_history_storage_domains.history_id IN (
             SELECT MAX ( a.history_id )
-            FROM v3_6_configuration_history_storage_domains a
+            FROM v4_0_configuration_history_storage_domains a
             GROUP BY a.storage_domain_id
         )
     GROUP BY
-        v3_6_configuration_history_storage_domains.storage_domain_name,
+        v4_0_configuration_history_storage_domains.storage_domain_name,
         history_datetime
 ) a
     RIGHT OUTER JOIN calendar b

@@ -52,7 +52,7 @@ SELECT
                     COALESCE (
                         -- If "Period" equals to "Daily" then "table_name"
                         -- parameter equals to "hourly" else "daily"
-                        v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                        v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                         0
                     )
             ELSE 0
@@ -63,7 +63,7 @@ SELECT
             WHEN vm_status = 3
                 THEN
                     COALESCE (
-                        v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                        v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                         0
                     )
             ELSE 0
@@ -74,19 +74,19 @@ SELECT
             WHEN vm_status = 1
                 THEN
                     COALESCE (
-                        v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
+                        v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status,
                         0
                     )
             ELSE 0
         END
     ) AS uptime_mins,
     SUM (
-        v3_6_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status
+        v4_0_statistics_vms_resources_usage_$P!{table_name}.minutes_in_status
     ) AS total
-FROM v3_6_statistics_vms_resources_usage_$P!{table_name}
+FROM v4_0_statistics_vms_resources_usage_$P!{table_name}
 WHERE
     -- Here we filter by the vm id chosen by the user
-    v3_6_statistics_vms_resources_usage_$P!{table_name}.vm_id =
+    v4_0_statistics_vms_resources_usage_$P!{table_name}.vm_id =
         CASE $P{P_VM_ID}
             WHEN '00000000-0000-0000-0000-000000000000'
                 THEN '00000000-0000-0000-0000-000000000000'

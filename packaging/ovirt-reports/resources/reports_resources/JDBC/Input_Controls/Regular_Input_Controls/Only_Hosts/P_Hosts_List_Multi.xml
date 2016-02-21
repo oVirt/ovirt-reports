@@ -45,7 +45,7 @@ SELECT DISTINCT
             ')'
     END AS combo_name,
     CAST ( host_id AS varchar )
-FROM v3_6_configuration_history_hosts
+FROM v4_0_configuration_history_hosts
     LEFT OUTER JOIN (
         SELECT DISTINCT
             COALESCE (
@@ -78,7 +78,7 @@ FROM v3_6_configuration_history_hosts
 -- Here we get the latest hosts configuration
 WHERE history_id IN (
         SELECT MAX ( a.history_id )
-        FROM v3_6_configuration_history_hosts AS a
+        FROM v4_0_configuration_history_hosts AS a
         GROUP BY a.host_id
     )
     -- This will determine if deleted entities will be included in the report,

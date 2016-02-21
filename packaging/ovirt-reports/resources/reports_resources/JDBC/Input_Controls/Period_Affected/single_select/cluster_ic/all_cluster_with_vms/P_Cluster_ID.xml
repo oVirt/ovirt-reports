@@ -50,7 +50,7 @@ SELECT DISTINCT
     END
     as combo_name,
     0 as sort
-FROM v3_6_configuration_history_clusters
+FROM v4_0_configuration_history_clusters
     LEFT OUTER JOIN (
         SELECT DISTINCT
             coalesce(
@@ -82,11 +82,11 @@ FROM v3_6_configuration_history_clusters
 WHERE cluster_id in
     (
         SELECT DISTINCT cluster_id
-        FROM v3_6_configuration_history_vms
+        FROM v4_0_configuration_history_vms
         WHERE history_id in
             (
                 SELECT max( a.history_id )
-                FROM v3_6_configuration_history_vms a
+                FROM v4_0_configuration_history_vms a
                 GROUP BY a.vm_id
             )
         AND create_date &lt;=
@@ -114,7 +114,7 @@ AND datacenter_id = cast( $P{P_DataCenter_ID} as uuid )
 AND history_id in
     (
         SELECT max( a.history_id )
-        FROM v3_6_configuration_history_clusters a
+        FROM v4_0_configuration_history_clusters a
         GROUP BY a.cluster_id
     )
 AND create_date &lt;=
