@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2016-01-07T10:32:01 -->
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2016-02-21T11:12:32 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HeatmapReport" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" isSummaryWithPageHeaderAndFooter="true" isFloatColumnFooter="true" resourceBundle="ovirt_reports_bundle" whenResourceMissingType="Empty" uuid="26551ed9-94b8-4028-9337-1dfc3a6990c5">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HistoryDB"/>
 	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver-pro/"/>
@@ -126,14 +126,14 @@
 	</parameter>
 	<parameter name="P_Period" class="java.lang.Short">
 		<parameterDescription><![CDATA[Period]]></parameterDescription>
-		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<parameter name="calendar_column" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "the_datetime" : "the_date"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="P_Start_Date" class="java.util.Date">
-		<defaultValueExpression><![CDATA[DATE(2013,07,01)]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[DATE(2000,01,01)]]></defaultValueExpression>
 	</parameter>
 	<parameter name="table_name" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{P_Period} == 0 ? "hourly" : "daily"]]></defaultValueExpression>
@@ -237,12 +237,12 @@ FROM (
             )
         ) AS MEM_Usage
     FROM v4_0_statistics_hosts_resources_usage_$P!{table_name}
-        INNER JOIN v4_0_configuration_history_hosts
+        RIGHT OUTER JOIN v4_0_configuration_history_hosts
             ON (
                 v4_0_configuration_history_hosts.host_id =
                 v4_0_statistics_hosts_resources_usage_$P!{table_name}.host_id
             )
-        LEFT OUTER JOIN v4_0_latest_configuration_clusters
+        INNER JOIN v4_0_latest_configuration_clusters
             ON (
                 v4_0_configuration_history_hosts.cluster_id =
 	        v4_0_latest_configuration_clusters.cluster_id
@@ -396,13 +396,11 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement style="Crosstab_CH" x="90" y="20" width="80" height="20" uuid="9a4aabf8-a424-4581-9ed3-c1d19ec87286">
+							<reportElement style="Crosstab_CH" x="80" y="20" width="90" height="20" uuid="9a4aabf8-a424-4581-9ed3-c1d19ec87286">
 								<property name="local_mesure_unitx" value="pixel"/>
-								<property name="com.jaspersoft.studio.unit.x" value="px"/>
 								<property name="local_mesure_unity" value="pixel"/>
 								<property name="com.jaspersoft.studio.unit.y" value="px"/>
 								<property name="local_mesure_unitwidth" value="pixel"/>
-								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="local_mesure_unitheight" value="pixel"/>
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							</reportElement>
@@ -437,7 +435,7 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 							<text><![CDATA[]]></text>
 						</staticText>
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement style="Crosstab_CH" x="0" y="20" width="90" height="20" uuid="0d2f6f64-ca2b-4794-97aa-8a70743f07ca">
+							<reportElement style="Crosstab_CH" x="0" y="20" width="80" height="20" uuid="0d2f6f64-ca2b-4794-97aa-8a70743f07ca">
 								<property name="local_mesure_unity" value="pixel"/>
 								<property name="com.jaspersoft.studio.unit.y" value="px"/>
 								<property name="local_mesure_unitwidth" value="pixel"/>
@@ -453,7 +451,7 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 						</textField>
 					</cellContents>
 				</crosstabHeaderCell>
-				<rowGroup name="cluster_name1" width="90">
+				<rowGroup name="cluster_name1" width="80">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{cluster_name}]]></bucketExpression>
 					</bucket>
@@ -469,7 +467,7 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement style="Crosstab_CD" x="0" y="0" width="90" height="20" uuid="5051c6ba-ddb9-419b-a4f7-d39ade6b45dd">
+								<reportElement style="Crosstab_CD" x="0" y="0" width="80" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="5051c6ba-ddb9-419b-a4f7-d39ade6b45dd">
 									<property name="local_mesure_unitx" value="pixel"/>
 									<property name="local_mesure_unitwidth" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -496,7 +494,7 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<rowGroup name="deleted" width="15">
+				<rowGroup name="deleted" width="0">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{delete_date}]]></bucketExpression>
 					</bucket>
@@ -504,17 +502,6 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 						<cellContents mode="Opaque" style="Crosstab 1_CH">
 							<property name="local_mesure_unitwidth" value="pixel"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<image hAlign="Center" vAlign="Middle">
-								<reportElement x="2" y="4" width="10" height="11" uuid="4ab97201-6752-474f-abec-6aed78641257">
-									<property name="local_mesure_unitx" value="pixel"/>
-									<property name="com.jaspersoft.studio.unit.x" value="px"/>
-									<property name="local_mesure_unity" value="pixel"/>
-									<property name="com.jaspersoft.studio.unit.y" value="px"/>
-									<printWhenExpression><![CDATA[$V{deleted} != null]]></printWhenExpression>
-								</reportElement>
-								<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
-								<hyperlinkTooltipExpression><![CDATA["Deleted on:" + $V{deleted}]]></hyperlinkTooltipExpression>
-							</image>
 						</cellContents>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
@@ -526,7 +513,7 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<rowGroup name="host_name1" width="65">
+				<rowGroup name="host_name1" width="90">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{host_name}]]></bucketExpression>
 					</bucket>
@@ -534,21 +521,39 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 						<cellContents mode="Opaque" style="Crosstab 1_CH">
 							<property name="local_mesure_unitwidth" value="pixel"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isBlankWhenNull="true">
-								<reportElement style="Crosstab_CD" x="0" y="0" width="65" height="20" uuid="905445c0-b005-4cc7-92f4-ef40a3bdfdec">
-									<property name="local_mesure_unitx" value="pixel"/>
-									<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<frame>
+								<reportElement style="Crosstab_CD" x="0" y="0" width="90" height="20" isRemoveLineWhenBlank="true" uuid="23f8e591-4725-41da-bcd8-5706019b6ab4">
+									<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 								</reportElement>
-								<box>
-									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-								</box>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{host_name1}]]></textFieldExpression>
-								<hyperlinkTooltipExpression><![CDATA[$V{host_name1}]]></hyperlinkTooltipExpression>
-							</textField>
+								<textField isBlankWhenNull="true">
+									<reportElement style="Crosstab_CD" x="13" y="0" width="77" height="20" isRemoveLineWhenBlank="true" uuid="905445c0-b005-4cc7-92f4-ef40a3bdfdec">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+									</reportElement>
+									<box>
+										<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$V{host_name1}]]></textFieldExpression>
+									<hyperlinkTooltipExpression><![CDATA[$V{host_name1}]]></hyperlinkTooltipExpression>
+								</textField>
+								<image hAlign="Center" vAlign="Middle">
+									<reportElement x="2" y="4" width="10" height="11" isRemoveLineWhenBlank="true" uuid="4ab97201-6752-474f-abec-6aed78641257">
+										<property name="local_mesure_unitx" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.x" value="px"/>
+										<property name="local_mesure_unity" value="pixel"/>
+										<property name="com.jaspersoft.studio.unit.y" value="px"/>
+										<printWhenExpression><![CDATA[$V{deleted} != null]]></printWhenExpression>
+									</reportElement>
+									<imageExpression><![CDATA["repo:trash-icon"]]></imageExpression>
+									<hyperlinkTooltipExpression><![CDATA["Deleted on:" + $V{deleted}]]></hyperlinkTooltipExpression>
+								</image>
+							</frame>
 						</cellContents>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
@@ -692,7 +697,7 @@ ORDER BY $P!{calendar_column}, cluster_name, host_id, host_name, delete_date]]>
 								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{Usage_MEASURE1} == null ? "X" : $V{Usage_MEASURE1}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{host_name1} == null ? null : ($V{Usage_MEASURE1} == null ? "X" : $V{Usage_MEASURE1})]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>

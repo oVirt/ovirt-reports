@@ -41,7 +41,7 @@
         <uri>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts/active_hosts_select</uri>
     </inputControl>
     <inputControl>
-        <uri>/reports_resources/JDBC/Input_Controls/Regular_Input_Controls/Only_Hosts/P_Hosts_List_Multi</uri>
+        <uri>/reports_resources/JDBC/Input_Controls/Period_Affected/single_select/host_ic/P_Hosts_List_Multi</uri>
     </inputControl>
     <resource>
         <localResource
