@@ -232,10 +232,13 @@ WHERE
             WHEN $P{P_Period} = 3
                 THEN CAST ( $P{P_Start_Date} AS TIMESTAMP ) + interval '1 year'
         END
-    AND v3_6_configuration_history_vms.delete_date >
-        CAST( $P{P_Start_Date} AS TIMESTAMP )
-        OR
-        v3_6_configuration_history_vms.delete_date IS NULL
+    AND
+        (
+            v3_6_configuration_history_vms.delete_date >
+            CAST( $P{P_Start_Date} AS TIMESTAMP )
+            OR
+            v3_6_configuration_history_vms.delete_date IS NULL
+        )
 GROUP BY
     v3_6_configuration_history_vms.cluster_id,
     v3_6_configuration_history_clusters.cluster_name,
