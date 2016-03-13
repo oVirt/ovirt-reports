@@ -21,13 +21,11 @@
 
 import gettext
 
-
 from otopi import plugin
 from otopi import util
 
-
-from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.engine_common import database
+from ovirt_engine_setup.reports import constants as oreportscons
 
 
 def _(m):

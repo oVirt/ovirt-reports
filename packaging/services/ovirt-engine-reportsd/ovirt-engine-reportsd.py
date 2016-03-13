@@ -20,13 +20,9 @@ import os
 import re
 import shlex
 import sys
-
-
 from Cheetah.Template import Template
 
-
 import config
-
 
 from ovirt_engine import configfile
 from ovirt_engine import java

@@ -27,16 +27,13 @@ import re
 import shutil
 import tempfile
 
-
 import libxml2
-
 
 from otopi import base
 from otopi import util
 
+from ovirt_engine_setup.engine_common import constants as oengcommcons
 
-from ovirt_engine_setup.engine_common \
-    import constants as oengcommcons
 from . import constants as oreportscons
 
 

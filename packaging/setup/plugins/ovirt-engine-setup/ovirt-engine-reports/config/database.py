@@ -21,15 +21,12 @@
 
 import gettext
 
-
 from otopi import constants as otopicons
 from otopi import filetransaction
 from otopi import plugin
 from otopi import util
 
-
 from ovirt_engine import util as outil
-
 
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup.reports import constants as oreportscons

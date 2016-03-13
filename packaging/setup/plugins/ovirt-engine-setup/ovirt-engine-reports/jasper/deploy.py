@@ -26,26 +26,19 @@ import os
 import shutil
 import tempfile
 
-
 import libxml2
-
 
 from otopi import constants as otopicons
 from otopi import plugin
 from otopi import transaction
 from otopi import util
 
-
 from ovirt_engine import util as outil
-
 
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup import util as osetuputil
-from ovirt_engine_setup.engine_common \
-    import constants as oengcommcons
+from ovirt_engine_setup.engine_common import constants as oengcommcons
 from ovirt_engine_setup.engine_common import database
-
-
 from ovirt_engine_setup.reports import constants as oreportscons
 from ovirt_engine_setup.reports import reportsutil as oreportsutil
 

@@ -18,17 +18,14 @@
 
 import gettext
 
-
 from otopi import plugin
 from otopi import util
 
-
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup import dialog
 from ovirt_engine_setup.engine_common import constants as oengcommcons
-
-
 from ovirt_engine_setup.reports import constants as oreportscons
+
+from ovirt_setup_lib import dialog
 
 
 def _(m):

@@ -22,18 +22,14 @@
 import gettext
 import os
 
-
 from otopi import util
-
 
 from ovirt_engine_setup.constants import classproperty
 from ovirt_engine_setup.constants import osetupattrs
 from ovirt_engine_setup.constants import osetupattrsclass
 from ovirt_engine_setup.engine_common import constants as oengcommcons
 
-
 from . import config
-
 
 DEK = oengcommcons.DBEnvKeysConst
 
