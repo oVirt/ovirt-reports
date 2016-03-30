@@ -259,6 +259,12 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Wed Mar 30 2016 Shirly Radco <sradco@redhat.com> - 3.6.5
+Fixed issues:
+- Bug 1303132 - pec: Conflict with jre 1.8
+- Bug 1296585 - fixed issue with additional line in br49
+- Bug 1304656 - fixed bug in query of br44
+
 * Wed Jan 27 2016 Shirly Radco <sradco@redhat.com> - 3.6.3
 Fixed issues:
 - Bug 1300240 - fixed typo in capacity planning report br48
