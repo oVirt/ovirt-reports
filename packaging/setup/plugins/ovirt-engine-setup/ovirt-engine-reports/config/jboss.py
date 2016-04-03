@@ -30,10 +30,6 @@ from otopi import util
 
 
 from ovirt_engine_setup import constants as osetupcons
-from ovirt_engine_setup.engine_common \
-    import constants as oengcommcons
-
-
 from ovirt_engine_setup.reports import constants as oreportscons
 
 
@@ -56,12 +52,6 @@ class Plugin(plugin.PluginBase):
             oreportscons.ConfigEnv.OVIRT_REPORTS_JBOSS_HOME,
             oreportscons.FileLocations.OVIRT_REPORTS_DEFAULT_JBOSS_HOME
         )
-
-    @plugin.event(
-        stage=plugin.Stages.STAGE_SETUP,
-    )
-    def _setup(self):
-        self.environment[oengcommcons.ConfigEnv.JAVA_NEEDED] = True
 
     @plugin.event(
         stage=plugin.Stages.STAGE_MISC,

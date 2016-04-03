@@ -41,8 +41,6 @@ from ovirt_engine import util as outil
 
 from ovirt_engine_setup import constants as osetupcons
 from ovirt_engine_setup import util as osetuputil
-from ovirt_engine_setup.engine_common \
-    import constants as oengcommcons
 from ovirt_engine_setup.engine_common import database
 
 
@@ -198,11 +196,11 @@ class Plugin(plugin.PluginBase):
                 ),
                 envAppend={
                     'JAVA_HOME': self.environment[
-                        oengcommcons.ConfigEnv.JAVA_HOME
+                        oreportscons.ConfigEnv.JAVA_HOME
                     ],
                     'PATH': '{java_home}/bin:{cur_path}'.format(
                         java_home=self.environment[
-                            oengcommcons.ConfigEnv.JAVA_HOME
+                            oreportscons.ConfigEnv.JAVA_HOME
                         ],
                         cur_path=os.environ['PATH'],
                     ),

@@ -223,7 +223,7 @@ class Daemon(service.Daemon):
         # the earliest so we can abort early.
         #
         self._executable = os.path.join(
-            java.Java().getJavaHome(),
+            java.Java(component='reports').getJavaHome(),
             'bin',
             'java',
         )
