@@ -21,12 +21,14 @@ from otopi import util
 
 from . import admin
 from . import jasper
+from . import java
 
 
 @util.export
 def createPlugins(context):
     admin.Plugin(context=context)
     jasper.Plugin(context=context)
+    java.Plugin(context=context)
 
 
 # vim: expandtab tabstop=4 shiftwidth=4

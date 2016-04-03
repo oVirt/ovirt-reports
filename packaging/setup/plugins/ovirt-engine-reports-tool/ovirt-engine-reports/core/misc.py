@@ -69,7 +69,6 @@ class Plugin(plugin.PluginBase):
             oreportscons.ToolEnv.FILE,
             None
         )
-        self.environment[oengcommcons.ConfigEnv.JAVA_NEEDED] = True
 
     @plugin.event(
         stage=plugin.Stages.STAGE_SETUP,

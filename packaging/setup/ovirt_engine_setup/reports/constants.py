@@ -452,6 +452,7 @@ class ConfigEnv(object):
     REPORTS_SERVICE_STOP_NEEDED = \
         'OVESETUP_REPORTS_CONFIG/reportsServiceStopNeeded'
 
+    JAVA_HOME = 'OVESETUP_REPORTS_CONFIG/javaHome'
     OVIRT_REPORTS_JBOSS_HOME = 'OVESETUP_REPORTS_CONFIG/jbossHome'
 
 
