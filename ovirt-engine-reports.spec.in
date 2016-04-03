@@ -136,8 +136,6 @@ Requires:	%{engine_name}-setup-plugin-ovirt-engine-common
 Requires:	python
 Requires:	%{name} >= 3.4.0
 Requires:	java-1.7.0-openjdk >= 1:1.7.0.9-2.3.3.2
-# el6/7 now ship also jre 1.8, and jasperreports fails on it.
-Conflicts:	java-1.8.0-openjdk-headless
 BuildRequires:	python
 
 %description setup
