@@ -257,6 +257,10 @@ fi
 %dir %attr(-, %{engine_user}, %{engine_group}) %{_localstatedir}/log/%{reports_name}/ovirt-engine-reports-tool
 
 %changelog
+* Mon Apr 4 2016 Shirly Radco <sradco@redhat.com> - 3.6.5.1
+Fixed issues:
+- Bug 1303132 - Have own java home
+
 * Wed Mar 30 2016 Shirly Radco <sradco@redhat.com> - 3.6.5
 Fixed issues:
 - Bug 1303132 - pec: Conflict with jre 1.8
